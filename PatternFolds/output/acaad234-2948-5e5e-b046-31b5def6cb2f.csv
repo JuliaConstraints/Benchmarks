@@ -1,0 +1,5 @@
+bytes,percentage,filenames,linenumbers
+16064,98.33,/home/baffier/.julia/packages/PatternFolds/i8she/src/vector.jl,84
+160,0.98,/home/baffier/.julia/packages/PatternFolds/i8she/src/vector.jl,19
+64,0.39,/home/baffier/.julia/packages/PatternFolds/i8she/src/intervals.jl,46
+48,0.29,/home/baffier/.julia/packages/PatternFolds/i8she/src/vector.jl,13
