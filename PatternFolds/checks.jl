@@ -8,7 +8,7 @@ using PerfChecker
 d_commons = Dict(
     :targets => ["PatternFolds"],
     :path => @__DIR__,
-    :pkgs => ("PatternFolds", :custom, [v"0.1.1", v"0.1.2", v"0.1.3", v"0.1.4", v"0.1.5", v"0.2.0", v"0.2.1", v"0.2.2", v"0.2.3", v"0.2.4", v"0.2.5"], true),
+    :pkgs => ("PatternFolds", :custom, [v"0.1.1", v"0.1.2", v"0.1.3", v"0.1.4", v"0.1.5", v"0.2.0", v"0.2.1", v"0.2.2", v"0.2.3", v"0.2.4", v"0.2.5", v"0.2.6"], true),
     :tags => [:patterns],
     # :seconds => 100,
     # :samples => 10,
@@ -56,6 +56,9 @@ d = deepcopy(d_commons)
 
 x = @check :benchmark d begin
     using PatternFolds
+    if d[:current_version] ≥ v"0.2.0"
+        using Intervals
+    end
 end begin
     if d[:current_version] ≥ v"0.2.0"
         itv = Interval{Open,Closed}(0.0, 1.0)
@@ -100,6 +103,9 @@ visu(x, d, Val(:benchmark))
 
 x = @check :chairmark d begin
     using PatternFolds
+    if d[:current_version] ≥ v"0.2.0"
+        using Intervals
+    end
 end begin
     if d[:current_version] ≥ v"0.2.0"
         itv = Interval{Open,Closed}(0.0, 1.0)
@@ -144,6 +150,9 @@ visu(x, d, Val(:chairmark))
 
 x = @check :alloc d begin
     using PatternFolds
+    if d[:current_version] ≥ v"0.2.0"
+        using Intervals
+    end
 end begin
     if d[:current_version] ≥ v"0.2.0"
         itv = Interval{Open,Closed}(0.0, 1.0)

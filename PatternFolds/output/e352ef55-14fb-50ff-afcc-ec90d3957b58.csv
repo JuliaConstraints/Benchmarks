@@ -1,0 +1,5 @@
+bytes,percentage,filenames,linenumbers
+16064,98.43,/Users/baffier/.julia/packages/PatternFolds/QYIOJ/src/vector.jl,87
+160,0.98,/Users/baffier/.julia/packages/PatternFolds/QYIOJ/src/vector.jl,19
+48,0.29,/Users/baffier/.julia/packages/PatternFolds/QYIOJ/src/intervals.jl,33
+48,0.29,/Users/baffier/.julia/packages/PatternFolds/QYIOJ/src/common.jl,100

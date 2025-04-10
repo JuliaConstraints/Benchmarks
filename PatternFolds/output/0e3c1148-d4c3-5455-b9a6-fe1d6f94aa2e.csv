@@ -1,0 +1,5 @@
+bytes,percentage,filenames,linenumbers
+80160,83.22,/Users/baffier/.julia/packages/PatternFolds/HtkqG/src/vector.jl,19
+16064,16.68,/Users/baffier/.julia/packages/PatternFolds/HtkqG/src/vector.jl,85
+48,0.05,/Users/baffier/.julia/packages/PatternFolds/HtkqG/src/intervals.jl,32
+48,0.05,/Users/baffier/.julia/packages/PatternFolds/HtkqG/src/common.jl,100
