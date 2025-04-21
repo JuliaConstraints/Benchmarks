@@ -225,7 +225,7 @@ end
 
 d = deepcopy(d_commons)
 d[:tags] = [:explore]
-d[:pkgs] = ("ConstraintDomains", :custom, [v"0.3.1", v"0.3.2", v"0.3.3", v"0.3.4", v"0.3.5", v"0.3.6", v"0.3.7", v"0.3.8", v"0.3.9", v"0.3.10", v"0.3.11", v"0.3.13", v"0.3.14", v"0.3.15"], true)
+d[:pkgs] = ("ConstraintDomains", :custom, [v"0.3.15"], true)
 
 # x = @check :benchmark d begin
 #     using ConstraintDomains
