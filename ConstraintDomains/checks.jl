@@ -8,7 +8,7 @@ using PerfChecker
 d_commons = Dict(
     :targets => ["ConstraintDomains"],
     :path => @__DIR__,
-    :pkgs => ("ConstraintDomains", :custom, [v"0.2.5", v"0.3.0", v"0.3.1", v"0.3.2", v"0.3.3", v"0.3.4", v"0.3.5", v"0.3.6", v"0.3.7", v"0.3.8", v"0.3.9", v"0.3.10", v"0.3.11", v"0.3.12", v"0.3.13"], true),
+    :pkgs => ("ConstraintDomains", :custom, [v"0.2.5", v"0.3.0", v"0.3.1", v"0.3.2", v"0.3.3", v"0.3.4", v"0.3.5", v"0.3.6", v"0.3.7", v"0.3.8", v"0.3.9", v"0.3.10", v"0.3.11", v"0.3.13", v"0.3.14", v"0.3.15"], true),
     :seconds => 100,
     :samples => 10,
     :evals => 10,
@@ -78,7 +78,7 @@ end
 
 visu(x, d, Val(:chairmark))
 
-## SECTION - Continuous: benchmarks and chairmarks
+# ## SECTION - Continuous: benchmarks and chairmarks
 
 @info "Running checks: Continuous"
 
@@ -88,13 +88,14 @@ d[:tags] = [:continuous]
 x = @check :benchmark d begin
     using ConstraintDomains
     using Intervals
+    using PatternFolds
 end begin
     if d[:current_version] < v"0.3.0"
         d1 = domain((1.0, true), (3.15, true))
         d2 = domain((-42.42, false), (5.0, false))
     else
         d1 = domain(1.0 .. 3.15)
-        d2 = domain(Interval{Open,Open}(-42.42, 5.0))
+        d2 = domain(PatternFolds.Interval{Open,Open}(-42.42, 5.0))
     end
     domains = [d1, d2]
     for d in domains
@@ -115,13 +116,14 @@ visu(x, d, Val(:benchmark))
 x = @check :chairmark d begin
     using ConstraintDomains
     using Intervals
+    using PatternFolds
 end begin
     if d[:current_version] < v"0.3.0"
         d1 = domain((1.0, true), (3.15, true))
         d2 = domain((-42.42, false), (5.0, false))
     else
         d1 = domain(1.0 .. 3.15)
-        d2 = domain(Interval{Open,Open}(-42.42, 5.0))
+        d2 = domain(PatternFolds.Interval{Open,Open}(-42.42, 5.0))
     end
     domains = [d1, d2]
     for d in domains
@@ -224,7 +226,7 @@ visu(x, d, Val(:chairmark))
 
 d = deepcopy(d_commons)
 d[:tags] = [:explore]
-d[:pkgs] = ("ConstraintDomains", :custom, [v"0.3.1", v"0.3.2", v"0.3.3", v"0.3.4", v"0.3.5", v"0.3.6", v"0.3.7", v"0.3.8", v"0.3.9", v"0.3.10", v"0.3.11", v"0.3.12", v"0.3.13"], true)
+d[:pkgs] = ("ConstraintDomains", :custom, [v"0.3.1", v"0.3.2", v"0.3.3", v"0.3.4", v"0.3.5", v"0.3.6", v"0.3.7", v"0.3.8", v"0.3.9", v"0.3.10", v"0.3.11", v"0.3.13", v"0.3.14", v"0.3.15"], true)
 
 x = @check :benchmark d begin
     using ConstraintDomains
@@ -247,6 +249,20 @@ end begin
 end
 
 visu(x, d, Val(:chairmark))
+
+d[:pkgs] = ("ConstraintDomains", :custom, [v"0.3.15"], true)
+d[:devops] = true
+
+x = @check :alloc d begin
+    using ConstraintDomains
+end begin
+    domains = [domain([1, 2, 3, 4]) for i = 1:4]
+    X, X̅ = explore(domains, allunique)
+    length(X) == factorial(4)
+    length(X̅) == 4^4 - factorial(4)
+end
+
+visu(x, d, Val(:allocs))
 
 # TODO: add more checks for parameters.jl
 
