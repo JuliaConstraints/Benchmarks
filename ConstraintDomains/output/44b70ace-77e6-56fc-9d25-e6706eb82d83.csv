@@ -1,8 +1,0 @@
-bytes,percentage,filenames,linenumbers
-24576,98.34,/Users/baffier/.julia/packages/ConstraintDomains/607DG/src/explore.jl,55
-112,0.45,/Users/baffier/.julia/packages/ConstraintDomains/607DG/src/explore.jl,53
-80,0.32,/Users/baffier/.julia/packages/ConstraintDomains/607DG/src/explore.jl,86
-80,0.32,/Users/baffier/.julia/packages/ConstraintDomains/607DG/src/explore.jl,51
-80,0.32,/Users/baffier/.julia/packages/ConstraintDomains/607DG/src/explore.jl,50
-32,0.13,/Users/baffier/.julia/packages/ConstraintDomains/607DG/src/explore.jl,79
-32,0.13,/Users/baffier/.julia/packages/ConstraintDomains/607DG/src/explore.jl,63
