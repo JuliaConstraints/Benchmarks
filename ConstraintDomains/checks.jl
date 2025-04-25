@@ -224,8 +224,8 @@ visu(x, d, Val(:chairmark))
 @info "Running checks: Explore"
 
 d = deepcopy(d_commons)
-d[:tags] = [:explore]
 d[:pkgs] = ("ConstraintDomains", :custom, [v"0.3.3", v"0.3.4", v"0.3.5", v"0.3.6", v"0.3.7", v"0.3.8", v"0.3.9", v"0.3.10", v"0.3.11", v"0.3.13", v"0.3.14", v"0.3.15"], true)
+d[:tags] = [:explore_complete]
 
 x = @check :benchmark d begin
     using ConstraintDomains
@@ -256,6 +256,35 @@ end begin
     X, X̅ = explore(domains, allunique)
     length(X) == factorial(4)
     length(X̅) == 4^4 - factorial(4)
+end
+
+visu(x, d, Val(:allocs))
+
+d[:tags] = [:explore_partial]
+
+x = @check :benchmark d begin
+    using ConstraintDomains
+end begin
+    domains = [domain([1, 2, 3, 4, 5, 6]) for i = 1:6]
+    X, X̅ = explore(domains, allunique; settings=ExploreSettings(domains; search=:partial))
+end
+
+visu(x, d, Val(:benchmark))
+
+x = @check :chairmark d begin
+    using ConstraintDomains
+end begin
+    domains = [domain([1, 2, 3, 4, 5, 6]) for i = 1:6]
+    X, X̅ = explore(domains, allunique; settings=ExploreSettings(domains; search=:partial))
+end
+
+visu(x, d, Val(:chairmark))
+
+x = @check :alloc d begin
+    using ConstraintDomains
+end begin
+    domains = [domain([1, 2, 3, 4, 5, 6]) for i = 1:6]
+    X, X̅ = explore(domains, allunique; settings=ExploreSettings(domains; search=:partial))
 end
 
 visu(x, d, Val(:allocs))
