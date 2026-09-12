@@ -1,0 +1,6 @@
+/vendor/
+/runtime/
+/data/
+/native/timefold/target/
+!/Manifest.toml
+!/juls-env/Manifest.toml

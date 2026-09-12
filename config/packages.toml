@@ -1,0 +1,15 @@
+schema = "package-diagnostics/2"
+seed = 20260912
+families = ["ConstraintCommons", "ConstraintDomains", "PatternFolds"]
+evals = 1
+performance_claims = false
+operations_per_sample = 256
+exploration_operations_per_sample = 8
+
+[smoke]
+samples = 3
+seconds_per_case = 0.01
+
+[measure]
+samples = 50
+seconds_per_case = 0.1

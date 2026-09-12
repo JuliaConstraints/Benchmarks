@@ -1,0 +1,162 @@
+schema = "solver-comparison/1"
+name = "ilp-functional-v1"
+purpose = "functional_qualification"
+automatic_run = false
+performance_claims = false
+max_cpus = 2
+max_concurrent_runs = 1
+thread_profiles = [1, 2]
+oracle_max_assignments = 4096
+cases = "../fixtures/ilp.toml"
+
+[[paths]]
+id = "lss.native.default"
+engine = "LocalSearchSolvers"
+frontend = "native"
+profile = "default"
+kind = "representative"
+implementation = "pending_adapter"
+
+[[paths]]
+id = "lss.jump.default"
+engine = "LocalSearchSolvers"
+frontend = "jump_cbls"
+profile = "default"
+kind = "representative"
+implementation = "pending_adapter"
+
+[[paths]]
+id = "ghost.native.default"
+engine = "GHOST"
+frontend = "native"
+profile = "default"
+kind = "representative"
+implementation = "pending_adapter"
+
+[[paths]]
+id = "ghost.jump.default"
+engine = "GHOST"
+frontend = "jump"
+profile = "default"
+kind = "representative"
+implementation = "pending_adapter"
+
+[[paths]]
+id = "juls.native.default"
+engine = "JuLS"
+frontend = "native"
+profile = "default"
+kind = "representative"
+implementation = "pending_adapter"
+
+[[paths]]
+id = "juls.jump.default"
+engine = "JuLS"
+frontend = "jump"
+profile = "default"
+kind = "representative"
+implementation = "pending_interface"
+
+[[paths]]
+id = "timefold.native.default"
+engine = "Timefold"
+frontend = "native"
+profile = "default"
+kind = "representative"
+implementation = "pending_adapter"
+
+[[paths]]
+id = "timefold.jump.default"
+engine = "Timefold"
+frontend = "jump"
+profile = "default"
+kind = "representative"
+implementation = "pending_interface"
+
+[[paths]]
+id = "hexaly.native.default"
+engine = "Hexaly"
+frontend = "native"
+profile = "default"
+kind = "representative"
+implementation = "pending_adapter_and_license"
+
+[[paths]]
+id = "hexaly.jump.default"
+engine = "Hexaly"
+frontend = "jump"
+profile = "default"
+kind = "representative"
+implementation = "pending_adapter_and_license"
+
+[[paths]]
+id = "lss.native.ghost_like_v1"
+engine = "LocalSearchSolvers"
+frontend = "native"
+profile = "ghost_adaptive_assignment_like_v1"
+kind = "matched_partial"
+implementation = "profile_available_adapter_pending"
+
+[[paths]]
+id = "lss.jump.ghost_like_v1"
+engine = "LocalSearchSolvers"
+frontend = "jump_cbls"
+profile = "ghost_adaptive_assignment_like_v1"
+kind = "matched_partial"
+implementation = "pending_strategy_forwarding_qualification"
+
+[[paths]]
+id = "lss.native.juls_like"
+engine = "LocalSearchSolvers"
+frontend = "native"
+profile = "juls_like"
+kind = "matched_pending"
+implementation = "pending_strategies"
+
+[[paths]]
+id = "lss.jump.juls_like"
+engine = "LocalSearchSolvers"
+frontend = "jump_cbls"
+profile = "juls_like"
+kind = "matched_pending"
+implementation = "pending_strategies"
+
+[[paths]]
+id = "lss.native.timefold_like"
+engine = "LocalSearchSolvers"
+frontend = "native"
+profile = "timefold_2_6_late_acceptance_like"
+kind = "matched_pending"
+implementation = "pending_strategies"
+
+[[paths]]
+id = "lss.jump.timefold_like"
+engine = "LocalSearchSolvers"
+frontend = "jump_cbls"
+profile = "timefold_2_6_late_acceptance_like"
+kind = "matched_pending"
+implementation = "pending_strategies"
+
+[[paths]]
+id = "lss.native.hexaly_like"
+engine = "LocalSearchSolvers"
+frontend = "native"
+profile = "hexaly_like"
+kind = "matched_pending"
+implementation = "unknown_strategy_specification"
+
+[[paths]]
+id = "lss.jump.hexaly_like"
+engine = "LocalSearchSolvers"
+frontend = "jump_cbls"
+profile = "hexaly_like"
+kind = "matched_pending"
+implementation = "unknown_strategy_specification"
+
+[[paths]]
+id = "highs.jump.control"
+engine = "HiGHS"
+frontend = "jump"
+profile = "exact_control"
+kind = "control"
+implementation = "pending_adapter"

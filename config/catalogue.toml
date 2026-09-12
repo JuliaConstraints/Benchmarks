@@ -1,0 +1,39 @@
+schema = "benchmark-catalogue/1"
+max_logical_cpus = 2
+max_concurrent_runs = 1
+orchestration_language = "Julia"
+resource_limits_scope = "Default ceiling; an explicitly authorized study override is recorded separately."
+
+[[studies]]
+id = "solvers-lilim-pilot"
+status = "pilot"
+entrypoint = "LiLim/scripts/run.jl"
+max_logical_cpus = 4
+resource_authorization = "User authorized four CPUs for this exploratory Li-Lim run on 2026-09-12."
+role = "Full lc101/lr101/lrc101; Julia pair-insertion reference and compact JuMP/HiGHS; no solver ranking"
+
+[[studies]]
+id = "packages"
+status = "active"
+entrypoint = "scripts/packages.jl"
+families = ["ConstraintCommons", "ConstraintDomains", "PatternFolds"]
+role = "Focused kernel diagnostics; no solver ranking"
+historical = "archive/legacy"
+
+[[studies]]
+id = "solvers-ilp"
+status = "infrastructure_only"
+entrypoint = "Solvers/test/runtests.jl"
+role = "Functional validation and oracle; solver adapters are still pending"
+
+[[studies]]
+id = "constraint-learning-placeholder"
+status = "retired"
+historical = "archive/legacy/ConstraintLearning"
+reason = "Only a Project.toml existed; no benchmark to migrate. Independent live HPO stays in its own repository."
+
+[[studies]]
+id = "legacy-version-sweeps"
+status = "archived"
+historical = "archive/legacy"
+reason = "Old PerfChecker campaigns and IDE profiling scripts lack current environment/resource qualification; excluded from launchers."

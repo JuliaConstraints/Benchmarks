@@ -1,0 +1,79 @@
+# Authored tiny fixtures; no archive download or solver-specific encoding.
+schema = "bounded-ilp-fixtures/1"
+
+[[cases]]
+id = "binary_cover"
+lower = [0, 0, 0, 0]
+upper = [1, 1, 1, 1]
+cost = [1, 2, 3, 4]
+offset = 0
+sense = "min"
+matrix = [[1, 1, 1, 1]]
+relations = [">="]
+rhs = [2]
+expected_status = "optimal"
+expected_objective = "3"
+
+[[cases]]
+id = "bounded_integer"
+lower = [0, 0]
+upper = [4, 5]
+cost = [2, 1]
+offset = 7
+sense = "min"
+matrix = [[1, 1]]
+relations = [">="]
+rhs = [5]
+expected_status = "optimal"
+expected_objective = "12"
+
+[[cases]]
+id = "knapsack_max"
+lower = [0, 0, 0]
+upper = [1, 1, 1]
+cost = [3, 4, 5]
+offset = 2
+sense = "max"
+matrix = [[2, 3, 4]]
+relations = ["<="]
+rhs = [5]
+expected_status = "optimal"
+expected_objective = "9"
+
+[[cases]]
+id = "negative_domain_equality"
+lower = [-2, 0]
+upper = [2, 3]
+cost = [3, 1]
+offset = -4
+sense = "min"
+matrix = [[1, 1], [0, 1]]
+relations = ["==", "<="]
+rhs = [1, 2]
+expected_status = "optimal"
+expected_objective = "-5"
+
+[[cases]]
+id = "infeasible_parity"
+lower = [0, 0]
+upper = [1, 1]
+cost = [1, 1]
+offset = 0
+sense = "min"
+matrix = [[2, 2]]
+relations = ["=="]
+rhs = [1]
+expected_status = "infeasible"
+
+[[cases]]
+id = "fixed_variable"
+lower = [2, 0]
+upper = [2, 2]
+cost = [-1, 3]
+offset = 1
+sense = "min"
+matrix = [[1, 1]]
+relations = [">="]
+rhs = [3]
+expected_status = "optimal"
+expected_objective = "2"

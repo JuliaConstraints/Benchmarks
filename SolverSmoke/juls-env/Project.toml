@@ -1,0 +1,10 @@
+name = "JuLSSmoke"
+
+[deps]
+JuLS = "490cb39b-a817-4b17-9139-c18f0e28f0c3"
+
+[sources]
+JuLS = {path = "..\\vendor\\JuLS"}
+
+[compat]
+julia = "1.11"

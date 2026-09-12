@@ -1,0 +1,29 @@
+include("activate.jl")
+using Downloads, SHA, Pkg, TOML
+root=projectdir();runtime=joinpath(root,"runtime")
+url="https://github.com/skeeto/w64devkit/releases/download/v2.9.1/w64devkit-x64-2.9.1.7z.exe"
+archive=joinpath(runtime,"w64devkit.7z.exe")
+isfile(archive) || Downloads.download(url,archive)
+compiler=joinpath(runtime,"w64devkit","bin","g++.exe")
+ENV["PATH"]=dirname(compiler)*";"*ENV["PATH"]
+if !isfile(compiler)
+    run(`$(Pkg.PlatformEngines.exe7z()) x $archive -o$runtime -y`)
+end
+source=abspath(root,"..","..","GHOST");snapshot=joinpath(root,"vendor","ghost-source")
+if !isdir(snapshot)
+    mkpath(snapshot)
+    for item in ("include","src","thirdparty","LICENSE");cp(joinpath(source,item),joinpath(snapshot,item));end
+end
+# Compile exact private source snapshot, never the shared checkout or its build tree.
+headers=joinpath(snapshot,"headers","ghost")
+if !isdir(headers)
+    mkpath(dirname(headers));cp(joinpath(snapshot,"include"),headers)
+    cp(joinpath(snapshot,"thirdparty"),joinpath(headers,"thirdparty"))
+end
+files=[joinpath(d,f) for (d,_,fs) in walkdir(joinpath(snapshot,"src")) for f in fs if endswith(f,".cpp")]
+build=joinpath(runtime,"ghost-portable");mkpath(build)
+bin=joinpath(build,"ghost_routing.exe")
+# A single compiler driver compiles translation units sequentially.
+run(`$compiler -std=c++20 -O2 -static -pthread -I$(joinpath(snapshot,"headers")) -I$(joinpath(snapshot,"include")) -I$snapshot -I$(joinpath(snapshot,"thirdparty")) $(joinpath(root,"native","ghost","main.cpp")) $files -o $bin`)
+open(io->TOML.print(io,Dict("compiler_url"=>url,"compiler_archive_sha256"=>bytes2hex(open(sha256,archive)),
+    "compiler_version"=>readchomp(`$compiler --version`),"binary_sha256"=>bytes2hex(open(sha256,bin)))),joinpath(build,"build.toml"),"w")

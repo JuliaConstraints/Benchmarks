@@ -1,0 +1,25 @@
+name = "JuliaConstraintsBenchmarks"
+
+[deps]
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
+ConstraintCommons = "e37357d9-0691-492f-a822-e5ea6a920954"
+ConstraintDomains = "5800fd60-8556-4464-8d61-84ebf7a0bedb"
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+DrWatson = "634d3b9d-ee7a-5ddf-bec9-22491ea816e1"
+Intervals = "d8418881-c3e1-53bb-8760-2df7ec849ed5"
+PatternFolds = "c18a7f1d-76ad-4ce4-950d-5419b888513b"
+Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+SHA = "ea8e919c-243c-51af-8825-aaa63cd721ce"
+TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+UUIDs = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
+
+[compat]
+BenchmarkTools = "=1.8.0"
+ConstraintCommons = "=0.3.0"
+ConstraintDomains = "=0.4.0"
+DrWatson = "=2.19.1"
+Intervals = "1"
+PatternFolds = "=0.2.6"
+julia = "1.10"
