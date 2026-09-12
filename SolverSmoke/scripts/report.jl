@@ -28,6 +28,10 @@ function inspect(family,engine,seed)
             gap>=-1e-8 || error("Oracle exceeded")
             haskey(r,"reported_distance") && !isapprox(r["reported_distance"],objective;atol=1e-8) && error("Native distance mismatch")
         end
+        if haskey(r,"final_current_route")
+            current_valid=validate(p,Int.(r["final_current_route"])).valid
+            current_valid==r["final_current_stored_feasible"] || error("JuLS feasibility bookkeeping mismatch: cannot qualify this adapter")
+        end
     end
     push!(records,Dict("family"=>family,"engine"=>engine,"repetition"=>seed,"valid"=>valid,"objective"=>objective,"gap"=>gap,
         "solve_call_seconds"=>r["solve_call_seconds"],"build_seconds"=>r["build_seconds"],"raw_sha256"=>bytes2hex(sha256(read(path)))))
@@ -57,7 +61,7 @@ open(joinpath(attempt,"report.md"),"w") do io
     println(io,"- CBLS est la façade JuMP du générateur LocalSearchSolvers. Profil par défaut ici, sans HPO ; quatre travailleurs locaux. LSS natif et CBLS/JuMP sont tous deux testés sur l'ILP.")
     println(io,"- GHOST : JuMP et C ABI natif sur l'ILP (même bibliothèque JLL), C++ natif avec permutation sur Li–Lim. Quatre travailleurs. La graine native n'est pas exposée : les numéros sont des répétitions, pas des graines appariées. Le binaire C++ est recompilé avec le compilateur portable consigné ; il ne sert pas à mesurer le surcoût de JuMP.")
     println(io,"- Timefold 2.6.0 Community, Java 21 portable, formulations natives. Un fil de recherche (défaut Community), plafond processus de quatre CPU. Score non incrémental écrit pour cette validation ; ce modèle n'est pas encore qualifié pour une campagne de performance. Pas d'interface JuMP validée.")
-    println(io,"- JuLS natif à la révision enregistrée, sous Julia 1.11.9 : chargement amont incompatible avec Julia 1.13 (`eval`). ILP : initialisation gloutonne, voisinage exhaustif de deux variables, choix glouton et filtrage CP, tous par défaut amont. Routage : invariant de tournée, échanges de deux visites, choix glouton, pénalité 10000, filtrage CP désactivé faute de traduction de cet invariant ; pas d'interface JuMP validée.")
+    println(io,"- JuLS natif à la révision enregistrée, sous Julia 1.11.9 : chargement amont incompatible avec Julia 1.13 (`eval`). ILP : initialisation gloutonne, voisinage exhaustif de deux variables, choix glouton et filtrage CP, tous par défaut amont. Routage : invariant de tournée, échanges de deux visites, choix glouton, pénalité 10000, filtrage CP désactivé faute de traduction de cet invariant ; pas d'interface JuMP validée. L'erreur du routage est encodée en unités entières (plafond de violation × 10^6), avant pénalité, pour respecter le test de zéro exact de JuLS. Aucune distance n'est arrondie. Les 10800 transitions par échange ont vérifié la cohérence arithmétique de cette pénalité.")
     println(io,"- HiGHS est seulement le contrôle ILP. Hexaly est exclu à ta demande, licence non activée.")
     println(io,"- Les temps sont ceux de l'appel de résolution après échauffement ; chargement, compilation et lancement des processus sont séparés dans les journaux. Une résolution arrêtée à deux secondes ne mesure pas le temps pour atteindre l'optimum. Ces trois répétitions ne démontrent aucun classement, ni un surcoût négligeable de JuMP.")
     println(io,"- Toutes les solutions retenues sont relues depuis les fichiers, puis validées indépendamment. Une absence de solution reste un résultat, jamais une preuve d'infaisabilité. Les contrôles d'oracle, sources et environnements sont conservés dans cette tentative.")

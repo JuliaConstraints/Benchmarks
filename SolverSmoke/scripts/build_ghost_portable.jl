@@ -4,6 +4,7 @@ root=projectdir();runtime=joinpath(root,"runtime")
 url="https://github.com/skeeto/w64devkit/releases/download/v2.9.1/w64devkit-x64-2.9.1.7z.exe"
 archive=joinpath(runtime,"w64devkit.7z.exe")
 isfile(archive) || Downloads.download(url,archive)
+bytes2hex(open(sha256,archive))=="9208c19755cd4964b7915b9afcf02c66d493a4c870c4b3e83f6c538d9c1237a5" || error("Compiler archive checksum mismatch")
 compiler=joinpath(runtime,"w64devkit","bin","g++.exe")
 ENV["PATH"]=dirname(compiler)*";"*ENV["PATH"]
 if !isfile(compiler)

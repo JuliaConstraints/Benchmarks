@@ -8,6 +8,9 @@ until its license is activated.
 This is a functional pilot, not a calibrated performance campaign. Default
 strategies are retained where applicable; no HPO or strategy matching is claimed.
 
+The [qualified pilot report](QUALIFICATION.md) records the final attempt and its
+33 independently validated results. Earlier development attempts are excluded.
+
 ## Setup and run
 
 Use four allocated logical CPUs, for example `SOLVER_COMPARISON_CPUS=4,5,6,7`
@@ -57,6 +60,13 @@ on full Li–Lim. Native route objectives and constraints are preliminary full-r
 evaluators. Timefold uses EasyScoreCalculator; JuLS uses a custom invariant without
 CP filtering for routing. Incremental scoring and tuned neighborhoods are future
 performance work, not capabilities already qualified by this pilot.
+
+JuLS accumulates constraint deltas and tests feasibility against exact zero. The
+routing adapter therefore encodes its error in bounded integral units before
+applying the penalty; objective distances remain unrounded. It checks all 10800
+permutation/swap transitions and verifies the final feasibility flag against a
+fresh evaluation. An earlier attempt exposed floating-penalty drift; its raw
+evidence is retained with an audit note and is excluded from qualification.
 
 All solvers receive a two-second solve budget, with three fresh repetitions after
 a separate warm-up. Timefold Community uses its default single search thread under

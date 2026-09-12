@@ -33,6 +33,14 @@ historical = "archive/legacy/ConstraintLearning"
 reason = "Only a Project.toml existed; no benchmark to migrate. Independent live HPO stays in its own repository."
 
 [[studies]]
+id = "solver-smoke"
+status = "functional_pilot"
+entrypoint = "SolverSmoke/scripts/run.jl"
+role = "Real CBLS, LSS, GHOST, Timefold and JuLS executions; common small ILP and reduced Li-Lim; independent incumbent validation"
+cpu_limit = 4
+protocol = "Three repetitions, two-second solve budgets, separate warmup; no performance ranking"
+
+[[studies]]
 id = "legacy-version-sweeps"
 status = "archived"
 historical = "archive/legacy"

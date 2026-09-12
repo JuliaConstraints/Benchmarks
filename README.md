@@ -84,6 +84,6 @@ solvers are separate, explicitly identified experiments.
 
 The working branch is `feat/solver-comparison-ilp`. The authorized publication target
 is `git@nohost.d-vision.fr:julia/Benchmarks.git`, private, directly in the Julia group;
-no Oasis registration is needed. Publication is blocked by the GitLab service errors
-recorded in [coordination](Solvers/docs/coordination.md). Later, selected material can
+no Oasis registration is needed. The private GitLab project was created and the signed
+branch pushed on 2026-09-12 after service recovery. Later, selected material can
 be released on Mirage Interactive's public GitHub after campaign qualification.

@@ -23,19 +23,29 @@ mutable struct RouteInvariant <: J.Invariant
     route::Vector{Int}
     component::Int
 end
+function invariantvalue(inv::RouteInvariant,route)
+    value=routevalue(inv.experiment,route)[inv.component]
+    inv.component==2 && return value
+    # JuLS accumulates constraint deltas and tests exact zero. Integral units
+    # prevent roundoff from hiding a genuinely feasible route. Travel distances
+    # and objective remain Float64; this is only the search's error function.
+    units=ceil(Int64,value*1_000_000)
+    0<=units*10000<2^52 || error("Exact-penalty bound exceeded")
+    Float64(units)
+end
 function J.init!(inv::RouteInvariant,messages::J.DAGMessagesVector{J.SingleVariableMessage{J.IntDecisionValue}})
     for m in messages; inv.route[m.index]=m.value.value;end
-    J.FloatFullMessage(routevalue(inv.experiment,inv.route)[inv.component])
+    J.FloatFullMessage(invariantvalue(inv,inv.route))
 end
 function J.eval(inv::RouteInvariant,messages::J.DAGMessagesVector{J.SingleVariableMessage{J.IntDecisionValue}})
     route=copy(inv.route)
     for m in messages;route[m.index]=m.value.value;end
-    J.FloatFullMessage(routevalue(inv.experiment,route)[inv.component])
+    J.FloatFullMessage(invariantvalue(inv,route))
 end
 function J.eval(inv::RouteInvariant,deltas::J.DAGMessagesVector{J.SingleVariableMoveDelta{J.IntDecisionValue}})
     route=copy(inv.route)
     for delta in deltas;route[delta.index]=delta.new_value.value;end
-    J.FloatDelta(routevalue(inv.experiment,route)[inv.component]-routevalue(inv.experiment,inv.route)[inv.component])
+    J.FloatDelta(invariantvalue(inv,route)-invariantvalue(inv,inv.route))
 end
 function J.commit!(inv::RouteInvariant,deltas::J.DAGMessagesVector{J.SingleVariableMoveDelta{J.IntDecisionValue}})
     for delta in deltas; inv.route[delta.index]=delta.new_value.value;end
@@ -55,6 +65,21 @@ function J.create_dag(e::RoutingExperiment)
 end
 input,out=ARGS;mkpath(out)
 lines=readlines(input);n,capacity=parse.(Int,split(lines[1]));e=RoutingExperiment([parse.(Float64,split(l)) for l in lines[2:end]],capacity)
+checked=0
+for route in J.permutations(collect(2:n))
+    inv=RouteInvariant(e,copy(route),1)
+    for i in 1:n-2,j in i+1:n-1
+        deltas=J.DAGMessagesVector([J.SingleVariableMoveDelta(i,J.IntDecisionValue(route[i]),J.IntDecisionValue(route[j])),
+            J.SingleVariableMoveDelta(j,J.IntDecisionValue(route[j]),J.IntDecisionValue(route[i]))])
+        next=copy(route);next[i],next[j]=next[j],next[i]
+        delta=J.eval(inv,deltas).value
+        expected=invariantvalue(inv,next)
+        @assert invariantvalue(inv,route)*10000+delta*10000==expected*10000
+        @assert (expected==0)==(first(routevalue(e,next))==0)
+        global checked+=1
+    end
+end
+open(io->TOML.print(io,Dict("checked_transitions"=>checked,"exact_penalty_consistency"=>true)),joinpath(out,"juls-penalty-regression.toml"),"w")
 function solveone(seconds,seed)
     Random.seed!(seed);start=time_ns()
     m=J.init_model(e;init=J.SimpleInitialization(),neigh=J.SwapNeighbourhood(n-1),pick=J.GreedyMoveSelection(),using_cp=false)
@@ -63,10 +88,11 @@ function solveone(seconds,seed)
     found=!isnothing(m.best_solution)
     route=found ? Int[v.value for v in m.best_solution.values] : Int[]
     current=Int[v.value for v in m.current_solution.values]
+    (first(routevalue(e,current))==0)==m.current_solution.feasible || error("JuLS feasibility bookkeeping disagrees with full recomputation")
     Dict("engine"=>"juls_native","found"=>found,"route"=>route,"solve_call_seconds"=>elapsed,"build_seconds"=>build,
         "budget_seconds"=>seconds,"seed"=>seed,"threads"=>4,"julia_version"=>string(VERSION),"using_cp"=>false,
         "neighborhood"=>"SwapNeighbourhood(n)","selection"=>"GreedyMoveSelection","constraint_penalty"=>10000.,
-        "final_current_route"=>current,"final_current_recomputed_error"=>first(routevalue(e,current)),
+        "error_units_per_unit_violation"=>1_000_000,"final_current_route"=>current,"final_current_recomputed_error"=>first(routevalue(e,current)),
         "final_current_stored_feasible"=>m.current_solution.feasible)
 end
 solveone(0.25,0)

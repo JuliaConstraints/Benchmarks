@@ -64,3 +64,17 @@ le service rétabli, avant de transférer les commits. Aucun passage par Oasis n
 Après qualification des campagnes, le contenu approprié pourra être publié sur le
 GitHub public de Mirage Interactive. Cette destination future ne déclenche aucune
 publication publique pendant la préparation actuelle.
+# 2026-09-12: service recovery and actual solver pilot
+
+GitLab service recovery was confirmed by a successful signed branch push. The
+server explicitly confirmed creation of **private** project `julia/Benchmarks` at
+`https://nohost.d-vision.fr/gitlab/julia/Benchmarks`. The initial shallow clone had
+to retrieve its missing upstream history before GitLab accepted the push. No
+public push or Oasis registration was performed.
+
+`SolverSmoke` is the dedicated DrWatson functional study. It uses CPUs 4–7, at
+most four logical CPUs globally for its workers, while the coordinated HPO task
+keeps CPUs 0–3. All local Julia dependency sources are copied; the shared HPO
+checkouts and environment are not modified. Actual solver workers now exist for
+CBLS/JuMP, LSS native, GHOST/JuMP and native, Timefold Java and JuLS. Hexaly is
+excluded by the user's explicit instruction, license not activated.
