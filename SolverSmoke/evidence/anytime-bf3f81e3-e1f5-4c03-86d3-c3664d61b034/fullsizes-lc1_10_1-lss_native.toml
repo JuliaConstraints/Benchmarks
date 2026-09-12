@@ -1,0 +1,16 @@
+big_m = 1.4324502075825934e6
+budget_seconds = 0.2
+build_seconds = 0.0078185
+clock = "monotonic"
+engine = "lss_native"
+events = []
+found = false
+objective_encoding = "fleet * certified_distance_bound + distance"
+profile = "default"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed = 1
+seed_controlled = true
+solve_call_seconds = 1.4952403
+threads = 4
+timing_available = true

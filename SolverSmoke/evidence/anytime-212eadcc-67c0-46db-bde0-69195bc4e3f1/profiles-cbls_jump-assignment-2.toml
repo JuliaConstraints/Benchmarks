@@ -1,0 +1,28 @@
+big_m = 23.627416997969522
+budget_seconds = 2.0
+build_seconds = 0.001366
+clock = "monotonic"
+engine = "cbls_jump"
+found = true
+objective_encoding = "fleet * certified_distance_bound + distance"
+profile = "assignment"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed = 2
+seed_controlled = true
+solve_call_seconds = 2.0049181
+threads = 4
+timing_available = true
+
+[[events]]
+elapsed_seconds = 0.0051958
+objective = 31.87005768508881
+phase = "search"
+solve_seconds = 0.0038298
+values = [4, 2, 3, 5, 6]
+[[events]]
+elapsed_seconds = 0.0052633
+objective = 30.863484975469312
+phase = "search"
+solve_seconds = 0.0038973
+values = [4, 5, 2, 3, 6]

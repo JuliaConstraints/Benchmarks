@@ -1,0 +1,13 @@
+schema = "incumbent-trace/1"
+engine = "ghost_native_cpp"
+profile = "default_permutation"
+clock = "monotonic"
+timing_available = true
+proof_time_available = false
+seed_controlled = false
+threads = 4
+budget_seconds = 0.20000000000000001
+build_seconds = 0.016988
+solve_call_seconds = 0.47624
+found = false
+events = []

@@ -1,0 +1,51 @@
+best_discovery_seconds = 0.0092203
+budget_overrun_seconds = 0.0
+budget_seconds = 2.0
+build_seconds = 0.0023303
+clock = "monotonic"
+engine = "highs_control"
+final_has_solution = true
+first_feasible_end_to_end_seconds = 0.0097099
+first_feasible_seconds = 0.0073796
+found = true
+independently_validated = true
+optimality_proved = true
+profile = "compact_mip"
+proof_seconds_upper_bound = 0.0094803
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed = 1
+seed_controlled = true
+solve_call_seconds = 0.0094803
+status = "OPTIMAL"
+threads = 4
+timing_available = true
+within_budget_feasible = true
+
+[[events]]
+distance = 8.0
+elapsed_seconds = 0.0097099
+objective = 55.254833995939045
+phase = "search"
+solve_seconds = 0.0073796
+values = [2, 3, 6, 4, 5]
+vehicles = 2
+within_solve_budget = true
+[[events]]
+distance = 8.242640687119286
+elapsed_seconds = 0.0106463
+objective = 31.870057685088806
+phase = "search"
+solve_seconds = 0.008316
+values = [2, 4, 5, 3, 6]
+vehicles = 1
+within_solve_budget = true
+[[events]]
+distance = 7.23606797749979
+elapsed_seconds = 0.0115506
+objective = 30.863484975469312
+phase = "search"
+solve_seconds = 0.0092203
+values = [2, 3, 4, 5, 6]
+vehicles = 1
+within_solve_budget = true

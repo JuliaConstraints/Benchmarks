@@ -1,0 +1,28 @@
+best_discovery_seconds = 0.000907
+budget_overrun_seconds = 0.0013619999999998633
+budget_seconds = 2
+build_seconds = 0.000218
+clock = "monotonic"
+engine = "ghost_native_cpp"
+first_feasible_end_to_end_seconds = 0.001125
+first_feasible_seconds = 0.000907
+found = true
+independently_validated = true
+profile = "default_permutation"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed_controlled = false
+solve_call_seconds = 2.001362
+threads = 4
+timing_available = true
+within_budget_feasible = true
+
+[[events]]
+distance = 7.23606797749979
+elapsed_seconds = 0.001125
+objective = 30.863484975469312
+phase = "search"
+solve_seconds = 0.000907
+values = [4, 5, 2, 3, 6]
+vehicles = 1
+within_solve_budget = true

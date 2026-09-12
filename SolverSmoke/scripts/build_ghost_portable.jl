@@ -23,8 +23,10 @@ if !isdir(headers)
 end
 files=[joinpath(d,f) for (d,_,fs) in walkdir(joinpath(snapshot,"src")) for f in fs if endswith(f,".cpp")]
 build=joinpath(runtime,"ghost-portable");mkpath(build)
-bin=joinpath(build,"ghost_routing.exe")
+anytime="anytime" in ARGS
+bin=joinpath(build,anytime ? "ghost_anytime.exe" : "ghost_routing.exe")
 # A single compiler driver compiles translation units sequentially.
-run(`$compiler -std=c++20 -O2 -static -pthread -I$(joinpath(snapshot,"headers")) -I$(joinpath(snapshot,"include")) -I$snapshot -I$(joinpath(snapshot,"thirdparty")) $(joinpath(root,"native","ghost","main.cpp")) $files -o $bin`)
+extra=anytime ? ["-include",joinpath(root,"native","ghost","anytime_trace.hpp")] : String[]
+run(`$compiler -std=c++20 -O2 -static -pthread $extra -I$(joinpath(snapshot,"headers")) -I$(joinpath(snapshot,"include")) -I$snapshot -I$(joinpath(snapshot,"thirdparty")) $(joinpath(root,"native","ghost",anytime ? "anytime.cpp" : "main.cpp")) $files -o $bin`)
 open(io->TOML.print(io,Dict("compiler_url"=>url,"compiler_archive_sha256"=>bytes2hex(open(sha256,archive)),
-    "compiler_version"=>readchomp(`$compiler --version`),"binary_sha256"=>bytes2hex(open(sha256,bin)))),joinpath(build,"build.toml"),"w")
+    "compiler_version"=>readchomp(`$compiler --version`),"binary_sha256"=>bytes2hex(open(sha256,bin)))),joinpath(build,anytime ? "anytime-build.toml" : "build.toml"),"w")

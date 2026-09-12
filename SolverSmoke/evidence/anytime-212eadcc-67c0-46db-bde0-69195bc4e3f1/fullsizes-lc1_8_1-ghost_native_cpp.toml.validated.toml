@@ -1,0 +1,16 @@
+budget_overrun_seconds = 0.18185999999999997
+budget_seconds = 0.2
+build_seconds = 0.012664
+clock = "monotonic"
+engine = "ghost_native_cpp"
+events = []
+found = false
+independently_validated = true
+profile = "default_permutation"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed_controlled = false
+solve_call_seconds = 0.38186
+threads = 4
+timing_available = true
+within_budget_feasible = false

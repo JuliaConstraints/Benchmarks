@@ -1,5 +1,9 @@
 # Solver functional pilot
 
+The [full-fleet anytime extension](ANYTIME.md) adds discovery-time traces,
+generated strategy profiles and the 30/60/120/240-second Li–Lim campaign. The
+historical pilot described below retains its original scope and evidence.
+
 DrWatson study orchestrated entirely in Julia. It executes real CBLS/JuMP,
 LocalSearchSolvers native, GHOST/JuMP and native C ABI, Timefold native Java,
 JuLS native Julia, and HiGHS as an ILP control. Hexaly is explicitly excluded

@@ -1,0 +1,542 @@
+[raw_sha256]
+"fullsizes-highs-1.toml" = "12cd21332562b1bb3e82cd589d93e147efe80e8302851ee90285275a3dba38b3"
+"fullsizes-highs-2.toml" = "8ad57d8635ce9a0f7b1b174dac9f85144cb762cdab6823b95fb1bb8f39297c6d"
+"fullsizes-lc101-cbls_jump.toml" = "d12771a64b240ec4375855cd5765abadc9a7c9ab68d36cee4a89dc663a023567"
+"fullsizes-lc101-ghost_native_cpp.toml" = "d8ca364861a272e91030133ad753b82d94de46c514ada26433d6947a77bbd611"
+"fullsizes-lc101-juls_native.toml" = "05a5cba24ac5fb6e3c34d87b54a42e10d1c65d8d6f2b63be9c926e3d1067fb91"
+"fullsizes-lc101-lss_native.toml" = "f23df83479aa732abedbc79949be32541540705546c70eab7108e2ff93024070"
+"fullsizes-lc101-timefold_native.toml" = "20b9d4b58ae2ca9ab383643ec392f5d34bf8024299ec019923a974477cc0d323"
+"fullsizes-lc1_10_1-cbls_jump.toml" = "f15c26ade16711a22c938ee0aad44b64bed3441d693ff0aceec2721d4e114ac5"
+"fullsizes-lc1_10_1-ghost_native_cpp.toml" = "1b6f940c1a1b9245b5bf11c62508f8298c3dea0e302fe5eb83120641ae67d123"
+"fullsizes-lc1_10_1-juls_native.toml" = "afe4a635e41112168e76f49e5e89653e46a66d20812f0371a3b892e314b852db"
+"fullsizes-lc1_10_1-lss_native.toml" = "b8ebcd8ed7f2572b01eb1c9e83b4264f3495a646aae02cd2aa1692db9f9c1589"
+"fullsizes-lc1_10_1-timefold_native.toml" = "d7fdbdc1a1758767d9d093e75df3b2602ee2ca4590004c7270f881545f71ae3e"
+"fullsizes-lc1_2_1-cbls_jump.toml" = "e0821a148f2d85080985142ca49a3be3d9690790b959a0cb7afe05beb0e55df3"
+"fullsizes-lc1_2_1-ghost_native_cpp.toml" = "de22e7141728dfa49ede7f494de7032212b780c2819ecbc931bd183dc6069a81"
+"fullsizes-lc1_2_1-juls_native.toml" = "a8248dbfc11729cec06aea6e2b3cf94cd84348a2ad265025101030c04572806e"
+"fullsizes-lc1_2_1-lss_native.toml" = "3b288ce8f4f2dc293d09d642c1247f8b3ab8e54940f17079a6da2632b4614fbe"
+"fullsizes-lc1_2_1-timefold_native.toml" = "66caa33d8678d356aec9eeefac103e682f63fd445439060270c5644ca869c52f"
+"fullsizes-lc1_4_1-cbls_jump.toml" = "04da5971ead88b6f84e75b5fbd6c3f7c408497ec0c6d2940ee84b71d9b0ab3a9"
+"fullsizes-lc1_4_1-ghost_native_cpp.toml" = "e5024c19a4e372d52ca70670f026d7920c61063cf3c88b0fef045a05fa74227f"
+"fullsizes-lc1_4_1-juls_native.toml" = "0a13ffc51c3f4dd529628a29389f16b7ee52974262b5216d46d6124df36a8e61"
+"fullsizes-lc1_4_1-lss_native.toml" = "442241ee0865c1ffdf7da5916fb143963fa228332d001126f1f8324cf6d6f591"
+"fullsizes-lc1_4_1-timefold_native.toml" = "3fa8cba9f3a82c1ee46b1be81e49d56b48bc03d61fc7f633e708a9dcc26900db"
+"fullsizes-lc1_6_1-cbls_jump.toml" = "96e7f21bc45c17e4b710d5247960b2d74e245e3a1722178f93fbcae38cbf60fe"
+"fullsizes-lc1_6_1-ghost_native_cpp.toml" = "8f567e74bf58e2355b910795767668b6c3827104cd0bf1a70803a2ae6c336cf9"
+"fullsizes-lc1_6_1-juls_native.toml" = "ef2d5860da6c7dfef2fdf1a9380b4b55b7b887e2ac3b2b212e3ae0c76025153b"
+"fullsizes-lc1_6_1-lss_native.toml" = "79b576deed79dc9b4c555a64b480d1ab04655d5467231778e7963c88790445ca"
+"fullsizes-lc1_6_1-timefold_native.toml" = "36de638673cc48f6bef8be6e9f209f3b1a8a1ae1ef75fcd59c124ce4097f3712"
+"fullsizes-lc1_8_1-cbls_jump.toml" = "5583149d7d0b1d8baeae418cc2485e405f9ff0294cad78421fb59082d9fb6a6b"
+"fullsizes-lc1_8_1-ghost_native_cpp.toml" = "fb3616f5a9c4ad2001867ec6eb937159d8229e5aaadba40336fc5d055feca2ae"
+"fullsizes-lc1_8_1-juls_native.toml" = "7fc2f755fbeaef09020c3b4e6636c817f662ab710c10713e49d1a35113fb11e8"
+"fullsizes-lc1_8_1-lss_native.toml" = "159dd3253f7990a00e23a23e327209c31f6954f1ba94599ad445360abe49d73a"
+"fullsizes-lc1_8_1-timefold_native.toml" = "ed547bdab9193f73d6c62f8a362b79d8e101231b1080012e107e5ced9b41dd42"
+"profiles-cbls_jump-assignment-1.toml" = "492f9c2811e88c2be9a90cc22b1283d9ef893eabf878a3a88108c34c9738ed74"
+"profiles-cbls_jump-assignment-2.toml" = "db6abe7a137de2202daff02756bf2ee4b28e54a52732a4ae8d21a2f589079a21"
+"profiles-cbls_jump-default-1.toml" = "0de72ffdbe1599ea8a4d3cbddf09933c852c40a832804e96aa214c819e419371"
+"profiles-cbls_jump-default-2.toml" = "0dcaa0674e5e94660e21f8fde0556408604665caaa31039606f4ad01dac69fdd"
+"profiles-cbls_jump-ghost_assignment_like-1.toml" = "f919e507d2050a23cd69e88de17aac8eb9f9cfd417f89a004f7bcac3d08251ad"
+"profiles-cbls_jump-ghost_assignment_like-2.toml" = "bd4d737384a720afc38d5167c20517f1e9aa9084e5c1c82f9672524e9343cba2"
+"profiles-cbls_jump-juls_greedy_like-1.toml" = "3cc2ba8d09b8a36b8d865678622669cf2913763e39e35a3f63b9b43e06051963"
+"profiles-cbls_jump-juls_greedy_like-2.toml" = "165d2a6fc57363f8a6ba7fdf3b46331c8a6d8b4a216c9c914de35b3adb083275"
+"profiles-cbls_jump-timefold_late_acceptance_like-1.toml" = "a0db4db4418835dbf47d1598ac35503f4ea6013624f9c8fc46d498a17de02988"
+"profiles-cbls_jump-timefold_late_acceptance_like-2.toml" = "86b37ee99b977c66630a32c94df162abb72de41f4b8ad4c41091daa22a9c67e1"
+"profiles-ghost_native_cpp-default_permutation-1.toml" = "fc702306c36b4015485ca6306dbdf1459977d926a65538fe35088a0dc033fb89"
+"profiles-ghost_native_cpp-default_permutation-2.toml" = "e74d07c59970f97d0b96e00ac0e4629b967dacf986340c9051fd8181e55e70f9"
+"profiles-juls_native-greedy_swap-1.toml" = "6a564ef74edd3524f36c00befb1ca6090b43619847c76ba5928091c19997991b"
+"profiles-juls_native-greedy_swap-2.toml" = "59c729c7385efa495739f74fd3d254c7cab1fcd47edf41ea113074cc8f832b61"
+"profiles-lss_native-assignment-1.toml" = "40a7d882d957396d54d83d3a2adf7cda0a82787aaf043e1c16e18a972a3ea3dd"
+"profiles-lss_native-assignment-2.toml" = "c8c561e6049a64e61b9fac5fadf2d6ab40759230c6997235ce004a22ebb1a735"
+"profiles-lss_native-default-1.toml" = "d11ac7f0663b659aa04cb6fa32660e3813a288d1378c123f96c607d2ce67bb8e"
+"profiles-lss_native-default-2.toml" = "3d8c7bfd5586563a9b96a04b697bc0ebbe15f41420cd90dccb7233154563145d"
+"profiles-lss_native-ghost_assignment_like-1.toml" = "b770a41b790c2c49c9e8b04b890aaed39976b51d9dddafa2430e57cb01e27ab7"
+"profiles-lss_native-ghost_assignment_like-2.toml" = "69bbb4915f7bdd964d40cd53e378a836548122b1dfe7dfb28edd924d422a1ba3"
+"profiles-lss_native-juls_greedy_like-1.toml" = "5e1371a417bb962e5d2bc0e6b4d7395ed07a8f3a6cdf14d85e3e391c6c1376b0"
+"profiles-lss_native-juls_greedy_like-2.toml" = "224b25300af857f9e6189da3f541034f1c8076f079af298e0f70a4e8e64d55ef"
+"profiles-lss_native-timefold_late_acceptance_like-1.toml" = "d8544842ef936b06d2f23a96c09e8d47112be5fc9bde7cce26c811126ced0fb7"
+"profiles-lss_native-timefold_late_acceptance_like-2.toml" = "5f2569b256988cc3c1e82740e042fddd9c9c6267e244b855873da0e04b45389a"
+"profiles-timefold_native-default-1.toml" = "49659a62f040dc4037196dc087f87c7f44d912b4bc25066b7305e0232be3a718"
+"profiles-timefold_native-default-2.toml" = "02991f111461afe5b69e4e9f5daeb0d4ce0c819b47f43dfc34769b9a11a13e1b"
+"profiles-timefold_native-late_acceptance_400-1.toml" = "b7cf5b690b5a0caa5c9168933b5a8457037377a62cf5128ea8ff2ff964d9d3ae"
+"profiles-timefold_native-late_acceptance_400-2.toml" = "d780ee1ea5bfb5e3178c51d23f26503626dad3f8f99947d3241b8af02c9975b9"
+
+[[records]]
+engine = "lss_native"
+events = 2
+first_feasible_seconds = 1.2389645
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-lss_native-default-1.toml"
+size = 0
+solve_call_seconds = 2.0016816
+[[records]]
+engine = "lss_native"
+events = 1
+first_feasible_seconds = 0.0003661
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-lss_native-default-2.toml"
+size = 0
+solve_call_seconds = 2.0013247
+[[records]]
+engine = "lss_native"
+events = 1
+first_feasible_seconds = 0.0002336
+profile = "assignment"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-lss_native-assignment-1.toml"
+size = 0
+solve_call_seconds = 1.9997744
+[[records]]
+engine = "lss_native"
+events = 2
+first_feasible_seconds = 0.0002969
+profile = "assignment"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-lss_native-assignment-2.toml"
+size = 0
+solve_call_seconds = 2.0050892
+[[records]]
+engine = "lss_native"
+events = 1
+first_feasible_seconds = 0.0200145
+profile = "juls_greedy_like"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-lss_native-juls_greedy_like-1.toml"
+size = 0
+solve_call_seconds = 2.003062
+[[records]]
+engine = "lss_native"
+events = 3
+first_feasible_seconds = 0.000266
+profile = "juls_greedy_like"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-lss_native-juls_greedy_like-2.toml"
+size = 0
+solve_call_seconds = 2.0061185
+[[records]]
+engine = "lss_native"
+events = 1
+first_feasible_seconds = 0.0003754
+profile = "ghost_assignment_like"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-lss_native-ghost_assignment_like-1.toml"
+size = 0
+solve_call_seconds = 2.0007037
+[[records]]
+engine = "lss_native"
+events = 2
+first_feasible_seconds = 0.0002799
+profile = "ghost_assignment_like"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-lss_native-ghost_assignment_like-2.toml"
+size = 0
+solve_call_seconds = 2.003285
+[[records]]
+engine = "lss_native"
+events = 1
+first_feasible_seconds = 0.000277
+profile = "timefold_late_acceptance_like"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-lss_native-timefold_late_acceptance_like-1.toml"
+size = 0
+solve_call_seconds = 2.0028128
+[[records]]
+engine = "lss_native"
+events = 3
+first_feasible_seconds = 0.0002569
+profile = "timefold_late_acceptance_like"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-lss_native-timefold_late_acceptance_like-2.toml"
+size = 0
+solve_call_seconds = 2.0177991
+[[records]]
+engine = "cbls_jump"
+events = 1
+first_feasible_seconds = 0.000367
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-cbls_jump-default-1.toml"
+size = 0
+solve_call_seconds = 2.0013005
+[[records]]
+engine = "cbls_jump"
+events = 1
+first_feasible_seconds = 0.0003491
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-cbls_jump-default-2.toml"
+size = 0
+solve_call_seconds = 2.0008616
+[[records]]
+engine = "cbls_jump"
+events = 1
+first_feasible_seconds = 0.000363
+profile = "assignment"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-cbls_jump-assignment-1.toml"
+size = 0
+solve_call_seconds = 2.0060762
+[[records]]
+engine = "cbls_jump"
+events = 2
+first_feasible_seconds = 0.0038298
+profile = "assignment"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-cbls_jump-assignment-2.toml"
+size = 0
+solve_call_seconds = 2.0049181
+[[records]]
+engine = "cbls_jump"
+events = 1
+first_feasible_seconds = 0.0003808
+profile = "juls_greedy_like"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-cbls_jump-juls_greedy_like-1.toml"
+size = 0
+solve_call_seconds = 2.0112107
+[[records]]
+engine = "cbls_jump"
+events = 2
+first_feasible_seconds = 0.0004645
+profile = "juls_greedy_like"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-cbls_jump-juls_greedy_like-2.toml"
+size = 0
+solve_call_seconds = 2.0062931
+[[records]]
+engine = "cbls_jump"
+events = 1
+first_feasible_seconds = 0.0004686
+profile = "ghost_assignment_like"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-cbls_jump-ghost_assignment_like-1.toml"
+size = 0
+solve_call_seconds = 2.0053352
+[[records]]
+engine = "cbls_jump"
+events = 2
+first_feasible_seconds = 0.000431
+profile = "ghost_assignment_like"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-cbls_jump-ghost_assignment_like-2.toml"
+size = 0
+solve_call_seconds = 2.0015879
+[[records]]
+engine = "cbls_jump"
+events = 1
+first_feasible_seconds = 0.0003806
+profile = "timefold_late_acceptance_like"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-cbls_jump-timefold_late_acceptance_like-1.toml"
+size = 0
+solve_call_seconds = 2.0056452
+[[records]]
+engine = "cbls_jump"
+events = 3
+first_feasible_seconds = 0.0004183
+profile = "timefold_late_acceptance_like"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-cbls_jump-timefold_late_acceptance_like-2.toml"
+size = 0
+solve_call_seconds = 2.0067137
+[[records]]
+engine = "timefold_native"
+events = 1
+first_feasible_seconds = 0.003
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-timefold_native-default-1.toml"
+size = 0
+solve_call_seconds = 2.0075614
+[[records]]
+engine = "timefold_native"
+events = 1
+first_feasible_seconds = 0.002
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-timefold_native-default-2.toml"
+size = 0
+solve_call_seconds = 2.0059271
+[[records]]
+engine = "timefold_native"
+events = 1
+first_feasible_seconds = 0.002
+profile = "late_acceptance_400"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-timefold_native-late_acceptance_400-1.toml"
+size = 0
+solve_call_seconds = 2.0044396
+[[records]]
+engine = "timefold_native"
+events = 1
+first_feasible_seconds = 0.002
+profile = "late_acceptance_400"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-timefold_native-late_acceptance_400-2.toml"
+size = 0
+solve_call_seconds = 2.0075619
+[[records]]
+engine = "ghost_native_cpp"
+events = 2
+first_feasible_seconds = 0.000979
+profile = "default_permutation"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-ghost_native_cpp-default_permutation-1.toml"
+size = 0
+solve_call_seconds = 2.001183
+[[records]]
+engine = "ghost_native_cpp"
+events = 3
+first_feasible_seconds = 0.00095
+profile = "default_permutation"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-ghost_native_cpp-default_permutation-2.toml"
+size = 0
+solve_call_seconds = 2.001231
+[[records]]
+engine = "juls_native"
+events = 1
+first_feasible_seconds = 0.0
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-juls_native-greedy_swap-1.toml"
+size = 0
+solve_call_seconds = 2.0009624
+[[records]]
+engine = "juls_native"
+events = 1
+first_feasible_seconds = 0.0
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/profiles-juls_native-greedy_swap-2.toml"
+size = 0
+solve_call_seconds = 1.9999101
+[[records]]
+engine = "highs_control"
+events = 3
+first_feasible_seconds = 0.0073796
+profile = "compact_mip"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-highs-1.toml"
+size = 0
+solve_call_seconds = 0.0094803
+[[records]]
+engine = "highs_control"
+events = 2
+first_feasible_seconds = 0.0068498
+profile = "compact_mip"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-highs-2.toml"
+size = 0
+solve_call_seconds = 0.0079047
+[[records]]
+engine = "lss_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc101-lss_native.toml"
+size = 100
+solve_call_seconds = 0.9423107
+[[records]]
+engine = "cbls_jump"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc101-cbls_jump.toml"
+size = 100
+solve_call_seconds = 1.1639544
+[[records]]
+engine = "timefold_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc101-timefold_native.toml"
+size = 100
+solve_call_seconds = 0.2130815
+[[records]]
+engine = "ghost_native_cpp"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default_permutation"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc101-ghost_native_cpp.toml"
+size = 100
+solve_call_seconds = 0.237722
+[[records]]
+engine = "juls_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc101-juls_native.toml"
+size = 100
+solve_call_seconds = 0.2196404
+[[records]]
+engine = "lss_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_2_1-lss_native.toml"
+size = 200
+solve_call_seconds = 1.235416
+[[records]]
+engine = "cbls_jump"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_2_1-cbls_jump.toml"
+size = 200
+solve_call_seconds = 1.1374951
+[[records]]
+engine = "timefold_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_2_1-timefold_native.toml"
+size = 200
+solve_call_seconds = 0.2215077
+[[records]]
+engine = "ghost_native_cpp"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default_permutation"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_2_1-ghost_native_cpp.toml"
+size = 200
+solve_call_seconds = 0.248155
+[[records]]
+engine = "juls_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_2_1-juls_native.toml"
+size = 200
+solve_call_seconds = 0.2055217
+[[records]]
+engine = "lss_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_4_1-lss_native.toml"
+size = 400
+solve_call_seconds = 1.2244156
+[[records]]
+engine = "cbls_jump"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_4_1-cbls_jump.toml"
+size = 400
+solve_call_seconds = 1.1449638
+[[records]]
+engine = "timefold_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_4_1-timefold_native.toml"
+size = 400
+solve_call_seconds = 0.2408626
+[[records]]
+engine = "ghost_native_cpp"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default_permutation"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_4_1-ghost_native_cpp.toml"
+size = 400
+solve_call_seconds = 0.23863
+[[records]]
+engine = "juls_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_4_1-juls_native.toml"
+size = 400
+solve_call_seconds = 0.2263924
+[[records]]
+engine = "lss_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_6_1-lss_native.toml"
+size = 600
+solve_call_seconds = 1.225126
+[[records]]
+engine = "cbls_jump"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_6_1-cbls_jump.toml"
+size = 600
+solve_call_seconds = 1.1647933
+[[records]]
+engine = "timefold_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_6_1-timefold_native.toml"
+size = 600
+solve_call_seconds = 0.2479392
+[[records]]
+engine = "ghost_native_cpp"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default_permutation"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_6_1-ghost_native_cpp.toml"
+size = 600
+solve_call_seconds = 0.296437
+[[records]]
+engine = "juls_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_6_1-juls_native.toml"
+size = 600
+solve_call_seconds = 0.2490986
+[[records]]
+engine = "lss_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_8_1-lss_native.toml"
+size = 800
+solve_call_seconds = 1.2254019
+[[records]]
+engine = "cbls_jump"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_8_1-cbls_jump.toml"
+size = 800
+solve_call_seconds = 1.2746981
+[[records]]
+engine = "timefold_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_8_1-timefold_native.toml"
+size = 800
+solve_call_seconds = 0.2535097
+[[records]]
+engine = "ghost_native_cpp"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default_permutation"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_8_1-ghost_native_cpp.toml"
+size = 800
+solve_call_seconds = 0.38186
+[[records]]
+engine = "juls_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_8_1-juls_native.toml"
+size = 800
+solve_call_seconds = 0.2135205
+[[records]]
+engine = "lss_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_10_1-lss_native.toml"
+size = 1000
+solve_call_seconds = 1.4952403
+[[records]]
+engine = "cbls_jump"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_10_1-cbls_jump.toml"
+size = 1000
+solve_call_seconds = 1.4062799
+[[records]]
+engine = "timefold_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_10_1-timefold_native.toml"
+size = 1000
+solve_call_seconds = 0.2710292
+[[records]]
+engine = "ghost_native_cpp"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default_permutation"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_10_1-ghost_native_cpp.toml"
+size = 1000
+solve_call_seconds = 0.47624
+[[records]]
+engine = "juls_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-212eadcc-67c0-46db-bde0-69195bc4e3f1/fullsizes-lc1_10_1-juls_native.toml"
+size = 1000
+solve_call_seconds = 0.2166869

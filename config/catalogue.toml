@@ -45,3 +45,12 @@ id = "legacy-version-sweeps"
 status = "archived"
 historical = "archive/legacy"
 reason = "Old PerfChecker campaigns and IDE profiling scripts lack current environment/resource qualification; excluded from launchers."
+
+[[studies]]
+id = "lilim-anytime"
+status = "diagnostic_campaign"
+entrypoint = "SolverSmoke/scripts/anytime_campaign.jl"
+max_logical_cpus = 4
+resource_authorization = "User authorized four CPUs and 30/60/120/240-second tiers on 2026-09-12."
+role = "Full Li-Lim, incumbent discovery traces, generated LSS/CBLS strategy profiles and native solver baselines; not final ranking"
+protocol = "354 instances, 15 configurations, three repetitions per independent budget, verified private GitLab revision"

@@ -1,0 +1,28 @@
+big_m = 23.627416997969522
+budget_seconds = 2.0
+build_seconds = 0.0004828
+clock = "monotonic"
+engine = "lss_native"
+found = true
+objective_encoding = "fleet * certified_distance_bound + distance"
+profile = "default"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed = 1
+seed_controlled = true
+solve_call_seconds = 2.0016816
+threads = 4
+timing_available = true
+
+[[events]]
+elapsed_seconds = 1.2394473
+objective = 55.254833995939045
+phase = "search"
+solve_seconds = 1.2389645
+values = [4, 5, 6, 2, 3]
+[[events]]
+elapsed_seconds = 1.2394634
+objective = 30.863484975469312
+phase = "search"
+solve_seconds = 1.2389806
+values = [2, 3, 4, 5, 6]

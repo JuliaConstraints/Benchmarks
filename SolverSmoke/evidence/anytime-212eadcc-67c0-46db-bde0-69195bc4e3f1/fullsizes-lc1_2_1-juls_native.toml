@@ -1,0 +1,17 @@
+budget_seconds = 0.2
+build_seconds = 0.0015341
+clock = "monotonic"
+constraint_penalty = 10000.0
+engine = "juls_native"
+error_unit = "ceil(total violation), exact-zero preserving"
+events = []
+found = false
+julia_version = "1.11.9"
+profile = "greedy_swap"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed = 1
+seed_controlled = true
+solve_call_seconds = 0.2055217
+threads = 4
+timing_available = true

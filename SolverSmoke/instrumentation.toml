@@ -1,0 +1,6 @@
+schema = "vendor-instrumentation/1"
+
+[files]
+"JuLS/src/model/model.jl" = "1ed65cbac60411a5f11cf7bcb40b94c77678186e28144915df41f752f0dc8e0b"
+"LocalSearchSolvers/src/pool.jl" = "1ffe6157a13e90082bff38cbd5023d12130c5c2e9a5d09eb1566359cde8cd645"
+"ghost-source/include/search_unit.hpp" = "f3a7a18625bdfeb8a184b094cb986452e90422a39174186518b1d51866da5a4d"

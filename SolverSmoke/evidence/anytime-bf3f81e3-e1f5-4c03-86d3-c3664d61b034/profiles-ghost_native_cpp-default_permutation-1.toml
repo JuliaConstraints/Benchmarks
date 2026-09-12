@@ -1,0 +1,19 @@
+schema = "incumbent-trace/1"
+engine = "ghost_native_cpp"
+profile = "default_permutation"
+clock = "monotonic"
+timing_available = true
+proof_time_available = false
+seed_controlled = false
+threads = 4
+budget_seconds = 2
+build_seconds = 0.000212
+solve_call_seconds = 2.0010840000000001
+found = true
+
+[[events]]
+phase = "search"
+elapsed_seconds = 0.001072
+solve_seconds = 0.00085999999999999998
+objective = 30.863484975469312
+values = [6, 4, 5, 2, 3]

@@ -1,0 +1,16 @@
+big_m = 458952.43272464024
+budget_seconds = 0.2
+build_seconds = 0.3912453
+clock = "monotonic"
+engine = "cbls_jump"
+events = []
+found = false
+objective_encoding = "fleet * certified_distance_bound + distance"
+profile = "default"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed = 1
+seed_controlled = true
+solve_call_seconds = 1.1647933
+threads = 4
+timing_available = true

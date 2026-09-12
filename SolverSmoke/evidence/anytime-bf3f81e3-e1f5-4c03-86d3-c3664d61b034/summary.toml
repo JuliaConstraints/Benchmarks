@@ -1,0 +1,560 @@
+[raw_sha256]
+"fullsizes-highs-1.toml" = "12cd21332562b1bb3e82cd589d93e147efe80e8302851ee90285275a3dba38b3"
+"fullsizes-highs-2.toml" = "8ad57d8635ce9a0f7b1b174dac9f85144cb762cdab6823b95fb1bb8f39297c6d"
+"fullsizes-lc101-cbls_jump.toml" = "d12771a64b240ec4375855cd5765abadc9a7c9ab68d36cee4a89dc663a023567"
+"fullsizes-lc101-ghost_native_cpp.toml" = "d8ca364861a272e91030133ad753b82d94de46c514ada26433d6947a77bbd611"
+"fullsizes-lc101-juls_native.toml" = "05a5cba24ac5fb6e3c34d87b54a42e10d1c65d8d6f2b63be9c926e3d1067fb91"
+"fullsizes-lc101-lss_native.toml" = "f23df83479aa732abedbc79949be32541540705546c70eab7108e2ff93024070"
+"fullsizes-lc101-timefold_native.toml" = "20b9d4b58ae2ca9ab383643ec392f5d34bf8024299ec019923a974477cc0d323"
+"fullsizes-lc1_10_1-cbls_jump.toml" = "f15c26ade16711a22c938ee0aad44b64bed3441d693ff0aceec2721d4e114ac5"
+"fullsizes-lc1_10_1-ghost_native_cpp.toml" = "1b6f940c1a1b9245b5bf11c62508f8298c3dea0e302fe5eb83120641ae67d123"
+"fullsizes-lc1_10_1-juls_native.toml" = "afe4a635e41112168e76f49e5e89653e46a66d20812f0371a3b892e314b852db"
+"fullsizes-lc1_10_1-lss_native.toml" = "b8ebcd8ed7f2572b01eb1c9e83b4264f3495a646aae02cd2aa1692db9f9c1589"
+"fullsizes-lc1_10_1-timefold_native.toml" = "d7fdbdc1a1758767d9d093e75df3b2602ee2ca4590004c7270f881545f71ae3e"
+"fullsizes-lc1_2_1-cbls_jump.toml" = "e0821a148f2d85080985142ca49a3be3d9690790b959a0cb7afe05beb0e55df3"
+"fullsizes-lc1_2_1-ghost_native_cpp.toml" = "de22e7141728dfa49ede7f494de7032212b780c2819ecbc931bd183dc6069a81"
+"fullsizes-lc1_2_1-juls_native.toml" = "a8248dbfc11729cec06aea6e2b3cf94cd84348a2ad265025101030c04572806e"
+"fullsizes-lc1_2_1-lss_native.toml" = "3b288ce8f4f2dc293d09d642c1247f8b3ab8e54940f17079a6da2632b4614fbe"
+"fullsizes-lc1_2_1-timefold_native.toml" = "66caa33d8678d356aec9eeefac103e682f63fd445439060270c5644ca869c52f"
+"fullsizes-lc1_4_1-cbls_jump.toml" = "04da5971ead88b6f84e75b5fbd6c3f7c408497ec0c6d2940ee84b71d9b0ab3a9"
+"fullsizes-lc1_4_1-ghost_native_cpp.toml" = "e5024c19a4e372d52ca70670f026d7920c61063cf3c88b0fef045a05fa74227f"
+"fullsizes-lc1_4_1-juls_native.toml" = "0a13ffc51c3f4dd529628a29389f16b7ee52974262b5216d46d6124df36a8e61"
+"fullsizes-lc1_4_1-lss_native.toml" = "442241ee0865c1ffdf7da5916fb143963fa228332d001126f1f8324cf6d6f591"
+"fullsizes-lc1_4_1-timefold_native.toml" = "3fa8cba9f3a82c1ee46b1be81e49d56b48bc03d61fc7f633e708a9dcc26900db"
+"fullsizes-lc1_6_1-cbls_jump.toml" = "96e7f21bc45c17e4b710d5247960b2d74e245e3a1722178f93fbcae38cbf60fe"
+"fullsizes-lc1_6_1-ghost_native_cpp.toml" = "8f567e74bf58e2355b910795767668b6c3827104cd0bf1a70803a2ae6c336cf9"
+"fullsizes-lc1_6_1-juls_native.toml" = "ef2d5860da6c7dfef2fdf1a9380b4b55b7b887e2ac3b2b212e3ae0c76025153b"
+"fullsizes-lc1_6_1-lss_native.toml" = "79b576deed79dc9b4c555a64b480d1ab04655d5467231778e7963c88790445ca"
+"fullsizes-lc1_6_1-timefold_native.toml" = "36de638673cc48f6bef8be6e9f209f3b1a8a1ae1ef75fcd59c124ce4097f3712"
+"fullsizes-lc1_8_1-cbls_jump.toml" = "5583149d7d0b1d8baeae418cc2485e405f9ff0294cad78421fb59082d9fb6a6b"
+"fullsizes-lc1_8_1-ghost_native_cpp.toml" = "fb3616f5a9c4ad2001867ec6eb937159d8229e5aaadba40336fc5d055feca2ae"
+"fullsizes-lc1_8_1-juls_native.toml" = "7fc2f755fbeaef09020c3b4e6636c817f662ab710c10713e49d1a35113fb11e8"
+"fullsizes-lc1_8_1-lss_native.toml" = "159dd3253f7990a00e23a23e327209c31f6954f1ba94599ad445360abe49d73a"
+"fullsizes-lc1_8_1-timefold_native.toml" = "ed547bdab9193f73d6c62f8a362b79d8e101231b1080012e107e5ced9b41dd42"
+"profiles-cbls_jump-assignment-1.toml" = "5597b451269e05d80ac2e047b9a5db28de1fc6209266e57153530fff48ad2b91"
+"profiles-cbls_jump-assignment-2.toml" = "684cb2f02a75f1c23c799f7fd2f26328684d7ba207063020fc95f76fb7282280"
+"profiles-cbls_jump-default-1.toml" = "50c37cc49d7f170c8e9471fab4ed5bc3de86b9df4a17ad9cac780d8fdc651621"
+"profiles-cbls_jump-default-2.toml" = "48546abdbf69e72b12282ee63674c86ae1eae147d19fcc2b941b2de8eb9353c6"
+"profiles-cbls_jump-ghost_assignment_like-1.toml" = "d52e3923e753ce3f162efc5d8807ae7710ecf21a2a28d7c50aa08804e3128b11"
+"profiles-cbls_jump-ghost_assignment_like-2.toml" = "176e3f656c52f4eb2eccec2f92b9cbf1f86af21156df3ebee22706b5136b0a21"
+"profiles-cbls_jump-juls_greedy_like-1.toml" = "7bcf3ff7786e02c5bcc2304e240da2895f7e7a7853b84d5d120d47888534a8ab"
+"profiles-cbls_jump-juls_greedy_like-2.toml" = "e7c69ee89470f3a87fa43fbaf8183259e8ed2246320aac9275bd163ec9b8fa92"
+"profiles-cbls_jump-timefold_late_acceptance_like-1.toml" = "20288540330f4ff50a7669a6b85e38d33812a32c5270b63d2a4df296e22cb232"
+"profiles-cbls_jump-timefold_late_acceptance_like-2.toml" = "be18b52eec9b40d1878a839130365e01fc86a7fef387ed9724e72a22a66796bd"
+"profiles-ghost_native_cpp-default_permutation-1.toml" = "8f27535d3eac9794caaa0c948da87950d1db7edf0584ab0bd0ffcda9036b2917"
+"profiles-ghost_native_cpp-default_permutation-2.toml" = "ee08451d81cfbf9cb75778d2a287ccb9520bbf28b828551bae8f2cfffb947caa"
+"profiles-highs_control-compact_mip-1.toml" = "7b8a5a13330a075e9f365eae56288e0bcdbe6f8ef6ee798513e415b5194c3f6b"
+"profiles-highs_control-compact_mip-2.toml" = "088fd54aae1bca0496b947243fdfbc3bf47ed32ac293eac99406335274a7f433"
+"profiles-juls_native-greedy_swap-1.toml" = "b077170d4eafdfa2d05196e6fc0de97177f9d8c4e9a4e437bffa646ec42d54f8"
+"profiles-juls_native-greedy_swap-2.toml" = "6f9bbad90705cc79c55e7f5e364ad0f8f1ba9bed8d41009a03c88a83f88f0242"
+"profiles-lss_native-assignment-1.toml" = "6788e3c3a2d4be6dfc5da91526b5a9b6f71841596659963c639ae68d6a0410cb"
+"profiles-lss_native-assignment-2.toml" = "5138578ada30b79ceb580e03e0d954985d1a9afe75f4bb73c8c2337cce6e002c"
+"profiles-lss_native-default-1.toml" = "2f487f5550cfd92f07b00b3c6ad42f267ce7a359136768c0eb19944daf23eaba"
+"profiles-lss_native-default-2.toml" = "3f490d8afbcb8490e369a925eb812c08f7a178490c4c2e870702ec07e7d45d71"
+"profiles-lss_native-ghost_assignment_like-1.toml" = "46977461bde024f671f02753b0463fad12c181d8f8b62eeb5275cebf97e385b0"
+"profiles-lss_native-ghost_assignment_like-2.toml" = "53956498ae41bb301a043aeca80f17f16a00550a91522224a6db0503edb22806"
+"profiles-lss_native-juls_greedy_like-1.toml" = "346a48e036c2de0dc96f9b85651fe2a8a6f65d9d561aa68e02e8085f9fa3ffe8"
+"profiles-lss_native-juls_greedy_like-2.toml" = "e18b6106f2c30f97c8cf1e67f37a32ebfbfe18cd0523cc61d1a562a34c9e26dd"
+"profiles-lss_native-timefold_late_acceptance_like-1.toml" = "81c371daa547c2864336a55f333272b324ee3e44a9bbfe7e1fee4c2afa7d9799"
+"profiles-lss_native-timefold_late_acceptance_like-2.toml" = "32fe334729f513560a93b2c99db8bc18cf37fc431b5cf002092b041ab42153e9"
+"profiles-timefold_native-default-1.toml" = "d628256014585d3b09de36d5915a513d723d362dc057284fab3b046115450c26"
+"profiles-timefold_native-default-2.toml" = "939572f66737b43d7d8d2c75fe8adbcfae0b039f1942c1c709bab9b699dc5e47"
+"profiles-timefold_native-late_acceptance_400-1.toml" = "652243c2b3bbb07329478f6ee061aafdb7dbad0a56025fa7fcc15133d9275cdb"
+"profiles-timefold_native-late_acceptance_400-2.toml" = "d726d22385f5d086eed6ed1f3a91e169d8128fc18ca6981359d3d0a51e4b7cbc"
+
+[[records]]
+engine = "lss_native"
+events = 1
+first_feasible_seconds = 0.0002757
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-lss_native-default-1.toml"
+size = 0
+solve_call_seconds = 2.0014548
+[[records]]
+engine = "lss_native"
+events = 1
+first_feasible_seconds = 0.000327
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-lss_native-default-2.toml"
+size = 0
+solve_call_seconds = 2.0048697
+[[records]]
+engine = "lss_native"
+events = 1
+first_feasible_seconds = 0.0002971
+profile = "assignment"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-lss_native-assignment-1.toml"
+size = 0
+solve_call_seconds = 2.0024784
+[[records]]
+engine = "lss_native"
+events = 2
+first_feasible_seconds = 0.0002288
+profile = "assignment"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-lss_native-assignment-2.toml"
+size = 0
+solve_call_seconds = 2.0046426
+[[records]]
+engine = "lss_native"
+events = 1
+first_feasible_seconds = 0.0002603
+profile = "juls_greedy_like"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-lss_native-juls_greedy_like-1.toml"
+size = 0
+solve_call_seconds = 2.0082398
+[[records]]
+engine = "lss_native"
+events = 2
+first_feasible_seconds = 0.0002687
+profile = "juls_greedy_like"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-lss_native-juls_greedy_like-2.toml"
+size = 0
+solve_call_seconds = 2.0018619
+[[records]]
+engine = "lss_native"
+events = 1
+first_feasible_seconds = 0.0003205
+profile = "ghost_assignment_like"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-lss_native-ghost_assignment_like-1.toml"
+size = 0
+solve_call_seconds = 2.0044349
+[[records]]
+engine = "lss_native"
+events = 2
+first_feasible_seconds = 0.0002836
+profile = "ghost_assignment_like"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-lss_native-ghost_assignment_like-2.toml"
+size = 0
+solve_call_seconds = 2.0117228
+[[records]]
+engine = "lss_native"
+events = 1
+first_feasible_seconds = 0.0003174
+profile = "timefold_late_acceptance_like"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-lss_native-timefold_late_acceptance_like-1.toml"
+size = 0
+solve_call_seconds = 1.9999519
+[[records]]
+engine = "lss_native"
+events = 3
+first_feasible_seconds = 0.000407
+profile = "timefold_late_acceptance_like"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-lss_native-timefold_late_acceptance_like-2.toml"
+size = 0
+solve_call_seconds = 2.0011
+[[records]]
+engine = "cbls_jump"
+events = 1
+first_feasible_seconds = 0.000327
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-cbls_jump-default-1.toml"
+size = 0
+solve_call_seconds = 2.0014201
+[[records]]
+engine = "cbls_jump"
+events = 2
+first_feasible_seconds = 0.0004886
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-cbls_jump-default-2.toml"
+size = 0
+solve_call_seconds = 2.0025386
+[[records]]
+engine = "cbls_jump"
+events = 1
+first_feasible_seconds = 0.0003201
+profile = "assignment"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-cbls_jump-assignment-1.toml"
+size = 0
+solve_call_seconds = 2.0010793
+[[records]]
+engine = "cbls_jump"
+events = 2
+first_feasible_seconds = 0.0004065
+profile = "assignment"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-cbls_jump-assignment-2.toml"
+size = 0
+solve_call_seconds = 2.0006746
+[[records]]
+engine = "cbls_jump"
+events = 1
+first_feasible_seconds = 0.0003333
+profile = "juls_greedy_like"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-cbls_jump-juls_greedy_like-1.toml"
+size = 0
+solve_call_seconds = 2.0017742
+[[records]]
+engine = "cbls_jump"
+events = 2
+first_feasible_seconds = 0.0039598
+profile = "juls_greedy_like"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-cbls_jump-juls_greedy_like-2.toml"
+size = 0
+solve_call_seconds = 2.01338
+[[records]]
+engine = "cbls_jump"
+events = 1
+first_feasible_seconds = 0.0003681
+profile = "ghost_assignment_like"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-cbls_jump-ghost_assignment_like-1.toml"
+size = 0
+solve_call_seconds = 2.0008816
+[[records]]
+engine = "cbls_jump"
+events = 2
+first_feasible_seconds = 0.0003243
+profile = "ghost_assignment_like"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-cbls_jump-ghost_assignment_like-2.toml"
+size = 0
+solve_call_seconds = 2.0034159
+[[records]]
+engine = "cbls_jump"
+events = 1
+first_feasible_seconds = 0.0003477
+profile = "timefold_late_acceptance_like"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-cbls_jump-timefold_late_acceptance_like-1.toml"
+size = 0
+solve_call_seconds = 2.0001513
+[[records]]
+engine = "cbls_jump"
+events = 3
+first_feasible_seconds = 0.0004978
+profile = "timefold_late_acceptance_like"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-cbls_jump-timefold_late_acceptance_like-2.toml"
+size = 0
+solve_call_seconds = 2.0097389
+[[records]]
+engine = "timefold_native"
+events = 1
+first_feasible_seconds = 0.002
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-timefold_native-default-1.toml"
+size = 0
+solve_call_seconds = 2.0070374
+[[records]]
+engine = "timefold_native"
+events = 1
+first_feasible_seconds = 0.003
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-timefold_native-default-2.toml"
+size = 0
+solve_call_seconds = 2.0048787
+[[records]]
+engine = "timefold_native"
+events = 1
+first_feasible_seconds = 0.002
+profile = "late_acceptance_400"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-timefold_native-late_acceptance_400-1.toml"
+size = 0
+solve_call_seconds = 2.0069238
+[[records]]
+engine = "timefold_native"
+events = 1
+first_feasible_seconds = 0.002
+profile = "late_acceptance_400"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-timefold_native-late_acceptance_400-2.toml"
+size = 0
+solve_call_seconds = 2.0057203
+[[records]]
+engine = "ghost_native_cpp"
+events = 1
+first_feasible_seconds = 0.00086
+profile = "default_permutation"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-ghost_native_cpp-default_permutation-1.toml"
+size = 0
+solve_call_seconds = 2.001084
+[[records]]
+engine = "ghost_native_cpp"
+events = 1
+first_feasible_seconds = 0.000907
+profile = "default_permutation"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-ghost_native_cpp-default_permutation-2.toml"
+size = 0
+solve_call_seconds = 2.001362
+[[records]]
+engine = "juls_native"
+events = 1
+first_feasible_seconds = 0.0
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-juls_native-greedy_swap-1.toml"
+size = 0
+solve_call_seconds = 2.0002388
+[[records]]
+engine = "juls_native"
+events = 1
+first_feasible_seconds = 0.0
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-juls_native-greedy_swap-2.toml"
+size = 0
+solve_call_seconds = 2.0003548
+[[records]]
+engine = "highs_control"
+events = 3
+first_feasible_seconds = 0.0070708
+profile = "compact_mip"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-highs_control-compact_mip-1.toml"
+size = 0
+solve_call_seconds = 0.0091315
+[[records]]
+engine = "highs_control"
+events = 2
+first_feasible_seconds = 0.0071488
+profile = "compact_mip"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/profiles-highs_control-compact_mip-2.toml"
+size = 0
+solve_call_seconds = 0.0082338
+[[records]]
+engine = "highs_control"
+events = 3
+first_feasible_seconds = 0.0073796
+profile = "compact_mip"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-highs-1.toml"
+size = 0
+solve_call_seconds = 0.0094803
+[[records]]
+engine = "highs_control"
+events = 2
+first_feasible_seconds = 0.0068498
+profile = "compact_mip"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-highs-2.toml"
+size = 0
+solve_call_seconds = 0.0079047
+[[records]]
+engine = "lss_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc101-lss_native.toml"
+size = 100
+solve_call_seconds = 0.9423107
+[[records]]
+engine = "cbls_jump"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc101-cbls_jump.toml"
+size = 100
+solve_call_seconds = 1.1639544
+[[records]]
+engine = "timefold_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc101-timefold_native.toml"
+size = 100
+solve_call_seconds = 0.2130815
+[[records]]
+engine = "ghost_native_cpp"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default_permutation"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc101-ghost_native_cpp.toml"
+size = 100
+solve_call_seconds = 0.237722
+[[records]]
+engine = "juls_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc101-juls_native.toml"
+size = 100
+solve_call_seconds = 0.2196404
+[[records]]
+engine = "lss_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_2_1-lss_native.toml"
+size = 200
+solve_call_seconds = 1.235416
+[[records]]
+engine = "cbls_jump"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_2_1-cbls_jump.toml"
+size = 200
+solve_call_seconds = 1.1374951
+[[records]]
+engine = "timefold_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_2_1-timefold_native.toml"
+size = 200
+solve_call_seconds = 0.2215077
+[[records]]
+engine = "ghost_native_cpp"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default_permutation"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_2_1-ghost_native_cpp.toml"
+size = 200
+solve_call_seconds = 0.248155
+[[records]]
+engine = "juls_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_2_1-juls_native.toml"
+size = 200
+solve_call_seconds = 0.2055217
+[[records]]
+engine = "lss_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_4_1-lss_native.toml"
+size = 400
+solve_call_seconds = 1.2244156
+[[records]]
+engine = "cbls_jump"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_4_1-cbls_jump.toml"
+size = 400
+solve_call_seconds = 1.1449638
+[[records]]
+engine = "timefold_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_4_1-timefold_native.toml"
+size = 400
+solve_call_seconds = 0.2408626
+[[records]]
+engine = "ghost_native_cpp"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default_permutation"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_4_1-ghost_native_cpp.toml"
+size = 400
+solve_call_seconds = 0.23863
+[[records]]
+engine = "juls_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_4_1-juls_native.toml"
+size = 400
+solve_call_seconds = 0.2263924
+[[records]]
+engine = "lss_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_6_1-lss_native.toml"
+size = 600
+solve_call_seconds = 1.225126
+[[records]]
+engine = "cbls_jump"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_6_1-cbls_jump.toml"
+size = 600
+solve_call_seconds = 1.1647933
+[[records]]
+engine = "timefold_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_6_1-timefold_native.toml"
+size = 600
+solve_call_seconds = 0.2479392
+[[records]]
+engine = "ghost_native_cpp"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default_permutation"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_6_1-ghost_native_cpp.toml"
+size = 600
+solve_call_seconds = 0.296437
+[[records]]
+engine = "juls_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_6_1-juls_native.toml"
+size = 600
+solve_call_seconds = 0.2490986
+[[records]]
+engine = "lss_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_8_1-lss_native.toml"
+size = 800
+solve_call_seconds = 1.2254019
+[[records]]
+engine = "cbls_jump"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_8_1-cbls_jump.toml"
+size = 800
+solve_call_seconds = 1.2746981
+[[records]]
+engine = "timefold_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_8_1-timefold_native.toml"
+size = 800
+solve_call_seconds = 0.2535097
+[[records]]
+engine = "ghost_native_cpp"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default_permutation"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_8_1-ghost_native_cpp.toml"
+size = 800
+solve_call_seconds = 0.38186
+[[records]]
+engine = "juls_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_8_1-juls_native.toml"
+size = 800
+solve_call_seconds = 0.2135205
+[[records]]
+engine = "lss_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_10_1-lss_native.toml"
+size = 1000
+solve_call_seconds = 1.4952403
+[[records]]
+engine = "cbls_jump"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_10_1-cbls_jump.toml"
+size = 1000
+solve_call_seconds = 1.4062799
+[[records]]
+engine = "timefold_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_10_1-timefold_native.toml"
+size = 1000
+solve_call_seconds = 0.2710292
+[[records]]
+engine = "ghost_native_cpp"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "default_permutation"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_10_1-ghost_native_cpp.toml"
+size = 1000
+solve_call_seconds = 0.47624
+[[records]]
+engine = "juls_native"
+events = 0
+first_feasible_seconds = "unavailable"
+profile = "greedy_swap"
+raw_trace = "evidence/anytime-bf3f81e3-e1f5-4c03-86d3-c3664d61b034/fullsizes-lc1_10_1-juls_native.toml"
+size = 1000
+solve_call_seconds = 0.2166869
