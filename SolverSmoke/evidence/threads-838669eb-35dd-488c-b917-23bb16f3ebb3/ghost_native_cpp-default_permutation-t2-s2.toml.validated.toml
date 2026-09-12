@@ -1,0 +1,38 @@
+best_discovery_seconds = 0.000983
+budget_overrun_seconds = 0.0011070000000001912
+budget_seconds = 2
+build_seconds = 0.000213
+clock = "monotonic"
+engine = "ghost_native_cpp"
+first_feasible_end_to_end_seconds = 0.001154
+first_feasible_seconds = 0.000941
+found = true
+independently_validated = true
+parallelism = "native parallel searches"
+profile = "default_permutation"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed_controlled = false
+solve_call_seconds = 2.001107
+threads = 2
+timing_available = true
+within_budget_feasible = true
+
+[[events]]
+distance = 8.242640687119286
+elapsed_seconds = 0.001154
+objective = 31.87005768508881
+phase = "search"
+solve_seconds = 0.000941
+values = [6, 4, 2, 3, 5]
+vehicles = 1
+within_solve_budget = true
+[[events]]
+distance = 7.23606797749979
+elapsed_seconds = 0.001196
+objective = 30.863484975469312
+phase = "search"
+solve_seconds = 0.000983
+values = [4, 5, 2, 3, 6]
+vehicles = 1
+within_solve_budget = true

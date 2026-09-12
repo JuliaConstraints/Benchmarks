@@ -1,0 +1,24 @@
+budget_seconds = 2.0
+build_seconds = 0.0033757
+clock = "monotonic"
+engine = "highs_control"
+final_has_solution = true
+found = true
+optimality_proved = true
+profile = "compact_mip"
+proof_seconds_upper_bound = 0.0007198
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed = 3
+seed_controlled = true
+solve_call_seconds = 0.0007198
+status = "OPTIMAL"
+threads = 4
+timing_available = true
+
+[[events]]
+elapsed_seconds = 0.0039812
+objective = 295.4294913019159
+phase = "search"
+solve_seconds = 0.0006055
+values = [4, 3, 6, 5, 2, 7]

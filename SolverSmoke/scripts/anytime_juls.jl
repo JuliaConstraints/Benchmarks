@@ -68,6 +68,6 @@ input,budget,seed,out,warm=ARGS
 for _ in 1:2;solve_case(warm,2.,0);end
 t,build,elapsed=solve_case(input,parse(Float64,budget),parse(Int,seed))
 save_trace(out,t;engine="juls_native",profile="greedy_swap",budget_seconds=parse(Float64,budget),seed=parse(Int,seed),
-    build_seconds=build,solve_call_seconds=elapsed,threads=4,seed_controlled=true,
+    build_seconds=build,solve_call_seconds=elapsed,threads=Threads.nthreads(),parallelism="parallel move evaluation",seed_controlled=true,
     constraint_penalty=10000.,error_unit="ceil(total violation), exact-zero preserving",julia_version=string(VERSION),
     warmup_solves=2,warmup_budget_seconds=2.)

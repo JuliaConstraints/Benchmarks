@@ -1,0 +1,510 @@
+campaign_revision = "5767f32d367bef6fa6fb1ea4dc0645b672d5405d"
+completed_utc = "2026-09-12T14:44:35.973"
+script_sha256 = "671f4e8cd035d133565f60690eb1249ac7b081295c28fe70184ad2de3ad52d94"
+snapshot_sha256 = "82b987571bf0346fd06e693a37faf6ba573d40935b5af9f30e460b84bd63b035"
+
+[oracle]
+checked_permutations = 720
+distance = 47.04315376485624
+feasible_permutations = 1
+
+[provenance]
+scope = "Reduced smoke fixture; three complete pairs from one known feasible route; fleet fixed to one"
+source_node_ids = [0, 2, 3, 5, 6, 7, 75]
+source_sha256 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+
+[[rows]]
+budget = 2.0
+engine = "lss_native"
+feasible = true
+first_seconds = 0.0006568
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-default-1.toml"
+profile = "default"
+raw_sha256 = "10bfdc281a37e1e0bb0fc2bef4e434254a187e0d6301871dd5d898261ca0d6ce"
+seed = 1
+solve_seconds = 2.0041577
+[[rows]]
+budget = 2.0
+engine = "lss_native"
+feasible = true
+first_seconds = 0.0007234
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-default-2.toml"
+profile = "default"
+raw_sha256 = "003622d15fb04b4380f15153d3d72d2af2adb58a0d2a3041f95577b90884661d"
+seed = 2
+solve_seconds = 2.0075143
+[[rows]]
+budget = 2.0
+engine = "lss_native"
+feasible = true
+first_seconds = 0.0007316
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-default-3.toml"
+profile = "default"
+raw_sha256 = "af78e11a69c7928c667803d00762d76ef51d102b0abbda09ad2639adf87973a8"
+seed = 3
+solve_seconds = 2.0007879
+[[rows]]
+budget = 2.0
+engine = "lss_native"
+feasible = true
+first_seconds = 0.0003556
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-assignment-1.toml"
+profile = "assignment"
+raw_sha256 = "97c1cd9eb565d099792d4854f57e58799e51f0f99361eff91e4c686ef32c6c13"
+seed = 1
+solve_seconds = 2.0142266
+[[rows]]
+budget = 2.0
+engine = "lss_native"
+feasible = true
+first_seconds = 0.0007979
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-assignment-2.toml"
+profile = "assignment"
+raw_sha256 = "0bf8eea47cbfec85a81bfdca37314847b66aba199481577fff2012f691852215"
+seed = 2
+solve_seconds = 2.0018028
+[[rows]]
+budget = 2.0
+engine = "lss_native"
+feasible = true
+first_seconds = 0.0006859
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-assignment-3.toml"
+profile = "assignment"
+raw_sha256 = "e5122c3a1defcacec2a6a6bd5a250bd759cb7f585839bc528754c8d40828be85"
+seed = 3
+solve_seconds = 1.9999123
+[[rows]]
+budget = 2.0
+engine = "lss_native"
+feasible = true
+first_seconds = 0.0014141
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-juls_greedy_like-1.toml"
+profile = "juls_greedy_like"
+raw_sha256 = "6f9c03b3376b08846e55cefa3e1c6b71ba633a8781601cfafc228e4f7671e2a5"
+seed = 1
+solve_seconds = 2.0016859
+[[rows]]
+budget = 2.0
+engine = "lss_native"
+feasible = true
+first_seconds = 0.0004468
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-juls_greedy_like-2.toml"
+profile = "juls_greedy_like"
+raw_sha256 = "2ea7e0d414884a4dd0605bd6265d03975c36cfa3570ea5260cdd5ceeeae50297"
+seed = 2
+solve_seconds = 2.0005835
+[[rows]]
+budget = 2.0
+engine = "lss_native"
+feasible = true
+first_seconds = 0.0068638
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-juls_greedy_like-3.toml"
+profile = "juls_greedy_like"
+raw_sha256 = "b4754c2d3045dbab8afeebd04457b4e8c709cd0f7e2b5d36383a44278d84903e"
+seed = 3
+solve_seconds = 2.0013325
+[[rows]]
+budget = 2.0
+engine = "lss_native"
+feasible = true
+first_seconds = 0.004258
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-ghost_assignment_like-1.toml"
+profile = "ghost_assignment_like"
+raw_sha256 = "f8a76672a0e3c006d40f89c9e2e0915cffc1b4962357af3c78e95295808535fb"
+seed = 1
+solve_seconds = 2.0250023
+[[rows]]
+budget = 2.0
+engine = "lss_native"
+feasible = true
+first_seconds = 0.0004214
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-ghost_assignment_like-2.toml"
+profile = "ghost_assignment_like"
+raw_sha256 = "66f3f06a5c536c6293edb2a84e92fcfe38480e426fbe07c0b88fbc10d8d41306"
+seed = 2
+solve_seconds = 2.0152276
+[[rows]]
+budget = 2.0
+engine = "lss_native"
+feasible = true
+first_seconds = 0.0006603
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-ghost_assignment_like-3.toml"
+profile = "ghost_assignment_like"
+raw_sha256 = "54ec06b395e0e810bb1a6a9a5dbf0a844828e28f144bd363af39ee72b514b212"
+seed = 3
+solve_seconds = 2.0014931
+[[rows]]
+budget = 2.0
+engine = "lss_native"
+feasible = true
+first_seconds = 0.0006989
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-timefold_late_acceptance_like-1.toml"
+profile = "timefold_late_acceptance_like"
+raw_sha256 = "fbf61209e2cce7a2dff67443d3497a094b88ccd3b735b40bb4cb0a2d613518d8"
+seed = 1
+solve_seconds = 2.0003688
+[[rows]]
+budget = 2.0
+engine = "lss_native"
+feasible = true
+first_seconds = 0.0009779
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-timefold_late_acceptance_like-2.toml"
+profile = "timefold_late_acceptance_like"
+raw_sha256 = "626cc0efa370177e447a9cb8a716c76ab5b1d63895ed2435c0ec30583c458f96"
+seed = 2
+solve_seconds = 2.0008367
+[[rows]]
+budget = 2.0
+engine = "lss_native"
+feasible = true
+first_seconds = 0.0008633
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-timefold_late_acceptance_like-3.toml"
+profile = "timefold_late_acceptance_like"
+raw_sha256 = "73d68b213c97c04fb78a7c0a32bb41cca833da86ec77d856e708412c0ce89cb5"
+seed = 3
+solve_seconds = 2.0008881
+[[rows]]
+budget = 2.0
+engine = "cbls_jump"
+feasible = true
+first_seconds = 0.0004875
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-default-1.toml"
+profile = "default"
+raw_sha256 = "b8bf1f0f7e2278554607f133f166e85d98a561499ed67edbfe0942cfbde18204"
+seed = 1
+solve_seconds = 2.0003928
+[[rows]]
+budget = 2.0
+engine = "cbls_jump"
+feasible = true
+first_seconds = 0.0011524
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-default-2.toml"
+profile = "default"
+raw_sha256 = "7749024797b4f1f68c96c3bebedc3d9173fd6ddefb8dedb19325e5164f8442c4"
+seed = 2
+solve_seconds = 2.0006898
+[[rows]]
+budget = 2.0
+engine = "cbls_jump"
+feasible = true
+first_seconds = 0.0008424
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-default-3.toml"
+profile = "default"
+raw_sha256 = "435813fd8a535e278487ad090c3ee493452fcf1d5a56cf015eb0354ba12216da"
+seed = 3
+solve_seconds = 2.0013753
+[[rows]]
+budget = 2.0
+engine = "cbls_jump"
+feasible = true
+first_seconds = 0.00044
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-assignment-1.toml"
+profile = "assignment"
+raw_sha256 = "9d7031cf37c6e2508e779d10ef5be552447b7bf8737a25091b8537cc5346b1bd"
+seed = 1
+solve_seconds = 2.0023909
+[[rows]]
+budget = 2.0
+engine = "cbls_jump"
+feasible = true
+first_seconds = 0.0010061
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-assignment-2.toml"
+profile = "assignment"
+raw_sha256 = "7c5448b193ba5fb5a5bb7c875ec2cd707633aaa79bca47d1a1bfc4995350616a"
+seed = 2
+solve_seconds = 2.0001174
+[[rows]]
+budget = 2.0
+engine = "cbls_jump"
+feasible = true
+first_seconds = 0.0042557
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-assignment-3.toml"
+profile = "assignment"
+raw_sha256 = "edc4e4105ddb8439c6a562edbd7ca98ee7e7d1d106da96d55ee05fae9e364daf"
+seed = 3
+solve_seconds = 2.0050102
+[[rows]]
+budget = 2.0
+engine = "cbls_jump"
+feasible = true
+first_seconds = 0.001563
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-juls_greedy_like-1.toml"
+profile = "juls_greedy_like"
+raw_sha256 = "da2dcd5e2bb2cf0a50f9cb747f4ec21ed627b6f05da17bf648cc68e0cedec414"
+seed = 1
+solve_seconds = 2.0002199
+[[rows]]
+budget = 2.0
+engine = "cbls_jump"
+feasible = true
+first_seconds = 0.0004709
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-juls_greedy_like-2.toml"
+profile = "juls_greedy_like"
+raw_sha256 = "0ece9bc242f086928cb5c2a9cb0bbfe5945a0a87f99917f5dec3102d4e2df1b7"
+seed = 2
+solve_seconds = 2.0096499
+[[rows]]
+budget = 2.0
+engine = "cbls_jump"
+feasible = true
+first_seconds = 0.007624
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-juls_greedy_like-3.toml"
+profile = "juls_greedy_like"
+raw_sha256 = "750c64c0df12315e07c5bd4a775c7c6c8b69de33ecf1b80360400b8e29376be2"
+seed = 3
+solve_seconds = 2.0010565
+[[rows]]
+budget = 2.0
+engine = "cbls_jump"
+feasible = true
+first_seconds = 0.0005719
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-ghost_assignment_like-1.toml"
+profile = "ghost_assignment_like"
+raw_sha256 = "2129cd51a35e21fd5fede3e1e22163074d4c7cbd556dc894d2d1092bf703c725"
+seed = 1
+solve_seconds = 2.0012116
+[[rows]]
+budget = 2.0
+engine = "cbls_jump"
+feasible = true
+first_seconds = 0.0007114
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-ghost_assignment_like-2.toml"
+profile = "ghost_assignment_like"
+raw_sha256 = "c05163bfb3763d3362349cab417bcfae1f6f0d9e76bfb22b2b601493f651555a"
+seed = 2
+solve_seconds = 2.0005299
+[[rows]]
+budget = 2.0
+engine = "cbls_jump"
+feasible = true
+first_seconds = 0.0007561
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-ghost_assignment_like-3.toml"
+profile = "ghost_assignment_like"
+raw_sha256 = "459ce39ff0baa14ad92ed6bb1bbd8aa35ca037b19ad9a841aaaa2850a9fb83e8"
+seed = 3
+solve_seconds = 2.0084254
+[[rows]]
+budget = 2.0
+engine = "cbls_jump"
+feasible = true
+first_seconds = 0.0007702
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-timefold_late_acceptance_like-1.toml"
+profile = "timefold_late_acceptance_like"
+raw_sha256 = "12ff6f7337dd0a0249ec922670a958bf00d8c7f3e88d8ca540c525d8322ef7a4"
+seed = 1
+solve_seconds = 2.0047672
+[[rows]]
+budget = 2.0
+engine = "cbls_jump"
+feasible = true
+first_seconds = 0.0010663
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-timefold_late_acceptance_like-2.toml"
+profile = "timefold_late_acceptance_like"
+raw_sha256 = "3e5874a94659b44b84ccc9badb8cf64bda70976e773d28fdc349f04e6d065cbe"
+seed = 2
+solve_seconds = 2.0011777
+[[rows]]
+budget = 2.0
+engine = "cbls_jump"
+feasible = true
+first_seconds = 0.0009611
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-timefold_late_acceptance_like-3.toml"
+profile = "timefold_late_acceptance_like"
+raw_sha256 = "515bfe553d4a91984a25bb27767a53e25114bf9af2cdf5ddeafde025b68bfd31"
+seed = 3
+solve_seconds = 2.0051164
+[[rows]]
+budget = 2.0
+engine = "timefold_native"
+feasible = true
+first_seconds = 0.003
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\timefold_native-default-1.toml"
+profile = "default"
+raw_sha256 = "85082b578510d43f0710b412ef967177c65a7b9cc0c04b6d53db3a4eded28539"
+seed = 1
+solve_seconds = 2.0066983
+[[rows]]
+budget = 2.0
+engine = "timefold_native"
+feasible = true
+first_seconds = 0.003
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\timefold_native-default-2.toml"
+profile = "default"
+raw_sha256 = "d193b7cce6df1d22b163d4ed52f5dc174eccbf4703c548cf7251d7cbd6e68007"
+seed = 2
+solve_seconds = 2.0080935
+[[rows]]
+budget = 2.0
+engine = "timefold_native"
+feasible = true
+first_seconds = 0.001
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\timefold_native-default-3.toml"
+profile = "default"
+raw_sha256 = "e5b3f3167d9c8c3131188bb48d12cd948b3a06529914c1bc6d72f350c3e9143e"
+seed = 3
+solve_seconds = 2.005801
+[[rows]]
+budget = 2.0
+engine = "timefold_native"
+feasible = true
+first_seconds = 0.004
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\timefold_native-late_acceptance_400-1.toml"
+profile = "late_acceptance_400"
+raw_sha256 = "c9454945cc2e6e94d798b6707d5508737113c4fd80a90d63ad78f0ca61d62fb6"
+seed = 1
+solve_seconds = 2.0070154
+[[rows]]
+budget = 2.0
+engine = "timefold_native"
+feasible = true
+first_seconds = 0.002
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\timefold_native-late_acceptance_400-2.toml"
+profile = "late_acceptance_400"
+raw_sha256 = "41b80dcc65a83545e45a63d5f79fe8d86e94af03c727d04b461f1c4ed3ddd205"
+seed = 2
+solve_seconds = 2.0072145
+[[rows]]
+budget = 2.0
+engine = "timefold_native"
+feasible = true
+first_seconds = 0.002
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\timefold_native-late_acceptance_400-3.toml"
+profile = "late_acceptance_400"
+raw_sha256 = "e44a494871381d8efc097ecb1cc2c04a198c92b31eccce398c15055f0b6a8234"
+seed = 3
+solve_seconds = 2.0066233
+[[rows]]
+budget = 2.0
+engine = "ghost_native_cpp"
+feasible = true
+first_seconds = 0.00096
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\ghost_native_cpp-default_permutation-1.toml"
+profile = "default_permutation"
+raw_sha256 = "16b9602b0b2412fc1cd4d64af13521ff01e6b018b16a5db3fd0fd83830513902"
+seed = 1
+solve_seconds = 2.001072
+[[rows]]
+budget = 2.0
+engine = "ghost_native_cpp"
+feasible = true
+first_seconds = 0.001127
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\ghost_native_cpp-default_permutation-2.toml"
+profile = "default_permutation"
+raw_sha256 = "d27eaf649f72adbcd9c7b3b9c01ccaab72e4168c7b58cea7a36a311d7a9531eb"
+seed = 2
+solve_seconds = 2.027292
+[[rows]]
+budget = 2.0
+engine = "ghost_native_cpp"
+feasible = true
+first_seconds = 0.000982
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\ghost_native_cpp-default_permutation-3.toml"
+profile = "default_permutation"
+raw_sha256 = "b215f1ac47f1afa1653e9e1cc4e295059e1d7e97ed18fb1f58521e95b2b9ccb6"
+seed = 3
+solve_seconds = 2.031613
+[[rows]]
+budget = 2.0
+engine = "juls_native"
+feasible = true
+first_seconds = 0.0243597
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\juls_native-greedy_swap-1.toml"
+profile = "greedy_swap"
+raw_sha256 = "9af0f06942097714fbffdb0939175ed2b832af9c45b40d78f73299a45e6b51f2"
+seed = 1
+solve_seconds = 1.9996127
+[[rows]]
+budget = 2.0
+engine = "juls_native"
+feasible = true
+first_seconds = 0.0246432
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\juls_native-greedy_swap-2.toml"
+profile = "greedy_swap"
+raw_sha256 = "902e9597dfd504ac18296f3805323647eb18c7506557b821991160c769fdc956"
+seed = 2
+solve_seconds = 2.0007682
+[[rows]]
+budget = 2.0
+engine = "juls_native"
+feasible = true
+first_seconds = 0.0288092
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\juls_native-greedy_swap-3.toml"
+profile = "greedy_swap"
+raw_sha256 = "8d7f6fb782d6c66844e6098e16eacc828772fdad00cb4ee5fa8f67562309f339"
+seed = 3
+solve_seconds = 2.0008171
+[[rows]]
+budget = 2.0
+engine = "highs_control"
+feasible = true
+first_seconds = 0.0004751
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\highs_control-compact_mip-1.toml"
+profile = "compact_mip"
+raw_sha256 = "e8eda6299bf2ecb882ad28fa41635b2f0bb74d0bcb11156d8665d344f8294b01"
+seed = 1
+solve_seconds = 0.0005562
+[[rows]]
+budget = 2.0
+engine = "highs_control"
+feasible = true
+first_seconds = 0.0004738
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\highs_control-compact_mip-2.toml"
+profile = "compact_mip"
+raw_sha256 = "ea2321ee964bdda02a386c9b4d1a79612585d002c2d39ecf9a85c7ea078930e4"
+seed = 2
+solve_seconds = 0.0005522
+[[rows]]
+budget = 2.0
+engine = "highs_control"
+feasible = true
+first_seconds = 0.0006055
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\highs_control-compact_mip-3.toml"
+profile = "compact_mip"
+raw_sha256 = "a4252b54bb9bd1ae86a89152af8ed8a8b66923a439526fd3be0248b0de6741a9"
+seed = 3
+solve_seconds = 0.0007198

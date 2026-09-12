@@ -43,21 +43,24 @@ public:Builder(std::shared_ptr<const Data> data):ModelBuilder(true),d(data){}
     void declare_objective()override{objective=std::make_shared<Objective>(variables,d);}
 };
 int main(int argc,char** argv) {
-    if(argc!=4)return 2;benchmark_trace::reset();
+    if(argc!=4 && argc!=5)return 2;
+    int workers=argc==5 ? std::stoi(argv[4]) : 4;
+    if(workers!=1 && workers!=2 && workers!=4)return 5;
+    benchmark_trace::reset();
     auto d=std::make_shared<Data>();std::ifstream in(argv[1]);std::string version;int n;
     in>>version>>n>>d->capacity>>d->fleet;if(version!="pdptw/1")return 3;
     for(int i=0;i<n;i++){Node v;in>>v.id>>v.x>>v.y>>v.demand>>v.early>>v.late>>v.service>>v.pickup;d->nodes.push_back(v);}
     if(!in)return 4;double max=0;d->distances.resize(n,std::vector<double>(n));
     for(int i=0;i<n;i++)for(int j=0;j<n;j++){double v=std::hypot(d->nodes[i].x-d->nodes[j].x,d->nodes[i].y-d->nodes[j].y);d->distances[i][j]=v;max=std::max(max,v);}
     d->big_m=2*(n-1)*max+1;Builder builder(d);ghost::Solver solver(builder);
-    ghost::Options options;options.parallel_runs=true;options.number_threads=4;
+    ghost::Options options;options.parallel_runs=workers>1;options.number_threads=workers;
     double budget=std::stod(argv[2]),cost;std::vector<int> values;
     benchmark_trace::solve_origin=std::chrono::steady_clock::now();
     double build=std::chrono::duration<double>(benchmark_trace::solve_origin-benchmark_trace::origin).count();
     solver.fast_search(cost,values,budget*1e6,options);
     double elapsed=std::chrono::duration<double>(std::chrono::steady_clock::now()-benchmark_trace::solve_origin).count();
     std::ofstream out(argv[3]);out<<std::setprecision(17);
-    out<<"schema = \"incumbent-trace/1\"\nengine = \"ghost_native_cpp\"\nprofile = \"default_permutation\"\nclock = \"monotonic\"\ntiming_available = true\nproof_time_available = false\nseed_controlled = false\nthreads = 4\n";
+    out<<"schema = \"incumbent-trace/1\"\nengine = \"ghost_native_cpp\"\nprofile = \"default_permutation\"\nclock = \"monotonic\"\ntiming_available = true\nproof_time_available = false\nseed_controlled = false\nthreads = "<<workers<<"\nparallelism = \"native parallel searches\"\n";
     out<<"budget_seconds = "<<budget<<"\nbuild_seconds = "<<build<<"\nsolve_call_seconds = "<<elapsed<<"\nfound = "<<(benchmark_trace::events.empty()?"false":"true")<<"\n";
     if(benchmark_trace::events.empty())out<<"events = []\n";
     for(const auto& e:benchmark_trace::events){out<<"\n[[events]]\nphase = \"search\"\nelapsed_seconds = "<<e.elapsed<<"\nsolve_seconds = "<<e.solve<<"\nobjective = "<<e.cost<<"\nvalues = [";

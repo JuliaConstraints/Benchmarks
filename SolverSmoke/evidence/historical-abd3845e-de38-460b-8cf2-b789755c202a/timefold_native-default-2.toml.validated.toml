@@ -1,0 +1,32 @@
+best_discovery_seconds = 0.003
+budget_overrun_seconds = 0.008093500000000198
+budget_seconds = 2.0
+build_seconds = 0.0253322
+clock = "Timefold milliseconds and wrapper monotonic nanoseconds"
+cpu_ceiling = 4
+engine = "timefold_native"
+first_feasible_end_to_end_seconds = 0.0347559
+first_feasible_seconds = 0.003
+found = true
+independently_validated = true
+profile = "default"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed = 2
+seed_controlled = true
+solve_call_seconds = 2.0080935
+threads = 1
+timing_available = true
+warmup_budget_seconds = 2.0
+warmup_solves = 2
+within_budget_feasible = true
+
+[[events]]
+distance = 47.04315376485624
+elapsed_seconds = 0.0347559
+objective = 295.4294913019159
+phase = "search"
+solve_seconds = 0.003
+values = [4, 3, 6, 5, 2, 7]
+vehicles = 1
+within_solve_budget = true

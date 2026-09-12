@@ -1,19 +1,40 @@
 include("activate.jl")
 using TOML,SHA,Dates,UUIDs
-include("../src/Anytime.jl");using .Anytime
-include("../src/AnytimeValidation.jl");using .AnytimeValidation
-include("../src/AnytimeRunner.jl");using .AnytimeRunner
+const audit_only = "--audit-resume" in ARGS
+const campaign_args = filter(!=("--audit-resume"), ARGS)
+length(campaign_args)<=1 || error("Expected at most one campaign directory")
+const resume_directory = isempty(campaign_args) ? nothing : abspath(only(campaign_args))
+const resuming = resume_directory!==nothing && isfile(joinpath(resume_directory,"started.toml"))
+audit_only && !resuming && error("Audit requires an existing campaign")
+# A continuation executes and validates with the original qualified modules.
+const execution_root = resuming ? joinpath(resume_directory,"snapshot","Benchmarks","SolverSmoke") : projectdir()
+include(joinpath(execution_root,"src","Anytime.jl"));using .Anytime
+include(joinpath(execution_root,"src","AnytimeValidation.jl"));using .AnytimeValidation
+include(joinpath(execution_root,"src","AnytimeRunner.jl"));using .AnytimeRunner
 import .AnytimeRunner: save
 function main()
     repo=abspath(projectdir(),"..");revision=readchomp(`git -C $repo rev-parse HEAD`)
-    isempty(readchomp(`git -C $repo status --porcelain`)) || error("Commit changes before campaign")
+    (audit_only || isempty(readchomp(`git -C $repo status --porcelain`))) || error("Commit changes before campaign")
     remote=readchomp(`git -C $repo ls-remote gitlab refs/heads/feat/solver-comparison-ilp`)
     startswith(remote,revision*"\t") || error("Campaign revision is not on private GitLab")
-    qualification=TOML.parsefile(projectdir("ANYTIME_QUALIFICATION.toml"))
-    qualification["code_sha256"]==qualify_hash() || error("Sources/runtime differ from qualification")
+    qualification=TOML.parsefile(joinpath(execution_root,"ANYTIME_QUALIFICATION.toml"))
+    qualification["code_sha256"]==qualify_hash(source_root=execution_root) || error("Sources/runtime differ from qualification")
+    if resuming
+        old=TOML.parsefile(joinpath(resume_directory,"started.toml"))
+        old["code_sha256"]==qualification["code_sha256"] || error("Snapshot differs from campaign qualification")
+        original=old["revision"]
+        # Later reporting/controller commits are allowed; the measured revision remains fixed.
+        success(`git -C $repo merge-base --is-ancestor $original $revision`) || error("Original revision is not an ancestor of the pushed controller")
+        committed=TOML.parse(read(`git -C $repo show $(original*":SolverSmoke/ANYTIME_QUALIFICATION.toml")`,String))
+        committed["code_sha256"]==old["code_sha256"] || error("Original committed qualification disagrees")
+        if audit_only
+            println("RESUME_AUDIT_PASSED original=",original," controller=",revision," snapshot=",old["code_sha256"])
+            return
+        end
+    end
     cases=TOML.parsefile(datadir("anytime-inputs","cases.toml"))["cases"]
     length(cases)==354 && all(c->c["ready"],cases) || error("All 354 original instances must be prepared")
-    out=isempty(ARGS) ? datadir("anytime-campaign",string(uuid4())) : abspath(ARGS[1]);mkpath(out)
+    out=resume_directory===nothing ? datadir("anytime-campaign",string(uuid4())) : resume_directory;mkpath(out)
     lockdir=abspath(repo,"_research","run.lock");mkdir(lockdir)
     save(joinpath(lockdir,"owner.toml"),Dict("pid"=>getpid(),"study"=>"LiLim-anytime","directory"=>out))
     try
@@ -27,10 +48,10 @@ function main()
                 "purpose"=>"Diagnostic anytime baseline, not final solver ranking; native formulations require further tuning"))
         else
             old=TOML.parsefile(joinpath(out,"started.toml"))
-            old["revision"]==revision && old["code_sha256"]==qualification["code_sha256"] || error("Resume requires the identical qualified revision")
+            old["code_sha256"]==qualification["code_sha256"] || error("Resume requires the identical qualified snapshot")
         end
         qualify_hash(source_root=snapshot)==qualification["code_sha256"] || error("Archived execution snapshot differs from qualified sources/runtime")
-        save(joinpath(out,"controller.toml"),Dict("pid"=>getpid(),"resumed_utc"=>string(now(UTC)),"affinity"=>"f0"))
+        save(joinpath(out,"controller.toml"),Dict("pid"=>getpid(),"resumed_utc"=>string(now(UTC)),"affinity"=>"f0","controller_revision"=>revision))
         warm=fixtures(out);ENV["ANYTIME_WARMUP_INPUT"]=warm
         # Interleave sizes so all six size families get early observations.
         bysize=[sort(filter(c->c["nominal_tasks"]==n,cases);by=c->c["id"]) for n in (100,200,400,600,800,1000)]

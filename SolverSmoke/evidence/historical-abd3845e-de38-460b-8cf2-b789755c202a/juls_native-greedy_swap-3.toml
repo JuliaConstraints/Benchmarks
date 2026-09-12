@@ -1,0 +1,25 @@
+budget_seconds = 2.0
+build_seconds = 0.0003693
+clock = "monotonic"
+constraint_penalty = 10000.0
+engine = "juls_native"
+error_unit = "ceil(total violation), exact-zero preserving"
+found = true
+julia_version = "1.11.9"
+profile = "greedy_swap"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed = 3
+seed_controlled = true
+solve_call_seconds = 2.0008171
+threads = 4
+timing_available = true
+warmup_budget_seconds = 2.0
+warmup_solves = 2
+
+[[events]]
+elapsed_seconds = 0.0291785
+objective = 295.4294913003687
+phase = "search"
+solve_seconds = 0.0288092
+values = [4, 3, 6, 5, 2, 7]

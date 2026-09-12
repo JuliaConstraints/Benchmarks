@@ -10,31 +10,50 @@ const configurations=[[(engine=e,profile=p) for e in ("lss_native","cbls_jump") 
         (engine="highs_control",profile="compact_mip")]]
 function command(job,warm;worker_root=root)
     engine=job["engine"];input=job["input"];out=job["out"];budget=job["budget"];seed=job["seed"];profile=job["profile"]
+    threads=get(job,"threads",engine=="timefold_native" ? 1 : 4)
+    threads in (1,2,4) || error("Expected 1, 2 or 4 threads")
+    runtime_env(cmd)=addenv(cmd,"SOLVER_COMPARISON_CPUS"=>join(4:3+threads,','),"SOLVER_COMPARISON_CPU_LIMIT"=>"4",
+        "JULIA_NUM_THREADS"=>string(threads),"JULIA_NUM_GC_THREADS"=>"1","JULIA_NUM_IMAGE_THREADS"=>"1",
+        "JULIA_NUM_PRECOMPILE_TASKS"=>"1","OPENBLAS_NUM_THREADS"=>"1","OMP_NUM_THREADS"=>"1")
     if engine=="timefold_native"
+        threads==1 || error("Timefold Community does not provide native multithreaded solving")
         runtime=TOML.parsefile(joinpath(worker_root,"runtime","runtime.toml"));java=joinpath(runtime["java_home"],"bin","java.exe")
         target=joinpath(worker_root,"native","timefold","target");classpath=join([joinpath(target,"classes"),joinpath(target,"dependency","*")],';')
-        return `$java -XX:ActiveProcessorCount=4 -XX:+UseSerialGC -Xmx1g -Dorg.slf4j.simpleLogger.defaultLogLevel=warn -cp $classpath bench.AnytimeRouting $input $profile $budget $seed $out $warm`
+        return `$java -XX:ActiveProcessorCount=$threads -XX:+UseSerialGC -Xmx1g -Dorg.slf4j.simpleLogger.defaultLogLevel=warn -cp $classpath bench.AnytimeRouting $input $profile $budget $seed $out $warm`
     elseif engine=="ghost_native_cpp"
-        return `$(joinpath(worker_root,"runtime","ghost-portable","ghost_anytime.exe")) $input $budget $out`
+        return `$(joinpath(worker_root,"runtime","ghost-portable","ghost_anytime.exe")) $input $budget $out $threads`
     elseif engine=="highs_control"
-        return `$(Base.julia_cmd()) --startup-file=no --compiled-modules=existing --threads=4,0 --gcthreads=1 --project=$worker_root $(joinpath(worker_root,"scripts","anytime_highs.jl")) $input $budget $seed $out $warm`
+        return runtime_env(`$(Base.julia_cmd()) --startup-file=no --compiled-modules=existing --threads=$threads,0 --gcthreads=1 --project=$worker_root $(joinpath(worker_root,"scripts","anytime_highs.jl")) $input $budget $seed $out $warm`)
     elseif engine=="juls_native"
         julia=joinpath(homedir(),".julia","juliaup","julia-1.11.9+0.x64.w64.mingw32","bin","julia.exe")
-        return `$julia --startup-file=no --compiled-modules=existing --threads=4 --gcthreads=1 --project=$(joinpath(worker_root,"juls-env")) $(joinpath(worker_root,"scripts","anytime_juls.jl")) $input $budget $seed $out $warm`
+        return runtime_env(`$julia --startup-file=no --compiled-modules=existing --threads=$threads --gcthreads=1 --project=$(joinpath(worker_root,"juls-env")) $(joinpath(worker_root,"scripts","anytime_juls.jl")) $input $budget $seed $out $warm`)
     else
-        return `$(Base.julia_cmd()) --startup-file=no --compiled-modules=existing --threads=4,0 --gcthreads=1 --project=$worker_root $(joinpath(worker_root,"scripts","anytime_lss.jl")) $input $engine $profile $budget $seed $out`
+        return runtime_env(`$(Base.julia_cmd()) --startup-file=no --compiled-modules=existing --threads=$threads,0 --gcthreads=1 --project=$worker_root $(joinpath(worker_root,"scripts","anytime_lss.jl")) $input $engine $profile $budget $seed $out`)
     end
 end
-function execute(cmd,log;wall)
+function execute(cmd,log;wall,threads=4)
+    threads in (1,2,4) || error("Expected 1, 2 or 4 CPU allocation")
+    mask=foldl(|,(UInt(1)<<cpu for cpu in 4:3+threads))
     start=time_ns();timedout=false;pid=0;code=-1;resource_reason="none";peak_rss=0
     open(log,"w") do io
-        child=run(pipeline(cmd;stdout=io,stderr=io);wait=false);pid=getpid(child)
+        # Restrict before launch so native runtimes inherit the requested allocation.
+        self=ccall((:GetCurrentProcess,"kernel32"),Ptr{Cvoid},())
+        inherited,system_mask=Ref{UInt}(0),Ref{UInt}(0)
+        ccall((:GetProcessAffinityMask,"kernel32"),Cint,(Ptr{Cvoid},Ref{UInt},Ref{UInt}),self,inherited,system_mask)!=0 || error("Controller affinity read failed")
+        inherited[] & mask == mask || error("Requested CPUs outside controller allocation")
+        ccall((:SetProcessAffinityMask,"kernel32"),Cint,(Ptr{Cvoid},UInt),self,mask)!=0 || error("Cannot set launch affinity")
+        child=try
+            run(pipeline(cmd;stdout=io,stderr=io);wait=false)
+        finally
+            ccall((:SetProcessAffinityMask,"kernel32"),Cint,(Ptr{Cvoid},UInt),self,inherited[])!=0 || error("Cannot restore controller affinity")
+        end
+        pid=getpid(child)
         handle=ccall((:OpenProcess,"kernel32"),Ptr{Cvoid},(UInt32,Cint,UInt32),0x1000,0,pid)
         handle==C_NULL && error("Cannot verify worker affinity")
         allowed,system=Ref{UInt}(0),Ref{UInt}(0)
         try
             ccall((:GetProcessAffinityMask,"kernel32"),Cint,(Ptr{Cvoid},Ref{UInt},Ref{UInt}),handle,allowed,system)!=0 || error("Worker affinity read failed")
-            allowed[]==UInt(240) || error("Worker outside CPUs 4-7")
+            allowed[]==mask || error("Worker does not match the requested CPU allocation")
         catch
             kill(child);wait(child);rethrow()
         finally
@@ -69,7 +88,7 @@ function execute(cmd,log;wall)
         wait(child);code=child.exitcode
     end
     Dict("pid"=>pid,"exitcode"=>code,"timed_out"=>timedout,"process_wall_seconds"=>(time_ns()-start)/1e9,
-        "affinity"=>"f0","cpu_ceiling"=>4,"resource_censored"=>resource_reason!="none",
+        "affinity"=>string(mask;base=16),"cpu_ceiling"=>4,"allocated_cpus"=>threads,"resource_censored"=>resource_reason!="none",
         "resource_reason"=>resource_reason,"peak_observed_rss_bytes"=>peak_rss)
 end
 function make_snapshot(snapshot)

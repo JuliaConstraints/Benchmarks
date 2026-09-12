@@ -7,7 +7,7 @@ function solve_case(input,seconds,seed)
     t=Trace();d=read_routes(input);nodes=d.nodes
     p=Benchmarks.BenchmarkInstance("full-fleet",Benchmarks.PickupDeliveryProblem(d.fleet,d.capacity,nodes[:,2:3],Int.(nodes[:,4]),
         nodes[:,5],nodes[:,6],nodes[:,7],[(Int(nodes[i,8]),i) for i in 2:size(nodes,1) if nodes[i,8]>0]))
-    f=Pilot.model(p;threads=4,seed=seed,seconds=seconds);m=f.m
+    f=Pilot.model(p;threads=Threads.nthreads(),seed=seed,seconds=seconds);m=f.m
     @objective(m,Min,d.big_m*f.fleet+f.distance)
     JuMP.MOI.Utilities.attach_optimizer(JuMP.backend(m))
     columns=Dict(a=>JuMP.optimizer_index(v).value for (a,v) in f.x)
@@ -35,7 +35,7 @@ function solve_case(input,seconds,seed)
     t.solve_origin=time_ns();build=(t.solve_origin-t.origin)/1e9;optimize!(m)
     elapsed=(time_ns()-t.solve_origin)/1e9
     metadata=Dict("engine"=>"highs_control","profile"=>"compact_mip","budget_seconds"=>seconds,"seed"=>seed,
-        "threads"=>4,"seed_controlled"=>true,"build_seconds"=>build,"solve_call_seconds"=>elapsed,
+        "threads"=>Threads.nthreads(),"parallelism"=>"native thread limit, utilization algorithm-dependent","seed_controlled"=>true,"build_seconds"=>build,"solve_call_seconds"=>elapsed,
         "status"=>string(termination_status(m)),"optimality_proved"=>termination_status(m)==JuMP.MOI.OPTIMAL,
         "final_has_solution"=>has_values(m))
     if termination_status(m)==JuMP.MOI.OPTIMAL

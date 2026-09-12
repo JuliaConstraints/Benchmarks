@@ -1,0 +1,31 @@
+big_m = 23.627416997969522
+budget_seconds = 2.0
+build_seconds = 0.0003737
+clock = "monotonic"
+engine = "lss_native"
+found = true
+objective_encoding = "fleet * certified_distance_bound + distance"
+parallelism = "cooperating search workers"
+profile = "assignment"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed = 2
+seed_controlled = true
+solve_call_seconds = 2.0130531
+threads = 2
+timing_available = true
+warmup_budget_seconds = 2.0
+warmup_solves = 2
+
+[[events]]
+elapsed_seconds = 0.00058
+objective = 31.87005768508881
+phase = "search"
+solve_seconds = 0.0002063
+values = [4, 2, 3, 5, 6]
+[[events]]
+elapsed_seconds = 0.0006202
+objective = 30.863484975469312
+phase = "search"
+solve_seconds = 0.0002465
+values = [4, 5, 2, 3, 6]

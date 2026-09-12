@@ -1,0 +1,24 @@
+big_m = 248.38633753705966
+budget_seconds = 2.0
+build_seconds = 0.0018249
+clock = "monotonic"
+engine = "cbls_jump"
+found = true
+objective_encoding = "fleet * certified_distance_bound + distance"
+profile = "assignment"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed = 2
+seed_controlled = true
+solve_call_seconds = 2.0001174
+threads = 4
+timing_available = true
+warmup_budget_seconds = 2.0
+warmup_solves = 2
+
+[[events]]
+elapsed_seconds = 0.002831
+objective = 295.4294913019159
+phase = "search"
+solve_seconds = 0.0010061
+values = [4, 3, 6, 5, 2, 7]

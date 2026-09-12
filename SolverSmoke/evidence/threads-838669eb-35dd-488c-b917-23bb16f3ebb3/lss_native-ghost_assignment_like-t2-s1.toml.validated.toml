@@ -1,0 +1,34 @@
+best_discovery_seconds = 0.0003634
+big_m = 23.627416997969522
+budget_overrun_seconds = 0.005924900000000122
+budget_seconds = 2.0
+build_seconds = 0.0004103
+clock = "monotonic"
+engine = "lss_native"
+first_feasible_end_to_end_seconds = 0.0007737
+first_feasible_seconds = 0.0003634
+found = true
+independently_validated = true
+objective_encoding = "fleet * certified_distance_bound + distance"
+parallelism = "cooperating search workers"
+profile = "ghost_assignment_like"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed = 1
+seed_controlled = true
+solve_call_seconds = 2.0059249
+threads = 2
+timing_available = true
+warmup_budget_seconds = 2.0
+warmup_solves = 2
+within_budget_feasible = true
+
+[[events]]
+distance = 7.23606797749979
+elapsed_seconds = 0.0007737
+objective = 30.863484975469312
+phase = "search"
+solve_seconds = 0.0003634
+values = [6, 4, 5, 2, 3]
+vehicles = 1
+within_solve_budget = true

@@ -1,0 +1,35 @@
+best_discovery_seconds = 0.0
+budget_overrun_seconds = 0.0008756000000000874
+budget_seconds = 2.0
+build_seconds = 0.0004676
+clock = "monotonic"
+constraint_penalty = 10000.0
+engine = "juls_native"
+error_unit = "ceil(total violation), exact-zero preserving"
+first_feasible_end_to_end_seconds = 0.0004622
+first_feasible_seconds = 0.0
+found = true
+independently_validated = true
+julia_version = "1.11.9"
+parallelism = "parallel move evaluation"
+profile = "greedy_swap"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed = 1
+seed_controlled = true
+solve_call_seconds = 2.0008756
+threads = 4
+timing_available = true
+warmup_budget_seconds = 2.0
+warmup_solves = 2
+within_budget_feasible = true
+
+[[events]]
+distance = 7.23606797749979
+elapsed_seconds = 0.0004622
+objective = 30.863484975469312
+phase = "initialization"
+solve_seconds = 0.0
+values = [2, 3, 4, 5, 6]
+vehicles = 1
+within_solve_budget = true

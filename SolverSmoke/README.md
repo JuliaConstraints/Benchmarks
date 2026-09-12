@@ -1,5 +1,9 @@
 # Solver functional pilot
 
+The [adaptive time/thread protocol](../docs/lilim-adaptive.md) extends the
+full-instance study to 1/2/4 threads and the user-defined budget doubling rule.
+Its qualification and campaign evidence are separate from the older studies below.
+
 The [full-fleet anytime extension](ANYTIME.md) adds discovery-time traces,
 generated strategy profiles and the 30/60/120/240-second Li–Lim campaign. The
 historical pilot described below retains its original scope and evidence.

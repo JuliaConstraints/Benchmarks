@@ -1,0 +1,315 @@
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-default-1.toml"
+profile = "default"
+seed = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-default-2.toml"
+profile = "default"
+seed = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-default-3.toml"
+profile = "default"
+seed = 3
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-assignment-1.toml"
+profile = "assignment"
+seed = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-assignment-2.toml"
+profile = "assignment"
+seed = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-assignment-3.toml"
+profile = "assignment"
+seed = 3
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-juls_greedy_like-1.toml"
+profile = "juls_greedy_like"
+seed = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-juls_greedy_like-2.toml"
+profile = "juls_greedy_like"
+seed = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-juls_greedy_like-3.toml"
+profile = "juls_greedy_like"
+seed = 3
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-ghost_assignment_like-1.toml"
+profile = "ghost_assignment_like"
+seed = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-ghost_assignment_like-2.toml"
+profile = "ghost_assignment_like"
+seed = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-ghost_assignment_like-3.toml"
+profile = "ghost_assignment_like"
+seed = 3
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-timefold_late_acceptance_like-1.toml"
+profile = "timefold_late_acceptance_like"
+seed = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-timefold_late_acceptance_like-2.toml"
+profile = "timefold_late_acceptance_like"
+seed = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\lss_native-timefold_late_acceptance_like-3.toml"
+profile = "timefold_late_acceptance_like"
+seed = 3
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-default-1.toml"
+profile = "default"
+seed = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-default-2.toml"
+profile = "default"
+seed = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-default-3.toml"
+profile = "default"
+seed = 3
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-assignment-1.toml"
+profile = "assignment"
+seed = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-assignment-2.toml"
+profile = "assignment"
+seed = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-assignment-3.toml"
+profile = "assignment"
+seed = 3
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-juls_greedy_like-1.toml"
+profile = "juls_greedy_like"
+seed = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-juls_greedy_like-2.toml"
+profile = "juls_greedy_like"
+seed = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-juls_greedy_like-3.toml"
+profile = "juls_greedy_like"
+seed = 3
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-ghost_assignment_like-1.toml"
+profile = "ghost_assignment_like"
+seed = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-ghost_assignment_like-2.toml"
+profile = "ghost_assignment_like"
+seed = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-ghost_assignment_like-3.toml"
+profile = "ghost_assignment_like"
+seed = 3
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-timefold_late_acceptance_like-1.toml"
+profile = "timefold_late_acceptance_like"
+seed = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-timefold_late_acceptance_like-2.toml"
+profile = "timefold_late_acceptance_like"
+seed = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\cbls_jump-timefold_late_acceptance_like-3.toml"
+profile = "timefold_late_acceptance_like"
+seed = 3
+[[jobs]]
+budget = 2.0
+engine = "timefold_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\timefold_native-default-1.toml"
+profile = "default"
+seed = 1
+[[jobs]]
+budget = 2.0
+engine = "timefold_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\timefold_native-default-2.toml"
+profile = "default"
+seed = 2
+[[jobs]]
+budget = 2.0
+engine = "timefold_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\timefold_native-default-3.toml"
+profile = "default"
+seed = 3
+[[jobs]]
+budget = 2.0
+engine = "timefold_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\timefold_native-late_acceptance_400-1.toml"
+profile = "late_acceptance_400"
+seed = 1
+[[jobs]]
+budget = 2.0
+engine = "timefold_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\timefold_native-late_acceptance_400-2.toml"
+profile = "late_acceptance_400"
+seed = 2
+[[jobs]]
+budget = 2.0
+engine = "timefold_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\timefold_native-late_acceptance_400-3.toml"
+profile = "late_acceptance_400"
+seed = 3
+[[jobs]]
+budget = 2.0
+engine = "ghost_native_cpp"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\ghost_native_cpp-default_permutation-1.toml"
+profile = "default_permutation"
+seed = 1
+[[jobs]]
+budget = 2.0
+engine = "ghost_native_cpp"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\ghost_native_cpp-default_permutation-2.toml"
+profile = "default_permutation"
+seed = 2
+[[jobs]]
+budget = 2.0
+engine = "ghost_native_cpp"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\ghost_native_cpp-default_permutation-3.toml"
+profile = "default_permutation"
+seed = 3
+[[jobs]]
+budget = 2.0
+engine = "juls_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\juls_native-greedy_swap-1.toml"
+profile = "greedy_swap"
+seed = 1
+[[jobs]]
+budget = 2.0
+engine = "juls_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\juls_native-greedy_swap-2.toml"
+profile = "greedy_swap"
+seed = 2
+[[jobs]]
+budget = 2.0
+engine = "juls_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\juls_native-greedy_swap-3.toml"
+profile = "greedy_swap"
+seed = 3
+[[jobs]]
+budget = 2.0
+engine = "highs_control"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\highs_control-compact_mip-1.toml"
+profile = "compact_mip"
+seed = 1
+[[jobs]]
+budget = 2.0
+engine = "highs_control"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\highs_control-compact_mip-2.toml"
+profile = "compact_mip"
+seed = 2
+[[jobs]]
+budget = 2.0
+engine = "highs_control"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\instance.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\historical-anytime-check\\abd3845e-de38-460b-8cf2-b789755c202a\\highs_control-compact_mip-3.toml"
+profile = "compact_mip"
+seed = 3

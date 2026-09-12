@@ -1,0 +1,23 @@
+schema = "incumbent-trace/1"
+engine = "timefold_native"
+profile = "late_acceptance_400"
+clock = "Timefold milliseconds and wrapper monotonic nanoseconds"
+timing_available = true
+proof_time_available = false
+found = true
+seed = 3
+seed_controlled = true
+threads = 1
+cpu_ceiling = 4
+warmup_solves = 2
+warmup_budget_seconds = 2.0
+budget_seconds = 2.0
+build_seconds = 0.0471715
+solve_call_seconds = 2.0139091
+
+[[events]]
+values = [2, 3, 4, 5, 6]
+objective = 30.863484975469312
+elapsed_seconds = 0.1760962
+solve_seconds = 0.117
+phase = "search"

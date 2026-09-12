@@ -1,0 +1,984 @@
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-default-t1-s1.toml"
+profile = "default"
+seed = 1
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-default-t1-s2.toml"
+profile = "default"
+seed = 2
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-default-t1-s3.toml"
+profile = "default"
+seed = 3
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-default-t2-s1.toml"
+profile = "default"
+seed = 1
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-default-t2-s2.toml"
+profile = "default"
+seed = 2
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-default-t2-s3.toml"
+profile = "default"
+seed = 3
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-default-t4-s1.toml"
+profile = "default"
+seed = 1
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-default-t4-s2.toml"
+profile = "default"
+seed = 2
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-default-t4-s3.toml"
+profile = "default"
+seed = 3
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-assignment-t1-s1.toml"
+profile = "assignment"
+seed = 1
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-assignment-t1-s2.toml"
+profile = "assignment"
+seed = 2
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-assignment-t1-s3.toml"
+profile = "assignment"
+seed = 3
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-assignment-t2-s1.toml"
+profile = "assignment"
+seed = 1
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-assignment-t2-s2.toml"
+profile = "assignment"
+seed = 2
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-assignment-t2-s3.toml"
+profile = "assignment"
+seed = 3
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-assignment-t4-s1.toml"
+profile = "assignment"
+seed = 1
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-assignment-t4-s2.toml"
+profile = "assignment"
+seed = 2
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-assignment-t4-s3.toml"
+profile = "assignment"
+seed = 3
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-juls_greedy_like-t1-s1.toml"
+profile = "juls_greedy_like"
+seed = 1
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-juls_greedy_like-t1-s2.toml"
+profile = "juls_greedy_like"
+seed = 2
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-juls_greedy_like-t1-s3.toml"
+profile = "juls_greedy_like"
+seed = 3
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-juls_greedy_like-t2-s1.toml"
+profile = "juls_greedy_like"
+seed = 1
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-juls_greedy_like-t2-s2.toml"
+profile = "juls_greedy_like"
+seed = 2
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-juls_greedy_like-t2-s3.toml"
+profile = "juls_greedy_like"
+seed = 3
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-juls_greedy_like-t4-s1.toml"
+profile = "juls_greedy_like"
+seed = 1
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-juls_greedy_like-t4-s2.toml"
+profile = "juls_greedy_like"
+seed = 2
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-juls_greedy_like-t4-s3.toml"
+profile = "juls_greedy_like"
+seed = 3
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-ghost_assignment_like-t1-s1.toml"
+profile = "ghost_assignment_like"
+seed = 1
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-ghost_assignment_like-t1-s2.toml"
+profile = "ghost_assignment_like"
+seed = 2
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-ghost_assignment_like-t1-s3.toml"
+profile = "ghost_assignment_like"
+seed = 3
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-ghost_assignment_like-t2-s1.toml"
+profile = "ghost_assignment_like"
+seed = 1
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-ghost_assignment_like-t2-s2.toml"
+profile = "ghost_assignment_like"
+seed = 2
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-ghost_assignment_like-t2-s3.toml"
+profile = "ghost_assignment_like"
+seed = 3
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-ghost_assignment_like-t4-s1.toml"
+profile = "ghost_assignment_like"
+seed = 1
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-ghost_assignment_like-t4-s2.toml"
+profile = "ghost_assignment_like"
+seed = 2
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-ghost_assignment_like-t4-s3.toml"
+profile = "ghost_assignment_like"
+seed = 3
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-timefold_late_acceptance_like-t1-s1.toml"
+profile = "timefold_late_acceptance_like"
+seed = 1
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-timefold_late_acceptance_like-t1-s2.toml"
+profile = "timefold_late_acceptance_like"
+seed = 2
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-timefold_late_acceptance_like-t1-s3.toml"
+profile = "timefold_late_acceptance_like"
+seed = 3
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-timefold_late_acceptance_like-t2-s1.toml"
+profile = "timefold_late_acceptance_like"
+seed = 1
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-timefold_late_acceptance_like-t2-s2.toml"
+profile = "timefold_late_acceptance_like"
+seed = 2
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-timefold_late_acceptance_like-t2-s3.toml"
+profile = "timefold_late_acceptance_like"
+seed = 3
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-timefold_late_acceptance_like-t4-s1.toml"
+profile = "timefold_late_acceptance_like"
+seed = 1
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-timefold_late_acceptance_like-t4-s2.toml"
+profile = "timefold_late_acceptance_like"
+seed = 2
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "lss_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\lss_native-timefold_late_acceptance_like-t4-s3.toml"
+profile = "timefold_late_acceptance_like"
+seed = 3
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-default-t1-s1.toml"
+profile = "default"
+seed = 1
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-default-t1-s2.toml"
+profile = "default"
+seed = 2
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-default-t1-s3.toml"
+profile = "default"
+seed = 3
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-default-t2-s1.toml"
+profile = "default"
+seed = 1
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-default-t2-s2.toml"
+profile = "default"
+seed = 2
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-default-t2-s3.toml"
+profile = "default"
+seed = 3
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-default-t4-s1.toml"
+profile = "default"
+seed = 1
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-default-t4-s2.toml"
+profile = "default"
+seed = 2
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-default-t4-s3.toml"
+profile = "default"
+seed = 3
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-assignment-t1-s1.toml"
+profile = "assignment"
+seed = 1
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-assignment-t1-s2.toml"
+profile = "assignment"
+seed = 2
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-assignment-t1-s3.toml"
+profile = "assignment"
+seed = 3
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-assignment-t2-s1.toml"
+profile = "assignment"
+seed = 1
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-assignment-t2-s2.toml"
+profile = "assignment"
+seed = 2
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-assignment-t2-s3.toml"
+profile = "assignment"
+seed = 3
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-assignment-t4-s1.toml"
+profile = "assignment"
+seed = 1
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-assignment-t4-s2.toml"
+profile = "assignment"
+seed = 2
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-assignment-t4-s3.toml"
+profile = "assignment"
+seed = 3
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-juls_greedy_like-t1-s1.toml"
+profile = "juls_greedy_like"
+seed = 1
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-juls_greedy_like-t1-s2.toml"
+profile = "juls_greedy_like"
+seed = 2
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-juls_greedy_like-t1-s3.toml"
+profile = "juls_greedy_like"
+seed = 3
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-juls_greedy_like-t2-s1.toml"
+profile = "juls_greedy_like"
+seed = 1
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-juls_greedy_like-t2-s2.toml"
+profile = "juls_greedy_like"
+seed = 2
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-juls_greedy_like-t2-s3.toml"
+profile = "juls_greedy_like"
+seed = 3
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-juls_greedy_like-t4-s1.toml"
+profile = "juls_greedy_like"
+seed = 1
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-juls_greedy_like-t4-s2.toml"
+profile = "juls_greedy_like"
+seed = 2
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-juls_greedy_like-t4-s3.toml"
+profile = "juls_greedy_like"
+seed = 3
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-ghost_assignment_like-t1-s1.toml"
+profile = "ghost_assignment_like"
+seed = 1
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-ghost_assignment_like-t1-s2.toml"
+profile = "ghost_assignment_like"
+seed = 2
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-ghost_assignment_like-t1-s3.toml"
+profile = "ghost_assignment_like"
+seed = 3
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-ghost_assignment_like-t2-s1.toml"
+profile = "ghost_assignment_like"
+seed = 1
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-ghost_assignment_like-t2-s2.toml"
+profile = "ghost_assignment_like"
+seed = 2
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-ghost_assignment_like-t2-s3.toml"
+profile = "ghost_assignment_like"
+seed = 3
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-ghost_assignment_like-t4-s1.toml"
+profile = "ghost_assignment_like"
+seed = 1
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-ghost_assignment_like-t4-s2.toml"
+profile = "ghost_assignment_like"
+seed = 2
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-ghost_assignment_like-t4-s3.toml"
+profile = "ghost_assignment_like"
+seed = 3
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-timefold_late_acceptance_like-t1-s1.toml"
+profile = "timefold_late_acceptance_like"
+seed = 1
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-timefold_late_acceptance_like-t1-s2.toml"
+profile = "timefold_late_acceptance_like"
+seed = 2
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-timefold_late_acceptance_like-t1-s3.toml"
+profile = "timefold_late_acceptance_like"
+seed = 3
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-timefold_late_acceptance_like-t2-s1.toml"
+profile = "timefold_late_acceptance_like"
+seed = 1
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-timefold_late_acceptance_like-t2-s2.toml"
+profile = "timefold_late_acceptance_like"
+seed = 2
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-timefold_late_acceptance_like-t2-s3.toml"
+profile = "timefold_late_acceptance_like"
+seed = 3
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-timefold_late_acceptance_like-t4-s1.toml"
+profile = "timefold_late_acceptance_like"
+seed = 1
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-timefold_late_acceptance_like-t4-s2.toml"
+profile = "timefold_late_acceptance_like"
+seed = 2
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "cbls_jump"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\cbls_jump-timefold_late_acceptance_like-t4-s3.toml"
+profile = "timefold_late_acceptance_like"
+seed = 3
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "timefold_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\timefold_native-default-t1-s1.toml"
+profile = "default"
+seed = 1
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "timefold_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\timefold_native-default-t1-s2.toml"
+profile = "default"
+seed = 2
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "timefold_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\timefold_native-default-t1-s3.toml"
+profile = "default"
+seed = 3
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "timefold_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\timefold_native-late_acceptance_400-t1-s1.toml"
+profile = "late_acceptance_400"
+seed = 1
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "timefold_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\timefold_native-late_acceptance_400-t1-s2.toml"
+profile = "late_acceptance_400"
+seed = 2
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "timefold_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\timefold_native-late_acceptance_400-t1-s3.toml"
+profile = "late_acceptance_400"
+seed = 3
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "ghost_native_cpp"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\ghost_native_cpp-default_permutation-t1-s1.toml"
+profile = "default_permutation"
+seed = 1
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "ghost_native_cpp"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\ghost_native_cpp-default_permutation-t1-s2.toml"
+profile = "default_permutation"
+seed = 2
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "ghost_native_cpp"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\ghost_native_cpp-default_permutation-t1-s3.toml"
+profile = "default_permutation"
+seed = 3
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "ghost_native_cpp"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\ghost_native_cpp-default_permutation-t2-s1.toml"
+profile = "default_permutation"
+seed = 1
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "ghost_native_cpp"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\ghost_native_cpp-default_permutation-t2-s2.toml"
+profile = "default_permutation"
+seed = 2
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "ghost_native_cpp"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\ghost_native_cpp-default_permutation-t2-s3.toml"
+profile = "default_permutation"
+seed = 3
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "ghost_native_cpp"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\ghost_native_cpp-default_permutation-t4-s1.toml"
+profile = "default_permutation"
+seed = 1
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "ghost_native_cpp"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\ghost_native_cpp-default_permutation-t4-s2.toml"
+profile = "default_permutation"
+seed = 2
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "ghost_native_cpp"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\ghost_native_cpp-default_permutation-t4-s3.toml"
+profile = "default_permutation"
+seed = 3
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "juls_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\juls_native-greedy_swap-t1-s1.toml"
+profile = "greedy_swap"
+seed = 1
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "juls_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\juls_native-greedy_swap-t1-s2.toml"
+profile = "greedy_swap"
+seed = 2
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "juls_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\juls_native-greedy_swap-t1-s3.toml"
+profile = "greedy_swap"
+seed = 3
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "juls_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\juls_native-greedy_swap-t2-s1.toml"
+profile = "greedy_swap"
+seed = 1
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "juls_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\juls_native-greedy_swap-t2-s2.toml"
+profile = "greedy_swap"
+seed = 2
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "juls_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\juls_native-greedy_swap-t2-s3.toml"
+profile = "greedy_swap"
+seed = 3
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "juls_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\juls_native-greedy_swap-t4-s1.toml"
+profile = "greedy_swap"
+seed = 1
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "juls_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\juls_native-greedy_swap-t4-s2.toml"
+profile = "greedy_swap"
+seed = 2
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "juls_native"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\juls_native-greedy_swap-t4-s3.toml"
+profile = "greedy_swap"
+seed = 3
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "highs_control"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\highs_control-compact_mip-t1-s1.toml"
+profile = "compact_mip"
+seed = 1
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "highs_control"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\highs_control-compact_mip-t1-s2.toml"
+profile = "compact_mip"
+seed = 2
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "highs_control"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\highs_control-compact_mip-t1-s3.toml"
+profile = "compact_mip"
+seed = 3
+threads = 1
+[[jobs]]
+budget = 2.0
+engine = "highs_control"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\highs_control-compact_mip-t2-s1.toml"
+profile = "compact_mip"
+seed = 1
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "highs_control"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\highs_control-compact_mip-t2-s2.toml"
+profile = "compact_mip"
+seed = 2
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "highs_control"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\highs_control-compact_mip-t2-s3.toml"
+profile = "compact_mip"
+seed = 3
+threads = 2
+[[jobs]]
+budget = 2.0
+engine = "highs_control"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\highs_control-compact_mip-t4-s1.toml"
+profile = "compact_mip"
+seed = 1
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "highs_control"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\highs_control-compact_mip-t4-s2.toml"
+profile = "compact_mip"
+seed = 2
+threads = 4
+[[jobs]]
+budget = 2.0
+engine = "highs_control"
+input = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\two-pairs.txt"
+out = "C:\\Users\\jeanf\\ChatGPT\\Julia Constraints\\Benchmarks\\SolverSmoke\\data\\thread-qualification\\838669eb-35dd-488c-b917-23bb16f3ebb3\\highs_control-compact_mip-t4-s3.toml"
+profile = "compact_mip"
+seed = 3
+threads = 4

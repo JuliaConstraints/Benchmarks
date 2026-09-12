@@ -19,6 +19,8 @@ function observations(campaign)
             push!(sources, Dict("path" => relpath(path, campaign), "sha256" => bytes2hex(sha256(bytes))))
             merge!(row, TOML.parse(String(copy(bytes))))
         end
+        # Routes remain in the hashed raw/validated files; aggregation needs only quality and time.
+        for e in get(row,"events",[]);delete!(e,"values");end
         row["eligible_events"] = filter(e -> get(e,"within_solve_budget",false), get(row,"events",[]))
         push!(rows, row)
     end
@@ -66,32 +68,50 @@ function report(campaign)
     total=started["instances"]*started["configurations"]*length(started["budgets"])*length(started["seeds"])
     stamp=Dates.format(now(UTC),"yyyymmddTHHMMSSsss")
     out=joinpath(campaign,"reports",stamp);mkpath(out)
-    groups=sort(unique([(r["engine"],r["profile"],r["budget"],r["nominal_tasks"]) for r in rows]))
-    summaries=[merge(Dict("engine"=>e,"profile"=>p,"budget"=>b,"nominal_tasks"=>n),
-        statistics(filter(r->(r["engine"],r["profile"],r["budget"],r["nominal_tasks"])==(e,p,b,n),rows))) for (e,p,b,n) in groups]
+    group(r)=(r["engine"],r["profile"],string(get(r,"threads","unreported")),r["budget"],r["nominal_tasks"])
+    groups=sort(unique(group.(rows)))
+    summaries=[merge(Dict("engine"=>e,"profile"=>p,"threads"=>t,"budget"=>b,"nominal_tasks"=>n),
+        statistics(filter(r->group(r)==(e,p,t,b,n),rows))) for (e,p,t,b,n) in groups]
     data=Dict("schema"=>"lilim-progress/1","reported_utc"=>string(now(UTC)),"campaign"=>campaign,
         "campaign_revision"=>started["revision"],"report_source_sha256"=>bytes2hex(sha256(read(@__FILE__))),
         "completed"=>length(rows),"total"=>total,"pending_status"=>pending,"summary"=>summaries,
-        "rows"=>rows,"source_files"=>sources,"target_origin"=>"best observed eligible quality in this report, post-hoc, not proven optimal")
+        "rows"=>[filter(p->!(first(p) in ("events","eligible_events","final_routes")),r) for r in rows],
+        "source_files"=>sources,"target_origin"=>"best observed eligible quality in this report, post-hoc, not proven optimal")
     open(io->TOML.print(io,data;sorted=true),joinpath(out,"report.toml"),"w")
     open(joinpath(out,"report.md"),"w") do io
-        println(io,"# Li–Lim : comparaison provisoire\n\nÉtat au ",data["reported_utc"]," UTC. **",length(rows)," / ",total," exécutions terminées** (",@sprintf("%.3f",100length(rows)/total)," %).")
+        adaptive=get(started,"schema","")=="lilim-adaptive/1"
+        println(io,"# Li–Lim : comparaison provisoire\n\nÉtat au ",data["reported_utc"]," UTC. **",length(rows)," exécutions terminées**. Grille de base 30–240 s : ",total," exécutions.")
+        if adaptive
+            println(io,"\nCette grille peut s'arrêter à 120 s uniquement si toutes les observations de cet échelon sont réalisables. Sinon, 240 s est obligatoire, puis doublement pour les instances encore sans aucune solution. Le nombre final d'exécutions n'est donc pas fixé à l'avance.")
+        end
         println(io,"\nRévision de campagne : `",started["revision"],"`. Quatre cœurs partagés au maximum ; autres HPO actifs. Hexaly exclu. Données originales, sans réduction des instances.")
         println(io,"\nSans résultat définitif au moment de la lecture : ",isempty(pending) ? "aucun" : join(pending,", "),". Ce constat ne prouve pas que le processus est actif.")
         println(io,"\n## Faisabilité et temps de découverte\n\nLes médianes portent uniquement sur les succès dans le budget : elles ne constituent pas un classement. Les groupes n'ont pas encore nécessairement testé les mêmes instances/répétitions ; comparer les lignes détaillées avant de conclure. Le temps total inclut la construction mesurée par l'adaptateur, mais pas le démarrage du processus ni les échauffements.")
-        println(io,"\n| Solveur / profil | Budget (s) | Taille nominale | Terminés | Réalisables | Sans solution | Hors budget seuls | Erreurs | Censurés | Médiane 1re solution (s) | Avec construction (s) |\n|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
+        println(io,"\n| Solveur / profil | Threads | Budget (s) | Taille nominale | Terminés | Réalisables | Sans solution | Hors budget seuls | Erreurs | Censurés | Médiane 1re solution (s) | Avec construction (s) |\n|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
         for s in summaries
-            fields=[s["engine"]*" / "*s["profile"],s["budget"],s["nominal_tasks"],s["completed"],s["feasible"],s["no_feasible"],s["late_only"],s["errors"],s["censored"],s["median_first_seconds"],s["median_first_end_to_end_seconds"]]
+            fields=[s["engine"]*" / "*s["profile"],s["threads"],s["budget"],s["nominal_tasks"],s["completed"],s["feasible"],s["no_feasible"],s["late_only"],s["errors"],s["censored"],s["median_first_seconds"],s["median_first_end_to_end_seconds"]]
             println(io,"| ",join(fmt.(fields)," | ")," |")
         end
         println(io,"\n## Observations détaillées\n\nObjectif lexicographique : véhicules puis distance euclidienne non arrondie. La cible commune est la meilleure qualité observée dans ce rapport pour l'instance, tous budgets confondus, sans garantie d'optimalité ; elle peut changer au rapport suivant. « — » signifie indisponible/non atteint, jamais zéro. Les erreurs et censures de ressources ne sont pas des défaites de qualité.")
-        println(io,"\n| Instance | Solveur / profil | Budget | Répétition | État | Véhicules | Distance | 1re solution (s) | Cible commune (s) |\n|---|---|---:|---:|---|---:|---:|---:|---:|")
-        for r in rows
+        details=sort(rows;by=r->get(r,"completed_utc",""),rev=true)
+        if length(details)>200
+            println(io,"\nLes 200 observations les plus récentes sont affichées ci-dessous ; le fichier report.toml contient toutes les observations de ce rapport.")
+            details=details[1:200]
+        end
+        println(io,"\n| Instance | Visites | Solveur / profil | Threads | Budget | Répétition | État | Véhicules | Distance | 1re solution (s) | Cible commune (s) |\n|---|---:|---|---:|---:|---:|---|---:|---:|---:|---:|")
+        for r in details
             es=r["eligible_events"]
-            fields=[r["instance"],r["engine"]*" / "*r["profile"],r["budget"],r["seed"],r["state"],
+            fields=[r["instance"],get(r,"actual_customers","—"),r["engine"]*" / "*r["profile"],get(r,"threads","unreported"),r["budget"],r["seed"],r["state"],
                 isempty(es) ? "—" : last(es)["vehicles"],isempty(es) ? "—" : last(es)["distance"],
                 isempty(es) ? "—" : first(es)["solve_seconds"],get(r,"time_to_target_seconds","—")]
             println(io,"| ",join(fmt.(fields)," | ")," |")
+        end
+        availability=joinpath(campaign,"availability.toml")
+        if isfile(availability)
+            println(io,"\n## Configurations indisponibles\n")
+            for c in TOML.parsefile(availability)["unavailable"]
+                println(io,"- ",c["engine"]," / ",c["profile"]," / ",c["threads"]," threads : ",c["reason"],".")
+            end
         end
         println(io,"\nCe diagnostic ne qualifie pas les formulations comme optimales pour chaque solveur. Les profils « like » sont des analogues partiels. Les interfaces JuMP absentes sont indiquées dans ANYTIME.md. Le fichier TOML conserve les observations et empreintes des sources pour reproduire cet état.")
     end

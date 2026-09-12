@@ -54,3 +54,12 @@ max_logical_cpus = 4
 resource_authorization = "User authorized four CPUs and 30/60/120/240-second tiers on 2026-09-12."
 role = "Full Li-Lim, incumbent discovery traces, generated LSS/CBLS strategy profiles and native solver baselines; not final ranking"
 protocol = "354 instances, 15 configurations, three repetitions per independent budget, verified private GitLab revision"
+
+[[studies]]
+id = "lilim-adaptive-threads"
+status = "qualified_diagnostic_campaign"
+entrypoint = "scripts/lilim_adaptive.jl"
+max_logical_cpus = 4
+resource_authorization = "User requested 1/2/4 solver threads under the global four-CPU ceiling."
+role = "Full Li-Lim with explicit native thread capabilities, matched budgets and incumbent validation"
+protocol = "30/60/120/240 seconds; omit 240 only if every run at 120 succeeds; double for unsolved instances and finish each full stage"

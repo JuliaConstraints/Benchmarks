@@ -5,7 +5,9 @@ include("../src/Profiles.jl");using .Profiles
 const LS=LocalSearchSolvers
 function solve_case(input,engine,id,seconds,seed)
     Random.seed!(seed);trace=Trace();d=read_routes(input);n=size(d.nodes,1)+d.fleet-2
-    opts=LS.Options(iteration=(false,typemax(Int)),time_limit=(false,seconds),process_threads_map=Dict(1=>4),
+    workers=Threads.nthreads()
+    workers in (1,2,4) || error("Expected 1, 2 or 4 search workers")
+    opts=LS.Options(iteration=(false,typemax(Int)),time_limit=(false,seconds),process_threads_map=Dict(1=>workers),
         dynamic=false,print_level=:silent,log_mode=:silent,log_to_file=false,progress_mode=:none,use_progress_meter=false)
     if engine=="lss_native"
         m=LS.model()
@@ -33,7 +35,7 @@ function solve_case(input,engine,id,seconds,seed)
     end
     elapsed=(time_ns()-trace.solve_origin)/1e9
     trace,Dict("engine"=>engine,"profile"=>id,"budget_seconds"=>seconds,"seed"=>seed,
-        "build_seconds"=>build,"solve_call_seconds"=>elapsed,"threads"=>4,"seed_controlled"=>true,
+        "build_seconds"=>build,"solve_call_seconds"=>elapsed,"threads"=>workers,"parallelism"=>"cooperating search workers","seed_controlled"=>true,
         "warmup_solves"=>2,"warmup_budget_seconds"=>2.,
         "objective_encoding"=>"fleet * certified_distance_bound + distance","big_m"=>d.big_m)
 end

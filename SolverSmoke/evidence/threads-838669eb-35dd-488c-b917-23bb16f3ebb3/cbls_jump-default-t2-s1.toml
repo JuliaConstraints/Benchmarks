@@ -1,0 +1,43 @@
+big_m = 23.627416997969522
+budget_seconds = 2.0
+build_seconds = 0.0011915
+clock = "monotonic"
+engine = "cbls_jump"
+found = true
+objective_encoding = "fleet * certified_distance_bound + distance"
+parallelism = "cooperating search workers"
+profile = "default"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed = 1
+seed_controlled = true
+solve_call_seconds = 2.0036331
+threads = 2
+timing_available = true
+warmup_budget_seconds = 2.0
+warmup_solves = 2
+
+[[events]]
+elapsed_seconds = 0.0016082
+objective = 55.254833995939045
+phase = "search"
+solve_seconds = 0.0004167
+values = [2, 3, 6, 4, 5]
+[[events]]
+elapsed_seconds = 0.0016253
+objective = 33.106125662588596
+phase = "search"
+solve_seconds = 0.0004338
+values = [6, 2, 4, 3, 5]
+[[events]]
+elapsed_seconds = 0.0016385
+objective = 31.87005768508881
+phase = "search"
+solve_seconds = 0.000447
+values = [6, 4, 2, 3, 5]
+[[events]]
+elapsed_seconds = 0.0017393
+objective = 30.863484975469312
+phase = "search"
+solve_seconds = 0.0005478
+values = [4, 5, 2, 3, 6]

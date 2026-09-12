@@ -1,0 +1,10 @@
+affinity = "f0"
+allocated_cpus = 4
+cpu_ceiling = 4
+exitcode = 0
+peak_observed_rss_bytes = 686833664
+pid = 10588
+process_wall_seconds = 34.2874279
+resource_censored = false
+resource_reason = "none"
+timed_out = false

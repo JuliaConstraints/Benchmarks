@@ -1,5 +1,10 @@
 # Li–Lim anytime diagnostics
 
+This page records the original 15-configuration campaign. The successor
+[adaptive time/thread protocol](../docs/lilim-adaptive.md) adds 1/2/4 threads and
+budget escalation. Existing campaign snapshots and evidence retain their original
+allocation and budget rules; they are never relabelled as the successor campaign.
+
 This extension keeps the original 33-run functional pilot and its evidence intact.
 It adds accepted-incumbent traces, full-fleet formulations, five generated LSS
 profiles through both native and CBLS/JuMP paths, and a resumable Julia campaign.

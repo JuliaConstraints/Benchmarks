@@ -1,0 +1,24 @@
+big_m = 248.38633753705966
+budget_seconds = 2.0
+build_seconds = 0.0003785
+clock = "monotonic"
+engine = "lss_native"
+found = true
+objective_encoding = "fleet * certified_distance_bound + distance"
+profile = "assignment"
+proof_time_available = false
+schema = "incumbent-trace/1"
+seed = 3
+seed_controlled = true
+solve_call_seconds = 1.9999123
+threads = 4
+timing_available = true
+warmup_budget_seconds = 2.0
+warmup_solves = 2
+
+[[events]]
+elapsed_seconds = 0.0010644
+objective = 295.4294913019159
+phase = "search"
+solve_seconds = 0.0006859
+values = [4, 3, 6, 5, 2, 7]
