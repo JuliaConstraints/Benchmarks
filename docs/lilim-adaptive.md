@@ -1,5 +1,14 @@
 # Li–Lim : échelons et threads
 
+## Signature non bloquante
+
+L'utilisateur autorise explicitement les commits et le push GitLab privé sans
+signature lorsque GPG attend une intervention. Employer `git -c commit.gpgsign=false
+commit ...` pour le commit concerné, sans changer la configuration globale.
+La signature est régularisée ultérieurement ; elle ne doit pas immobiliser la
+campagne. Conserver les identifiants des commits mesurés et la traçabilité lors
+de cette régularisation.
+
 Cette campagne succède au diagnostic à 15 configurations. Les anciennes mesures
 conservent leur révision, leurs modèles et leur allocation ; elles ne sont pas
 fusionnées avec cette campagne à 1, 2 et 4 threads.

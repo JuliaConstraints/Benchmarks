@@ -68,13 +68,24 @@ function report(campaign)
     total=started["instances"]*started["configurations"]*length(started["budgets"])*length(started["seeds"])
     stamp=Dates.format(now(UTC),"yyyymmddTHHMMSSsss")
     out=joinpath(campaign,"reports",stamp);mkpath(out)
+    attempts=Dict{String,Any}[]
+    archive_root=joinpath(campaign,"attempts")
+    if isdir(archive_root)
+        for (dir,_,files) in walkdir(archive_root)
+            "archive.toml" in files || continue
+            path=joinpath(dir,"archive.toml");bytes=read(path)
+            a=TOML.parse(String(copy(bytes)));a["directory"]=relpath(dir,campaign)
+            push!(attempts,a)
+            push!(sources,Dict("path"=>relpath(path,campaign),"sha256"=>bytes2hex(sha256(bytes))))
+        end
+    end
     group(r)=(r["engine"],r["profile"],string(get(r,"threads","unreported")),r["budget"],r["nominal_tasks"])
     groups=sort(unique(group.(rows)))
     summaries=[merge(Dict("engine"=>e,"profile"=>p,"threads"=>t,"budget"=>b,"nominal_tasks"=>n),
         statistics(filter(r->group(r)==(e,p,t,b,n),rows))) for (e,p,t,b,n) in groups]
     data=Dict("schema"=>"lilim-progress/1","reported_utc"=>string(now(UTC)),"campaign"=>campaign,
         "campaign_revision"=>started["revision"],"report_source_sha256"=>bytes2hex(sha256(read(@__FILE__))),
-        "completed"=>length(rows),"total"=>total,"pending_status"=>pending,"summary"=>summaries,
+        "completed"=>length(rows),"total"=>total,"pending_status"=>pending,"summary"=>summaries,"archived_attempts"=>attempts,
         "rows"=>[filter(p->!(first(p) in ("events","eligible_events","final_routes")),r) for r in rows],
         "source_files"=>sources,"target_origin"=>"best observed eligible quality in this report, post-hoc, not proven optimal")
     open(io->TOML.print(io,data;sorted=true),joinpath(out,"report.toml"),"w")
@@ -86,6 +97,12 @@ function report(campaign)
         end
         println(io,"\nRévision de campagne : `",started["revision"],"`. Quatre cœurs partagés au maximum ; autres HPO actifs. Hexaly exclu. Données originales, sans réduction des instances.")
         println(io,"\nSans résultat définitif au moment de la lecture : ",isempty(pending) ? "aucun" : join(pending,", "),". Ce constat ne prouve pas que le processus est actif.")
+        if !isempty(attempts)
+            println(io,"\n## Tentatives antérieures conservées\n\n",length(attempts)," tentative(s) archivée(s) avant reprise, en plus des observations du tableau. Ces incidents ne sont pas effacés par une réussite ultérieure et ne constituent pas des défaites de qualité du solveur.\n")
+            for a in attempts
+                println(io,"- `",a["run"],"` : ",a["reason"]," ; archive `",a["directory"],"`.")
+            end
+        end
         println(io,"\n## Faisabilité et temps de découverte\n\nLes médianes portent uniquement sur les succès dans le budget : elles ne constituent pas un classement. Les groupes n'ont pas encore nécessairement testé les mêmes instances/répétitions ; comparer les lignes détaillées avant de conclure. Le temps total inclut la construction mesurée par l'adaptateur, mais pas le démarrage du processus ni les échauffements.")
         println(io,"\n| Solveur / profil | Threads | Budget (s) | Taille nominale | Terminés | Réalisables | Sans solution | Hors budget seuls | Erreurs | Censurés | Médiane 1re solution (s) | Avec construction (s) |\n|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
         for s in summaries
@@ -145,6 +162,15 @@ function selftest()
         @assert length(only(loaded)["eligible_events"])==1
         targets!(loaded)
         @assert only(loaded)["target_vehicles"]==2
+        job=Dict("instance"=>"x","engine"=>"fixture","profile"=>"default","threads"=>1,"budget"=>30,
+            "seed"=>1,"nominal_tasks"=>100,"actual_customers"=>6)
+        open(io->TOML.print(io,job),joinpath(dir,"job.toml"),"w")
+        open(io->TOML.print(io,Dict("instances"=>1,"configurations"=>1,"budgets"=>[30],"seeds"=>[1],"revision"=>"fixture")),joinpath(tmp,"started.toml"),"w")
+        prior=joinpath(tmp,"attempts","finished","prior");mkpath(prior)
+        open(io->TOML.print(io,Dict("run"=>"finished","reason"=>"host free memory below 512 MiB")),joinpath(prior,"archive.toml"),"w")
+        artifact=report(tmp);generated=TOML.parsefile(joinpath(artifact,"report.toml"))
+        @assert length(generated["archived_attempts"])==1
+        @assert generated["completed"]==1 && only(generated["summary"])["feasible"]==1
     end
     println("Progress report semantic checks passed")
 end
