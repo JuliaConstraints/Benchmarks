@@ -462,3 +462,24 @@ de sources et de modèles, critères et références nécessaires pour reconstru
 la démarche. Ne pas embarquer les changements sans rapport avec l'étape livrée.
 Avant d'utiliser la reconstruction XCSP3Bridges en campagne, lui attribuer une
 révision sauvegardée sur son dépôt privé et figer les témoins utilisés.
+
+## Point de reprise — pause explicite du 2 octobre 2026
+
+Travail suspendu à la demande de l'utilisateur pour libérer les ressources.
+L'automatisation de reprise est en pause ; attendre une instruction explicite
+avant de reprendre les calculs ou le développement.
+
+Les sources reconstruites de ConstraintModels sont sauvegardées à la révision
+`4ddd8f65417ac8a8d6bb12add6faf0c0c84801c3` : lecteur Li-Lim et validateur
+PDPTW contrôlés par 25 assertions. Le résolveur de méta-variables est sauvegardé
+dans Benchmarks à `c091547442845eb0d7f67060e65aa39a27ad054a` ; ses 38 assertions
+et les 592 assertions de comparaison exhaustive du modèle RO passent.
+
+`LiLim/src/Hybrid.jl` et `LiLim/test/hybrid.jl` sont sauvegardés comme travaux
+en cours. Le contrôleur assemble les pas CBLS et les réparations HiGHS sous
+budget, avec validation des solutions originales. Ses tests n'ont pas été
+lancés : une tâche concurrente a été détectée avant leur lancement, puis
+l'utilisateur a demandé la pause. Le score actuel est calculé directement,
+sans ICN. La prochaine étape, après autorisation de reprise, est de qualifier
+ce contrôleur avant tout pilote comparatif. Aucun résultat comparatif de
+performance n'est encore établi par cette reprise.
