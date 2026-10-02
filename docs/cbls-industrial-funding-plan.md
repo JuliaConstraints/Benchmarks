@@ -55,10 +55,10 @@ constituent pas automatiquement une nouvelle référence reproductible.
 |---|---|---|
 | SolverSmoke | Adaptateurs et traces de qualification CBLS/LSS, GHOST, JuLS, Timefold et HiGHS | Petits cas, lanceurs historiques Windows, recalcul complet des routes ; les profils de routing ne démontrent pas l'emploi de fonctions ICN apprises |
 | Comparaison GHOST et CBLS | Traces encourageantes sur quatre petits cas synthétiques, dix répétitions par cellule | Pas une preuve contre Timefold ou Hexaly sur des problèmes classiques de taille représentative |
-| LiLim | Modèle MILP compact, initialisation par insertion et validation indépendante | L'insertion est une référence autonome, pas CBLS ; le pilote ne mesure pas l'hybridation |
+| LiLim | Modèle MILP compact, initialisation par insertion et traces de validation indépendante | L'insertion est une référence autonome, pas CBLS ; la copie locale de l'ancien lecteur/validateur est absente et doit être reconstruite et requalifiée |
 | Méta-variables LSS | Groupes de variables, mouvements atomiques et interface de résolution avec budget | L'adaptateur de sous-problème HiGHS reste à réaliser et qualifier |
 | MetaStrategist | Grammaire, plans et infrastructure d'exécution exploitables | Une orchestration adaptative complète ne doit pas être supposée disponible |
-| XCSP3Bridges | Module reconstruit, compilation de réseaux entiers finis via les bridges CPE et raccordement à des variables MOI existantes | Pas de traduction complète déjà qualifiée de Li-Lim ; le checkout reconstruit n'a encore ni commit ni remote |
+| XCSP3Bridges | Module reconstruit, compilation de réseaux entiers finis via les bridges CPE et raccordement à des variables MOI existantes ; première version sauvegardée sur GitLab privé | Pas de traduction complète déjà qualifiée de Li-Lim ; les anciens rangs ne sont pas restaurés |
 
 Les qualifications historiques sont décrites dans
 [SolverSmoke](../SolverSmoke/THREAD_QUALIFICATION.md),
@@ -389,6 +389,43 @@ L'import futur devra aussi empreinter les données normalisées et les modèles.
 | SINTEF `pdp_200.zip` | `0d83737d8ede85b83ac4ec2d162479794d091e915cc921c0912ee9739e5de4d9` |
 
 ## Ordre de réalisation et décisions de poursuite
+
+### Reprise et références sauvegardées le 2 octobre 2026
+
+Les trois tâches attendues ont terminé leurs exécutions. Les autres tâches Codex
+ont été vérifiées, y compris les chats non chargés : leurs derniers tours sont
+terminés ou interrompus. Les processus Julia persistants sont des serveurs MCP
+au repos ; aucun rendu ou solveur orphelin n'a été détecté. Chaque lot suivant
+reste soumis au contrôle d'absence de concurrence.
+
+- [XCSP3Bridges.jl](https://gitlab.naze.baffier.fr/others/XCSP3Bridges.jl) : dépôt
+  **privé**, branche `rebuild/learnable-networks`, commit
+  `fe5bceaddc5081fedd200571b480e44ca9de1947`, présent sur le remote.
+- [ConstraintLearningBenchmarks.jl](https://gitlab.naze.baffier.fr/others/ConstraintLearningBenchmarks.jl) :
+  branche `feat/core-witness-recovery`, banque et intégration sauvegardées au
+  commit `429175f35687c766a87db3db78c39b6baf025ec0` ; rejeu complet sauvegardé au
+  commit `b340e83a72ed19acd1f1647edaafb9e363738f0f`.
+- 533 assertions du package, 30 d'intégration MetaStrategist et 21 165 du rejeu
+  complet passent sur la machine actuelle, avec un CPU logique et un thread de
+  solveur. Le rejeu couvre les 637 témoins et 6 886 affectations, conserve les
+  empreintes MILP et désactive les recettes Core pendant la reconstruction.
+- Le rejeu en `--compile=min -O0` a atteint son plafond de dix minutes après
+  400 témoins. Le contrôle complet en `--compiled-modules=existing -O1` passe en
+  17,9 secondes après chargement. Ce temps qualifie une méthode de contrôle,
+  sans établir un classement de performances des solveurs.
+
+Les dépôts privés ConstraintModels et COPInstances ont été retrouvés et clonés
+sous `~/.julia/dev`. Leurs références disponibles sont respectivement
+`8cea440a807d1e01b33bda7ef26f79100ea5e17b` et
+`dfc7344c8948550d0895968f6ad29a98449d643e`.
+Ils ne contiennent pas les sources de `ConstraintModels/src/benchmarks` ni
+l'ancienne API `COPInstances.download_dataset` référencées par les lanceurs
+LiLim. Les inventaires SHA de Benchmarks conservent les empreintes de ces
+fichiers perdus, mais pas leur contenu. Les lanceurs historiques ne sont donc
+pas encore reproductibles sur cette machine. La reprise reconstruit un lecteur
+et un validateur PDPTW versionnés et les contrôle contre des cas exhaustifs,
+sans déclarer une identité avec les sources perdues ni modifier les anciens
+inventaires pour leur faire accepter les nouveaux fichiers.
 
 | Étape | Livraison | Condition pour poursuivre |
 |---|---|---|
