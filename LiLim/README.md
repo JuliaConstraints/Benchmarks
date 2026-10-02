@@ -1,5 +1,46 @@
 # Small Li–Lim pilot
 
+## Current reconstructed cohort (2 October 2026)
+
+The historical vendor reader/validator and dataset API below are absent from the
+available dependency snapshots. Their old hashes remain in `vendor-inventory.toml`;
+they have not been replaced with hashes of new code. The current continuation uses
+`ConstraintModels.Benchmarks` at commit
+`4ddd8f65417ac8a8d6bb12add6faf0c0c84801c3` and its explicit `perf/pdptw` environment.
+Original lc101/lr101/lrc101 bytes were acquired from SINTEF's checksum-verified
+100-task archive; raw files are opt-in and ignored by Git.
+
+From this repository, choose an available CPU, restrict affinity before Julia
+starts, set BLAS/OMP/MKL to one thread, and run with `--threads=1 --gcthreads=1
+--compiled-modules=existing -O1 --project=$HOME/.julia/dev/ConstraintModels/perf/pdptw`:
+
+- `LiLim/test/pdptw_oracle.jl`: 592 assertions, including agreement between the
+  independent validator and fixed-arc MILP on all 576 small route partitions;
+  unfixed lexicographic optima agree with exhaustive enumeration.
+- `LiLim/test/meta_repair.jl`: 38 assertions for a real
+  `LocalSearchSolvers.AbstractMetaVariableResolver`, including actual HiGHS solves
+  with specialized and XCSP3Bridges formulations of the same fragment.
+
+`src/MetaRepair.jl` represents each customer successor as a parent decision. A
+meta-variable frees a union of complete current routes (at most 20 visits).
+Other routes are fixed and complete requests cannot cross the fragment boundary.
+The reduced RO model preserves continuous time/load and unrounded Euclidean
+distance. Its discrete same-route equalities may use manually specified one-atom
+equality DAGs through `XCSP3Bridges.add_program!`. These are versioned structural
+weights, not a claim to have learned optimal bridges. The specialized variant
+uses the same equality semantics. Both currently omit MIP starts.
+
+The seconds budget covers construction, solving and validation, with cooperative
+checks between phases; use an outer process deadline for a hard wall limit.
+The adapter rejects partial-route scopes, oversized fragments, changed snapshots,
+invalid solutions and results delivered after the budget. Only a lexicographic
+global improvement becomes an owned, atomic `MetaMove`. The original problem is
+validated again before returning it; outside successors cannot change.
+The adapter is not yet a complete CBLS hybrid controller, and these tiny tests
+are not comparative performance evidence on full Li-Lim instances.
+
+## Historical pilot
+
 Opt-in DrWatson project. The user authorized four logical CPUs for this pilot on
 12 September 2026. CPUs 4–7 (0xF0) are used sequentially; the separate HPO stays on 0–3.
 The repository's existing two-CPU default is unchanged. Julia controls all processes.

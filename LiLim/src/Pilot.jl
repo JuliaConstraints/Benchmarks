@@ -63,7 +63,7 @@ Unique anchors + equal labels along selected customer arcs enforce same-route pa
 Order constraints remove all customer-only cycles, even for zero travel times.
 No fleet restriction or distance rounding; depot departures count the full fleet.
 """
-function model(p; threads=4, seed=1, seconds=30.0, logpath=nothing)
+function model(p; threads=4, seed=1, seconds=30.0, logpath=nothing, pair_bridge=nothing)
     d=p.data; n=length(d.demand); tasks=2:n; D=distances(d)
     arcs=[(i,j) for i in 1:n, j in 1:n if i!=j && d.earliest[i]+d.service[i]+D[i,j]<=d.latest[j]]
     m=Model(HiGHS.Optimizer)
@@ -87,7 +87,11 @@ function model(p; threads=4, seed=1, seconds=30.0, logpath=nothing)
     @constraint(m,fleet<=d.vehicles)
     @constraint(m,fleet==sum(x[a] for a in incoming[1]))
     for (pickup,delivery) in d.pairs
-        @constraint(m,label[pickup]==label[delivery])
+        if pair_bridge === nothing
+            @constraint(m,label[pickup]==label[delivery])
+        else
+            pair_bridge(m, label[pickup], label[delivery], 1:n-1)
+        end
         @constraint(m,order[delivery]>=order[pickup]+1)
     end
     for (i,j) in arcs
