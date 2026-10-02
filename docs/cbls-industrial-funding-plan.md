@@ -3,6 +3,11 @@
 Proposition du 2 octobre 2026, à exécuter par étapes. Ce document fixe la démarche ;
 il ne rapporte pas une campagne nouvelle ni un accord de financement.
 
+Consigne d'exécution du 2 octobre : attendre la fin de la création de la vidéo
+Catalyst/RTS avant les travaux de solveur susceptibles de concurrencer ses threads.
+Les recherches de sources, lectures de données et mises à jour documentaires
+peuvent continuer. Cette passe ne lance aucun solveur, compilation ou benchmark.
+
 ## Objectif et résultat attendu
 
 Obtenir assez de preuves de compétitivité pour proposer à une entreprise de
@@ -217,6 +222,157 @@ constituer un petit corpus séparé couvrant les trois distributions et plusieur
 tailles. Ne pas reprendre immédiatement la matrice historique de 354 instances
 et 41 configurations. Plafonner chaque pilote et établir son coût avant de
 décider d'une extension.
+
+## Recherche des instances du 2 octobre 2026
+
+Les listes suivantes sont des propositions de sélection avant exécution.
+La lecture des archives confirme des fichiers et des formats, pas leur résolution
+par nos adaptateurs. Les petites archives consultées ont été supprimées après
+inspection ; leurs sources et empreintes restent ci-dessous.
+
+### Premier corpus Car Sequencing
+
+[CSPLib 001](https://www.csplib.org/Problems/prob001/) définit les demandes par
+classe et les capacités d'options sur fenêtres. Son
+[index de données](https://www.csplib.org/Problems/prob001/data/) distingue les
+instances classiques des variantes ROADEF, avec contraintes supplémentaires.
+
+L'[archive de Caroline Gagne](https://www.csplib.org/Problems/prob001/data/ProblemDataSet200to400.zip)
+a été téléchargée et inventoriée : trente fichiers, dix pour chacune des tailles
+200, 300 et 400 voitures, avec cinq options. Les en-têtes ont été lus ; aucune
+solution ni classification de satisfaisabilité n'a été vérifiée dans cette passe.
+
+Proposition de douze instances, stratifiée par taille :
+
+| Taille | Réglage | Confirmation |
+|---|---|---|
+| 200 | `pb_200_01.txt`, `pb_200_02.txt` | `pb_200_06.txt`, `pb_200_07.txt` |
+| 300 | `pb_300_01.txt`, `pb_300_02.txt` | `pb_300_06.txt`, `pb_300_07.txt` |
+| 400 | `pb_400_01.txt`, `pb_400_02.txt` | `pb_400_06.txt`, `pb_400_07.txt` |
+
+Pour la qualification, garder aussi le petit exemple de dix voitures de la
+spécification et quelques cas historiques avec statuts annoncés. Les
+[résultats CSPLib](https://www.csplib.org/Problems/prob001/results/result1.md.html)
+indiquent notamment `4/72` satisfaisable et `6/76` infaisable. Ils mentionnent
+`26/82`, absent du fichier historique lu : ne pas construire un manifeste à partir
+de la seule liste de résultats. Le
+[fichier de données source](https://raw.githubusercontent.com/csplib/csplib/master/Problems/prob001/data/data.txt)
+consulté contient huit cas historiques et soixante-dix cas de 200 voitures,
+répartis en sept niveaux d'utilisation.
+
+Deux contrats doivent rester distincts : atteindre une séquence sans violation,
+ou minimiser un dépassement explicitement défini. Le
+[modèle Hexaly publié](https://www.hexaly.com/docs/last/exampletour/carsequencing.html)
+minimise la somme des excès positifs de capacité sur toutes les options et
+fenêtres. Ce score n'est pas simplement le nombre de fenêtres violées. Une
+fonction ICN peut guider CBLS, mais le résultat comparatif doit être réévalué
+avec le même objectif officiel pour tous les solveurs. Une valeur publiée de
+« violations » n'est comparable qu'après vérification de sa définition.
+
+L'[index XCSP3](https://xcsp.org/instances/) fournit aussi une
+[archive CarSequencing](https://www.cril.univ-artois.fr/~lecoutre/seriesSiteXCSP/CarSequencing.tgz),
+inventoriée à 109 fichiers XML compressés. Un exemple lu, `CarSequencing-90-02`,
+est de type CSP avec cardinalités et sommes. C'est une voie de qualification
+XCSP3, pas une preuve que notre importeur accepte déjà tout le corpus.
+Le [modèle source PyCSP3](https://raw.githubusercontent.com/xcsp3team/pycsp3-models/main/realistic/CarSequencing/CarSequencing.py)
+propose des encodages logique et table, et ajoute des contraintes redondantes
+déduites des capacités dures. Ne pas garder automatiquement ces dernières en
+transformant le problème en minimisation de dépassements : leur justification
+suppose le respect des capacités. Regrouper les encodages d'une même instance
+dans le même lot pour éviter les doublons entre réglage et confirmation.
+
+### Sources accessibles pour Graph Partitioning
+
+L'[archive Walshaw](https://chriswalshaw.co.uk/partition/) reste la référence du
+carnet. Son accès complet passe par une demande de lien ; aucune demande n'est
+envoyée dans cette passe. Ses tableaux donnent des qualités, sans temps comparables.
+La convention d'équilibre utilise la borne supérieure
+`ceil(n/k) * (1 + epsilon)` sur la taille des blocs. Ne pas ajouter des bornes
+inférieures ou une exigence de connexité absentes de la variante référencée.
+
+La [collection DIMACS10 de SuiteSparse](https://sparse.tamu.edu/DIMACS10)
+répertorie les correspondances avec Walshaw. Elle permet une acquisition par
+notices individuelles, puis une conversion déclarée des matrices en graphes.
+Le téléchargement Matrix Market de
+[3elt](https://sparse.tamu.edu/AG-Monien/3elt) a été vérifié : 4 720 sommets et
+13 722 entrées triangulaires d'une matrice de motif symétrique. Le miroir indiqué
+par la notice est joignable en HTTP ; l'essai HTTPS a expiré.
+
+Douze candidats de tailles modérées sont proposés pour la qualification :
+
+| Graphe | Sommets | Collection ou notice correspondante |
+|---|---:|---|
+| add20 | 2 395 | `Hamm/add20` |
+| data | 2 851 | `DIMACS10/data` |
+| 3elt | 4 720 | `AG-Monien/3elt` |
+| uk | 4 824 | `DIMACS10/uk` |
+| add32 | 4 960 | `Hamm/add32` |
+| bcsstk33 | 8 738 | `HB/bcsstk33` |
+| whitaker3 | 9 800 | `AG-Monien/whitaker3` |
+| crack | 10 240 | `AG-Monien/crack` |
+| wing_nodal | 10 937 | `DIMACS10/wing_nodal` |
+| fe_4elt2 | 11 143 | `DIMACS10/fe_4elt2` |
+| 4elt | 15 606 | `Pothen/barth5` |
+| memplus | 17 758 | `Hamm/memplus` |
+
+Les tailles viennent du tableau Walshaw ; les correspondances sont celles de
+SuiteSparse/DIMACS10. Les octets des onze autres graphes restent à qualifier.
+Pour les matrices numériques, vérifier la conversion en motif non orienté,
+l'élimination de la diagonale et le dédoublonnage des arêtes ; ne pas utiliser
+leurs coefficients comme poids sans changer explicitement de variante.
+
+Proposition initiale : quatre blocs, équilibre à 0 % selon la convention de
+l'archive, coupe en nombre d'arêtes. Une tolérance de 3 % serait une ablation
+séparée. Réserver six graphes entiers à la confirmation avant les réglages ;
+changer `k` sur un graphe ne crée pas une instance indépendante pour ce partage.
+
+En complément, le
+[dépôt KaHIP](https://github.com/KaHIP/KaHIP/tree/34e1d0a00afeae2ae2ebfe625826e9c8f8f40ac4/examples)
+contient deux fichiers METIS directement accessibles, dont les en-têtes ont été
+lus : `delaunay_n15.graph` et `rgg_n_2_15_s0.graph`, chacun à 32 768 sommets.
+Ils peuvent diversifier les structures après qualification du petit pilote.
+Le [travail sur la recherche locale par ILP pour le partitionnement](https://arxiv.org/abs/1802.07144),
+déjà référencé dans le carnet, étaye la piste de régions réduites résolues par
+un moteur RO ; il ne mesure pas notre futur adaptateur HiGHS.
+
+### Pilote Li-Lim de 100 vers 200 tâches
+
+[SINTEF](https://www.sintef.no/projectweb/top/pdptw/li-lim-benchmark/)
+fournit six tailles nominales, environ 100 à 1 000 tâches. Une tâche est une
+visite pickup ou delivery, pas une paire de requêtes. Les archives de tailles
+100 et 200 ont été inventoriées : respectivement 56 et 60 fichiers texte.
+
+Une proposition bornée réutilise six cas à 100 tâches pour le réglage :
+`lc101`, `lr101`, `lrc101`, `lc201`, `lr201`, `lrc201`. Les trois premiers ont
+déjà servi au pilote historique et ne doivent pas devenir des cas de confirmation.
+Réserver six cas nominalement à 200 tâches : `LC1_2_1`, `LR1_2_1`, `LRC1_2_1`,
+`LC2_2_1`, `LR2_2_1`, `LRC2_2_1`. Ces noms exacts existent dans l'archive 200,
+sans sous-répertoire, avec extension `.txt`. Les cas 100 sont en minuscules sous
+`pdp_100/`. Cette proposition teste le transfert de taille ; elle ne suffit pas
+à conclure sur les tailles 400 à 1 000.
+
+Les [références 100](https://www.sintef.no/projectweb/top/pdptw/100-customers/) et
+[références 200](https://www.sintef.no/projectweb/top/pdptw/200-customers/)
+serviront de cibles de qualité. Elles ne fournissent pas des temps comparables
+et mêlent meilleures valeurs connues et valeurs signalées optimales. Lire les
+annotations par cas. Ne pas injecter leurs solutions dans l'initialisation du
+benchmark ; leur lecture sert au contrôle et à la comparaison a posteriori.
+Conserver les identifiants originaux et suivre la
+[documentation du format](https://www.sintef.no/projectweb/top/pdptw/documentation/).
+
+### Empreintes des sources inspectées
+
+Ces SHA-256 portent sur les archives ou le fichier historique, avant conversion.
+L'import futur devra aussi empreinter les données normalisées et les modèles.
+
+| Source | SHA-256 |
+|---|---|
+| CSPLib `ProblemDataSet200to400.zip` | `85479b9bf0d29c547aa21945bf69e3f458502cdfe9ff530d435c51d395d87645` |
+| CSPLib `data.txt` | `e64da35182ae455559642d185afbe7e0f97527d0c0c087dce05a96852913bf6c` |
+| XCSP3 `CarSequencing.tgz` | `94e3ad768d3b69c415a020683a3294336339079ea31d00f717d9f16814cbde55` |
+| SuiteSparse `3elt.tar.gz` | `86f80a8679f9d1ec7386c4f117e3158fbe5322345057cafe2d83e7aa4494afdd` |
+| SINTEF `pdp_100.zip` | `d106694e9e18cebc32b63c322e1000620238392c1b9d98d92de82ef7e4b43cd9` |
+| SINTEF `pdp_200.zip` | `0d83737d8ede85b83ac4ec2d162479794d091e915cc921c0912ee9739e5de4d9` |
 
 ## Ordre de réalisation et décisions de poursuite
 
