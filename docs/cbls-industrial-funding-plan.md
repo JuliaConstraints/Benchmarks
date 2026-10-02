@@ -3,10 +3,24 @@
 Proposition du 2 octobre 2026, à exécuter par étapes. Ce document fixe la démarche ;
 il ne rapporte pas une campagne nouvelle ni un accord de financement.
 
-Consigne d'exécution du 2 octobre : attendre la fin de la création de la vidéo
-Catalyst/RTS avant les travaux de solveur susceptibles de concurrencer ses threads.
-Les recherches de sources, lectures de données et mises à jour documentaires
-peuvent continuer. Cette passe ne lance aucun solveur, compilation ou benchmark.
+Consigne d'exécution actualisée le 2 octobre : reprendre les calculs et les
+travaux de solveur lorsque les trois tâches ci-dessous ont terminé leurs
+exécutions et qu'aucune autre tâche Codex n'est active, en excluant ce chat du
+contrôle. Une nouvelle tâche concurrente reporte également les calculs.
+
+| Tâche attendue | Identifiant du chat |
+|---|---|
+| Cloner le repo business-plan | `01a0fb66-d842-7193-801e-e2973852e777` |
+| Définir l’objectif du RTS spatial (2) | `01a0f635-0f91-7a52-a0a6-c0b8caaa066a` |
+| Faire le point sur Catalyst | `01a0f430-cccd-7312-8f0d-fed8e319c1a8` |
+
+La reprise automatique « Reprise JuliaConstraints après les tâches en cours »
+est attachée à ce chat avec une vérification toutes les cinq minutes. Elle
+confirme aussi la fin des processus de rendu ou de solveur encore présents avant
+un lot de calculs. Elle reste silencieuse pendant une attente inchangée, poursuit
+le premier pilote qualifié selon ce plan lorsque les ressources sont libres et
+se met en pause à la livraison de son bilan sauvegardé. Les lectures de sources
+et les mises à jour documentaires peuvent continuer pendant l'attente.
 
 ## Objectif et résultat attendu
 
