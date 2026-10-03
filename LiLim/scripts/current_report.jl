@@ -4,6 +4,8 @@ using ConstraintModels.Benchmarks
 
 digest(path) = bytes2hex(sha256(read(path)))
 quality(record) = (record["vehicles"],record["distance"])
+const REFERENCE_URL = "https://www.sintef.no/projectweb/top/pdptw/100-customers/"
+const PUBLISHED_REFERENCES = Dict("lc101"=>(10,828.94),"lr101"=>(19,1650.80),"lrc101"=>(14,1708.80))
 function compare(a,b)
     a[1]!=b[1] && return a[1]<b[1] ? -1 : 1
     abs(a[2]-b[2])<=1e-8 && return 0
@@ -95,6 +97,15 @@ function summarize(qualified)
             "repairs"=>length(repairs),"useful_repairs"=>get(status_counts,"improved",0),
             "max_wall_overrun_seconds"=>max(0.,maximum(row->row["wall_seconds"]-budget,selected)),
             "median_wall_seconds"=>median([row["wall_seconds"] for row in selected]))
+        target = PUBLISHED_REFERENCES[id]
+        target_times = Float64[]
+        for row in usable
+            reached = findfirst(event->event["vehicles"]<target[1] ||
+                (event["vehicles"]==target[1] && round(event["distance"];digits=2)<=target[2]),row["trajectory"])
+            reached===nothing || push!(target_times,row["trajectory"][reached]["seconds"])
+        end
+        group["published_target_reached"] = length(target_times)
+        isempty(target_times) || (group["median_target_seconds_among_successes"] = median(target_times))
         if !isempty(qualities)
             middle = qualities[cld(length(qualities),2)]
             merge!(group,Dict("median_vehicles"=>middle[1],"median_distance"=>middle[2],
@@ -133,6 +144,9 @@ function write_report(campaign,base)
     record = Dict("schema"=>"li-lim-meta-pilot-report/1","campaign"=>abspath(campaign),
         "audited_utc"=>string(now(UTC)),"metadata"=>qualified.metadata,"runtime"=>qualified.runtime,
         "summary"=>summary,"cases"=>qualified.rows)
+    record["published_reference"] = Dict("url"=>REFERENCE_URL,"consulted_date"=>"2026-10-04",
+        "scope"=>"best known quality, displayed to two decimals; not comparable runtime or a general optimality proof",
+        "rows"=>[Dict("instance"=>id,"vehicles"=>q[1],"distance_two_decimals"=>q[2]) for (id,q) in sort!(collect(PUBLISHED_REFERENCES);by=first)])
     open(io->TOML.print(io,record;sorted=true),base*".toml","w")
     open(base*".md","w") do io
         println(io,"# Premier pilote Li-Lim CBLS–HiGHS — 4 octobre 2026\n")
@@ -146,6 +160,18 @@ function write_report(campaign,base)
         println(io,"| Variante | Référence | Meilleurs | Égaux | Moins bons |\n|---|---|---:|---:|---:|")
         for comparison in summary["comparisons"]
             println(io,"| ",comparison["method"]," | ",comparison["reference"]," | ",comparison["wins"]," | ",comparison["ties"]," | ",comparison["losses"]," |")
+        end
+        println(io,"\nLes [meilleures valeurs connues publiées par SINTEF](",REFERENCE_URL,") consultées le 4 octobre 2026 sont ci-dessous. Les distances publiées sont affichées à deux décimales ; nos calculs conservent la précision originale. Aucune solution externe n'a été injectée dans l'initialisation.\n")
+        println(io,"| Instance | Flotte publiée | Distance publiée |\n|---|---:|---:|")
+        for id in qualified.metadata["config"]["instances"]
+            q = PUBLISHED_REFERENCES[id]
+            println(io,"| ",id," | ",q[1]," | ",q[2]," |")
+        end
+        println(io,"\nAtteinte de cette cible à deux décimales : la médiane de temps porte uniquement sur les réussites. Les autres exécutions sont censurées au budget, sans temps de réussite inventé.\n")
+        println(io,"| Instance | Budget | Méthode | Cible atteinte | Temps médian parmi réussites |\n|---|---:|---|---:|---:|")
+        for group in summary["groups"]
+            seconds = haskey(group,"median_target_seconds_among_successes") ? string(round(group["median_target_seconds_among_successes"];digits=4)," s") : "—"
+            println(io,"| ",group["instance"]," | ",Int(group["budget_seconds"])," s | ",group["method"]," | ",group["published_target_reached"],"/",group["jobs"]," | ",seconds," |")
         end
         println(io,"\nLes quatre méthodes disposent du même CPU et du même point de départ, dont la construction est comptée. Les solutions intermédiaires HiGHS sont observées et validées dans le budget. Les résultats CBLS proviennent de snapshots validés dans une horloge commune. Les validations d'audit et l'archivage sont postérieurs à la recherche.\n")
         println(io,"| Instance | Chargement | Échauffement | RSS maximale | Temps mural enfant |\n|---|---:|---:|---:|---:|")
