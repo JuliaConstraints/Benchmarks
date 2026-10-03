@@ -144,8 +144,7 @@ function warmstart!(f,routes)
     isempty(violations) || error("MIP start violates $(length(violations)) algebraic constraints")
 end
 
-function decode(f)
-    selected=[a for (a,v) in f.x if value(v)>0.5]
+function decode(f, selected=[a for (a,v) in f.x if value(v)>0.5])
     successors=Dict(i=>j for (i,j) in selected if i!=1)
     routes=Vector{Int}[]
     for start in sort([j for (i,j) in selected if i==1])
@@ -159,6 +158,37 @@ function decode(f)
     end
     validate_solution(f.p,routes).valid || error("solver output failed independent validation")
     return routes
+end
+
+"Observe actual HiGHS incumbents, validating them before the caller's deadline."
+function observe_incumbents!(f, observe; expired=()->false, rejected=error->throw(error))
+    # Synchronize before optimize!: the caching optimizer does not expose
+    # optimizer_index during the initial copy-and-optimize callback.
+    MOI.Utilities.attach_optimizer(backend(f.m))
+    optimizer = unsafe_backend(f.m)
+    columns = [(arc,HiGHS.column(optimizer,optimizer_index(variable))+1)
+        for (arc,variable) in f.x]
+    function callback(kind::Cint, ::Ptr{Cchar}, data::HiGHS.HighsCallbackDataOut)::Cint
+        expired() && return Cint(1)
+        if kind in (HiGHS.kHighsCallbackMipSolution,HiGHS.kHighsCallbackMipImprovingSolution) &&
+                data.mip_solution != C_NULL && data.mip_solution_size > 0
+            # HiGHS owns this buffer; do not retain it beyond the callback.
+            primal = unsafe_wrap(Vector{Float64},data.mip_solution,Int(data.mip_solution_size);own=false)
+            all(pair -> pair[2] <= length(primal),columns) || error("callback column mapping exceeds primal buffer")
+            selected = [arc for (arc,column) in columns if primal[column] > 0.5]
+            routes = try
+                decode(f,selected)
+            catch error
+                rejected(error)
+                nothing
+            end
+            routes === nothing || observe(routes)
+        end
+        return Cint(expired())
+    end
+    set_attribute(f.m,HiGHS.CallbackFunction(Cint[HiGHS.kHighsCallbackMipSolution,
+        HiGHS.kHighsCallbackMipImprovingSolution,HiGHS.kHighsCallbackMipInterrupt]),callback)
+    nothing
 end
 
 function solve!(f; seconds=30.0)

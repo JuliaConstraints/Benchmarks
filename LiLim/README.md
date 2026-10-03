@@ -46,6 +46,14 @@ score checks and an independent enumeration of reachable pair relocations.
 The original controller passed 1,269 assertions before adding structured moves.
 These tiny tests are not comparative performance evidence on full Li-Lim instances.
 
+The [current pilot protocol](CURRENT_PILOT.md) freezes a 72-job diagnostic:
+three source instances, two budgets, three seeds and four methods. All 2,051
+semantic/model/controller/observer assertions pass. `scripts/current_pilot.jl
+check` checks the frozen environment, dependency revisions, source bytes and
+single-CPU affinity; `campaign` runs it with resource supervision and immutable
+evidence. See the protocol for the exact command and limitations. The campaign
+uses this reconstructed cohort, without invoking the historical launchers below.
+
 ## Historical pilot
 
 Opt-in DrWatson project. The user authorized four logical CPUs for this pilot on

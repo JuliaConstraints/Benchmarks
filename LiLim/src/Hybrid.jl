@@ -122,14 +122,16 @@ end
 
 function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
         max_visits=16, repair_every=5, fragment_seconds=0.1, repair_fraction=0.35,
-        structured=true)
-    started = time_ns()
+        structured=true, origin_ns=nothing)
+    entered = time_ns()
+    started = origin_ns === nothing ? entered : UInt64(origin_ns)
+    started <= entered || throw(ArgumentError("clock origin is in the future"))
     isfinite(seconds) && seconds > 0 || throw(ArgumentError("positive finite budget required"))
     0 <= repair_fraction <= 1 && repair_every > 0 && isfinite(fragment_seconds) && fragment_seconds > 0 || throw(ArgumentError("invalid repair policy"))
     rng = Xoshiro(seed)
     prepared = prepare_parent(p, initial; seed)
     solver, acceptance = prepared.solver, prepared.acceptance
-    initialization = (time_ns()-started)/1e9
+    initialization = (time_ns()-entered)/1e9
     best = deepcopy(initial)
     best_quality = validate_solution(p, best).objective
     steps = 0
@@ -152,7 +154,8 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
             best = candidate
             best_quality = quality
             best_scalar = prepared.fleet_weight*quality.vehicles+quality.distance
-            push!(trajectory, Dict("seconds"=>elapsed(),"vehicles"=>quality.vehicles,"distance"=>quality.distance))
+            push!(trajectory, Dict("seconds"=>elapsed(),"vehicles"=>quality.vehicles,
+                "distance"=>quality.distance,"routes"=>deepcopy(candidate)))
         end
     end
     resolver = HighsRouteResolver(; bridged, max_visits)
