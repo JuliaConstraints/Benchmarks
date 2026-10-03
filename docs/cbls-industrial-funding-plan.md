@@ -3,7 +3,14 @@
 Proposition du 2 octobre 2026, à exécuter par étapes. Ce document fixe la démarche ;
 il ne rapporte pas une campagne nouvelle ni un accord de financement.
 
-Consigne d'exécution actualisée le 2 octobre : reprendre les calculs et les
+Consigne du 4 octobre : l'utilisateur autorise explicitement la reprise, sans
+limite globale, avec toutes les ressources de la machine disponibles. L'objectif
+actif est un premier pilote Li-Lim qualifié et sauvegardé. Les budgets des essais
+restent fixés pour permettre une comparaison reproductible ; cette autorisation
+remplace l'attente stricte des autres chats. L'ancienne automation reste en pause
+pendant cette reprise directe.
+
+Consigne d'exécution historique du 2 octobre : reprendre les calculs et les
 travaux de solveur lorsque les trois tâches ci-dessous ont terminé leurs
 exécutions et qu'aucune autre tâche Codex n'est active, en excluant ce chat du
 contrôle. Une nouvelle tâche concurrente reporte également les calculs.

@@ -36,8 +36,15 @@ The adapter rejects partial-route scopes, oversized fragments, changed snapshots
 invalid solutions and results delivered after the budget. Only a lexicographic
 global improvement becomes an owned, atomic `MetaMove`. The original problem is
 validated again before returning it; outside successors cannot change.
-The adapter is not yet a complete CBLS hybrid controller, and these tiny tests
-are not comparative performance evidence on full Li-Lim instances.
+`src/Hybrid.jl` now adds a qualified controller: native LSS steps plus best feasible
+reinsertion of randomly selected complete pickup-delivery pairs, common to the
+pure and hybrid variants. Both use atomic `MetaMove` commits in the parent solver.
+The hybrid also calls the bounded RO resolver. The direct full-route score is
+not an ICN; this is a deliberately minimal feasible greedy policy, not a fully
+tuned solver. `test/hybrid.jl` passes 1,354 assertions, including exhaustive small
+score checks and an independent enumeration of reachable pair relocations.
+The original controller passed 1,269 assertions before adding structured moves.
+These tiny tests are not comparative performance evidence on full Li-Lim instances.
 
 ## Historical pilot
 
