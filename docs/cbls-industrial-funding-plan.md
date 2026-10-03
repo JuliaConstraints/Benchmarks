@@ -490,3 +490,30 @@ l'utilisateur a demandé la pause. Le score actuel est calculé directement,
 sans ICN. La prochaine étape, après autorisation de reprise, est de qualifier
 ce contrôleur avant tout pilote comparatif. Aucun résultat comparatif de
 performance n'est encore établi par cette reprise.
+
+## Premier pilote livré le 4 octobre 2026
+
+La reprise explicite a livré le [pilote qualifié](../LiLim/CURRENT_PILOT.md) et
+son [bilan audité](../LiLim/results/pilot-20261004.md). La configuration et les
+sources mesurées sont figées à
+`fb609d3012d2cfc1e38974df6e1b85dbf7277e4d`. Les 2 051 contrôles passent et les
+72 exécutions ont des solutions originales admissibles avec preuves scellées.
+Les versions des dépendances et les poids manuels des programmes de bridge
+sont conservés dans les preuves. Le score CBLS est direct, sans ICN.
+
+L'hybride spécialisé gagne 9 comparaisons appariées contre CBLS seul, en égale
+7 et en perd 2 ; contre la formulation HiGHS mesurée, les deux hybrides
+gagnent 10 comparaisons, en égalent 6 et en perdent 2. Ces 18 paires mélangent
+trois instances déjà exposées et deux budgets ; elles ne sont pas 18 instances
+indépendantes. La cible lr101 n'est atteinte que pour une graine sur trois,
+et lrc101 reste à 17 véhicules contre 14 dans la meilleure valeur publiée.
+Le constat est un gain de prototype avec une limite claire de robustesse,
+sans conclusion contre Timefold ou Hexaly.
+
+Priorités avant extension : mouvements permettant de vider une route,
+fragments de trois routes bornés, capture des états pour un rejeu apparié des
+bridges, puis déclenchement guidé par stagnation/rendement sous MetaStrategist
+léger. Un petit contrôle des graines HiGHS et du modèle RO évite de confondre
+un avantage sur une référence particulière avec un avantage général.
+Les profils seront réglés sur le corpus exposé et figés avant confirmation.
+L'ancienne automation reste en pause après livraison du pilote.

@@ -99,3 +99,11 @@ dont le point de départ atteint déjà l'ancien optimum validé, n'est pas un
 échec du prototype. Les conclusions désignent cette formulation HiGHS et
 ce profil CBLS précis. Le prochain effort est choisi d'après les obstacles
 mesurés, avant toute extension au corpus réservé ou aux solveurs commerciaux.
+
+Campagne terminée et auditée :
+[bilan et décision](results/pilot-20261004.md),
+[preuves et traces essentielles](results/pilot-20261004.toml).
+La référence mesurée est `fb609d3012d2cfc1e38974df6e1b85dbf7277e4d` ;
+72/72 résultats sont admissibles. Le lecteur de bilan est
+`scripts/current_report.jl <campagne> <base-de-sortie>` et refuse une destination
+existante. Son audit a aussi rejeté une empreinte volontairement altérée.
