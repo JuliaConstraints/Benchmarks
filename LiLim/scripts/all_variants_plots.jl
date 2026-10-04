@@ -1,4 +1,6 @@
 using TOML, Statistics, CairoMakie, Random
+const ROOT=normpath(joinpath(@__DIR__,".."))
+include(joinpath(ROOT,"src","BenchmarkTargets.jl"))
 length(ARGS)==3 && ARGS[3] in ("exact","xkcd") || error("usage: summary.toml output-directory exact|xkcd")
 const DATA=TOML.parsefile(abspath(ARGS[1]));const OUT=abspath(ARGS[2]);mkpath(OUT)
 const ROWS=DATA["records"];const METHODS=DATA["methods"];const LABELS=DATA["labels"]
@@ -9,7 +11,7 @@ style(j)=j in (3,6,8,10,12,15) ? :dash : :solid
 subset(id,method,width)=filter(r->r["instance"]==id&&r["method"]==method&&r["threads"]==width,ROWS)
 key(r)=(r["vehicles"],r["distance"])
 middle(rows)=sort(rows;by=key)[2]
-hit(r,id)=r["vehicles"]<TARGETS[id]["vehicles"]||(r["vehicles"]==TARGETS[id]["vehicles"]&&r["distance"]<=TARGETS[id]["distance"]+1e-6)
+hit(r,id)=BenchmarkTargets.reaches_published_bks(r["vehicles"],r["distance"],TARGETS[id]["vehicles"],TARGETS[id]["distance"];distance_digits=get(DATA,"bks_distance_digits",2))
 improved(r)=(r["vehicles"],r["distance"])<(r["initial_vehicles"],r["initial_distance"]-1e-6)
 at(r,t)=begin events=filter(e->e["seconds"]<=t,r["trajectory"]);isempty(events) ? nothing : last(events) end
 if ARGS[3]=="xkcd"
@@ -26,7 +28,7 @@ end
 function footer!(fig,row;reference=true)
     elements=Any[LineElement(color=COLORS[j],linestyle=style(j),linewidth=2.3) for j in eachindex(METHODS)];labels=copy(LABELS)
     if reference;push!(elements,LineElement(color=:gray30,linestyle=:dot,linewidth=2));push!(labels,"BKS SINTEF") end
-    Label(fig[row,1:3],"5 s · same insertion start · 3 runs per cell · BKS requires both fleet AND distance · LC101 starts at its BKS",fontsize=14)
+    Label(fig[row,1:3],"5 s · same insertion start · 3 runs per cell · BKS distance rounded to published $(get(DATA,"bks_distance_digits",2)) decimals · LC101 starts at its BKS",fontsize=14)
     Legend(fig[row+1,1:3],elements,labels;orientation=:horizontal,nbanks=4,tellwidth=false,framevisible=false,labelsize=14)
     Label(fig[row+2,1:3],"Exposed diagnostic set · profiles not fully tuned · Timefold Community · no GHOST/JuLS captures · Hexaly executable unavailable"*(ARGS[3]=="xkcd" ? "\nXKCDMakie illustration; see plain-style plots for exact coordinates." : ""),fontsize=13)
 end

@@ -1,6 +1,7 @@
 using TOML, Statistics, CairoMakie, Random
 length(ARGS)==2 && ARGS[2] in ("exact","xkcd") || error("usage: competitors_plots.jl output-directory exact|xkcd")
 const ROOT=normpath(joinpath(@__DIR__,".."));const OUT=abspath(ARGS[1]);mkpath(OUT)
+include(joinpath(ROOT,"src","BenchmarkTargets.jl"))
 const IDS=["lc101","lr101","lrc101"];const WIDTHS=[1,2,4,8,16]
 const COLORS=[:seagreen3,:dodgerblue3,:darkorange2]
 const LABELS=["CBLS + ICN","Timefold LA 400","Timefold LA 1,000"]
@@ -21,8 +22,8 @@ for width in WIDTHS
 end
 key(r)=(r["vehicles"],r["distance"])
 lexmedian(rows)=sort(rows;by=key)[2]
-hit(event,id)=event["vehicles"]<TARGETS[id]["vehicles"] ||
-    (event["vehicles"]==TARGETS[id]["vehicles"] && event["distance"]<=TARGETS[id]["distance"]+1e-6)
+hit(event,id)=BenchmarkTargets.reaches_published_bks(event["vehicles"],event["distance"],
+    TARGETS[id]["vehicles"],TARGETS[id]["distance"];distance_digits=TARGETS["bks_distance_digits"])
 at(r,t)=begin
     events=filter(e->e["seconds"]<=t,r["trajectory"])
     isempty(events) ? nothing : last(events)

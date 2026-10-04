@@ -2,6 +2,7 @@ using ConstraintModels, TOML, SHA, Statistics, Printf
 using ConstraintModels.Benchmarks
 
 const ROOT = normpath(joinpath(@__DIR__, "..", ".."))
+include(joinpath(ROOT, "LiLim", "src", "BenchmarkTargets.jl"))
 length(ARGS) in (1, 2) || error("usage: full_corpus_report.jl CAMPAIGN_DIR [REPORT_DIR]")
 const CAMPAIGN = abspath(ARGS[1])
 const OUT = length(ARGS) == 2 ? abspath(ARGS[2]) : CAMPAIGN
@@ -14,6 +15,7 @@ const METHODS = IDENTITY["methods"]
 const SEEDS = IDENTITY["seeds"]
 const INSTANCE_IDS = IDENTITY["instances"]
 const CAMPAIGN_SCHEMA = IDENTITY["schema"]
+const BKS_DISTANCE_DIGITS = IDENTITY["bks_distance_digits"]
 family(id) = startswith(id, "lrc") ? "LRC" : startswith(id, "lc") ? "LC" : "LR"
 digest(path) = bytes2hex(sha256(read(path)))
 
@@ -48,6 +50,24 @@ function read_trial(row, method, seed, problems)
     expected_source = IDENTITY["instance_sha256"][row.id]
     record["source_sha256"] == expected_source || error("trial references a different instance source")
     record["bks_vehicles"] == row.bks_vehicles && record["bks_distance"] == row.bks_distance || error("trial reference target mismatch")
+    expected_bks = BenchmarkTargets.reaches_published_bks(record["vehicles"], record["distance"],
+        row.bks_vehicles, row.bks_distance; distance_digits=BKS_DISTANCE_DIGITS)
+    record["bks_reached"] == expected_bks || error("stored BKS attainment disagrees with the published-precision rule")
+    expected_bks_time = nothing
+    for event in record["trajectory"]
+        if BenchmarkTargets.reaches_published_bks(event["vehicles"], event["distance"],
+                row.bks_vehicles, row.bks_distance; distance_digits=BKS_DISTANCE_DIGITS)
+            expected_bks_time = event["seconds"]
+            break
+        end
+    end
+    actual_bks_time = record["time_to_bks_seconds"]
+    if expected_bks_time === nothing
+        actual_bks_time == "not_reached" || error("stored BKS time exists without a qualifying trajectory point")
+    else
+        actual_bks_time isa Real && isapprox(actual_bks_time, expected_bks_time; atol=1e-9, rtol=0) ||
+            error("stored time-to-BKS disagrees with the published-precision rule")
+    end
     problem = get!(problems, row.id) do
         digest(row.path) == expected_source || error("current source changed: $(row.id)")
         read_benchmark(row.path, :li_lim; id=row.id)
@@ -174,6 +194,8 @@ function write_report(path, summary)
             summary["budget_seconds"], " second wall budget per trial.\n")
         println(io, "The official SINTEF archive checksums and all ", summary["instance_count"],
             " extracted instance checksums were verified. Every stored incumbent and every trajectory point in the report was revalidated against the original Li-Lim instance. The fleet objective has priority; raw double-precision Euclidean distance is compared only after fleet count.\n")
+        println(io, "SINTEF publishes its distance targets to ", summary["bks_distance_digits"],
+            " decimal places. BKS attainment rounds the candidate to that displayed precision; raw double-precision distances remain in the results and determine solver rankings.\n")
         println(io, "## Results by solver profile\n\n| Profile | Completed / planned | Feasible / completed | BKS hits / planned | Best fleet gap per instance | Mean-run fleet gap per instance | Median-run fleet gap per instance | Median distance gap at BKS fleet | Mean time to BKS (s) | Mean active CPUs |")
         println(io, "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
         for row in summary["method_summary"]
@@ -247,6 +269,7 @@ summary = Dict{String,Any}(
     "schema"=>"li-lim-full-corpus-summary/1", "run_fingerprint"=>MANIFEST["run_fingerprint"],
     "complete"=>(completed == expected && get(MANIFEST,"complete",false)),
     "missing_runs"=>expected-completed, "budget_seconds"=>BUDGET, "threads"=>THREADS,
+    "bks_distance_digits"=>BKS_DISTANCE_DIGITS,
     "seed_count"=>length(SEEDS), "seeds"=>SEEDS, "instance_count"=>length(instances),
     "method_count"=>length(METHODS), "instances"=>INSTANCE_IDS, "methods"=>METHODS,
     "instance_results"=>cells,

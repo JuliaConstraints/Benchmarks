@@ -2,6 +2,7 @@ using ConstraintModels, TOML, SHA, Statistics, Printf
 using ConstraintModels.Benchmarks
 length(ARGS)==1 || error("usage: all_variants_report.jl output-summary.toml")
 const ROOT=normpath(joinpath(@__DIR__,".."));const OUT=abspath(ARGS[1])
+include(joinpath(ROOT,"src","BenchmarkTargets.jl"))
 const METHODS=["cbls_naive","cbls_icn","cbls_direct","cbls_mix_strategy","hybrid_specialized_icn","hybrid_bridged_icn",
     "highs_native","highs_portfolio","mixed_balanced","mixed_ls_heavy","timefold_late","timefold_late1000"]
 const LABELS=["CBLS naive","CBLS ICN","CBLS native, direct score","CBLS mixed strategies","Specialized ICN hybrid","Bridged ICN hybrid",
@@ -57,10 +58,11 @@ for id in CONFIG["instances"],m in METHODS,w in CONFIG["thread_counts"]
     rows=subset(id,m,w);expected=startswith(m,"mixed_")&&w<4 ? 0 : 3
     length(rows)==expected || error("missing/duplicate cell $id $m $w")
 end
-hit(r,id)=r["vehicles"]<TARGETS[id]["vehicles"]||(r["vehicles"]==TARGETS[id]["vehicles"]&&r["distance"]<=TARGETS[id]["distance"]+1e-6)
+hit(r,id)=BenchmarkTargets.reaches_published_bks(r["vehicles"],r["distance"],TARGETS[id]["vehicles"],TARGETS[id]["distance"];distance_digits=TARGETS["bks_distance_digits"])
 improved(r)=(r["vehicles"],r["distance"])<(r["initial_vehicles"],r["initial_distance"]-1e-6)
 summary=Dict("schema"=>"li-lim-all-variants-summary/1","budget_seconds"=>5.,"records"=>RECORDS,"captures"=>CAPTURES,
-    "methods"=>METHODS,"labels"=>LABELS,"instances"=>CONFIG["instances"],"widths"=>CONFIG["thread_counts"],"targets"=>TARGETS)
+    "methods"=>METHODS,"labels"=>LABELS,"instances"=>CONFIG["instances"],"widths"=>CONFIG["thread_counts"],"targets"=>TARGETS,
+    "bks_distance_digits"=>TARGETS["bks_distance_digits"])
 open(io->TOML.print(io,summary;sorted=true),OUT,"w")
 open(splitext(OUT)[1]*".md","w") do io
     println(io,"# Réévaluation de toutes les variantes — 4 octobre 2026\n")

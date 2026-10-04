@@ -11,6 +11,8 @@ external_methods = ["hexaly_native"]
 objective = "Original feasibility; minimize fleet, then total double-precision Euclidean distance; no rounding in the measured objective"
 trajectory_policy = "Retain each original-validator-approved incumbent with its elapsed wall time; time-to-BKS is censored at the campaign budget"
 aggregate_policy = "Report best lexicographic result and mean, median, standard deviation, and range across independent seeds; BKS and feasibility rates use all scheduled runs"
+bks_distance_digits = 2
+bks_attainment_policy = "Compare fleet first, then round raw distance to the published SINTEF precision before testing the displayed BKS target"
 
 [expected_by_size]
 "100" = 56

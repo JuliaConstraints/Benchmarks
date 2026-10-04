@@ -600,6 +600,16 @@ restent secondaires à la flotte et sont comparées au BKS lorsque la flotte
 correspond. Les absences de résultats ne sont pas comptées comme des échecs de
 faisabilité.
 
+La page officielle indique que les objectifs sont hiérarchiques et que les
+distances de référence sont publiées à deux décimales
+([table SINTEF](https://www.sintef.no/projectweb/top/pdptw/li-lim-benchmark/),
+[cas 100](https://www.sintef.no/projectweb/top/pdptw/100-customers/)). Le taux
+d'atteinte compare donc la flotte exactement, puis arrondit le résultat candidat
+à deux décimales avant de le comparer à la valeur affichée. Les classements,
+moyennes et écarts conservent les distances brutes en double précision. La
+tolérance `1e-6` reste réservée à l'égalité de distances entre essais appariés;
+elle ne sert pas à comparer un résultat brut au BKS arrondi.
+
 Les programmes
 [`full_corpus_campaign.jl`](../LiLim/scripts/full_corpus_campaign.jl),
 [`full_corpus_report.jl`](../LiLim/scripts/full_corpus_report.jl) et

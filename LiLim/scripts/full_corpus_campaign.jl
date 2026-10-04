@@ -3,6 +3,7 @@ using ConstraintModels.Benchmarks
 
 const ROOT = normpath(joinpath(@__DIR__, "..", ".."))
 const RUNNER_PATH = abspath(@__FILE__)
+include(joinpath(ROOT, "LiLim", "src", "BenchmarkTargets.jl"))
 for source in ("Pilot", "MetaRepair", "ICNScoring", "Hybrid", "ResourceExperiment")
     include(joinpath(ROOT, "LiLim", "src", source * ".jl"))
 end
@@ -210,6 +211,7 @@ function campaign_identity(opts, instances, methods, hexaly_executable)
         "seeds" => opts.seeds,
         "budget_seconds" => opts.budget,
         "threads" => opts.threads,
+        "bks_distance_digits" => CAMPAIGN_CONFIG["bks_distance_digits"],
         "gc_threads" => Threads.ngcthreads(),
         "affinity" => allowed_cpus(),
         "policy" => THREAD_CONFIG["policy"],
@@ -247,14 +249,16 @@ function verify_trial(path, row, method, seed, budget, threads, problem, fingerp
 end
 
 function bks_hit(record)
-    record["vehicles"] < record["bks_vehicles"] ||
-        (record["vehicles"] == record["bks_vehicles"] && record["distance"] <= record["bks_distance"] + 1e-6)
+    BenchmarkTargets.reaches_published_bks(record["vehicles"], record["distance"],
+        record["bks_vehicles"], record["bks_distance"];
+        distance_digits=CAMPAIGN_CONFIG["bks_distance_digits"])
 end
 
 function time_to_bks(record)
     for event in record["trajectory"]
-        (event["vehicles"] < record["bks_vehicles"] ||
-            (event["vehicles"] == record["bks_vehicles"] && event["distance"] <= record["bks_distance"] + 1e-6)) &&
+        BenchmarkTargets.reaches_published_bks(event["vehicles"], event["distance"],
+            record["bks_vehicles"], record["bks_distance"];
+            distance_digits=CAMPAIGN_CONFIG["bks_distance_digits"]) &&
             return event["seconds"]
     end
     nothing

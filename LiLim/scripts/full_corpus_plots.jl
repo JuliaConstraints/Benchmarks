@@ -57,7 +57,7 @@ function attainment_plot()
     xlims!(ax, 0, budget)
     ylims!(ax, 0, 102)
     axislegend(ax; position=:rb, framevisible=false, labelsize=13, nbanks=2)
-    Label(fig[3, 1], "Budget: $(budget) s · $(SUMMARY["threads"]) workers · $(SUMMARY["seed_count"]) seeds · $(SUMMARY["instance_count"]) official instances · misses censored at the budget", fontsize=14)
+    Label(fig[3, 1], "Budget: $(budget) s · $(SUMMARY["threads"]) workers · $(SUMMARY["seed_count"]) seeds · $(SUMMARY["instance_count"]) official instances · BKS distance rounded to $(SUMMARY["bks_distance_digits"]) decimals · misses censored at the budget", fontsize=14)
     savefig(fig, "lilim-bks-attainment")
 end
 
