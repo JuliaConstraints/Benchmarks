@@ -151,3 +151,41 @@ HiGHS multi-départ atteint 19/1650,799 dès deux threads et demeure compétitif
 CBLS ICN/direct/naïf produisent les mêmes qualités dans leurs 45 cellules
 appariées. Ces observations sur trois instances exposées ne constituent pas
 une comparaison commerciale ni une mesure de généralisation.
+
+Les figures de réussite ajoutées ensuite emploient des cibles descriptives
+[SINTEF](https://www.sintef.no/projectweb/top/pdptw/100-customers/), vérifiées le
+4 octobre, et conservées dans [diagnostic-targets.toml](config/diagnostic-targets.toml).
+La distance de référence est publiée arrondie ; les distances mesurées restent
+en double précision. Le léger écart visuel sur LC101 est celui de cet arrondi.
+Ces cibles ne deviennent pas rétroactivement un test de confirmation annoncé.
+
+- [Réussite](results/figures-20261004/icn-threads-success.png) et
+  [version XKCD](results/figures-20261004/icn-threads-success-xkcd.png).
+- [Progression à 8 threads](results/figures-20261004/icn-threads-anytime.png) et
+  [version XKCD avec références](results/figures-20261004/icn-threads-anytime-xkcd.png).
+- [Temps pour atteindre la cible](results/figures-20261004/icn-threads-time-to-target.png)
+  et [version XKCD](results/figures-20261004/icn-threads-time-to-target-xkcd.png).
+
+La réussite à dix secondes classe la flotte avant la distance ; le second rang
+de la figure montre l'amélioration du départ commun. Les courbes temporelles
+reconstituent les découvertes privées validées des voies, avec une fusion finale.
+Elles ne prétendent pas que le portefeuille partage les incumbents en ligne.
+Trois graines donnent 0/33/67/100 %, sans intervalle statistique inventé. Les
+figures XKCD déforment volontairement les tracés ; les versions sobres portent
+les coordonnées exactes. Toutes sont fournies aussi en PDF.
+
+## Diagnostic de chauffe et du plafonnement
+
+Le lanceur [icn_performance.jl](scripts/icn_performance.jl) sépare les processus
+froids, les deux passes du même échauffement, les préparations de parents et de
+plans, la réutilisation contrôlée d'un kernel MetaStrategist et les réparations
+RO répétées. Il publie temps mural, allocations, temps GC, compilation et
+recompilation Julia. La durée d'échauffement inclut des recherches synthétiques
+de deux secondes par profil ; elle ne doit pas être appelée entièrement JIT.
+
+Le mode `throughput` mesure trois essais CBLS ICN de cinq secondes sur LC101,
+après échauffement. Les expériences à 1/4/16 threads gardent le même algorithme,
+avec contrôle séparé du nombre de threads GC. Le processus 16 threads/GC 1
+enregistre aussi un profil CPU et un échantillon d'allocations. Ces expériences
+instrumentées servent au diagnostic et ne remplacent pas les 369 essais de
+qualité gelés. Toute optimisation ultérieure doit être mesurée séparément.

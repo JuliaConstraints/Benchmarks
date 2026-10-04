@@ -1,0 +1,18 @@
+schema = "li-lim-diagnostic-targets/1"
+source = "https://www.sintef.no/projectweb/top/pdptw/100-customers/"
+checked_utc = "2026-10-04"
+scope = "post-campaign descriptive targets; not a predeclared confirmation test"
+distance_semantics = "published reference rounded to two decimals; actual solution distance remains unrounded"
+tie_tolerance = 0.000001
+
+[lc101]
+vehicles = 10
+distance = 828.94
+
+[lr101]
+vehicles = 19
+distance = 1650.80
+
+[lrc101]
+vehicles = 14
+distance = 1708.80
