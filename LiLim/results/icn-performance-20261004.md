@@ -1,149 +1,169 @@
-# CBLS, ICN et MetaStrategist : allocations et préparation
+# CBLS, ICNs, and MetaStrategist: Throughput and Preparation
 
-Diagnostic du 4 octobre 2026 sur l'i7-12700, Julia 1.13.1. Le problème de GC
-était réel. Les buffers privés et une correction du noyau rendent désormais
-presque tout le temps CPU disponible aux 16 trajectoires sur LC101. Les trois
-décodeurs ICN récupérés sont conservés ; leurs fonctions et poids n'ont pas changé.
+Diagnostic from 4 October 2026 on an Intel i7-12700, Julia 1.13.1. Garbage
+collection was a real bottleneck. Private buffers and a corrected search kernel
+now keep nearly all CPU time available to the 16 LC101 trajectories. The three
+recovered ICN decoders remain in the learned profile; their functions and weights
+were not changed.
 
-## Résultat à 16 threads
+## Learned ICN functions used by the route scorer
 
-Trois graines, cinq secondes par essai, même instance, mêmes mouvements et ICN,
-Julia `-O1`, GC/BLAS/OMP à un thread, affinité fixe. Médianes :
+The scorer loads witness entries 4, 2, and 52 from the frozen
+`ConstraintLearningBenchmarks/.../weights.toml` bank. Each witness is built with
+`learnable_composition(...; max_depth=1)` and checked against its saved schema
+hash and valid-weight predicate. These are recovered, manually selected
+compositions; this campaign does not retrain them.
 
-| Étape | CPU actifs / 16 | Candidats de réinsertion par seconde | Octets alloués par appel | Temps GC de l'appel |
+| Witness | Learned decoded function | Li-Lim constraint mapping |
+|---:|---|---|
+| 4 | `condition_residual(sum(x))`, parameterized by the relation and bound | Fleet limit, each time-window limit, prefix-load bounds, and return-load equality |
+| 2 | `sum(elementwise_sum([count_great_left(x), count_less_left(x)]))` | Pickup and delivery route labels must be equal; this counts pairwise disagreements |
+| 52 | `sum(count_great_left(x))`, with the witness's nondecreasing, no-offset restriction | Pickup position must precede delivery; the two positions are distinct, so nondecreasing is strict order |
+
+The baseline `cbls_icn` profile calls these decoders inside the candidate scorer.
+`cbls_icn_fused_scalar` keeps the learned route-equality and order decoders but
+groups scalar residuals through the learned sum-condition decoder.
+`cbls_icn_fused_all` additionally bypasses the two per-pair decoders and feeds
+direct pair-violation indicators into that aggregate decoder. The exhaustive
+small-domain checks in `test/icn_resources.jl` establish equality with the direct
+score on that qualified domain; they do not replace the baseline learned profile.
+
+## Result at 16 threads
+
+Three seeds, five seconds per trial, same instance, moves and ICN bank, Julia
+`-O1`, GC/BLAS/OMP limited to one thread, fixed affinity. Medians:
+
+| Stage | Active CPUs / 16 | Reinsertion candidates per second | Allocated bytes per call | Call GC time |
 |---|---:|---:|---:|---:|
-| Avant | 6,41 | 2,00 millions | 36,09 Go | 3,328 s |
-| Buffers ICN et déplacements | 14,74 | 23,07 millions | 3,66 Go | 0,490 s |
-| Noyau typé et buffers de routes | 15,97 | 26,59 millions | 0,256 Go | 0,171 s |
+| Before optimization | 6.41 | 2.00 million | 36.09 GB | 3.328 s |
+| ICN and move buffers | 14.74 | 23.07 million | 3.66 GB | 0.490 s |
+| Typed kernel and route buffers | 15.97 | 26.59 million | 0.256 GB | 0.171 s |
 
-Le débit est multiplié par 13,3 ; les allocations sont divisées par environ 141.
-Le temps GC publié inclut une collecte complète forcée dans `run_case`, avant
-son chrono de recherche. Il ne représente donc pas uniquement les pauses de la
-boucle chaude. L'occupation utilise les horloges CPU des workers et du processus,
-et non le pourcentage « utilization » du profileur Julia, qui peut inclure des
-attentes de GC. On observe 97,4 à 100 % par worker à 16 threads.
+Throughput increased by 13.3× and allocations fell by about 141×. The published
+GC time includes a forced full collection inside `run_case`, before its search
+timer; it is not just hot-loop pauses. CPU occupancy uses worker and process CPU
+clocks rather than Julia profiler utilization, which can include GC waiting.
+The runs used 97.4–100% of each worker at 16 threads.
 
-La capture supplémentaire `throughput-hot-gc-16t-20261004.toml`, aux mêmes
-solveurs avec instrumentation des limites du chrono, mesure séparément le
-compteur GC global avant et après la recherche. Sur les trois graines :
-**0 seconde de GC pendant la recherche**, 15,985 à 15,986 CPU actifs, 254 à
-256 Mo alloués et 26,35 à 26,59 millions de candidats/s. Les 0,165 à 0,167 seconde
-de GC de l'appel complet se trouvent hors de cet intervalle. Cela décrit ces
-essais de cinq secondes ; les allocations restantes peuvent provoquer des
-collectes dans des essais plus longs. Cette instrumentation est sauvegardée au
-commit `80fd298` et ne modifie ni le score, ni les mouvements, ni l'acceptation.
+The additional `throughput-hot-gc-16t-20261004.toml` capture instruments the
+global GC counter immediately around the same search interval. Across three
+seeds it records **zero GC seconds during search**, 15.985–15.986 active CPUs,
+254–256 MB allocated and 26.35–26.59 million candidates per second. The full
+call's 0.165–0.167 seconds of GC occur outside that interval. These are
+five-second trials; remaining allocations may trigger collection in longer runs.
+This instrumentation is saved in commit `80fd298` and does not change the score,
+moves or acceptance policy.
 
-LC101 est un contrôle de débit : le point d'insertion est déjà à la meilleure
-qualité connue. Ce gain ne prouve pas une amélioration des solutions ni une
-victoire contre un autre solveur.
+LC101 is a throughput control: the insertion start already has the best-known
+quality. This gain demonstrates speed, not improved solutions or a solver win.
 
-## Passage à l'échelle
+## Scaling
 
-| Threads | CPU actifs, premier lot | Candidats/s | Allocations, premier lot |
+| Threads | Active CPUs, first batch | Candidates/s | Allocations, first batch |
 |---|---:|---:|---:|
-| 1 | 1,00 | 2,60 millions | 49 Mo |
-| 2 | 1,99 | 4,83 millions | 68 Mo |
-| 4 | 3,91 | 9,85 millions | 1,61 Go |
-| 8 | 7,99 | 19,87 millions | 197 Mo |
-| 16 | 15,97 | 26,59 millions | 256 Mo |
+| 1 | 1.00 | 2.60 million | 49 MB |
+| 2 | 1.99 | 4.83 million | 68 MB |
+| 4 | 3.91 | 9.85 million | 1.61 GB |
+| 8 | 7.99 | 19.87 million | 197 MB |
+| 16 | 15.97 | 26.59 million | 256 MB |
 
-À quatre threads, un second lot aux mêmes sources retrouve 3,997 CPU actifs et
-113 à 116 Mo alloués. Les deux lots sont conservés et figurent dans le graphique.
-Le pic du premier lot n'est pas reproduit dans la capture suivante ; sa cause
-reste indéterminée. Le chargement de ConstraintModels passe de 4,4 à 1,6 secondes
-entre ces sessions, signe que l'état des caches de compilation disponibles a
-changé. Cela ne permet pas d'attribuer ce pic au cache sans autre mesure.
+At four threads, a second batch with the same sources records 3.997 active CPUs
+and 113–116 MB allocated. Both batches are retained in the plot. The first
+batch's allocation spike does not recur in the next capture; its cause remains
+unknown. ConstraintModels loading fell from 4.4 to 1.6 seconds between sessions,
+showing that available compilation-cache state changed. That alone does not
+prove the cache caused the allocation spike.
 
-Les huit premières voies utilisent huit cœurs P distincts. À seize, quatre
-cœurs E et quatre voies SMT s'ajoutent : une occupation de 100 % ne garantit
-pas un débit proportionnel au nombre de voies logiques.
+The first eight lanes use eight distinct P-cores. At sixteen, four E-cores and
+four SMT lanes are added; 100% occupancy does not guarantee throughput to scale
+with logical lanes.
 
-## Ce qui a été corrigé
+## Changes already measured
 
-- Les tableaux de successeurs, positions, routes et arguments des ICN appartiennent
-  à chaque worker. Ils sont réutilisés, sans partage mutable entre trajectoires.
-- Les candidats de réinsertion utilisent des buffers ; seule une amélioration
-  conservée reçoit une copie indépendante.
-- Le décodage des routes courantes utilise un workspace. Les snapshots confiés
-  aux méta-variables et les solutions conservées possèdent toujours leurs données.
-- Le noyau LocalSearchSolvers sépare l'itérateur concret du choix entre déplacements
-  et échanges. Les résultats d'itération n'étaient auparavant pas correctement
-  typés dans la boucle commune et produisaient des allocations par candidat.
-- Un voisin structurellement invalide produit son score d'infaisabilité sans
-  construire une exception et sa trace.
+- Successor, position, route and ICN argument arrays belong to each worker. They
+  are reused without mutable sharing between trajectories.
+- Reinsertion candidates use buffers; only a retained improvement gets an
+  independent copy.
+- Current-route decoding uses a workspace. Snapshots passed to meta-variables
+  and retained solutions still own their data.
+- The LocalSearchSolvers kernel separates the concrete iterator from the choice
+  between moves and swaps. Iteration results were not correctly typed in the
+  shared loop and previously allocated once per candidate.
+- A structurally invalid neighbor now returns its infeasibility score without
+  constructing an exception and backtrace.
 
-La première correction du noyau, seule, n'a pas suffi à réduire le GC global à
-seize threads. Les mesures intermédiaires `throughput-iterators-*` documentent
-ce résultat ; c'est le décodage réutilisable des routes qui lève le coût suivant.
+The first kernel correction alone did not reduce global GC at sixteen threads.
+The intermediate `throughput-iterators-*` captures document that result; reusable
+route decoding removed the next measured cost.
 
-## PerfChecker et SnoopCompile réellement exécutés
+## PerfChecker and SnoopCompile runs
 
 PerfChecker 1.0.0-rc1, commit `1cc09a98db569b382f91dc10f6a569c1c728b6aa`,
-collecte les profils CPU, muraux et d'allocations dans des workers isolés. Les
-trois captures complètes sont conservées : baseline, premiers buffers et finale.
-Les allocations importantes des positions, petits arguments ICN et copies de
-routes disparaissent des profils. La dernière capture détecte encore une petite
-allocation dans l'itération du planning des profondeurs ; les résultats sont
-échantillonnés et ne constituent pas un inventaire exhaustif des octets.
-Le checkout de développement PerfChecker déjà modifié par l'utilisateur reste
-intact. Le contrôleur utilise une source épinglée séparée et n'altère pas
-l'environnement du solveur.
+collects CPU, wall-time and allocation profiles in isolated workers. The three
+complete captures are retained: baseline, first buffers and final. The large
+allocations for positions, small ICN arguments and route copies disappear from
+the profiles. The latest capture still detects a small allocation while
+iterating the depth plan; these samples are not an exhaustive byte inventory.
+The user's pre-existing PerfChecker development checkout remains untouched.
+The controller uses a separate pinned source and does not alter the solver
+environment.
 
-SnoopCompile 3.2.9 / SnoopCompileCore 3.1.3 a instrumenté une session à seize
-threads. Le décodage de la banque induit environ 4 067 instances de méthodes ;
-la première préparation CBLS naïve environ 14 406, puis ICN 739 et bridges 3 218.
-Au second passage, ICN, les deux hybrides, HiGHS et les portefeuilles n'induisent
-plus de nouvelles instances ; le naïf en induit encore 80. Les durées de
-compilation de plusieurs threads s'additionnent : elles ne sont pas un temps mural.
-Les sommes Snoop publiées utilisent les durées exclusives par méthode ; additionner
-récursivement les durées inclusives compterait plusieurs fois l'inférence imbriquée.
+SnoopCompile 3.2.9 / SnoopCompileCore 3.1.3 instrumented a sixteen-thread
+session. Decoding the bank induced about 4,067 method instances; the first naive
+CBLS preparation about 14,406, then ICN 739 and bridges 3,218. On the second
+pass, ICN, both hybrids, HiGHS and portfolios induced no new instances; naive
+CBLS induced 80. Compilation durations from multiple threads add together and
+are not wall time. Published Snoop totals use exclusive per-method durations;
+recursively summing inclusive durations would double-count nested inference.
 
-Après échauffement, préparer un parent prend environ 0,5 ms, un plan MetaStrategist
-0,2 ms, et réutiliser son kernel avec un nouveau contexte environ 0,2 ms. Sur le
-petit fragment qualifié, les réparations chaudes coûtent environ 17 ms spécialisées
-et 60 ms bridgées, sans nouvelle inférence. Les modules ne sont pas rechargés à
-chaque réparation. La construction d'un modèle JuMP/HiGHS neuf reste un coût réel,
-à mesurer et éventuellement réutiliser selon la forme du fragment.
+After warmup, preparing a parent takes about 0.5 ms, preparing a MetaStrategist
+plan 0.2 ms and reusing its kernel with a new context about 0.2 ms. On the small
+qualified fragment, hot repairs cost about 17 ms specialized and 60 ms bridged,
+with no new inference. Modules are not reloaded on every repair. Building a new
+JuMP/HiGHS model remains a real cost to measure and potentially reuse, depending
+on fragment shape.
 
-Les échauffements de deux secondes contiennent aussi deux secondes de recherche :
-ils ne doivent pas être présentés comme deux secondes de compilation. Une partie
-du très premier chargement dépend de caches de packages déjà présents ; aucun
-gain à froid n'est attribué aux buffers sur cette seule observation.
+The two-second warmups also contain two seconds of search; they must not be
+described as two seconds of compilation. Part of the very first load depends on
+existing package caches, so this observation does not attribute a cold-start
+gain to the buffers.
 
-La préparation à conserver est : charger les packages et décoder la banque une
-fois, préparer les variantes réellement utilisées, garder des workers durables,
-réutiliser les plans immuables avec des contextes privés et les buffers par lane.
-Aucun sysimage ni précompilation AOT du modèle dynamique n'a encore été installé.
+Keep packages and the ICN bank loaded once, prepare only the needed variants,
+retain workers, reuse immutable plans with private contexts and lane-owned
+buffers. No sysimage or AOT precompilation of the dynamic model has been
+installed.
 
-## Qualification, processus et prochaine comparaison
+## Qualification, processes and next comparison
 
-Les scores ICN et les distances sont comparés exhaustivement au validateur et
-au score direct. Les tests vérifient aussi zéro allocation pour le score et le
-décodage chauds, l'isolation des seize workspaces, les snapshots conservés, les
-réinsertions et les portefeuilles. LocalSearchSolvers passe 10 432 contrats de
-stratégies et 782 contrats de performance après la correction du noyau.
+ICN scores and distances are exhaustively compared against the original
+validator and direct score on the qualified domains. Tests also check zero
+allocations in hot scoring and decoding, isolation of all sixteen workspaces,
+owned snapshots, reinsertions and portfolios. LocalSearchSolvers passes 10,432
+strategy contracts and 782 performance contracts after the kernel correction.
 
-CBLS/LocalSearchSolvers dispose aussi de workers `Distributed` et de
-`process_threads_map`, avec GC distincts. Le pilote actuel est une phase
-MetaStrategist à threads ; il n'implémente pas encore une phase distribuée.
-Le contrôle par processus viendra après cette correction, avec pool chaud,
-plafond CPU identique et coûts de lancement, sérialisation, mémoire et GC publiés.
+CBLS/LocalSearchSolvers also supports `Distributed` workers and
+`process_threads_map`, with separate garbage collectors. The current
+MetaStrategist pilot uses threads and does not yet implement a distributed
+phase. The process comparison follows the multithread correction, using a warm
+pool and the same CPU ceiling while publishing launch, serialization, memory
+and GC costs.
 
-Le [protocole concurrents](../config/competitors.toml) ajoute Timefold Community
-avec score incrémental par route et prépare Hexaly avec contraintes originales,
-flotte puis distance non arrondie. La table [SINTEF](https://www.sintef.no/projectweb/top/pdptw/100-customers/)
-ne garantit pas de temps de référence par instance : le temps d'atteinte de la
-qualité publiée doit être mesuré localement. Les scores BKS arrondis restent des
-cibles de qualité, et non des certificats de temps ou d'optimalité.
+The [competitor protocol](../config/competitors.toml) adds Timefold Community
+with incremental route scoring and prepares Hexaly with original constraints,
+fleet first and unrounded distance second. The
+[SINTEF table](https://www.sintef.no/projectweb/top/pdptw/100-customers/) does
+not guarantee per-instance reference runtimes: time to the published target
+must be measured locally. Rounded BKS values remain quality targets, not time
+or optimality certificates.
 
-Sources mesurées : Benchmarks `972fa7859dfa1c89c8874275168f9e3dad21e63d`,
-LocalSearchSolvers `8d0b3291420f49950cfda4e890899f384b8b7239`. Le reste de la
-cohorte et les empreintes du solveur figurent dans chaque capture. La campagne
-initiale de 369 essais conserve sa cohorte et son [bilan qualité](icn-threads-20261004.md).
+Measured sources: Benchmarks `972fa7859dfa1c89c8874275168f9e3dad21e63d`,
+LocalSearchSolvers `8d0b3291420f49950cfda4e890899f384b8b7239`. Each capture records
+the rest of the cohort and solver fingerprints. The initial 369-trial campaign
+retains its cohort and [quality report](icn-threads-20261004.md).
 
-Captures essentielles : `throughput-final-*`, `throughput-final-repeat-4t-*`,
-`throughput-hot-gc-16t-*`, `perfchecker-final-*` et
-`snoop-startup-exclusive-16t-*` dans ce répertoire.
-Les graphiques exact et XKCD sont produits par `icn_performance_plots.jl` ; les
-graphiques de réussite, anytime et temps d'atteinte des BKS restent dans
-`figures-20261004`, distincts du diagnostic de débit.
+Essential captures: `throughput-final-*`, `throughput-final-repeat-4t-*`,
+`throughput-hot-gc-16t-*`, `perfchecker-final-*` and
+`snoop-startup-exclusive-16t-*` in this directory.
+Exact-style and XKCD figures are produced by `icn_performance_plots.jl`. The
+success, anytime and time-to-BKS plots remain in `figures-20261004`, separate
+from this throughput diagnostic.
