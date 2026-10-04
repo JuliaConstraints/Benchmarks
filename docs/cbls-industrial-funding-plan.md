@@ -3,12 +3,13 @@
 Proposition du 2 octobre 2026, à exécuter par étapes. Ce document fixe la démarche ;
 il ne rapporte pas une campagne nouvelle ni un accord de financement.
 
-Consigne du 4 octobre : l'utilisateur autorise explicitement la reprise, sans
-limite globale, avec toutes les ressources de la machine disponibles. L'objectif
-actif est un premier pilote Li-Lim qualifié et sauvegardé. Les budgets des essais
-restent fixés pour permettre une comparaison reproductible ; cette autorisation
-remplace l'attente stricte des autres chats. L'ancienne automation reste en pause
-pendant cette reprise directe.
+Consigne courante du 4 octobre : poursuivre la campagne comparative multi-jours
+sur le corpus officiel complet, avec un objectif réaliste par étapes et sans
+limite globale de durée. Hexaly reste en attente de l'accès effectif à sa licence
+d'essai. Avant chaque lot de calculs, vérifier qu'aucune autre tâche Codex n'est
+active ; si une tâche démarre, reporter le lot. Les lectures et mises à jour
+documentaires peuvent continuer pendant cette attente. Les budgets de chaque
+essai restent figés pour préserver la comparaison reproductible.
 
 Consigne d'exécution historique du 2 octobre : reprendre les calculs et les
 travaux de solveur lorsque les trois tâches ci-dessous ont terminé leurs
@@ -32,13 +33,13 @@ statut de diagnostic du score direct ; elle ne constitue pas une preuve sur ICN.
 | Définir l’objectif du RTS spatial (2) | `01a0f635-0f91-7a52-a0a6-c0b8caaa066a` |
 | Faire le point sur Catalyst | `01a0f430-cccd-7312-8f0d-fed8e319c1a8` |
 
-La reprise automatique « Reprise JuliaConstraints après les tâches en cours »
-est attachée à ce chat avec une vérification toutes les cinq minutes. Elle
-confirme aussi la fin des processus de rendu ou de solveur encore présents avant
-un lot de calculs. Elle reste silencieuse pendant une attente inchangée, poursuit
-le premier pilote qualifié selon ce plan lorsque les ressources sont libres et
-se met en pause à la livraison de son bilan sauvegardé. Les lectures de sources
-et les mises à jour documentaires peuvent continuer pendant l'attente.
+L'ancienne consigne d'automatisation, qui prévoyait une pause après le premier
+pilote, est remplacée par la demande ultérieure de campagne multi-jours. Avant
+chaque lot, vérifier la liste actuelle des tâches, y compris les tâches épinglées,
+en excluant ce chat, puis confirmer que les calculs et rendus antérieurs sont
+terminés. Refaire ces contrôles entre les lots. Dès qu'un rapport ou des figures
+sont prêts, les sauvegarder par commit et push sur GitLab avant d'élargir la
+campagne.
 
 ## Objectif et résultat attendu
 
@@ -566,7 +567,8 @@ bridges, puis déclenchement guidé par stagnation/rendement sous MetaStrategist
 léger. Un petit contrôle des graines HiGHS et du modèle RO évite de confondre
 un avantage sur une référence particulière avec un avantage général.
 Les profils seront réglés sur le corpus exposé et figés avant confirmation.
-L'ancienne automation reste en pause après livraison du pilote.
+Ce pilote est une étape de qualification ; il ne clôt pas la campagne demandée
+ensuite.
 
 ## Campagne complète SINTEF préparée le 4 octobre 2026
 
@@ -605,3 +607,15 @@ hybrides spécialisé et bridgé, HiGHS natif, portefeuilles HiGHS et allocation
 MetaStrategist. Les profils Timefold et Hexaly attendent leurs adaptateurs
 qualifiés sur le corpus complet. Hexaly Optimizer reste soumis à l'examen de la
 licence d'essai ; aucun résultat commercial ne sera ajouté avant l'accès effectif.
+
+### Coordination courante de la campagne — 4 octobre 2026
+
+L'utilisateur a demandé de tenir compte du travail PerfChecker et du chat
+`01a0df72-50d8-72b3-9424-f67bb7a2aa19` avant de consommer les ressources locales.
+Au dernier contrôle, seul le chat PerfChecker restait actif ; son travail attendait
+des runners GitHub et ne lançait pas de calcul Julia local. Plusieurs serveurs MCP
+Julia observés sur la machine étaient inactifs (0 % CPU) et ne correspondaient pas
+à des lots de solveur. Aucun calcul de cette campagne ne commence tant qu'une
+autre tâche Codex reste active. Le contrôle des tâches et des processus est refait
+juste avant chaque lot ; toute nouvelle tâche reporte le lot. Tout nouveau jeu de
+figures est commité et poussé dès qu'il est prêt.
