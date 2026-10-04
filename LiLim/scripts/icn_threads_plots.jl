@@ -195,7 +195,7 @@ fun=Figure(size=(1100,760))
 Label(fun[0,1],"I asked for 16 threads...",fontsize=27)
 ax=Axis(fun[1,1];title="Actual CPU utilization — LR101",xlabel="Allocated threads",ylabel="Mean active CPUs",xscale=log2)
 configure_axis(ax);ylims!(ax,0,17)
-lines!(ax,WIDTHS,WIDTHS;color=:gray50,linestyle=:dash,label="Tous au travail")
+lines!(ax,WIDTHS,WIDTHS;color=:gray50,linestyle=:dash,label="All workers fully utilized")
 for method in ("cbls_icn","hybrid_specialized_icn","highs_native","mixed_balanced")
     j=findfirst(==(method),METHODS)
     xs=[width for width in WIDTHS if !isempty(subset("lr101",method,width))]

@@ -1,3 +1,4 @@
+bks_distance_digits = 2
 budget_seconds = 5.0
 instances = ["lc101", "lr101", "lrc101"]
 labels = ["CBLS naive", "CBLS ICN", "CBLS native, direct score", "CBLS mixed strategies", "Specialized ICN hybrid", "Bridged ICN hybrid", "Native HiGHS", "HiGHS multistart", "MetaStrategist balanced", "MetaStrategist CBLS-heavy", "Timefold LA 400", "Timefold LA 1,000"]
@@ -26564,6 +26565,7 @@ vehicles = 19
     vehicles = 19
 
 [targets]
+bks_distance_digits = 2
 checked_utc = "2026-10-04"
 distance_semantics = "published reference rounded to two decimals; actual solution distance remains unrounded"
 reference_runtime_status = "unavailable: SINTEF BKS table does not provide comparable per-instance computation times or hardware"
