@@ -8,7 +8,7 @@ STYLE in ("exact", "xkcd") || error("style must be exact or xkcd")
 const METHODS = SUMMARY["methods"]
 const LABELS = Dict(
     "cbls_naive"=>"CBLS naive", "cbls_icn"=>"CBLS learned ICN",
-    "cbls_icn_fused_scalar"=>"CBLS ICN fused scalar", "cbls_icn_fused_all"=>"CBLS ICN fused all",
+    "cbls_icn_fused_scalar"=>"CBLS fused scalar ICN", "cbls_icn_fused_all"=>"CBLS ICN + fused violation indicators",
     "cbls_direct"=>"CBLS direct error",
     "hybrid_specialized_icn"=>"Specialized hybrid (ICN)", "hybrid_bridged_icn"=>"Bridged hybrid (ICN)",
     "highs_native"=>"HiGHS native", "highs_portfolio"=>"HiGHS portfolio",

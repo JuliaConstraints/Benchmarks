@@ -184,6 +184,23 @@ function write_report(path, summary)
                 100 * row["feasibility_rate"], row["bks_hits"], row["planned_runs"], 100 * row["bks_hit_rate"],
                 row["mean_best_fleet_gap"], row["mean_run_fleet_gap"], row["mean_median_run_fleet_gap"], distance, bks_time, row["mean_active_cpus"]))
         end
+        descriptions = Dict(
+            "cbls_naive"=>"Handwritten constraint residuals reduced to one Boolean infeasibility indicator per candidate.",
+            "cbls_icn"=>"Recovered learned ICN decoders are called for each scalar constraint and for each pickup-delivery route-equality and precedence constraint.",
+            "cbls_icn_fused_scalar"=>"Compatible scalar residuals are grouped through one learned sum-condition ICN; learned route-equality and precedence decoders still run separately for every pair.",
+            "cbls_icn_fused_all"=>"Scalar residuals and direct pickup-delivery violation indicators are grouped through one learned sum-condition ICN; pair-specific equality and precedence ICN decoders are bypassed.",
+            "cbls_direct"=>"Handwritten scalar residuals and direct pickup-delivery violation indicators; no ICN decoder is called.",
+            "hybrid_specialized_icn"=>"Learned-ICN CBLS with HiGHS repair subproblems using the specialized Li-Lim formulation.",
+            "hybrid_bridged_icn"=>"Learned-ICN CBLS with HiGHS repair subproblems using the qualified XCSP3Bridges fragment.",
+            "highs_native"=>"HiGHS solves the full native mixed-integer model with its requested thread pool.",
+            "highs_portfolio"=>"Independent serial HiGHS searches run as a parallel portfolio and merge their best validated incumbents.",
+            "cbls_mix_strategy"=>"A fixed portfolio of CBLS policies uses the learned-ICN scorer and merges independent validated incumbents.",
+            "mixed_balanced"=>"MetaStrategist executes a fixed balanced allocation of CBLS, specialized hybrid, bridged hybrid and serial HiGHS workers.",
+            "mixed_ls_heavy"=>"MetaStrategist executes a fixed search-heavy allocation of CBLS, specialized hybrid, bridged hybrid and serial HiGHS workers.")
+        println(io, "\n## Score and solver provenance\n\nThe ICN variants below use the frozen learned-weight bank recorded in `manifest.toml`. `Fused all` is an aggregate-ICN ablation: its pairwise violation indicators are formed directly before learned aggregation, so it does not execute the individual pair decoders used by `CBLS learned ICN`. The differential tests establish score identity on their qualified synthetic domain; benchmark performance is reported separately.\n\n| Profile | Executed score or solver path |\n|---|---|")
+        for method in METHODS
+            println(io, "| `", method, "` | ", get(descriptions, method, "Profile description unavailable; inspect the frozen source manifest."), " |")
+        end
         println(io, "\nA fleet gap of zero means the fleet matches the SINTEF reference; a negative gap is better. Best, mean-run and median-run fleet gaps are averaged per instance so large instances do not dominate. Per-instance output includes the best run, one actual median-ranked run, mean, standard deviation and full min/max spread across feasible seeds. The distance gap is shown only for instance cells whose median-ranked run uses the BKS fleet; distance remains a secondary objective. BKS time is conditional on hits, and misses are censored at the campaign budget in the attainment plot.\n")
         println(io, "## Results by problem size\n\n| Requests | Profile | BKS hits / planned | Mean best fleet gap | Mean run fleet gap | Mean median-run fleet gap | Median-run distance gap at BKS fleet |")
         println(io, "|---:|---|---:|---:|---:|---:|---:|")

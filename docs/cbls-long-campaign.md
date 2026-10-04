@@ -242,16 +242,28 @@ différents, ni des paires pickup-delivery indépendantes en une seule contraint
 `all_equal` globale. La sortie agrégée devra rester égale à la somme actuelle
 sur un rejeu déterministe complet.
 
-La fusion de plusieurs évaluations de contraintes n'a pas encore été testée dans
-le chemin Li-Lim. Le commit CompositionalNetworks mesuré (`ac70b743`) compile les
-réseaux simples à quatre couches en code spécialisé en place, et le compilateur
-fusionne déjà certaines paires transformation/agrégation. Cela peut optimiser
-des opérations à l'intérieur d'un décodeur ; les alias fusionnés ne sont pas
-tous des choix de poids apprenables, et cela ne regroupe pas les millions de
-décodages séparés effectués par le score. L'empreinte actuelle prouve les appels
-ICN, pas quelle branche du compilateur a été sélectionnée pour chacun des trois
-témoins. Il faut donc extraire les IR des témoins et vérifier cette branche sur
-l'environnement figé avant d'attribuer le surcoût à une opération.
+Deux formes de fusion au niveau du score existent maintenant, en plus de la
+spécialisation des opérations à l'intérieur d'un décodeur. `cbls_icn_fused_scalar`
+regroupe les résidus scalaires compatibles dans un décodeur ICN de somme et
+conserve les décodeurs ICN d'égalité et d'ordre pour chaque paire.
+`cbls_icn_fused_all` regroupe les résidus scalaires et les indicateurs de
+violation pickup-delivery, puis appelle le décodeur ICN de somme ; les
+indicateurs de paire sont construits directement et ne passent pas par les
+décodeurs ICN individuels d'égalité et d'ordre. Cette dernière variante est une
+ablation d'agrégation ICN, pas une évaluation ICN individuelle de chaque
+contrainte. Le test différentiel exhaustif sur les petits états synthétiques
+qualifie l'identité du score, mais aucune mesure de débit ou de qualité sur les
+instances Li-Lim n'est encore publiée pour ces variantes.
+
+Le commit CompositionalNetworks mesuré (`ac70b743`) compile les réseaux simples
+à quatre couches en code spécialisé en place, et le compilateur fusionne déjà
+certaines paires transformation/agrégation. Cela peut optimiser des opérations
+à l'intérieur d'un décodeur ; les alias fusionnés ne sont pas tous des choix de
+poids apprenables, et cela ne regroupe pas les millions de décodages séparés
+effectués par le score. L'empreinte actuelle prouve les appels ICN, pas quelle
+branche du compilateur a été sélectionnée pour chacun des trois témoins. Il
+faut extraire les IR des témoins et vérifier cette branche sur l'environnement
+figé avant d'attribuer le surcoût à une opération.
 Avant toute modification, faire une comparaison PerfChecker sur une séquence
 figée d'états et de candidats, puis profiler l'évaluation de bout en bout.
 Repérer les compositions récurrentes — résidu scalaire, ordre, égalité,
@@ -331,7 +343,7 @@ comparatif.
 | Livré | Réévaluation, 12 profils, 1/2/4/8/16, budget 5 s | [Rapport](../LiLim/results/all-variants-20261004.md) et figures ci-dessus | Capture originale : vérifier dans TOML | `613c293` |
 | Livré | Journal GitLab publié ; estimation Hexaly et comparaison des deux formulations | [Commit du journal](https://gitlab.naze.baffier.fr/others/Benchmarks/-/commit/9d2afd37897e46d964ff22124d4e465cc75a902c) | Benchmark fournisseur du 27 mars 2026 ; pas encore reproduit | `9d2afd3` |
 | Livré | Corpus SINTEF 354 instances et valeurs de référence figées ; noms et effectifs concordent | [`BKS et empreintes`](../LiLim/config/sintef-pdptw-bks-20261004.toml) | Six archives et six pages SINTEF ; validation complète | En préparation |
-| En préparation | Statistiques multi-graines, fonctions d'erreur Li-Lim apprises et manuelles, profilage ICN et essai de fusion sémantiquement équivalente | Objectifs détaillés ci-dessus ; première mesure du surcoût ICN déjà consignée | Les anciens essais ICN/direct ont trois graines ; fusion non essayée | — |
+| En préparation | Statistiques multi-graines, fonctions d'erreur Li-Lim apprises et manuelles, profilage ICN et fusion sémantiquement équivalente | Deux variantes de fusion ont des tests différentiels synthétiques ; les mesures de débit et de qualité sur Li-Lim restent à faire | Les captures comparatives antérieures ont trois graines ; fusion non mesurée sur le corpus | — |
 | En préparation | Hexaly bloqué par la revue d'installation ; qualification des profils CBLS/MetaStrategist sur 8 cœurs | Comparatif à 60 s sur toutes les instances, puis finalistes à 600 s | Hexaly indisponible ; pas de nouveau lot lancé | — |
 
 À chaque nouvelle ligne de résultat, pousser avec le même commit les mises à jour
