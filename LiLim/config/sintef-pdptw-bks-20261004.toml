@@ -1,0 +1,1453 @@
+name_normalization = "lowercase instance filenames"
+objective = "minimize vehicles, then total Euclidean distance; double precision; published distance rounded to two decimals"
+retrieved_utc = "2026-10-04T12:19:54.565"
+schema = "sintef-pdptw-best-known/1"
+source = "SINTEF TOP Li & Lim PDPTW benchmark pages"
+
+[archive_sha256]
+"pdp_100.zip" = "d106694e9e18cebc32b63c322e1000620238392c1b9d98d92de82ef7e4b43cd9"
+"pdp_200.zip" = "0d83737d8ede85b83ac4ec2d162479794d091e915cc921c0912ee9739e5de4d9"
+"pdp_400.zip" = "32942a790aebaff0a05e056bd78a3837e926891360229c065b3afeccd1636347"
+"pdp_600.zip" = "315dcfbf582fdade4bb978758c1a1ccbfb93bdf9b092efb3cc017194f113bd8f"
+"pdptw1000.zip" = "9975f6bd429785e220839fc01cb9138c49c98148970d8a76de34dab6ed3028fc"
+"pdptw800.zip" = "a137c29515ec0d5567382129b15d28710298f4551abd2c39a441198093397ea4"
+
+[instances.100.lc101]
+distance = 828.94
+vehicles = 10
+
+[instances.100.lc102]
+distance = 828.94
+vehicles = 10
+
+[instances.100.lc103]
+distance = 1035.35
+vehicles = 9
+
+[instances.100.lc104]
+distance = 860.01
+vehicles = 9
+
+[instances.100.lc105]
+distance = 828.94
+vehicles = 10
+
+[instances.100.lc106]
+distance = 828.94
+vehicles = 10
+
+[instances.100.lc107]
+distance = 828.94
+vehicles = 10
+
+[instances.100.lc108]
+distance = 826.44
+vehicles = 10
+
+[instances.100.lc109]
+distance = 1000.6
+vehicles = 9
+
+[instances.100.lc201]
+distance = 591.56
+vehicles = 3
+
+[instances.100.lc202]
+distance = 591.56
+vehicles = 3
+
+[instances.100.lc203]
+distance = 591.17
+vehicles = 3
+
+[instances.100.lc204]
+distance = 590.6
+vehicles = 3
+
+[instances.100.lc205]
+distance = 588.88
+vehicles = 3
+
+[instances.100.lc206]
+distance = 588.49
+vehicles = 3
+
+[instances.100.lc207]
+distance = 588.29
+vehicles = 3
+
+[instances.100.lc208]
+distance = 588.32
+vehicles = 3
+
+[instances.100.lr101]
+distance = 1650.8
+vehicles = 19
+
+[instances.100.lr102]
+distance = 1487.57
+vehicles = 17
+
+[instances.100.lr103]
+distance = 1292.68
+vehicles = 13
+
+[instances.100.lr104]
+distance = 1013.39
+vehicles = 9
+
+[instances.100.lr105]
+distance = 1377.11
+vehicles = 14
+
+[instances.100.lr106]
+distance = 1252.62
+vehicles = 12
+
+[instances.100.lr107]
+distance = 1111.31
+vehicles = 10
+
+[instances.100.lr108]
+distance = 968.97
+vehicles = 9
+
+[instances.100.lr109]
+distance = 1208.96
+vehicles = 11
+
+[instances.100.lr110]
+distance = 1159.35
+vehicles = 10
+
+[instances.100.lr111]
+distance = 1108.9
+vehicles = 10
+
+[instances.100.lr112]
+distance = 1003.77
+vehicles = 9
+
+[instances.100.lr201]
+distance = 1253.23
+vehicles = 4
+
+[instances.100.lr202]
+distance = 1197.67
+vehicles = 3
+
+[instances.100.lr203]
+distance = 949.4
+vehicles = 3
+
+[instances.100.lr204]
+distance = 849.05
+vehicles = 2
+
+[instances.100.lr205]
+distance = 1054.02
+vehicles = 3
+
+[instances.100.lr206]
+distance = 931.63
+vehicles = 3
+
+[instances.100.lr207]
+distance = 903.06
+vehicles = 2
+
+[instances.100.lr208]
+distance = 734.85
+vehicles = 2
+
+[instances.100.lr209]
+distance = 930.59
+vehicles = 3
+
+[instances.100.lr210]
+distance = 964.22
+vehicles = 3
+
+[instances.100.lr211]
+distance = 911.52
+vehicles = 2
+
+[instances.100.lrc101]
+distance = 1708.8
+vehicles = 14
+
+[instances.100.lrc102]
+distance = 1558.07
+vehicles = 12
+
+[instances.100.lrc103]
+distance = 1258.74
+vehicles = 11
+
+[instances.100.lrc104]
+distance = 1128.4
+vehicles = 10
+
+[instances.100.lrc105]
+distance = 1637.62
+vehicles = 13
+
+[instances.100.lrc106]
+distance = 1424.73
+vehicles = 11
+
+[instances.100.lrc107]
+distance = 1230.14
+vehicles = 11
+
+[instances.100.lrc108]
+distance = 1147.43
+vehicles = 10
+
+[instances.100.lrc201]
+distance = 1406.94
+vehicles = 4
+
+[instances.100.lrc202]
+distance = 1374.27
+vehicles = 3
+
+[instances.100.lrc203]
+distance = 1089.07
+vehicles = 3
+
+[instances.100.lrc204]
+distance = 818.66
+vehicles = 3
+
+[instances.100.lrc205]
+distance = 1302.2
+vehicles = 4
+
+[instances.100.lrc206]
+distance = 1159.03
+vehicles = 3
+
+[instances.100.lrc207]
+distance = 1062.05
+vehicles = 3
+
+[instances.100.lrc208]
+distance = 852.76
+vehicles = 3
+
+[instances.1000.lc1_10_1]
+distance = 42488.66
+vehicles = 100
+
+[instances.1000.lc1_10_10]
+distance = 42929.15
+vehicles = 86
+
+[instances.1000.lc1_10_2]
+distance = 44548.51
+vehicles = 94
+
+[instances.1000.lc1_10_3]
+distance = 45906.3
+vehicles = 78
+
+[instances.1000.lc1_10_4]
+distance = 37782.17
+vehicles = 72
+
+[instances.1000.lc1_10_5]
+distance = 42477.4
+vehicles = 100
+
+[instances.1000.lc1_10_6]
+distance = 42838.39
+vehicles = 101
+
+[instances.1000.lc1_10_7]
+distance = 42854.99
+vehicles = 100
+
+[instances.1000.lc1_10_8]
+distance = 42949.56
+vehicles = 98
+
+[instances.1000.lc1_10_9]
+distance = 43564.01
+vehicles = 90
+
+[instances.1000.lc2_10_1]
+distance = 16879.24
+vehicles = 30
+
+[instances.1000.lc2_10_10]
+distance = 17043.64
+vehicles = 29
+
+[instances.1000.lc2_10_2]
+distance = 20764.09
+vehicles = 30
+
+[instances.1000.lc2_10_3]
+distance = 19299.48
+vehicles = 29
+
+[instances.1000.lc2_10_4]
+distance = 17886.97
+vehicles = 29
+
+[instances.1000.lc2_10_5]
+distance = 17137.53
+vehicles = 31
+
+[instances.1000.lc2_10_6]
+distance = 19387.75
+vehicles = 30
+
+[instances.1000.lc2_10_7]
+distance = 18389.37
+vehicles = 31
+
+[instances.1000.lc2_10_8]
+distance = 17015.03
+vehicles = 30
+
+[instances.1000.lc2_10_9]
+distance = 18225.3
+vehicles = 30
+
+[instances.1000.lr1_10_1]
+distance = 56744.91
+vehicles = 100
+
+[instances.1000.lr1_10_10]
+distance = 45510.71
+vehicles = 38
+
+[instances.1000.lr1_10_2]
+distance = 49349.84
+vehicles = 80
+
+[instances.1000.lr1_10_3]
+distance = 41483.89
+vehicles = 54
+
+[instances.1000.lr1_10_4]
+distance = 30788.11
+vehicles = 27
+
+[instances.1000.lr1_10_5]
+distance = 59053.68
+vehicles = 58
+
+[instances.1000.lr1_10_6]
+distance = 51058.53
+vehicles = 46
+
+[instances.1000.lr1_10_7]
+distance = 38563.2
+vehicles = 35
+
+[instances.1000.lr1_10_8]
+distance = 29613.27
+vehicles = 24
+
+[instances.1000.lr1_10_9]
+distance = 54582.25
+vehicles = 47
+
+[instances.1000.lr2_10_1]
+distance = 62859.29
+vehicles = 17
+
+[instances.1000.lr2_10_10]
+distance = 44888.99
+vehicles = 10
+
+[instances.1000.lr2_10_2]
+distance = 51357.3
+vehicles = 14
+
+[instances.1000.lr2_10_3]
+distance = 42908.33
+vehicles = 10
+
+[instances.1000.lr2_10_4]
+distance = 26595.39
+vehicles = 8
+
+[instances.1000.lr2_10_5]
+distance = 54951.12
+vehicles = 13
+
+[instances.1000.lr2_10_6]
+distance = 46253.37
+vehicles = 11
+
+[instances.1000.lr2_10_7]
+distance = 39648.54
+vehicles = 8
+
+[instances.1000.lr2_10_8]
+distance = 26742.31
+vehicles = 6
+
+[instances.1000.lr2_10_9]
+distance = 50781.83
+vehicles = 12
+
+[instances.1000.lrc1_10_1]
+distance = 49111.78
+vehicles = 82
+
+[instances.1000.lrc1_10_10]
+distance = 36539.03
+vehicles = 47
+
+[instances.1000.lrc1_10_2]
+distance = 45547.38
+vehicles = 71
+
+[instances.1000.lrc1_10_3]
+distance = 35616.85
+vehicles = 53
+
+[instances.1000.lrc1_10_4]
+distance = 27211.87
+vehicles = 40
+
+[instances.1000.lrc1_10_5]
+distance = 50323.04
+vehicles = 72
+
+[instances.1000.lrc1_10_6]
+distance = 45115.22
+vehicles = 67
+
+[instances.1000.lrc1_10_7]
+distance = 41560.52
+vehicles = 60
+
+[instances.1000.lrc1_10_8]
+distance = 40770.1
+vehicles = 55
+
+[instances.1000.lrc1_10_9]
+distance = 40934.27
+vehicles = 52
+
+[instances.1000.lrc2_10_1]
+distance = 34463.46
+vehicles = 22
+
+[instances.1000.lrc2_10_10]
+distance = 29085.28
+vehicles = 11
+
+[instances.1000.lrc2_10_2]
+distance = 38619.13
+vehicles = 19
+
+[instances.1000.lrc2_10_3]
+distance = 27218.08
+vehicles = 16
+
+[instances.1000.lrc2_10_4]
+distance = 23212.46
+vehicles = 11
+
+[instances.1000.lrc2_10_5]
+distance = 40638.13
+vehicles = 16
+
+[instances.1000.lrc2_10_6]
+distance = 30910.65
+vehicles = 17
+
+[instances.1000.lrc2_10_7]
+distance = 33275.24
+vehicles = 15
+
+[instances.200.lc1_2_1]
+distance = 2704.57
+vehicles = 20
+
+[instances.200.lc1_2_10]
+distance = 2942.13
+vehicles = 17
+
+[instances.200.lc1_2_2]
+distance = 2764.56
+vehicles = 19
+
+[instances.200.lc1_2_3]
+distance = 3127.78
+vehicles = 17
+
+[instances.200.lc1_2_4]
+distance = 2693.41
+vehicles = 17
+
+[instances.200.lc1_2_5]
+distance = 2702.05
+vehicles = 20
+
+[instances.200.lc1_2_6]
+distance = 2701.04
+vehicles = 20
+
+[instances.200.lc1_2_7]
+distance = 2701.04
+vehicles = 20
+
+[instances.200.lc1_2_8]
+distance = 3354.27
+vehicles = 19
+
+[instances.200.lc1_2_9]
+distance = 2724.24
+vehicles = 18
+
+[instances.200.lc2_2_1]
+distance = 1931.44
+vehicles = 6
+
+[instances.200.lc2_2_10]
+distance = 1817.45
+vehicles = 6
+
+[instances.200.lc2_2_2]
+distance = 1881.4
+vehicles = 6
+
+[instances.200.lc2_2_3]
+distance = 1844.33
+vehicles = 6
+
+[instances.200.lc2_2_4]
+distance = 1767.12
+vehicles = 6
+
+[instances.200.lc2_2_5]
+distance = 1891.21
+vehicles = 6
+
+[instances.200.lc2_2_6]
+distance = 1857.78
+vehicles = 6
+
+[instances.200.lc2_2_7]
+distance = 1850.13
+vehicles = 6
+
+[instances.200.lc2_2_8]
+distance = 1824.34
+vehicles = 6
+
+[instances.200.lc2_2_9]
+distance = 1854.21
+vehicles = 6
+
+[instances.200.lr1_2_1]
+distance = 4819.12
+vehicles = 20
+
+[instances.200.lr1_2_10]
+distance = 3664.08
+vehicles = 11
+
+[instances.200.lr1_2_2]
+distance = 4621.21
+vehicles = 17
+
+[instances.200.lr1_2_3]
+distance = 4402.38
+vehicles = 14
+
+[instances.200.lr1_2_4]
+distance = 3027.06
+vehicles = 10
+
+[instances.200.lr1_2_5]
+distance = 4760.18
+vehicles = 16
+
+[instances.200.lr1_2_6]
+distance = 4800.94
+vehicles = 13
+
+[instances.200.lr1_2_7]
+distance = 3543.36
+vehicles = 12
+
+[instances.200.lr1_2_8]
+distance = 2759.32
+vehicles = 9
+
+[instances.200.lr1_2_9]
+distance = 5050.75
+vehicles = 13
+
+[instances.200.lr2_2_1]
+distance = 4073.1
+vehicles = 5
+
+[instances.200.lr2_2_10]
+distance = 3254.83
+vehicles = 3
+
+[instances.200.lr2_2_2]
+distance = 3796.0
+vehicles = 4
+
+[instances.200.lr2_2_3]
+distance = 3098.36
+vehicles = 4
+
+[instances.200.lr2_2_4]
+distance = 2486.0
+vehicles = 3
+
+[instances.200.lr2_2_5]
+distance = 3438.39
+vehicles = 4
+
+[instances.200.lr2_2_6]
+distance = 4457.95
+vehicles = 3
+
+[instances.200.lr2_2_7]
+distance = 3098.35
+vehicles = 3
+
+[instances.200.lr2_2_8]
+distance = 2449.36
+vehicles = 2
+
+[instances.200.lr2_2_9]
+distance = 3922.11
+vehicles = 3
+
+[instances.200.lrc1_2_1]
+distance = 3606.06
+vehicles = 19
+
+[instances.200.lrc1_2_10]
+distance = 2928.9
+vehicles = 12
+
+[instances.200.lrc1_2_2]
+distance = 3671.02
+vehicles = 15
+
+[instances.200.lrc1_2_3]
+distance = 3154.92
+vehicles = 13
+
+[instances.200.lrc1_2_4]
+distance = 2631.82
+vehicles = 10
+
+[instances.200.lrc1_2_5]
+distance = 3715.81
+vehicles = 16
+
+[instances.200.lrc1_2_6]
+distance = 3572.16
+vehicles = 16
+
+[instances.200.lrc1_2_7]
+distance = 3666.34
+vehicles = 14
+
+[instances.200.lrc1_2_8]
+distance = 3145.74
+vehicles = 13
+
+[instances.200.lrc1_2_9]
+distance = 3157.34
+vehicles = 13
+
+[instances.200.lrc2_2_1]
+distance = 3595.18
+vehicles = 6
+
+[instances.200.lrc2_2_10]
+distance = 2437.88
+vehicles = 3
+
+[instances.200.lrc2_2_2]
+distance = 3158.25
+vehicles = 5
+
+[instances.200.lrc2_2_3]
+distance = 2881.99
+vehicles = 4
+
+[instances.200.lrc2_2_4]
+distance = 2835.4
+vehicles = 3
+
+[instances.200.lrc2_2_5]
+distance = 2776.93
+vehicles = 5
+
+[instances.200.lrc2_2_6]
+distance = 2707.96
+vehicles = 5
+
+[instances.200.lrc2_2_7]
+distance = 3010.68
+vehicles = 4
+
+[instances.200.lrc2_2_8]
+distance = 2399.89
+vehicles = 4
+
+[instances.200.lrc2_2_9]
+distance = 2208.49
+vehicles = 4
+
+[instances.400.lc1_4_1]
+distance = 7152.06
+vehicles = 40
+
+[instances.400.lc1_4_10]
+distance = 7850.22
+vehicles = 34
+
+[instances.400.lc1_4_2]
+distance = 8007.79
+vehicles = 38
+
+[instances.400.lc1_4_3]
+distance = 8678.23
+vehicles = 32
+
+[instances.400.lc1_4_4]
+distance = 6451.68
+vehicles = 30
+
+[instances.400.lc1_4_5]
+distance = 7150.0
+vehicles = 40
+
+[instances.400.lc1_4_6]
+distance = 7154.02
+vehicles = 40
+
+[instances.400.lc1_4_7]
+distance = 7149.43
+vehicles = 40
+
+[instances.400.lc1_4_8]
+distance = 8305.42
+vehicles = 38
+
+[instances.400.lc1_4_9]
+distance = 7451.2
+vehicles = 36
+
+[instances.400.lc2_4_1]
+distance = 4116.33
+vehicles = 12
+
+[instances.400.lc2_4_10]
+distance = 3828.44
+vehicles = 12
+
+[instances.400.lc2_4_2]
+distance = 4144.29
+vehicles = 12
+
+[instances.400.lc2_4_3]
+distance = 4401.08
+vehicles = 12
+
+[instances.400.lc2_4_4]
+distance = 3743.95
+vehicles = 12
+
+[instances.400.lc2_4_5]
+distance = 4030.63
+vehicles = 12
+
+[instances.400.lc2_4_6]
+distance = 3900.29
+vehicles = 12
+
+[instances.400.lc2_4_7]
+distance = 3962.51
+vehicles = 12
+
+[instances.400.lc2_4_8]
+distance = 3844.45
+vehicles = 12
+
+[instances.400.lc2_4_9]
+distance = 4188.93
+vehicles = 12
+
+[instances.400.lr1_4_1]
+distance = 10639.75
+vehicles = 40
+
+[instances.400.lr1_4_10]
+distance = 8192.65
+vehicles = 20
+
+[instances.400.lr1_4_2]
+distance = 11009.51
+vehicles = 30
+
+[instances.400.lr1_4_3]
+distance = 9245.48
+vehicles = 22
+
+[instances.400.lr1_4_4]
+distance = 7007.9
+vehicles = 15
+
+[instances.400.lr1_4_5]
+distance = 11374.06
+vehicles = 28
+
+[instances.400.lr1_4_6]
+distance = 11334.11
+vehicles = 23
+
+[instances.400.lr1_4_7]
+distance = 8675.36
+vehicles = 18
+
+[instances.400.lr1_4_8]
+distance = 6164.82
+vehicles = 13
+
+[instances.400.lr1_4_9]
+distance = 9859.47
+vehicles = 24
+
+[instances.400.lr2_4_1]
+distance = 9726.88
+vehicles = 8
+
+[instances.400.lr2_4_10]
+distance = 7596.62
+vehicles = 5
+
+[instances.400.lr2_4_2]
+distance = 9405.4
+vehicles = 7
+
+[instances.400.lr2_4_3]
+distance = 10176.94
+vehicles = 5
+
+[instances.400.lr2_4_4]
+distance = 6201.84
+vehicles = 4
+
+[instances.400.lr2_4_5]
+distance = 9894.46
+vehicles = 6
+
+[instances.400.lr2_4_6]
+distance = 8946.91
+vehicles = 5
+
+[instances.400.lr2_4_7]
+distance = 7993.16
+vehicles = 4
+
+[instances.400.lr2_4_8]
+distance = 5260.42
+vehicles = 4
+
+[instances.400.lr2_4_9]
+distance = 7926.07
+vehicles = 6
+
+[instances.400.lrc1_4_1]
+distance = 9124.52
+vehicles = 36
+
+[instances.400.lrc1_4_10]
+distance = 7064.36
+vehicles = 23
+
+[instances.400.lrc1_4_2]
+distance = 8346.06
+vehicles = 31
+
+[instances.400.lrc1_4_3]
+distance = 7805.16
+vehicles = 24
+
+[instances.400.lrc1_4_4]
+distance = 5803.31
+vehicles = 19
+
+[instances.400.lrc1_4_5]
+distance = 8847.4
+vehicles = 32
+
+[instances.400.lrc1_4_6]
+distance = 8394.47
+vehicles = 30
+
+[instances.400.lrc1_4_7]
+distance = 8037.87
+vehicles = 28
+
+[instances.400.lrc1_4_8]
+distance = 7930.15
+vehicles = 26
+
+[instances.400.lrc1_4_9]
+distance = 8004.24
+vehicles = 25
+
+[instances.400.lrc2_4_1]
+distance = 9738.95
+vehicles = 11
+
+[instances.400.lrc2_4_10]
+distance = 5395.71
+vehicles = 6
+
+[instances.400.lrc2_4_2]
+distance = 7159.95
+vehicles = 10
+
+[instances.400.lrc2_4_3]
+distance = 6426.47
+vehicles = 8
+
+[instances.400.lrc2_4_4]
+distance = 5238.77
+vehicles = 5
+
+[instances.400.lrc2_4_5]
+distance = 7309.54
+vehicles = 10
+
+[instances.400.lrc2_4_6]
+distance = 6337.08
+vehicles = 9
+
+[instances.400.lrc2_4_7]
+distance = 6292.23
+vehicles = 8
+
+[instances.400.lrc2_4_8]
+distance = 5767.72
+vehicles = 7
+
+[instances.400.lrc2_4_9]
+distance = 6272.92
+vehicles = 6
+
+[instances.600.lc1_6_1]
+distance = 14095.64
+vehicles = 60
+
+[instances.600.lc1_6_10]
+distance = 15432.55
+vehicles = 51
+
+[instances.600.lc1_6_2]
+distance = 15048.16
+vehicles = 57
+
+[instances.600.lc1_6_3]
+distance = 14874.68
+vehicles = 49
+
+[instances.600.lc1_6_4]
+distance = 13300.55
+vehicles = 47
+
+[instances.600.lc1_6_5]
+distance = 14086.3
+vehicles = 60
+
+[instances.600.lc1_6_6]
+distance = 14090.79
+vehicles = 60
+
+[instances.600.lc1_6_7]
+distance = 14083.76
+vehicles = 60
+
+[instances.600.lc1_6_8]
+distance = 14880.7
+vehicles = 58
+
+[instances.600.lc1_6_9]
+distance = 15207.58
+vehicles = 53
+
+[instances.600.lc2_6_1]
+distance = 7977.98
+vehicles = 19
+
+[instances.600.lc2_6_10]
+distance = 7946.6
+vehicles = 17
+
+[instances.600.lc2_6_2]
+distance = 9900.48
+vehicles = 18
+
+[instances.600.lc2_6_3]
+distance = 8512.94
+vehicles = 17
+
+[instances.600.lc2_6_4]
+distance = 7860.38
+vehicles = 17
+
+[instances.600.lc2_6_5]
+distance = 9051.53
+vehicles = 18
+
+[instances.600.lc2_6_6]
+distance = 8775.55
+vehicles = 18
+
+[instances.600.lc2_6_7]
+distance = 9376.58
+vehicles = 18
+
+[instances.600.lc2_6_8]
+distance = 7579.93
+vehicles = 18
+
+[instances.600.lc2_6_9]
+distance = 8714.22
+vehicles = 18
+
+[instances.600.lr1_6_1]
+distance = 22821.65
+vehicles = 59
+
+[instances.600.lr1_6_10]
+distance = 19298.25
+vehicles = 25
+
+[instances.600.lr1_6_2]
+distance = 20137.22
+vehicles = 45
+
+[instances.600.lr1_6_3]
+distance = 17846.17
+vehicles = 37
+
+[instances.600.lr1_6_4]
+distance = 13127.56
+vehicles = 28
+
+[instances.600.lr1_6_5]
+distance = 23623.52
+vehicles = 37
+
+[instances.600.lr1_6_6]
+distance = 23084.5
+vehicles = 30
+
+[instances.600.lr1_6_7]
+distance = 16963.37
+vehicles = 24
+
+[instances.600.lr1_6_8]
+distance = 11917.7
+vehicles = 18
+
+[instances.600.lr1_6_9]
+distance = 21835.87
+vehicles = 31
+
+[instances.600.lr2_6_1]
+distance = 21759.33
+vehicles = 11
+
+[instances.600.lr2_6_10]
+distance = 16390.64
+vehicles = 7
+
+[instances.600.lr2_6_2]
+distance = 21289.7
+vehicles = 9
+
+[instances.600.lr2_6_3]
+distance = 17480.06
+vehicles = 7
+
+[instances.600.lr2_6_4]
+distance = 10639.08
+vehicles = 6
+
+[instances.600.lr2_6_5]
+distance = 22625.89
+vehicles = 8
+
+[instances.600.lr2_6_6]
+distance = 19099.49
+vehicles = 7
+
+[instances.600.lr2_6_7]
+distance = 14645.32
+vehicles = 6
+
+[instances.600.lr2_6_8]
+distance = 12341.9
+vehicles = 4
+
+[instances.600.lr2_6_9]
+distance = 18259.2
+vehicles = 8
+
+[instances.600.lrc1_6_1]
+distance = 18288.9
+vehicles = 52
+
+[instances.600.lrc1_6_10]
+distance = 13963.66
+vehicles = 29
+
+[instances.600.lrc1_6_2]
+distance = 16515.41
+vehicles = 43
+
+[instances.600.lrc1_6_3]
+distance = 13975.98
+vehicles = 36
+
+[instances.600.lrc1_6_4]
+distance = 10800.44
+vehicles = 25
+
+[instances.600.lrc1_6_5]
+distance = 17463.94
+vehicles = 45
+
+[instances.600.lrc1_6_6]
+distance = 19025.36
+vehicles = 41
+
+[instances.600.lrc1_6_7]
+distance = 15914.85
+vehicles = 37
+
+[instances.600.lrc1_6_8]
+distance = 15317.63
+vehicles = 33
+
+[instances.600.lrc1_6_9]
+distance = 15344.64
+vehicles = 33
+
+[instances.600.lrc2_6_1]
+distance = 14578.92
+vehicles = 16
+
+[instances.600.lrc2_6_10]
+distance = 13054.5
+vehicles = 7
+
+[instances.600.lrc2_6_2]
+distance = 13850.22
+vehicles = 13
+
+[instances.600.lrc2_6_3]
+distance = 12432.91
+vehicles = 10
+
+[instances.600.lrc2_6_4]
+distance = 9833.92
+vehicles = 7
+
+[instances.600.lrc2_6_5]
+distance = 14380.37
+vehicles = 13
+
+[instances.600.lrc2_6_6]
+distance = 14962.08
+vehicles = 12
+
+[instances.600.lrc2_6_7]
+distance = 14094.26
+vehicles = 10
+
+[instances.600.lrc2_6_8]
+distance = 13179.58
+vehicles = 9
+
+[instances.600.lrc2_6_9]
+distance = 16309.78
+vehicles = 8
+
+[instances.800.lc1_8_1]
+distance = 25184.38
+vehicles = 80
+
+[instances.800.lc1_8_10]
+distance = 27099.59
+vehicles = 68
+
+[instances.800.lc1_8_2]
+distance = 29735.85
+vehicles = 76
+
+[instances.800.lc1_8_3]
+distance = 27287.8
+vehicles = 62
+
+[instances.800.lc1_8_4]
+distance = 22686.08
+vehicles = 59
+
+[instances.800.lc1_8_5]
+distance = 25211.22
+vehicles = 80
+
+[instances.800.lc1_8_6]
+distance = 25164.25
+vehicles = 80
+
+[instances.800.lc1_8_7]
+distance = 25158.38
+vehicles = 80
+
+[instances.800.lc1_8_8]
+distance = 26688.17
+vehicles = 77
+
+[instances.800.lc1_8_9]
+distance = 26975.61
+vehicles = 71
+
+[instances.800.lc2_8_1]
+distance = 11687.06
+vehicles = 24
+
+[instances.800.lc2_8_10]
+distance = 12226.42
+vehicles = 23
+
+[instances.800.lc2_8_2]
+distance = 13713.13
+vehicles = 24
+
+[instances.800.lc2_8_3]
+distance = 12981.37
+vehicles = 24
+
+[instances.800.lc2_8_4]
+distance = 12917.34
+vehicles = 23
+
+[instances.800.lc2_8_5]
+distance = 12298.33
+vehicles = 25
+
+[instances.800.lc2_8_6]
+distance = 12645.71
+vehicles = 24
+
+[instances.800.lc2_8_7]
+distance = 14041.47
+vehicles = 24
+
+[instances.800.lc2_8_8]
+distance = 12924.1
+vehicles = 23
+
+[instances.800.lc2_8_9]
+distance = 11629.41
+vehicles = 24
+
+[instances.800.lr1_8_1]
+distance = 39291.32
+vehicles = 80
+
+[instances.800.lr1_8_10]
+distance = 31091.07
+vehicles = 30
+
+[instances.800.lr1_8_2]
+distance = 34071.19
+vehicles = 59
+
+[instances.800.lr1_8_3]
+distance = 29223.1
+vehicles = 44
+
+[instances.800.lr1_8_4]
+distance = 20675.7
+vehicles = 25
+
+[instances.800.lr1_8_5]
+distance = 39809.68
+vehicles = 48
+
+[instances.800.lr1_8_6]
+distance = 36244.9
+vehicles = 38
+
+[instances.800.lr1_8_7]
+distance = 27078.09
+vehicles = 30
+
+[instances.800.lr1_8_8]
+distance = 20705.45
+vehicles = 19
+
+[instances.800.lr1_8_9]
+distance = 38499.0
+vehicles = 39
+
+[instances.800.lr2_8_1]
+distance = 41873.12
+vehicles = 14
+
+[instances.800.lr2_8_10]
+distance = 30136.86
+vehicles = 8
+
+[instances.800.lr2_8_2]
+distance = 36549.69
+vehicles = 11
+
+[instances.800.lr2_8_3]
+distance = 26391.07
+vehicles = 9
+
+[instances.800.lr2_8_4]
+distance = 20618.03
+vehicles = 6
+
+[instances.800.lr2_8_5]
+distance = 34816.5
+vehicles = 11
+
+[instances.800.lr2_8_6]
+distance = 28814.65
+vehicles = 9
+
+[instances.800.lr2_8_7]
+distance = 25502.39
+vehicles = 7
+
+[instances.800.lr2_8_8]
+distance = 18327.23
+vehicles = 5
+
+[instances.800.lr2_8_9]
+distance = 30515.5
+vehicles = 10
+
+[instances.800.lrc1_8_1]
+distance = 32252.28
+vehicles = 66
+
+[instances.800.lrc1_8_10]
+distance = 24622.59
+vehicles = 39
+
+[instances.800.lrc1_8_2]
+distance = 27878.89
+vehicles = 56
+
+[instances.800.lrc1_8_3]
+distance = 24371.95
+vehicles = 48
+
+[instances.800.lrc1_8_4]
+distance = 18208.51
+vehicles = 34
+
+[instances.800.lrc1_8_5]
+distance = 31169.16
+vehicles = 58
+
+[instances.800.lrc1_8_6]
+distance = 28961.66
+vehicles = 54
+
+[instances.800.lrc1_8_7]
+distance = 28768.4
+vehicles = 50
+
+[instances.800.lrc1_8_8]
+distance = 26902.93
+vehicles = 44
+
+[instances.800.lrc1_8_9]
+distance = 24854.96
+vehicles = 44
+
+[instances.800.lrc2_8_1]
+distance = 23074.22
+vehicles = 20
+
+[instances.800.lrc2_8_10]
+distance = 19604.12
+vehicles = 9
+
+[instances.800.lrc2_8_2]
+distance = 22220.95
+vehicles = 17
+
+[instances.800.lrc2_8_3]
+distance = 20379.26
+vehicles = 14
+
+[instances.800.lrc2_8_4]
+distance = 14711.8
+vehicles = 11
+
+[instances.800.lrc2_8_5]
+distance = 23602.44
+vehicles = 16
+
+[instances.800.lrc2_8_6]
+distance = 22591.26
+vehicles = 15
+
+[instances.800.lrc2_8_7]
+distance = 25436.79
+vehicles = 13
+
+[instances.800.lrc2_8_8]
+distance = 22604.36
+vehicles = 11
+
+[instances.800.lrc2_8_9]
+distance = 22594.69
+vehicles = 10
+
+[source_pages.100]
+sha256 = "0098ff5e9d61eb2b352e29d52a315478617ed50723ffc7aaff6bdfd0d203ba2c"
+url = "https://www.sintef.no/projectweb/top/pdptw/100-customers/"
+
+[source_pages.1000]
+sha256 = "1969c381bc90309a7601a65eb2b1f81fb91d66e25386fa2c0cdfe88c1657a14d"
+url = "https://www.sintef.no/projectweb/top/pdptw/1000-customers/"
+
+[source_pages.200]
+sha256 = "690476981e72d7d5adc998c6457df8d0fb6ccd17ee6296c2c3a57d07238737f4"
+url = "https://www.sintef.no/projectweb/top/pdptw/200-customers/"
+
+[source_pages.400]
+sha256 = "02b206cc42c256883a8d3c183c1d656f411466731e40c7a5e16fb171c1aafc9c"
+url = "https://www.sintef.no/projectweb/top/pdptw/400-customers/"
+
+[source_pages.600]
+sha256 = "3205fff34b0f549a67c9199b8b6e75daf5f1b2afa72e552d037933b2d79a3c26"
+url = "https://www.sintef.no/projectweb/top/pdptw/600-customers/"
+
+[source_pages.800]
+sha256 = "3c3ec7f932dfce496fb0d7bc43bc56815b8af1def89c073f4e9b8dffe74d773a"
+url = "https://www.sintef.no/projectweb/top/pdptw/800-customers/"
