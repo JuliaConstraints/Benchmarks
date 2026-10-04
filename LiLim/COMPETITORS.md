@@ -105,10 +105,12 @@ l'exécutable n'est pas présent sur cette machine.
 
 Le modèle utilise sa fonction HXM classique `display()` pour ajouter chaque
 amélioration lexicographique à un TOML de trajectoire. L'intervalle initial est
-de 1 seconde, minimum accepté par l'API entière ; seules les améliorations écrivent leurs routes. Le validateur
-Julia applique à chaque temps le décalage mesuré de préparation commune, place
-le point de départ à cet instant, revérifie les snapshots dans l'instance
-originale et censure les observations tardives. Le coût de cette surveillance
+de 1 seconde, minimum documenté par l'API entière ; seules les améliorations
+écrivent leurs routes. Le pilote transmet l'instant de début du budget total.
+`param()` déduit alors la préparation commune, le lancement et la construction
+du modèle avant d'allouer le temps restant à Hexaly selon le partage 5:1. Les
+snapshots sont horodatés sur cette horloge murale commune, revérifiés dans
+l'instance originale et censurés au-delà du budget. Le coût de cette surveillance
 reste à mesurer pendant la qualification native.
 
 Le temps est réparti entre les deux objectifs lexicographiques. La valeur simple

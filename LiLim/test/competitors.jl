@@ -20,17 +20,17 @@ include(joinpath(@__DIR__,"..","competitors","Adapters.jl"))
     late=deepcopy(packet);late["trials"][1]["workers"][1]["trajectory"][1]["seconds"]=1.1
     @test only(CompetitorAdapters.audit_timefold(p,initial,late))["late_incumbents_censored"]==1
     @test only(CompetitorAdapters.audit_timefold(p,initial,late))["routes"]==initial
-    hexaly=Dict("schema"=>"li-lim-hexaly-native/1","vehicles"=>q.vehicles,"distance"=>q.distance,"routes"=>initial)
+    hexaly=Dict("schema"=>"li-lim-hexaly-native/2","vehicles"=>q.vehicles,"distance"=>q.distance,"routes"=>initial)
     @test CompetitorAdapters.audit_hexaly(p,hexaly).valid
     hexaly["routes"]=[[2,3],[2,5]]
     @test_throws ErrorException CompetitorAdapters.audit_hexaly(p,hexaly)
     one_route=[[2,3,4,5]]; one_route_q=validate_solution(p,one_route).objective
-    final=Dict("schema"=>"li-lim-hexaly-native/1","vehicles"=>one_route_q.vehicles,
-        "distance"=>one_route_q.distance,"routes"=>one_route,"seconds"=>1.1)
-    trace=Dict("schema"=>"li-lim-hexaly-trajectory/1","trajectory"=>[
-        Dict("seconds"=>0.2,"vehicles"=>one_route_q.vehicles,"distance"=>one_route_q.distance,"routes"=>one_route),
+    final=Dict("schema"=>"li-lim-hexaly-native/2","vehicles"=>one_route_q.vehicles,
+        "distance"=>one_route_q.distance,"routes"=>one_route,"seconds"=>1.4)
+    trace=Dict("schema"=>"li-lim-hexaly-trajectory/2","trajectory"=>[
+        Dict("seconds"=>0.5,"vehicles"=>one_route_q.vehicles,"distance"=>one_route_q.distance,"routes"=>one_route),
         Dict("seconds"=>1.2,"vehicles"=>one_route_q.vehicles,"distance"=>one_route_q.distance,"routes"=>one_route)])
-    audited=CompetitorAdapters.audit_hexaly_trial(p,initial,final,trace;budget_seconds=1.,clock_offset_seconds=0.3)
+    audited=CompetitorAdapters.audit_hexaly_trial(p,initial,final,trace;budget_seconds=1.,common_start_seconds=0.3)
     @test audited["routes"]==one_route
     @test length(audited["trajectory"])==2
     @test audited["trajectory"][1]["seconds"]==0.3
@@ -38,19 +38,22 @@ include(joinpath(@__DIR__,"..","competitors","Adapters.jl"))
     @test audited["audited_incumbents"]==1
     @test audited["late_incumbents_censored"]==2
     bad_trace=deepcopy(trace);bad_trace["trajectory"][1]["routes"]=[[3,2,4,5]]
-    @test_throws ErrorException CompetitorAdapters.audit_hexaly_trial(p,initial,final,bad_trace;budget_seconds=1.,clock_offset_seconds=0.3)
-    @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=2,seconds=5,seed=41,cpus=[8,8])
-    @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=1,seconds=0.5,seed=41,cpus=[8])
-    @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=2,seconds=60,seed=41,cpus=[8])
-    @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=8.0,seconds=60,seed=41,cpus=collect(0:7))
+    @test_throws ErrorException CompetitorAdapters.audit_hexaly_trial(p,initial,final,bad_trace;budget_seconds=1.,common_start_seconds=0.3)
+    epoch_ms=1791137400000
+    @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=2,seconds=5,seed=41,cpus=[8,8],trial_start_epoch_ms=epoch_ms)
+    @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=1,seconds=0.5,seed=41,cpus=[8],trial_start_epoch_ms=epoch_ms)
+    @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=2,seconds=60,seed=41,cpus=[8],trial_start_epoch_ms=epoch_ms)
+    @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=8.0,seconds=60,seed=41,cpus=collect(0:7),trial_start_epoch_ms=epoch_ms)
     automatic=CompetitorAdapters.hexaly_command("hexaly","in","out";threads=0,seconds=60,seed=41,
-        cpus=[8,10,0,2,4,6,12,14])
+        cpus=[8,10,0,2,4,6,12,14],trial_start_epoch_ms=epoch_ms)
     @test "hxNbThreads=0" in automatic.exec
     @test "hxTimeLimit=50,10" in automatic.exec
     @test "trajectoryFileName=out.trajectory.toml" in automatic.exec
+    @test "trialStartEpochMilliseconds=$epoch_ms" in automatic.exec
+    @test "totalWallBudgetSeconds=60" in automatic.exec
     @test "hxTimeBetweenDisplays=1" in automatic.exec
     long=CompetitorAdapters.hexaly_command("hexaly","in","out";threads=16,seconds=600,seed=41,
-        cpus=collect(0:15))
+        cpus=collect(0:15),trial_start_epoch_ms=epoch_ms)
     @test "hxTimeLimit=500,100" in long.exec
-    @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=0,seconds=60,seed=41,cpus=Int[])
+    @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=0,seconds=60,seed=41,cpus=Int[],trial_start_epoch_ms=epoch_ms)
 end

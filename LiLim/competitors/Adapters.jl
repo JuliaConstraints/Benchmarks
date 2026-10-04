@@ -52,7 +52,7 @@ function audit_timefold(p,initial,native)
 end
 "Hexaly exchange format is one-based including depot; do not silently shift IDs."
 function audit_hexaly(p,output)
-    output["schema"]=="li-lim-hexaly-native/1" || error("wrong Hexaly schema")
+    output["schema"]=="li-lim-hexaly-native/2" || error("wrong Hexaly schema")
     routes=[Int.(r) for r in output["routes"]]
     validation=validate_solution(p,routes)
     validation.valid || error("Hexaly result violates original problem")
@@ -61,22 +61,21 @@ function audit_hexaly(p,output)
     validation
 end
 """Audit Hexaly's final solution and every within-budget anytime observation."""
-function audit_hexaly_trial(p, initial, output, trace; budget_seconds, clock_offset_seconds=0.)
+function audit_hexaly_trial(p, initial, output, trace; budget_seconds, common_start_seconds=0.)
     budget_seconds isa Real && isfinite(budget_seconds) && budget_seconds >= 0 ||
         throw(ArgumentError("Hexaly budget must be finite and nonnegative"))
-    clock_offset_seconds isa Real && isfinite(clock_offset_seconds) && clock_offset_seconds >= 0 ||
-        throw(ArgumentError("Hexaly clock offset must be finite and nonnegative"))
+    common_start_seconds isa Real && isfinite(common_start_seconds) && common_start_seconds >= 0 ||
+        throw(ArgumentError("Hexaly common start must be finite and nonnegative"))
     initial_check = validate_solution(p, initial)
     initial_check.valid || error("invalid common-start fallback")
-    output["schema"] == "li-lim-hexaly-native/1" || error("wrong Hexaly schema")
-    trace["schema"] == "li-lim-hexaly-trajectory/1" || error("wrong Hexaly trajectory schema")
+    output["schema"] == "li-lim-hexaly-native/2" || error("wrong Hexaly schema")
+    trace["schema"] == "li-lim-hexaly-trajectory/2" || error("wrong Hexaly trajectory schema")
     final_check = audit_hexaly(p, output)
     records = Any[]
     censored = 0
     for event in get(trace, "trajectory", Any[])
-        solve_seconds = Float64(event["seconds"])
-        isfinite(solve_seconds) && solve_seconds >= 0 || error("invalid Hexaly trajectory clock")
-        seconds = clock_offset_seconds + solve_seconds
+        seconds = Float64(event["seconds"])
+        isfinite(seconds) && seconds >= common_start_seconds || error("invalid Hexaly trajectory clock")
         if seconds > budget_seconds
             censored += 1
             continue
@@ -90,15 +89,14 @@ function audit_hexaly_trial(p, initial, output, trace; budget_seconds, clock_off
         push!(records, Dict("seconds"=>seconds, "vehicles"=>checked.objective.vehicles,
             "distance"=>checked.objective.distance, "routes"=>routes))
     end
-    solve_final_seconds = Float64(get(output, "seconds", Inf))
-    isfinite(solve_final_seconds) && solve_final_seconds >= 0 || error("invalid Hexaly final clock")
-    final_seconds = clock_offset_seconds + solve_final_seconds
+    final_seconds = Float64(get(output, "seconds", Inf))
+    isfinite(final_seconds) && final_seconds >= common_start_seconds || error("invalid Hexaly final clock")
     best_routes = deepcopy(initial)
     best = nothing
     trajectory = Any[]
-    if clock_offset_seconds <= budget_seconds
+    if common_start_seconds <= budget_seconds
         best = initial_check.objective
-        push!(trajectory, Dict("seconds"=>clock_offset_seconds, "vehicles"=>best.vehicles,
+        push!(trajectory, Dict("seconds"=>common_start_seconds, "vehicles"=>best.vehicles,
             "distance"=>best.distance, "routes"=>deepcopy(initial), "source"=>"common_start"))
     end
     sort!(records; by=event->event["seconds"])
@@ -124,9 +122,9 @@ function audit_hexaly_trial(p, initial, output, trace; budget_seconds, clock_off
         "within_budget_feasible"=>!isempty(trajectory),
         "audited_incumbents"=>length(records), "late_incumbents_censored"=>censored)
 end
-"Build a CLI launch with a fixed lexicographic time split; timing qualification remains required."
+"Build a CLI launch whose HXM model splits the remaining common wall budget 5:1."
 function hexaly_command(executable,input,output;threads,seconds,seed,cpus,
-    trajectory=output*".trajectory.toml", display_interval=1)
+    trial_start_epoch_ms, trajectory=output*".trajectory.toml", display_interval=1)
     threads isa Integer && (threads==0 || threads in (1,2,4,8,16)) ||
         throw(ArgumentError("Hexaly thread count must be 0 (automatic) or 1, 2, 4, 8 or 16"))
     !isempty(cpus) && all(cpu->cpu isa Integer && cpu>=0,cpus) && length(unique(cpus))==length(cpus) ||
@@ -135,6 +133,8 @@ function hexaly_command(executable,input,output;threads,seconds,seed,cpus,
         throw(ArgumentError("explicit Hexaly thread count must match the CPU affinity width"))
     seconds isa Integer && seconds>=0 && seed isa Integer && seed>=0 ||
         throw(ArgumentError("Hexaly CLI needs integer seconds and a nonnegative seed"))
+    trial_start_epoch_ms isa Integer && trial_start_epoch_ms>0 ||
+        throw(ArgumentError("Hexaly needs the positive common wall-clock start in epoch milliseconds"))
     display_interval isa Integer && display_interval>0 ||
         throw(ArgumentError("Hexaly display interval must be a positive whole number of seconds"))
     abspath(trajectory)!=abspath(output) || throw(ArgumentError("Hexaly output and trajectory paths must differ"))
@@ -142,6 +142,6 @@ function hexaly_command(executable,input,output;threads,seconds,seed,cpus,
     distance_seconds = seconds-fleet_seconds
     phase_limits = string(fleet_seconds, ",", distance_seconds)
     model=normpath(joinpath(@__DIR__,"..","native","hexaly","pdptw.hxm"))
-    `taskset --cpu-list $(join(cpus,',')) $executable $model inFileName=$input solFileName=$output trajectoryFileName=$trajectory hxTimeLimit=$phase_limits hxNbThreads=$threads hxSeed=$seed hxTimeBetweenDisplays=$display_interval`
+    `taskset --cpu-list $(join(cpus,',')) $executable $model inFileName=$input solFileName=$output trajectoryFileName=$trajectory trialStartEpochMilliseconds=$trial_start_epoch_ms totalWallBudgetSeconds=$seconds hxTimeLimit=$phase_limits hxNbThreads=$threads hxSeed=$seed hxTimeBetweenDisplays=$display_interval`
 end
 end

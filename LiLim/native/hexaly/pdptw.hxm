@@ -1,10 +1,17 @@
 // JuliaConstraints comparison model; draft pending execution with Hexaly 15.0.
 // Read the same validated common-start exchange as Timefold. No rounding.
 use io;
+use datetime;
+use math;
+
+function wall_elapsed() {
+    return (datetime.utcNow().toEpochMilliseconds() - trialStartEpochMilliseconds) / 1000.;
+}
 
 function input() {
-    if (inFileName == nil || solFileName == nil || trajectoryFileName == nil)
-        throw "inFileName, solFileName and trajectoryFileName required";
+    if (inFileName == nil || solFileName == nil || trajectoryFileName == nil ||
+        trialStartEpochMilliseconds == nil || totalWallBudgetSeconds == nil)
+        throw "input/output paths, common start time and total wall budget required";
     local f = io.openRead(inFileName);
     if (f.readString() != "lilim-common-start/1") throw "Wrong exchange schema";
     n = f.readInt(); capacity = f.readInt(); fleet = f.readInt();
@@ -22,7 +29,7 @@ function input() {
     for [i in 0...n] for [j in 0...n]
         travel[i][j] = sqrt((x[i]-x[j])*(x[i]-x[j]) + (y[i]-y[j])*(y[i]-y[j]));
     local trace = io.openWrite(trajectoryFileName);
-    trace.println("schema = \"li-lim-hexaly-trajectory/1\"");
+    trace.println("schema = \"li-lim-hexaly-trajectory/2\"");
     trace.close();
 }
 function model() {
@@ -61,7 +68,8 @@ function record_current() {
         (current_vehicles == last_recorded_vehicles && current_distance < last_recorded_distance)) {
         local f = io.openAppend(trajectoryFileName);
         f.println("\n[[trajectory]]");
-        f.println("seconds = ", hxStatistics.runningTime);
+        f.println("seconds = ", wall_elapsed());
+        f.println("solver_seconds = ", hxStatistics.runningTime);
         f.println("vehicles = ", current_vehicles);
         f.println("distance = ", current_distance);
         f.print("routes = ["); local first_route = true;
@@ -83,6 +91,13 @@ function param() {
     if (hxTimeLimit == nil || hxNbThreads == nil || hxSeed == nil || hxTimeBetweenDisplays == nil)
         throw "Explicit budget, threads, seed and display interval required";
     if (hxTimeBetweenDisplays <= 0) throw "Display interval must be positive";
+    local remaining = totalWallBudgetSeconds - wall_elapsed();
+    local remaining_seconds = max(0, math.floor(remaining));
+    local fleet_seconds = remaining_seconds == 0 ? 0 : max(1, math.floor(5*remaining_seconds/6));
+    local distance_seconds = remaining_seconds - fleet_seconds;
+    // Include common-start construction, HXM input/model construction and
+    // process launch in the total wall clock before setting Hexaly's search cap.
+    hxTimeLimit = {fleet_seconds, distance_seconds};
     trajectory_has_record = false;
     for [k in 0...fleet] {
         route[k].value.clear();
@@ -97,9 +112,10 @@ function output() {
     // preceded it. The Julia adapter will censor this observation if it is late.
     record_current();
     local f = io.openWrite(solFileName);
-    f.println("schema = \"li-lim-hexaly-native/1\"");
+    f.println("schema = \"li-lim-hexaly-native/2\"");
     f.println("status = \"", hxSolution.status, "\"");
-    f.println("seconds = ", hxStatistics.runningTime);
+    f.println("seconds = ", wall_elapsed());
+    f.println("solver_seconds = ", hxStatistics.runningTime);
     f.println("vehicles = ", vehicles.value);
     f.println("distance = ", distance.value);
     f.print("routes = ["); local first = true;
