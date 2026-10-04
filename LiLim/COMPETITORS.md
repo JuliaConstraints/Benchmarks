@@ -103,6 +103,14 @@ les routes revalidées avec les objectifs recalculés dans le problème original
 Aucun benchmark Hexaly ni résultat de performance n'est encore produit ;
 l'exécutable n'est pas présent sur cette machine.
 
+Le temps est réparti entre les deux objectifs lexicographiques. La valeur simple
+`hxTimeLimit=60` signifierait zéro seconde pour la flotte puis 60 secondes pour
+la distance. L'adaptateur impose donc une phase explicite 5:1 : 50/10 secondes
+pour un budget de 60 secondes, 500/100 pour 600 secondes. Si la flotte est
+prouvée optimale tôt, Hexaly transfère le temps restant à la distance. Cette
+répartition constitue le profil initial ; tout autre partage devra être une
+ablation annoncée, avec les deux durées et les trajectoires consignées.
+
 Avant une campagne : compiler, injecter des solutions valides et invalides
 à temps nul, vérifier les routes vides et les fenêtres/charges, contrôler le
 point initial après presolve, ajouter le chrono construction/recherche commun

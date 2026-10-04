@@ -60,7 +60,7 @@ function audit_hexaly(p,output)
     isapprox(validation.objective.distance,output["distance"];atol=1e-7,rtol=1e-12) || error("Hexaly distance mismatch")
     validation
 end
-"Prepared CLI launch; original validation and timing qualification are still required."
+"Build a CLI launch with a fixed lexicographic time split; timing qualification remains required."
 function hexaly_command(executable,input,output;threads,seconds,seed,cpus)
     threads isa Integer && (threads==0 || threads in (1,2,4,8,16)) ||
         throw(ArgumentError("Hexaly thread count must be 0 (automatic) or 1, 2, 4, 8 or 16"))
@@ -70,7 +70,10 @@ function hexaly_command(executable,input,output;threads,seconds,seed,cpus)
         throw(ArgumentError("explicit Hexaly thread count must match the CPU affinity width"))
     seconds isa Integer && seconds>=0 && seed isa Integer && seed>=0 ||
         throw(ArgumentError("Hexaly CLI needs integer seconds and a nonnegative seed"))
+    fleet_seconds = seconds==0 ? 0 : max(1, fld(5seconds,6))
+    distance_seconds = seconds-fleet_seconds
+    phase_limits = string(fleet_seconds, ",", distance_seconds)
     model=normpath(joinpath(@__DIR__,"..","native","hexaly","pdptw.hxm"))
-    `taskset --cpu-list $(join(cpus,',')) $executable $model inFileName=$input solFileName=$output hxTimeLimit=$seconds hxNbThreads=$threads hxSeed=$seed`
+    `taskset --cpu-list $(join(cpus,',')) $executable $model inFileName=$input solFileName=$output hxTimeLimit=$phase_limits hxNbThreads=$threads hxSeed=$seed`
 end
 end
