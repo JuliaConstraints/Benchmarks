@@ -39,19 +39,19 @@ function refs(fleet,distance,id,maxfleet)
     hlines!(distance,[TARGETS[id]["distance"]];color=:gray30,linestyle=:dot)
     id=="lc101" && ylims!(distance,TARGETS[id]["distance"]-1,TARGETS[id]["distance"]+1)
 end
-function quality()
-    fig=Figure(size=(1650,1100));Label(fig[0,1:3],"Toutes les variantes : qualité après 5 secondes",fontsize=27)
+function quality(;best=false)
+    fig=Figure(size=(1650,1100));Label(fig[0,1:3],best ? "Meilleur de trois essais — 5 secondes par essai" : "Toutes les variantes : qualité médiane après 5 secondes",fontsize=27)
     for (col,id) in enumerate(IDS)
         fleet=Axis(fig[1,col];title=uppercase(id),ylabel=col==1 ? "Véhicules (priorité 1)" : "")
         distance=Axis(fig[2,col];xlabel="Workers alloués",ylabel=col==1 ? "Distance brute (priorité 2)" : "")
         widthaxis(fleet);widthaxis(distance);refs(fleet,distance,id,maximum(r["initial_vehicles"] for r in ROWS if r["instance"]==id))
         for (j,m) in enumerate(METHODS)
-            xs=[w for w in WIDTHS if !isempty(subset(id,m,w))];rs=[middle(subset(id,m,w)) for w in xs]
+            xs=[w for w in WIDTHS if !isempty(subset(id,m,w))];rs=[best ? first(sort(subset(id,m,w);by=key)) : middle(subset(id,m,w)) for w in xs]
             scatterlines!(fleet,xs,[r["vehicles"] for r in rs];color=COLORS[j],linestyle=style(j),marker=j%3==0 ? :rect : :circle,markersize=8)
             scatterlines!(distance,xs,[r["distance"] for r in rs];color=COLORS[j],linestyle=style(j),marker=j%3==0 ? :rect : :circle,markersize=8)
         end
     end
-    footer!(fig,3);exportfig(fig,"all-variants-quality")
+    footer!(fig,3);exportfig(fig,best ? "all-variants-quality-best" : "all-variants-quality")
 end
 function success()
     fig=Figure(size=(1650,1150));Label(fig[0,1:3],"Réussite : référence atteinte et amélioration du départ",fontsize=27)
@@ -116,6 +116,6 @@ function cpuplot()
     footer!(fig,2;reference=false);exportfig(fig,"all-variants-cpu")
 end
 function render()
-    quality();success();anytime(8);anytime(16);cpuplot()
+    quality();quality(;best=true);success();anytime(8);anytime(16);cpuplot()
 end
 Base.invokelatest(render)
