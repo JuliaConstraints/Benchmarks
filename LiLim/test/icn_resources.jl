@@ -5,6 +5,18 @@ include(joinpath(@__DIR__,"..","src","MetaRepair.jl"))
 include(joinpath(@__DIR__,"..","src","ICNScoring.jl"))
 include(joinpath(@__DIR__,"..","src","Hybrid.jl"))
 include(joinpath(@__DIR__,"..","src","ResourceExperiment.jl"))
+const STALE_WORLD_INPUT = Channel{Any}(1)
+const STALE_WORLD_OUTPUT = Channel{Any}(1)
+const STALE_WORLD_RUNNER = Task(() -> begin
+    request = take!(STALE_WORLD_INPUT)
+    result = try
+        ResourceExperiment.run_case(request.path, request.method, request.seconds,
+            request.seed, request.policy, request.banks; threads=request.threads)
+    catch error
+        error
+    end
+    put!(STALE_WORLD_OUTPUT, result)
+end)
 const BANKS = Dict(kind=>ICNScoring.load_backend(kind) for kind in (:naive,:icn,:direct))
 
 function qualify()
@@ -161,6 +173,13 @@ function qualify()
                     end
                 end
             end
+            put!(STALE_WORLD_INPUT,(;path,method="hybrid_specialized_icn",seconds=0.5,
+                seed=41,policy,banks=BANKS,threads=Threads.nthreads()))
+            schedule(STALE_WORLD_RUNNER)
+            wait(STALE_WORLD_RUNNER)
+            stale_world_result=take!(STALE_WORLD_OUTPUT)
+            @test stale_world_result isa Dict{String,Any}
+            @test stale_world_result isa Dict{String,Any} && stale_world_result["original_validation"]
             plan=ResourceExperiment.prepare_portfolio(ResourceExperiment.allocation("cbls_icn",Threads.nthreads()))
             reused=ResourceExperiment.run_case(path,"cbls_icn",0.5,41,policy,BANKS;portfolio=plan)
             @test reused["original_validation"] && reused["metastrategist_plan_reused"]

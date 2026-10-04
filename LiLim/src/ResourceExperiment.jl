@@ -48,8 +48,11 @@ end
 function (phase::ParallelPhase)(context::ExecutionContext)
     # A static thread assignment is part of this diagnostic. Invocation is on
     # Julia thread 1; worker states and counters are owned independently.
+    # Learned ICN functions are generated at runtime. A long-lived Julia task
+    # can retain the world age from before that generation, so enter the full
+    # worker call at the latest world once rather than paying per-score dispatch.
     Threads.@threads :static for i in eachindex(phase.workers)
-        context.records[i] = context.invoke(i,phase.workers[i])
+        context.records[i] = Base.invokelatest(context.invoke, i, phase.workers[i])
     end
     nothing
 end

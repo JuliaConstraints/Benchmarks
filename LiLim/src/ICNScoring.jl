@@ -90,7 +90,7 @@ metadata(b::ErrorBackend) = Dict("backend"=>string(b.kind),"score_evaluations"=>
     error("unsupported scalar relation")
 end
 
-function scalar(b,x,op,val)
+@inline function scalar(b,x,op,val)
     if b.kind == :icn
         b.calls += 1
         input = x isa Int ? b.workspace.scalar_integer :

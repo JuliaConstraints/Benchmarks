@@ -110,6 +110,17 @@ The first kernel correction alone did not reduce global GC at sixteen threads.
 The intermediate `throughput-iterators-*` captures document that result; reusable
 route decoding removed the next measured cost.
 
+## 5 October: ICN scorer allocation correction
+
+The zero-allocation unit check exposed 3,216 bytes per baseline ICN score on its
+small route fixture. Allocation profiling attributed the cost to repeated
+learned scalar-composition calls through the scorer's generic dispatch path.
+Inlining `ICNScoring.scalar` lets Julia specialize those calls; the same fixture
+then measures zero bytes per score for the baseline ICN, naïve, direct, scalar-
+fused and fully fused backends. The complete resource test passes, including its
+stale-world worker regression. This qualifies the scorer-level fix; the next
+campaign must still measure allocations and GC during full Li-Lim searches.
+
 ## PerfChecker and SnoopCompile runs
 
 PerfChecker 1.0.0-rc1, commit `1cc09a98db569b382f91dc10f6a569c1c728b6aa`,
