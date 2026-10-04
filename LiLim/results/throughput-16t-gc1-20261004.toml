@@ -1,0 +1,288 @@
+affinity = "Cpus_allowed_list:\t0-4,6,8-12,14,16-19"
+allocation_sample_rate = 1.0e-5
+benchmarks_commit = "39d02d5eb62d82c40cea1a4ca28c86fe25bb6959"
+cpu_name = "alderlake"
+cpu_profile_flat = """ Count  Overhead File                                                                Line Function\n =====  ======== ====                                                                ==== ========\n    21         0 @Base/array.jl                                                      163 vect\n    21        21 @juliasrc/gc-stock.c                                               1282 gc_sweep_pool_parallel\n    22        20 @Base/essentials.jl                                                 385 checkbounds\n    22         0 @Base/array.jl                                                     1251 _growat!(a::Vector{Int64}, i::Int64, delta::Int64)\n    22         0 @juliasrc/gc-stock.c                                                711 gc_add_page\n    23         0 @juliasrc/datatype.c                                               1154 ijl_new_bits\n    23        23 @Base/int.jl                                                         87 +\n    23         0 @juliasrc/gc-stock.c                                               2486 gc_mark_outrefs\n    24         0 @Base/reduce.jl                                                       ? _mapreduce(f::Main.Hybrid.var\"#9#10\"{Matrix{Float64}}, op::typeof(Base.add_sum), ::Index…\n    24         0 none                                                                  ? ##composition#470\n    24         0 none                                                                  ? ##composition#470#1142\n    24         0 @CompositionalNetworks/src/inplace.jl                               565 _pairwise_counts\n    24         0 @CompositionalNetworks/src/inplace.jl                               567 #_pairwise_counts#693\n    25         0 @juliasrc/datatype.c                                               1858 ijl_get_nth_field\n    25        25 @Base/promotion.jl                                                  641 ==\n    25         0 @LiLimPilot/src/Hybrid.jl                                            64 pair_relocation(p::BenchmarkInstance{PickupDeliveryProblem}, routes::Vector{Vector{Int64…\n    25         0 @Base/deepcopy.jl                                                    34 deepcopy\n    25         0 @Base/deepcopy.jl                                                   133 deepcopy_internal(x::Vector{Vector{Int64}}, stackdict::IdDict{Any, Any})\n    25         0 @Base/deepcopy.jl                                                   142 deepcopy_internal(x::MemoryRef{Vector{Int64}}, stackdict::IdDict{Any, Any})\n    25         0 @Base/deepcopy.jl                                                   104 deepcopy_internal\n    26         0 @juliasrc/julia_threads.h                                           351 maybe_collect\n    27         0 @LiLimPilot/src/ICNScoring.jl                                        95 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    27         0 @juliasrc/builtins.c                                               1059 jl_f_getfield\n    27         0 @juliasrc/datatype.c                                               1874 ijl_get_nth_field_checked\n    27         0 @Base/array.jl                                                     1129 _growbeg_internal!(a::Vector{Int64}, delta::Int64, len::Int64)\n    29         0 @CompositionalNetworks/src/inplace.jl                               575 #_aggregate_pairwise_sum#694\n    31         1 @Base/range.jl                                                      928 iterate\n    32        22 @Base/Base_compiler.jl                                               57 getproperty\n    32         7 @julialib/julia/libunwind.so.8                                        ? find_reg_state\n    32        32 @Base/float.jl                                                      492 +\n    32         0 @Base/abstractarray.jl                                             1876 _cat_t\n    32         0 @Base/abstractarray.jl                                             1816 cat_similar\n    32         4 @Base/array.jl                                                     1158 _growend_internal!(a::Vector{Int64}, delta::Int64, len::Int64)\n    33         0 @Base/abstractarray.jl                                             2021 typed_vcat\n    34         0 @LiLimPilot/src/Hybrid.jl                                            63 pair_relocation(p::BenchmarkInstance{PickupDeliveryProblem}, routes::Vector{Vector{Int64…\n    34         0 @Base/reducedim.jl                                                  999 sum\n    34         0 @Base/reducedim.jl                                                  999 #sum#749\n    34         0 @Base/reducedim.jl                                                 1003 _sum\n    34         0 @Base/reducedim.jl                                                 1003 #_sum#751\n    34         0 @Base/reducedim.jl                                                  330 mapreduce\n    34         0 @Base/reducedim.jl                                                  330 #mapreduce#741\n    34         0 @Base/reducedim.jl                                                  347 _mapreduce_dim\n    34         0 @LiLimPilot/src/Hybrid.jl                                            63 #9\n    34         0 @SparseArrays/src/sparsevector.jl                                  1279 vcat\n    34         0 @Base/array.jl                                                     1215 _growat!(a::Vector{Int64}, i::Int64, delta::Int64)\n    34         0 @Base/array.jl                                                     1152 _growbeg!\n    35         0 @LiLimPilot/src/Pilot.jl                                              8 route_distance(route::Vector{Int64}, D::Matrix{Float64})\n    35         0 @Base/array.jl                                                      973 getindex\n    35         0 @Base/array.jl                                                      291 copyto!\n    35         0 @Base/array.jl                                                      300 _copyto_impl!\n    35         0 @Base/abstractarray.jl                                             1247 iterate\n    38         0 @Base/array.jl                                                     1211 _growat!(a::Vector{Int64}, i::Int64, delta::Int64)\n    38         0 @juliasrc/gc-stock.c                                               1289 gc_sweep_pool_parallel\n    38        38 @juliasrc/gc-stock.h                                                177 try_pop_lf_back\n    38         0 @Base/bitarray.jl                                                    39 BitArray\n    38        34 @Base/array.jl                                                     1044 __safe_setindex!\n    39         0 @juliasrc/safepoint.c                                               188 jl_safepoint_start_gc\n    39         0 /workspace/srcdir/libuv/src/unix/thread.c                           352 uv_mutex_lock\n    39         0 /lib/x86_64-linux-gnu/libc.so.6                                       ? pthread_mutex_lock\n    40         0 @CompositionalNetworks/src/inplace.jl                               572 _aggregate_pairwise_sum\n    42         0 @LiLimPilot/src/Hybrid.jl                                           192 run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; se…\n    43        43 @Base/essentials.jl                                                 975 getindex\n    44         0 @Base/simdloop.jl                                                    77 macro expansion\n    44         0 @Base/broadcast.jl                                                 1000 macro expansion\n    44         0 @juliasrc/gc-stock.c                                               2542 gc_mark_loop_serial_\n    45         0 @CompositionalNetworks/src/composition_ir.jl                         81 Composition\n    45         0 @CompositionalNetworks/src/composition_ir.jl                         82 #_#849\n    46         0 @Base/broadcast.jl                                                  952 copyto!\n    46         0 @Base/broadcast.jl                                                  999 copyto!\n    48         0 @juliasrc/gc-stock.c                                               3123 _jl_gc_collect\n    48         0 @juliasrc/gc-stock.c                                               2753 gc_mark_loop\n    48         0 @juliasrc/gc-stock.c                                               2565 gc_mark_loop_serial\n    50         0 @juliasrc/gc-stock.c                                               3565 ijl_gc_collect\n    52         0 @juliasrc/task.c                                                    793 throw_internal\n    52         0 @juliasrc/julia_threads.h                                           364 jl_gc_state_save_and_set\n    52         0 @juliasrc/julia_threads.h                                           351 jl_gc_state_set\n    53         0 @Base/array.jl                                                      363 _fill!\n    59         0 @Base/array.jl                                                      627 zeros\n    59         0 @juliasrc/gc-stock.c                                                746 jl_gc_small_alloc_inner\n    60         0 @Base/array.jl                                                      359 fill!\n    61        61 @juliasrc/gc-stock.h                                                332 gc_page_data\n    61         0 @LiLimPilot/src/MetaRepair.jl                                        35 routes_from_successors(instance::BenchmarkInstance{PickupDeliveryProblem}, values::Vecto…\n    61         0 @Base/bitarray.jl                                                   393 falses\n    61         0 @Base/bitarray.jl                                                   395 falses\n    62         0 @juliasrc/gc-stock.c                                                813 jl_gc_alloc_\n    62        62 @juliasrc/julia.h                                                   134 jl_set_typeof\n    70        70 @juliasrc/gc-stock.c                                                354 maybe_collect\n    74        56 @julialib/julia/libunwind.so.8                                        ? apply_reg_state\n    74         0 @LiLimPilot/src/ResourceExperiment.jl                               114 run_case(path::String, method::String, seconds::Float64, seed::Int64, policy::Dict{Strin…\n    74         0 @Base/gcutils.jl                                                    133 gc\n    76         0 /workspace/srcdir/glibc-2.17/csu/../sysdeps/x86_64/start.S          123 [unknown function]\n    76         0 /lib/x86_64-linux-gnu/libc.so.6                                       ? __libc_start_main\n    76         0 /cache/build/builder-amdci4-8/julialang/julia-ci/cli/loader_exe.c    58 main\n    76         0 @juliasrc/jlapi.c                                                  1152 jl_repl_entrypoint\n    76         0 @juliasrc/jlapi.c                                                   985 true_main\n    76         0 @julialib/julia/sys.so                                                ? jfptr__start_58396.1\n    76         0 @Base/client.jl                                                     577 _start()\n    76         0 @Base/client.jl                                                     344 exec_options(opts::Base.JLOptions)\n    76         0 @Base/Base.jl                                                       309 include(mod::Module, _path::String)\n    76         0 @Base/loading.jl                                                   3093 _include(mapexpr::Function, mod::Module, _path::String)\n    76         0 @Base/loading.jl                                                   3033 include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)\n    76         0 @Base/boot.jl                                                       489 eval(m::Module, e::Any)\n    76         0 @juliasrc/toplevel.c                                                799 ijl_toplevel_eval_in\n    76         0 @juliasrc/toplevel.c                                                754 ijl_toplevel_eval\n    76         0 @juliasrc/toplevel.c                                                683 jl_toplevel_eval_flex\n    76         0 @juliasrc/toplevel.c                                                585 jl_eval_toplevel_stmts\n    76         0 @juliasrc/toplevel.c                                                742 jl_toplevel_eval_flex\n    76         0 @juliasrc/interpreter.c                                             884 jl_interpret_toplevel_thunk\n    76         0 @juliasrc/interpreter.c                                             679 eval_body\n    76         0 @juliasrc/interpreter.c                                             194 eval_stmt_value\n    76         0 @juliasrc/interpreter.c                                             243 eval_value\n    76         0 @juliasrc/interpreter.c                                             123 do_call\n    76         0 @juliasrc/builtins.c                                                889 jl_f_invokelatest\n    76         0 @LiLimPilot/scripts/icn_performance.jl                              115 throughput()\n    76         0 @Profile/src/Profile.jl                                              60 macro expansion\n    76         0 @LiLimPilot/src/ResourceExperiment.jl                               107 run_case(path::String, method::String, seconds::Float64, seed::Int64, policy::Dict{Strin…\n    78         8 @juliasrc/julia_threads.h                                           358 jl_gc_state_set\n    81         0 @Base/genericmemory.jl                                              139 unsafe_copyto!\n    81         1 @Base/cmem.jl                                                        28 memmove\n    93         0 @Base/array.jl                                                     1249 _growat!(a::Vector{Int64}, i::Int64, delta::Int64)\n    98         0 @LocalSearchSolvers/src/solver.jl                                   361 _candidate_objective\n    98         0 @LocalSearchSolvers/src/solver.jl                                   362 _candidate_objective(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model…\n    98         0 @LocalSearchSolvers/src/utils.jl                                     75 apply\n    98         0 @LiLimPilot/src/Hybrid.jl                                           105 #34\n   102         0 @LocalSearchSolvers/src/strategies/proposals.jl                      54 _proposal_rank\n   107         1 @julialib/julia/libunwind.so.8                                        ? _ULx86_64_dwarf_step\n   113         0 @juliasrc/stackwalk.c                                               764 jl_unw_step\n   113         6 @julialib/julia/libunwind.so.8                                        ? _ULx86_64_step\n   120         0 @juliasrc/stackwalk.c                                               104 jl_unw_stepn\n   123       114 @Base/array.jl                                                     1025 _setindex!\n   124         0 @Base/array.jl                                                     1020 setindex!\n   128         1 @juliasrc/stackwalk.c                                               230 rec_backtrace\n   128         0 @juliasrc/gc-stock.c                                                714 gc_add_page\n   128       128 @juliasrc/gc-stock.h                                                350 set_page_metadata\n   138         0 @juliasrc/task.c                                                    828 ijl_throw\n   138         0 @juliasrc/task.c                                                    411 record_backtrace\n   142         1 @Base/array.jl                                                      386 copy\n   145         0 @juliasrc/signals-unix.c                                            514 segv_handler\n   145         0 @juliasrc/signals-unix.c                                            528 segv_handler\n   145         0 @juliasrc/safepoint.c                                               247 jl_set_gc_and_wait\n   145         0 @juliasrc/safepoint.c                                               268 jl_safepoint_wait_gc\n   151         0 @juliasrc/gc-stock.c                                                772 jl_gc_small_alloc_inner\n   163         0 @LiLimPilot/src/Hybrid.jl                                            77 pair_relocation(p::BenchmarkInstance{PickupDeliveryProblem}, routes::Vector{Vector{Int64…\n   164         0 @Base/array.jl                                                     1843 _insert!\n   165         0 @Base/array.jl                                                     1838 insert!\n   174       174 @juliasrc/gc-stock.c                                                926 gc_sweep_page\n   215         0 @Base/multidimensional.jl                                           984 _getindex\n   215         0 @Base/multidimensional.jl                                           996 _unsafe_getindex\n   215         0 @Base/bitarray.jl                                                   362 similar\n   217         0 @Base/abstractarray.jl                                             1363 getindex\n   233        11 @juliasrc/gc-stock.c                                               1002 gc_sweep_pool_page\n   235         0 @Base/bitarray.jl                                                    37 BitArray\n   237         0 @juliasrc/gc-stock.c                                               1294 gc_sweep_pool_parallel\n   243         0 @LiLimPilot/src/MetaRepair.jl                                        48 routes_from_successors(instance::BenchmarkInstance{PickupDeliveryProblem}, values::Vecto…\n   258         0 @Base/array.jl                                                      402 similar\n   275         0 @Base/bitarray.jl                                                    71 BitArray\n   289         0 @LiLimPilot/src/MetaRepair.jl                                        34 routes_from_successors(instance::BenchmarkInstance{PickupDeliveryProblem}, values::Vecto…\n   301         0 @juliasrc/gc-stock.c                                               1399 gc_sweep_pool\n   345         0 @LiLimPilot/src/MetaRepair.jl                                        46 routes_from_successors(instance::BenchmarkInstance{PickupDeliveryProblem}, values::Vecto…\n   347         0 @juliasrc/gc-pages.c                                                202 jl_gc_free_page\n   347       347 /lib/x86_64-linux-gnu/libc.so.6                                       ? __madvise\n   348         0 @juliasrc/gc-stock.c                                               1458 gc_sweep_pool\n   348         0 @juliasrc/gc-stock.c                                               1337 gc_free_pages\n   430         0 @LiLimPilot/src/ICNScoring.jl                                        87 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n   677         0 @juliasrc/gc-stock.c                                               3255 _jl_gc_collect\n   679         0 @Base/broadcast.jl                                                  229 similar\n   679         0 @Base/broadcast.jl                                                  230 similar\n   679         0 @Base/abstractarray.jl                                              876 similar\n   679         0 @Base/array.jl                                                      409 similar\n   679         0 @Base/abstractarray.jl                                              877 similar\n   680         0 @juliasrc/gc-stock.c                                               3563 ijl_gc_collect\n   689         0 @LiLimPilot/src/MetaRepair.jl                                        43 routes_from_successors(instance::BenchmarkInstance{PickupDeliveryProblem}, values::Vecto…\n   690         0 @LiLimPilot/src/MetaRepair.jl                                        29 routes_from_successors(instance::BenchmarkInstance{PickupDeliveryProblem}, values::Vecto…\n   705         0 @LiLimPilot/src/MetaRepair.jl                                        38 routes_from_successors(instance::BenchmarkInstance{PickupDeliveryProblem}, values::Vecto…\n   711         0 @Base/boot.jl                                                       671 Array\n   724         0 @Base/array.jl                                                      384 copy\n   725         0 @LiLimPilot/src/MetaRepair.jl                                        28 routes_from_successors(instance::BenchmarkInstance{PickupDeliveryProblem}, values::Vecto…\n   725         0 @Base/broadcast.jl                                                  899 materialize\n   725         0 @Base/broadcast.jl                                                  924 copy\n   758         0 @Base/array.jl                                                      971 getindex\n   758         0 @Base/array.jl                                                      407 similar\n   803         0 @Base/array.jl                                                      626 zeros\n   862         0 @Base/array.jl                                                      622 zeros\n   866         0 @LiLimPilot/src/Hybrid.jl                                            76 pair_relocation(p::BenchmarkInstance{PickupDeliveryProblem}, routes::Vector{Vector{Int64…\n   973         0 @Base/abstractarray.jl                                              825 similar\n   973         0 @Base/abstractarray.jl                                              836 similar\n   983         0 @Base/array.jl                                                     1181 _growend_internal!(a::Vector{Int64}, delta::Int64, len::Int64)\n   994         0 @Base/array.jl                                                      436 getindex\n  1009         1 @Base/array.jl                                                     1205 _growend!\n  1019         0 @Base/array.jl                                                     1348 _push!\n  1036         0 @Base/array.jl                                                     1345 push!\n  1103         0 @Base/array.jl                                                     1101 array_new_memory\n  1117         0 @LiLimPilot/src/Hybrid.jl                                           193 run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; se…\n  1117         0 @LiLimPilot/src/Hybrid.jl                                            58 pair_relocation\n  1124         0 @LiLimPilot/src/MetaRepair.jl                                        33 routes_from_successors(instance::BenchmarkInstance{PickupDeliveryProblem}, values::Vecto…\n  1140         0 @julialib/julia/sys.so                                                ? jfptr_wait_forever_70523.1\n  1140         0 @Base/task.jl                                                      1196 wait_forever()\n  1140         0 @Base/task.jl                                                      1297 wait()\n  1140         0 @juliasrc/scheduler.c                                               599 ijl_task_get_next\n  1368         0 @LocalSearchSolvers/src/strategies/proposals.jl                      78 _best_proposal!(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{Loca…\n  1388         0 @LiLimPilot/src/ICNScoring.jl                                       108 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n  2078         0 @LocalSearchSolvers/src/model.jl                                    532 compute_cost\n  2172         0 @LiLimPilot/src/ICNScoring.jl                                       107 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n  2272         0 @Base/boot.jl                                                       661 Array\n  2647        39 @Base/boot.jl                                                       649 Array\n  3479         0 @Base/array.jl                                                      161 vect\n  3729         0 @juliasrc/gc-stock.c                                                806 jl_gc_alloc_\n  3729         0 @juliasrc/gc-stock.c                                                792 jl_gc_small_alloc_noinline\n  3756         0 @juliasrc/genericmemory.c                                            41 jl_alloc_genericmemory_unchecked\n  4590         0 @Base/boot.jl                                                       648 Array\n  4892         0 @LiLimPilot/src/ICNScoring.jl                                        80 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n  6416        47 @Base/boot.jl                                                       588 GenericMemory\n  6814         0 @LocalSearchSolvers/src/model.jl                                    532 compute_cost(c::LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#3…\n  6963         0 @juliasrc/gc-stock.c                                                783 ijl_gc_small_alloc\n  8883         0 @LocalSearchSolvers/src/utils.jl                                     74 apply\n  8883         0 @LiLimPilot/src/Hybrid.jl                                           103 #30\n  8883         0 @LiLimPilot/src/Hybrid.jl                                           103 #32\n  8896         1 @LocalSearchSolvers/src/solver.jl                                   231 _candidate_cost(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{Loca…\n  8912         0 @LocalSearchSolvers/src/strategies/proposals.jl                      53 _proposal_rank\n  8981         0 @LiLimPilot/src/Hybrid.jl                                           102 #28\n  8981         0 @LiLimPilot/src/ICNScoring.jl                                       116 ErrorBackend\n  9014         0 @LocalSearchSolvers/src/strategies/proposals.jl                      70 _best_proposal!(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{Loca…\n  9668         0 @juliasrc/safepoint.c                                               203 jl_safepoint_start_gc\n  9668         0 @juliasrc/safepoint.c                                               268 jl_safepoint_wait_gc\n  9708         0 @juliasrc/gc-stock.c                                               3519 ijl_gc_collect\n 10366         0 @juliasrc/gc-stock.c                                                355 maybe_collect\n 10412         0 @LocalSearchSolvers/src/strategies/proposals.jl                     140 _step!(s::LocalSearchSolvers.MainSolver, model::LocalSearchSolvers._Model{LocalSearchSol…\n 10415         0 @LiLimPilot/src/Hybrid.jl                                           215 run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; se…\n 10415         0 @LocalSearchSolvers/src/solver.jl                                   867 _step!(s::LocalSearchSolvers.MainSolver)\n 10462         0 @juliasrc/gc-stock.c                                                734 jl_gc_small_alloc_inner\n 10955         0 /workspace/srcdir/libuv/src/unix/thread.c                           822 uv_cond_wait\n 10955         0 /lib/x86_64-linux-gnu/libc.so.6                                       ? pthread_cond_wait\n 11170     11093 /lib/x86_64-linux-gnu/libc.so.6                                       ? [unknown function]\n 11583         0 @Base/threadingconstructs.jl                                        178 (::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3…\n 11583         0 @Base/threadingconstructs.jl                                        246 #2\n 11583         0 @Base/threadingconstructs.jl                                        279 (::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExpe…\n 11583         0 @LiLimPilot/src/ResourceExperiment.jl                                49 macro expansion\n 11583         0 @LiLimPilot/src/ResourceExperiment.jl                               134 (::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, …\n 11583         0 @LiLimPilot/src/Hybrid.jl                                           124 kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNS…\n 11659         3 [any unknown stackframes]\n 12723         0 @juliasrc/task.c                                                   1285 start_task\n 12799         0 @juliasrc/julia.h                                                  2318 jl_apply\nTotal snapshots: 12944. Utilization: 91% across all threads and tasks. Use the `groupby` kwarg to break down by thread and/or task.\n"""
+finished_utc = "2026-10-04T07:43:48.124"
+gc_precollection = "full GC before each measured phase, excluded from phase timing"
+gc_threads = 1
+julia = "1.13.1"
+julia_gc_option = "1"
+mode = "throughput"
+profile_source_sha256 = "53614e37dbff6f535692056f283700ad0b847ac9a783a295967807739d612f68"
+schema = "li-lim-performance-diagnostic/1"
+started_utc = "2026-10-04T07:42:40.474"
+stdlib_loading_seconds = 0.046871037
+threads = 16
+
+[baseline]
+budgets_seconds = [10.0, 30.0]
+cpu = 8
+instance_wall_guard_seconds = 900.0
+instances = ["lc101", "lr101", "lrc101"]
+job_wall_guard_seconds = 120.0
+julia = "1.13.1"
+memory_guard_bytes = 8589934592
+methods = ["cbls", "hybrid_specialized", "hybrid_bridged", "highs"]
+schema = "li-lim-meta-pilot/1"
+scope = "diagnostic on three previously exposed instances; no confirmation or commercial comparison"
+seeds = [41, 42, 43]
+threads = 1
+
+    [baseline.cohort]
+    CBLS = "3bd4e2638c39b565aa81af41f585678f8952f60a"
+    CompositionalNetworks = "ac70b743ea64c32f57100a59ceeb68b4c54181f2"
+    ConstraintCommons = "b71a313f2b600e8879877e8e04e292eb94851bd7"
+    ConstraintDomains = "399a90fdbb25d2cefc9cea2d6c4f6565be5a7c11"
+    ConstraintModels = "4ddd8f65417ac8a8d6bb12add6faf0c0c84801c3"
+    ConstraintProgrammingExtensions = "684e2e4a1459d5ae459666350c545bfc775272c2"
+    Constraints = "fc3ca4ba26d9d15ffd6065eca0bb8a968af2ff43"
+    LocalSearchSolvers = "9010ff2a0147257a2991680981f579e8c20db733"
+    MetaStrategist = "7a5bbed52f6c4993dd72bf7f9ad1c6bd57acf583"
+    PatternFolds = "bbf38fbf8b680deb4b599b06afd747fc069d25ee"
+    QUBOConstraints = "f893f83cd7518ca3aedf0ad5d2679b2c13829446"
+    XCSP3Bridges = "fe5bceaddc5081fedd200571b480e44ca9de1947"
+
+    [baseline.environment]
+    manifest_sha256 = "77e4d46bc9c20aa3e9a3bbaf27c1f95663e6a1ce290dbac28cbad00cf6d2df27"
+    project_sha256 = "2a48b5e578f38033a568c0d03697d31b86b1bed65b39086515c6648276cf457b"
+
+    [baseline.policy]
+    fragment_seconds = 0.5
+    insertion_seed = 41
+    insertion_starts = 5
+    max_visits = 20
+    repair_every = 20
+    repair_fraction = 0.35
+
+    [baseline.source_sha256]
+    lc101 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    lr101 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    lrc101 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+
+[config]
+budget_seconds = 10.0
+clb_commit = "b340e83a72ed19acd1f1647edaafb9e363738f0f"
+cpu_order = [8, 10, 0, 2, 4, 6, 12, 14, 16, 17, 18, 19, 9, 11, 1, 3]
+icn_bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+instances = ["lc101", "lr101", "lrc101"]
+job_wall_guard_seconds = 120.0
+julia = "1.13.1"
+memory_guard_bytes = 12884901888
+methods = ["cbls_naive", "cbls_icn", "cbls_direct", "hybrid_specialized_icn", "hybrid_bridged_icn", "highs_native", "highs_portfolio"]
+portfolio_methods = ["mixed_balanced", "mixed_ls_heavy"]
+process_wall_guard_seconds = 1400.0
+schema = "li-lim-icn-threads/1"
+scope = "diagnostic on three exposed instances, fixed wall budget, no commercial comparison"
+seeds = [41, 42, 43]
+thread_counts = [1, 2, 4, 8, 16]
+
+    [config.policy]
+    fragment_seconds = 0.5
+    insertion_seed = 41
+    insertion_starts = 5
+    max_visits = 20
+    repair_every = 20
+    repair_fraction = 0.35
+
+    [config.source_sha256]
+    lc101 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    lr101 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    lrc101 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+
+[[events]]
+allocated_bytes = 1413232928
+compile_seconds = 7.151965492
+gc_seconds = 0.408225083
+phase = "load ConstraintModels"
+recompile_seconds = 0.571060145
+sample = 1
+seconds = 11.961085236
+[[events]]
+allocated_bytes = 62152
+compile_seconds = 0.002654937
+gc_seconds = 0.0
+phase = "load JuMP and Benchmarks"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.002991134
+[[events]]
+allocated_bytes = 54709840
+compile_seconds = 0.38104031
+gc_seconds = 0.0
+phase = "include Pilot"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.497198975
+[[events]]
+allocated_bytes = 4757744
+compile_seconds = 2.984e-6
+gc_seconds = 0.0
+phase = "include MetaRepair"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.091595538
+[[events]]
+allocated_bytes = 1252208
+compile_seconds = 0.006483458
+gc_seconds = 0.0
+phase = "include ICNScoring"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.019163993
+[[events]]
+allocated_bytes = 1652168
+compile_seconds = 1.773e-6
+gc_seconds = 0.0
+phase = "include Hybrid"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.031960593
+[[events]]
+allocated_bytes = 6468064
+compile_seconds = 0.01628566
+gc_seconds = 0.0
+phase = "include ResourceExperiment"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.118767018
+[[events]]
+allocated_bytes = 1236244888
+compile_seconds = 3.864271033
+gc_seconds = 0.261282209
+phase = "decode error backends"
+recompile_seconds = 0.0
+sample = 1
+seconds = 3.878527287
+[[events]]
+allocated_bytes = 35669723424
+candidates_per_second = 1.971761e6
+compile_seconds = 0.00328768
+distance = 828.9368669428341
+gc_seconds = 3.328221549
+icn_calls = 644379352
+mean_active_cpus = 6.293697080841504
+median_parent_initialization_seconds = 0.0006545885
+pair_candidates = 9858805
+phase = "hot CBLS ICN lc101"
+process_cpu_seconds = 31.569120751999975
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 41
+seconds = 5.193374823
+vehicles = 10
+[[events]]
+allocated_bytes = 36094195248
+candidates_per_second = 1.9955774e6
+compile_seconds = 0.0
+distance = 828.9368669428341
+gc_seconds = 3.356927433
+icn_calls = 652012828
+mean_active_cpus = 6.408985923153951
+median_parent_initialization_seconds = 0.000651798
+pair_candidates = 9977887
+phase = "hot CBLS ICN lc101"
+process_cpu_seconds = 32.214079956000006
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 42
+seconds = 5.210286166
+vehicles = 10
+[[events]]
+allocated_bytes = 36160046528
+candidates_per_second = 1.999788e6
+compile_seconds = 0.0
+distance = 828.9368669428341
+gc_seconds = 3.327299778
+icn_calls = 653195727
+mean_active_cpus = 6.439258618272866
+median_parent_initialization_seconds = 0.0006864569999999999
+pair_candidates = 9998940
+phase = "hot CBLS ICN lc101"
+process_cpu_seconds = 32.24575487199999
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 43
+seconds = 5.177733214
+vehicles = 10
+
+[[sampled_allocation_sites]]
+bytes = 31840
+count = 797
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/ICNScoring.jl:107"
+[[sampled_allocation_sites]]
+bytes = 31152
+count = 786
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/ICNScoring.jl:108"
+[[sampled_allocation_sites]]
+bytes = 27344
+count = 218
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:43"
+[[sampled_allocation_sites]]
+bytes = 18072
+count = 59
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:77"
+[[sampled_allocation_sites]]
+bytes = 13744
+count = 44
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:33"
+[[sampled_allocation_sites]]
+bytes = 12544
+count = 28
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:28"
+[[sampled_allocation_sites]]
+bytes = 11752
+count = 26
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:29"
+[[sampled_allocation_sites]]
+bytes = 9360
+count = 30
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/ICNScoring.jl:87"
+[[sampled_allocation_sites]]
+bytes = 5584
+count = 83
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:76"
+[[sampled_allocation_sites]]
+bytes = 2696
+count = 27
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:46"
+[[sampled_allocation_sites]]
+bytes = 2656
+count = 83
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:38"
+[[sampled_allocation_sites]]
+bytes = 896
+count = 28
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:35"
+[[sampled_allocation_sites]]
+bytes = 720
+count = 30
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:215"
+[[sampled_allocation_sites]]
+bytes = 576
+count = 18
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:48"
+[[sampled_allocation_sites]]
+bytes = 448
+count = 14
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:34"
+[[sampled_allocation_sites]]
+bytes = 368
+count = 6
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:64"
+[[sampled_allocation_sites]]
+bytes = 296
+count = 1
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Pilot.jl:32"
+[[sampled_allocation_sites]]
+bytes = 240
+count = 3
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Pilot.jl:8"
+
+[solver_source_sha256]
+"LiLim/src/Experiment.jl" = "e1f969e3dcf0ed5e327d29bcedd54c27f89834580bf0310320fb141d16dea4ae"
+"LiLim/src/Hybrid.jl" = "686f35b0577813d3e862d0d58a8ca3d8fc7ccacb744d6b855bae6cdfed9bc4ca"
+"LiLim/src/ICNScoring.jl" = "eb1c63f215a04ec128e3ff903e9315ecf600eb834488f0e9a6c5d71d6726e4f3"
+"LiLim/src/MetaRepair.jl" = "f3c5b5782cdeb5bf0f5675b9b4c7436cfcc4541ed89ab9c56dba4602971edc5e"
+"LiLim/src/Pilot.jl" = "a16aeaccf105f1e6f873fde5706457d70884c9556e157fc545073582dbe8b821"
+"LiLim/src/ResourceExperiment.jl" = "617119ed47a62b28f7c5d7da9114f664859f137eb31a2a95f86bcbaed484215c"

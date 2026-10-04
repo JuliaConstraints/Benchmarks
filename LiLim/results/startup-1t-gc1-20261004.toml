@@ -1,0 +1,1656 @@
+affinity = "Cpus_allowed_list:\t8"
+benchmarks_commit = "39d02d5eb62d82c40cea1a4ca28c86fe25bb6959"
+cpu_name = "alderlake"
+finished_utc = "2026-10-04T07:41:33.235"
+gc_precollection = "full GC before each measured phase, excluded from phase timing"
+gc_threads = 1
+julia = "1.13.1"
+julia_gc_option = "1"
+mode = "startup"
+profile_source_sha256 = "53614e37dbff6f535692056f283700ad0b847ac9a783a295967807739d612f68"
+schema = "li-lim-performance-diagnostic/1"
+started_utc = "2026-10-04T07:40:35.354"
+stdlib_loading_seconds = 0.056279114
+threads = 1
+
+[baseline]
+budgets_seconds = [10.0, 30.0]
+cpu = 8
+instance_wall_guard_seconds = 900.0
+instances = ["lc101", "lr101", "lrc101"]
+job_wall_guard_seconds = 120.0
+julia = "1.13.1"
+memory_guard_bytes = 8589934592
+methods = ["cbls", "hybrid_specialized", "hybrid_bridged", "highs"]
+schema = "li-lim-meta-pilot/1"
+scope = "diagnostic on three previously exposed instances; no confirmation or commercial comparison"
+seeds = [41, 42, 43]
+threads = 1
+
+    [baseline.cohort]
+    CBLS = "3bd4e2638c39b565aa81af41f585678f8952f60a"
+    CompositionalNetworks = "ac70b743ea64c32f57100a59ceeb68b4c54181f2"
+    ConstraintCommons = "b71a313f2b600e8879877e8e04e292eb94851bd7"
+    ConstraintDomains = "399a90fdbb25d2cefc9cea2d6c4f6565be5a7c11"
+    ConstraintModels = "4ddd8f65417ac8a8d6bb12add6faf0c0c84801c3"
+    ConstraintProgrammingExtensions = "684e2e4a1459d5ae459666350c545bfc775272c2"
+    Constraints = "fc3ca4ba26d9d15ffd6065eca0bb8a968af2ff43"
+    LocalSearchSolvers = "9010ff2a0147257a2991680981f579e8c20db733"
+    MetaStrategist = "7a5bbed52f6c4993dd72bf7f9ad1c6bd57acf583"
+    PatternFolds = "bbf38fbf8b680deb4b599b06afd747fc069d25ee"
+    QUBOConstraints = "f893f83cd7518ca3aedf0ad5d2679b2c13829446"
+    XCSP3Bridges = "fe5bceaddc5081fedd200571b480e44ca9de1947"
+
+    [baseline.environment]
+    manifest_sha256 = "77e4d46bc9c20aa3e9a3bbaf27c1f95663e6a1ce290dbac28cbad00cf6d2df27"
+    project_sha256 = "2a48b5e578f38033a568c0d03697d31b86b1bed65b39086515c6648276cf457b"
+
+    [baseline.policy]
+    fragment_seconds = 0.5
+    insertion_seed = 41
+    insertion_starts = 5
+    max_visits = 20
+    repair_every = 20
+    repair_fraction = 0.35
+
+    [baseline.source_sha256]
+    lc101 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    lr101 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    lrc101 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+
+[config]
+budget_seconds = 10.0
+clb_commit = "b340e83a72ed19acd1f1647edaafb9e363738f0f"
+cpu_order = [8, 10, 0, 2, 4, 6, 12, 14, 16, 17, 18, 19, 9, 11, 1, 3]
+icn_bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+instances = ["lc101", "lr101", "lrc101"]
+job_wall_guard_seconds = 120.0
+julia = "1.13.1"
+memory_guard_bytes = 12884901888
+methods = ["cbls_naive", "cbls_icn", "cbls_direct", "hybrid_specialized_icn", "hybrid_bridged_icn", "highs_native", "highs_portfolio"]
+portfolio_methods = ["mixed_balanced", "mixed_ls_heavy"]
+process_wall_guard_seconds = 1400.0
+schema = "li-lim-icn-threads/1"
+scope = "diagnostic on three exposed instances, fixed wall budget, no commercial comparison"
+seeds = [41, 42, 43]
+thread_counts = [1, 2, 4, 8, 16]
+
+    [config.policy]
+    fragment_seconds = 0.5
+    insertion_seed = 41
+    insertion_starts = 5
+    max_visits = 20
+    repair_every = 20
+    repair_fraction = 0.35
+
+    [config.source_sha256]
+    lc101 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    lr101 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    lrc101 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+
+[[events]]
+allocated_bytes = 1413240544
+compile_seconds = 7.28296732
+gc_seconds = 0.411090292
+phase = "load ConstraintModels"
+recompile_seconds = 0.574213101
+sample = 1
+seconds = 12.014700171
+[[events]]
+allocated_bytes = 62152
+compile_seconds = 0.002773439
+gc_seconds = 0.0
+phase = "load JuMP and Benchmarks"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.003103916
+[[events]]
+allocated_bytes = 54743872
+compile_seconds = 0.360037984
+gc_seconds = 0.0
+phase = "include Pilot"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.461137381
+[[events]]
+allocated_bytes = 4757936
+compile_seconds = 2.624e-6
+gc_seconds = 0.0
+phase = "include MetaRepair"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.089131452
+[[events]]
+allocated_bytes = 1252784
+compile_seconds = 0.006251603
+gc_seconds = 0.0
+phase = "include ICNScoring"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.018852224
+[[events]]
+allocated_bytes = 1652168
+compile_seconds = 6.67e-7
+gc_seconds = 0.0
+phase = "include Hybrid"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.031728492
+[[events]]
+allocated_bytes = 6466400
+compile_seconds = 0.015094354
+gc_seconds = 0.0
+phase = "include ResourceExperiment"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.108786632
+[[events]]
+allocated_bytes = 1236270296
+compile_seconds = 3.653270803
+gc_seconds = 0.249843923
+phase = "decode error backends"
+recompile_seconds = 0.0
+sample = 1
+seconds = 3.666457472
+[[events]]
+allocated_bytes = 2732857064
+candidates_per_second = 0.0
+compile_seconds = 9.669075829
+distance = 25.919701618286663
+gc_seconds = 0.68405325
+icn_calls = 0
+mean_active_cpus = 0.9998583432728311
+median_parent_initialization_seconds = 1.94338763
+pair_candidates = 0
+phase = "warmup cbls_naive"
+process_cpu_seconds = 4.3053344970000005
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 1
+seconds = 9.866996602
+vehicles = 1
+[[events]]
+allocated_bytes = 692563024
+candidates_per_second = 218715.0
+compile_seconds = 1.354137075
+distance = 25.919701618286663
+gc_seconds = 0.173692867
+icn_calls = 1063462
+mean_active_cpus = 0.9998467747138747
+median_parent_initialization_seconds = 0.311636401
+pair_candidates = 437430
+phase = "warmup cbls_icn"
+process_cpu_seconds = 1.9997615940000024
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 1
+seconds = 2.131353677
+vehicles = 1
+[[events]]
+allocated_bytes = 986472216
+candidates_per_second = 476017.5
+compile_seconds = 0.622246317
+distance = 25.919701618286663
+gc_seconds = 0.208267732
+icn_calls = 0
+mean_active_cpus = 0.9996534834548995
+median_parent_initialization_seconds = 0.22633882
+pair_candidates = 952035
+phase = "warmup cbls_direct"
+process_cpu_seconds = 1.9993644039999978
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 1
+seconds = 2.131337355
+vehicles = 1
+[[events]]
+allocated_bytes = 182179664
+candidates_per_second = 0.0
+compile_seconds = 2.007565541
+distance = 25.919701618286663
+gc_seconds = 0.130020464
+icn_calls = 54
+mean_active_cpus = 0.9997748865291362
+median_parent_initialization_seconds = 0.00021211
+pair_candidates = 0
+phase = "warmup hybrid_specialized_icn"
+process_cpu_seconds = 2.009929126000003
+recompile_seconds = 0.0
+repair_calls = 1
+sample = 1
+seconds = 2.140474439
+vehicles = 1
+[[events]]
+allocated_bytes = 484217528
+candidates_per_second = 4335.0
+compile_seconds = 1.949753197
+distance = 25.919701618286663
+gc_seconds = 0.132272742
+icn_calls = 21052
+mean_active_cpus = 0.9997820296408195
+median_parent_initialization_seconds = 0.000191801
+pair_candidates = 8670
+phase = "warmup hybrid_bridged_icn"
+process_cpu_seconds = 1.999629566000003
+recompile_seconds = 0.011992798
+repair_calls = 1
+sample = 1
+seconds = 2.132409125
+vehicles = 1
+[[events]]
+allocated_bytes = 223289080
+candidates_per_second = 0.0
+compile_seconds = 2.181647482
+distance = 25.919701618286663
+gc_seconds = 0.146430247
+icn_calls = 0
+mean_active_cpus = 0.9996969768491484
+median_parent_initialization_seconds = 0.0
+pair_candidates = 0
+phase = "warmup highs_native"
+process_cpu_seconds = 2.1888787959999974
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 1
+seconds = 2.33605742
+vehicles = 1
+[[events]]
+allocated_bytes = 1378960
+candidates_per_second = 0.0
+compile_seconds = 0.002761253
+distance = 25.919701618286663
+gc_seconds = 0.147492818
+icn_calls = 0
+mean_active_cpus = 0.9999816726516706
+median_parent_initialization_seconds = 0.0
+pair_candidates = 0
+phase = "warmup highs_portfolio"
+process_cpu_seconds = 0.01773273699999578
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 1
+seconds = 0.165342678
+vehicles = 1
+[[events]]
+allocated_bytes = 1145625464
+candidates_per_second = 581190.0
+compile_seconds = 0.305495066
+distance = 25.919701618286663
+gc_seconds = 0.229103584
+icn_calls = 0
+mean_active_cpus = 0.999722751980064
+median_parent_initialization_seconds = 0.000203573
+pair_candidates = 1162380
+phase = "warmup cbls_naive"
+process_cpu_seconds = 1.9995102660000015
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 2
+seconds = 2.147176822
+vehicles = 1
+[[events]]
+allocated_bytes = 1360501600
+candidates_per_second = 679155.0
+compile_seconds = 0.0
+distance = 25.919701618286663
+gc_seconds = 0.235934271
+icn_calls = 3300972
+mean_active_cpus = 0.9997398361337985
+median_parent_initialization_seconds = 0.000198042
+pair_candidates = 1358310
+phase = "warmup cbls_icn"
+process_cpu_seconds = 1.999546027000001
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 2
+seconds = 2.148045559
+vehicles = 1
+[[events]]
+allocated_bytes = 1310332880
+candidates_per_second = 681862.5
+compile_seconds = 0.0
+distance = 25.919701618286663
+gc_seconds = 0.239500375
+icn_calls = 0
+mean_active_cpus = 0.9998768250679766
+median_parent_initialization_seconds = 0.000210895
+pair_candidates = 1363725
+phase = "warmup cbls_direct"
+process_cpu_seconds = 1.9998196940000028
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 2
+seconds = 2.146079106
+vehicles = 1
+[[events]]
+allocated_bytes = 923671704
+candidates_per_second = 437790.0
+compile_seconds = 0.0
+distance = 25.919701618286663
+gc_seconds = 0.209988336
+icn_calls = 2123163
+mean_active_cpus = 0.9997952501792434
+median_parent_initialization_seconds = 0.000212023
+pair_candidates = 875580
+phase = "warmup hybrid_specialized_icn"
+process_cpu_seconds = 1.999660612999996
+recompile_seconds = 0.0
+repair_calls = 51
+sample = 2
+seconds = 2.150253164
+vehicles = 1
+[[events]]
+allocated_bytes = 932013960
+candidates_per_second = 439905.0
+compile_seconds = 0.0
+distance = 25.919701618286663
+gc_seconds = 0.210782438
+icn_calls = 2133695
+mean_active_cpus = 0.9997816355024586
+median_parent_initialization_seconds = 0.000201829
+pair_candidates = 879810
+phase = "warmup hybrid_bridged_icn"
+process_cpu_seconds = 1.9996411280000004
+recompile_seconds = 0.0
+repair_calls = 20
+sample = 2
+seconds = 2.147734729
+vehicles = 1
+[[events]]
+allocated_bytes = 1286904
+candidates_per_second = 0.0
+compile_seconds = 0.0
+distance = 25.919701618286663
+gc_seconds = 0.153751371
+icn_calls = 0
+mean_active_cpus = 0.9999300420468039
+median_parent_initialization_seconds = 0.0
+pair_candidates = 0
+phase = "warmup highs_native"
+process_cpu_seconds = 0.015322418000003779
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 2
+seconds = 0.169226588
+vehicles = 1
+[[events]]
+allocated_bytes = 1375328
+candidates_per_second = 0.0
+compile_seconds = 0.0
+distance = 25.919701618286663
+gc_seconds = 0.146167183
+icn_calls = 0
+mean_active_cpus = 0.9999481450969944
+median_parent_initialization_seconds = 0.0
+pair_candidates = 0
+phase = "warmup highs_portfolio"
+process_cpu_seconds = 0.013710625000001642
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 2
+seconds = 0.159970449
+vehicles = 1
+[[events]]
+allocated_bytes = 288832
+compile_seconds = 0.006271978
+gc_seconds = 0.0
+phase = "read lrc101"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.006407744
+[[events]]
+allocated_bytes = 18528032
+compile_seconds = 0.005069335
+gc_seconds = 0.0
+phase = "common insertion lrc101"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.00811061
+[[events]]
+allocated_bytes = 618280
+compile_seconds = 0.012328705
+gc_seconds = 0.0
+phase = "prepare parent naive"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.014471287
+[[events]]
+allocated_bytes = 335584
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "prepare parent naive"
+recompile_seconds = 0.0
+sample = 2
+seconds = 0.00080441
+[[events]]
+allocated_bytes = 335584
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "prepare parent naive"
+recompile_seconds = 0.0
+sample = 3
+seconds = 0.000490776
+[[events]]
+allocated_bytes = 335584
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "prepare parent naive"
+recompile_seconds = 0.0
+sample = 4
+seconds = 0.000502837
+[[events]]
+allocated_bytes = 355088
+compile_seconds = 0.00369227
+gc_seconds = 0.0
+phase = "prepare parent icn"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.004370364
+[[events]]
+allocated_bytes = 352864
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "prepare parent icn"
+recompile_seconds = 0.0
+sample = 2
+seconds = 0.000489338
+[[events]]
+allocated_bytes = 352864
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "prepare parent icn"
+recompile_seconds = 0.0
+sample = 3
+seconds = 0.000476683
+[[events]]
+allocated_bytes = 352864
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "prepare parent icn"
+recompile_seconds = 0.0
+sample = 4
+seconds = 0.000446328
+[[events]]
+allocated_bytes = 337344
+compile_seconds = 0.003735381
+gc_seconds = 0.0
+phase = "prepare parent direct"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.004244239
+[[events]]
+allocated_bytes = 335264
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "prepare parent direct"
+recompile_seconds = 0.0
+sample = 2
+seconds = 0.000461903
+[[events]]
+allocated_bytes = 335264
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "prepare parent direct"
+recompile_seconds = 0.0
+sample = 3
+seconds = 0.000475909
+[[events]]
+allocated_bytes = 335264
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "prepare parent direct"
+recompile_seconds = 0.0
+sample = 4
+seconds = 0.000499661
+[[events]]
+allocated_bytes = 122632
+compile_seconds = 0.002709967
+gc_seconds = 0.0
+phase = "prepare MetaStrategist plan"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.002887123
+[[events]]
+allocated_bytes = 87400
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "prepare MetaStrategist plan"
+recompile_seconds = 0.0
+sample = 2
+seconds = 0.000147009
+[[events]]
+allocated_bytes = 87400
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "prepare MetaStrategist plan"
+recompile_seconds = 0.0
+sample = 3
+seconds = 0.000138
+[[events]]
+allocated_bytes = 87400
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "prepare MetaStrategist plan"
+recompile_seconds = 0.0
+sample = 4
+seconds = 0.000129581
+[[events]]
+allocated_bytes = 87400
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "prepare MetaStrategist plan"
+recompile_seconds = 0.0
+sample = 5
+seconds = 0.000164817
+[[events]]
+allocated_bytes = 87400
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "prepare MetaStrategist plan"
+recompile_seconds = 0.0
+sample = 6
+seconds = 0.000136643
+[[events]]
+allocated_bytes = 3954920
+compile_seconds = 0.045316395
+gc_seconds = 0.0
+phase = "reuse MetaStrategist kernel"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.045431199
+[[events]]
+allocated_bytes = 720
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "reuse MetaStrategist kernel"
+recompile_seconds = 0.0
+sample = 2
+seconds = 2.3401e-5
+[[events]]
+allocated_bytes = 720
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "reuse MetaStrategist kernel"
+recompile_seconds = 0.0
+sample = 3
+seconds = 1.6733e-5
+[[events]]
+allocated_bytes = 720
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "reuse MetaStrategist kernel"
+recompile_seconds = 0.0
+sample = 4
+seconds = 1.3491e-5
+[[events]]
+allocated_bytes = 720
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "reuse MetaStrategist kernel"
+recompile_seconds = 0.0
+sample = 5
+seconds = 1.2474e-5
+[[events]]
+allocated_bytes = 720
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "reuse MetaStrategist kernel"
+recompile_seconds = 0.0
+sample = 6
+seconds = 1.2593e-5
+[[events]]
+allocated_bytes = 176064
+compile_seconds = 0.005401387
+gc_seconds = 0.0
+phase = "capture route snapshot"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.005475651
+[[events]]
+allocated_bytes = 1631608
+compile_seconds = 0.002996027
+gc_seconds = 0.0
+phase = "specialized RO repair"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.019483801
+status = "no_improvement"
+
+    [events.repair_trace]
+    bridge_program_provenance = "manual one-atom equality DAG, not a learned or recovered optimum"
+    bridge_programs = []
+    bridged = false
+    budget_seconds = 0.5
+    build_seconds = 0.000873267
+    constraints = 592
+    fragment = "union of complete current routes"
+    fragment_visits = 12
+    highs_seed = 644645
+    mip_start = false
+    outside_routes = 17
+    parent_visits = 106
+    representation = "customer-successor/1"
+    semantics = "pdptw-semantics-rebuild/1"
+    solve_seconds = 0.015487912
+    threads = 1
+    validation_seconds = 1.0043e-5
+    variables = 122
+
+        [events.repair_trace.after]
+        distance = 2143.502683023439
+        vehicles = 19
+
+        [events.repair_trace.before]
+        distance = 2143.5026830234387
+        vehicles = 19
+
+        [[events.repair_trace.phases]]
+        bound = 2.0
+        objective = "vehicles"
+        status = "OPTIMAL"
+        [[events.repair_trace.phases]]
+        bound = 245.25579696504292
+        objective = "distance"
+        status = "OPTIMAL"
+[[events]]
+allocated_bytes = 1586392
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "specialized RO repair"
+recompile_seconds = 0.0
+sample = 2
+seconds = 0.016772266
+status = "no_improvement"
+
+    [events.repair_trace]
+    bridge_program_provenance = "manual one-atom equality DAG, not a learned or recovered optimum"
+    bridge_programs = []
+    bridged = false
+    budget_seconds = 0.5
+    build_seconds = 0.000901819
+    constraints = 592
+    fragment = "union of complete current routes"
+    fragment_visits = 12
+    highs_seed = 644645
+    mip_start = false
+    outside_routes = 17
+    parent_visits = 106
+    representation = "customer-successor/1"
+    semantics = "pdptw-semantics-rebuild/1"
+    solve_seconds = 0.015766079
+    threads = 1
+    validation_seconds = 1.025e-5
+    variables = 122
+
+        [events.repair_trace.after]
+        distance = 2143.502683023439
+        vehicles = 19
+
+        [events.repair_trace.before]
+        distance = 2143.5026830234387
+        vehicles = 19
+
+        [[events.repair_trace.phases]]
+        bound = 2.0
+        objective = "vehicles"
+        status = "OPTIMAL"
+        [[events.repair_trace.phases]]
+        bound = 245.25579696504292
+        objective = "distance"
+        status = "OPTIMAL"
+[[events]]
+allocated_bytes = 1586392
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "specialized RO repair"
+recompile_seconds = 0.0
+sample = 3
+seconds = 0.016595365
+status = "no_improvement"
+
+    [events.repair_trace]
+    bridge_program_provenance = "manual one-atom equality DAG, not a learned or recovered optimum"
+    bridge_programs = []
+    bridged = false
+    budget_seconds = 0.5
+    build_seconds = 0.000951686
+    constraints = 592
+    fragment = "union of complete current routes"
+    fragment_visits = 12
+    highs_seed = 644645
+    mip_start = false
+    outside_routes = 17
+    parent_visits = 106
+    representation = "customer-successor/1"
+    semantics = "pdptw-semantics-rebuild/1"
+    solve_seconds = 0.015512657
+    threads = 1
+    validation_seconds = 1.0379e-5
+    variables = 122
+
+        [events.repair_trace.after]
+        distance = 2143.502683023439
+        vehicles = 19
+
+        [events.repair_trace.before]
+        distance = 2143.5026830234387
+        vehicles = 19
+
+        [[events.repair_trace.phases]]
+        bound = 2.0
+        objective = "vehicles"
+        status = "OPTIMAL"
+        [[events.repair_trace.phases]]
+        bound = 245.25579696504292
+        objective = "distance"
+        status = "OPTIMAL"
+[[events]]
+allocated_bytes = 1586392
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "specialized RO repair"
+recompile_seconds = 0.0
+sample = 4
+seconds = 0.01653461
+status = "no_improvement"
+
+    [events.repair_trace]
+    bridge_program_provenance = "manual one-atom equality DAG, not a learned or recovered optimum"
+    bridge_programs = []
+    bridged = false
+    budget_seconds = 0.5
+    build_seconds = 0.000880025
+    constraints = 592
+    fragment = "union of complete current routes"
+    fragment_visits = 12
+    highs_seed = 644645
+    mip_start = false
+    outside_routes = 17
+    parent_visits = 106
+    representation = "customer-successor/1"
+    semantics = "pdptw-semantics-rebuild/1"
+    solve_seconds = 0.015551636
+    threads = 1
+    validation_seconds = 1.0438e-5
+    variables = 122
+
+        [events.repair_trace.after]
+        distance = 2143.502683023439
+        vehicles = 19
+
+        [events.repair_trace.before]
+        distance = 2143.5026830234387
+        vehicles = 19
+
+        [[events.repair_trace.phases]]
+        bound = 2.0
+        objective = "vehicles"
+        status = "OPTIMAL"
+        [[events.repair_trace.phases]]
+        bound = 245.25579696504292
+        objective = "distance"
+        status = "OPTIMAL"
+[[events]]
+allocated_bytes = 22066032
+compile_seconds = 0.002603127
+gc_seconds = 0.0
+phase = "bridged RO repair"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.061780754
+status = "no_improvement"
+
+    [events.repair_trace]
+    bridge_program_provenance = "manual one-atom equality DAG, not a learned or recovered optimum"
+    bridged = true
+    budget_seconds = 0.5
+    build_seconds = 0.011275228
+    constraints = 1648
+    fragment = "union of complete current routes"
+    fragment_visits = 12
+    highs_seed = 644645
+    mip_start = false
+    outside_routes = 17
+    parent_visits = 106
+    representation = "customer-successor/1"
+    semantics = "pdptw-semantics-rebuild/1"
+    solve_seconds = 0.050403692
+    threads = 1
+    validation_seconds = 9.235e-6
+    variables = 1136
+
+        [events.repair_trace.after]
+        distance = 2143.502683023439
+        vehicles = 19
+
+        [events.repair_trace.before]
+        distance = 2143.5026830234387
+        vehicles = 19
+
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+
+        [[events.repair_trace.phases]]
+        bound = 2.0
+        objective = "vehicles"
+        status = "OPTIMAL"
+        [[events.repair_trace.phases]]
+        bound = 245.25579696504292
+        objective = "distance"
+        status = "OPTIMAL"
+[[events]]
+allocated_bytes = 22063264
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "bridged RO repair"
+recompile_seconds = 0.0
+sample = 2
+seconds = 0.058964856
+status = "no_improvement"
+
+    [events.repair_trace]
+    bridge_program_provenance = "manual one-atom equality DAG, not a learned or recovered optimum"
+    bridged = true
+    budget_seconds = 0.5
+    build_seconds = 0.00833029
+    constraints = 1648
+    fragment = "union of complete current routes"
+    fragment_visits = 12
+    highs_seed = 644645
+    mip_start = false
+    outside_routes = 17
+    parent_visits = 106
+    representation = "customer-successor/1"
+    semantics = "pdptw-semantics-rebuild/1"
+    solve_seconds = 0.050504446
+    threads = 1
+    validation_seconds = 9.397e-6
+    variables = 1136
+
+        [events.repair_trace.after]
+        distance = 2143.502683023439
+        vehicles = 19
+
+        [events.repair_trace.before]
+        distance = 2143.5026830234387
+        vehicles = 19
+
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+
+        [[events.repair_trace.phases]]
+        bound = 2.0
+        objective = "vehicles"
+        status = "OPTIMAL"
+        [[events.repair_trace.phases]]
+        bound = 245.25579696504292
+        objective = "distance"
+        status = "OPTIMAL"
+[[events]]
+allocated_bytes = 22063392
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "bridged RO repair"
+recompile_seconds = 0.0
+sample = 3
+seconds = 0.059010426
+status = "no_improvement"
+
+    [events.repair_trace]
+    bridge_program_provenance = "manual one-atom equality DAG, not a learned or recovered optimum"
+    bridged = true
+    budget_seconds = 0.5
+    build_seconds = 0.008328519
+    constraints = 1648
+    fragment = "union of complete current routes"
+    fragment_visits = 12
+    highs_seed = 644645
+    mip_start = false
+    outside_routes = 17
+    parent_visits = 106
+    representation = "customer-successor/1"
+    semantics = "pdptw-semantics-rebuild/1"
+    solve_seconds = 0.050544817
+    threads = 1
+    validation_seconds = 8.855e-6
+    variables = 1136
+
+        [events.repair_trace.after]
+        distance = 2143.502683023439
+        vehicles = 19
+
+        [events.repair_trace.before]
+        distance = 2143.5026830234387
+        vehicles = 19
+
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+
+        [[events.repair_trace.phases]]
+        bound = 2.0
+        objective = "vehicles"
+        status = "OPTIMAL"
+        [[events.repair_trace.phases]]
+        bound = 245.25579696504292
+        objective = "distance"
+        status = "OPTIMAL"
+[[events]]
+allocated_bytes = 22063328
+compile_seconds = 0.0
+gc_seconds = 0.0
+phase = "bridged RO repair"
+recompile_seconds = 0.0
+sample = 4
+seconds = 0.058921653
+status = "no_improvement"
+
+    [events.repair_trace]
+    bridge_program_provenance = "manual one-atom equality DAG, not a learned or recovered optimum"
+    bridged = true
+    budget_seconds = 0.5
+    build_seconds = 0.008327718
+    constraints = 1648
+    fragment = "union of complete current routes"
+    fragment_visits = 12
+    highs_seed = 644645
+    mip_start = false
+    outside_routes = 17
+    parent_visits = 106
+    representation = "customer-successor/1"
+    semantics = "pdptw-semantics-rebuild/1"
+    solve_seconds = 0.050462273
+    threads = 1
+    validation_seconds = 9.11e-6
+    variables = 1136
+
+        [events.repair_trace.after]
+        distance = 2143.502683023439
+        vehicles = 19
+
+        [events.repair_trace.before]
+        distance = 2143.5026830234387
+        vehicles = 19
+
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+        [[events.repair_trace.bridge_programs]]
+        constants = ["0", "1"]
+        max_rank_bits = 1000000
+        max_rank_states = 100000
+        network_version = "xcsp3bridges/structural-DAG-v1"
+        schema_version = "xcsp3bridges-witness/1"
+        weights = ["2", "1", "2", "0", "0", "3"]
+
+            [events.repair_trace.bridge_programs.model]
+            constant_bound = "1"
+            max_depth = 1000
+            max_local_rows = 100000
+            max_nodes = 100000
+            max_total_rows = 1000000
+            max_value_bits = 256
+            node_slots = 1
+            operators = ["constant", "eq"]
+
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x1"
+                [[events.repair_trace.bridge_programs.model.sources]]
+                coefficient_bound = "2"
+                encoding = "domain_wall"
+                values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                variable = "x2"
+
+        [[events.repair_trace.phases]]
+        bound = 2.0
+        objective = "vehicles"
+        status = "OPTIMAL"
+        [[events.repair_trace.phases]]
+        bound = 245.25579696504292
+        objective = "distance"
+        status = "OPTIMAL"
+
+[solver_source_sha256]
+"LiLim/src/Experiment.jl" = "e1f969e3dcf0ed5e327d29bcedd54c27f89834580bf0310320fb141d16dea4ae"
+"LiLim/src/Hybrid.jl" = "686f35b0577813d3e862d0d58a8ca3d8fc7ccacb744d6b855bae6cdfed9bc4ca"
+"LiLim/src/ICNScoring.jl" = "eb1c63f215a04ec128e3ff903e9315ecf600eb834488f0e9a6c5d71d6726e4f3"
+"LiLim/src/MetaRepair.jl" = "f3c5b5782cdeb5bf0f5675b9b4c7436cfcc4541ed89ab9c56dba4602971edc5e"
+"LiLim/src/Pilot.jl" = "a16aeaccf105f1e6f873fde5706457d70884c9556e157fc545073582dbe8b821"
+"LiLim/src/ResourceExperiment.jl" = "617119ed47a62b28f7c5d7da9114f664859f137eb31a2a95f86bcbaed484215c"

@@ -189,3 +189,23 @@ avec contrôle séparé du nombre de threads GC. Le processus 16 threads/GC 1
 enregistre aussi un profil CPU et un échantillon d'allocations. Ces expériences
 instrumentées servent au diagnostic et ne remplacent pas les 369 essais de
 qualité gelés. Toute optimisation ultérieure doit être mesurée séparément.
+
+PerfChecker 1.0.0-rc1 est figé au commit
+`1cc09a98db569b382f91dc10f6a569c1c728b6aa` dans l'environnement contrôleur
+[perfcheck](perfcheck/Project.toml), distinct de l'environnement solveur.
+[icn_perfcheck.jl](scripts/icn_perfcheck.jl) collecte les profils CPU, temps
+mural et allocations dans trois workers isolés, chacun préchauffé. Le RC copie
+les chemins de développement relatifs sans les réancrer : le setup réactive
+l'environnement solveur original, en lecture, sans le modifier. Les métriques
+par site sont échantillonnées et redimensionnées par PerfChecker ; elles ne
+sont pas des compteurs exacts par ligne. Les piles de tâches en attente du
+profil mural ne constituent pas une mesure de consommation CPU.
+
+Les mesures initiales à 16 workers montrent environ 36 Go alloués en cinq
+secondes, 3,3 secondes de GC et 6,4 CPU actifs en moyenne. Avec quatre threads
+de GC, le débit ne progresse que d'environ 9 %. La référence PerfChecker et
+les trois mesures de diagnostic sont conservées avant toute modification du
+scoreur et des voisinages. Le scoreur du pilote recrée ses entrées ICN et ses
+routes ; le moteur LocalSearchSolvers possède déjà des espaces de travail pour
+les entrées de contraintes et les mouvements. Cette distinction empêche
+d'attribuer au moteur un défaut qui appartient à l'adaptateur du benchmark.

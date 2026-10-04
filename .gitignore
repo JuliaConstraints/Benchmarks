@@ -28,6 +28,7 @@ Manifest.toml
 !/Solvers/Manifest.toml
 !/LiLim/Manifest.toml
 !/LiLim/plotting/Manifest.toml
+!/LiLim/perfcheck/Manifest.toml
 /data/
 /_research/
 /plots/
