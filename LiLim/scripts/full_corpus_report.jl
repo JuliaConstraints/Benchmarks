@@ -87,6 +87,8 @@ function cell_summary(row, method, runs, planned)
         "median_distance"=>(middle === nothing ? -1.0 : middle["distance"]),
         "mean_vehicles"=>(isempty(vehicles) ? -1.0 : mean(vehicles)),
         "std_vehicles"=>(length(vehicles) < 2 ? 0.0 : std(vehicles)),
+        "min_vehicles"=>(isempty(vehicles) ? -1 : minimum(vehicles)),
+        "max_vehicles"=>(isempty(vehicles) ? -1 : maximum(vehicles)),
         "mean_distance"=>(isempty(distances) ? -1.0 : mean(distances)),
         "std_distance"=>(length(distances) < 2 ? 0.0 : std(distances)),
         "min_distance"=>(isempty(distances) ? -1.0 : minimum(distances)),
@@ -104,6 +106,7 @@ function method_summaries(cells, method)
     hits = sum(row["bks_hits"] for row in selected)
     avg_best_gap = [row["best_vehicles"] - row["bks_vehicles"] for row in selected if row["best_vehicles"] >= 0]
     avg_mean_gap = [row["mean_vehicles"] - row["bks_vehicles"] for row in selected if row["mean_vehicles"] >= 0]
+    avg_median_gap = [row["median_vehicles"] - row["bks_vehicles"] for row in selected if row["median_vehicles"] >= 0]
     distance_gaps = Float64[]
     for row in selected
         row["median_vehicles"] == row["bks_vehicles"] && row["median_distance"] >= 0 || continue
@@ -123,6 +126,7 @@ function method_summaries(cells, method)
         "bks_hits"=>hits, "bks_hit_rate"=>(planned == 0 ? 0.0 : hits/planned),
         "mean_best_fleet_gap"=>(isempty(avg_best_gap) ? -1.0 : mean(avg_best_gap)),
         "mean_run_fleet_gap"=>(isempty(avg_mean_gap) ? -1.0 : mean(avg_mean_gap)),
+        "mean_median_run_fleet_gap"=>(isempty(avg_median_gap) ? -1.0 : mean(avg_median_gap)),
         "median_distance_gap_at_bks_fleet_percent"=>(isempty(distance_gaps) ? -1.0 : median(distance_gaps)),
         "cells_at_bks_fleet"=>length(distance_gaps),
         "mean_time_to_bks_seconds"=>(isempty(bks_times) ? -1.0 : mean(bks_times)),
@@ -142,6 +146,7 @@ function size_summaries(cells, methods)
         valid_cells = filter(row->row["best_vehicles"] >= 0, selected)
         best_gaps = [row["best_vehicles"]-row["bks_vehicles"] for row in valid_cells]
         mean_gaps = [row["mean_vehicles"]-row["bks_vehicles"] for row in valid_cells]
+        median_gaps = [row["median_vehicles"]-row["bks_vehicles"] for row in valid_cells]
         distance_gaps = [100*(row["median_distance"]/row["bks_distance"]-1) for row in valid_cells
             if row["median_vehicles"] == row["bks_vehicles"]]
         push!(rows, Dict{String,Any}(
@@ -152,6 +157,7 @@ function size_summaries(cells, methods)
             "bks_hit_rate"=>(planned == 0 ? 0.0 : sum(row["bks_hits"] for row in selected)/planned),
             "mean_best_fleet_gap"=>(isempty(best_gaps) ? -1.0 : mean(best_gaps)),
             "mean_run_fleet_gap"=>(isempty(mean_gaps) ? -1.0 : mean(mean_gaps)),
+            "mean_median_run_fleet_gap"=>(isempty(median_gaps) ? -1.0 : mean(median_gaps)),
             "mean_distance_gap_at_bks_fleet_percent"=>(isempty(distance_gaps) ? -1.0 : mean(distance_gaps)),
             "distance_cells"=>length(distance_gaps)))
     end
@@ -168,25 +174,25 @@ function write_report(path, summary)
             summary["budget_seconds"], " second wall budget per trial.\n")
         println(io, "The official SINTEF archive checksums and all ", summary["instance_count"],
             " extracted instance checksums were verified. Every stored incumbent and every trajectory point in the report was revalidated against the original Li-Lim instance. The fleet objective has priority; raw double-precision Euclidean distance is compared only after fleet count.\n")
-        println(io, "## Results by solver profile\n\n| Profile | Completed / planned | Feasible / completed | BKS hits / planned | Best fleet gap per instance | Mean-run fleet gap per instance | Median distance gap at BKS fleet | Mean time to BKS (s) | Mean active CPUs |")
-        println(io, "|---|---:|---:|---:|---:|---:|---:|---:|---:|")
+        println(io, "## Results by solver profile\n\n| Profile | Completed / planned | Feasible / completed | BKS hits / planned | Best fleet gap per instance | Mean-run fleet gap per instance | Median-run fleet gap per instance | Median distance gap at BKS fleet | Mean time to BKS (s) | Mean active CPUs |")
+        println(io, "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
         for row in summary["method_summary"]
             distance = row["cells_at_bks_fleet"] == 0 ? "—" : @sprintf("%.3f%% (%d cells)", row["median_distance_gap_at_bks_fleet_percent"], row["cells_at_bks_fleet"])
             bks_time = row["mean_time_to_bks_seconds"] < 0 ? "—" : @sprintf("%.2f (%d hits)", row["mean_time_to_bks_seconds"], row["bks_time_observations"])
-            println(io, @sprintf("| %s | %d / %d | %d / %d (%.1f%%) | %d / %d (%.1f%%) | %.3f | %.3f | %s | %s | %.2f |",
+            println(io, @sprintf("| %s | %d / %d | %d / %d (%.1f%%) | %d / %d (%.1f%%) | %.3f | %.3f | %.3f | %s | %s | %.2f |",
                 row["method"], row["completed_runs"], row["planned_runs"], row["feasible_runs"], row["completed_runs"],
                 100 * row["feasibility_rate"], row["bks_hits"], row["planned_runs"], 100 * row["bks_hit_rate"],
-                row["mean_best_fleet_gap"], row["mean_run_fleet_gap"], distance, bks_time, row["mean_active_cpus"]))
+                row["mean_best_fleet_gap"], row["mean_run_fleet_gap"], row["mean_median_run_fleet_gap"], distance, bks_time, row["mean_active_cpus"]))
         end
-        println(io, "\nA fleet gap of zero means the fleet matches the SINTEF reference; a negative gap is better. Best and mean-run fleet gaps are averaged per instance so large instances do not dominate. The distance gap is shown only for instance cells whose median-ranked run uses the BKS fleet; distance remains a secondary objective. BKS time is conditional on hits, and misses are censored at the campaign budget in the attainment plot.\n")
-        println(io, "## Results by problem size\n\n| Requests | Profile | BKS hits / planned | Mean best fleet gap | Mean run fleet gap | Median-run distance gap at BKS fleet |")
-        println(io, "|---:|---|---:|---:|---:|---:|")
+        println(io, "\nA fleet gap of zero means the fleet matches the SINTEF reference; a negative gap is better. Best, mean-run and median-run fleet gaps are averaged per instance so large instances do not dominate. Per-instance output includes the best run, one actual median-ranked run, mean, standard deviation and full min/max spread across feasible seeds. The distance gap is shown only for instance cells whose median-ranked run uses the BKS fleet; distance remains a secondary objective. BKS time is conditional on hits, and misses are censored at the campaign budget in the attainment plot.\n")
+        println(io, "## Results by problem size\n\n| Requests | Profile | BKS hits / planned | Mean best fleet gap | Mean run fleet gap | Mean median-run fleet gap | Median-run distance gap at BKS fleet |")
+        println(io, "|---:|---|---:|---:|---:|---:|---:|")
         for row in summary["size_summary"]
             distance = row["distance_cells"] == 0 ? "—" : @sprintf("%.3f%% (%d cells)", row["mean_distance_gap_at_bks_fleet_percent"], row["distance_cells"])
-            println(io, @sprintf("| %d | %s | %d / %d (%.1f%%) | %.3f | %.3f | %s |", row["size"], row["method"],
-                row["bks_hits"], row["planned_runs"], 100 * row["bks_hit_rate"], row["mean_best_fleet_gap"], row["mean_run_fleet_gap"], distance))
+            println(io, @sprintf("| %d | %s | %d / %d (%.1f%%) | %.3f | %.3f | %.3f | %s |", row["size"], row["method"],
+                row["bks_hits"], row["planned_runs"], 100 * row["bks_hit_rate"], row["mean_best_fleet_gap"], row["mean_run_fleet_gap"], row["mean_median_run_fleet_gap"], distance))
         end
-        println(io, "\n## Reproducibility\n\n- Julia: `", IDENTITY["julia"], "`.\n- Threads: ", THREADS, "; GC threads: ", IDENTITY["gc_threads"], "; affinity: `", join(IDENTITY["affinity"], ","), "`.\n- Seeds: `", join(SEEDS, ", "), "`; budget: ", BUDGET, " seconds.\n- Source manifest, solver environment, cohort, official archives, per-instance checksums and BKS values are in `manifest.toml`.\n- Detailed per-instance best, mean, median, spread, BKS success and time-to-target metrics are in `summary.toml` and `per-instance.csv`.\n")
+        println(io, "\n## Reproducibility\n\n- Julia: `", IDENTITY["julia"], "`.\n- Threads: ", THREADS, "; GC threads: ", IDENTITY["gc_threads"], "; affinity: `", join(IDENTITY["affinity"], ","), "`.\n- Seeds: `", join(SEEDS, ", "), "`; budget: ", BUDGET, " seconds.\n- Source manifest, solver environment, cohort, official archives, per-instance checksums and BKS values are in `manifest.toml`.\n- Detailed per-instance best, mean, median-ranked run, standard deviation, min/max spread, BKS success and time-to-target metrics are in `summary.toml` and `per-instance.csv`.\n")
         if !summary["complete"]
             println(io, "## Incomplete campaign\n\n", summary["missing_runs"], " scheduled trials are missing. Completion and feasibility statistics use separate denominators; an absent run is not reported as a solver infeasibility.\n")
         end
@@ -195,9 +201,9 @@ end
 
 function write_csv(path, cells)
     open(path, "w") do io
-        println(io, "size,family,instance,method,planned_runs,completed_runs,feasible_runs,feasibility_rate,bks_hits,bks_hit_rate,bks_vehicles,bks_distance,best_seed,best_vehicles,best_distance,median_seed,median_vehicles,median_distance,mean_vehicles,std_vehicles,mean_distance,std_distance,min_distance,max_distance,mean_bks_time_seconds,median_bks_time_seconds")
+        println(io, "size,family,instance,method,planned_runs,completed_runs,feasible_runs,feasibility_rate,bks_hits,bks_hit_rate,bks_vehicles,bks_distance,best_seed,best_vehicles,best_distance,median_seed,median_vehicles,median_distance,mean_vehicles,std_vehicles,min_vehicles,max_vehicles,mean_distance,std_distance,min_distance,max_distance,mean_bks_time_seconds,median_bks_time_seconds")
         for row in cells
-            println(io, join((row[key] for key in ("size","family","instance","method","planned_runs","completed_runs","feasible_runs","feasibility_rate","bks_hits","bks_hit_rate","bks_vehicles","bks_distance","best_seed","best_vehicles","best_distance","median_seed","median_vehicles","median_distance","mean_vehicles","std_vehicles","mean_distance","std_distance","min_distance","max_distance","mean_bks_time_seconds","median_bks_time_seconds")), ','))
+            println(io, join((row[key] for key in ("size","family","instance","method","planned_runs","completed_runs","feasible_runs","feasibility_rate","bks_hits","bks_hit_rate","bks_vehicles","bks_distance","best_seed","best_vehicles","best_distance","median_seed","median_vehicles","median_distance","mean_vehicles","std_vehicles","min_vehicles","max_vehicles","mean_distance","std_distance","min_distance","max_distance","mean_bks_time_seconds","median_bks_time_seconds")), ','))
         end
     end
 end

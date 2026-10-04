@@ -62,11 +62,13 @@ end
 
 function quality_by_size()
     sizes = sort!(unique([row["size"] for row in SUMMARY["size_summary"]]))
-    fig = Figure(size=(1550, 1450))
-    Label(fig[0, 1], "Best and Average Search Quality Against SINTEF References", fontsize=27)
-    axes = [Axis(fig[row, 1]; xlabel=row == 3 ? "Requests per instance" : "",
-        ylabel=row < 3 ? "Vehicle gap from SINTEF BKS" : "Distance gap at the BKS fleet (%)",
-        title=row == 1 ? "Best validated run across seeds" : row == 2 ? "Mean fleet across independent seeds" : "Median-ranked distance when fleet matches BKS") for row in 1:3]
+    fig = Figure(size=(1550, 1750))
+    Label(fig[0, 1], "Best, Mean and Median Search Quality Against SINTEF References", fontsize=27)
+    titles = ("Best validated run across seeds", "Mean fleet across feasible seeds",
+        "Fleet from one actual median-ranked run", "Median-ranked distance when fleet matches BKS")
+    axes = [Axis(fig[row, 1]; xlabel=row == 4 ? "Requests per instance" : "",
+        ylabel=row < 4 ? "Vehicle gap from SINTEF BKS" : "Distance gap at the BKS fleet (%)",
+        title=titles[row]) for row in 1:4]
     for ax in axes
         hlines!(ax, [0.0]; color=:black, linestyle=:dot, linewidth=2.0)
         ax.xticks = (1:length(sizes), string.(sizes))
@@ -78,6 +80,7 @@ function quality_by_size()
         xs = [findfirst(==(row["size"]), sizes) for row in selected]
         best = [row["valid_cells"] == 0 ? NaN : row["mean_best_fleet_gap"] for row in selected]
         average = [row["valid_cells"] == 0 ? NaN : row["mean_run_fleet_gap"] for row in selected]
+        median_run = [row["valid_cells"] == 0 ? NaN : row["mean_median_run_fleet_gap"] for row in selected]
         distrows = filter(row->row["distance_cells"] > 0, selected)
         distx = [findfirst(==(row["size"]), sizes) for row in distrows]
         dist = [row["mean_distance_gap_at_bks_fleet_percent"] for row in distrows]
@@ -85,14 +88,17 @@ function quality_by_size()
             linewidth=2.2, label=label(method))
         scatterlines!(axes[2], xs, average; color, marker, markersize=10,
             linewidth=2.2, label=label(method))
-        isempty(dist) || scatterlines!(axes[3], distx, dist; color, marker,
+        scatterlines!(axes[3], xs, median_run; color, marker, markersize=10,
+            linewidth=2.2, label=label(method))
+        isempty(dist) || scatterlines!(axes[4], distx, dist; color, marker,
             markersize=10, linewidth=2.2, label=label(method))
     end
     axislegend(axes[1]; position=:rb, framevisible=false, labelsize=13, nbanks=2)
     axislegend(axes[2]; position=:rb, framevisible=false, labelsize=13, nbanks=2)
     axislegend(axes[3]; position=:rb, framevisible=false, labelsize=13, nbanks=2)
-    Label(fig[4, 1], "Negative fleet gaps beat the reference. Distance gaps are shown only for cells whose median-ranked run matches the BKS fleet. The dotted zero lines mark the published SINTEF reference.", fontsize=14)
-    savefig(fig, "lilim-best-mean-vs-bks")
+    axislegend(axes[4]; position=:rb, framevisible=false, labelsize=13, nbanks=2)
+    Label(fig[5, 1], "Negative fleet gaps beat the reference. The median panel reports one real run selected by lexicographic result order. Distance gaps are shown only when that run matches the BKS fleet; dotted zero lines mark the SINTEF reference.", fontsize=14)
+    savefig(fig, "lilim-best-mean-median-vs-bks")
 end
 
 function success_by_size()
