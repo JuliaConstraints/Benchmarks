@@ -1,0 +1,73 @@
+// JuliaConstraints comparison model; draft pending execution with Hexaly 15.0.
+// Read the same validated common-start exchange as Timefold. No rounding.
+use io;
+
+function input() {
+    if (inFileName == nil || solFileName == nil) throw "inFileName and solFileName required";
+    local f = io.openRead(inFileName);
+    if (f.readString() != "lilim-common-start/1") throw "Wrong exchange schema";
+    n = f.readInt(); capacity = f.readInt(); fleet = f.readInt();
+    for [i in 0...n] {
+        if (f.readInt() != i + 1) throw "Node order";
+        x[i] = f.readDouble(); y[i] = f.readDouble(); demand[i] = f.readInt();
+        early[i] = f.readDouble(); late[i] = f.readDouble(); service[i] = f.readDouble();
+        pickup[i] = f.readInt();
+    }
+    for [k in 0...fleet] {
+        startLength[k] = f.readInt();
+        for [j in 0...startLength[k]] startNode[k][j] = f.readInt() - 2;
+    }
+    f.close();
+    for [i in 0...n] for [j in 0...n]
+        travel[i][j] = sqrt((x[i]-x[j])*(x[i]-x[j]) + (y[i]-y[j])*(y[i]-y[j]));
+}
+function model() {
+    route[k in 0...fleet] <- list(n-1);
+    constraint partition[k in 0...fleet](route[k]);
+    for [delivery in 1...n : pickup[delivery] > 0] {
+        a <- find(route, pickup[delivery]-2); b <- find(route, delivery-1);
+        constraint a == b;
+        constraint indexOf(route[a], pickup[delivery]-2) < indexOf(route[b], delivery-1);
+    }
+    for [k in 0...fleet] {
+        local sequence <- route[k]; local c <- count(sequence);
+        used[k] <- c > 0;
+        load[k] <- array(0...c, (i,previous) => previous + demand[sequence[i]+1], 0);
+        constraint and(0...c, i => load[k][i] >= 0 && load[k][i] <= capacity);
+        // Service start times, including a possibly nonzero depot opening/service.
+        start[k] <- array(0...c, (i,previous) => max(early[sequence[i]+1],
+            i == 0 ? early[0]+service[0]+travel[0][sequence[i]+1] :
+                previous+service[sequence[i-1]+1]+travel[sequence[i-1]+1][sequence[i]+1]), 0);
+        constraint and(0...c, i => start[k][i] <= late[sequence[i]+1]+1e-8);
+        constraint used[k] ? load[k][c-1] == 0 : true;
+        constraint used[k] ? start[k][c-1]+service[sequence[c-1]+1]+travel[sequence[c-1]+1][0] <= late[0]+1e-8 : true;
+        length[k] <- sum(1...c, i => travel[sequence[i-1]+1][sequence[i]+1]) +
+            (used[k] ? travel[0][sequence[0]+1]+travel[sequence[c-1]+1][0] : 0);
+    }
+    vehicles <- sum[k in 0...fleet](used[k]);
+    distance <- sum[k in 0...fleet](length[k]);
+    minimize vehicles;
+    minimize distance;
+}
+function param() {
+    if (hxTimeLimit == nil || hxNbThreads == nil || hxSeed == nil) throw "Explicit budget, threads and seed required";
+    for [k in 0...fleet] {
+        route[k].value.clear();
+        for [j in 0...startLength[k]] route[k].value.add(startNode[k][j]);
+    }
+}
+function output() {
+    local f = io.openWrite(solFileName);
+    f.println("schema = \"li-lim-hexaly-native/1\"");
+    f.println("vehicles = ", vehicles.value);
+    f.println("distance = ", distance.value);
+    f.print("routes = ["); local first = true;
+    for [k in 0...fleet : used[k].value == 1] {
+        if (!first) f.print(", "); first = false; f.print("[");local comma = false;
+        for [v in route[k].value] {
+            if (comma) f.print(", "); comma = true; f.print(v+2);
+        }
+        f.print("]");
+    }
+    f.println("]"); f.close();
+}

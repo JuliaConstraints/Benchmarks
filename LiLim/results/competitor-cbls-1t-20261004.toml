@@ -1,0 +1,1909 @@
+affinity = "Cpus_allowed_list:\t8"
+benchmarks_commit = "28bcc9a6aa3d6866a8bcadc978d713e6803bfb42"
+budget_seconds = 5.0
+complete = true
+gc_threads = 1
+icn_bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+schema = "li-lim-competitor-cbls-control/1"
+started_utc = "2026-10-04T09:05:41.892"
+threads = 1
+updated_utc = "2026-10-04T09:06:41.655"
+
+[cohort]
+CBLS = "3bd4e2638c39b565aa81af41f585678f8952f60a"
+CompositionalNetworks = "ac70b743ea64c32f57100a59ceeb68b4c54181f2"
+ConstraintCommons = "b71a313f2b600e8879877e8e04e292eb94851bd7"
+ConstraintDomains = "399a90fdbb25d2cefc9cea2d6c4f6565be5a7c11"
+ConstraintModels = "4ddd8f65417ac8a8d6bb12add6faf0c0c84801c3"
+ConstraintProgrammingExtensions = "684e2e4a1459d5ae459666350c545bfc775272c2"
+Constraints = "fc3ca4ba26d9d15ffd6065eca0bb8a968af2ff43"
+LocalSearchSolvers = "8d0b3291420f49950cfda4e890899f384b8b7239"
+MetaStrategist = "7a5bbed52f6c4993dd72bf7f9ad1c6bd57acf583"
+PatternFolds = "bbf38fbf8b680deb4b599b06afd747fc069d25ee"
+QUBOConstraints = "f893f83cd7518ca3aedf0ad5d2679b2c13829446"
+XCSP3Bridges = "fe5bceaddc5081fedd200571b480e44ca9de1947"
+
+[config]
+budget_seconds = 10.0
+clb_commit = "b340e83a72ed19acd1f1647edaafb9e363738f0f"
+cpu_order = [8, 10, 0, 2, 4, 6, 12, 14, 16, 17, 18, 19, 9, 11, 1, 3]
+icn_bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+instances = ["lc101", "lr101", "lrc101"]
+job_wall_guard_seconds = 120.0
+julia = "1.13.1"
+memory_guard_bytes = 12884901888
+methods = ["cbls_naive", "cbls_icn", "cbls_direct", "hybrid_specialized_icn", "hybrid_bridged_icn", "highs_native", "highs_portfolio"]
+portfolio_methods = ["mixed_balanced", "mixed_ls_heavy"]
+process_wall_guard_seconds = 1400.0
+schema = "li-lim-icn-threads/1"
+scope = "diagnostic on three exposed instances, fixed wall budget, no commercial comparison"
+seeds = [41, 42, 43]
+thread_counts = [1, 2, 4, 8, 16]
+
+    [config.policy]
+    fragment_seconds = 0.5
+    insertion_seed = 41
+    insertion_starts = 5
+    max_visits = 20
+    repair_every = 20
+    repair_fraction = 0.35
+
+    [config.source_sha256]
+    lc101 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    lr101 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    lrc101 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+
+[source_sha256]
+"LiLim/scripts/competitor_cbls.jl" = "cd5a5cf5f55b27d70faccec968be3747ebd1909ec9aa860951158ede6d99fdf1"
+"LiLim/src/Experiment.jl" = "e1f969e3dcf0ed5e327d29bcedd54c27f89834580bf0310320fb141d16dea4ae"
+"LiLim/src/Hybrid.jl" = "b94751238620821178297149df43477f7548deb89271758a2be59066a72cc3f0"
+"LiLim/src/ICNScoring.jl" = "cdfb1c2437e0ad5df5715d613231a27c99370477e2950143a74ed2a7275f47c7"
+"LiLim/src/MetaRepair.jl" = "2e7e5aeb5a4f24faa6c2509f5193d05544a6cf26f07fb4e30d279180805bdecb"
+"LiLim/src/Pilot.jl" = "5af68ba76b17f121a4c733d64bc1288e34249fa58ad581169158fc537233c631"
+"LiLim/src/ResourceExperiment.jl" = "617119ed47a62b28f7c5d7da9114f664859f137eb31a2a95f86bcbaed484215c"
+
+[[trials]]
+allocation = ["cbls_icn"]
+audit_merge_seconds = 2.339100000003924e-5
+budget_seconds = 5.0
+coordination = "static allocation, independently seeded workers, final best merge; no adaptive allocation or inter-worker incumbent exchange"
+distance = 828.9368669428341
+initial_distance = 828.9368669428341
+initial_seconds = 0.004087802
+initial_vehicles = 10
+instance = "lc101"
+julia_threads_available = 1
+mean_active_cpus = 0.9998301463226373
+metastrategist_executed = true
+metastrategist_plan_key = "b1ec390640c41381e03022de01ec3ece91ef82f8a513f11e3014f933c684bee6"
+method = "cbls_icn"
+original_validation = true
+process_cpu_seconds = 4.999419230000001
+routes = [[6, 4, 8, 9, 11, 12, 10, 7, 5, 3, 2, 76], [21, 25, 26, 28, 30, 31, 29, 27, 24, 104, 23, 22], [68, 66, 64, 63, 75, 73, 62, 65, 103, 69, 67, 70], [44, 43, 42, 41, 45, 47, 46, 49, 52, 102, 51, 53, 50, 48], [91, 88, 87, 84, 83, 85, 86, 89, 90, 92], [99, 97, 96, 95, 93, 94, 98, 107, 101, 100], [58, 56, 55, 54, 57, 59, 61, 60], [14, 18, 19, 20, 16, 17, 15, 13], [33, 34, 32, 36, 38, 39, 40, 37, 106, 35], [82, 79, 105, 77, 72, 71, 74, 78, 80, 81]]
+schema = "li-lim-resource-trial/1"
+seed = 41
+source_sha256 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+threads_mode = "independent serial search trajectories; best incumbent merge"
+threads_requested = 1
+vehicles = 10
+wall_seconds = 5.000268544
+
+    [[trials.trajectory]]
+    distance = 828.9368669428341
+    routes = [[6, 4, 8, 9, 11, 12, 10, 7, 5, 3, 2, 76], [21, 25, 26, 28, 30, 31, 29, 27, 24, 104, 23, 22], [68, 66, 64, 63, 75, 73, 62, 65, 103, 69, 67, 70], [44, 43, 42, 41, 45, 47, 46, 49, 52, 102, 51, 53, 50, 48], [91, 88, 87, 84, 83, 85, 86, 89, 90, 92], [99, 97, 96, 95, 93, 94, 98, 107, 101, 100], [58, 56, 55, 54, 57, 59, 61, 60], [14, 18, 19, 20, 16, 17, 15, 13], [33, 34, 32, 36, 38, 39, 40, 37, 106, 35], [82, 79, 105, 77, 72, 71, 74, 78, 80, 81]]
+    seconds = 0.004087802
+    source = "common_insertion"
+    vehicles = 10
+
+    [[trials.workers]]
+    distance = 828.9368669428341
+    finished_seconds = 5.000239346
+    julia_thread_id = 1
+    method = "cbls_icn"
+    os_thread_id = 22775
+    routes = [[6, 4, 8, 9, 11, 12, 10, 7, 5, 3, 2, 76], [21, 25, 26, 28, 30, 31, 29, 27, 24, 104, 23, 22], [68, 66, 64, 63, 75, 73, 62, 65, 103, 69, 67, 70], [44, 43, 42, 41, 45, 47, 46, 49, 52, 102, 51, 53, 50, 48], [91, 88, 87, 84, 83, 85, 86, 89, 90, 92], [99, 97, 96, 95, 93, 94, 98, 107, 101, 100], [58, 56, 55, 54, 57, 59, 61, 60], [14, 18, 19, 20, 16, 17, 15, 13], [33, 34, 32, 36, 38, 39, 40, 37, 106, 35], [82, 79, 105, 77, 72, 71, 74, 78, 80, 81]]
+    seed = 41
+    started_seconds = 0.004248007
+    thread_cpu_seconds = 4.995142307999998
+    vehicles = 10
+    worker = 1
+
+        [trials.workers.error_backend]
+        backend = "icn"
+        bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+        icn_decoder_calls = 880881983
+        mapping = "scalar residuals: fleet, continuous time, prefix load and return load; allEqual: pair routes; strict ordered: pickup before delivery"
+        provenance = "recovered manually constructed witnesses in a learnable grammar; no new training"
+        score_evaluations = 3953587
+        structural_gate = "successor decoding checks service uniqueness and disconnected cycles"
+        witness_indices = [4, 2, 52]
+        workspace = "lane-owned route views and reusable ICN inputs/1; decoder functions unchanged"
+
+        [trials.workers.trace]
+        bridged = false
+        budget_seconds = 5.0
+        controller = "explicit native LS steps, paired reinsertion and atomic MetaMove commits/2"
+        fleet_weight = 20390.507105371627
+        hybrid = false
+        initialization_seconds = 0.000451891
+        julia_thread_id = 1
+        pair_candidates = 13486610
+        pair_moves = 0
+        pair_policy = "random request, best feasible greedy reinsertion/1"
+        repair_fraction = 0.35
+        repair_seconds = 0.0
+        repairs = []
+        scorer = "route constraints/2: icn"
+        seconds = 5.000210365
+        steps = 18623
+        structured = true
+        threads = 1
+        trajectory = []
+[[trials]]
+allocation = ["cbls_icn"]
+audit_merge_seconds = 2.2659999999952163e-5
+budget_seconds = 5.0
+coordination = "static allocation, independently seeded workers, final best merge; no adaptive allocation or inter-worker incumbent exchange"
+distance = 828.9368669428341
+initial_distance = 828.9368669428341
+initial_seconds = 0.00388878
+initial_vehicles = 10
+instance = "lc101"
+julia_threads_available = 1
+mean_active_cpus = 0.9998225148975164
+metastrategist_executed = true
+metastrategist_plan_key = "b1ec390640c41381e03022de01ec3ece91ef82f8a513f11e3014f933c684bee6"
+method = "cbls_icn"
+original_validation = true
+process_cpu_seconds = 4.999295585999999
+routes = [[6, 4, 8, 9, 11, 12, 10, 7, 5, 3, 2, 76], [21, 25, 26, 28, 30, 31, 29, 27, 24, 104, 23, 22], [68, 66, 64, 63, 75, 73, 62, 65, 103, 69, 67, 70], [44, 43, 42, 41, 45, 47, 46, 49, 52, 102, 51, 53, 50, 48], [91, 88, 87, 84, 83, 85, 86, 89, 90, 92], [99, 97, 96, 95, 93, 94, 98, 107, 101, 100], [58, 56, 55, 54, 57, 59, 61, 60], [14, 18, 19, 20, 16, 17, 15, 13], [33, 34, 32, 36, 38, 39, 40, 37, 106, 35], [82, 79, 105, 77, 72, 71, 74, 78, 80, 81]]
+schema = "li-lim-resource-trial/1"
+seed = 42
+source_sha256 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+threads_mode = "independent serial search trajectories; best incumbent merge"
+threads_requested = 1
+vehicles = 10
+wall_seconds = 5.000183044
+
+    [[trials.trajectory]]
+    distance = 828.9368669428341
+    routes = [[6, 4, 8, 9, 11, 12, 10, 7, 5, 3, 2, 76], [21, 25, 26, 28, 30, 31, 29, 27, 24, 104, 23, 22], [68, 66, 64, 63, 75, 73, 62, 65, 103, 69, 67, 70], [44, 43, 42, 41, 45, 47, 46, 49, 52, 102, 51, 53, 50, 48], [91, 88, 87, 84, 83, 85, 86, 89, 90, 92], [99, 97, 96, 95, 93, 94, 98, 107, 101, 100], [58, 56, 55, 54, 57, 59, 61, 60], [14, 18, 19, 20, 16, 17, 15, 13], [33, 34, 32, 36, 38, 39, 40, 37, 106, 35], [82, 79, 105, 77, 72, 71, 74, 78, 80, 81]]
+    seconds = 0.00388878
+    source = "common_insertion"
+    vehicles = 10
+
+    [[trials.workers]]
+    distance = 828.9368669428341
+    finished_seconds = 5.000155038
+    julia_thread_id = 1
+    method = "cbls_icn"
+    os_thread_id = 22775
+    routes = [[6, 4, 8, 9, 11, 12, 10, 7, 5, 3, 2, 76], [21, 25, 26, 28, 30, 31, 29, 27, 24, 104, 23, 22], [68, 66, 64, 63, 75, 73, 62, 65, 103, 69, 67, 70], [44, 43, 42, 41, 45, 47, 46, 49, 52, 102, 51, 53, 50, 48], [91, 88, 87, 84, 83, 85, 86, 89, 90, 92], [99, 97, 96, 95, 93, 94, 98, 107, 101, 100], [58, 56, 55, 54, 57, 59, 61, 60], [14, 18, 19, 20, 16, 17, 15, 13], [33, 34, 32, 36, 38, 39, 40, 37, 106, 35], [82, 79, 105, 77, 72, 71, 74, 78, 80, 81]]
+    seed = 42
+    started_seconds = 0.004062032
+    thread_cpu_seconds = 4.995206379999999
+    vehicles = 10
+    worker = 1
+
+        [trials.workers.error_backend]
+        backend = "icn"
+        bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+        icn_decoder_calls = 883166043
+        mapping = "scalar residuals: fleet, continuous time, prefix load and return load; allEqual: pair routes; strict ordered: pickup before delivery"
+        provenance = "recovered manually constructed witnesses in a learnable grammar; no new training"
+        score_evaluations = 3963122
+        structural_gate = "successor decoding checks service uniqueness and disconnected cycles"
+        witness_indices = [4, 2, 52]
+        workspace = "lane-owned route views and reusable ICN inputs/1; decoder functions unchanged"
+
+        [trials.workers.trace]
+        bridged = false
+        budget_seconds = 5.0
+        controller = "explicit native LS steps, paired reinsertion and atomic MetaMove commits/2"
+        fleet_weight = 20390.507105371627
+        hybrid = false
+        initialization_seconds = 0.000458195
+        julia_thread_id = 1
+        pair_candidates = 13515514
+        pair_moves = 0
+        pair_policy = "random request, best feasible greedy reinsertion/1"
+        repair_fraction = 0.35
+        repair_seconds = 0.0
+        repairs = []
+        scorer = "route constraints/2: icn"
+        seconds = 5.000125753
+        steps = 18663
+        structured = true
+        threads = 1
+        trajectory = []
+[[trials]]
+allocation = ["cbls_icn"]
+audit_merge_seconds = 2.329500000008977e-5
+budget_seconds = 5.0
+coordination = "static allocation, independently seeded workers, final best merge; no adaptive allocation or inter-worker incumbent exchange"
+distance = 828.9368669428341
+initial_distance = 828.9368669428341
+initial_seconds = 0.003770243
+initial_vehicles = 10
+instance = "lc101"
+julia_threads_available = 1
+mean_active_cpus = 0.9998533484159594
+metastrategist_executed = true
+metastrategist_plan_key = "b1ec390640c41381e03022de01ec3ece91ef82f8a513f11e3014f933c684bee6"
+method = "cbls_icn"
+original_validation = true
+process_cpu_seconds = 4.9994513689999955
+routes = [[6, 4, 8, 9, 11, 12, 10, 7, 5, 3, 2, 76], [21, 25, 26, 28, 30, 31, 29, 27, 24, 104, 23, 22], [68, 66, 64, 63, 75, 73, 62, 65, 103, 69, 67, 70], [44, 43, 42, 41, 45, 47, 46, 49, 52, 102, 51, 53, 50, 48], [91, 88, 87, 84, 83, 85, 86, 89, 90, 92], [99, 97, 96, 95, 93, 94, 98, 107, 101, 100], [58, 56, 55, 54, 57, 59, 61, 60], [14, 18, 19, 20, 16, 17, 15, 13], [33, 34, 32, 36, 38, 39, 40, 37, 106, 35], [82, 79, 105, 77, 72, 71, 74, 78, 80, 81]]
+schema = "li-lim-resource-trial/1"
+seed = 43
+source_sha256 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+threads_mode = "independent serial search trajectories; best incumbent merge"
+threads_requested = 1
+vehicles = 10
+wall_seconds = 5.000184654
+
+    [[trials.trajectory]]
+    distance = 828.9368669428341
+    routes = [[6, 4, 8, 9, 11, 12, 10, 7, 5, 3, 2, 76], [21, 25, 26, 28, 30, 31, 29, 27, 24, 104, 23, 22], [68, 66, 64, 63, 75, 73, 62, 65, 103, 69, 67, 70], [44, 43, 42, 41, 45, 47, 46, 49, 52, 102, 51, 53, 50, 48], [91, 88, 87, 84, 83, 85, 86, 89, 90, 92], [99, 97, 96, 95, 93, 94, 98, 107, 101, 100], [58, 56, 55, 54, 57, 59, 61, 60], [14, 18, 19, 20, 16, 17, 15, 13], [33, 34, 32, 36, 38, 39, 40, 37, 106, 35], [82, 79, 105, 77, 72, 71, 74, 78, 80, 81]]
+    seconds = 0.003770243
+    source = "common_insertion"
+    vehicles = 10
+
+    [[trials.workers]]
+    distance = 828.9368669428341
+    finished_seconds = 5.000154421
+    julia_thread_id = 1
+    method = "cbls_icn"
+    os_thread_id = 22775
+    routes = [[6, 4, 8, 9, 11, 12, 10, 7, 5, 3, 2, 76], [21, 25, 26, 28, 30, 31, 29, 27, 24, 104, 23, 22], [68, 66, 64, 63, 75, 73, 62, 65, 103, 69, 67, 70], [44, 43, 42, 41, 45, 47, 46, 49, 52, 102, 51, 53, 50, 48], [91, 88, 87, 84, 83, 85, 86, 89, 90, 92], [99, 97, 96, 95, 93, 94, 98, 107, 101, 100], [58, 56, 55, 54, 57, 59, 61, 60], [14, 18, 19, 20, 16, 17, 15, 13], [33, 34, 32, 36, 38, 39, 40, 37, 106, 35], [82, 79, 105, 77, 72, 71, 74, 78, 80, 81]]
+    seed = 43
+    started_seconds = 0.003925104
+    thread_cpu_seconds = 4.9954966090000035
+    vehicles = 10
+    worker = 1
+
+        [trials.workers.error_backend]
+        backend = "icn"
+        bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+        icn_decoder_calls = 880438670
+        mapping = "scalar residuals: fleet, continuous time, prefix load and return load; allEqual: pair routes; strict ordered: pickup before delivery"
+        provenance = "recovered manually constructed witnesses in a learnable grammar; no new training"
+        score_evaluations = 3950414
+        structural_gate = "successor decoding checks service uniqueness and disconnected cycles"
+        witness_indices = [4, 2, 52]
+        workspace = "lane-owned route views and reusable ICN inputs/1; decoder functions unchanged"
+
+        [trials.workers.trace]
+        bridged = false
+        budget_seconds = 5.0
+        controller = "explicit native LS steps, paired reinsertion and atomic MetaMove commits/2"
+        fleet_weight = 20390.507105371627
+        hybrid = false
+        initialization_seconds = 0.000434112
+        julia_thread_id = 1
+        pair_candidates = 13471900
+        pair_moves = 0
+        pair_policy = "random request, best feasible greedy reinsertion/1"
+        repair_fraction = 0.35
+        repair_seconds = 0.0
+        repairs = []
+        scorer = "route constraints/2: icn"
+        seconds = 5.000125463
+        steps = 18602
+        structured = true
+        threads = 1
+        trajectory = []
+[[trials]]
+allocation = ["cbls_icn"]
+audit_merge_seconds = 0.00033254600000010015
+budget_seconds = 5.0
+coordination = "static allocation, independently seeded workers, final best merge; no adaptive allocation or inter-worker incumbent exchange"
+distance = 1685.9593264965213
+initial_distance = 1900.407702699778
+initial_seconds = 0.002679625
+initial_vehicles = 21
+instance = "lr101"
+julia_threads_available = 1
+mean_active_cpus = 0.9998694776153828
+metastrategist_executed = true
+metastrategist_plan_key = "b1ec390640c41381e03022de01ec3ece91ef82f8a513f11e3014f933c684bee6"
+method = "cbls_icn"
+original_validation = true
+process_cpu_seconds = 4.999432243000001
+routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55, 25, 81], [29, 13, 41, 54, 107, 27], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+schema = "li-lim-resource-trial/1"
+seed = 41
+source_sha256 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+threads_mode = "independent serial search trajectories; best incumbent merge"
+threads_requested = 1
+vehicles = 19
+wall_seconds = 5.000084866
+
+    [[trials.trajectory]]
+    distance = 1900.407702699778
+    routes = [[46, 84, 62, 85, 38, 94], [60, 53, 19, 7, 97, 90], [34, 30, 79, 35, 25, 81], [66, 72, 82, 51, 69, 104], [40, 24, 105, 68, 75, 103], [37, 48, 20, 9, 47, 18], [29, 13, 41, 54, 107, 27], [100, 95], [64, 65, 50, 49], [63, 12, 91, 21, 33, 71], [6, 83, 86, 61], [32, 89, 8, 11], [73, 22, 42, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [28, 70, 77, 80, 4, 55], [15, 45, 106, 39, 44, 14], [31, 10, 56, 26], [52, 102, 67, 2], [76, 23, 57, 5], [3, 74, 36, 78]]
+    seconds = 0.002679625
+    source = "common_insertion"
+    vehicles = 21
+    [[trials.trajectory]]
+    distance = 1865.9519054669715
+    routes = [[3, 74, 36, 78], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [56, 26], [60, 53, 19, 7, 97, 90], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 57, 5], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [100, 95]]
+    seconds = 0.006838408
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1854.048242664159
+    routes = [[3, 74, 36, 78], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [46, 84, 62, 85, 38, 94], [56, 26], [60, 53, 19, 7, 97, 90], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [100, 95]]
+    seconds = 0.007149869
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1832.9229401466798
+    routes = [[3, 74, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [46, 84, 62, 85, 38, 94], [60, 53, 19, 7, 97, 90], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [100, 95]]
+    seconds = 0.007222573
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1821.6201408016248
+    routes = [[3, 74, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 36, 78], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [60, 53, 19, 7, 97, 90], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [100, 95]]
+    seconds = 0.009564732
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1814.7775251695277
+    routes = [[3, 74, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 36, 78], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [60, 53, 19, 7, 97, 90], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [100, 95]]
+    seconds = 0.010735148
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1790.0444369764614
+    routes = [[3, 74, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 36, 78], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.014457238
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1783.7598858883548
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 36, 78], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.018195543
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1738.2985656836302
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 36, 78], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.019423403
+    source = "cbls_icn"
+    vehicles = 20
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1710.8010392622716
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 25, 81], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.019987095
+    source = "cbls_icn"
+    vehicles = 20
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1709.44290128016
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 27, 25, 81], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [54, 107], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.021708338
+    source = "cbls_icn"
+    vehicles = 20
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1708.1980232390931
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27, 25, 81], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.02860731
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1685.9593264965213
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55, 25, 81], [29, 13, 41, 54, 107, 27], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.034525878
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+
+    [[trials.workers]]
+    distance = 1685.9593264965213
+    finished_seconds = 5.000043919
+    julia_thread_id = 1
+    method = "cbls_icn"
+    os_thread_id = 22775
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55, 25, 81], [29, 13, 41, 54, 107, 27], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seed = 41
+    started_seconds = 0.002837794
+    thread_cpu_seconds = 4.9965543839999995
+    vehicles = 19
+    worker = 1
+
+        [trials.workers.error_backend]
+        backend = "icn"
+        bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+        icn_decoder_calls = 1011202258
+        mapping = "scalar residuals: fleet, continuous time, prefix load and return load; allEqual: pair routes; strict ordered: pickup before delivery"
+        provenance = "recovered manually constructed witnesses in a learnable grammar; no new training"
+        score_evaluations = 3821096
+        structural_gate = "successor decoding checks service uniqueness and disconnected cycles"
+        witness_indices = [4, 2, 52]
+        workspace = "lane-owned route views and reusable ICN inputs/1; decoder functions unchanged"
+
+        [trials.workers.trace]
+        bridged = false
+        budget_seconds = 5.0
+        controller = "explicit native LS steps, paired reinsertion and atomic MetaMove commits/2"
+        fleet_weight = 19469.249844297763
+        hybrid = false
+        initialization_seconds = 0.000406568
+        julia_thread_id = 1
+        pair_candidates = 8393034
+        pair_moves = 9
+        pair_policy = "random request, best feasible greedy reinsertion/1"
+        repair_fraction = 0.35
+        repair_seconds = 0.0
+        repairs = []
+        scorer = "route constraints/2: icn"
+        seconds = 5.000016341
+        steps = 17805
+        structured = true
+        threads = 1
+
+            [[trials.workers.trace.trajectory]]
+            distance = 1865.9519054669715
+            routes = [[3, 74, 36, 78], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [56, 26], [60, 53, 19, 7, 97, 90], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 57, 5], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [100, 95]]
+            seconds = 0.006838408
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1854.048242664159
+            routes = [[3, 74, 36, 78], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [46, 84, 62, 85, 38, 94], [56, 26], [60, 53, 19, 7, 97, 90], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [100, 95]]
+            seconds = 0.007149869
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1832.9229401466798
+            routes = [[3, 74, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [46, 84, 62, 85, 38, 94], [60, 53, 19, 7, 97, 90], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [100, 95]]
+            seconds = 0.007222573
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1821.6201408016248
+            routes = [[3, 74, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 36, 78], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [60, 53, 19, 7, 97, 90], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [100, 95]]
+            seconds = 0.009564732
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1814.7775251695277
+            routes = [[3, 74, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 36, 78], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [60, 53, 19, 7, 97, 90], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [100, 95]]
+            seconds = 0.010735148
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1790.0444369764614
+            routes = [[3, 74, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 36, 78], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.014457238
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1783.7598858883548
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 36, 78], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.018195543
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1738.2985656836302
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 36, 78], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.019423403
+            vehicles = 20
+            [[trials.workers.trace.trajectory]]
+            distance = 1710.8010392622716
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 25, 81], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.019987095
+            vehicles = 20
+            [[trials.workers.trace.trajectory]]
+            distance = 1709.44290128016
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 27, 25, 81], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [54, 107], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.021708338
+            vehicles = 20
+            [[trials.workers.trace.trajectory]]
+            distance = 1708.1980232390931
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27, 25, 81], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.02860731
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1685.9593264965213
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55, 25, 81], [29, 13, 41, 54, 107, 27], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.034525878
+            vehicles = 19
+[[trials]]
+allocation = ["cbls_icn"]
+audit_merge_seconds = 0.00033862900000070084
+budget_seconds = 5.0
+coordination = "static allocation, independently seeded workers, final best merge; no adaptive allocation or inter-worker incumbent exchange"
+distance = 1738.1967893926796
+initial_distance = 1900.407702699778
+initial_seconds = 0.002781163
+initial_vehicles = 21
+instance = "lr101"
+julia_threads_available = 1
+mean_active_cpus = 0.9998773737374056
+metastrategist_executed = true
+metastrategist_plan_key = "b1ec390640c41381e03022de01ec3ece91ef82f8a513f11e3014f933c684bee6"
+method = "cbls_icn"
+original_validation = true
+process_cpu_seconds = 4.999661547999999
+routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 67, 2], [31, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+schema = "li-lim-resource-trial/1"
+seed = 42
+source_sha256 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+threads_mode = "independent serial search trajectories; best incumbent merge"
+threads_requested = 1
+vehicles = 20
+wall_seconds = 5.000274713
+
+    [[trials.trajectory]]
+    distance = 1900.407702699778
+    routes = [[46, 84, 62, 85, 38, 94], [60, 53, 19, 7, 97, 90], [34, 30, 79, 35, 25, 81], [66, 72, 82, 51, 69, 104], [40, 24, 105, 68, 75, 103], [37, 48, 20, 9, 47, 18], [29, 13, 41, 54, 107, 27], [100, 95], [64, 65, 50, 49], [63, 12, 91, 21, 33, 71], [6, 83, 86, 61], [32, 89, 8, 11], [73, 22, 42, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [28, 70, 77, 80, 4, 55], [15, 45, 106, 39, 44, 14], [31, 10, 56, 26], [52, 102, 67, 2], [76, 23, 57, 5], [3, 74, 36, 78]]
+    seconds = 0.002781163
+    source = "common_insertion"
+    vehicles = 21
+    [[trials.trajectory]]
+    distance = 1888.5040398969652
+    routes = [[3, 74, 36, 78], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 10, 56, 26], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [46, 84, 62, 85, 38, 94], [52, 102, 67, 2], [60, 53, 19, 7, 97, 90], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [100, 95]]
+    seconds = 0.005185643
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1881.6381489915036
+    routes = [[3, 74, 36, 78], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 67, 2], [31, 10, 56, 26], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [60, 53, 19, 7, 97, 90], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [100, 95]]
+    seconds = 0.007258389
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1856.9050607984373
+    routes = [[3, 74, 36, 78], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 67, 2], [31, 10, 56, 26], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.01034554
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1856.0640490501596
+    routes = [[3, 74, 36, 78], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 56, 26], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.017264868
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1802.3215920913262
+    routes = [[3, 74, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 36, 78], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.023807587
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1794.2188415903936
+    routes = [[3, 74, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [22, 42], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 36, 78], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.024489837
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1791.9576127282846
+    routes = [[3, 74], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [22, 42, 56, 26], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 36, 78], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.029787844
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1784.2582188593522
+    routes = [[3, 74, 54, 107], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [22, 42, 56, 26], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 36, 78], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.030473782
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1756.5090817266716
+    routes = [[3, 22, 74, 42, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 36, 78], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [54, 107], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.032031103
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1744.9779832074653
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 36, 78], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [54, 107], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.033514638
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1743.733105166398
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 36, 78], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.036146425
+    source = "cbls_icn"
+    vehicles = 20
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1738.1967893926796
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 67, 2], [31, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.044477286
+    source = "cbls_icn"
+    vehicles = 20
+    worker = 1
+
+    [[trials.workers]]
+    distance = 1738.1967893926796
+    finished_seconds = 5.000235239
+    julia_thread_id = 1
+    method = "cbls_icn"
+    os_thread_id = 22775
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 67, 2], [31, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seed = 42
+    started_seconds = 0.002932544
+    thread_cpu_seconds = 4.996690034000004
+    vehicles = 20
+    worker = 1
+
+        [trials.workers.error_backend]
+        backend = "icn"
+        bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+        icn_decoder_calls = 1012839203
+        mapping = "scalar residuals: fleet, continuous time, prefix load and return load; allEqual: pair routes; strict ordered: pickup before delivery"
+        provenance = "recovered manually constructed witnesses in a learnable grammar; no new training"
+        score_evaluations = 3765514
+        structural_gate = "successor decoding checks service uniqueness and disconnected cycles"
+        witness_indices = [4, 2, 52]
+        workspace = "lane-owned route views and reusable ICN inputs/1; decoder functions unchanged"
+
+        [trials.workers.trace]
+        bridged = false
+        budget_seconds = 5.0
+        controller = "explicit native LS steps, paired reinsertion and atomic MetaMove commits/2"
+        fleet_weight = 19469.249844297763
+        hybrid = false
+        initialization_seconds = 0.000432136
+        julia_thread_id = 1
+        pair_candidates = 8001831
+        pair_moves = 6
+        pair_policy = "random request, best feasible greedy reinsertion/1"
+        repair_fraction = 0.35
+        repair_seconds = 0.0
+        repairs = []
+        scorer = "route constraints/2: icn"
+        seconds = 5.000206689
+        steps = 17509
+        structured = true
+        threads = 1
+
+            [[trials.workers.trace.trajectory]]
+            distance = 1888.5040398969652
+            routes = [[3, 74, 36, 78], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 10, 56, 26], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [46, 84, 62, 85, 38, 94], [52, 102, 67, 2], [60, 53, 19, 7, 97, 90], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [100, 95]]
+            seconds = 0.005185643
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1881.6381489915036
+            routes = [[3, 74, 36, 78], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 67, 2], [31, 10, 56, 26], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [60, 53, 19, 7, 97, 90], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [100, 95]]
+            seconds = 0.007258389
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1856.9050607984373
+            routes = [[3, 74, 36, 78], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 67, 2], [31, 10, 56, 26], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.01034554
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1856.0640490501596
+            routes = [[3, 74, 36, 78], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 56, 26], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.017264868
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1802.3215920913262
+            routes = [[3, 74, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 36, 78], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 75, 103], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.023807587
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1794.2188415903936
+            routes = [[3, 74, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [22, 42], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 36, 78], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.024489837
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1791.9576127282846
+            routes = [[3, 74], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [22, 42, 56, 26], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 36, 78], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.029787844
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1784.2582188593522
+            routes = [[3, 74, 54, 107], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [22, 42, 56, 26], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 36, 78], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.030473782
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1756.5090817266716
+            routes = [[3, 22, 74, 42, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 36, 78], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 57, 5], [41, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [54, 107], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.032031103
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1744.9779832074653
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 36, 78], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [54, 107], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.033514638
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1743.733105166398
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 36, 78], [31, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.036146425
+            vehicles = 20
+            [[trials.workers.trace.trajectory]]
+            distance = 1738.1967893926796
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 52, 102, 67, 2], [31, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.044477286
+            vehicles = 20
+[[trials]]
+allocation = ["cbls_icn"]
+audit_merge_seconds = 0.00041472100000028433
+budget_seconds = 5.0
+coordination = "static allocation, independently seeded workers, final best merge; no adaptive allocation or inter-worker incumbent exchange"
+distance = 1695.137601480902
+initial_distance = 1900.407702699778
+initial_seconds = 0.002688277
+initial_vehicles = 21
+instance = "lr101"
+julia_threads_available = 1
+mean_active_cpus = 0.9998410439150104
+metastrategist_executed = true
+metastrategist_plan_key = "b1ec390640c41381e03022de01ec3ece91ef82f8a513f11e3014f933c684bee6"
+method = "cbls_icn"
+original_validation = true
+process_cpu_seconds = 4.999529629000001
+routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55, 25, 81], [29, 13, 69, 104], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+schema = "li-lim-resource-trial/1"
+seed = 43
+source_sha256 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+threads_mode = "independent serial search trajectories; best incumbent merge"
+threads_requested = 1
+vehicles = 20
+wall_seconds = 5.000324461
+
+    [[trials.trajectory]]
+    distance = 1900.407702699778
+    routes = [[46, 84, 62, 85, 38, 94], [60, 53, 19, 7, 97, 90], [34, 30, 79, 35, 25, 81], [66, 72, 82, 51, 69, 104], [40, 24, 105, 68, 75, 103], [37, 48, 20, 9, 47, 18], [29, 13, 41, 54, 107, 27], [100, 95], [64, 65, 50, 49], [63, 12, 91, 21, 33, 71], [6, 83, 86, 61], [32, 89, 8, 11], [73, 22, 42, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101], [28, 70, 77, 80, 4, 55], [15, 45, 106, 39, 44, 14], [31, 10, 56, 26], [52, 102, 67, 2], [76, 23, 57, 5], [3, 74, 36, 78]]
+    seconds = 0.002688277
+    source = "common_insertion"
+    vehicles = 21
+    [[trials.trajectory]]
+    distance = 1875.674614506711
+    routes = [[3, 74, 36, 78], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 10, 56, 26], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [52, 102, 67, 2], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 57, 5], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.010673661
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1815.554830025882
+    routes = [[3, 74, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [52, 102, 67, 2], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 57, 5], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.011557371
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1810.5724666557612
+    routes = [[3, 74, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [22, 42], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [52, 102, 67, 2], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 57, 5, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.020885431
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1808.9802629043115
+    routes = [[3, 74, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [22, 42, 57, 5], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [52, 102, 67, 2], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.02123498
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1802.9496992374138
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [52, 102, 67, 2], [53, 19, 7, 90], [56, 26], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.021624758
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1802.0648884420043
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 52, 102, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [56, 26], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [67, 2], [73, 76, 23, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.025577215
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1795.5774791220865
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 27], [31, 52, 102, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [54, 107, 56, 26], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [67, 2], [73, 76, 23, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.030849459
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1784.4660337624555
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 27], [31, 52, 102, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [54, 107, 75, 103], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [67, 2], [73, 76, 23, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.039963605
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1745.4227475437986
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 27], [31, 52, 102, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [54, 107], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [67, 2], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.047306647
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1739.97719396243
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 67, 2], [31, 52, 102, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [54, 107], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.068833399
+    source = "cbls_icn"
+    vehicles = 21
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1738.7323159213631
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 67, 2], [31, 52, 102, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.069755178
+    source = "cbls_icn"
+    vehicles = 20
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1738.2985656836302
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 36, 78], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.080735604
+    source = "cbls_icn"
+    vehicles = 20
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1710.8010392622716
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 25, 81], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.094705333
+    source = "cbls_icn"
+    vehicles = 20
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1696.412409458249
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 69, 104, 25, 81], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.097624094
+    source = "cbls_icn"
+    vehicles = 20
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1695.137601480902
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55, 25, 81], [29, 13, 69, 104], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seconds = 0.099430565
+    source = "cbls_icn"
+    vehicles = 20
+    worker = 1
+
+    [[trials.workers]]
+    distance = 1695.137601480902
+    finished_seconds = 5.000285075
+    julia_thread_id = 1
+    method = "cbls_icn"
+    os_thread_id = 22775
+    routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55, 25, 81], [29, 13, 69, 104], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+    seed = 43
+    started_seconds = 0.002848114
+    thread_cpu_seconds = 4.996643230000004
+    vehicles = 20
+    worker = 1
+
+        [trials.workers.error_backend]
+        backend = "icn"
+        bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+        icn_decoder_calls = 1000312875
+        mapping = "scalar residuals: fleet, continuous time, prefix load and return load; allEqual: pair routes; strict ordered: pickup before delivery"
+        provenance = "recovered manually constructed witnesses in a learnable grammar; no new training"
+        score_evaluations = 3720312
+        structural_gate = "successor decoding checks service uniqueness and disconnected cycles"
+        witness_indices = [4, 2, 52]
+        workspace = "lane-owned route views and reusable ICN inputs/1; decoder functions unchanged"
+
+        [trials.workers.trace]
+        bridged = false
+        budget_seconds = 5.0
+        controller = "explicit native LS steps, paired reinsertion and atomic MetaMove commits/2"
+        fleet_weight = 19469.249844297763
+        hybrid = false
+        initialization_seconds = 0.000443589
+        julia_thread_id = 1
+        pair_candidates = 7968707
+        pair_moves = 9
+        pair_policy = "random request, best feasible greedy reinsertion/1"
+        repair_fraction = 0.35
+        repair_seconds = 0.0
+        repairs = []
+        scorer = "route constraints/2: icn"
+        seconds = 5.000257896
+        steps = 17294
+        structured = true
+        threads = 1
+
+            [[trials.workers.trace.trajectory]]
+            distance = 1875.674614506711
+            routes = [[3, 74, 36, 78], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 10, 56, 26], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [52, 102, 67, 2], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 57, 5], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.010673661
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1815.554830025882
+            routes = [[3, 74, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [52, 102, 67, 2], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 22, 42, 59], [76, 23, 57, 5], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.011557371
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1810.5724666557612
+            routes = [[3, 74, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [22, 42], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [52, 102, 67, 2], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 57, 5, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.020885431
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1808.9802629043115
+            routes = [[3, 74, 56, 26], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [22, 42, 57, 5], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [52, 102, 67, 2], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.02123498
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1802.9496992374138
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [52, 102, 67, 2], [53, 19, 7, 90], [56, 26], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.021624758
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1802.0648884420043
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 54, 107, 27], [31, 52, 102, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [56, 26], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [67, 2], [73, 76, 23, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.025577215
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1795.5774791220865
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 27], [31, 52, 102, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 75, 103], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [54, 107, 56, 26], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [67, 2], [73, 76, 23, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.030849459
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1784.4660337624555
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 27], [31, 52, 102, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [54, 107, 75, 103], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [67, 2], [73, 76, 23, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.039963605
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1745.4227475437986
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 41, 27], [31, 52, 102, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [54, 107], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [67, 2], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.047306647
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1739.97719396243
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 67, 2], [31, 52, 102, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [54, 107], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.068833399
+            vehicles = 21
+            [[trials.workers.trace.trajectory]]
+            distance = 1738.7323159213631
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 67, 2], [31, 52, 102, 10, 36, 78], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.069755178
+            vehicles = 20
+            [[trials.workers.trace.trajectory]]
+            distance = 1738.2985656836302
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 36, 78], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 25, 81], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.080735604
+            vehicles = 20
+            [[trials.workers.trace.trajectory]]
+            distance = 1710.8010392622716
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 25, 81], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51, 69, 104], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.094705333
+            vehicles = 20
+            [[trials.workers.trace.trajectory]]
+            distance = 1696.412409458249
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55], [29, 13, 69, 104, 25, 81], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.097624094
+            vehicles = 20
+            [[trials.workers.trace.trajectory]]
+            distance = 1695.137601480902
+            routes = [[3, 22, 74, 42, 57, 5], [6, 83, 86, 61], [15, 45, 106, 39, 44, 14], [28, 70, 77, 80, 4, 55, 25, 81], [29, 13, 69, 104], [31, 52, 102, 10, 67, 2], [32, 89, 8, 11], [34, 30, 79, 35, 36, 78], [37, 48, 20, 9, 47, 18], [40, 24, 105, 68, 56, 26], [41, 54, 107, 27], [46, 84, 62, 85, 38, 94], [53, 19, 7, 90], [60, 100, 95, 97], [63, 12, 91, 21, 33, 71], [64, 65, 50, 49], [66, 72, 82, 51], [73, 76, 23, 75, 103, 59], [93, 43, 16, 88, 58, 98], [96, 99, 17, 87, 92, 101]]
+            seconds = 0.099430565
+            vehicles = 20
+[[trials]]
+allocation = ["cbls_icn"]
+audit_merge_seconds = 0.00042928399999997424
+budget_seconds = 5.0
+coordination = "static allocation, independently seeded workers, final best merge; no adaptive allocation or inter-worker incumbent exchange"
+distance = 1795.5392376822674
+initial_distance = 2143.5026830234387
+initial_seconds = 0.002908072
+initial_vehicles = 19
+instance = "lrc101"
+julia_threads_available = 1
+mean_active_cpus = 0.9998810844877751
+metastrategist_executed = true
+metastrategist_plan_key = "b1ec390640c41381e03022de01ec3ece91ef82f8a513f11e3014f933c684bee6"
+method = "cbls_icn"
+original_validation = true
+process_cpu_seconds = 4.999493195999996
+routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+schema = "li-lim-resource-trial/1"
+seed = 41
+source_sha256 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+threads_mode = "independent serial search trajectories; best incumbent merge"
+threads_requested = 1
+vehicles = 17
+wall_seconds = 5.000087784
+
+    [[trials.trajectory]]
+    distance = 2143.5026830234387
+    routes = [[46, 3, 62, 82, 97, 69], [28, 29, 31, 27, 33, 92], [63, 68, 72, 95], [53, 58, 23, 50, 21, 25], [73, 40, 37, 39, 44, 55], [66, 84, 65, 104, 100, 87, 75, 49], [85, 86, 103, 67], [15, 48, 13, 74, 107, 80, 47, 56], [99, 89, 88, 78, 26, 102], [6, 8, 7, 9, 4, 2, 106, 5], [43, 45, 42, 41, 36, 38], [91, 54, 57, 101], [64, 77, 105, 52, 51, 81], [83, 12, 16, 17, 10, 11, 14, 18], [60, 76, 98, 59], [24, 22, 20, 19], [32, 30, 90, 94], [70, 79, 61, 71], [93, 96, 34, 35]]
+    seconds = 0.002908072
+    source = "common_insertion"
+    vehicles = 19
+    [[trials.trajectory]]
+    distance = 2133.13685301614
+    routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [91, 54, 57, 101], [93, 96, 34, 35], [99, 89, 88, 78, 26, 102]]
+    seconds = 0.003688411
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2118.928431423594
+    routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 54, 57, 101], [93, 96, 34, 35]]
+    seconds = 0.008957298
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2110.4826583310205
+    routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 54, 57, 101], [93, 96, 34, 35]]
+    seconds = 0.010159625
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2045.18838959415
+    routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 34, 35]]
+    seconds = 0.013733519
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2021.623676256612
+    routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 34, 35, 51, 81]]
+    seconds = 0.015163924
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1995.576609792887
+    routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49], [88, 78, 26, 102], [91, 57], [93, 96, 34, 35, 51, 81]]
+    seconds = 0.018025351
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1947.3918612700347
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49], [88, 78, 26, 102], [91, 57], [93, 96, 34, 35, 51, 81]]
+    seconds = 0.020561856
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1937.7173026562182
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49], [88, 78, 26, 102], [91, 57], [93, 96, 34, 35, 51, 81]]
+    seconds = 0.021172902
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1932.7713597065047
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [53, 58], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49], [88, 78, 26, 102], [91, 57], [93, 96, 34, 35, 51, 81]]
+    seconds = 0.023474597
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1927.155039311194
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 31, 27, 33, 92], [32, 90], [43, 45, 42, 41, 36, 38], [53, 58], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49], [88, 78, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seconds = 0.024460521
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1884.8463412388044
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 31, 27, 33, 92], [32, 90], [43, 45, 42, 41, 36, 38], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 85, 86, 103, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49], [88, 78, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seconds = 0.025389732
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1884.6163896583862
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 31, 27, 33, 92], [32, 90], [43, 45, 42, 41, 36, 38], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 85, 86, 103, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [88, 78], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seconds = 0.027660047
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1877.7020836040256
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 85, 86, 103, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [88, 78], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seconds = 0.027729961
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1876.7854311402493
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [88, 78], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seconds = 0.030575335
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1871.9754758450001
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [53, 100, 58, 87], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 88, 75, 78], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seconds = 0.034149258
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1859.4764808091284
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [53, 100, 58, 87], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seconds = 0.03560727
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1795.5392376822674
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seconds = 0.038233804
+    source = "cbls_icn"
+    vehicles = 17
+    worker = 1
+
+    [[trials.workers]]
+    distance = 1795.5392376822674
+    finished_seconds = 5.000046921
+    julia_thread_id = 1
+    method = "cbls_icn"
+    os_thread_id = 22775
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seed = 41
+    started_seconds = 0.003071919
+    thread_cpu_seconds = 4.9963809329999975
+    vehicles = 17
+    worker = 1
+
+        [trials.workers.error_backend]
+        backend = "icn"
+        bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+        icn_decoder_calls = 978655481
+        mapping = "scalar residuals: fleet, continuous time, prefix load and return load; allEqual: pair routes; strict ordered: pickup before delivery"
+        provenance = "recovered manually constructed witnesses in a learnable grammar; no new training"
+        score_evaluations = 3833466
+        structural_gate = "successor decoding checks service uniqueness and disconnected cycles"
+        witness_indices = [4, 2, 52]
+        workspace = "lane-owned route views and reusable ICN inputs/1; decoder functions unchanged"
+
+        [trials.workers.trace]
+        bridged = false
+        budget_seconds = 5.0
+        controller = "explicit native LS steps, paired reinsertion and atomic MetaMove commits/2"
+        fleet_weight = 21458.08125538047
+        hybrid = false
+        initialization_seconds = 0.000455642
+        julia_thread_id = 1
+        pair_candidates = 9435313
+        pair_moves = 14
+        pair_policy = "random request, best feasible greedy reinsertion/1"
+        repair_fraction = 0.35
+        repair_seconds = 0.0
+        repairs = []
+        scorer = "route constraints/2: icn"
+        seconds = 5.000016859
+        steps = 17903
+        structured = true
+        threads = 1
+
+            [[trials.workers.trace.trajectory]]
+            distance = 2133.13685301614
+            routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [91, 54, 57, 101], [93, 96, 34, 35], [99, 89, 88, 78, 26, 102]]
+            seconds = 0.003688411
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2118.928431423594
+            routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 54, 57, 101], [93, 96, 34, 35]]
+            seconds = 0.008957298
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2110.4826583310205
+            routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 54, 57, 101], [93, 96, 34, 35]]
+            seconds = 0.010159625
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2045.18838959415
+            routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 34, 35]]
+            seconds = 0.013733519
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2021.623676256612
+            routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 34, 35, 51, 81]]
+            seconds = 0.015163924
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1995.576609792887
+            routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49], [88, 78, 26, 102], [91, 57], [93, 96, 34, 35, 51, 81]]
+            seconds = 0.018025351
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1947.3918612700347
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49], [88, 78, 26, 102], [91, 57], [93, 96, 34, 35, 51, 81]]
+            seconds = 0.020561856
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1937.7173026562182
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49], [88, 78, 26, 102], [91, 57], [93, 96, 34, 35, 51, 81]]
+            seconds = 0.021172902
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1932.7713597065047
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [53, 58], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49], [88, 78, 26, 102], [91, 57], [93, 96, 34, 35, 51, 81]]
+            seconds = 0.023474597
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1927.155039311194
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 31, 27, 33, 92], [32, 90], [43, 45, 42, 41, 36, 38], [53, 58], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49], [88, 78, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+            seconds = 0.024460521
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1884.8463412388044
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 31, 27, 33, 92], [32, 90], [43, 45, 42, 41, 36, 38], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 85, 86, 103, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49], [88, 78, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+            seconds = 0.025389732
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1884.6163896583862
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 31, 27, 33, 92], [32, 90], [43, 45, 42, 41, 36, 38], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 85, 86, 103, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [88, 78], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+            seconds = 0.027660047
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1877.7020836040256
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 85, 86, 103, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [88, 78], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+            seconds = 0.027729961
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1876.7854311402493
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [88, 78], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+            seconds = 0.030575335
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1871.9754758450001
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [53, 100, 58, 87], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 88, 75, 78], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+            seconds = 0.034149258
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1859.4764808091284
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [53, 100, 58, 87], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+            seconds = 0.03560727
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1795.5392376822674
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+            seconds = 0.038233804
+            vehicles = 17
+[[trials]]
+allocation = ["cbls_icn"]
+audit_merge_seconds = 0.00044409500000064384
+budget_seconds = 5.0
+coordination = "static allocation, independently seeded workers, final best merge; no adaptive allocation or inter-worker incumbent exchange"
+distance = 1797.545023257304
+initial_distance = 2143.5026830234387
+initial_seconds = 0.002902939
+initial_vehicles = 19
+instance = "lrc101"
+julia_threads_available = 1
+mean_active_cpus = 0.9998871443018809
+metastrategist_executed = true
+metastrategist_plan_key = "b1ec390640c41381e03022de01ec3ece91ef82f8a513f11e3014f933c684bee6"
+method = "cbls_icn"
+original_validation = true
+process_cpu_seconds = 4.999635151999996
+routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+schema = "li-lim-resource-trial/1"
+seed = 42
+source_sha256 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+threads_mode = "independent serial search trajectories; best incumbent merge"
+threads_requested = 1
+vehicles = 17
+wall_seconds = 5.000199453
+
+    [[trials.trajectory]]
+    distance = 2143.5026830234387
+    routes = [[46, 3, 62, 82, 97, 69], [28, 29, 31, 27, 33, 92], [63, 68, 72, 95], [53, 58, 23, 50, 21, 25], [73, 40, 37, 39, 44, 55], [66, 84, 65, 104, 100, 87, 75, 49], [85, 86, 103, 67], [15, 48, 13, 74, 107, 80, 47, 56], [99, 89, 88, 78, 26, 102], [6, 8, 7, 9, 4, 2, 106, 5], [43, 45, 42, 41, 36, 38], [91, 54, 57, 101], [64, 77, 105, 52, 51, 81], [83, 12, 16, 17, 10, 11, 14, 18], [60, 76, 98, 59], [24, 22, 20, 19], [32, 30, 90, 94], [70, 79, 61, 71], [93, 96, 34, 35]]
+    seconds = 0.002902939
+    source = "common_insertion"
+    vehicles = 19
+    [[trials.trajectory]]
+    distance = 2119.937969685902
+    routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52], [66, 84, 65, 104, 100, 87, 75, 49], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 35, 51, 81], [99, 89, 88, 78, 26, 102]]
+    seconds = 0.004092531
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2111.4921965933286
+    routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52], [66, 84, 65, 104, 100, 87, 75, 49], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 35, 51, 81], [99, 89, 88, 78, 26, 102]]
+    seconds = 0.004190229
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2063.3074480704754
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52], [66, 84, 65, 104, 100, 87, 75, 49], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 35, 51, 81], [99, 89, 88, 78, 26, 102]]
+    seconds = 0.00595822
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2057.691127675165
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 29, 31, 27, 33, 92], [32, 90], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52], [66, 84, 65, 104, 100, 87, 75, 49], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 30, 35, 51, 94, 81], [99, 89, 88, 78, 26, 102]]
+    seconds = 0.00629206
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2052.7826071958407
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52], [66, 84, 65, 104, 100, 87, 75, 49], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 30, 35, 51, 94, 81], [99, 89, 88, 78, 26, 102]]
+    seconds = 0.007523334
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2047.8366642461274
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 58], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [66, 84, 65, 104, 100, 87, 75, 49], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 30, 35, 51, 94, 81], [99, 89, 88, 78, 26, 102]]
+    seconds = 0.008694246
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2029.2785454275677
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 58], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [66, 65, 104, 100, 87, 75], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 30, 35, 51, 94, 81], [99, 89, 88, 78, 26, 102]]
+    seconds = 0.011618361
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2029.0485938471493
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 58], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [66, 65, 104, 100, 87, 75], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49, 26, 102], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 30, 35, 51, 94, 81], [99, 89, 88, 78]]
+    seconds = 0.015517451
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2011.193816194685
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 58], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49, 26, 102], [91, 54, 57, 101], [93, 96, 34, 30, 35, 51, 94, 81], [99, 89, 88, 78]]
+    seconds = 0.02126161
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1996.9853946021392
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 58], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49, 26, 102], [88, 78], [91, 54, 57, 101], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seconds = 0.023894126
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1995.258915463046
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 91, 58, 57], [54, 101], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49, 26, 102], [88, 78], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seconds = 0.027354434
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1942.0159119005702
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 91, 58, 57], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49, 26, 102], [88, 78], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seconds = 0.030211819
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1941.0992594367938
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 91, 58, 57], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [65, 104, 86, 103, 85, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49, 26, 102], [88, 78], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seconds = 0.033081528
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1931.4247008229772
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 91, 58, 57], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [88, 78], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seconds = 0.034230002
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1925.979535539155
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 91, 58, 57], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 88, 75, 78], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [93, 96, 34, 30, 35, 51, 94, 81], [100, 87]]
+    seconds = 0.036869768
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1913.480540503283
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 91, 58, 57], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [93, 96, 34, 30, 35, 51, 94, 81], [100, 87]]
+    seconds = 0.040553006
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1850.1785073649953
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 91, 58, 57], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seconds = 0.041169254
+    source = "cbls_icn"
+    vehicles = 17
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1797.545023257304
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seconds = 0.047201542
+    source = "cbls_icn"
+    vehicles = 17
+    worker = 1
+
+    [[trials.workers]]
+    distance = 1797.545023257304
+    finished_seconds = 5.000160929
+    julia_thread_id = 1
+    method = "cbls_icn"
+    os_thread_id = 22775
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+    seed = 42
+    started_seconds = 0.003055364
+    thread_cpu_seconds = 4.9965422020000005
+    vehicles = 17
+    worker = 1
+
+        [trials.workers.error_backend]
+        backend = "icn"
+        bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+        icn_decoder_calls = 982607289
+        mapping = "scalar residuals: fleet, continuous time, prefix load and return load; allEqual: pair routes; strict ordered: pickup before delivery"
+        provenance = "recovered manually constructed witnesses in a learnable grammar; no new training"
+        score_evaluations = 3849727
+        structural_gate = "successor decoding checks service uniqueness and disconnected cycles"
+        witness_indices = [4, 2, 52]
+        workspace = "lane-owned route views and reusable ICN inputs/1; decoder functions unchanged"
+
+        [trials.workers.trace]
+        bridged = false
+        budget_seconds = 5.0
+        controller = "explicit native LS steps, paired reinsertion and atomic MetaMove commits/2"
+        fleet_weight = 21458.08125538047
+        hybrid = false
+        initialization_seconds = 0.000405581
+        julia_thread_id = 1
+        pair_candidates = 9475048
+        pair_moves = 16
+        pair_policy = "random request, best feasible greedy reinsertion/1"
+        repair_fraction = 0.35
+        repair_seconds = 0.0
+        repairs = []
+        scorer = "route constraints/2: icn"
+        seconds = 5.000131386
+        steps = 17978
+        structured = true
+        threads = 1
+
+            [[trials.workers.trace.trajectory]]
+            distance = 2119.937969685902
+            routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52], [66, 84, 65, 104, 100, 87, 75, 49], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 35, 51, 81], [99, 89, 88, 78, 26, 102]]
+            seconds = 0.004092531
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2111.4921965933286
+            routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52], [66, 84, 65, 104, 100, 87, 75, 49], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 35, 51, 81], [99, 89, 88, 78, 26, 102]]
+            seconds = 0.004190229
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2063.3074480704754
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52], [66, 84, 65, 104, 100, 87, 75, 49], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 35, 51, 81], [99, 89, 88, 78, 26, 102]]
+            seconds = 0.00595822
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2057.691127675165
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 29, 31, 27, 33, 92], [32, 90], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52], [66, 84, 65, 104, 100, 87, 75, 49], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 30, 35, 51, 94, 81], [99, 89, 88, 78, 26, 102]]
+            seconds = 0.00629206
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2052.7826071958407
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52], [66, 84, 65, 104, 100, 87, 75, 49], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 30, 35, 51, 94, 81], [99, 89, 88, 78, 26, 102]]
+            seconds = 0.007523334
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2047.8366642461274
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 58], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [66, 84, 65, 104, 100, 87, 75, 49], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 30, 35, 51, 94, 81], [99, 89, 88, 78, 26, 102]]
+            seconds = 0.008694246
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2029.2785454275677
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 58], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [66, 65, 104, 100, 87, 75], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 30, 35, 51, 94, 81], [99, 89, 88, 78, 26, 102]]
+            seconds = 0.011618361
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2029.0485938471493
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 58], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [66, 65, 104, 100, 87, 75], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49, 26, 102], [85, 86, 103, 67], [91, 54, 57, 101], [93, 96, 34, 30, 35, 51, 94, 81], [99, 89, 88, 78]]
+            seconds = 0.015517451
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2011.193816194685
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 58], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49, 26, 102], [91, 54, 57, 101], [93, 96, 34, 30, 35, 51, 94, 81], [99, 89, 88, 78]]
+            seconds = 0.02126161
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1996.9853946021392
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 58], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49, 26, 102], [88, 78], [91, 54, 57, 101], [93, 96, 34, 30, 35, 51, 94, 81]]
+            seconds = 0.023894126
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1995.258915463046
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 91, 58, 57], [54, 101], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 79, 61, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49, 26, 102], [88, 78], [93, 96, 34, 30, 35, 51, 94, 81]]
+            seconds = 0.027354434
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1942.0159119005702
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 91, 58, 57], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [65, 104, 85, 86, 103, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49, 26, 102], [88, 78], [93, 96, 34, 30, 35, 51, 94, 81]]
+            seconds = 0.030211819
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1941.0992594367938
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 91, 58, 57], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 25], [65, 104, 86, 103, 85, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49, 26, 102], [88, 78], [93, 96, 34, 30, 35, 51, 94, 81]]
+            seconds = 0.033081528
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1931.4247008229772
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 91, 58, 57], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [88, 78], [93, 96, 34, 30, 35, 51, 94, 81]]
+            seconds = 0.034230002
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1925.979535539155
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 91, 58, 57], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 88, 75, 78], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [93, 96, 34, 30, 35, 51, 94, 81], [100, 87]]
+            seconds = 0.036869768
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1913.480540503283
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 91, 58, 57], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [93, 96, 34, 30, 35, 51, 94, 81], [100, 87]]
+            seconds = 0.040553006
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1850.1785073649953
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [53, 91, 58, 57], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [93, 96, 34, 30, 35, 51, 94, 81]]
+            seconds = 0.041169254
+            vehicles = 17
+            [[trials.workers.trace.trajectory]]
+            distance = 1797.545023257304
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [28, 31, 33, 92], [32, 29, 27, 90], [43, 45, 42, 41, 36, 38], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 23, 50, 21, 25], [65, 104, 86, 103, 85, 67], [66, 53, 100, 58, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 57], [93, 96, 34, 30, 35, 51, 94, 81]]
+            seconds = 0.047201542
+            vehicles = 17
+[[trials]]
+allocation = ["cbls_icn"]
+audit_merge_seconds = 0.0005331210000001363
+budget_seconds = 5.0
+coordination = "static allocation, independently seeded workers, final best merge; no adaptive allocation or inter-worker incumbent exchange"
+distance = 1815.1708569940206
+initial_distance = 2143.5026830234387
+initial_seconds = 0.003091559
+initial_vehicles = 19
+instance = "lrc101"
+julia_threads_available = 1
+mean_active_cpus = 0.9998679621744351
+metastrategist_executed = true
+metastrategist_plan_key = "b1ec390640c41381e03022de01ec3ece91ef82f8a513f11e3014f933c684bee6"
+method = "cbls_icn"
+original_validation = true
+process_cpu_seconds = 4.999429713999994
+routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [30, 51, 94, 81], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 50, 21, 25], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [64, 77, 105, 52, 86, 103], [66, 65, 104, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 85, 57, 67], [93, 96, 63, 68, 72, 95]]
+schema = "li-lim-resource-trial/1"
+seed = 43
+source_sha256 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+threads_mode = "independent serial search trajectories; best incumbent merge"
+threads_requested = 1
+vehicles = 17
+wall_seconds = 5.000089915
+
+    [[trials.trajectory]]
+    distance = 2143.5026830234387
+    routes = [[46, 3, 62, 82, 97, 69], [28, 29, 31, 27, 33, 92], [63, 68, 72, 95], [53, 58, 23, 50, 21, 25], [73, 40, 37, 39, 44, 55], [66, 84, 65, 104, 100, 87, 75, 49], [85, 86, 103, 67], [15, 48, 13, 74, 107, 80, 47, 56], [99, 89, 88, 78, 26, 102], [6, 8, 7, 9, 4, 2, 106, 5], [43, 45, 42, 41, 36, 38], [91, 54, 57, 101], [64, 77, 105, 52, 51, 81], [83, 12, 16, 17, 10, 11, 14, 18], [60, 76, 98, 59], [24, 22, 20, 19], [32, 30, 90, 94], [70, 79, 61, 71], [93, 96, 34, 35]]
+    seconds = 0.003091559
+    source = "common_insertion"
+    vehicles = 19
+    [[trials.trajectory]]
+    distance = 2073.223762700808
+    routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [66, 84, 65, 104, 100, 87, 75, 49], [70, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [85, 86, 103, 67], [91, 57], [93, 96, 34, 35], [99, 89, 88, 78, 26, 102]]
+    seconds = 0.005044959
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2062.8579326935087
+    routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [91, 57], [93, 96, 34, 35], [99, 89, 88, 78, 26, 102]]
+    seconds = 0.005964249
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2052.929676614196
+    routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 31, 27, 33, 92], [32, 90], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [91, 57], [93, 96, 34, 30, 35, 94], [99, 89, 88, 78, 26, 102]]
+    seconds = 0.009255528
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2046.0153705598354
+    routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [91, 57], [93, 96, 34, 30, 35, 94], [99, 89, 88, 78, 26, 102]]
+    seconds = 0.013870229
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2036.79160055305
+    routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 34, 30, 35, 94]]
+    seconds = 0.016417048
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2036.416553339665
+    routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [32, 31, 33, 90], [34, 28, 29, 27, 35, 92], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 30, 94]]
+    seconds = 0.017945969
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 2027.9707802470916
+    routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 28, 29, 27, 35, 92], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 30, 94]]
+    seconds = 0.018658082
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1979.7860317242391
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 28, 29, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 30, 94]]
+    seconds = 0.0190126
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1976.2462213675508
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 30, 94]]
+    seconds = 0.023085032
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1975.3295689037743
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 86, 103, 85, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 30, 94]]
+    seconds = 0.024531707
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1956.8722009620005
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52], [65, 104, 86, 103, 85, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 30, 51, 94, 81]]
+    seconds = 0.026351241
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1951.5865860354832
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [65, 104, 85, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 30, 51, 94, 81]]
+    seconds = 0.027350466
+    source = "cbls_icn"
+    vehicles = 19
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1945.8288757960881
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [65, 104, 91, 85, 57, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [93, 96, 30, 51, 94, 81]]
+    seconds = 0.028289207
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1926.6142955685627
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [65, 104, 88, 78, 26, 102], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [91, 85, 57, 67], [93, 96, 30, 51, 94, 81]]
+    seconds = 0.030687481
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1914.777323770645
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [65, 104, 26, 102], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [91, 85, 57, 67], [93, 96, 30, 51, 94, 81]]
+    seconds = 0.032527243
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1883.8502380860548
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25, 26, 102], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [65, 104], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [91, 85, 57, 67], [93, 96, 30, 51, 94, 81]]
+    seconds = 0.036804319
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1857.8031716223302
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25, 26, 102], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [65, 104], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49], [91, 85, 57, 67], [93, 96, 30, 51, 94, 81]]
+    seconds = 0.037717106
+    source = "cbls_icn"
+    vehicles = 18
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1840.065503553286
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25, 26, 102], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [66, 65, 104, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49], [91, 85, 57, 67], [93, 96, 30, 51, 94, 81]]
+    seconds = 0.038049796
+    source = "cbls_icn"
+    vehicles = 17
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1839.0260140360142
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 26, 102, 25], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [66, 65, 104, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49], [91, 85, 57, 67], [93, 96, 30, 51, 94, 81]]
+    seconds = 0.04151432
+    source = "cbls_icn"
+    vehicles = 17
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1837.2335588317808
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [30, 51, 94, 81], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 26, 102, 25], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [64, 77, 105, 52, 86, 103], [66, 65, 104, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49], [91, 85, 57, 67], [93, 96, 63, 68, 72, 95]]
+    seconds = 0.045269351
+    source = "cbls_icn"
+    vehicles = 17
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1824.8454156078374
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [30, 51, 94, 81], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [64, 77, 105, 52, 86, 103], [66, 65, 104, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49, 26, 102], [91, 85, 57, 67], [93, 96, 63, 68, 72, 95]]
+    seconds = 0.102536785
+    source = "cbls_icn"
+    vehicles = 17
+    worker = 1
+    [[trials.trajectory]]
+    distance = 1815.1708569940206
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [30, 51, 94, 81], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 50, 21, 25], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [64, 77, 105, 52, 86, 103], [66, 65, 104, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 85, 57, 67], [93, 96, 63, 68, 72, 95]]
+    seconds = 0.116324678
+    source = "cbls_icn"
+    vehicles = 17
+    worker = 1
+
+    [[trials.workers]]
+    distance = 1815.1708569940206
+    finished_seconds = 5.000050082
+    julia_thread_id = 1
+    method = "cbls_icn"
+    os_thread_id = 22775
+    routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [30, 51, 94, 81], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 50, 21, 25], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [64, 77, 105, 52, 86, 103], [66, 65, 104, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 85, 57, 67], [93, 96, 63, 68, 72, 95]]
+    seed = 43
+    started_seconds = 0.003248841
+    thread_cpu_seconds = 4.996141747999999
+    vehicles = 17
+    worker = 1
+
+        [trials.workers.error_backend]
+        backend = "icn"
+        bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+        icn_decoder_calls = 951430787
+        mapping = "scalar residuals: fleet, continuous time, prefix load and return load; allEqual: pair routes; strict ordered: pickup before delivery"
+        provenance = "recovered manually constructed witnesses in a learnable grammar; no new training"
+        score_evaluations = 3721066
+        structural_gate = "successor decoding checks service uniqueness and disconnected cycles"
+        witness_indices = [4, 2, 52]
+        workspace = "lane-owned route views and reusable ICN inputs/1; decoder functions unchanged"
+
+        [trials.workers.trace]
+        bridged = false
+        budget_seconds = 5.0
+        controller = "explicit native LS steps, paired reinsertion and atomic MetaMove commits/2"
+        fleet_weight = 21458.08125538047
+        hybrid = false
+        initialization_seconds = 0.000434943
+        julia_thread_id = 1
+        pair_candidates = 8961140
+        pair_moves = 20
+        pair_policy = "random request, best feasible greedy reinsertion/1"
+        repair_fraction = 0.35
+        repair_seconds = 0.0
+        repairs = []
+        scorer = "route constraints/2: icn"
+        seconds = 5.000024151
+        steps = 17384
+        structured = true
+        threads = 1
+
+            [[trials.workers.trace.trajectory]]
+            distance = 2073.223762700808
+            routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [66, 84, 65, 104, 100, 87, 75, 49], [70, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [85, 86, 103, 67], [91, 57], [93, 96, 34, 35], [99, 89, 88, 78, 26, 102]]
+            seconds = 0.005044959
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2062.8579326935087
+            routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 31, 27, 33, 92], [32, 30, 90, 94], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [91, 57], [93, 96, 34, 35], [99, 89, 88, 78, 26, 102]]
+            seconds = 0.005964249
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2052.929676614196
+            routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 31, 27, 33, 92], [32, 90], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [91, 57], [93, 96, 34, 30, 35, 94], [99, 89, 88, 78, 26, 102]]
+            seconds = 0.009255528
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2046.0153705598354
+            routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [91, 57], [93, 96, 34, 30, 35, 94], [99, 89, 88, 78, 26, 102]]
+            seconds = 0.013870229
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2036.79160055305
+            routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [28, 29, 27, 92], [32, 31, 33, 90], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 34, 30, 35, 94]]
+            seconds = 0.016417048
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2036.416553339665
+            routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19], [32, 31, 33, 90], [34, 28, 29, 27, 35, 92], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 50, 21, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 30, 94]]
+            seconds = 0.017945969
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 2027.9707802470916
+            routes = [[6, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 28, 29, 27, 35, 92], [43, 45, 42, 41, 36, 38], [46, 3, 62, 82, 97, 69], [53, 58, 23, 25], [60, 76, 98, 59], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 30, 94]]
+            seconds = 0.018658082
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1979.7860317242391
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 28, 29, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 30, 94]]
+            seconds = 0.0190126
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1976.2462213675508
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 85, 86, 103, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 30, 94]]
+            seconds = 0.023085032
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1975.3295689037743
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 51, 81], [65, 104, 86, 103, 85, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 30, 94]]
+            seconds = 0.024531707
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1956.8722009620005
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52], [65, 104, 86, 103, 85, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 30, 51, 94, 81]]
+            seconds = 0.026351241
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1951.5865860354832
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [65, 104, 85, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [91, 57], [93, 96, 30, 51, 94, 81]]
+            seconds = 0.027350466
+            vehicles = 19
+            [[trials.workers.trace.trajectory]]
+            distance = 1945.8288757960881
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [65, 104, 91, 85, 57, 67], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [88, 78, 26, 102], [93, 96, 30, 51, 94, 81]]
+            seconds = 0.028289207
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1926.6142955685627
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 98, 59], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [65, 104, 88, 78, 26, 102], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [91, 85, 57, 67], [93, 96, 30, 51, 94, 81]]
+            seconds = 0.030687481
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1914.777323770645
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [65, 104, 26, 102], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [91, 85, 57, 67], [93, 96, 30, 51, 94, 81]]
+            seconds = 0.032527243
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1883.8502380860548
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [24, 22, 20, 19, 50, 21], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25, 26, 102], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [65, 104], [66, 84, 100, 87, 75, 49], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [91, 85, 57, 67], [93, 96, 30, 51, 94, 81]]
+            seconds = 0.036804319
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1857.8031716223302
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25, 26, 102], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [65, 104], [66, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49], [91, 85, 57, 67], [93, 96, 30, 51, 94, 81]]
+            seconds = 0.037717106
+            vehicles = 18
+            [[trials.workers.trace.trajectory]]
+            distance = 1840.065503553286
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25, 26, 102], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [66, 65, 104, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49], [91, 85, 57, 67], [93, 96, 30, 51, 94, 81]]
+            seconds = 0.038049796
+            vehicles = 17
+            [[trials.workers.trace.trajectory]]
+            distance = 1839.0260140360142
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 26, 102, 25], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [63, 68, 72, 95], [64, 77, 105, 52, 86, 103], [66, 65, 104, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49], [91, 85, 57, 67], [93, 96, 30, 51, 94, 81]]
+            seconds = 0.04151432
+            vehicles = 17
+            [[trials.workers.trace.trajectory]]
+            distance = 1837.2335588317808
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [30, 51, 94, 81], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 26, 102, 25], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [64, 77, 105, 52, 86, 103], [66, 65, 104, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49], [91, 85, 57, 67], [93, 96, 63, 68, 72, 95]]
+            seconds = 0.045269351
+            vehicles = 17
+            [[trials.workers.trace.trajectory]]
+            distance = 1824.8454156078374
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [30, 51, 94, 81], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 25], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [64, 77, 105, 52, 86, 103], [66, 65, 104, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 50, 21, 49, 26, 102], [91, 85, 57, 67], [93, 96, 63, 68, 72, 95]]
+            seconds = 0.102536785
+            vehicles = 17
+            [[trials.workers.trace.trajectory]]
+            distance = 1815.1708569940206
+            routes = [[6, 46, 3, 8, 7, 9, 4, 2, 106, 5], [15, 48, 13, 74, 107, 80, 47, 56], [30, 51, 94, 81], [32, 31, 33, 90], [34, 29, 28, 27, 35, 92], [43, 45, 42, 41, 36, 38], [53, 58, 23, 50, 21, 25], [60, 76, 88, 98, 59, 78], [62, 82, 97, 69], [64, 77, 105, 52, 86, 103], [66, 65, 104, 100, 87, 75], [70, 99, 89, 54, 79, 61, 101, 71], [73, 40, 37, 39, 44, 55], [83, 12, 16, 17, 10, 11, 14, 18], [84, 24, 22, 20, 19, 49, 26, 102], [91, 85, 57, 67], [93, 96, 63, 68, 72, 95]]
+            seconds = 0.116324678
+            vehicles = 17
