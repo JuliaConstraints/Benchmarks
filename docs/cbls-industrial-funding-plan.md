@@ -69,9 +69,9 @@ Les BKS SINTEF donnent des cibles de qualité ; aucun temps de référence homog
 ne doit être inventé. La mesure utile est notre temps local d'atteinte de ces cibles.
 
 Le [premier bilan Timefold](../LiLim/results/competitors-20261004.md) comprend
-36 essais natifs Community et 18 contrôles CBLS/ICN actuels, à cinq secondes,
-sur un et seize workers. CBLS gagne les 24 paires LR101/LRC101 contre les deux
-profils testés et égale les 12 paires LC101. Aucun BKS LR101/LRC101 n'est atteint.
+90 essais natifs Community et 45 contrôles CBLS/ICN actuels, à cinq secondes,
+sur 1/2/4/8/16 workers. CBLS gagne les 60 paires LR101/LRC101 contre les deux
+profils testés et égale les 30 paires LC101. Aucun BKS LR101/LRC101 n'est atteint.
 Les modèles, scores, budgets et sorties sont qualifiés, mais le corpus exposé,
 trois graines et les réglages non optimisés limitent cette conclusion au pilote.
 Hexaly dispose du modèle et du contrat d'échange ; sa qualification native et

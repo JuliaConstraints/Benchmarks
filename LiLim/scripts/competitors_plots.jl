@@ -1,7 +1,7 @@
 using TOML, Statistics, CairoMakie, Random
 length(ARGS)==2 && ARGS[2] in ("exact","xkcd") || error("usage: competitors_plots.jl output-directory exact|xkcd")
 const ROOT=normpath(joinpath(@__DIR__,".."));const OUT=abspath(ARGS[1]);mkpath(OUT)
-const IDS=["lc101","lr101","lrc101"];const WIDTHS=[1,16]
+const IDS=["lc101","lr101","lrc101"];const WIDTHS=[1,2,4,8,16]
 const COLORS=[:seagreen3,:dodgerblue3,:darkorange2]
 const LABELS=["CBLS + ICN","Timefold LA 400","Timefold LA 1 000"]
 const TARGETS=TOML.parsefile(joinpath(ROOT,"config","diagnostic-targets.toml"))
