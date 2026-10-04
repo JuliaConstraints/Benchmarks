@@ -231,6 +231,16 @@ contient trois graines et mesure un chemin de recherche précis ; ce n'est pas
 une estimation universelle du coût d'ICN, et cela ne mesure pas une qualité
 différente des solutions. La capture de performance complète est dans
 [`icn-performance-20261004.md`](../LiLim/results/icn-performance-20261004.md).
+Le bilan de 369 essais comptabilise 166,7 milliards d'appels aux décodeurs
+ICN. Le score actuel appelle le décodeur scalaire séparément pour chaque résidu
+de temps/charge et appelle deux autres décodeurs pour chaque paire. Une piste
+précise à tester est de regrouper, dans des buffers privés, les résidus de même
+sémantique puis d'évaluer un ICN vectoriel une fois par groupe — par exemple
+une somme de parties positives pour les violations de fenêtres temporelles.
+Ne pas mélanger dans le même groupe des inégalités de sens ou d'échelle
+différents, ni des paires pickup-delivery indépendantes en une seule contrainte
+`all_equal` globale. La sortie agrégée devra rester égale à la somme actuelle
+sur un rejeu déterministe complet.
 
 La fusion n'a pas encore été testée dans le chemin Li-Lim. Le package
 CompositionalNetworks contient déjà des évaluations compilées et des chemins
