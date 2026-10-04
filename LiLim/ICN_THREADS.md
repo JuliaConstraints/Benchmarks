@@ -209,3 +209,14 @@ scoreur et des voisinages. Le scoreur du pilote recrée ses entrées ICN et ses
 routes ; le moteur LocalSearchSolvers possède déjà des espaces de travail pour
 les entrées de contraintes et les mouvements. Cette distinction empêche
 d'attribuer au moteur un défaut qui appartient à l'adaptateur du benchmark.
+
+L'optimisation suivante remplace les entrées ICN, les vues de routes et le
+candidat de réinsertion par des buffers privés à chaque voie. Les fonctions
+compilées des trois témoins restent identiques. Les voisins structurellement
+invalides retournent le même score sans construire d'exception. Les incumbents
+retournés restent possédés et ne pointent pas dans un buffer réutilisé.
+Qualification : 12 605 contrôles de scores, distances et flottes, 22 contrôles
+d'isolation et d'allocations, 141 contrôles des portefeuilles à 16 threads et
+1 434 contrôles du contrôleur hybride. Le scoreur chaud alloue zéro octet sur
+les affectations valides et invalides testées. Ces tests ne démontrent pas
+encore l'utilisation de tous les CPU sur une recherche réelle.

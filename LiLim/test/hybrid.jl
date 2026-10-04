@@ -30,6 +30,7 @@ include(joinpath(@__DIR__, "..", "src", "Hybrid.jl"))
             expected && push!(valid_routes,MetaRepair.routes_from_successors(fixture,values))
         end
         canonical(routes) = sort([join(route,",") for route in routes if !isempty(route)])
+        workspace = Hybrid.PairRelocationWorkspace()
         for routes in valid_routes, pair in small.pairs
             before = deepcopy(routes)
             remainder(candidate) = canonical([[i for i in route if !(i in pair)] for route in candidate])
@@ -45,6 +46,14 @@ include(joinpath(@__DIR__, "..", "src", "Hybrid.jl"))
             @test quality(chosen)[1] == optimum[1]
             @test quality(chosen)[2] ≈ optimum[2] atol=1e-8
             @test routes == before
+            reused = Hybrid.pair_relocation(fixture,routes,D,pair;workspace)
+            @test reused.examined == moved.examined
+            @test reused.routes == moved.routes
+            @test routes == before
+            # A later use must not mutate an earlier returned incumbent.
+            saved = deepcopy(reused.routes)
+            Hybrid.pair_relocation(fixture,routes,D,last(small.pairs);workspace)
+            @test reused.routes == saved
         end
         stopped = Hybrid.pair_relocation(fixture,first(valid_routes),D,first(small.pairs);deadline_ns=UInt64(0))
         @test stopped.routes === nothing && stopped.examined==0

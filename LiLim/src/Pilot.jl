@@ -5,7 +5,13 @@ import MathOptInterface as MOI
 
 distances(d) = [hypot(d.coordinates[i,1]-d.coordinates[j,1], d.coordinates[i,2]-d.coordinates[j,2])
     for i in eachindex(d.demand), j in eachindex(d.demand)]
-route_distance(route, D) = sum(D[i,j] for (i,j) in zip([1;route], [route;1]))
+function route_distance(route,D)
+    total = 0.; previous = 1
+    for node in route
+        total += D[previous,node]; previous = node
+    end
+    total+D[previous,1]
+end
 function feasible_route(route, d, D)
     clock=d.earliest[1]; load=0; previous=1
     for i in route

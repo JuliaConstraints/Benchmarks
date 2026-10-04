@@ -33,6 +33,8 @@ function qualify()
                 @test iszero(icn.error) == valid
                 @test iszero(naive.error) == valid
                 @test icn.error ≈ direct.error atol=1e-12
+                @test icn.distance == direct.distance
+                @test icn.vehicles == direct.vehicles
             end
         end
         @test b.calls > 0
@@ -40,12 +42,49 @@ function qualify()
         @test cloned.calls == 0 && cloned.evaluations == 0
         @test cloned.scalar === b.scalar
         @test cloned.witnesses !== b.witnesses
+        @test cloned.workspace !== b.workspace
+        @test cloned.workspace.pair !== b.workspace.pair
+        @test cloned.workspace.scalar_real !== b.workspace.scalar_real
         mktemp() do path,io
             payload = TOML.parsefile(ICNScoring.BANK)
             payload["witnesses"][4]["schema_sha256"] = "bad"
             TOML.print(io,payload);close(io)
             @test_throws ErrorException ICNScoring.load_backend(:icn;bank=path)
         end
+    end
+    @testset "Private scoring workspaces and allocation regression" begin
+        d = PickupDeliveryProblem(2,2,[0. 0.;1 1;2 1;-1 1;-2 1],
+            [0,1,-1,1,-1],zeros(5),fill(20.,5),zeros(5),[(2,3),(4,5)])
+        p = BenchmarkInstance("workspace",d);D=Pilot.distances(d)
+        values = [3,1,5,1]; b=ICNScoring.clone_backend(BANKS[:icn])
+        expected = Hybrid.routing_score(p,D,values)
+        for invalid in ([1,1,1], [0,1,1,1], [NaN,1,1,1], [Inf,1,1,1],
+                [1.5,1,1,1], [6,1,1,1], [3,2,5,4], [3,3,1,1])
+            @test ICNScoring.score(b,p,D,invalid)==(error=1.,distance=Inf,vehicles=typemax(Int))
+            @test ICNScoring.score(b,p,D,values)==expected
+        end
+        @test ICNScoring.score(b,p,D,Float64.(values))==expected
+        # Measure inside a specialized function, after compiling both score paths.
+        function allocation_bytes(b,p,D,values)
+            ICNScoring.score(b,p,D,values)
+            @allocated ICNScoring.score(b,p,D,values)
+        end
+        allocation_bytes(b,p,D,values)
+        @test allocation_bytes(b,p,D,values)==0
+        invalid=[3,2,5,4]
+        allocation_bytes(b,p,D,invalid)
+        @test allocation_bytes(b,p,D,invalid)==0
+        lanes=[ICNScoring.clone_backend(b) for _ in 1:Threads.nthreads()]
+        scores=Vector{typeof(expected)}(undef,length(lanes))
+        Threads.@threads :static for lane in eachindex(lanes)
+            for _ in 1:1000
+                scores[lane]=ICNScoring.score(lanes[lane],p,D,values)
+                ICNScoring.score(lanes[lane],p,D,invalid)
+            end
+        end
+        @test all(==(expected),scores)
+        @test length(unique(objectid(lane.workspace.pair) for lane in lanes))==length(lanes)
+        @test length(unique(objectid(lane.workspace.route_of) for lane in lanes))==length(lanes)
     end
     @testset "Resource accounting and executable portfolios" begin
         @test ResourceExperiment.allocation("mixed_balanced",16) ==

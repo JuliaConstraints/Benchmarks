@@ -12,6 +12,7 @@ const RESULT=Dict{String,Any}("schema"=>"li-lim-perfchecker/1","label"=>ARGS[1],
     "perfchecker_revision"=>"1cc09a98db569b382f91dc10f6a569c1c728b6aa",
     "controller_project_sha256"=>digest(Base.active_project()),
     "controller_manifest_sha256"=>digest(joinpath(dirname(Base.active_project()),"Manifest.toml")),
+    "controller_source_sha256"=>digest(@__FILE__),
     "solver_project_sha256"=>digest(joinpath(ENVIRONMENT,"Project.toml")),
     "solver_manifest_sha256"=>digest(joinpath(ENVIRONMENT,"Manifest.toml")),
     "worker_threads"=>1,"gc_threads_environment"=>get(ENV,"JULIA_NUM_GC_THREADS","default"),
@@ -38,9 +39,10 @@ const SETUP=quote
     Base.invokelatest(ResourceExperiment.run_case,pc_instance,"cbls_icn",1.,41,pc_policy,pc_banks)
 end
 const WORKLOAD=quote
-    pc_trial=ResourceExperiment.run_case(pc_instance,"cbls_icn",2.,41,pc_policy,pc_banks)
-    pc_trial["original_validation"] || error("invalid PerfChecker workload")
-    pc_trial["workers"][1]["error_backend"]["icn_decoder_calls"]>0 || error("ICNs were not used")
+    let pc_trial=ResourceExperiment.run_case(pc_instance,"cbls_icn",2.,41,pc_policy,pc_banks)
+        pc_trial["original_validation"] || error("invalid PerfChecker workload")
+        pc_trial["workers"][1]["error_backend"]["icn_decoder_calls"]>0 || error("ICNs were not used")
+    end
 end
 function clean(value)
     value===nothing && return "unavailable"

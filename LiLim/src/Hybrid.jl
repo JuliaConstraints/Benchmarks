@@ -54,34 +54,59 @@ function route_groups(routes, max_visits)
     groups
 end
 
+struct PairRelocationWorkspace
+    base::Vector{Vector{Int}}
+    candidate::Vector{Int}
+end
+PairRelocationWorkspace() = PairRelocationWorkspace(Vector{Int}[],Int[])
+
 "Best feasible reinsertion of one complete request; current routes remain owned by the caller."
-function pair_relocation(p, routes, distances, pair; deadline_ns=typemax(UInt64))
+function pair_relocation(p, routes, distances, pair; deadline_ns=typemax(UInt64),
+        workspace=PairRelocationWorkspace())
     pickup, delivery = pair
     source = findfirst(route -> pickup in route, routes)
     source === nothing && throw(ArgumentError("request absent from routes"))
     delivery in routes[source] || throw(ArgumentError("split request"))
     original_cost = sum(route -> Pilot.route_distance(route, distances), routes)
-    base = deepcopy(routes)
+    base = workspace.base
+    while length(base)<length(routes)
+        push!(base,Int[])
+    end
+    resize!(base,length(routes))
+    for i in eachindex(routes)
+        resize!(base[i],length(routes[i])); copyto!(base[i],routes[i])
+    end
     filter!(node -> node != pickup && node != delivery, base[source])
     source_cost = isempty(base[source]) ? 0. : Pilot.route_distance(base[source], distances)
     removed_cost = Pilot.route_distance(routes[source], distances)-source_cost
     best = nothing
     best_key = (length(routes), original_cost-1e-8)
     examined = 0
+    fleet = length(base)-count(isempty,base)
+    candidate = workspace.candidate
     for target in eachindex(base)
         route = base[target]
         old_cost = isempty(route) ? 0. : Pilot.route_distance(route, distances)
+        resize!(candidate,length(route)+2)
         for a in 1:length(route)+1, b in a+1:length(route)+2
             time_ns() < deadline_ns || return (; routes=best, examined)
-            candidate = copy(route)
-            insert!(candidate,a,pickup); insert!(candidate,b,delivery)
+            offset = 0
+            for j in eachindex(candidate)
+                if j==a
+                    candidate[j] = pickup
+                elseif j==b
+                    candidate[j] = delivery
+                else
+                    offset += 1; candidate[j] = route[offset]
+                end
+            end
             examined += 1
             Pilot.feasible_route(candidate,p.data,distances) || continue
-            vehicles = length(base)-count(isempty,base)+(isempty(route) ? 1 : 0)
+            vehicles = fleet+(isempty(route) ? 1 : 0)
             distance = original_cost-removed_cost-old_cost+Pilot.route_distance(candidate,distances)
             key = (vehicles,distance)
             key < best_key || continue
-            best = deepcopy(base); best[target] = candidate; filter!(!isempty,best)
+            best = deepcopy(base); best[target] = copy(candidate); filter!(!isempty,best)
             best_key = key
         end
     end
@@ -145,6 +170,7 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
     remaining() = max(0.,seconds-elapsed())
     deadline_ns = started+UInt64(round(seconds*1e9))
     best_scalar = prepared.fleet_weight*best_quality.vehicles+best_quality.distance
+    pair_workspace = PairRelocationWorkspace()
     function consider!()
         LS.best_value(solver) < best_scalar || return
         candidate = routes_from_successors(p, collect(LS.best_values(solver)))
@@ -190,7 +216,8 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
         remaining() > 0 || break
         if structured
             current = routes_from_successors(p, collect(LS.get_values(solver)))
-            relocation = pair_relocation(p,current,prepared.distances,rand(rng,p.data.pairs);deadline_ns)
+            relocation = pair_relocation(p,current,prepared.distances,rand(rng,p.data.pairs);
+                deadline_ns,workspace=pair_workspace)
             pair_candidates += relocation.examined
             if relocation.routes !== nothing && remaining() > 0
                 validation = validate_solution(p,relocation.routes)

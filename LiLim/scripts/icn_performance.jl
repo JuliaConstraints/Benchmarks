@@ -58,6 +58,12 @@ function case_details!(event,r)
     event["icn_calls"]=sum(w["error_backend"]["icn_decoder_calls"] for w in r["workers"])
     event["repair_calls"]=sum(length(get(w["trace"],"repairs",Any[])) for w in r["workers"])
     event["median_parent_initialization_seconds"]=median(get(w["trace"],"initialization_seconds",0.) for w in r["workers"])
+    event["workers"]=[Dict("worker"=>w["worker"],"os_thread_id"=>w["os_thread_id"],
+        "julia_thread_id"=>w["julia_thread_id"],"thread_cpu_seconds"=>w["thread_cpu_seconds"],
+        "search_wall_seconds"=>w["finished_seconds"]-w["started_seconds"],
+        "cpu_fraction"=>w["thread_cpu_seconds"]/(w["finished_seconds"]-w["started_seconds"]),
+        "pair_candidates"=>get(w["trace"],"pair_candidates",0),
+        "icn_calls"=>w["error_backend"]["icn_decoder_calls"]) for w in r["workers"]]
     nothing
 end
 function startup()
