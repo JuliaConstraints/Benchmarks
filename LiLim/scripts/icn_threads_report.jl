@@ -31,20 +31,46 @@ end
 for (file,key) in (("Project.toml","project_sha256"),("Manifest.toml","manifest_sha256"))
     digest(joinpath(campaign,"snapshot",file))==meta["baseline_environment"]["environment"][key] || error("environment snapshot corrupted")
 end
+resumptions=Dict{String,Any}()
+resumption_dir=joinpath(campaign,"resumptions")
+if isdir(resumption_dir)
+    for segment in readdir(resumption_dir;join=true)
+        info=TOML.parsefile(joinpath(segment,"started.toml"))
+        info["config"]==config && info["baseline_environment"]==meta["baseline_environment"] || error("resumption protocol mismatch")
+        Set(keys(info["source_sha256"]))==Set(keys(meta["source_sha256"])) || error("resumption source inventory mismatch")
+        for (relative,hash) in info["source_sha256"]
+            relative=="LiLim/scripts/icn_threads.jl" && continue
+            hash==meta["source_sha256"][relative] || error("solver changed during resumption")
+        end
+        digest(joinpath(segment,"icn_threads.jl"))==info["source_sha256"]["LiLim/scripts/icn_threads.jl"] || error("resumption controller corrupted")
+        info["icn_bank_sha256"]==meta["icn_bank_sha256"] && info["clb_commit"]==meta["clb_commit"] || error("resumption bank changed")
+        resumptions[basename(segment)]=info
+    end
+end
 records=Any[];keys_seen=Set();runtimes=Any[];total_icn=0
 for width in config["thread_counts"]
     dir=joinpath(campaign,string(width))
-    supervision=TOML.parsefile(joinpath(dir,"supervision.toml"))
+    completion=TOML.parsefile(joinpath(dir,"completed.toml"))
+    segment_id=get(completion,"resumption_id","")
+    evidence=isempty(segment_id) ? dir : joinpath(resumption_dir,segment_id,string(width))
+    supervision=TOML.parsefile(joinpath(evidence,"supervision.toml"))
     supervision["exitcode"]==0 && supervision["reason"]=="normal_exit" || error("failed process")
-    runtime=TOML.parsefile(joinpath(dir,"runtime.toml"))
+    runtime=TOML.parsefile(joinpath(evidence,"runtime.toml"))
     runtime["bank_sha256"]==meta["icn_bank_sha256"]==config["icn_bank_sha256"] || error("bank mismatch")
-    push!(runtimes,merge(runtime,Dict("supervision"=>supervision)))
+    push!(runtimes,merge(runtime,Dict("supervision"=>supervision,"execution_segment"=>isempty(segment_id) ? "original" : segment_id,
+        "original_runtime"=>TOML.parsefile(joinpath(dir,"runtime.toml")))))
     files=sort(filter(f->endswith(f,".result.toml"),readdir(dir;join=true)))
-    TOML.parsefile(joinpath(dir,"completed.toml"))["jobs"]==length(files) || error("inventory mismatch")
+    completion["jobs"]==length(files) || error("inventory mismatch")
     for file in files
         seal=replace(file,".result.toml"=>".completed.toml")
-        TOML.parsefile(seal)["result_sha256"]==digest(file) || error("result seal corrupted")
+        sealed=TOML.parsefile(seal)
+        sealed["result_sha256"]==digest(file) || error("result seal corrupted")
+        execution_segment=get(sealed,"resumption_id","original")
+        execution_segment=="original" || haskey(resumptions,execution_segment) || error("missing resumption provenance")
+        attempt_dir=execution_segment=="original" ? dir : joinpath(resumption_dir,execution_segment,string(width))
+        attempt=TOML.parsefile(joinpath(attempt_dir,replace(basename(file),".result.toml"=>".started.toml")))
         r=TOML.parsefile(file);id=r["instance"];method=r["method"];seed=r["seed"]
+        (attempt["instance"],attempt["method"],attempt["seed"])==(id,method,seed) || error("attempt identity mismatch")
         id in config["instances"] && seed in config["seeds"] || error("unexpected case")
         r["source_sha256"]==config["source_sha256"][id] || error("instance digest mismatch")
         width==r["threads_requested"]==r["julia_threads_available"] || error("width mismatch")
@@ -108,10 +134,10 @@ for width in config["thread_counts"]
             previous=quality(e);previous_time=e["seconds"]
         end
         previous==quality(r) || error("final result absent from trajectory")
-        native_log=replace(file,".result.toml"=>".highs.log")
+        native_log=haskey(sealed,"native_log_relative") ? joinpath(campaign,sealed["native_log_relative"]) : replace(file,".result.toml"=>".highs.log")
         native_info=isfile(native_log) ? filter(l->occursin("Thread count",l),readlines(native_log)) : String[]
         push!(records,merge(r,Dict("workers"=>worker_records,"raw_relative_path"=>relpath(file,campaign),
-            "raw_sha256"=>digest(file),"native_highs_thread_messages"=>native_info)))
+            "raw_sha256"=>digest(file),"native_highs_thread_messages"=>native_info,"execution_segment"=>execution_segment)))
     end
 end
 expected=Set((width,id,method,seed) for width in config["thread_counts"],id in config["instances"],seed in config["seeds"],
@@ -119,7 +145,7 @@ expected=Set((width,id,method,seed) for width in config["thread_counts"],id in c
 keys_seen==expected || error("incomplete campaign matrix")
 mkpath(dirname(prefix))
 ispath(prefix*".toml") && error("output exists")
-payload=Dict("schema"=>"li-lim-icn-threads-summary/1","metadata"=>meta,"runtime"=>runtimes,
+payload=Dict("schema"=>"li-lim-icn-threads-summary/1","metadata"=>meta,"runtime"=>runtimes,"resumptions"=>resumptions,
     "records"=>records,"audited_trials"=>length(records),"icn_decoder_calls"=>total_icn,
     "maximum_wall_overrun_seconds"=>maximum(r["wall_seconds"]-r["budget_seconds"] for r in records),
     "distance_tie_tolerance"=>1e-6,"report_generator_sha256"=>digest(@__FILE__))
@@ -131,6 +157,10 @@ open(prefix*".md","w") do io
     println(io,"Les erreurs ICN et directes qualifiées sont numériquement identiques ici. Ce test mesure leur coût et le parallélisme, sans démontrer un bénéfice d'apprentissage. Les travailleurs de recherche locale sont des trajectoires indépendantes ; les plans MetaStrategist sont statiques et réellement exécutés.\n")
     println(io,"Les profils CBLS emploient l'API native LocalSearchSolvers, son moteur de recherche ; le coût de traduction de la façade JuMP/MOI n'est pas inclus. Dans les portefeuilles mixtes, les graines restent attachées aux positions globales des voies : une famille ne reçoit pas automatiquement la graine de la première voie. Cette allocation est fixée avant la campagne, et peut être défavorable à un profil.\n")
     println(io,"Source mesurée : `",meta["benchmarks_commit"],"`. Banque ICN : `",meta["icn_bank_sha256"],"`. Dépassement mural maximal : ",round(payload["maximum_wall_overrun_seconds"];digits=4)," s ; les solutions améliorées sont toutes validées et datées dans le budget. La fusion et son audit sont chronométrés séparément.\n")
+    if !isempty(resumptions)
+        resumed=count(r->r["execution_segment"]!="original",records)
+        println(io,"La campagne a été interrompue à la demande de l'utilisateur après ",length(records)-resumed," essais terminés. Les ",resumed," essais manquants ont été repris avec les mêmes sources de solveur, banque, instances et budgets. Les empreintes du contrôleur de reprise, les temps de préparation des deux segments et l'attribution de chaque essai sont conservés. Cette séparation temporelle doit rester présente dans l'interprétation des résultats.\n")
+    end
     for id in config["instances"]
         println(io,"## ",id,"\n")
         println(io,"Médiane lexicographique parmi les trois répétitions (flotte, distance), puis médiane du nombre moyen de CPU actifs.\n")
