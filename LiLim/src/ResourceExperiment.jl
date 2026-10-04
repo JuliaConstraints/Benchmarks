@@ -12,7 +12,7 @@ function cpu_seconds(id=2)
     stamp[][1]+stamp[][2]/1e9
 end
 
-const METHODS = ("cbls_naive","cbls_icn","cbls_direct","hybrid_specialized_icn",
+const METHODS = ("cbls_naive","cbls_icn","cbls_icn_fused_scalar","cbls_icn_fused_all","cbls_direct","hybrid_specialized_icn",
     "hybrid_bridged_icn","highs_native","highs_portfolio","mixed_balanced","mixed_ls_heavy","cbls_mix_strategy")
 
 "Each entry is one serial search worker, including a serial HiGHS worker."
@@ -131,8 +131,11 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
         # Lane 1 retains the repetition seed. Further lanes deterministically
         # diversify independently, identically in every homogeneous profile.
         lane_seed = seed + 10_000*(i-1)
-        backend_kind = worker == "cbls_naive" ? :naive : worker == "cbls_direct" ? :direct : :icn
-        backend = ICNScoring.clone_backend(banks[backend_kind])
+        backend_kind = worker == "cbls_naive" ? :naive : worker == "cbls_direct" ? :direct :
+            worker == "cbls_icn_fused_scalar" ? :icn_fused_scalar :
+            worker == "cbls_icn_fused_all" ? :icn_fused_all : :icn
+        bank_kind = backend_kind in (:icn_fused_scalar,:icn_fused_all) ? :icn : backend_kind
+        backend = ICNScoring.clone_backend(banks[bank_kind],backend_kind)
         result = if worker in ("highs_native","highs_serial")
             highs_worker(p,initial,seconds,lane_seed,origin,worker=="highs_native" ? threads : 1;logpath)
         else
@@ -204,7 +207,8 @@ end
 
 function warmup(path,policy,banks;threads=Threads.nthreads())
     # Warm each concrete backend, serial HiGHS and the exact parallel wrapper.
-    for method in ("cbls_naive","cbls_icn","cbls_direct","hybrid_specialized_icn","hybrid_bridged_icn","highs_native","highs_portfolio")
+    for method in ("cbls_naive","cbls_icn","cbls_icn_fused_scalar","cbls_icn_fused_all",
+        "cbls_direct","hybrid_specialized_icn","hybrid_bridged_icn","highs_native","highs_portfolio")
         run_case(path,method,2.,41,policy,banks;threads)
     end
     if threads >= 4

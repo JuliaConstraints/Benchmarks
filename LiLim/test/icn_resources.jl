@@ -10,6 +10,8 @@ const BANKS = Dict(kind=>ICNScoring.load_backend(kind) for kind in (:naive,:icn,
 function qualify()
     @testset "Recovered ICN route zero sets and magnitude" begin
         b = BANKS[:icn]
+        fused_scalar = ICNScoring.clone_backend(b,:icn_fused_scalar)
+        fused_all = ICNScoring.clone_backend(b,:icn_fused_all)
         @test b.witnesses == [4,2,52]
         for op in ((==),(<=),(>=)), bound in (-3.,0.,2.,100.), x in (-5.5,-3.,-0.5,0.,0.5,2.,100.,100.25)
             expected = op === (==) ? abs(x-bound) : op === (<=) ? max(0.,x-bound) : max(0.,bound-x)
@@ -29,13 +31,21 @@ function qualify()
                 end
                 direct = Hybrid.routing_score(p,D,values)
                 icn = ICNScoring.score(b,p,D,values)
+                grouped = ICNScoring.score(fused_scalar,p,D,values)
+                fused = ICNScoring.score(fused_all,p,D,values)
                 naive = ICNScoring.score(BANKS[:naive],p,D,values)
                 buffered_direct = ICNScoring.score(BANKS[:direct],p,D,values)
                 @test iszero(icn.error) == valid
                 @test iszero(naive.error) == valid
                 @test icn.error ≈ direct.error atol=1e-12
+                @test grouped.error ≈ direct.error atol=1e-12
+                @test fused.error ≈ direct.error atol=1e-12
+                @test iszero(grouped.error) == valid
+                @test iszero(fused.error) == valid
                 @test icn.distance == direct.distance
                 @test icn.vehicles == direct.vehicles
+                @test grouped.distance == direct.distance && grouped.vehicles == direct.vehicles
+                @test fused.distance == direct.distance && fused.vehicles == direct.vehicles
                 @test buffered_direct == direct
             end
         end
@@ -47,6 +57,8 @@ function qualify()
         @test cloned.workspace !== b.workspace
         @test cloned.workspace.pair !== b.workspace.pair
         @test cloned.workspace.scalar_real !== b.workspace.scalar_real
+        @test cloned.workspace.error_terms !== b.workspace.error_terms
+        @test fused_scalar.calls > 0 && fused_all.calls > 0
         mktemp() do path,io
             payload = TOML.parsefile(ICNScoring.BANK)
             payload["witnesses"][4]["schema_sha256"] = "bad"
@@ -80,6 +92,11 @@ function qualify()
             handwritten=ICNScoring.clone_backend(BANKS[kind])
             allocation_bytes(handwritten,p,D,values)
             @test allocation_bytes(handwritten,p,D,values)==0
+        end
+        for kind in (:icn_fused_scalar,:icn_fused_all)
+            fused_backend=ICNScoring.clone_backend(BANKS[:icn],kind)
+            allocation_bytes(fused_backend,p,D,values)
+            @test allocation_bytes(fused_backend,p,D,values)==0
         end
         lanes=[ICNScoring.clone_backend(b) for _ in 1:Threads.nthreads()]
         scores=Vector{typeof(expected)}(undef,length(lanes))

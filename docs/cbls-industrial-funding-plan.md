@@ -567,3 +567,41 @@ léger. Un petit contrôle des graines HiGHS et du modèle RO évite de confondr
 un avantage sur une référence particulière avec un avantage général.
 Les profils seront réglés sur le corpus exposé et figés avant confirmation.
 L'ancienne automation reste en pause après livraison du pilote.
+
+## Campagne complète SINTEF préparée le 4 octobre 2026
+
+La demande ultérieure élargit l'étape de confirmation aux 354 instances Li-Lim
+officielles. Les six archives sont conservées sous `LiLim/data/raw/sintef-archives`;
+leurs SHA-256 correspondent à la table SINTEF figée le 4 octobre. Les 354 fichiers
+extraits sont recensés par empreinte dans
+[`sintef-pdptw-bks-20261004.toml`](../LiLim/config/sintef-pdptw-bks-20261004.toml).
+Les données brutes restent locales et ne sont pas nécessaires dans les commits.
+
+Le protocole initial fixe les largeurs 1/2/4/8/12/16/20 sur les 20 CPU logiques
+disponibles, en commençant par un cœur P distinct par voie, puis les cœurs E et
+les frères SMT. Il prévoit des paliers de 10/30/60/120/300/600 secondes. Les
+résultats conservent chaque graine, le meilleur résultat observé, la moyenne, la
+médiane réelle d'une exécution, l'écart-type, l'étendue, la faisabilité, les
+atteintes de référence SINTEF et les temps pour les atteindre. Les distances
+restent secondaires à la flotte et sont comparées au BKS lorsque la flotte
+correspond. Les absences de résultats ne sont pas comptées comme des échecs de
+faisabilité.
+
+Les programmes
+[`full_corpus_campaign.jl`](../LiLim/scripts/full_corpus_campaign.jl),
+[`full_corpus_report.jl`](../LiLim/scripts/full_corpus_report.jl) et
+[`full_corpus_plots.jl`](../LiLim/scripts/full_corpus_plots.jl) apportent le
+lanceur reprenable, le rapport anglais et les figures exactes ou XKCD. Chaque
+essai est écrit atomiquement dans son propre fichier et scellé par SHA-256 ; une
+reprise contrôle le protocole, les sources, la cohorte, l'environnement, la
+solution et tous les points de trajectoire dans le problème original. La
+commande exige une affinité CPU explicitement conforme à la topologie figée.
+Avant lancement, commencer par un lot diagnostique à 10 secondes sur LC101,
+LR101 et LRC101, puis vérifier les nouveaux chemins ICN fusionnés. Les résultats
+ci-dessus ne sont pas des résultats de cette campagne complète.
+
+Le contrôleur de campagne actuelle évalue CBLS naïf, score direct, ICN récupérés,
+hybrides spécialisé et bridgé, HiGHS natif, portefeuilles HiGHS et allocations
+MetaStrategist. Les profils Timefold et Hexaly attendent leurs adaptateurs
+qualifiés sur le corpus complet. Hexaly Optimizer reste soumis à l'examen de la
+licence d'essai ; aucun résultat commercial ne sera ajouté avant l'accès effectif.

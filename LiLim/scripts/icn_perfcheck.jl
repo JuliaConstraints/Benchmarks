@@ -7,8 +7,9 @@ const BASELINE=TOML.parsefile(joinpath(ROOT,"LiLim","config","current-pilot.toml
 const THREAD_CONFIG=TOML.parsefile(joinpath(ROOT,"LiLim","config","icn-threads.toml"))
 const SOURCE_COHORT=TOML.parsefile(joinpath(ROOT,"LiLim","config","workspace-cohort.toml"))["cohort"]
 const METHOD=get(ENV,"LILIM_PERFCHECK_METHOD","cbls_icn")
-const BACKEND=get(Dict("cbls_icn"=>"icn","cbls_direct"=>"direct","cbls_naive"=>"naive"),METHOD,"")
-isempty(BACKEND) && error("LILIM_PERFCHECK_METHOD must be cbls_icn, cbls_direct, or cbls_naive")
+const BACKEND=get(Dict("cbls_icn"=>"icn","cbls_icn_fused_scalar"=>"icn_fused_scalar",
+    "cbls_icn_fused_all"=>"icn_fused_all","cbls_direct"=>"direct","cbls_naive"=>"naive"),METHOD,"")
+isempty(BACKEND) && error("LILIM_PERFCHECK_METHOD must be cbls_icn, cbls_icn_fused_scalar, cbls_icn_fused_all, cbls_direct, or cbls_naive")
 const OUT=abspath(ARGS[2]);ispath(OUT) && error("output exists")
 digest(path)=bytes2hex(sha256(read(path)))
 const SOURCES=Dict(relpath(path,ROOT)=>digest(path) for path in readdir(joinpath(ROOT,"LiLim","src");join=true) if endswith(path,".jl"))
@@ -68,7 +69,7 @@ const WORKLOAD=quote
         pc_trial["original_validation"] || error("invalid PerfChecker workload")
         backend=pc_trial["workers"][1]["error_backend"]
         backend["backend"]==$BACKEND || error("unexpected error backend: "*backend["backend"])
-        if $BACKEND=="icn"
+        if startswith($BACKEND,"icn")
             backend["icn_decoder_calls"]>0 || error("ICNs were not used")
         else
             backend["icn_decoder_calls"]==0 || error("unexpected ICN execution in non-ICN profile")
