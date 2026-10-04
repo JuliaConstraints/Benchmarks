@@ -32,6 +32,16 @@ published under `LiLim/results`; no throughput or solution-quality gain is
 claimed for them yet. The full-corpus campaign configuration includes both so
 their effect can be measured against the unfused ICN scorer.
 
+The source gives a concrete decoder-call hypothesis to test. For a valid
+successor assignment with `N` customer nodes, `V` routes and `P` pickup-delivery
+pairs, the baseline makes `1 + 3N + 2V + 2P` learned-composition calls per score:
+one fleet check, three scalar checks per customer, two return checks per route,
+and two pair checks per request. Scalar fusion reduces this to `1 + 2P`; full
+fusion reduces it to one aggregate call. At 100 requests (`N = 200`, `P = 100`),
+that is `801 + 2V`, 201 and 1 calls respectively. These are source-derived call
+counts, not elapsed-time or throughput results; route decoding and residual
+accumulation remain, and the campaign must establish whether fusion helps.
+
 ## Result at 16 threads
 
 Three seeds, five seconds per trial, same instance, moves and ICN bank, Julia
