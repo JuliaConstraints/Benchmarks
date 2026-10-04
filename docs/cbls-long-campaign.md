@@ -272,6 +272,11 @@ sans dégrader faisabilité, qualité moyenne ou temps d'atteinte. Le coût à f
 la compilation et le coût chaud seront publiés séparément. Cette passe attend
 que le travail concurrent sur PerfChecker ait terminé ses changements afin de
 ne pas profiler un outil en cours de modification.
+Le contrôleur [`icn_perfcheck.jl`](../LiLim/scripts/icn_perfcheck.jl) peut choisir
+ICN, direct ou naïf ; il vérifie séparément l'environnement initial du solveur,
+la cohorte post-optimisation `workspace-cohort.toml`, l'instance LC101 et la
+banque ICN. Cette séparation évite de comparer par erreur la nouvelle campagne
+aux commits plus anciens du premier pilote.
 
 ### 4. Allocations MetaStrategist et mise à l'échelle
 
