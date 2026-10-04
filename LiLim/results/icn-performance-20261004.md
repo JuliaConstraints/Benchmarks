@@ -27,6 +27,10 @@ groups scalar residuals through the learned sum-condition decoder.
 direct pair-violation indicators into that aggregate decoder. The exhaustive
 small-domain checks in `test/icn_resources.jl` establish equality with the direct
 score on that qualified domain; they do not replace the baseline learned profile.
+These two fused profiles are not present in any result capture currently
+published under `LiLim/results`; no throughput or solution-quality gain is
+claimed for them yet. The full-corpus campaign configuration includes both so
+their effect can be measured against the unfused ICN scorer.
 
 ## Result at 16 threads
 
