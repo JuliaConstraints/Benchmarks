@@ -67,7 +67,7 @@ open(io->TOML.print(io,summary;sorted=true),OUT,"w")
 open(splitext(OUT)[1]*".md","w") do io
     println(io,"# Réévaluation de toutes les variantes — 4 octobre 2026\n")
     println(io,"$(length(RECORDS)) essais validés : 414 essais CBLS/HiGHS et 90 essais Timefold Community à cinq secondes. Trois instances, trois graines, 1/2/4/8/16 workers. Les allocations MetaStrategist mixtes commencent à quatre workers.\n")
-    println(io,"Optimisation lexicographique : flotte puis distance. La médiane est la deuxième solution observée dans cet ordre, sans assembler deux routes différentes. Le taux d'atteinte SINTEF est descriptif ; LC101 commence déjà à la référence. La table SINTEF n'offre pas de temps homogène. Les représentations et mouvements diffèrent entre solveurs, et ces cas exposés ne prouvent pas une supériorité commerciale.\n")
+    println(io,"Optimisation lexicographique : flotte puis distance. La médiane est la deuxième solution observée dans cet ordre, sans assembler deux routes différentes. Le taux d'atteinte compare la flotte, puis la distance arrondie aux deux décimales publiées par SINTEF ; les scores bruts restent conservés. Il est descriptif ; LC101 commence déjà à la référence. La table SINTEF n'offre pas de temps homogène. Les représentations et mouvements diffèrent entre solveurs, et ces cas exposés ne prouvent pas une supériorité commerciale.\n")
     println(io,"## Qualité à seize workers\n\n| Profil | LC101 | LR101 | LRC101 |\n|---|---:|---:|---:|")
     for (m,label) in zip(METHODS,LABELS)
         cells=[begin r=sort(subset(id,m,16);by=r->(r["vehicles"],r["distance"]))[2];@sprintf("%d / %.3f",r["vehicles"],r["distance"]) end for id in CONFIG["instances"]]

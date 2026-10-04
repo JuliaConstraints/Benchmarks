@@ -3,6 +3,7 @@ using TOML, Statistics, CairoMakie, Random
 length(ARGS) in (2,3) || error("usage: icn_threads_plots.jl summary.toml output-directory [success-only|success-xkcd]")
 const REPORT=TOML.parsefile(abspath(ARGS[1]))
 const OUT=abspath(ARGS[2]);mkpath(OUT)
+include(joinpath(@__DIR__,"..","src","BenchmarkTargets.jl"))
 const RECORDS=REPORT["records"]
 const INSTANCES=REPORT["metadata"]["config"]["instances"]
 const WIDTHS=REPORT["metadata"]["config"]["thread_counts"]
@@ -33,11 +34,12 @@ set_theme!(Theme(font="DejaVu Sans",fontsize=15,linewidth=2.2,
     Axis=(xgridvisible=false,ygridcolor=(:gray,0.15),titlesize=19,)))
 function successplots()
     targets=TARGETS
-    tol=targets["tie_tolerance"]
-    hit(r,id)=r["vehicles"]<targets[id]["vehicles"] ||
-        (r["vehicles"]==targets[id]["vehicles"] && r["distance"]<=targets[id]["distance"]+tol)
+    digits=targets["bks_distance_digits"]
+    tie_tol=targets["tie_tolerance"]
+    hit(r,id)=BenchmarkTargets.reaches_published_bks(r["vehicles"],r["distance"],
+        targets[id]["vehicles"],targets[id]["distance"];distance_digits=digits)
     improved(r)=r["vehicles"]<r["initial_vehicles"] ||
-        (r["vehicles"]==r["initial_vehicles"] && r["distance"]<r["initial_distance"]-tol)
+        (r["vehicles"]==r["initial_vehicles"] && r["distance"]<r["initial_distance"]-tie_tol)
     legends=Any[];labels=String[]
     rates=Figure(size=(1500,1000))
     Label(rates[0,1:3],"10-second success: reference reached and starting solution improved",fontsize=26)
@@ -56,7 +58,7 @@ function successplots()
             if col==1;push!(legends,line);push!(labels,LABELS[method]);end
         end
     end
-    Label(rates[3,1:3],"3 seeds: 33% = 1/3. LC101 starts at its reference. No LRC101 run reaches 14 vehicles. Diagnostic targets after the campaign.",fontsize=14)
+    Label(rates[3,1:3],"3 seeds: 33% = 1/3. BKS distance rounded to $(digits) published decimals. LC101 starts at its reference. Diagnostic targets after the campaign.",fontsize=14)
     Legend(rates[4,1:3],legends,labels;orientation=:horizontal,nbanks=3,tellwidth=false,framevisible=false)
     exportfigure(rates,"icn-threads-success")
 
@@ -98,7 +100,7 @@ function successplots()
     Label(anytime[3,1:3],"Lexicographic median over 3 seeds. Gray dotted lines: SINTEF reference. Frontier reconstructed from private discoveries; final merge across workers.",fontsize=14)
     reference=LineElement(color=:gray30,linestyle=:dot,linewidth=2)
     Legend(anytime[4,1:3],vcat(legends,[reference]),vcat(labels,["SINTEF reference"]);orientation=:horizontal,nbanks=3,tellwidth=false,framevisible=false)
-    Label(cdf[2,1:3],"Published rounded reference, fleet then distance. Failures remain at 0%. Descriptive curves over 3 seeds; no statistical extrapolation.",fontsize=14)
+    Label(cdf[2,1:3],"Published rounded reference: fleet then distance rounded to $(digits) decimals. Failures remain at 0%. Descriptive curves over 3 seeds; no statistical extrapolation.",fontsize=14)
     Legend(cdf[3,1:3],legends,labels;orientation=:horizontal,nbanks=3,tellwidth=false,framevisible=false)
     exportfigure(anytime,"icn-threads-anytime")
     exportfigure(cdf,"icn-threads-time-to-target")
