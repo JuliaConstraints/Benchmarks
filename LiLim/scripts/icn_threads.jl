@@ -44,13 +44,96 @@ function metadata()
         "source_sha256"=>Dict(relpath(file,ROOT)=>digest(file) for file in files),
         "started_utc"=>string(now(UTC)))
 end
-length(ARGS)>=1 || error("usage: icn_threads.jl check | campaign [output] | width threads output")
+function jobs(width)
+    methods=copy(CONFIG["methods"])
+    width>=4 && append!(methods,CONFIG["portfolio_methods"])
+    result=Any[]
+    for (instance_index,id) in enumerate(CONFIG["instances"]), (repetition,seed) in enumerate(CONFIG["seeds"])
+        for method in circshift(methods,repetition-1+instance_index-1)
+            prefix=lpad(length(result)+1,3,'0')*"-"*id*"-"*method*"-"*string(seed)
+            push!(result,(;prefix,id,method,seed))
+        end
+    end
+    result
+end
+function check_archive(output)
+    isfile(joinpath(output,"completed.toml")) && error("campaign is already complete")
+    original=TOML.parsefile(joinpath(output,"started.toml"))
+    original["config"]==CONFIG && original["baseline_environment"]==BASELINE || error("resumption protocol changed")
+    for (relative,hash) in original["source_sha256"]
+        digest(joinpath(output,"snapshot",relative))==hash || error("source snapshot corrupted: $relative")
+        relative=="LiLim/scripts/icn_threads.jl" && continue
+        digest(joinpath(ROOT,relative))==hash || error("measured source changed: $relative")
+    end
+    missing=0
+    for width in CONFIG["thread_counts"]
+        target=joinpath(output,string(width))
+        expected=jobs(width)
+        expected_files=Set(job.prefix*".result.toml" for job in expected)
+        actual=filter(f->endswith(f,".result.toml"),readdir(target))
+        all(in(expected_files),actual) || error("unexpected result in width $width")
+        for job in expected
+            file=joinpath(target,job.prefix*".result.toml")
+            seal=joinpath(target,job.prefix*".completed.toml")
+            if isfile(file)
+                isfile(seal) && TOML.parsefile(seal)["result_sha256"]==digest(file) || error("unsealed or corrupted result: $file")
+                r=TOML.parsefile(file)
+                (r["instance"],r["method"],r["seed"],r["threads_requested"])==(job.id,job.method,job.seed,width) || error("case identity changed")
+            else
+                isfile(seal) && error("missing sealed result: $file")
+                missing+=1
+            end
+        end
+        if isfile(joinpath(target,"completed.toml"))
+            TOML.parsefile(joinpath(target,"completed.toml"))["jobs"]==length(expected)==length(actual) || error("completed width inventory changed")
+        end
+    end
+    missing
+end
+function supervise(width,target;segment=nothing)
+    cpus=join(CONFIG["cpu_order"][1:width],',')
+    mode=segment===nothing ? "width" : "width-resume"
+    command=`taskset --cpu-list $cpus $(Base.julia_cmd()) --startup-file=no --compiled-modules=existing -O1 --threads=$width,0 --gcthreads=1 --project=$(dirname(Base.active_project())) $(@__FILE__) $mode $width $target`
+    segment===nothing || (command=`$command $segment`)
+    evidence=segment===nothing ? target : segment
+    open(joinpath(evidence,"console.log"),"w") do io
+        process=run(pipeline(command;stdout=io,stderr=io);wait=false)
+        pid=getpid(process);started=time();peak=0;peak_threads=0;reason="normal_exit"
+        try
+            while process_running(process)
+                status=isfile("/proc/$pid/status") ? read("/proc/$pid/status",String) : ""
+                found=match(r"VmRSS:\s+(\d+) kB",status)
+                found===nothing || (peak=max(peak,parse(Int,found[1])*1024))
+                found=match(r"Threads:\s+(\d+)",status)
+                found===nothing || (peak_threads=max(peak_threads,parse(Int,found[1])))
+                starts=sort(filter(f->endswith(f,".started.toml"),readdir(evidence)))
+                elapsed_job=isempty(starts) ? 0. : time()-TOML.parsefile(joinpath(evidence,last(starts)))["start_unix"]
+                if peak>CONFIG["memory_guard_bytes"] || time()-started>CONFIG["process_wall_guard_seconds"] || elapsed_job>CONFIG["job_wall_guard_seconds"]
+                    reason=peak>CONFIG["memory_guard_bytes"] ? "memory_limit" : "wall_limit"
+                    kill(process);break
+                end
+                sleep(0.5)
+            end
+            wait(process)
+        finally
+            # An interrupted supervisor must not leave an orphan computing.
+            process_running(process) && kill(process)
+        end
+        save(joinpath(evidence,"supervision.toml"),Dict("pid"=>pid,"exitcode"=>process.exitcode,
+            "reason"=>reason,"peak_rss_bytes"=>peak,"peak_os_threads"=>peak_threads,"wall_seconds"=>time()-started))
+        process.exitcode==0 && reason=="normal_exit" || error("width failed: $width; see $evidence/console.log")
+    end
+end
+length(ARGS)>=1 || error("usage: icn_threads.jl check | campaign [output] | check-resume output | resume output | width threads output")
 check_sources()
 if ARGS[1]=="check"
     println("Source and environment checks passed")
-elseif ARGS[1]=="width"
-    length(ARGS)==3 || error("width needs thread count and directory")
+elseif ARGS[1] in ("width","width-resume")
+    resumed=ARGS[1]=="width-resume"
+    length(ARGS)==(resumed ? 4 : 3) || error("width needs thread count, directory and optional resumption segment")
     width=parse(Int,ARGS[2]);output=ARGS[3]
+    segment=resumed ? ARGS[4] : output
+    resumption_id=resumed ? basename(dirname(segment)) : ""
     width in CONFIG["thread_counts"] && Threads.nthreads()==width || error("thread count mismatch")
     affinity=strip(split(only(filter(l->startswith(l,"Cpus_allowed_list:"),readlines("/proc/self/status"))),':')[2])
     # taskset reports compressed ranges; compare the actual CPU membership.
@@ -74,30 +157,54 @@ elseif ARGS[1]=="width"
         write(io,"3 1 1\n0 0 0 0 0 100 0 0 0\n1 1 1 1 0 100 0 0 2\n2 2 1 -1 0 100 0 1 0\n3 -1 1 1 0 100 0 0 4\n4 -2 1 -1 0 100 0 3 0\n5 0 10 1 0 100 0 0 6\n6 0 11 -1 0 100 0 5 0\n");close(io)
         @elapsed Base.invokelatest(ResourceExperiment.warmup,path,CONFIG["policy"],banks;threads=width)
     end
-    save(joinpath(output,"runtime.toml"),Dict("threads"=>width,"affinity"=>affinity,
+    save(joinpath(segment,"runtime.toml"),Dict("threads"=>width,"affinity"=>affinity,
         "loading_seconds"=>load_seconds,"warmup_seconds"=>warm_seconds,
         "highs_package"=>string(pkgversion(Pilot.HiGHS)),"semantics"=>SEMANTICS_VERSION,
         "bank_sha256"=>banks[:icn].bank_sha256,"witness_indices"=>banks[:icn].witnesses))
-    methods=copy(CONFIG["methods"])
-    width>=4 && append!(methods,CONFIG["portfolio_methods"])
-    ordinal=0
-    for (instance_index,id) in enumerate(CONFIG["instances"]), (repetition,seed) in enumerate(CONFIG["seeds"])
-        ordered=circshift(methods,repetition-1+instance_index-1)
-        for method in ordered
-            global ordinal+=1
-            prefix=lpad(ordinal,3,'0')*"-"*id*"-"*method*"-"*string(seed)
-            save(joinpath(output,prefix*".started.toml"),Dict("start_unix"=>time(),"instance"=>id,"method"=>method,"seed"=>seed))
+    for job in jobs(width)
+            (;prefix,id,method,seed)=job
+            if resumed && isfile(joinpath(output,prefix*".result.toml"))
+                TOML.parsefile(joinpath(output,prefix*".completed.toml"))["result_sha256"]==digest(joinpath(output,prefix*".result.toml")) || error("corrupted completed result")
+                continue
+            end
+            save(joinpath(segment,prefix*".started.toml"),Dict("start_unix"=>time(),"instance"=>id,"method"=>method,"seed"=>seed))
             path=joinpath(ROOT,"LiLim","data","raw","pdp_100",id*".txt")
-            native_log=method=="highs_native" ? joinpath(output,prefix*".highs.log") : nothing
+            native_log=method=="highs_native" ? joinpath(segment,prefix*".highs.log") : nothing
             record=Base.invokelatest(ResourceExperiment.run_case,path,method,CONFIG["budget_seconds"],seed,
                 CONFIG["policy"],banks;threads=width,id,logpath=native_log)
             save(joinpath(output,prefix*".result.toml"),record)
-            save(joinpath(output,prefix*".completed.toml"),Dict("result_sha256"=>digest(joinpath(output,prefix*".result.toml"))))
+            seal=Dict("result_sha256"=>digest(joinpath(output,prefix*".result.toml")))
+            if resumed
+                seal["resumption_id"]=resumption_id
+                native_log===nothing || (seal["native_log_relative"]=relpath(native_log,dirname(output)))
+            end
+            save(joinpath(output,prefix*".completed.toml"),seal)
             println(width,"T ",id," ",method," seed ",seed,": ",record["vehicles"]," vehicles, ",
                 round(record["distance"];digits=3)," distance; active CPU ",round(record["mean_active_cpus"];digits=2));flush(stdout)
-        end
     end
-    save(joinpath(output,"completed.toml"),Dict("jobs"=>ordinal,"finished_utc"=>string(now(UTC))))
+    completion=Dict{String,Any}("jobs"=>length(jobs(width)),"finished_utc"=>string(now(UTC)))
+    resumed && (completion["resumption_id"]=resumption_id)
+    save(joinpath(output,"completed.toml"),completion)
+elseif ARGS[1] in ("check-resume","resume")
+    length(ARGS)==2 || error("resumption needs campaign directory")
+    output=abspath(ARGS[2]);missing=check_archive(output)
+    println("Verified archive: ",missing," missing trials");flush(stdout)
+    if ARGS[1]=="resume"
+        # Metadata records the controller change; solver sources and protocol stay frozen.
+        resumption=joinpath(output,"resumptions",string(uuid4()));mkpath(resumption)
+        info=metadata();info["missing_trials_before_resume"]=missing
+        save(joinpath(resumption,"started.toml"),info)
+        cp(@__FILE__,joinpath(resumption,"icn_threads.jl"))
+        for width in CONFIG["thread_counts"]
+            target=joinpath(output,string(width))
+            isfile(joinpath(target,"completed.toml")) && continue
+            check_sources();segment=joinpath(resumption,string(width));mkdir(segment)
+            supervise(width,target;segment)
+            println("Finished resumed ",width," threads");flush(stdout)
+        end
+        save(joinpath(resumption,"completed.toml"),Dict("finished_utc"=>string(now(UTC))))
+        save(joinpath(output,"completed.toml"),Dict("finished_utc"=>string(now(UTC)),"widths"=>CONFIG["thread_counts"],"resumption_id"=>basename(resumption)))
+    end
 elseif ARGS[1]=="campaign"
     length(ARGS)<=2 || error("campaign accepts at most one output")
     output=length(ARGS)==2 ? abspath(ARGS[2]) : joinpath(ROOT,"LiLim","data","thread-pilots",string(uuid4()))
@@ -113,30 +220,7 @@ elseif ARGS[1]=="campaign"
     for width in CONFIG["thread_counts"]
         check_sources()
         target=joinpath(output,string(width));mkdir(target)
-        cpus=join(CONFIG["cpu_order"][1:width],',')
-        command=`taskset --cpu-list $cpus $(Base.julia_cmd()) --startup-file=no --compiled-modules=existing -O1 --threads=$width,0 --gcthreads=1 --project=$(dirname(Base.active_project())) $(@__FILE__) width $width $target`
-        open(joinpath(target,"console.log"),"w") do io
-            process=run(pipeline(command;stdout=io,stderr=io);wait=false)
-            pid=getpid(process);started=time();peak=0;peak_threads=0;reason="normal_exit"
-            while process_running(process)
-                status=isfile("/proc/$pid/status") ? read("/proc/$pid/status",String) : ""
-                found=match(r"VmRSS:\s+(\d+) kB",status)
-                found===nothing || (peak=max(peak,parse(Int,found[1])*1024))
-                found=match(r"Threads:\s+(\d+)",status)
-                found===nothing || (peak_threads=max(peak_threads,parse(Int,found[1])))
-                starts=sort(filter(f->endswith(f,".started.toml"),readdir(target)))
-                elapsed_job=isempty(starts) ? 0. : time()-TOML.parsefile(joinpath(target,last(starts)))["start_unix"]
-                if peak>CONFIG["memory_guard_bytes"] || time()-started>CONFIG["process_wall_guard_seconds"] || elapsed_job>CONFIG["job_wall_guard_seconds"]
-                    reason=peak>CONFIG["memory_guard_bytes"] ? "memory_limit" : "wall_limit"
-                    kill(process);break
-                end
-                sleep(0.5)
-            end
-            wait(process)
-            save(joinpath(target,"supervision.toml"),Dict("pid"=>pid,"exitcode"=>process.exitcode,
-                "reason"=>reason,"peak_rss_bytes"=>peak,"peak_os_threads"=>peak_threads,"wall_seconds"=>time()-started))
-            process.exitcode==0 && reason=="normal_exit" || error("width failed: $width; see $target/console.log")
-        end
+        supervise(width,target)
         println("Finished ",width," threads");flush(stdout)
     end
     save(joinpath(output,"completed.toml"),Dict("finished_utc"=>string(now(UTC)),"widths"=>CONFIG["thread_counts"]))

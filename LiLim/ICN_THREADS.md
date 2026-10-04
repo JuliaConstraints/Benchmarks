@@ -104,6 +104,16 @@ du périmètre mesuré. Utiliser `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1` et J
 `--startup-file=no --compiled-modules=existing -O1 --threads=1,0 --gcthreads=1`,
 avec ce projet et le lanceur `scripts/icn_threads.jl campaign`.
 
+Après une interruption, `check-resume <répertoire>` vérifie les empreintes du
+protocole, des sources de solveur et de chaque résultat scellé. `resume
+<répertoire>` reprend uniquement les essais sans résultat, dans l'ordre initial.
+Les anciens résultats, marqueurs et temps de préparation restent intacts ; les
+nouveaux temps de préparation, logs et empreintes du contrôleur de reprise sont
+conservés dans `resumptions/<identifiant>`. Chaque nouveau résultat est rattaché
+à ce segment. Les sources de solveur doivent rester identiques à la campagne
+initiale ; seul le contrôleur de reprise peut évoluer. Une reprise temporelle
+reste déclarée dans le bilan, même lorsque le protocole est inchangé.
+
 Les traces complètes sont dans data/thread-pilots. Le bilan conserve les résultats,
 routes et trajectoires essentiels avec les empreintes des traces. Les sources,
 protocole, décisions, résultats essentiels et graphiques sont commis et poussés
@@ -111,3 +121,9 @@ sur GitLab privé. Les graphiques Julia utilisent un environnement indépendant
 plotting/Project.toml et son Manifest, sans changer les versions des solveurs.
 La sortie XKCD est une illustration secondaire ; les figures sobres conservent
 des coordonnées exactes pour une utilisation scientifique.
+
+Après livraison des essais et figures, mesurer les coûts de chargement, JIT,
+préparation des plans et construction des sous-modèles séparément. Étudier la
+réutilisation d'un workspace par travailleur pour CBLS, MetaStrategist et les
+réparations HiGHS ; vérifier l'isolation des états et l'identité des résultats
+avant d'en déduire une réduction de temps de préparation.
