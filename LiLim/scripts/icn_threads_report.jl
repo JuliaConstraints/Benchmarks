@@ -10,6 +10,11 @@ include(joinpath(ROOT,"LiLim","src","ResourceExperiment.jl"))
 digest(path)=bytes2hex(sha256(read(path)))
 quality(r)=(r["vehicles"],r["distance"])
 lexmedian(rs)=sort(rs;by=quality)[cld(length(rs),2)]
+function comparison(a,b)
+    a["vehicles"] != b["vehicles"] && return a["vehicles"]<b["vehicles"] ? -1 : 1
+    abs(a["distance"]-b["distance"]) <= 1e-6 && return 0
+    a["distance"]<b["distance"] ? -1 : 1
+end
 length(ARGS)==2 || error("usage: icn_threads_report.jl campaign-directory output-prefix")
 campaign,prefix=abspath.(ARGS)
 isfile(joinpath(campaign,"completed.toml")) || error("campaign incomplete")
@@ -87,7 +92,10 @@ for width in config["thread_counts"]
             previous=quality(e);previous_time=e["seconds"]
         end
         previous==quality(r) || error("final result absent from trajectory")
-        push!(records,merge(r,Dict("workers"=>worker_records,"raw_relative_path"=>relpath(file,campaign),"raw_sha256"=>digest(file))))
+        native_log=replace(file,".result.toml"=>".highs.log")
+        native_info=isfile(native_log) ? filter(l->occursin("Thread count",l),readlines(native_log)) : String[]
+        push!(records,merge(r,Dict("workers"=>worker_records,"raw_relative_path"=>relpath(file,campaign),
+            "raw_sha256"=>digest(file),"native_highs_thread_messages"=>native_info)))
     end
 end
 expected=Set((width,id,method,seed) for width in config["thread_counts"],id in config["instances"],seed in config["seeds"],
@@ -97,7 +105,8 @@ mkpath(dirname(prefix))
 ispath(prefix*".toml") && error("output exists")
 payload=Dict("schema"=>"li-lim-icn-threads-summary/1","metadata"=>meta,"runtime"=>runtimes,
     "records"=>records,"audited_trials"=>length(records),"icn_decoder_calls"=>total_icn,
-    "maximum_wall_overrun_seconds"=>maximum(r["wall_seconds"]-r["budget_seconds"] for r in records))
+    "maximum_wall_overrun_seconds"=>maximum(r["wall_seconds"]-r["budget_seconds"] for r in records),
+    "distance_tie_tolerance"=>1e-6,"report_generator_sha256"=>digest(@__FILE__))
 open(io->TOML.print(io,payload;sorted=true),prefix*".toml","w")
 allmethods=vcat(config["methods"],config["portfolio_methods"])
 open(prefix*".md","w") do io
@@ -119,7 +128,7 @@ open(prefix*".md","w") do io
         println(io)
     end
     println(io,"## Comparaisons appariées\n")
-    println(io,"Gain / égalité / recul par rapport au profil de référence, pour la même instance, largeur et graine. Les cellules partagent trois instances et ne sont pas des observations indépendantes.\n")
+    println(io,"Gain / égalité / recul par rapport au profil de référence, pour la même instance, largeur et graine. À flotte égale, tolérance d'égalité de distance : 1e-6. Les cellules partagent trois instances et ne sont pas des observations indépendantes.\n")
     println(io,"| Profil | Référence | Gain | Égalité | Recul |\n|---|---|---:|---:|---:|")
     for (method,reference) in (("cbls_icn","cbls_direct"),("cbls_icn","cbls_naive"),
             ("hybrid_specialized_icn","cbls_icn"),("hybrid_bridged_icn","cbls_icn"),
@@ -129,13 +138,15 @@ open(prefix*".md","w") do io
         wins=ties=losses=0
         for r in filter(r->r["method"]==method,records)
             other=only(filter(s->s["method"]==reference && s["instance"]==r["instance"] && s["threads_requested"]==r["threads_requested"] && s["seed"]==r["seed"],records))
-            if quality(r)<quality(other);wins+=1 elseif quality(r)==quality(other);ties+=1 else losses+=1 end
+            result=comparison(r,other)
+            if result<0;wins+=1 elseif result==0;ties+=1 else losses+=1 end
         end
         println(io,"| ",method," | ",reference," | ",wins," | ",ties," | ",losses," |")
     end
     println(io,"\n## Limites et reproduction\n")
     println(io,"Les CPU 1 à 8 sont des cœurs P distincts ; la largeur 16 ajoute quatre cœurs E et quatre frères SMT. Les compteurs CPU publient l'utilisation réelle ; une limite de threads ne signifie pas que toutes les phases utilisent cette largeur. HiGHS natif et N HiGHS série sont rapportés séparément. Aucune comparaison Timefold/Hexaly, aucune adaptation MetaStrategist ni confirmation sur de nouvelles instances n'est prétendue.\n")
     println(io,"Les variantes bridgées exécutent XCSP3Bridges pour les égalités discrètes de route, avec des DAG manuels. La banque apprise/reconstruite de bridges n'est pas chargée dans ces fragments ; les ICN sont utilisées par le parent CBLS.\n")
+    println(io,"La référence HiGHS conserve le modèle compact et les deux phases de la première campagne : flotte d'abord, distance après preuve d'optimalité de la flotte. Cela peut limiter l'amélioration de distance dans les petits budgets. Elle n'est pas présentée comme le meilleur modèle ou réglage HiGHS possible ; une variante d'objectif scalaire lexicographique et un effort de réglage doivent être comparés avant toute affirmation industrielle.\n")
     println(io,"Protocole : [ICN_THREADS.md](../ICN_THREADS.md). Configuration : [icn-threads.toml](../config/icn-threads.toml). Les sources mesurées et les empreintes des traces sont conservées dans le TOML associé. Chaque solution et chaque événement ont été revérifiés dans le problème original.\n")
 end
 println("Audited ",length(records)," trials; actual ICN calls ",total_icn,"; output ",prefix)

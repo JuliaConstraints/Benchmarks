@@ -89,6 +89,9 @@ Sept profils homogènes × cinq largeurs × trois instances × trois graines = 3
 essais. Deux plans mixtes × trois largeurs × trois instances × trois graines =
 54 essais. Total : 369, environ 61,5 minutes de budget mural, plus préparation.
 Ordre cyclique des méthodes fixé par instance et répétition.
+Les comparaisons appariées classent d'abord la flotte ; à flotte égale, une
+différence absolue de distance inférieure ou égale à 1e-6 est une égalité, pour
+éviter d'attribuer des gains aux seuls arrondis flottants.
 
 ## Reproduire et sauvegarder
 
