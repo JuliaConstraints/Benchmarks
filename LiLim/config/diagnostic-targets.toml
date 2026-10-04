@@ -4,6 +4,8 @@ checked_utc = "2026-10-04"
 scope = "post-campaign descriptive targets; not a predeclared confirmation test"
 distance_semantics = "published reference rounded to two decimals; actual solution distance remains unrounded"
 tie_tolerance = 0.000001
+reference_runtime_status = "unavailable: SINTEF BKS table does not provide comparable per-instance computation times or hardware"
+time_to_target_policy = "measure on the current machine from the same declared initialization and model-build clock; never infer runtime from BKS date"
 
 [lc101]
 vehicles = 10

@@ -138,7 +138,7 @@ function throughput()
         r,event=measure("hot CBLS ICN lc101",()->ResourceExperiment.run_case(path,"cbls_icn",5.,seed,CONFIG["policy"],BANKS);sample=seed)
         case_details!(event,r)
     end
-    if Threads.nthreads()==16 && Base.JLOptions().nmarkthreads==1
+    if Threads.nthreads() in (4,16) && Base.JLOptions().nmarkthreads==1
         Profile.init(n=4_000_000,delay=0.002);Profile.clear()
         Profile.@profile ResourceExperiment.run_case(path,"cbls_icn",3.,41,CONFIG["policy"],BANKS)
         io=IOBuffer();Profile.print(IOContext(io,:displaysize=>(10000,180));format=:flat,C=true,sortedby=:count,mincount=20)
@@ -153,6 +153,8 @@ function throughput()
         end
         META["allocation_sample_rate"]=0.00001
         META["sampled_allocation_sites"]=[Dict("site"=>site,"count"=>count,"bytes"=>bytes) for (site,(count,bytes)) in sort(collect(counts);by=x->last(x)[2],rev=true)]
+        META["sampled_allocation_stacks"]=[Dict("type"=>string(a.type),"bytes"=>a.size,
+            "stack"=>[string(f) for f in a.stacktrace]) for a in sampled]
         Profile.Allocs.clear()
     end
 end
@@ -174,16 +176,18 @@ if ARGS[1]=="snoop"
         end
         visit(captured.tree)
         sort!(rows;by=r->r["exclusive_with_llvm_seconds"],rev=true)
+        # Summing inclusive timings recursively counts nested inference twice.
+        # Sum exclusive per-method times; ROOT is an artificial sentinel.
         Dict("phase"=>captured.name,"sample"=>captured.sample,"method_instances"=>length(rows),
-            "inference_seconds"=>SnoopCompileCore.inclusive(captured.tree;include_llvm=false),
-            "with_llvm_seconds"=>SnoopCompileCore.inclusive(captured.tree),
+            "exclusive_inference_seconds"=>sum(r["exclusive_inference_seconds"] for r in rows;init=0.),
+            "exclusive_with_llvm_seconds"=>sum(r["exclusive_with_llvm_seconds"] for r in rows;init=0.),
             "stale_instances"=>length(SnoopCompile.staleinstances(captured.tree)),
             "top_methods"=>first(rows,min(50,length(rows))))
     end
     META["snoopcompile_version"]=string(pkgversion(SnoopCompile))
     META["snoopcompilecore_version"]=string(pkgversion(SnoopCompileCore))
     META["snoop_controller_manifest_sha256"]=digest(joinpath(ROOT,"LiLim","perfcheck","Manifest.toml"))
-    META["snoop_note"]="instrumented fresh-session inference and LLVM timing; not an uninstrumented startup-speed comparison; compiler per-method durations are quantized"
+    META["snoop_note"]="instrumented fresh-session inference and LLVM timing; sums of exclusive per-method durations excluding ROOT; not an uninstrumented startup-speed comparison; compiler durations are quantized and concurrent durations can exceed wall time"
     META["snoop_phases"]=[Base.invokelatest(summarize_snoop,c) for c in SNOOP_TIMINGS]
 end
 META["finished_utc"]=string(now(UTC));META["events"]=EVENTS
