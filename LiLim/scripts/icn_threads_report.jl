@@ -140,8 +140,8 @@ for width in config["thread_counts"]
             "raw_sha256"=>digest(file),"native_highs_thread_messages"=>native_info,"execution_segment"=>execution_segment)))
     end
 end
-expected=Set((width,id,method,seed) for width in config["thread_counts"],id in config["instances"],seed in config["seeds"],
-    method in vcat(config["methods"],width>=4 ? config["portfolio_methods"] : String[]))
+expected=Set((width,id,method,seed) for width in config["thread_counts"] for id in config["instances"] for seed in config["seeds"]
+    for method in vcat(config["methods"],width>=4 ? config["portfolio_methods"] : String[]))
 keys_seen==expected || error("incomplete campaign matrix")
 mkpath(dirname(prefix))
 ispath(prefix*".toml") && error("output exists")

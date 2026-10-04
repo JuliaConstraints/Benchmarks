@@ -127,3 +127,27 @@ préparation des plans et construction des sous-modèles séparément. Étudier 
 réutilisation d'un workspace par travailleur pour CBLS, MetaStrategist et les
 réparations HiGHS ; vérifier l'isolation des états et l'identité des résultats
 avant d'en déduire une réduction de temps de préparation.
+
+## Résultats du 4 octobre 2026
+
+Les 369 essais ont été terminés et leurs routes et événements revérifiés dans
+le problème original. Le bilan déclare la reprise de 11 essais après une pause,
+les 166 700 484 120 appels ICN, les attributions de threads et les limites du
+modèle HiGHS de référence. Les sources de solveur sont celles du commit
+`43852f287d5246df77a2db599aca218ea70817d0` ; le contrôleur de reprise est séparé.
+
+- [Bilan détaillé](results/icn-threads-20261004.md) et
+  [résultats essentiels reproductibles](results/icn-threads-20261004.toml).
+- [Qualité](results/figures-20261004/icn-threads-quality.png),
+  [utilisation CPU](results/figures-20261004/icn-threads-cpu.png),
+  [débit](results/figures-20261004/icn-threads-throughput.png) et
+  [illustration XKCD](results/figures-20261004/icn-threads-xkcd.png).
+- Les quatre figures sont aussi fournies en PDF dans le même répertoire.
+
+L'hybride spécialisé améliore CBLS ICN dans 23/45 comparaisons appariées, fait
+égalité dans 18 et recule dans 4. Sur lrc101, sa flotte médiane passe de 17 à 16
+véhicules dès quatre threads, contre 19 pour cette référence HiGHS. Sur lr101,
+HiGHS multi-départ atteint 19/1650,799 dès deux threads et demeure compétitif.
+CBLS ICN/direct/naïf produisent les mêmes qualités dans leurs 45 cellules
+appariées. Ces observations sur trois instances exposées ne constituent pas
+une comparaison commerciale ni une mesure de généralisation.
