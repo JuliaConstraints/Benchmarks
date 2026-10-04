@@ -13,7 +13,7 @@ function cpu_seconds(id=2)
 end
 
 const METHODS = ("cbls_naive","cbls_icn","cbls_direct","hybrid_specialized_icn",
-    "hybrid_bridged_icn","highs_native","highs_portfolio","mixed_balanced","mixed_ls_heavy")
+    "hybrid_bridged_icn","highs_native","highs_portfolio","mixed_balanced","mixed_ls_heavy","cbls_mix_strategy")
 
 "Each entry is one serial search worker, including a serial HiGHS worker."
 function allocation(method,threads)
@@ -22,6 +22,9 @@ function allocation(method,threads)
         return ["highs_native"]
     elseif method == "highs_portfolio"
         return fill("highs_serial",threads)
+    elseif method == "cbls_mix_strategy"
+        policies=("cbls_icn","cbls_icn_first","cbls_icn_no_plateau","cbls_icn_sparse_first")
+        return [policies[mod1(i,4)] for i in 1:threads]
     elseif startswith(method,"mixed_")
         threads >= 4 || throw(ArgumentError("mixed portfolios require at least four threads"))
         threads % 4 == 0 || throw(ArgumentError("portfolio width must be divisible by four"))
@@ -61,7 +64,7 @@ function prepare_portfolio(workers)
         MS.PhaseChoice(:li_lim_parallel,"1";workers=Tuple(workers))))
     ir = MS.resolve_strategy(catalog,profile;roots=(:search,),inputs=(:instance,),capabilities=(:threads,))
     prepared = MS.prepare_strategy(ir;mode=:typed)
-    (;prepared,key=ir.semantic_key,snapshot=MS.strategy_snapshot(ir))
+    (;prepared,key=ir.semantic_key,snapshot=MS.strategy_snapshot(ir),workers=Tuple(workers))
 end
 
 function highs_worker(p,initial,seconds,seed,origin,threads;logpath=nothing)
@@ -104,8 +107,9 @@ function highs_worker(p,initial,seconds,seed,origin,threads;logpath=nothing)
 end
 
 "Initialization and model construction are charged once on a shared monotonic clock."
-function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads(),id=splitext(basename(path))[1],logpath=nothing)
+function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads(),id=splitext(basename(path))[1],logpath=nothing,portfolio=nothing)
     workers = allocation(method,threads)
+    portfolio===nothing || portfolio.workers==Tuple(workers) || throw(ArgumentError("prepared portfolio allocation differs"))
     threads <= Threads.nthreads() || throw(ArgumentError("Julia thread pool too small"))
     isfinite(seconds) && seconds > 0 || throw(ArgumentError("positive finite budget required"))
     # A preceding trial has fully joined before this process-global reset.
@@ -133,11 +137,14 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
             highs_worker(p,initial,seconds,lane_seed,origin,worker=="highs_native" ? threads : 1;logpath)
         else
             Hybrid.run_cbls(p,initial;seconds,seed=lane_seed,origin_ns=origin,
-                scorer=backend_kind==:direct ? nothing : backend,
+                scorer=backend,
                 scorer_name="route constraints/2: "*string(backend_kind),
                 hybrid=startswith(worker,"hybrid"),bridged=worker=="hybrid_bridged_icn",
                 max_visits=policy["max_visits"],repair_every=policy["repair_every"],
-                fragment_seconds=policy["fragment_seconds"],repair_fraction=policy["repair_fraction"])
+                fragment_seconds=policy["fragment_seconds"],repair_fraction=policy["repair_fraction"],
+                pair_selection=worker in ("cbls_icn_first","cbls_icn_sparse_first") ? :first : :best,
+                pair_every=worker=="cbls_icn_sparse_first" ? 4 : 1,
+                plateau_rejection=worker=="cbls_icn_no_plateau" ? 100 : worker=="cbls_icn_sparse_first" ? 75 : 10)
         end
         result.validation.valid || error("invalid worker solution")
         Dict{String,Any}("worker"=>i,"method"=>worker,"seed"=>lane_seed,
@@ -152,7 +159,7 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
     if method == "highs_native"
         records[1] = invoke(1,only(workers))
     else
-        strategy = prepare_portfolio(workers)
+        strategy = portfolio===nothing ? prepare_portfolio(workers) : portfolio
         context = ExecutionContext(invoke,records)
         MS.execute!(strategy.prepared.kernel,context)
     end
@@ -190,6 +197,7 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
         "routes"=>best,"trajectory"=>trajectory,"original_validation"=>validate_solution(p,best).valid,
         "source_sha256"=>bytes2hex(sha256(read(path))),
         "metastrategist_executed"=>strategy!==nothing,
+        "metastrategist_plan_reused"=>portfolio!==nothing,
         "metastrategist_plan_key"=>strategy===nothing ? "" : strategy.key,
         "coordination"=>"static allocation, independently seeded workers, final best merge; no adaptive allocation or inter-worker incumbent exchange")
 end

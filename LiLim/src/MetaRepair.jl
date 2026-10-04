@@ -135,9 +135,20 @@ end
 struct HighsRouteResolver <: LS.AbstractMetaVariableResolver
     bridged::Bool
     max_visits::Int
+    bridge_templates::Dict{Tuple{Int,Int},Tuple{XB.Program,Dict{String,Any}}}
     function HighsRouteResolver(; bridged=true, max_visits=16)
         2 <= max_visits <= 20 || throw(ArgumentError("fragment cap must be between 2 and 20 visits"))
-        new(Bool(bridged), Int(max_visits))
+        new(Bool(bridged), Int(max_visits),Dict{Tuple{Int,Int},Tuple{XB.Program,Dict{String,Any}}}())
+    end
+end
+
+"A decoded equality graph is immutable during binding; each resolver owns its cache."
+function equality_template!(resolver,domain)
+    key=(first(domain),last(domain))
+    get!(resolver.bridge_templates,key) do
+        space=XB.NetworkSpace([domain,domain];slots=1,operators=(:eq,),constants=0:1)
+        weights=BigInt[findfirst(==(:eq),space.operators),1,2,0,0,3]
+        (XB.decode_network(space,weights),XB.network_payload(space,weights))
     end
 end
 
@@ -187,14 +198,13 @@ function LS.resolve_meta_variable(resolver::HighsRouteResolver, request::LS.Meta
     trace["bridge_programs"] = Any[]
     trace["bridge_program_provenance"] = "manual one-atom equality DAG, not a learned or recovered optimum"
     bridge = resolver.bridged ? (model, left, right, domain)->begin
-        space = XB.NetworkSpace([domain, domain]; slots=1, operators=(:eq,), constants=0:1)
-        weights = BigInt[findfirst(==(:eq), space.operators), 1, 2, 0, 0, 3]
-        program = XB.decode_network(space, weights)
+        program,payload=equality_template!(resolver,domain)
         # An outer bridge optimizer emits primitive constraints into the JuMP
         # cache while preserving the existing source variable identities.
         backend = XB.add_bridges!(MOI.Bridges.LazyBridgeOptimizer(JuMP.backend(model)))
         XB.add_program!(backend, program, MOI.VariableIndex[index(left), index(right)])
-        push!(trace["bridge_programs"], XB.network_payload(space, weights))
+        # Historical traces own their payload; model handles are never cached.
+        push!(trace["bridge_programs"],deepcopy(payload))
         nothing
     end : nothing
     remaining() > 0 || return finish(:budget_exhausted)

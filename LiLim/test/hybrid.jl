@@ -10,6 +10,27 @@ include(joinpath(@__DIR__, "..", "src", "Hybrid.jl"))
         [0,1,-1,1,-1,1,-1], zeros(7), fill(100.,7), zeros(7), [(2,3),(4,5),(6,7)])
     p = BenchmarkInstance("hybrid-qualification", d)
     initial = [[2,3],[4,5],[6,7]]
+    groups=Hybrid.RouteGroupWorkspace()
+    @test Hybrid.route_groups!(groups,initial,4)==[[1,2],[1,3],[2,3]]
+    @test Hybrid.route_groups!(groups,initial,2)==[[1],[2],[3]]
+    @test Hybrid.route_groups!(groups,initial,1)==Vector{Int}[]
+    function group_allocations(workspace,routes,cap)
+        Hybrid.route_groups!(workspace,routes,cap)
+        @allocated Hybrid.route_groups!(workspace,routes,cap)
+    end
+    group_allocations(groups,initial,4)
+    @test group_allocations(groups,initial,4)==0
+    other=Hybrid.RouteGroupWorkspace()
+    Hybrid.route_groups!(other,initial,4)
+    @test other.groups!==groups.groups && other.buffers[1]!==groups.buffers[1]
+    resolver=MetaRepair.HighsRouteResolver()
+    first_template=MetaRepair.equality_template!(resolver,1:4)
+    @test MetaRepair.equality_template!(resolver,1:4)===first_template
+    @test length(resolver.bridge_templates)==1
+    MetaRepair.equality_template!(resolver,1:6)
+    @test length(resolver.bridge_templates)==2
+    second_resolver=MetaRepair.HighsRouteResolver()
+    @test MetaRepair.equality_template!(second_resolver,1:4)[2]!==first_template[2]
     # Exhaust all 625 successor assignments for a smaller two-request model,
     # including disconnected cycles and repeated incoming arcs.
     for capacity in (1,2)
@@ -49,6 +70,9 @@ include(joinpath(@__DIR__, "..", "src", "Hybrid.jl"))
             reused = Hybrid.pair_relocation(fixture,routes,D,pair;workspace)
             @test reused.examined == moved.examined
             @test reused.routes == moved.routes
+            first_move=Hybrid.pair_relocation(fixture,routes,D,pair;workspace,selection=:first)
+            @test first_move.examined<=moved.examined
+            @test first_move.routes===nothing || (validate_solution(fixture,first_move.routes).valid && quality(first_move.routes)<quality(routes))
             @test routes == before
             # A later use must not mutate an earlier returned incumbent.
             saved = deepcopy(reused.routes)

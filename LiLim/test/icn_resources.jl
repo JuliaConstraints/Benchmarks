@@ -30,11 +30,13 @@ function qualify()
                 direct = Hybrid.routing_score(p,D,values)
                 icn = ICNScoring.score(b,p,D,values)
                 naive = ICNScoring.score(BANKS[:naive],p,D,values)
+                buffered_direct = ICNScoring.score(BANKS[:direct],p,D,values)
                 @test iszero(icn.error) == valid
                 @test iszero(naive.error) == valid
                 @test icn.error ≈ direct.error atol=1e-12
                 @test icn.distance == direct.distance
                 @test icn.vehicles == direct.vehicles
+                @test buffered_direct == direct
             end
         end
         @test b.calls > 0
@@ -74,6 +76,11 @@ function qualify()
         invalid=[3,2,5,4]
         allocation_bytes(b,p,D,invalid)
         @test allocation_bytes(b,p,D,invalid)==0
+        for kind in (:naive,:direct)
+            handwritten=ICNScoring.clone_backend(BANKS[kind])
+            allocation_bytes(handwritten,p,D,values)
+            @test allocation_bytes(handwritten,p,D,values)==0
+        end
         lanes=[ICNScoring.clone_backend(b) for _ in 1:Threads.nthreads()]
         scores=Vector{typeof(expected)}(undef,length(lanes))
         Threads.@threads :static for lane in eachindex(lanes)
@@ -106,6 +113,7 @@ function qualify()
         @test ResourceExperiment.allocation("mixed_balanced",16) ==
             vcat(fill("cbls_icn",4),fill("hybrid_specialized_icn",4),fill("hybrid_bridged_icn",4),fill("highs_serial",4))
         @test length(ResourceExperiment.allocation("mixed_ls_heavy",16)) == 16
+        @test ResourceExperiment.allocation("cbls_mix_strategy",4)==["cbls_icn","cbls_icn_first","cbls_icn_no_plateau","cbls_icn_sparse_first"]
         @test_throws ArgumentError ResourceExperiment.allocation("mixed_balanced",2)
         @test_throws ArgumentError ResourceExperiment.allocation("mixed_balanced",6)
         @test ResourceExperiment.cpu_seconds() >= 0
@@ -115,6 +123,7 @@ function qualify()
             write(io,"3 1 1\n0 0 0 0 0 100 0 0 0\n1 1 1 1 0 100 0 0 2\n2 2 1 -1 0 100 0 1 0\n3 -1 1 1 0 100 0 0 4\n4 -2 1 -1 0 100 0 3 0\n5 0 10 1 0 100 0 0 6\n6 0 11 -1 0 100 0 5 0\n");close(io)
             ResourceExperiment.warmup(path,policy,BANKS)
             methods = collect(ResourceExperiment.METHODS[1:7])
+            push!(methods,"cbls_mix_strategy")
             Threads.nthreads() >= 4 && append!(methods,["mixed_balanced","mixed_ls_heavy"])
             for method in methods
                 record=ResourceExperiment.run_case(path,method,0.5,41,policy,BANKS)
@@ -135,6 +144,11 @@ function qualify()
                     end
                 end
             end
+            plan=ResourceExperiment.prepare_portfolio(ResourceExperiment.allocation("cbls_icn",Threads.nthreads()))
+            reused=ResourceExperiment.run_case(path,"cbls_icn",0.5,41,policy,BANKS;portfolio=plan)
+            @test reused["original_validation"] && reused["metastrategist_plan_reused"]
+            @test reused["metastrategist_plan_key"]==plan.key
+            @test_throws ArgumentError ResourceExperiment.run_case(path,"highs_native",0.5,41,policy,BANKS;portfolio=plan)
         end
     end
 end

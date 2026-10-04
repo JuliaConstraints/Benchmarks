@@ -267,3 +267,29 @@ multithread, avec workers déjà chargés, même plafond CPU et coût de lanceme
 publié. Le [protocole concurrents](config/competitors.toml) prépare cette
 distinction, Timefold incrémental et Hexaly. La table BKS n'apporte pas de temps
 de calcul de référence homogène ; on mesure le temps d'atteinte localement.
+
+## Réévaluation complète après buffers (4 octobre 2026)
+
+`scripts/all_variants.jl` reprend les sept profils homogènes, les deux mixes
+MetaStrategist et un nouveau mix exclusivement CBLS/ICN, sur 1/2/4/8/16 workers.
+Cette campagne utilise cinq secondes, trois graines et les trois mêmes instances
+exposées, pour correspondre aux captures Timefold qualifiées. Les anciennes
+mesures de dix secondes restent des archives distinctes. Chaque profil et forme
+d'instance reçoit deux recherches d'une seconde hors mesure avant les essais.
+
+Le mix CBLS répète quatre politiques par ordre de voie : meilleure réinsertion
+avec rejet de plateau 10 %, première amélioration avec 10 %, meilleure
+réinsertion avec rejet 100 %, première amélioration toutes les quatre étapes
+natives avec rejet 75 %. À un worker il est identique au CBLS ICN standard ;
+à deux il explore les deux premières politiques. Aucun réglage HPO n'est revendiqué.
+Les allocations, paramètres, seeds, routes validées et sources sont enregistrés.
+
+Les groupes de routes possèdent maintenant des buffers privés réutilisables.
+Le score direct manuscrit utilise également le workspace déjà qualifié, avec
+égalité exacte du score de référence. Chaque resolver hybride garde un cache
+privé des programmes de bridge immuables, indexé par bornes de domaine ; les
+traces restent copiées et possédées. Les plans exécutables MetaStrategist sont
+préparés une fois par allocation puis réutilisés entre essais. Aucun modèle
+JuMP ou handle HiGHS n'est partagé entre voies : chaque fragment construit son
+modèle et charge ce coût au budget RO. Réutiliser ces modèles reste à qualifier
+séparément lorsque la taille et les contraintes des fragments changent.

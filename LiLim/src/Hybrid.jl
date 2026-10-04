@@ -45,14 +45,35 @@ function routing_score(p, distances, values)
     (; error=violation, distance=total, vehicles=length(routes))
 end
 
-function route_groups(routes, max_visits)
-    groups = Vector{Int}[]
-    for a in eachindex(routes), b in a+1:length(routes)
-        length(routes[a])+length(routes[b]) <= max_visits && push!(groups, [a,b])
+"Reusable group vectors belong to one hybrid search lane."
+struct RouteGroupWorkspace
+    buffers::Vector{Vector{Int}}
+    groups::Vector{Vector{Int}}
+end
+RouteGroupWorkspace() = RouteGroupWorkspace(Vector{Int}[],Vector{Int}[])
+function route_groups!(workspace::RouteGroupWorkspace, routes, max_visits)
+    groups = workspace.groups
+    empty!(groups)
+    function add_group(a,b=nothing)
+        i=length(groups)+1
+        while length(workspace.buffers)<i;push!(workspace.buffers,Int[]);end
+        group=workspace.buffers[i]
+        resize!(group,b===nothing ? 1 : 2)
+        group[1]=a
+        b===nothing || (group[2]=b)
+        push!(groups,group)
     end
-    isempty(groups) && append!(groups, [[i] for i in eachindex(routes) if length(routes[i]) <= max_visits])
+    for a in eachindex(routes), b in a+1:length(routes)
+        length(routes[a])+length(routes[b]) <= max_visits && add_group(a,b)
+    end
+    if isempty(groups)
+        for i in eachindex(routes)
+            length(routes[i]) <= max_visits && add_group(i)
+        end
+    end
     groups
 end
+route_groups(routes,max_visits) = route_groups!(RouteGroupWorkspace(),routes,max_visits)
 
 struct PairRelocationWorkspace
     base::Vector{Vector{Int}}
@@ -62,7 +83,8 @@ PairRelocationWorkspace() = PairRelocationWorkspace(Vector{Int}[],Int[])
 
 "Best feasible reinsertion of one complete request; current routes remain owned by the caller."
 function pair_relocation(p, routes, distances, pair; deadline_ns=typemax(UInt64),
-        workspace=PairRelocationWorkspace())
+        workspace=PairRelocationWorkspace(), selection=:best)
+    selection in (:best,:first) || throw(ArgumentError("unknown pair selection"))
     pickup, delivery = pair
     source = findfirst(route -> pickup in route, routes)
     source === nothing && throw(ArgumentError("request absent from routes"))
@@ -108,12 +130,13 @@ function pair_relocation(p, routes, distances, pair; deadline_ns=typemax(UInt64)
             key < best_key || continue
             best = deepcopy(base); best[target] = copy(candidate); filter!(!isempty,best)
             best_key = key
+            selection===:first && return (;routes=best,examined)
         end
     end
     (; routes=best, examined)
 end
 
-function prepare_parent(p, initial; seed=41, scorer=nothing)
+function prepare_parent(p, initial; seed=41, scorer=nothing, plateau_rejection=10)
     Random.seed!(seed)
     validate_solution(p, initial).valid || throw(ArgumentError("valid common start required"))
     d = p.data
@@ -130,7 +153,7 @@ function prepare_parent(p, initial; seed=41, scorer=nothing)
         score = evaluate(v)
         fleet_weight*score.vehicles+score.distance
     end)
-    acceptance = LS.GreedyPlateauAcceptance(;guide_infeasible=false)
+    acceptance = LS.GreedyPlateauAcceptance(;guide_infeasible=false,reject_plateau_percent=plateau_rejection)
     restart = LS.restart_policy(LS.restart(nothing, Val(:random); rp=0.);
         reset_fraction=0., source=:best)
     strategy = LS.MetaStrategy(model; acceptance, tabu=LS.tabu(), restart)
@@ -148,14 +171,16 @@ end
 
 function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
         max_visits=16, repair_every=5, fragment_seconds=0.1, repair_fraction=0.35,
-        structured=true, origin_ns=nothing, scorer=nothing, scorer_name="direct full-route scorer/1 (no ICN)")
+        structured=true, origin_ns=nothing, scorer=nothing, scorer_name="direct full-route scorer/1 (no ICN)",
+        pair_selection=:best, pair_every=1, plateau_rejection=10)
     entered = time_ns()
     started = origin_ns === nothing ? entered : UInt64(origin_ns)
     started <= entered || throw(ArgumentError("clock origin is in the future"))
     isfinite(seconds) && seconds > 0 || throw(ArgumentError("positive finite budget required"))
     0 <= repair_fraction <= 1 && repair_every > 0 && isfinite(fragment_seconds) && fragment_seconds > 0 || throw(ArgumentError("invalid repair policy"))
     rng = Xoshiro(seed)
-    prepared = prepare_parent(p, initial; seed, scorer)
+    pair_selection in (:best,:first) && pair_every>0 || throw(ArgumentError("invalid pair policy"))
+    prepared = prepare_parent(p, initial; seed, scorer, plateau_rejection)
     solver, acceptance = prepared.solver, prepared.acceptance
     initialization = (time_ns()-entered)/1e9
     best = deepcopy(initial)
@@ -172,6 +197,7 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
     best_scalar = prepared.fleet_weight*best_quality.vehicles+best_quality.distance
     pair_workspace = PairRelocationWorkspace()
     route_workspace = SuccessorRouteWorkspace()
+    group_workspace = RouteGroupWorkspace()
     function consider!()
         LS.best_value(solver) < best_scalar || return
         candidate = routes_from_successors(p, collect(LS.best_values(solver)))
@@ -190,7 +216,7 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
     while remaining() > 0
         if hybrid && steps % repair_every == 0 && repair_seconds < repair_fraction*seconds
             current_routes = routes_from_successors!(route_workspace,p,LS.get_values(solver))
-            groups = route_groups(current_routes, max_visits)
+            groups = route_groups!(group_workspace,current_routes,max_visits)
             if !isempty(groups)
                 group = rand(rng, groups)
                 ids = sort!([node-1 for r in group for node in current_routes[r]])
@@ -215,10 +241,10 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
             end
         end
         remaining() > 0 || break
-        if structured
+        if structured && steps % pair_every == 0
             current = routes_from_successors!(route_workspace,p,LS.get_values(solver))
             relocation = pair_relocation(p,current,prepared.distances,rand(rng,p.data.pairs);
-                deadline_ns,workspace=pair_workspace)
+                deadline_ns,workspace=pair_workspace,selection=pair_selection)
             pair_candidates += relocation.examined
             if relocation.routes !== nothing && remaining() > 0
                 validation = validate_solution(p,relocation.routes)
@@ -253,7 +279,8 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
         trace=Dict("seconds"=>elapsed(), "budget_seconds"=>seconds,
             "initialization_seconds"=>initialization, "steps"=>steps,
             "pair_candidates"=>pair_candidates, "pair_moves"=>pair_moves,
-            "structured"=>structured, "pair_policy"=>"random request, best feasible greedy reinsertion/1",
+            "structured"=>structured, "pair_policy"=>"random request, $(pair_selection) feasible improving reinsertion/2",
+            "pair_every"=>pair_every,"plateau_rejection_percent"=>plateau_rejection,
             "repair_seconds"=>repair_seconds, "repair_fraction"=>repair_fraction,
             "repairs"=>repairs, "trajectory"=>trajectory, "threads"=>1,
             "scorer"=>scorer_name, "julia_thread_id"=>Threads.threadid(),
