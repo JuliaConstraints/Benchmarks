@@ -1,7 +1,7 @@
 module CompetitorAdapters
 using TOML, SHA
 using ..Benchmarks, ..Pilot
-export export_common_start, audit_timefold, audit_hexaly, hexaly_command
+export export_common_start, audit_timefold, audit_hexaly, audit_hexaly_trial, hexaly_command
 
 "One-based node IDs, depot=1; complete native fleet and an independently validated start."
 function export_common_start(io,p,initial)
@@ -60,8 +60,73 @@ function audit_hexaly(p,output)
     isapprox(validation.objective.distance,output["distance"];atol=1e-7,rtol=1e-12) || error("Hexaly distance mismatch")
     validation
 end
+"""Audit Hexaly's final solution and every within-budget anytime observation."""
+function audit_hexaly_trial(p, initial, output, trace; budget_seconds, clock_offset_seconds=0.)
+    budget_seconds isa Real && isfinite(budget_seconds) && budget_seconds >= 0 ||
+        throw(ArgumentError("Hexaly budget must be finite and nonnegative"))
+    clock_offset_seconds isa Real && isfinite(clock_offset_seconds) && clock_offset_seconds >= 0 ||
+        throw(ArgumentError("Hexaly clock offset must be finite and nonnegative"))
+    initial_check = validate_solution(p, initial)
+    initial_check.valid || error("invalid common-start fallback")
+    output["schema"] == "li-lim-hexaly-native/1" || error("wrong Hexaly schema")
+    trace["schema"] == "li-lim-hexaly-trajectory/1" || error("wrong Hexaly trajectory schema")
+    final_check = audit_hexaly(p, output)
+    records = Any[]
+    censored = 0
+    for event in get(trace, "trajectory", Any[])
+        solve_seconds = Float64(event["seconds"])
+        isfinite(solve_seconds) && solve_seconds >= 0 || error("invalid Hexaly trajectory clock")
+        seconds = clock_offset_seconds + solve_seconds
+        if seconds > budget_seconds
+            censored += 1
+            continue
+        end
+        routes = [Int.(route) for route in event["routes"]]
+        checked = validate_solution(p, routes)
+        checked.valid || error("Hexaly trajectory incumbent violates original problem")
+        checked.objective.vehicles == event["vehicles"] || error("Hexaly trajectory fleet mismatch")
+        isapprox(checked.objective.distance, event["distance"]; atol=1e-7, rtol=1e-12) ||
+            error("Hexaly trajectory distance mismatch")
+        push!(records, Dict("seconds"=>seconds, "vehicles"=>checked.objective.vehicles,
+            "distance"=>checked.objective.distance, "routes"=>routes))
+    end
+    solve_final_seconds = Float64(get(output, "seconds", Inf))
+    isfinite(solve_final_seconds) && solve_final_seconds >= 0 || error("invalid Hexaly final clock")
+    final_seconds = clock_offset_seconds + solve_final_seconds
+    best_routes = deepcopy(initial)
+    best = nothing
+    trajectory = Any[]
+    if clock_offset_seconds <= budget_seconds
+        best = initial_check.objective
+        push!(trajectory, Dict("seconds"=>clock_offset_seconds, "vehicles"=>best.vehicles,
+            "distance"=>best.distance, "routes"=>deepcopy(initial), "source"=>"common_start"))
+    end
+    sort!(records; by=event->event["seconds"])
+    for event in records
+        if best === nothing || (event["vehicles"], event["distance"]) < (best.vehicles, best.distance)
+            best_routes = deepcopy(event["routes"])
+            best = (vehicles=event["vehicles"], distance=event["distance"])
+            push!(trajectory, merge(event, Dict("source"=>"hexaly_display")))
+        end
+    end
+    if final_seconds > budget_seconds
+        censored += 1
+    elseif best === nothing ||
+        (final_check.objective.vehicles, final_check.objective.distance) < (best.vehicles, best.distance)
+        best_routes = deepcopy(output["routes"])
+        best = final_check.objective
+        push!(trajectory, Dict("seconds"=>final_seconds, "vehicles"=>best.vehicles,
+            "distance"=>best.distance, "routes"=>deepcopy(best_routes), "source"=>"hexaly_final"))
+    end
+    best === nothing && (best=initial_check.objective)
+    Dict("routes"=>best_routes, "vehicles"=>best.vehicles, "distance"=>best.distance,
+        "trajectory"=>trajectory, "original_validation"=>true,
+        "within_budget_feasible"=>!isempty(trajectory),
+        "audited_incumbents"=>length(records), "late_incumbents_censored"=>censored)
+end
 "Build a CLI launch with a fixed lexicographic time split; timing qualification remains required."
-function hexaly_command(executable,input,output;threads,seconds,seed,cpus)
+function hexaly_command(executable,input,output;threads,seconds,seed,cpus,
+    trajectory=output*".trajectory.toml", display_interval=1)
     threads isa Integer && (threads==0 || threads in (1,2,4,8,16)) ||
         throw(ArgumentError("Hexaly thread count must be 0 (automatic) or 1, 2, 4, 8 or 16"))
     !isempty(cpus) && all(cpu->cpu isa Integer && cpu>=0,cpus) && length(unique(cpus))==length(cpus) ||
@@ -70,10 +135,13 @@ function hexaly_command(executable,input,output;threads,seconds,seed,cpus)
         throw(ArgumentError("explicit Hexaly thread count must match the CPU affinity width"))
     seconds isa Integer && seconds>=0 && seed isa Integer && seed>=0 ||
         throw(ArgumentError("Hexaly CLI needs integer seconds and a nonnegative seed"))
+    display_interval isa Integer && display_interval>0 ||
+        throw(ArgumentError("Hexaly display interval must be a positive whole number of seconds"))
+    abspath(trajectory)!=abspath(output) || throw(ArgumentError("Hexaly output and trajectory paths must differ"))
     fleet_seconds = seconds==0 ? 0 : max(1, fld(5seconds,6))
     distance_seconds = seconds-fleet_seconds
     phase_limits = string(fleet_seconds, ",", distance_seconds)
     model=normpath(joinpath(@__DIR__,"..","native","hexaly","pdptw.hxm"))
-    `taskset --cpu-list $(join(cpus,',')) $executable $model inFileName=$input solFileName=$output hxTimeLimit=$phase_limits hxNbThreads=$threads hxSeed=$seed`
+    `taskset --cpu-list $(join(cpus,',')) $executable $model inFileName=$input solFileName=$output trajectoryFileName=$trajectory hxTimeLimit=$phase_limits hxNbThreads=$threads hxSeed=$seed hxTimeBetweenDisplays=$display_interval`
 end
 end

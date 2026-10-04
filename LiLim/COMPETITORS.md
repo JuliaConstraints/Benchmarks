@@ -93,8 +93,8 @@ L'initialisation des listes est placée dans `param`, conformément à la
 [documentation](https://www.hexaly.com/docs/last/features/initialsolution.html).
 
 Le contrat Julia de lancement et d'audit est dans [Adapters.jl](competitors/Adapters.jl).
-Le lancement passe `inFileName`, `solFileName`, `hxTimeLimit`, `hxNbThreads` et
-`hxSeed` explicitement, avec affinité imposée : le paramètre
+Le lancement passe `inFileName`, `solFileName`, `trajectoryFileName`, `hxTimeLimit`,
+`hxNbThreads`, `hxSeed` et `hxTimeBetweenDisplays` explicitement, avec affinité imposée : le paramètre
 [hxNbThreads](https://www.hexaly.com/docs/last/modelerreference/standardlibrary/builtinfunctions.html)
 est indicatif. Le contrat de lancement accepte aussi `hxNbThreads=0` pour mesurer
 le réglage automatique sous un masque CPU explicite ; un essai fixe à 8 fils peut
@@ -102,6 +102,14 @@ ainsi utiliser exactement le même masque de huit cœurs. L'audit accepte unique
 les routes revalidées avec les objectifs recalculés dans le problème original.
 Aucun benchmark Hexaly ni résultat de performance n'est encore produit ;
 l'exécutable n'est pas présent sur cette machine.
+
+Le modèle utilise sa fonction HXM classique `display()` pour ajouter chaque
+amélioration lexicographique à un TOML de trajectoire. L'intervalle initial est
+de 1 seconde, minimum accepté par l'API entière ; seules les améliorations écrivent leurs routes. Le validateur
+Julia applique à chaque temps le décalage mesuré de préparation commune, place
+le point de départ à cet instant, revérifie les snapshots dans l'instance
+originale et censure les observations tardives. Le coût de cette surveillance
+reste à mesurer pendant la qualification native.
 
 Le temps est réparti entre les deux objectifs lexicographiques. La valeur simple
 `hxTimeLimit=60` signifierait zéro seconde pour la flotte puis 60 secondes pour
@@ -113,8 +121,8 @@ ablation annoncée, avec les deux durées et les trajectoires consignées.
 
 Avant une campagne : compiler, injecter des solutions valides et invalides
 à temps nul, vérifier les routes vides et les fenêtres/charges, contrôler le
-point initial après presolve, ajouter le chrono construction/recherche commun
-et des callbacks anytime. Le CLI avec un budget de recherche seul ne suffit pas
+point initial après presolve, qualifier le chrono construction/recherche commun
+et les snapshots anytime. Le CLI avec un budget de recherche seul ne suffit pas
 au classement. La préparation n'active pas de licence et ne démarre pas l'essai.
 
 ## Variante par processus

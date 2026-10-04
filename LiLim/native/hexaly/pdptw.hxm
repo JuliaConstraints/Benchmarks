@@ -3,7 +3,8 @@
 use io;
 
 function input() {
-    if (inFileName == nil || solFileName == nil) throw "inFileName and solFileName required";
+    if (inFileName == nil || solFileName == nil || trajectoryFileName == nil)
+        throw "inFileName, solFileName and trajectoryFileName required";
     local f = io.openRead(inFileName);
     if (f.readString() != "lilim-common-start/1") throw "Wrong exchange schema";
     n = f.readInt(); capacity = f.readInt(); fleet = f.readInt();
@@ -20,6 +21,9 @@ function input() {
     f.close();
     for [i in 0...n] for [j in 0...n]
         travel[i][j] = sqrt((x[i]-x[j])*(x[i]-x[j]) + (y[i]-y[j])*(y[i]-y[j]));
+    local trace = io.openWrite(trajectoryFileName);
+    trace.println("schema = \"li-lim-hexaly-trajectory/1\"");
+    trace.close();
 }
 function model() {
     route[k in 0...fleet] <- list(n-1);
@@ -49,16 +53,53 @@ function model() {
     minimize vehicles;
     minimize distance;
 }
+function record_current() {
+    if (hxSolution.status != "FEASIBLE" && hxSolution.status != "OPTIMAL") return;
+    local current_vehicles = vehicles.value;
+    local current_distance = distance.value;
+    if (!trajectory_has_record || current_vehicles < last_recorded_vehicles ||
+        (current_vehicles == last_recorded_vehicles && current_distance < last_recorded_distance)) {
+        local f = io.openAppend(trajectoryFileName);
+        f.println("\n[[trajectory]]");
+        f.println("seconds = ", hxStatistics.runningTime);
+        f.println("vehicles = ", current_vehicles);
+        f.println("distance = ", current_distance);
+        f.print("routes = ["); local first_route = true;
+        for [k in 0...fleet : used[k].value == 1] {
+            if (!first_route) f.print(", "); first_route = false; f.print("[");
+            local first_visit = true;
+            for [v in route[k].value] {
+                if (!first_visit) f.print(", "); first_visit = false; f.print(v+2);
+            }
+            f.print("]");
+        }
+        f.println("]"); f.flush(); f.close();
+        last_recorded_vehicles = current_vehicles;
+        last_recorded_distance = current_distance;
+        trajectory_has_record = true;
+    }
+}
 function param() {
-    if (hxTimeLimit == nil || hxNbThreads == nil || hxSeed == nil) throw "Explicit budget, threads and seed required";
+    if (hxTimeLimit == nil || hxNbThreads == nil || hxSeed == nil || hxTimeBetweenDisplays == nil)
+        throw "Explicit budget, threads, seed and display interval required";
+    if (hxTimeBetweenDisplays <= 0) throw "Display interval must be positive";
+    trajectory_has_record = false;
     for [k in 0...fleet] {
         route[k].value.clear();
         for [j in 0...startLength[k]] route[k].value.add(startNode[k][j]);
     }
 }
+function display() {
+    record_current();
+}
 function output() {
+    // Capture a final improving incumbent even when the last periodic display
+    // preceded it. The Julia adapter will censor this observation if it is late.
+    record_current();
     local f = io.openWrite(solFileName);
     f.println("schema = \"li-lim-hexaly-native/1\"");
+    f.println("status = \"", hxSolution.status, "\"");
+    f.println("seconds = ", hxStatistics.runningTime);
     f.println("vehicles = ", vehicles.value);
     f.println("distance = ", distance.value);
     f.print("routes = ["); local first = true;
