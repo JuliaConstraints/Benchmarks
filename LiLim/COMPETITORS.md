@@ -103,12 +103,28 @@ les routes revalidées avec les objectifs recalculés dans le problème original
 Aucun benchmark Hexaly ni résultat de performance n'est encore produit ;
 l'exécutable n'est pas présent sur cette machine.
 
+La [syntaxe Modeler](https://www.hexaly.com/docs/last/modelerreference/commandline.html)
+accepte `hxTimeLimit=50,10` sans accolades pour allouer les deux phases, et la
+[référence des paramètres](https://www.hexaly.com/docs/last/modelerreference/standardlibrary/builtinfunctions.html)
+confirme le transfert du temps restant lorsqu'un objectif est prouvé optimal.
+Elle confirme également que `hxNbThreads` est indicatif. La fonction `display()`
+est périodique et donne accès aux statistiques de recherche ; l'initialisation
+dans `param()` et la possible projection du point initial au presolve sont
+documentées dans la [page sur les solutions initiales](https://www.hexaly.com/docs/last/features/initialsolution.html).
+La qualification vérifiera donc l'incumbent réellement retenu après presolve,
+le budget effectif calculé au paramétrage et l'utilisation CPU observée sous
+affinité, au lieu de déduire ces faits des paramètres demandés.
+
 Le modèle utilise sa fonction HXM classique `display()` pour ajouter chaque
 amélioration lexicographique à un TOML de trajectoire. L'intervalle initial est
 de 1 seconde, minimum documenté par l'API entière ; seules les améliorations
 écrivent leurs routes. Le pilote transmet l'instant de début du budget total.
 `param()` déduit alors la préparation commune, le lancement et la construction
 du modèle avant d'allouer le temps restant à Hexaly selon le partage 5:1. Les
+valeurs réellement calculées par `param()` (temps écoulé, temps mural restant,
+budget de recherche entier et budget de chaque phase) sont écrites dans le
+résultat natif puis contrôlées par l'audit Julia ; elles restent distinctes du
+partage nominal transmis sur la ligne de commande. Les
 snapshots sont horodatés sur cette horloge murale commune, revérifiés dans
 l'instance originale et censurés au-delà du budget. Le coût de cette surveillance
 reste à mesurer pendant la qualification native.

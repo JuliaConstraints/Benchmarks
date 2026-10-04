@@ -26,19 +26,24 @@ include(joinpath(@__DIR__,"..","competitors","Adapters.jl"))
     @test_throws ErrorException CompetitorAdapters.audit_hexaly(p,hexaly)
     one_route=[[2,3,4,5]]; one_route_q=validate_solution(p,one_route).objective
     final=Dict("schema"=>"li-lim-hexaly-native/2","vehicles"=>one_route_q.vehicles,
-        "distance"=>one_route_q.distance,"routes"=>one_route,"seconds"=>1.4)
+        "distance"=>one_route_q.distance,"routes"=>one_route,"seconds"=>1.8,
+        "parameterization_elapsed_seconds"=>0.4,"remaining_wall_budget_seconds"=>1.2,
+        "search_budget_seconds"=>1,"fleet_phase_seconds"=>1,"distance_phase_seconds"=>0)
     trace=Dict("schema"=>"li-lim-hexaly-trajectory/2","trajectory"=>[
         Dict("seconds"=>0.5,"vehicles"=>one_route_q.vehicles,"distance"=>one_route_q.distance,"routes"=>one_route),
-        Dict("seconds"=>1.2,"vehicles"=>one_route_q.vehicles,"distance"=>one_route_q.distance,"routes"=>one_route)])
-    audited=CompetitorAdapters.audit_hexaly_trial(p,initial,final,trace;budget_seconds=1.,common_start_seconds=0.3)
+        Dict("seconds"=>1.7,"vehicles"=>one_route_q.vehicles,"distance"=>one_route_q.distance,"routes"=>one_route)])
+    audited=CompetitorAdapters.audit_hexaly_trial(p,initial,final,trace;budget_seconds=1.6,common_start_seconds=0.3)
     @test audited["routes"]==one_route
     @test length(audited["trajectory"])==2
     @test audited["trajectory"][1]["seconds"]==0.3
     @test audited["trajectory"][2]["seconds"]==0.5
+    @test audited["phase_budget"]["search_budget_seconds"]==1
     @test audited["audited_incumbents"]==1
     @test audited["late_incumbents_censored"]==2
     bad_trace=deepcopy(trace);bad_trace["trajectory"][1]["routes"]=[[3,2,4,5]]
-    @test_throws ErrorException CompetitorAdapters.audit_hexaly_trial(p,initial,final,bad_trace;budget_seconds=1.,common_start_seconds=0.3)
+    @test_throws ErrorException CompetitorAdapters.audit_hexaly_trial(p,initial,final,bad_trace;budget_seconds=1.6,common_start_seconds=0.3)
+    bad_phase=deepcopy(final);bad_phase["fleet_phase_seconds"]=0
+    @test_throws ErrorException CompetitorAdapters.audit_hexaly_trial(p,initial,bad_phase,trace;budget_seconds=1.6,common_start_seconds=0.3)
     epoch_ms=1791137400000
     @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=2,seconds=5,seed=41,cpus=[8,8],trial_start_epoch_ms=epoch_ms)
     @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=1,seconds=0.5,seed=41,cpus=[8],trial_start_epoch_ms=epoch_ms)

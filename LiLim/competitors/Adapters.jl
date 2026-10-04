@@ -70,6 +70,27 @@ function audit_hexaly_trial(p, initial, output, trace; budget_seconds, common_st
     initial_check.valid || error("invalid common-start fallback")
     output["schema"] == "li-lim-hexaly-native/2" || error("wrong Hexaly schema")
     trace["schema"] == "li-lim-hexaly-trajectory/2" || error("wrong Hexaly trajectory schema")
+    parameterization_elapsed = Float64(output["parameterization_elapsed_seconds"])
+    remaining_wall = Float64(output["remaining_wall_budget_seconds"])
+    search_budget_value = Float64(output["search_budget_seconds"])
+    fleet_phase_value = Float64(output["fleet_phase_seconds"])
+    distance_phase_value = Float64(output["distance_phase_seconds"])
+    all(isfinite, (parameterization_elapsed, remaining_wall, search_budget_value,
+        fleet_phase_value, distance_phase_value)) || error("non-finite Hexaly phase budget")
+    parameterization_elapsed >= common_start_seconds || error("Hexaly parameterization precedes common-start export")
+    isapprox(parameterization_elapsed + remaining_wall, budget_seconds; atol=1e-6, rtol=0) ||
+        error("Hexaly remaining wall clock does not match the total budget")
+    all(isinteger, (search_budget_value, fleet_phase_value, distance_phase_value)) ||
+        error("Hexaly phase budgets must be whole seconds")
+    search_budget = Int(search_budget_value)
+    fleet_phase = Int(fleet_phase_value)
+    distance_phase = Int(distance_phase_value)
+    search_budget == max(0, floor(Int, remaining_wall)) ||
+        error("Hexaly search budget differs from the remaining common wall time")
+    fleet_phase + distance_phase == search_budget || error("Hexaly objective phase budgets do not sum to the search budget")
+    expected_fleet_phase = search_budget == 0 ? 0 : max(1, fld(5 * search_budget, 6))
+    fleet_phase == expected_fleet_phase || error("Hexaly fleet phase differs from the declared 5:1 policy")
+    distance_phase == search_budget - fleet_phase || error("Hexaly distance phase differs from the declared 5:1 policy")
     final_check = audit_hexaly(p, output)
     records = Any[]
     censored = 0
@@ -119,6 +140,9 @@ function audit_hexaly_trial(p, initial, output, trace; budget_seconds, common_st
     best === nothing && (best=initial_check.objective)
     Dict("routes"=>best_routes, "vehicles"=>best.vehicles, "distance"=>best.distance,
         "trajectory"=>trajectory, "original_validation"=>true,
+        "phase_budget"=>Dict("parameterization_elapsed_seconds"=>parameterization_elapsed,
+            "remaining_wall_budget_seconds"=>remaining_wall,"search_budget_seconds"=>search_budget,
+            "fleet_seconds"=>fleet_phase,"distance_seconds"=>distance_phase),
         "within_budget_feasible"=>!isempty(trajectory),
         "audited_incumbents"=>length(records), "late_incumbents_censored"=>censored)
 end

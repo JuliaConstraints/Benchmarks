@@ -355,6 +355,7 @@ function run_hexaly_case(row, seconds, seed, policy, threads, executable, logpat
             "initial_distance"=>initial_check.objective.distance,
             "vehicles"=>quality.vehicles, "distance"=>quality.distance,
             "routes"=>audited["routes"], "trajectory"=>audited["trajectory"],
+            "hexaly_phase_budget"=>audited["phase_budget"],
             "original_validation"=>audited["original_validation"],
             "audited_incumbents"=>audited["audited_incumbents"],
             "late_incumbents_censored"=>audited["late_incumbents_censored"],

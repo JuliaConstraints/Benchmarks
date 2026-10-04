@@ -95,6 +95,11 @@ function param() {
     local remaining_seconds = max(0, math.floor(remaining));
     local fleet_seconds = remaining_seconds == 0 ? 0 : max(1, math.floor(5*remaining_seconds/6));
     local distance_seconds = remaining_seconds - fleet_seconds;
+    parameterization_elapsed_seconds = totalWallBudgetSeconds - remaining;
+    remaining_wall_budget_seconds = remaining;
+    search_budget_seconds = remaining_seconds;
+    fleet_phase_seconds = fleet_seconds;
+    distance_phase_seconds = distance_seconds;
     // Include common-start construction, HXM input/model construction and
     // process launch in the total wall clock before setting Hexaly's search cap.
     hxTimeLimit = {fleet_seconds, distance_seconds};
@@ -116,6 +121,11 @@ function output() {
     f.println("status = \"", hxSolution.status, "\"");
     f.println("seconds = ", wall_elapsed());
     f.println("solver_seconds = ", hxStatistics.runningTime);
+    f.println("parameterization_elapsed_seconds = ", parameterization_elapsed_seconds);
+    f.println("remaining_wall_budget_seconds = ", remaining_wall_budget_seconds);
+    f.println("search_budget_seconds = ", search_budget_seconds);
+    f.println("fleet_phase_seconds = ", fleet_phase_seconds);
+    f.println("distance_phase_seconds = ", distance_phase_seconds);
     f.println("vehicles = ", vehicles.value);
     f.println("distance = ", distance.value);
     f.print("routes = ["); local first = true;
