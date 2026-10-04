@@ -1,7 +1,7 @@
 module CompetitorAdapters
 using TOML, SHA
 using ..Benchmarks, ..Pilot
-export export_common_start, audit_timefold, audit_hexaly
+export export_common_start, audit_timefold, audit_hexaly, hexaly_command
 
 "One-based node IDs, depot=1; complete native fleet and an independently validated start."
 function export_common_start(io,p,initial)
@@ -59,5 +59,14 @@ function audit_hexaly(p,output)
     validation.objective.vehicles==output["vehicles"] || error("Hexaly fleet mismatch")
     isapprox(validation.objective.distance,output["distance"];atol=1e-7,rtol=1e-12) || error("Hexaly distance mismatch")
     validation
+end
+"Prepared CLI launch; original validation and timing qualification are still required."
+function hexaly_command(executable,input,output;threads,seconds,seed,cpus)
+    threads in (1,2,4,8,16) && length(cpus)==threads && length(unique(cpus))==threads ||
+        throw(ArgumentError("CPU allocation must be explicit and unique"))
+    seconds isa Integer && seconds>=0 && seed isa Integer && seed>=0 ||
+        throw(ArgumentError("Hexaly CLI needs integer seconds and a nonnegative seed"))
+    model=normpath(joinpath(@__DIR__,"..","native","hexaly","pdptw.hxm"))
+    `taskset --cpu-list $(join(cpus,',')) $executable $model inFileName=$input solFileName=$output hxTimeLimit=$seconds hxNbThreads=$threads hxSeed=$seed`
 end
 end

@@ -250,3 +250,20 @@ les résultats retournés restent copiés et possédés. Le décodage chaud test
 alloue également zéro octet, avec vérification des erreurs et de l'isolation
 des snapshots ; les 29 contrôles de workspace passent, ainsi que les scores
 exhaustifs et les 141 contrôles des portefeuilles à 16 threads.
+
+Les [mesures finales et l'analyse](results/icn-performance-20261004.md) conservent
+les trois graines à toutes les largeurs, le second diagnostic à quatre threads,
+les trois collecteurs PerfChecker finaux et la capture SnoopCompile avec sommes
+exclusives. À seize workers sur LC101 : 15,97 CPU actifs, 26,59 millions de
+candidats/s et 256 Mo alloués par appel de cinq secondes. Le temps GC de l'appel
+inclut la collecte forcée précédant le chrono interne ; ne pas le confondre
+avec le GC de la boucle seule. Les graphiques CPU et débit ne remplacent pas
+les graphiques de réussite et de qualité avec référence BKS.
+
+Les variantes par processus gardent leur intérêt : LocalSearchSolvers possède
+des workers Distributed et `process_threads_map`. La phase MetaStrategist de
+ce pilote ne les utilise pas encore. Leur qualification suivra les corrections
+multithread, avec workers déjà chargés, même plafond CPU et coût de lancement
+publié. Le [protocole concurrents](config/competitors.toml) prépare cette
+distinction, Timefold incrémental et Hexaly. La table BKS n'apporte pas de temps
+de calcul de référence homogène ; on mesure le temps d'atteinte localement.

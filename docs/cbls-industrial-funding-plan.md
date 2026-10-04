@@ -42,6 +42,29 @@ et les mises à jour documentaires peuvent continuer pendant l'attente.
 
 ## Objectif et résultat attendu
 
+### État du 4 octobre 2026 après qualification ICN et diagnostic GC
+
+Le [bilan des 369 essais](../LiLim/results/icn-threads-20261004.md) et les figures
+de réussite/anytime conservent leurs sources et budgets. Le
+[diagnostic PerfChecker/SnoopCompile](../LiLim/results/icn-performance-20261004.md)
+conduit à des buffers privés par worker et une correction d'itération du noyau.
+Sur le contrôle LC101 à seize threads, l'occupation atteint 15,97 CPU actifs et
+les allocations passent de 36,09 Go à 256 Mo sur cinq secondes. Ce résultat
+qualifie le débit ; il n'est pas une preuve de supériorité sur la qualité.
+
+La priorité reste la réduction du GC en multithread. Les versions par processus
+seront contrôlées ensuite avec un pool déjà chargé, GC privés, coûts de lancement
+et sérialisation déclarés. Le pilote MetaStrategist actuel exécute des threads ;
+sa phase distribuée n'est pas supposée exister.
+
+Le [protocole concurrents](../LiLim/config/competitors.toml) ajoute un adaptateur
+Timefold Community à score incrémental par route et prépare un modèle Hexaly
+de même sémantique : contraintes originales, flotte puis distance non arrondie.
+Qualifier les sorties avec le validateur original et comparer à budget et
+ressources égaux. La fenêtre d'essai Hexaly n'est pas démarrée par cette préparation.
+Les BKS SINTEF donnent des cibles de qualité ; aucun temps de référence homogène
+ne doit être inventé. La mesure utile est notre temps local d'atteinte de ces cibles.
+
 Obtenir assez de preuves de compétitivité pour proposer à une entreprise de
 financer JuliaConstraints avec une partie du budget consacré à ses licences de
 solveurs commerciaux de recherche locale. Le cœur logiciel resterait open source.

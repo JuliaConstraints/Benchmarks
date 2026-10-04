@@ -23,7 +23,7 @@ const RESULT=Dict{String,Any}("schema"=>"li-lim-timefold-qualified-pilot/1","sta
         @__FILE__,joinpath(ROOT,"LiLim","competitors","Adapters.jl"),joinpath(ROOT,"LiLim","src","Pilot.jl"),
         joinpath(NATIVE,"pom.xml"),joinpath(NATIVE,"src","main","java","bench","Pdptw.java"))),
     "jars_sha256"=>Dict(basename(p)=>digest(p) for p in readdir(joinpath(TARGET,"dependency");join=true)),
-    "comparison_scope"=>"diagnostic common-start native Timefold Community; not an Enterprise benchmark; native clock includes input/model/factory/solve/incumbent checks, Julia common start and final audit are separately reported",
+    "comparison_scope"=>"diagnostic common-start native Timefold Community; not an Enterprise benchmark; common preparation is charged as a prefix to each trial, then native input/model/factory/solve/full incumbent checks; original Julia audit is separately reported",
     "instances"=>Any[])
 function campaign()
     # Compile controller-side parsing/insertion/export before charging common preparation.
@@ -39,14 +39,20 @@ function campaign()
         end
         mktempdir() do exchange
             input=joinpath(exchange,"instance.txt");output=joinpath(exchange,"native.toml")
-            open(io->CompetitorAdapters.export_common_start(io,p,initial),input,"w")
+            export_seconds=@elapsed open(io->CompetitorAdapters.export_common_start(io,p,initial),input,"w")
+            prefix_seconds=preparation.time+export_seconds
+            native_budget=BUDGET-prefix_seconds;native_budget>0 || error("common preparation exceeded budget")
             classpath=join([joinpath(TARGET,"classes"),joinpath(TARGET,"dependency","*")],Sys.iswindows() ? ';' : ':')
-            cmd=`taskset --cpu-list $AFFINITY timeout --signal=TERM --kill-after=5s 120s java -XX:ActiveProcessorCount=$WIDTH -XX:+UseSerialGC -Xmx2g -Dorg.slf4j.simpleLogger.defaultLogLevel=warn -cp $classpath bench.Pdptw $input $PROFILE $BUDGET $WIDTH 41,42,43 $output`
+            cmd=`taskset --cpu-list $AFFINITY timeout --signal=TERM --kill-after=5s 120s java -XX:ActiveProcessorCount=$WIDTH -XX:+UseSerialGC -Xmx2g -Dorg.slf4j.simpleLogger.defaultLogLevel=warn -cp $classpath bench.Pdptw $input $PROFILE $native_budget $WIDTH 41,42,43 $output`
             println("Timefold ",id," · ",WIDTH," worker(s) · ",BUDGET," s");flush(stdout)
             wall=@elapsed run(cmd)
             native=TOML.parsefile(output);audited=@timed CompetitorAdapters.audit_timefold(p,initial,native)
+            for trial in audited.value, event in trial["trajectory"]
+                event["seconds"]+=prefix_seconds
+            end
             push!(RESULT["instances"],Dict("id"=>id,"instance_sha256"=>digest(path),
-                "export_sha256"=>digest(input),"common_initialization_seconds"=>preparation.time,
+                "export_sha256"=>digest(input),"common_initialization_seconds"=>prefix_seconds,
+                "total_budget_seconds"=>BUDGET,"native_budget_seconds"=>native_budget,
                 "cold_process_with_warmup_seconds"=>wall,"final_audit_seconds"=>audited.time,
                 "initial_routes"=>initial,"native"=>native,"qualified_trials"=>audited.value))
             RESULT["updated_utc"]=string(now(UTC));mkpath(dirname(OUT));open(io->TOML.print(io,RESULT;sorted=true),OUT,"w")
