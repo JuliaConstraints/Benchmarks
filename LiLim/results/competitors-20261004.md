@@ -1,108 +1,105 @@
-# Premier raccordement Timefold et préparation Hexaly
+# First Timefold Integration and Hexaly Preparation
 
-Le 4 octobre 2026, Timefold 2.6.0 Community est ajouté à Li-Lim avec un modèle
-natif de listes et un score incrémental par route. Hexaly dispose d'un modèle
-préparé et d'un contrat de lancement/audit ; aucun résultat Hexaly n'est annoncé.
-Le [protocole et les limites](../COMPETITORS.md) sont sauvegardés avec les sources.
+On 4 October 2026, Timefold 2.6.0 Community was added to Li-Lim with a native
+list model and incremental route scoring. A Hexaly model and launch/audit
+contract are prepared, but no Hexaly result is reported. The
+[protocol and limits](../COMPETITORS.md) are saved with the sources.
 
-## Résultats courts à point initial commun
+## Short comparison from a shared starting point
 
-90 essais Timefold à horloges raccordées : trois instances, trois graines,
-1/2/4/8/16 workers, acceptation tardive de taille 400 ou 1 000. Les 45 contrôles
-CBLS/ICN sont relancés avec le noyau et les workspaces actuels, au même budget
-total de cinq secondes. Les préparations communes et les coûts de modèle
-sont inclus dans le budget déclaré ; le chargement et les warmups sont séparés.
-Chaque résultat et chaque incumbent admis est revalidé dans le problème original.
+The time-aligned batch contains 90 Timefold trials: three instances, three
+seeds, 1/2/4/8/16 workers and late acceptance sizes of 400 or 1,000. The 45
+CBLS/ICN controls were rerun with the current kernel and workspaces at the same
+five-second total budget. Shared preparation and model costs count against the
+declared budget; loading and warmups are reported separately. Every final
+solution and accepted incumbent is revalidated against the original problem.
 
-Médianes lexicographiques sur les trois graines :
+Lexicographic medians across the three seeds:
 
-| Instance | BKS publié | CBLS ICN, 1/2/4/8 workers | CBLS ICN, 16 workers | Timefold, 1/2/4/8/16 workers, LA 400 ou 1 000 |
-|---|---|---|---|---|
-| LC101 | 10 / 828,94 | 10 / 828,937 | 10 / 828,937 | 10 / 828,937 |
-| LR101 | 19 / 1650,80 | 20 / 1695,138 | 19 / 1685,959 | 21 / 1813,936 |
-| LRC101 | 14 / 1708,80 | 17 / 1797,545 | 17 / 1793,425 | 19 / 2143,503 |
+| Instance | Published BKS | CBLS ICN, 1/2/4/8 workers | CBLS ICN, 16 workers | Timefold, 1/2/4/8/16 workers, LA 400 or 1,000 |
+|---|---:|---:|---:|---:|
+| LC101 | 10 / 828.94 | 10 / 828.937 | 10 / 828.937 | 10 / 828.937 |
+| LR101 | 19 / 1650.80 | 20 / 1695.138 | 19 / 1685.959 | 21 / 1813.936 |
+| LRC101 | 14 / 1708.80 | 17 / 1797.545 | 17 / 1793.425 | 19 / 2143.503 |
 
-Le meilleur CBLS de ce lot sur LRC101 atteint 16 véhicules / 1790,489.
-À tolérance de distance 1e-6, CBLS gagne les 60 comparaisons appariées LR101/LRC101
-contre les deux profils Timefold et fait égalité dans les 30 cellules LC101.
-LC101 est déjà à sa référence dans le point commun : ce succès n'est pas dû à
-une découverte des solveurs. Aucun essai ne rejoint les BKS LR101 ou LRC101.
-Les différences de quelques unités d'arrondi flottant sur LR101 côté Timefold
-ne constituent pas une amélioration utile de l'insertion.
+The best CBLS trial in this batch on LRC101 reaches 16 vehicles / 1790.489.
+With a distance tolerance of `1e-6`, CBLS wins all 60 paired LR101/LRC101
+comparisons against the two Timefold profiles and ties in all 30 LC101 cells.
+LC101 already starts at its reference, so that success does not come from
+solver discovery. No trial reaches the LR101 or LRC101 BKS. The few-unit
+floating-point rounding differences in Timefold's LR101 values are not a useful
+improvement over insertion.
 
-## Ce que cela permet de dire
+## What these results support
 
-Le contrôleur CBLS avec réinsertions de requêtes complètes améliore l'insertion
-sur les deux cas difficiles. Le modèle Timefold testé, malgré son score
-incrémental et ses solveurs effectivement actifs, progresse peu avec ses mouvements
-natifs et ces budgets courts. L'ajustement de l'acceptation 400 → 1 000 ne suffit
-pas ici. Ce résultat désigne les mouvements et la diversification comme prochain
-levier à examiner ; il ne prouve pas une supériorité sur toutes les formulations
-Timefold, l'édition Enterprise, ou un corpus industriel de confirmation.
+The CBLS controller with complete-request reinsertion improves on insertion in
+the two harder cases. The tested Timefold model, despite its incremental score
+and active solver threads, makes little progress with its native moves at these
+short budgets. Changing late acceptance from 400 to 1,000 is not enough here.
+This points to neighborhoods and diversification as the next areas to examine;
+it does not establish superiority over all Timefold formulations, the
+Enterprise edition or an industrial confirmation corpus.
 
-Le défaut Timefold 2.6.0 se résout déjà en acceptation tardive 400 et un candidat
-accepté par étape. Le profil explicite 400 n'est donc pas compté comme une
-stratégie différente. Les premières captures `timefold-default-*` sont des
-qualifications antérieures au raccordement du coût commun ; elles ne sont pas
-utilisées dans cette table ou dans les figures comparatives à cinq secondes.
+Timefold 2.6.0's default configuration can already be resolved with late
+acceptance 400 and one accepted candidate per step. The explicit 400 profile is
+therefore not counted as a distinct strategy. Earlier `timefold-default-*`
+captures qualify the adapter before common-cost accounting was connected; they
+are not used in this table or the five-second comparison figures.
 
-À seize workers, Timefold reçoit la même affinité et exécute seize solveurs
-série indépendants dans une JVM, avec GC série et heap maximal déclaré de 2 Go.
-Ce n'est pas son parallélisme interne Enterprise. Le processus utilise environ
-13,6 à 14,3 CPU en médiane selon le cas/profil. Dans les 81 essais instrumentés,
-tous les workers entrent réellement en recherche ; ils totalisent 813 115 001
-calculs de score. Les compteurs natifs sont conservés pour permettre de
-vérifier cette activité sans la déduire du seul nombre de threads demandé.
-Les métriques Micrometer globales émettent un avertissement de nom partagé
-entre solveurs ; les compteurs de travail retenus sont propres aux threads.
+At 16 workers, Timefold receives the same CPU affinity and runs sixteen
+independent serial solvers in one JVM, with serial GC and a declared 2 GB maximum
+heap. This is not its internal Enterprise parallelism. Median native-process
+use is about 13.6–14.3 CPUs, depending on case and profile. All workers entered
+search in the 81 instrumented trials, totalling 813,115,001 score calculations.
+Native counters are retained so that this activity can be checked rather than
+inferred from the requested thread count. Global Micrometer metrics warn about
+a shared name across solvers; the retained work counters are thread-local.
 
-Occupation médiane du processus Timefold, plages selon les trois cas et les
-deux profils : 0,999–1,000 CPU à un worker, 1,934–1,971 à deux,
-3,717–3,808 à quatre, 7,156–7,369 à huit et 13,597–14,298 à seize.
-Ces horloges couvrent l'appel natif complet ; elles ne doivent pas être
-interprétées comme le seul temps de recherche par thread.
+Median Timefold process occupancy, with ranges across the three cases and two
+profiles: 0.999–1.000 CPU at one worker, 1.934–1.971 at two, 3.717–3.808 at
+four, 7.156–7.369 at eight, and 13.597–14.298 at sixteen. These clocks cover the
+complete native call; they are not search time per worker.
 
-Les recherches CBLS et Timefold n'ont pas le même voisinage ni la même erreur
-de guidage des états infaisables, mais visent le même ensemble de solutions
-originales et le même ordre de qualité. La comparaison porte sur ces solveurs
-et formulations complets. Les modèles Timefold, le heap et les hyperparamètres
-ne sont pas encore optimisés par HPO. Le corpus est déjà exposé, les méthodes
-ne sont pas exécutées en ordre contrebalancé et il n'y a que trois graines :
-ce bilan sert de pilote, pas de preuve commerciale finale.
+CBLS and Timefold use different neighborhoods and different guidance errors
+for infeasible states, but target the same original feasible solutions and
+quality order. This compares the complete tested solvers and formulations.
+Timefold's model, heap and hyperparameters have not yet been tuned by HPO. The
+corpus is already exposed, execution order is not counterbalanced, and there
+are only three seeds. Treat this as a pilot, not final commercial evidence.
 
-## Hexaly et référence de temps
+## Hexaly and reference runtimes
 
-Le modèle [pdptw.hxm](../native/hexaly/pdptw.hxm) lit le même échange, impose les
-contraintes originales et optimise flotte puis distance sans arrondir. Les
-tests du contrat Julia refusent les routes invalides, les scores incohérents
-et des allocations CPU ambiguës. L'exécutable est absent : compilation native,
-injection à temps nul, gestion des routes vides, chrono de construction/résolution
-et callbacks anytime restent à qualifier. La licence d'essai n'est pas activée.
+The [pdptw.hxm model](../native/hexaly/pdptw.hxm) reads the same exchange format,
+enforces the original constraints and optimizes fleet before unrounded distance.
+Julia contract tests reject invalid routes, inconsistent scores and ambiguous
+CPU allocations. The executable is absent, so native compilation, zero-time
+injection, empty-route handling, construction/search clocks and anytime
+callbacks still need qualification. The trial license is not activated.
 
-La [table SINTEF](https://www.sintef.no/projectweb/top/pdptw/100-customers/) fournit
-une qualité, une provenance et une date ; elle ne garantit pas des durées de
-calcul et des plateformes comparables. Les figures affichent cette qualité,
-et notre temps local d'atteinte. Les budgets de 60/600 secondes du benchmark
-de l'éditeur Hexaly ne sont pas des temps historiques des BKS.
+The [SINTEF table](https://www.sintef.no/projectweb/top/pdptw/100-customers/)
+provides solution quality, provenance and dates, but no uniform compute times or
+comparable platforms. The figures show that quality alongside our locally
+measured time to target. The 60- and 600-second Hexaly benchmark budgets are not
+historical runtimes for the SINTEF BKS values.
 
-## Sources et sauvegarde
+## Sources and validation
 
-Les captures conservent les sources, instances et JARs hachés, les budgets,
-préparations, warmups, CPU, graines et trajectoires. Les versions exactes des
-adaptateurs mesurés sont conservées dans l'historique Git : `9285fa8`, `12b8013`,
-`511e6aa` puis `1314994`. L'extension à 2/4/8 workers utilise `b066616`.
-Le contrôleur CBLS conserve la cohorte du noyau
-`8d0b329` et l'empreinte inchangée des fonctions ICN récupérées. Aucune donnée
-de la campagne précédente de 369 essais n'est remplacée.
+Captures retain hashed sources, instances and JARs, budgets, preparation,
+warmups, CPU use, seeds and trajectories. Exact measured adapter revisions are
+in Git history: `9285fa8`, `12b8013`, `511e6aa` and `1314994`. The extension to
+2/4/8 workers uses `b066616`. The CBLS controller uses the `8d0b329` kernel
+cohort and the unchanged fingerprint of the recovered ICN functions. No data
+from the earlier 369-trial campaign was replaced.
 
-Qualification : 480 partitions exhaustives avec un oracle distinct, quatre
-recherches Timefold FULL_ASSERT réellement démarrées, contrôles de changement/
-annulation sur les trois instances, onze tests Julia d'échange/audit et nouvelle
-qualification à seize threads des scores, workspaces et portefeuilles CBLS.
+Qualification includes 480 exhaustive partitions with a separate oracle, four
+Timefold FULL_ASSERT searches confirmed to start, change/cancellation checks on
+all three instances, eleven Julia exchange/audit tests, and a new 16-thread
+qualification of CBLS scores, workspaces and portfolios.
 
-Captures comparatives : `competitor-cbls-{1,2,4,8,16}t-*`,
-`timefold-late-{1,2,4,8,16}t-*` et `timefold-late1000-{1,2,4,8,16}t-*`.
-Figures exactes et XKCD en PNG/PDF :
-`figures-20261004/competitors-quality*` et `competitors-anytime*`. Les figures
-incluent flotte, distance, taux d'atteinte de la référence et progression des
-trois graines ; les taux 0/33/67/100 % ne sont pas une extrapolation statistique.
+Comparative captures: `competitor-cbls-{1,2,4,8,16}t-*`,
+`timefold-late-{1,2,4,8,16}t-*` and
+`timefold-late1000-{1,2,4,8,16}t-*`. Exact-style and XKCD figures in PNG/PDF
+are under `figures-20261004/competitors-quality*` and
+`competitors-anytime*`. They show fleet, distance, reference-attainment rate
+and the three-seed progression; rates of 0/33/67/100% are not statistical
+extrapolations.
