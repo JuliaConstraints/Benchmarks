@@ -41,6 +41,28 @@ lot ; Hexaly n'est pas exécuté. La capture Timefold représente des recherches
 Community indépendantes et séquentielles, pas le parallélisme natif d'une
 résolution.
 
+## Hexaly : estimation et comparabilité pour Li-Lim
+
+Le [benchmark PDPTW publié par Hexaly le 27 mars 2026](https://www.hexaly.com/benchmarks/hexaly-vs-google-or-tools-pickup-and-delivery-problem-with-time-windows-pdptw)
+rapporte, après une minute, un écart moyen à la meilleure valeur connue de 0 %
+pour la taille 100 et de 0,1 % pour la taille 200. L'article utilise Hexaly
+15.0, OR-Tools 9.14 avec ses paramètres par défaut et une machine Ryzen 7 7700
+à 8 cœurs, 3,8 GHz et 32 Go. Ce résultat suggère que Hexaly sera un concurrent
+très fort, et probablement devant le prototype CBLS actuel sur la qualité à
+court budget pour les petites Li-Lim. Il s'agit d'une estimation, pas d'un
+résultat comparatif reproduit chez nous.
+
+La comparaison directe doit d'abord corriger une différence de modèle : le
+code Hexaly publié minimise le retard total, puis la distance arrondie au
+centième. L'article rappelle que la littérature optimise d'abord le nombre de
+véhicules, puis la distance, mais son tableau ne rapporte que l'écart de
+distance à la meilleure valeur connue. À la reprise de l'essai commercial,
+comparer séparément (1) leur modèle publié reproduit, et (2) un modèle
+aligné sur l'objectif flotte puis distance, avec les validateurs et le temps
+mural end-to-end communs. Inclure plusieurs graines, toutes les ressources
+CPU utilisées et le temps jusqu'à la première solution faisable. Jusqu'à cette
+étape, ne pas annoncer Hexaly comme battu ou égalé.
+
 ## Couverture à construire
 
 Les candidats ci-dessous viennent des sources et manifests retrouvés dans les
@@ -133,6 +155,7 @@ comparatif.
 | État | Étape | Résultat consultable | Révision mesurée | Révision GitLab |
 |---|---|---|---|---|
 | Livré | Réévaluation, 12 profils, 1/2/4/8/16, budget 5 s | [Rapport](../LiLim/results/all-variants-20261004.md) et figures ci-dessus | Capture originale : vérifier dans TOML | `613c293` |
+| Livré | Journal GitLab publié ; estimation Hexaly notée avec l'écart d'objectif et le protocole à reprendre | [Commit du journal](https://gitlab.naze.baffier.fr/others/Benchmarks/-/commit/ad7ada9d330599f92fcb3d8ea806559e52d0d1ab) | Benchmark fournisseur du 27 mars 2026 ; pas encore reproduit | `ad7ada9` |
 | En préparation | Inventaire des familles et moteurs, PerfChecker baseline, contrôle 8/12/16/20 | À compléter ici avant le premier lot long | — | — |
 
 À chaque nouvelle ligne de résultat, pousser avec le même commit les mises à jour
