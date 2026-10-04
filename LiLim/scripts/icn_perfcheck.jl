@@ -6,9 +6,12 @@ const ENVIRONMENT=joinpath(homedir(),".julia","dev","ConstraintModels","perf","p
 const OUT=abspath(ARGS[2]);ispath(OUT) && error("output exists")
 digest(path)=bytes2hex(sha256(read(path)))
 const SOURCES=Dict(relpath(path,ROOT)=>digest(path) for path in readdir(joinpath(ROOT,"LiLim","src");join=true) if endswith(path,".jl"))
+const COHORT=Dict(name=>strip(read(`git -C $(joinpath(homedir(),".julia","dev",name)) rev-parse HEAD`,String))
+    for name in keys(TOML.parsefile(joinpath(ROOT,"LiLim","config","current-pilot.toml"))["cohort"]))
 const RESULT=Dict{String,Any}("schema"=>"li-lim-perfchecker/1","label"=>ARGS[1],
     "started_utc"=>string(now(UTC)),"benchmarks_commit"=>strip(read(`git -C $ROOT rev-parse HEAD`,String)),
     "solver_sources_sha256"=>SOURCES,"perfchecker_version"=>string(pkgversion(PerfChecker)),
+    "measured_cohort"=>COHORT,
     "perfchecker_revision"=>"1cc09a98db569b382f91dc10f6a569c1c728b6aa",
     "controller_project_sha256"=>digest(Base.active_project()),
     "controller_manifest_sha256"=>digest(joinpath(dirname(Base.active_project()),"Manifest.toml")),

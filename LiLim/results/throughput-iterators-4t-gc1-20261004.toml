@@ -1,0 +1,342 @@
+affinity = "Cpus_allowed_list:\t0,2,8,10"
+benchmarks_commit = "c64b662b5b5a30150933fdd2a888ee0f75b0b0d5"
+cohort_override_sha256 = "3d006924cd6e264b3bb7c3e2ef35ec7e4ea611705e6bf2629576aac099b07748"
+cpu_name = "alderlake"
+finished_utc = "2026-10-04T08:22:56.216"
+gc_precollection = "full GC before each measured phase, excluded from phase timing"
+gc_threads = 1
+julia = "1.13.1"
+julia_gc_option = "1"
+mode = "throughput"
+profile_source_sha256 = "cd80a2e61fe59e8951ba98ba5ec26b95ca11afad9cbabf790ee9831be14ceb42"
+schema = "li-lim-performance-diagnostic/1"
+started_utc = "2026-10-04T08:22:04.262"
+stdlib_loading_seconds = 0.043458873
+threads = 4
+
+[baseline]
+budgets_seconds = [10.0, 30.0]
+cpu = 8
+instance_wall_guard_seconds = 900.0
+instances = ["lc101", "lr101", "lrc101"]
+job_wall_guard_seconds = 120.0
+julia = "1.13.1"
+memory_guard_bytes = 8589934592
+methods = ["cbls", "hybrid_specialized", "hybrid_bridged", "highs"]
+schema = "li-lim-meta-pilot/1"
+scope = "diagnostic on three previously exposed instances; no confirmation or commercial comparison"
+seeds = [41, 42, 43]
+threads = 1
+
+    [baseline.cohort]
+    CBLS = "3bd4e2638c39b565aa81af41f585678f8952f60a"
+    CompositionalNetworks = "ac70b743ea64c32f57100a59ceeb68b4c54181f2"
+    ConstraintCommons = "b71a313f2b600e8879877e8e04e292eb94851bd7"
+    ConstraintDomains = "399a90fdbb25d2cefc9cea2d6c4f6565be5a7c11"
+    ConstraintModels = "4ddd8f65417ac8a8d6bb12add6faf0c0c84801c3"
+    ConstraintProgrammingExtensions = "684e2e4a1459d5ae459666350c545bfc775272c2"
+    Constraints = "fc3ca4ba26d9d15ffd6065eca0bb8a968af2ff43"
+    LocalSearchSolvers = "9010ff2a0147257a2991680981f579e8c20db733"
+    MetaStrategist = "7a5bbed52f6c4993dd72bf7f9ad1c6bd57acf583"
+    PatternFolds = "bbf38fbf8b680deb4b599b06afd747fc069d25ee"
+    QUBOConstraints = "f893f83cd7518ca3aedf0ad5d2679b2c13829446"
+    XCSP3Bridges = "fe5bceaddc5081fedd200571b480e44ca9de1947"
+
+    [baseline.environment]
+    manifest_sha256 = "77e4d46bc9c20aa3e9a3bbaf27c1f95663e6a1ce290dbac28cbad00cf6d2df27"
+    project_sha256 = "2a48b5e578f38033a568c0d03697d31b86b1bed65b39086515c6648276cf457b"
+
+    [baseline.policy]
+    fragment_seconds = 0.5
+    insertion_seed = 41
+    insertion_starts = 5
+    max_visits = 20
+    repair_every = 20
+    repair_fraction = 0.35
+
+    [baseline.source_sha256]
+    lc101 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    lr101 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    lrc101 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+
+[config]
+budget_seconds = 10.0
+clb_commit = "b340e83a72ed19acd1f1647edaafb9e363738f0f"
+cpu_order = [8, 10, 0, 2, 4, 6, 12, 14, 16, 17, 18, 19, 9, 11, 1, 3]
+icn_bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+instances = ["lc101", "lr101", "lrc101"]
+job_wall_guard_seconds = 120.0
+julia = "1.13.1"
+memory_guard_bytes = 12884901888
+methods = ["cbls_naive", "cbls_icn", "cbls_direct", "hybrid_specialized_icn", "hybrid_bridged_icn", "highs_native", "highs_portfolio"]
+portfolio_methods = ["mixed_balanced", "mixed_ls_heavy"]
+process_wall_guard_seconds = 1400.0
+schema = "li-lim-icn-threads/1"
+scope = "diagnostic on three exposed instances, fixed wall budget, no commercial comparison"
+seeds = [41, 42, 43]
+thread_counts = [1, 2, 4, 8, 16]
+
+    [config.policy]
+    fragment_seconds = 0.5
+    insertion_seed = 41
+    insertion_starts = 5
+    max_visits = 20
+    repair_every = 20
+    repair_fraction = 0.35
+
+    [config.source_sha256]
+    lc101 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    lr101 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    lrc101 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+
+[[events]]
+allocated_bytes = 402313664
+compile_seconds = 1.537351328
+gc_seconds = 0.211107837
+phase = "load ConstraintModels"
+recompile_seconds = 0.772191669
+sample = 1
+seconds = 4.36849501
+[[events]]
+allocated_bytes = 58448
+compile_seconds = 0.00263753
+gc_seconds = 0.0
+phase = "load JuMP and Benchmarks"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.002931707
+[[events]]
+allocated_bytes = 50007376
+compile_seconds = 0.331043204
+gc_seconds = 0.0
+phase = "include Pilot"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.431869158
+[[events]]
+allocated_bytes = 2180024
+compile_seconds = 9.38e-7
+gc_seconds = 0.0
+phase = "include MetaRepair"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.0355893
+[[events]]
+allocated_bytes = 1545464
+compile_seconds = 0.006427767
+gc_seconds = 0.0
+phase = "include ICNScoring"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.022777245
+[[events]]
+allocated_bytes = 1766504
+compile_seconds = 7.29e-7
+gc_seconds = 0.0
+phase = "include Hybrid"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.034058054
+[[events]]
+allocated_bytes = 6553864
+compile_seconds = 0.015689919
+gc_seconds = 0.0
+phase = "include ResourceExperiment"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.109214799
+[[events]]
+allocated_bytes = 1231888352
+compile_seconds = 3.825714775
+gc_seconds = 0.357765463
+phase = "decode error backends"
+recompile_seconds = 0.0
+sample = 1
+seconds = 3.839101448
+[[events]]
+allocated_bytes = 720530016
+candidates_per_second = 1.0321966e7
+compile_seconds = 0.003355889
+distance = 828.9368669428341
+gc_seconds = 0.207587752
+icn_calls = 3371698656
+mean_active_cpus = 3.9647394740709196
+median_parent_initialization_seconds = 0.0004135765
+pair_candidates = 51609830
+phase = "hot CBLS ICN lc101"
+process_cpu_seconds = 19.824699711999997
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 41
+seconds = 5.157654382
+steps = 71267
+vehicles = 10
+
+    [[events.workers]]
+    cpu_fraction = 0.9890282980084683
+    icn_calls = 841664695
+    julia_thread_id = 1
+    os_thread_id = 18825
+    pair_candidates = 12886440
+    search_wall_seconds = 4.995990871999999
+    thread_cpu_seconds = 4.941176349000003
+    worker = 1
+    [[events.workers]]
+    cpu_fraction = 0.9966859052449244
+    icn_calls = 841145740
+    julia_thread_id = 2
+    os_thread_id = 18831
+    pair_candidates = 12870096
+    search_wall_seconds = 4.995987509
+    thread_cpu_seconds = 4.979430333
+    worker = 2
+    [[events.workers]]
+    cpu_fraction = 0.9923399508790617
+    icn_calls = 845136833
+    julia_thread_id = 3
+    os_thread_id = 18832
+    pair_candidates = 12934748
+    search_wall_seconds = 4.9960365
+    thread_cpu_seconds = 4.957766614999999
+    worker = 3
+    [[events.workers]]
+    cpu_fraction = 0.9891900826554798
+    icn_calls = 843751388
+    julia_thread_id = 4
+    os_thread_id = 18833
+    pair_candidates = 12918546
+    search_wall_seconds = 4.99596882
+    thread_cpu_seconds = 4.94196281
+    worker = 4
+[[events]]
+allocated_bytes = 719972768
+candidates_per_second = 1.03149784e7
+compile_seconds = 0.0
+distance = 828.9368669428341
+gc_seconds = 0.201982725
+icn_calls = 3370268030
+mean_active_cpus = 3.966606357333098
+median_parent_initialization_seconds = 0.0003690425
+pair_candidates = 51574892
+phase = "hot CBLS ICN lc101"
+process_cpu_seconds = 19.834184894999993
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 42
+seconds = 5.15149839
+steps = 71216
+vehicles = 10
+
+    [[events.workers]]
+    cpu_fraction = 0.9896600630597763
+    icn_calls = 839067656
+    julia_thread_id = 1
+    os_thread_id = 18825
+    pair_candidates = 12841224
+    search_wall_seconds = 4.9962809539999995
+    thread_cpu_seconds = 4.944619723999999
+    worker = 1
+    [[events.workers]]
+    cpu_fraction = 0.9922978521346049
+    icn_calls = 844694722
+    julia_thread_id = 2
+    os_thread_id = 18831
+    pair_candidates = 12930296
+    search_wall_seconds = 4.9961105230000005
+    thread_cpu_seconds = 4.957629740999998
+    worker = 2
+    [[events.workers]]
+    cpu_fraction = 0.989747645447227
+    icn_calls = 841075488
+    julia_thread_id = 3
+    os_thread_id = 18832
+    pair_candidates = 12864126
+    search_wall_seconds = 4.996158564
+    thread_cpu_seconds = 4.944936174999999
+    worker = 3
+    [[events.workers]]
+    cpu_fraction = 0.9973453958396211
+    icn_calls = 845430164
+    julia_thread_id = 4
+    os_thread_id = 18833
+    pair_candidates = 12939246
+    search_wall_seconds = 4.996162591
+    thread_cpu_seconds = 4.982899757000002
+    worker = 4
+[[events]]
+allocated_bytes = 718949584
+candidates_per_second = 1.02996062e7
+compile_seconds = 0.0
+distance = 828.9368669428341
+gc_seconds = 0.204217903
+icn_calls = 3364811660
+mean_active_cpus = 3.968461823135536
+median_parent_initialization_seconds = 0.0003848115
+pair_candidates = 51498031
+phase = "hot CBLS ICN lc101"
+process_cpu_seconds = 19.843606890000004
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 43
+seconds = 5.15688148
+steps = 71110
+vehicles = 10
+
+    [[events.workers]]
+    cpu_fraction = 0.9903196243465905
+    icn_calls = 837842906
+    julia_thread_id = 1
+    os_thread_id = 18825
+    pair_candidates = 12820104
+    search_wall_seconds = 4.996277183
+    thread_cpu_seconds = 4.947911343000001
+    worker = 1
+    [[events.workers]]
+    cpu_fraction = 0.9903643488851311
+    icn_calls = 842065271
+    julia_thread_id = 2
+    os_thread_id = 18831
+    pair_candidates = 12888446
+    search_wall_seconds = 4.995992946
+    thread_cpu_seconds = 4.9478533009999985
+    worker = 2
+    [[events.workers]]
+    cpu_fraction = 0.9999024556251771
+    icn_calls = 842478651
+    julia_thread_id = 3
+    os_thread_id = 18832
+    pair_candidates = 12898451
+    search_wall_seconds = 4.995931348
+    thread_cpu_seconds = 4.995444023000001
+    worker = 3
+    [[events.workers]]
+    cpu_fraction = 0.9903689992175913
+    icn_calls = 842424832
+    julia_thread_id = 4
+    os_thread_id = 18833
+    pair_candidates = 12891030
+    search_wall_seconds = 4.996085878
+    thread_cpu_seconds = 4.9479685710000005
+    worker = 4
+
+[measured_cohort]
+CBLS = "3bd4e2638c39b565aa81af41f585678f8952f60a"
+CompositionalNetworks = "ac70b743ea64c32f57100a59ceeb68b4c54181f2"
+ConstraintCommons = "b71a313f2b600e8879877e8e04e292eb94851bd7"
+ConstraintDomains = "399a90fdbb25d2cefc9cea2d6c4f6565be5a7c11"
+ConstraintModels = "4ddd8f65417ac8a8d6bb12add6faf0c0c84801c3"
+ConstraintProgrammingExtensions = "684e2e4a1459d5ae459666350c545bfc775272c2"
+Constraints = "fc3ca4ba26d9d15ffd6065eca0bb8a968af2ff43"
+LocalSearchSolvers = "8d0b3291420f49950cfda4e890899f384b8b7239"
+MetaStrategist = "7a5bbed52f6c4993dd72bf7f9ad1c6bd57acf583"
+PatternFolds = "bbf38fbf8b680deb4b599b06afd747fc069d25ee"
+QUBOConstraints = "f893f83cd7518ca3aedf0ad5d2679b2c13829446"
+XCSP3Bridges = "fe5bceaddc5081fedd200571b480e44ca9de1947"
+
+[solver_source_sha256]
+"LiLim/src/Experiment.jl" = "e1f969e3dcf0ed5e327d29bcedd54c27f89834580bf0310320fb141d16dea4ae"
+"LiLim/src/Hybrid.jl" = "9b90bdb83cb0f01f1dcee00f36d5100f931fab3b1f6f266f769d3bfb4f5d4b06"
+"LiLim/src/ICNScoring.jl" = "e5f82d4fa1e74ace7dfa25bdf5283538ef6befb6939346fb12aba48ee2d4687f"
+"LiLim/src/MetaRepair.jl" = "f3c5b5782cdeb5bf0f5675b9b4c7436cfcc4541ed89ab9c56dba4602971edc5e"
+"LiLim/src/Pilot.jl" = "5af68ba76b17f121a4c733d64bc1288e34249fa58ad581169158fc537233c631"
+"LiLim/src/ResourceExperiment.jl" = "617119ed47a62b28f7c5d7da9114f664859f137eb31a2a95f86bcbaed484215c"

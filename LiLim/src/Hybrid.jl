@@ -171,6 +171,7 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
     deadline_ns = started+UInt64(round(seconds*1e9))
     best_scalar = prepared.fleet_weight*best_quality.vehicles+best_quality.distance
     pair_workspace = PairRelocationWorkspace()
+    route_workspace = SuccessorRouteWorkspace()
     function consider!()
         LS.best_value(solver) < best_scalar || return
         candidate = routes_from_successors(p, collect(LS.best_values(solver)))
@@ -188,7 +189,7 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
     resolver = HighsRouteResolver(; bridged, max_visits)
     while remaining() > 0
         if hybrid && steps % repair_every == 0 && repair_seconds < repair_fraction*seconds
-            current_routes = routes_from_successors(p, collect(LS.get_values(solver)))
+            current_routes = routes_from_successors!(route_workspace,p,LS.get_values(solver))
             groups = route_groups(current_routes, max_visits)
             if !isempty(groups)
                 group = rand(rng, groups)
@@ -215,7 +216,7 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
         end
         remaining() > 0 || break
         if structured
-            current = routes_from_successors(p, collect(LS.get_values(solver)))
+            current = routes_from_successors!(route_workspace,p,LS.get_values(solver))
             relocation = pair_relocation(p,current,prepared.distances,rand(rng,p.data.pairs);
                 deadline_ns,workspace=pair_workspace)
             pair_candidates += relocation.examined

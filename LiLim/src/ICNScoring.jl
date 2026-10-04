@@ -33,14 +33,6 @@ struct RouteScoreWorkspace
     pair::Vector{Int}
 end
 RouteScoreWorkspace() = RouteScoreWorkspace(Int[],Int[],BitVector(),Int[],Int[],Int[],[0],[0.],[0,0])
-function resize_workspace!(w,n)
-    length(w.incoming)==n && return w
-    resize!(w.next,n-1)
-    for buffer in (w.incoming,w.visited,w.route_of,w.position,w.heads)
-        resize!(buffer,n)
-    end
-    w
-end
 
 mutable struct ErrorBackend{S,E,O}
     kind::Symbol
@@ -105,33 +97,11 @@ function score(b::ErrorBackend,p,D,values)
     b.evaluations += 1
     d = p.data; n = length(d.demand)
     invalid = (error=1.,distance=Inf,vehicles=typemax(Int))
-    length(values)==n-1 || return invalid
-    w = resize_workspace!(b.workspace,n)
-    fill!(w.incoming,0); fill!(w.visited,false)
+    w = b.workspace
     # Invalid neighbors are ordinary search outcomes, without exception/backtrace
     # construction. Validate the full structure before calling any ICN decoder.
-    for i in 1:n-1
-        value = values[i]
-        value isa Real && isfinite(value) && isinteger(value) && 1<=value<=n || return invalid
-        next = Int(value); w.next[i] = next
-        if next!=1
-            w.incoming[next] += 1
-            w.incoming[next]<=1 || return invalid
-        end
-    end
-    vehicles = 0; serviced = 0
-    for first in 2:n
-        w.incoming[first]==0 || continue
-        vehicles += 1; w.heads[vehicles] = first
-        node = first; order = 0
-        while node!=1
-            w.visited[node] && return invalid
-            w.visited[node] = true; serviced += 1; order += 1
-            w.route_of[node] = vehicles; w.position[node] = order
-            node = w.next[node-1]
-        end
-    end
-    serviced==n-1 || return invalid
+    vehicles = decode_successor_views!(w,n,values)
+    vehicles===nothing && return invalid
     error = scalar(b,vehicles,(<=),d.vehicles)
     total = 0.
     for r in 1:vehicles

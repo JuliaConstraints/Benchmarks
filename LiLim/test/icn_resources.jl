@@ -85,6 +85,22 @@ function qualify()
         @test all(==(expected),scores)
         @test length(unique(objectid(lane.workspace.pair) for lane in lanes))==length(lanes)
         @test length(unique(objectid(lane.workspace.route_of) for lane in lanes))==length(lanes)
+        route_workspace=MetaRepair.SuccessorRouteWorkspace()
+        routes=MetaRepair.routes_from_successors!(route_workspace,p,values)
+        @test routes==MetaRepair.routes_from_successors(p,values)
+        snapshot=MetaRepair.RouteSnapshot(p,routes)
+        decoded=MetaRepair.routes_from_successors!(route_workspace,p,[3,4,5,1])
+        @test decoded==[[2,3,4,5]]
+        @test snapshot.routes==[[2,3],[4,5]]
+        @test routes===decoded
+        function decode_allocations(workspace,p,values)
+            MetaRepair.routes_from_successors!(workspace,p,values)
+            @allocated MetaRepair.routes_from_successors!(workspace,p,values)
+        end
+        decode_allocations(route_workspace,p,values)
+        @test decode_allocations(route_workspace,p,values)==0
+        @test_throws ArgumentError MetaRepair.routes_from_successors!(route_workspace,p,invalid)
+        @test_throws DimensionMismatch MetaRepair.routes_from_successors!(route_workspace,p,[1])
     end
     @testset "Resource accounting and executable portfolios" begin
         @test ResourceExperiment.allocation("mixed_balanced",16) ==

@@ -240,3 +240,13 @@ et conserve l'environnement solveur original. Le mode `snoop` ajoute les traces
 SnoopCompileCore, puis charge SnoopCompile pour analyser les méthodes compilées,
 leurs temps d'inférence/LLVM et les instances devenues obsolètes. Les mesures
 instrumentées ne deviennent pas une comparaison de vitesse de démarrage.
+
+Une passe intermédiaire sur 1/2/4/8/16 threads est conservée sous le préfixe
+`throughput-iterators`. Le correctif d'itération seul ne suffit pas à éliminer
+le GC à 16 threads : les reconstructions de routes de l'adaptateur dominent
+ensuite. Le décodage structural est factorisé dans un calcul de vues réutilisables,
+et la recherche possède un buffer de routes emprunté. Les snapshots validés et
+les résultats retournés restent copiés et possédés. Le décodage chaud testé
+alloue également zéro octet, avec vérification des erreurs et de l'isolation
+des snapshots ; les 29 contrôles de workspace passent, ainsi que les scores
+exhaustifs et les 141 contrôles des portefeuilles à 16 threads.

@@ -1,0 +1,450 @@
+affinity = "Cpus_allowed_list:\t0,2,4,6,8,10,12,14"
+benchmarks_commit = "c64b662b5b5a30150933fdd2a888ee0f75b0b0d5"
+cohort_override_sha256 = "3d006924cd6e264b3bb7c3e2ef35ec7e4ea611705e6bf2629576aac099b07748"
+cpu_name = "alderlake"
+finished_utc = "2026-10-04T08:23:48.817"
+gc_precollection = "full GC before each measured phase, excluded from phase timing"
+gc_threads = 1
+julia = "1.13.1"
+julia_gc_option = "1"
+mode = "throughput"
+profile_source_sha256 = "cd80a2e61fe59e8951ba98ba5ec26b95ca11afad9cbabf790ee9831be14ceb42"
+schema = "li-lim-performance-diagnostic/1"
+started_utc = "2026-10-04T08:22:56.848"
+stdlib_loading_seconds = 0.04310343
+threads = 8
+
+[baseline]
+budgets_seconds = [10.0, 30.0]
+cpu = 8
+instance_wall_guard_seconds = 900.0
+instances = ["lc101", "lr101", "lrc101"]
+job_wall_guard_seconds = 120.0
+julia = "1.13.1"
+memory_guard_bytes = 8589934592
+methods = ["cbls", "hybrid_specialized", "hybrid_bridged", "highs"]
+schema = "li-lim-meta-pilot/1"
+scope = "diagnostic on three previously exposed instances; no confirmation or commercial comparison"
+seeds = [41, 42, 43]
+threads = 1
+
+    [baseline.cohort]
+    CBLS = "3bd4e2638c39b565aa81af41f585678f8952f60a"
+    CompositionalNetworks = "ac70b743ea64c32f57100a59ceeb68b4c54181f2"
+    ConstraintCommons = "b71a313f2b600e8879877e8e04e292eb94851bd7"
+    ConstraintDomains = "399a90fdbb25d2cefc9cea2d6c4f6565be5a7c11"
+    ConstraintModels = "4ddd8f65417ac8a8d6bb12add6faf0c0c84801c3"
+    ConstraintProgrammingExtensions = "684e2e4a1459d5ae459666350c545bfc775272c2"
+    Constraints = "fc3ca4ba26d9d15ffd6065eca0bb8a968af2ff43"
+    LocalSearchSolvers = "9010ff2a0147257a2991680981f579e8c20db733"
+    MetaStrategist = "7a5bbed52f6c4993dd72bf7f9ad1c6bd57acf583"
+    PatternFolds = "bbf38fbf8b680deb4b599b06afd747fc069d25ee"
+    QUBOConstraints = "f893f83cd7518ca3aedf0ad5d2679b2c13829446"
+    XCSP3Bridges = "fe5bceaddc5081fedd200571b480e44ca9de1947"
+
+    [baseline.environment]
+    manifest_sha256 = "77e4d46bc9c20aa3e9a3bbaf27c1f95663e6a1ce290dbac28cbad00cf6d2df27"
+    project_sha256 = "2a48b5e578f38033a568c0d03697d31b86b1bed65b39086515c6648276cf457b"
+
+    [baseline.policy]
+    fragment_seconds = 0.5
+    insertion_seed = 41
+    insertion_starts = 5
+    max_visits = 20
+    repair_every = 20
+    repair_fraction = 0.35
+
+    [baseline.source_sha256]
+    lc101 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    lr101 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    lrc101 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+
+[config]
+budget_seconds = 10.0
+clb_commit = "b340e83a72ed19acd1f1647edaafb9e363738f0f"
+cpu_order = [8, 10, 0, 2, 4, 6, 12, 14, 16, 17, 18, 19, 9, 11, 1, 3]
+icn_bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+instances = ["lc101", "lr101", "lrc101"]
+job_wall_guard_seconds = 120.0
+julia = "1.13.1"
+memory_guard_bytes = 12884901888
+methods = ["cbls_naive", "cbls_icn", "cbls_direct", "hybrid_specialized_icn", "hybrid_bridged_icn", "highs_native", "highs_portfolio"]
+portfolio_methods = ["mixed_balanced", "mixed_ls_heavy"]
+process_wall_guard_seconds = 1400.0
+schema = "li-lim-icn-threads/1"
+scope = "diagnostic on three exposed instances, fixed wall budget, no commercial comparison"
+seeds = [41, 42, 43]
+thread_counts = [1, 2, 4, 8, 16]
+
+    [config.policy]
+    fragment_seconds = 0.5
+    insertion_seed = 41
+    insertion_starts = 5
+    max_visits = 20
+    repair_every = 20
+    repair_fraction = 0.35
+
+    [config.source_sha256]
+    lc101 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    lr101 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    lrc101 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+
+[[events]]
+allocated_bytes = 402309840
+compile_seconds = 1.53530207
+gc_seconds = 0.20734364
+phase = "load ConstraintModels"
+recompile_seconds = 0.773469095
+sample = 1
+seconds = 4.354397926
+[[events]]
+allocated_bytes = 58448
+compile_seconds = 0.002683962
+gc_seconds = 0.0
+phase = "load JuMP and Benchmarks"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.003012914
+[[events]]
+allocated_bytes = 50007024
+compile_seconds = 0.331745373
+gc_seconds = 0.0
+phase = "include Pilot"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.432733664
+[[events]]
+allocated_bytes = 2180024
+compile_seconds = 9.83e-7
+gc_seconds = 0.0
+phase = "include MetaRepair"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.035015749
+[[events]]
+allocated_bytes = 1546744
+compile_seconds = 0.006452027
+gc_seconds = 0.0
+phase = "include ICNScoring"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.022802108
+[[events]]
+allocated_bytes = 1766312
+compile_seconds = 7.17e-7
+gc_seconds = 0.0
+phase = "include Hybrid"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.033959479
+[[events]]
+allocated_bytes = 6553864
+compile_seconds = 0.0154151
+gc_seconds = 0.0
+phase = "include ResourceExperiment"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.108316744
+[[events]]
+allocated_bytes = 1231896136
+compile_seconds = 3.731965076
+gc_seconds = 0.269533358
+phase = "decode error backends"
+recompile_seconds = 0.0
+sample = 1
+seconds = 3.745214722
+[[events]]
+allocated_bytes = 1306655584
+candidates_per_second = 1.903672e7
+compile_seconds = 0.003193655
+distance = 828.9368669428341
+gc_seconds = 0.269429856
+icn_calls = 6218475898
+mean_active_cpus = 7.843306178405834
+median_parent_initialization_seconds = 0.000435344
+pair_candidates = 95183600
+phase = "hot CBLS ICN lc101"
+process_cpu_seconds = 39.21927170399999
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 41
+seconds = 5.169599495
+steps = 131435
+vehicles = 10
+
+    [[events.workers]]
+    cpu_fraction = 0.9790978950344786
+    icn_calls = 786255389
+    julia_thread_id = 1
+    os_thread_id = 18901
+    pair_candidates = 12038494
+    search_wall_seconds = 4.99610131
+    thread_cpu_seconds = 4.891672276000001
+    worker = 1
+    [[events.workers]]
+    cpu_fraction = 0.9915411423576161
+    icn_calls = 781136249
+    julia_thread_id = 2
+    os_thread_id = 18907
+    pair_candidates = 11951185
+    search_wall_seconds = 4.995949427999999
+    thread_cpu_seconds = 4.9536894029999985
+    worker = 2
+    [[events.workers]]
+    cpu_fraction = 0.9791456647841111
+    icn_calls = 777843999
+    julia_thread_id = 3
+    os_thread_id = 18908
+    pair_candidates = 11903580
+    search_wall_seconds = 4.995915234
+    thread_cpu_seconds = 4.891728742999998
+    worker = 3
+    [[events.workers]]
+    cpu_fraction = 0.9766010723129914
+    icn_calls = 781006203
+    julia_thread_id = 4
+    os_thread_id = 18909
+    pair_candidates = 11958150
+    search_wall_seconds = 4.995931077
+    thread_cpu_seconds = 4.879031646999998
+    worker = 4
+    [[events.workers]]
+    cpu_fraction = 0.9791534413736178
+    icn_calls = 781684606
+    julia_thread_id = 5
+    os_thread_id = 18910
+    pair_candidates = 11968454
+    search_wall_seconds = 4.995974677
+    thread_cpu_seconds = 4.891825797999999
+    worker = 5
+    [[events.workers]]
+    cpu_fraction = 0.9824308375552634
+    icn_calls = 782778146
+    julia_thread_id = 6
+    os_thread_id = 18911
+    pair_candidates = 11981559
+    search_wall_seconds = 4.995912143
+    thread_cpu_seconds = 4.908138151000001
+    worker = 6
+    [[events.workers]]
+    cpu_fraction = 0.9791243905724457
+    icn_calls = 747872332
+    julia_thread_id = 7
+    os_thread_id = 18912
+    pair_candidates = 11447784
+    search_wall_seconds = 4.99610861
+    thread_cpu_seconds = 4.891811797999999
+    worker = 7
+    [[events.workers]]
+    cpu_fraction = 0.982007111623899
+    icn_calls = 779898974
+    julia_thread_id = 8
+    os_thread_id = 18913
+    pair_candidates = 11934394
+    search_wall_seconds = 4.996005484
+    thread_cpu_seconds = 4.906112915
+    worker = 8
+[[events]]
+allocated_bytes = 1309023904
+candidates_per_second = 1.90732208e7
+compile_seconds = 0.0
+distance = 828.9368669428341
+gc_seconds = 0.271965472
+icn_calls = 6230968455
+mean_active_cpus = 7.840761451857295
+median_parent_initialization_seconds = 0.00047254800000000004
+pair_candidates = 95366104
+phase = "hot CBLS ICN lc101"
+process_cpu_seconds = 39.20595764299998
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 42
+seconds = 5.163866085
+steps = 131686
+vehicles = 10
+
+    [[events.workers]]
+    cpu_fraction = 0.9780946824532015
+    icn_calls = 783408376
+    julia_thread_id = 1
+    os_thread_id = 18901
+    pair_candidates = 11989512
+    search_wall_seconds = 4.996126843
+    thread_cpu_seconds = 4.886685098000001
+    worker = 1
+    [[events.workers]]
+    cpu_fraction = 0.9799660766470375
+    icn_calls = 781731575
+    julia_thread_id = 2
+    os_thread_id = 18907
+    pair_candidates = 11966426
+    search_wall_seconds = 4.995981977
+    thread_cpu_seconds = 4.895892857
+    worker = 2
+    [[events.workers]]
+    cpu_fraction = 0.9794101421336916
+    icn_calls = 784472209
+    julia_thread_id = 3
+    os_thread_id = 18908
+    pair_candidates = 11997228
+    search_wall_seconds = 4.995820499
+    thread_cpu_seconds = 4.892957265
+    worker = 3
+    [[events.workers]]
+    cpu_fraction = 0.9781084230086405
+    icn_calls = 782690469
+    julia_thread_id = 4
+    os_thread_id = 18909
+    pair_candidates = 11979138
+    search_wall_seconds = 4.995867544999999
+    thread_cpu_seconds = 4.886500125999998
+    worker = 4
+    [[events.workers]]
+    cpu_fraction = 0.9781235759851921
+    icn_calls = 781634605
+    julia_thread_id = 5
+    os_thread_id = 18910
+    pair_candidates = 11960472
+    search_wall_seconds = 4.995828931
+    thread_cpu_seconds = 4.886538058999999
+    worker = 5
+    [[events.workers]]
+    cpu_fraction = 0.9876005504882703
+    icn_calls = 781997751
+    julia_thread_id = 6
+    os_thread_id = 18911
+    pair_candidates = 11971096
+    search_wall_seconds = 4.9958274309999995
+    thread_cpu_seconds = 4.933881921000001
+    worker = 6
+    [[events.workers]]
+    cpu_fraction = 0.9859155997208081
+    icn_calls = 749831678
+    julia_thread_id = 7
+    os_thread_id = 18912
+    pair_candidates = 11482160
+    search_wall_seconds = 4.995925322
+    thread_cpu_seconds = 4.925560710000001
+    worker = 7
+    [[events.workers]]
+    cpu_fraction = 0.9793734728095088
+    icn_calls = 785201792
+    julia_thread_id = 8
+    os_thread_id = 18913
+    pair_candidates = 12020072
+    search_wall_seconds = 4.995843703999999
+    thread_cpu_seconds = 4.892796797999999
+    worker = 8
+[[events]]
+allocated_bytes = 1309183472
+candidates_per_second = 1.90762632e7
+compile_seconds = 0.0
+distance = 828.9368669428341
+gc_seconds = 0.272102747
+icn_calls = 6232476373
+mean_active_cpus = 7.796522474369187
+median_parent_initialization_seconds = 0.00037671899999999997
+pair_candidates = 95381316
+phase = "hot CBLS ICN lc101"
+process_cpu_seconds = 38.985075956
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 43
+seconds = 5.165752197
+steps = 131706
+vehicles = 10
+
+    [[events.workers]]
+    cpu_fraction = 0.9770147978208524
+    icn_calls = 779819249
+    julia_thread_id = 1
+    os_thread_id = 18901
+    pair_candidates = 11931342
+    search_wall_seconds = 4.995963712
+    thread_cpu_seconds = 4.881130475999996
+    worker = 1
+    [[events.workers]]
+    cpu_fraction = 0.981039932161903
+    icn_calls = 785881190
+    julia_thread_id = 2
+    os_thread_id = 18907
+    pair_candidates = 12027216
+    search_wall_seconds = 4.995867779
+    thread_cpu_seconds = 4.901145786999997
+    worker = 2
+    [[events.workers]]
+    cpu_fraction = 0.9784287738793012
+    icn_calls = 783107306
+    julia_thread_id = 3
+    os_thread_id = 18908
+    pair_candidates = 11988508
+    search_wall_seconds = 4.996016981
+    thread_cpu_seconds = 4.888246768999998
+    worker = 3
+    [[events.workers]]
+    cpu_fraction = 0.969722011274708
+    icn_calls = 775222643
+    julia_thread_id = 4
+    os_thread_id = 18909
+    pair_candidates = 11861632
+    search_wall_seconds = 4.995951791
+    thread_cpu_seconds = 4.844684419
+    worker = 4
+    [[events.workers]]
+    cpu_fraction = 0.9752239166872475
+    icn_calls = 780392333
+    julia_thread_id = 5
+    os_thread_id = 18910
+    pair_candidates = 11943772
+    search_wall_seconds = 4.996059645
+    thread_cpu_seconds = 4.872276854999999
+    worker = 5
+    [[events.workers]]
+    cpu_fraction = 0.9748164041415409
+    icn_calls = 779071441
+    julia_thread_id = 6
+    os_thread_id = 18911
+    pair_candidates = 11920468
+    search_wall_seconds = 4.995823341
+    thread_cpu_seconds = 4.8700105449999995
+    worker = 6
+    [[events.workers]]
+    cpu_fraction = 0.966350957674158
+    icn_calls = 770881442
+    julia_thread_id = 7
+    os_thread_id = 18912
+    pair_candidates = 11797794
+    search_wall_seconds = 4.993135358
+    thread_cpu_seconds = 4.825121135
+    worker = 7
+    [[events.workers]]
+    cpu_fraction = 0.9802873980424388
+    icn_calls = 778100769
+    julia_thread_id = 8
+    os_thread_id = 18913
+    pair_candidates = 11910584
+    search_wall_seconds = 4.996138623
+    thread_cpu_seconds = 4.897651731000003
+    worker = 8
+
+[measured_cohort]
+CBLS = "3bd4e2638c39b565aa81af41f585678f8952f60a"
+CompositionalNetworks = "ac70b743ea64c32f57100a59ceeb68b4c54181f2"
+ConstraintCommons = "b71a313f2b600e8879877e8e04e292eb94851bd7"
+ConstraintDomains = "399a90fdbb25d2cefc9cea2d6c4f6565be5a7c11"
+ConstraintModels = "4ddd8f65417ac8a8d6bb12add6faf0c0c84801c3"
+ConstraintProgrammingExtensions = "684e2e4a1459d5ae459666350c545bfc775272c2"
+Constraints = "fc3ca4ba26d9d15ffd6065eca0bb8a968af2ff43"
+LocalSearchSolvers = "8d0b3291420f49950cfda4e890899f384b8b7239"
+MetaStrategist = "7a5bbed52f6c4993dd72bf7f9ad1c6bd57acf583"
+PatternFolds = "bbf38fbf8b680deb4b599b06afd747fc069d25ee"
+QUBOConstraints = "f893f83cd7518ca3aedf0ad5d2679b2c13829446"
+XCSP3Bridges = "fe5bceaddc5081fedd200571b480e44ca9de1947"
+
+[solver_source_sha256]
+"LiLim/src/Experiment.jl" = "e1f969e3dcf0ed5e327d29bcedd54c27f89834580bf0310320fb141d16dea4ae"
+"LiLim/src/Hybrid.jl" = "9b90bdb83cb0f01f1dcee00f36d5100f931fab3b1f6f266f769d3bfb4f5d4b06"
+"LiLim/src/ICNScoring.jl" = "e5f82d4fa1e74ace7dfa25bdf5283538ef6befb6939346fb12aba48ee2d4687f"
+"LiLim/src/MetaRepair.jl" = "f3c5b5782cdeb5bf0f5675b9b4c7436cfcc4541ed89ab9c56dba4602971edc5e"
+"LiLim/src/Pilot.jl" = "5af68ba76b17f121a4c733d64bc1288e34249fa58ad581169158fc537233c631"
+"LiLim/src/ResourceExperiment.jl" = "617119ed47a62b28f7c5d7da9114f664859f137eb31a2a95f86bcbaed484215c"

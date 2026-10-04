@@ -7,7 +7,78 @@ import MathOptInterface as MOI
 using ..Benchmarks
 using ..Pilot
 
-export RouteSnapshot, HighsRouteResolver, successors, routes_from_successors
+export RouteSnapshot, HighsRouteResolver, successors, routes_from_successors,
+    SuccessorRouteWorkspace, routes_from_successors!, decode_successor_views!
+
+struct SuccessorViews
+    next::Vector{Int}
+    incoming::Vector{Int}
+    visited::BitVector
+    route_of::Vector{Int}
+    position::Vector{Int}
+    heads::Vector{Int}
+end
+SuccessorViews()=SuccessorViews(Int[],Int[],BitVector(),Int[],Int[],Int[])
+"Return route count or nothing for an invalid assignment, without throwing."
+function decode_successor_views!(w,n,values)
+    length(values)==n-1 || return nothing
+    if length(w.incoming)!=n
+        resize!(w.next,n-1)
+        for buffer in (w.incoming,w.visited,w.route_of,w.position,w.heads)
+            resize!(buffer,n)
+        end
+    end
+    fill!(w.incoming,0);fill!(w.visited,false)
+    for i in 1:n-1
+        value=values[i]
+        value isa Real && isfinite(value) && isinteger(value) && 1<=value<=n || return nothing
+        next=Int(value);w.next[i]=next
+        if next!=1
+            w.incoming[next]+=1
+            w.incoming[next]<=1 || return nothing
+        end
+    end
+    vehicles=0;serviced=0
+    for first in 2:n
+        w.incoming[first]==0 || continue
+        vehicles+=1;w.heads[vehicles]=first
+        node=first;order=0
+        while node!=1
+            w.visited[node] && return nothing
+            w.visited[node]=true;serviced+=1;order+=1
+            w.route_of[node]=vehicles;w.position[node]=order
+            node=w.next[node-1]
+        end
+    end
+    serviced==n-1 ? vehicles : nothing
+end
+
+"Borrowed routes; a later decode reuses their storage. Snapshot to retain them."
+struct SuccessorRouteWorkspace
+    views::SuccessorViews
+    buffers::Vector{Vector{Int}}
+    routes::Vector{Vector{Int}}
+end
+SuccessorRouteWorkspace()=SuccessorRouteWorkspace(SuccessorViews(),Vector{Int}[],Vector{Int}[])
+function routes_from_successors!(workspace::SuccessorRouteWorkspace,instance,values)
+    n=length(instance.data.demand)
+    length(values)==n-1 || throw(DimensionMismatch("successor assignment"))
+    vehicles=decode_successor_views!(workspace.views,n,values)
+    vehicles===nothing && throw(ArgumentError("invalid successor assignment"))
+    while length(workspace.buffers)<vehicles
+        push!(workspace.buffers,Int[])
+    end
+    empty!(workspace.routes)
+    for r in 1:vehicles
+        route=workspace.buffers[r];empty!(route)
+        node=workspace.views.heads[r]
+        while node!=1
+            push!(route,node);node=workspace.views.next[node-1]
+        end
+        push!(workspace.routes,route)
+    end
+    workspace.routes
+end
 
 "Each parent variable is one customer's successor; value 1 denotes the depot."
 function successors(instance, routes)
