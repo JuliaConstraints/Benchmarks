@@ -26,4 +26,11 @@ include(joinpath(@__DIR__,"..","competitors","Adapters.jl"))
     @test_throws ErrorException CompetitorAdapters.audit_hexaly(p,hexaly)
     @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=2,seconds=5,seed=41,cpus=[8,8])
     @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=1,seconds=0.5,seed=41,cpus=[8])
+    @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=2,seconds=60,seed=41,cpus=[8])
+    @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=8.0,seconds=60,seed=41,cpus=collect(0:7))
+    automatic=CompetitorAdapters.hexaly_command("hexaly","in","out";threads=0,seconds=60,seed=41,
+        cpus=[8,10,0,2,4,6,12,14])
+    @test "hxNbThreads=0" in automatic.exec
+    @test "hxTimeLimit=60" in automatic.exec
+    @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=0,seconds=60,seed=41,cpus=Int[])
 end

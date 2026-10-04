@@ -96,9 +96,12 @@ Le contrat Julia de lancement et d'audit est dans [Adapters.jl](competitors/Adap
 Le lancement passe `inFileName`, `solFileName`, `hxTimeLimit`, `hxNbThreads` et
 `hxSeed` explicitement, avec affinité imposée : le paramètre
 [hxNbThreads](https://www.hexaly.com/docs/last/modelerreference/standardlibrary/builtinfunctions.html)
-est indicatif. L'audit accepte uniquement les routes revalidées avec les objectifs
-recalculés dans le problème original. Aucun benchmark Hexaly ni résultat de
-performance n'est encore produit ; l'exécutable n'est pas présent sur cette machine.
+est indicatif. Le contrat de lancement accepte aussi `hxNbThreads=0` pour mesurer
+le réglage automatique sous un masque CPU explicite ; un essai fixe à 8 fils peut
+ainsi utiliser exactement le même masque de huit cœurs. L'audit accepte uniquement
+les routes revalidées avec les objectifs recalculés dans le problème original.
+Aucun benchmark Hexaly ni résultat de performance n'est encore produit ;
+l'exécutable n'est pas présent sur cette machine.
 
 Avant une campagne : compiler, injecter des solutions valides et invalides
 à temps nul, vérifier les routes vides et les fenêtres/charges, contrôler le

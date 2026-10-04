@@ -62,8 +62,12 @@ function audit_hexaly(p,output)
 end
 "Prepared CLI launch; original validation and timing qualification are still required."
 function hexaly_command(executable,input,output;threads,seconds,seed,cpus)
-    threads in (1,2,4,8,16) && length(cpus)==threads && length(unique(cpus))==threads ||
-        throw(ArgumentError("CPU allocation must be explicit and unique"))
+    threads isa Integer && (threads==0 || threads in (1,2,4,8,16)) ||
+        throw(ArgumentError("Hexaly thread count must be 0 (automatic) or 1, 2, 4, 8 or 16"))
+    !isempty(cpus) && all(cpu->cpu isa Integer && cpu>=0,cpus) && length(unique(cpus))==length(cpus) ||
+        throw(ArgumentError("CPU affinity must contain unique nonnegative CPU IDs"))
+    (threads==0 || length(cpus)==threads) ||
+        throw(ArgumentError("explicit Hexaly thread count must match the CPU affinity width"))
     seconds isa Integer && seconds>=0 && seed isa Integer && seed>=0 ||
         throw(ArgumentError("Hexaly CLI needs integer seconds and a nonnegative seed"))
     model=normpath(joinpath(@__DIR__,"..","native","hexaly","pdptw.hxm"))
