@@ -73,6 +73,7 @@ function case_details!(event,r)
     r["original_validation"] || error("invalid diagnostic result")
     event["mean_active_cpus"]=r["mean_active_cpus"]
     event["process_cpu_seconds"]=r["process_cpu_seconds"]
+    event["search_gc_seconds"]=r["search_gc_seconds"]
     event["pair_candidates"]=sum(get(w["trace"],"pair_candidates",0) for w in r["workers"])
     event["steps"]=sum(get(w["trace"],"steps",0) for w in r["workers"])
     event["candidates_per_second"]=event["pair_candidates"]/r["budget_seconds"]
