@@ -448,6 +448,17 @@ L'import futur devra aussi empreinter les données normalisées et les modèles.
 
 ## Ordre de réalisation et décisions de poursuite
 
+### Vérification d'intégrité du corpus complet, 4 octobre 2026
+
+Un audit SHA-256 en lecture seule a confirmé les 354 fichiers d'instances SINTEF
+extraits par rapport à `LiLim/config/sintef-pdptw-bks-20261004.toml`, avec le
+nombre attendu dans chaque groupe de tailles. Les six archives sources
+correspondent aussi aux empreintes enregistrées. Aucun fichier ne manque et
+aucune empreinte ne diffère. Ce contrôle établit la provenance binaire et
+l'inventaire du corpus officiel ; il ne qualifie pas à lui seul l'import des
+instances, la qualité des solutions ou le validateur indépendant. Le lanceur du
+corpus complet répète ces vérifications avant chaque campagne.
+
 ### Reprise et références sauvegardées le 2 octobre 2026
 
 Les trois tâches attendues ont terminé leurs exécutions. Les autres tâches Codex
