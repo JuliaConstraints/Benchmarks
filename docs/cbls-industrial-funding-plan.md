@@ -613,6 +613,14 @@ Avant lancement, commencer par un lot diagnostique à 10 secondes sur LC101,
 LR101 et LRC101, puis vérifier les nouveaux chemins ICN fusionnés. Les résultats
 ci-dessus ne sont pas des résultats de cette campagne complète.
 
+Le rapporteur et le générateur de figures acceptent aussi une campagne
+incomplète : ils revalident chaque essai présent, publient le nombre planifié et
+terminé, et séparent le taux de complétion du taux de faisabilité. À la fin de
+chaque lot cohérent, produire le rapport anglais, le CSV par instance et les
+figures exactes et XKCD à partir du résumé disponible, puis pousser ces livrables
+avant de commencer le palier suivant. Une absence reste un essai manquant, jamais
+un échec du solveur.
+
 Le contrôleur de campagne actuelle évalue CBLS naïf, score direct, ICN récupérés,
 hybrides spécialisé et bridgé, HiGHS natif, portefeuilles HiGHS et allocations
 MetaStrategist. Les profils Timefold et Hexaly attendent leurs adaptateurs
