@@ -19,6 +19,12 @@ length(ARGS)==2 || error("usage: icn_threads_report.jl campaign-directory output
 campaign,prefix=abspath.(ARGS)
 isfile(joinpath(campaign,"completed.toml")) || error("campaign incomplete")
 meta=TOML.parsefile(joinpath(campaign,"started.toml"));config=meta["config"]
+instances=Dict{String,Any}()
+for id in config["instances"]
+    path=joinpath(ROOT,"LiLim","data","raw","pdp_100",id*".txt")
+    digest(path)==config["source_sha256"][id] || error("original instance changed: $id")
+    instances[id]=read_benchmark(path,:li_lim;id)
+end
 for (relative,hash) in meta["source_sha256"]
     digest(joinpath(campaign,"snapshot",relative))==hash || error("source snapshot corrupted: $relative")
 end
@@ -44,7 +50,9 @@ for width in config["thread_counts"]
         width==r["threads_requested"]==r["julia_threads_available"] || error("width mismatch")
         r["budget_seconds"]==config["budget_seconds"] || error("budget mismatch")
         key=(width,id,method,seed);key in keys_seen && error("duplicate case");push!(keys_seen,key)
-        p=read_benchmark(joinpath(ROOT,"LiLim","data","raw","pdp_100",id*".txt"),:li_lim;id)
+        p=instances[id]
+        isfinite(r["process_cpu_seconds"]) && r["process_cpu_seconds"]>=0 && r["wall_seconds"]>0 || error("invalid CPU observation")
+        r["mean_active_cpus"]≈r["process_cpu_seconds"]/r["wall_seconds"] || error("CPU ratio mismatch")
         checked=validate_solution(p,r["routes"])
         checked.valid && checked.objective.vehicles==r["vehicles"] && checked.objective.distance==r["distance"] || error("invalid reported solution")
         expected=ResourceExperiment.allocation(method,width)
@@ -76,7 +84,15 @@ for width in config["thread_counts"]
             compact_trace["repair_improvements"]=count(x->x["status"]=="improved",repairs)
             build=Float64[get(x["trace"],"build_seconds",0.) for x in repairs]
             compact_trace["median_repair_build_seconds"]=isempty(build) ? 0. : median(build)
-            push!(worker_records,merge(w,Dict("trace"=>compact_trace)))
+            backend=copy(w["error_backend"])
+            backend["executed_for_search"]=!(w["method"] in ("highs_serial","highs_native"))
+            backend["counter_covers_score_evaluations"]=w["method"]!="cbls_direct" && backend["executed_for_search"]
+            if !backend["executed_for_search"]
+                backend["backend"]="none (HiGHS algebraic model)"
+                backend["witness_indices"]=Int[]
+                backend["bank_sha256"]=""
+            end
+            push!(worker_records,merge(w,Dict("trace"=>compact_trace,"error_backend"=>backend)))
         end
         if method!="highs_native"
             length(unique(w["julia_thread_id"] for w in r["workers"]))==width || error("Julia workers not distinct")
@@ -113,6 +129,7 @@ open(prefix*".md","w") do io
     println(io,"# Li-Lim : erreurs ICN, threads et portefeuilles\n")
     println(io,length(records)," essais audités, ",total_icn," appels réels aux décodeurs ICN. Trois instances exposées, trois graines, budget mural de 10 secondes par essai. Les résultats sont diagnostiques.\n")
     println(io,"Les erreurs ICN et directes qualifiées sont numériquement identiques ici. Ce test mesure leur coût et le parallélisme, sans démontrer un bénéfice d'apprentissage. Les travailleurs de recherche locale sont des trajectoires indépendantes ; les plans MetaStrategist sont statiques et réellement exécutés.\n")
+    println(io,"Les profils CBLS emploient l'API native LocalSearchSolvers, son moteur de recherche ; le coût de traduction de la façade JuMP/MOI n'est pas inclus. Dans les portefeuilles mixtes, les graines restent attachées aux positions globales des voies : une famille ne reçoit pas automatiquement la graine de la première voie. Cette allocation est fixée avant la campagne, et peut être défavorable à un profil.\n")
     println(io,"Source mesurée : `",meta["benchmarks_commit"],"`. Banque ICN : `",meta["icn_bank_sha256"],"`. Dépassement mural maximal : ",round(payload["maximum_wall_overrun_seconds"];digits=4)," s ; les solutions améliorées sont toutes validées et datées dans le budget. La fusion et son audit sont chronométrés séparément.\n")
     for id in config["instances"]
         println(io,"## ",id,"\n")

@@ -37,6 +37,9 @@ for (col,id) in enumerate(INSTANCES)
     fleet=Axis(quality[1,col];title=uppercase(id),xscale=log2,ylabel=col==1 ? "Véhicules" : "")
     dist=Axis(quality[2,col];xscale=log2,xlabel="Threads alloués",ylabel=col==1 ? "Distance" : "")
     configure_axis(fleet);configure_axis(dist)
+    fleets=[r["vehicles"] for r in RECORDS if r["instance"]==id]
+    fleet.yticks=collect(minimum(fleets):maximum(fleets))
+    ylims!(fleet,minimum(fleets)-0.5,maximum(fleets)+0.5)
     for (j,method) in enumerate(METHODS)
         xs=[width for width in WIDTHS if !isempty(subset(id,method,width))]
         points=[lexmiddle(subset(id,method,width)) for width in xs]

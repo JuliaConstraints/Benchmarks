@@ -57,6 +57,8 @@ son état, son RNG et son budget mural commun ; HiGHS dans les fragments reste
 à un thread. Il s'agit de recherche parallèle par diversification et fusion du
 meilleur incumbent, pas d'évaluation parallèle d'un seul voisinage. Les graines
 des voies sont seed + 10000*(voie-1). HiGHS natif reçoit threads=N et parallel=on.
+Le benchmark utilise l'API native LocalSearchSolvers, moteur de CBLS ; le coût
+de traduction de la façade JuMP/MOI de CBLS n'est pas mesuré dans ces profils.
 Une référence supplémentaire exécute N modèles HiGHS série indépendants, pour
 distinguer ce mode de son parallélisme natif. Le scheduler global HiGHS est remis
 à zéro seulement après la jonction complète des travailleurs du précédent essai.
