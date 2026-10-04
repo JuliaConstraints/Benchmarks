@@ -80,6 +80,7 @@ public final class Pdptw {
             BigDecimal.valueOf(-used),distance.negate().stripTrailingZeros());
     }
     public static class Incremental implements IncrementalScoreCalculator<Problem,HardMediumSoftBigDecimalScore> {
+        static final ThreadLocal<long[]> WORK=ThreadLocal.withInitial(()->new long[2]);
         private Problem p;
         private Contribution[] cache;
         private boolean[] seen;
@@ -100,6 +101,7 @@ public final class Pdptw {
         private void insert(Route r) {
             // Replace, rather than add twice, after overlapping undo ranges.
             if(cache[r.id-1]!=null) retract(r);
+            WORK.get()[1]++;
             Contribution c=routeScore(p,r,seen);cache[r.id-1]=c;
             error=error.add(c.error);distance=distance.add(c.distance);used+=c.used;
         }
@@ -107,7 +109,7 @@ public final class Pdptw {
         public void afterVariableChanged(Object entity,String name) { throw new UnsupportedOperationException(name); }
         public void beforeListVariableChanged(Object entity,String name,int from,int to) { retract((Route)entity); }
         public void afterListVariableChanged(Object entity,String name,int from,int to) { insert((Route)entity); }
-        public HardMediumSoftBigDecimalScore calculateScore() { return score(error,used,distance); }
+        public HardMediumSoftBigDecimalScore calculateScore() { WORK.get()[0]++;return score(error,used,distance); }
     }
     static Problem read(String input) throws Exception {
         try(Scanner in=new Scanner(Path.of(input))) {
@@ -158,10 +160,11 @@ public final class Pdptw {
     }
     private record Lane(String text) {}
     static Lane solve(String input,String profile,long seed,double budget,long origin,int lane,boolean assertions) throws Exception {
+        Arrays.fill(Incremental.WORK.get(),0);
         long cpuStart=ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime();long begin=System.nanoTime();
         Problem p=read(input);double remaining=budget-(System.nanoTime()-origin)/1e9;
         LocalSearchPhaseConfig phase=new LocalSearchPhaseConfig();
-        if(profile.equals("late_acceptance_400"))phase.withAcceptorConfig(new LocalSearchAcceptorConfig().withLateAcceptanceSize(400))
+        if(profile.equals("late_acceptance_400") || profile.equals("late_acceptance_1000"))phase.withAcceptorConfig(new LocalSearchAcceptorConfig().withLateAcceptanceSize(profile.endsWith("1000")?1000:400))
             .withForagerConfig(new LocalSearchForagerConfig().withAcceptedCountLimit(1));
         else if(!profile.equals("default"))throw new IllegalArgumentException("Unknown profile");
         SolverConfig config=new SolverConfig().withSolutionClass(Problem.class).withEntityClasses(Route.class)
@@ -185,10 +188,12 @@ public final class Pdptw {
                 "\nroutes = "+routes+"\n");
         });
         double build=(System.nanoTime()-begin)/1e9;remaining=budget-(System.nanoTime()-origin)/1e9;
-        if(remaining>0) solver.solve(p);
+        boolean executed=remaining>0;
+        if(executed) solver.solve(p);
         double elapsed=(System.nanoTime()-origin)/1e9,cpu=(ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime()-cpuStart)/1e9;
         return new Lane("\n[[trials.workers]]\nworker = "+lane+"\nseed = "+seed+"\nthread_id = "+Thread.currentThread().threadId()+
             "\nbuild_seconds = "+build+"\nfinished_seconds = "+elapsed+"\nthread_cpu_seconds = "+cpu+
+            "\nsearch_executed = "+executed+"\nincremental_calculations = "+Incremental.WORK.get()[0]+"\nroute_recalculations = "+Incremental.WORK.get()[1]+
             (events.isEmpty()?"\ntrajectory = []\n":String.join("",events)));
     }
     static String trial(String input,String profile,long seed,double budget,int width,boolean assertions) throws Exception {
@@ -213,6 +218,7 @@ public final class Pdptw {
         long warmStart=System.nanoTime();trial(input,profile,0,1.0,width,assertions);trial(input,profile,1,1.0,width,assertions);
         String result="schema = \"li-lim-timefold-native/1\"\nengine = \"timefold\"\nversion = \"2.6.0\"\nedition = \"Community\"\njava = \""+System.getProperty("java.version")+
             "\"\nprofile = \""+profile+"\"\nworkers = "+width+"\nnative_move_threads = 0\n"+
+            "effective_late_acceptance_size = "+(profile.endsWith("1000")?1000:400)+"\naccepted_count_limit = 1\n"+
             "parallel_mode = \"independent serial solvers in one JVM, common wall deadline, final merge\"\n"+
             "scorer = \"route-level incremental; affected routes recomputed, full oracle checked at incumbents\"\n"+
             "qualification_checks = "+checks+"\nassertions = "+assertions+"\nwarmup_seconds = "+((System.nanoTime()-warmStart)/1e9)+"\n";

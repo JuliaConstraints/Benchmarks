@@ -47,7 +47,8 @@ public final class PdptwQualification {
                     "2 1 1 1 0 "+(tight?"1.5":"20")+" 0 0\n3 2 1 -1 0 "+(tight?"3":"20")+" 0 2\n"+
                     "4 -1 1 1 0 "+(tight?"1.5":"20")+" 0 0\n5 -2 1 -1 0 "+(tight?"3":"20")+" 0 4\n2 2 3\n2 4 5\n";
                 Files.writeString(input,text);Pdptw.Problem p=Pdptw.read(input.toString());checks+=permutations(p,new ArrayList<>(p.visits),0);
-                Pdptw.trial(input.toString(),"default",41,.2,1,true);
+                String nativeTrace=Pdptw.trial(input.toString(),"default",41,2.,1,true);
+                if(!nativeTrace.contains("search_executed = true"))throw new AssertionError("No native search executed");
             } finally { Files.deleteIfExists(input); }
         }
         System.out.println("Qualified "+checks+" exhaustive route partitions and 4 native FULL_ASSERT searches.");

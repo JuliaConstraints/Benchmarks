@@ -53,8 +53,11 @@ interne des mouvements, qui appartient à
 [Timefold Enterprise](https://docs.timefold.ai/timefold-solver/latest/running-timefold-solver/multithreaded-solving).
 L'affinité est le même préfixe de CPU que pour CBLS ; `ActiveProcessorCount=N`,
 SerialGC et un heap de 2 Go sont publiés. Le nombre de workers ne remplace pas
-les mesures CPU. Deux profils sont disponibles : défaut natif et acceptation
-tardive de taille 400.
+les mesures CPU. Le défaut natif se résout en acceptation tardive de taille 400
+et un candidat accepté par étape dans Timefold 2.6.0. Le profil explicite
+`late_acceptance_400` est donc un contrôle de la même politique, pas une nouvelle
+stratégie. Le second profil distinct utilise une taille de 1 000. Les versions
+instrumentées publient aussi les calculs de score et recalculs de routes exécutés.
 
 Le [lanceur Linux](scripts/timefold_pilot.jl) accepte `workers seconds profil sortie.toml`.
 Il utilise trois graines 41/42/43 sur les trois instances, refuse une sortie

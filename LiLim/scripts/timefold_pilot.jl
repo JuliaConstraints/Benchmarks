@@ -3,10 +3,10 @@ using ConstraintModels, JuMP, TOML, SHA, Dates
 using ConstraintModels.Benchmarks
 include(joinpath(@__DIR__,"..","src","Pilot.jl"))
 include(joinpath(@__DIR__,"..","competitors","Adapters.jl"))
-length(ARGS)==4 || error("usage: timefold_pilot.jl workers seconds default|late_acceptance_400 output.toml")
+length(ARGS)==4 || error("usage: timefold_pilot.jl workers seconds default|late_acceptance_400|late_acceptance_1000 output.toml")
 const WIDTH=parse(Int,ARGS[1]);const BUDGET=parse(Float64,ARGS[2]);const PROFILE=ARGS[3];const OUT=abspath(ARGS[4])
 WIDTH in (1,2,4,8,16) && isfinite(BUDGET) && BUDGET>0 || error("invalid resources")
-PROFILE in ("default","late_acceptance_400") || error("invalid profile")
+PROFILE in ("default","late_acceptance_400","late_acceptance_1000") || error("invalid profile")
 ispath(OUT) && error("output exists")
 const ROOT=normpath(joinpath(@__DIR__,"..",".."));const NATIVE=joinpath(ROOT,"LiLim","native","timefold")
 const TARGET=joinpath(NATIVE,"target");isdir(joinpath(TARGET,"dependency")) || error("build the pinned Maven project first")
