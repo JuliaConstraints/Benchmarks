@@ -3,7 +3,7 @@ length(ARGS)==2 && ARGS[2] in ("exact","xkcd") || error("usage: competitors_plot
 const ROOT=normpath(joinpath(@__DIR__,".."));const OUT=abspath(ARGS[1]);mkpath(OUT)
 const IDS=["lc101","lr101","lrc101"];const WIDTHS=[1,2,4,8,16]
 const COLORS=[:seagreen3,:dodgerblue3,:darkorange2]
-const LABELS=["CBLS + ICN","Timefold LA 400","Timefold LA 1 000"]
+const LABELS=["CBLS + ICN","Timefold LA 400","Timefold LA 1,000"]
 const TARGETS=TOML.parsefile(joinpath(ROOT,"config","diagnostic-targets.toml"))
 const DATA=Dict{Tuple{String,Int,Int},Vector{Any}}()
 for width in WIDTHS
@@ -42,17 +42,17 @@ function render()
     legends=[LineElement(color=c,linewidth=2.5) for c in COLORS]
     reference=LineElement(color=:gray30,linestyle=:dot,linewidth=2)
     quality=Figure(size=(1500,1100))
-    Label(quality[0,1:3],"CBLS / Timefold : qualité et référence en 5 secondes",fontsize=27)
+    Label(quality[0,1:3],"CBLS / Timefold: quality and reference in 5 seconds",fontsize=27)
     anytime=Figure(size=(1500,1100))
-    Label(anytime[0,1:3],"Trajectoires et réussite — 16 workers, 5 secondes",fontsize=27)
+    Label(anytime[0,1:3],"Search trajectories and success — 16 workers, 5 seconds",fontsize=27)
     grid=collect(0.:0.025:5.)
     for (column,id) in enumerate(IDS)
-        fleet=Axis(quality[1,column];title=uppercase(id),ylabel=column==1 ? "Véhicules" : "",xlabel="Workers",xticks=WIDTHS)
-        distance=Axis(quality[2,column];ylabel=column==1 ? "Distance brute" : "",xlabel="Workers",xticks=WIDTHS)
-        rate=Axis(quality[3,column];ylabel=column==1 ? "Référence atteinte (%)" : "",xlabel="Workers",xticks=WIDTHS,yticks=0:25:100)
-        fleettime=Axis(anytime[1,column];title=uppercase(id),ylabel=column==1 ? "Véhicules" : "")
-        disttime=Axis(anytime[2,column];ylabel=column==1 ? "Distance brute" : "")
-        ratetime=Axis(anytime[3,column];ylabel=column==1 ? "Référence atteinte (%)" : "",xlabel="Temps total (s)",yticks=0:25:100)
+        fleet=Axis(quality[1,column];title=uppercase(id),ylabel=column==1 ? "Vehicles" : "",xlabel="Allocated workers",xticks=WIDTHS)
+        distance=Axis(quality[2,column];ylabel=column==1 ? "Raw distance" : "",xlabel="Allocated workers",xticks=WIDTHS)
+        rate=Axis(quality[3,column];ylabel=column==1 ? "Reference reached (%)" : "",xlabel="Allocated workers",xticks=WIDTHS,yticks=0:25:100)
+        fleettime=Axis(anytime[1,column];title=uppercase(id),ylabel=column==1 ? "Vehicles" : "")
+        disttime=Axis(anytime[2,column];ylabel=column==1 ? "Raw distance" : "")
+        ratetime=Axis(anytime[3,column];ylabel=column==1 ? "Reference reached (%)" : "",xlabel="Elapsed time (s)",yticks=0:25:100)
         maxfleet=maximum(r["vehicles"] for w in WIDTHS for kind in 1:3 for r in DATA[(id,w,kind)])
         for axis in (fleet,fleettime)
             axis.yticks=collect(TARGETS[id]["vehicles"]:maxfleet)
@@ -82,13 +82,13 @@ function render()
             stairs!(ratetime,grid,[100*mean(any(e->e["seconds"]<=t && hit(e,id),r["trajectory"]) for r in rs) for t in grid];step=:post,color=COLORS[kind],linestyle=style)
         end
     end
-    caption="Corpus diagnostic déjà exposé · 3 graines · même insertion · flotte puis distance · BKS SINTEF : pointillés gris\nCommunity : solveurs série indépendants dans une JVM. CBLS : voies indépendantes dans Julia. Versions/profils distincts."
+    caption="Exposed diagnostic set · 3 seeds · same insertion start · fleet, then distance · dotted lines: SINTEF BKS\nCommunity runs independent serial solvers in one JVM. CBLS uses independent Julia workers. Different solver versions/profiles."
     for fig in (quality,anytime)
         Label(fig[4,1:3],caption,fontsize=14)
-        Legend(fig[5,1:3],vcat(legends,[reference]),vcat(LABELS,["BKS SINTEF (distance arrondie)"]);
+        Legend(fig[5,1:3],vcat(legends,[reference]),vcat(LABELS,["SINTEF BKS (rounded distance)"]);
             orientation=:horizontal,tellwidth=false,framevisible=false)
         if ARGS[2]=="xkcd"
-            Label(fig[6,1:3],"Illustration XKCD : coordonnées exactes dans la version sobre. Taux descriptifs de 3 essais, sans extrapolation.",fontsize=14)
+            Label(fig[6,1:3],"XKCDMakie illustration; plain-style version has exact coordinates. Descriptive rates from 3 runs; no extrapolation.",fontsize=14)
         end
     end
     exportfig(quality,"competitors-quality");exportfig(anytime,"competitors-anytime")

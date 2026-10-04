@@ -77,6 +77,9 @@ trois graines et les réglages non optimisés limitent cette conclusion au pilot
 Hexaly dispose du modèle et du contrat d'échange ; sa qualification native et
 sa campagne attendent un exécutable disponible. Ne pas compter cette préparation
 comme un résultat comparatif ni comme le démarrage de la licence d'essai.
+Le [bilan élargi des variantes](../LiLim/results/all-variants-20261004.md)
+ajoute HiGHS, CBLS naïf/ICN/natif, les hybridations et deux allocations
+MetaStrategist aux cinq largeurs ; il distingue médianes et meilleurs essais.
 
 Obtenir assez de preuves de compétitivité pour proposer à une entreprise de
 financer JuliaConstraints avec une partie du budget consacré à ses licences de

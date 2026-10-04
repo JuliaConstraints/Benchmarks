@@ -268,6 +268,12 @@ publié. Le [protocole concurrents](config/competitors.toml) prépare cette
 distinction, Timefold incrémental et Hexaly. La table BKS n'apporte pas de temps
 de calcul de référence homogène ; on mesure le temps d'atteinte localement.
 
+Le [bilan de toutes les variantes à cinq secondes](results/all-variants-20261004.md)
+réunit 504 essais revalidés sur LC101, LR101 et LRC101, avec Timefold aux cinq
+largeurs. Il trace médianes, meilleurs essais observés, réussite, trajectoires
+et CPU en figures sobres et XKCDMakie. Les captures GHOST/JuLS correspondantes
+ne sont pas présentes dans ce corpus ; Hexaly reste préparé sans mesure native.
+
 ## Réévaluation complète après buffers (4 octobre 2026)
 
 `scripts/all_variants.jl` reprend les sept profils homogènes, les deux mixes

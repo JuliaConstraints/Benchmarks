@@ -7,6 +7,9 @@ et des pistes de recherche, pas à déclarer une supériorité industrielle.
 Le [bilan du 4 octobre](results/competitors-20261004.md) livre 135 essais
 comparatifs à cinq secondes, sur 1/2/4/8/16 workers, et leurs figures de
 qualité, de réussite et de progression en versions exactes et XKCD.
+Le [comparatif étendu](results/all-variants-20261004.md) réunit 504 essais de
+CBLS/HiGHS, deux mélanges MetaStrategist et Timefold avec les autres variantes
+CBLS. Il détaille les captures présentes et les limites du pilote.
 
 ## Quelle référence de temps ?
 
