@@ -242,11 +242,16 @@ différents, ni des paires pickup-delivery indépendantes en une seule contraint
 `all_equal` globale. La sortie agrégée devra rester égale à la somme actuelle
 sur un rejeu déterministe complet.
 
-La fusion n'a pas encore été testée dans le chemin Li-Lim. Le package
-CompositionalNetworks contient déjà des évaluations compilées et des chemins
-fusionnés pour certaines agrégations ; quelques alias optimisés ne sont pas des
-choix de poids apprenables. Il faut donc d'abord vérifier si les compositions
-Li-Lim chargées passent déjà par ces spécialisations et les profiler réellement.
+La fusion de plusieurs évaluations de contraintes n'a pas encore été testée dans
+le chemin Li-Lim. Le commit CompositionalNetworks mesuré (`ac70b743`) compile les
+réseaux simples à quatre couches en code spécialisé en place, et le compilateur
+fusionne déjà certaines paires transformation/agrégation. Cela peut optimiser
+des opérations à l'intérieur d'un décodeur ; les alias fusionnés ne sont pas
+tous des choix de poids apprenables, et cela ne regroupe pas les millions de
+décodages séparés effectués par le score. L'empreinte actuelle prouve les appels
+ICN, pas quelle branche du compilateur a été sélectionnée pour chacun des trois
+témoins. Il faut donc extraire les IR des témoins et vérifier cette branche sur
+l'environnement figé avant d'attribuer le surcoût à une opération.
 Avant toute modification, faire une comparaison PerfChecker sur une séquence
 figée d'états et de candidats, puis profiler l'évaluation de bout en bout.
 Repérer les compositions récurrentes — résidu scalaire, ordre, égalité,
