@@ -4,6 +4,10 @@ Le protocole exécutable est [competitors.toml](config/competitors.toml). Le cor
 LC101/LR101/LRC101 est déjà exposé : ces essais servent à qualifier des adaptateurs
 et des pistes de recherche, pas à déclarer une supériorité industrielle.
 
+Le [bilan du 4 octobre](results/competitors-20261004.md) livre 54 essais
+comparatifs à cinq secondes, sur un et seize workers, et leurs figures de
+qualité, de réussite et de progression en versions exactes et XKCD.
+
 ## Quelle référence de temps ?
 
 La [table SINTEF des 100 tâches](https://www.sintef.no/projectweb/top/pdptw/100-customers/)

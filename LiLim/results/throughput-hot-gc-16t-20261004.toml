@@ -1,0 +1,769 @@
+affinity = "Cpus_allowed_list:\t0-4,6,8-12,14,16-19"
+allocation_sample_rate = 1.0e-5
+benchmarks_commit = "80fd2986f7b120468ed8d55e33027145178d8ecf"
+cohort_override_sha256 = "3d006924cd6e264b3bb7c3e2ef35ec7e4ea611705e6bf2629576aac099b07748"
+cpu_name = "alderlake"
+cpu_profile_flat = """ Count  Overhead File                                                                Line Function\n =====  ======== ====                                                                ==== ========\n    20         0 @Base/bitarray.jl                                                   692 setindex!\n    20        20 @Base/essentials.jl                                                   ? score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"#…\n    20         0 @juliasrc/gc-stock.c                                               1294 gc_sweep_pool_parallel\n    20         0 @juliasrc/gc-stock.c                                               1002 gc_sweep_pool_page\n    21         0 @LiLimPilot/src/ICNScoring.jl                                       134 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"#…\n    22        16 @LiLimPilot/src/MetaRepair.jl                                        34 decode_successor_views!(w::Main.ICNScoring.RouteScoreWorkspace, n::Int64, values::Vector{Int64})\n    22         0 @Base/promotion.jl                                                  652 max\n    22        22 @Base/essentials.jl                                                 854 ifelse\n    23         0 @Base/operators.jl                                                  653 +\n    23        23 @Base/Base_compiler.jl                                               61 setproperty!\n    23         0 @juliasrc/gc-stock.c                                               1399 gc_sweep_pool\n    24         8 @LocalSearchSolvers/src/strategies/move.jl                          214 affected_constraints!(workspace::LocalSearchSolvers.NeighborhoodWorkspace{Int64}, model::LocalSearc…\n    26         3 @Base/abstractarray.jl                                              702 checkbounds\n    26        26 @juliasrc/gc-stock.c                                               1717 gc_mark_obj8\n    27         0 @LocalSearchSolvers/src/solver.jl                                   362 _candidate_objective(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{LocalSearc…\n    27         0 @LiLimPilot/src/ICNScoring.jl                                        84 scalar\n    28         0 @LocalSearchSolvers/src/utils.jl                                     75 apply\n    28         0 @LiLimPilot/src/Hybrid.jl                                           130 #34\n    28         0 @juliasrc/gc-stock.c                                               2486 gc_mark_outrefs\n    28         0 @juliasrc/gc-stock.c                                               3563 ijl_gc_collect\n    29         0 @LocalSearchSolvers/src/solver.jl                                   361 _candidate_objective\n    29        29 @Base/float.jl                                                      493 -\n    29         0 @LiLimPilot/src/ICNScoring.jl                                       119 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"#…\n    29         0 @juliasrc/gc-stock.c                                               3255 _jl_gc_collect\n    30         0 @LocalSearchSolvers/src/strategies/move.jl                          143 value_after\n    30        28 @Base/bitarray.jl                                                   691 setindex!\n    31         0 @LocalSearchSolvers/src/strategies/proposals.jl                      54 _proposal_rank\n    31        15 @CompositionalNetworks/src/inplace.jl                               576 #_aggregate_pairwise_sum#694\n    31         0 @Base/abstractarray.jl                                              325 eachindex\n    31         0 @Base/abstractarray.jl                                              141 axes1\n    31         0 @Base/abstractarray.jl                                              102 axes\n    34         0 @LiLimPilot/src/ICNScoring.jl                                        86 scalar\n    34         0 @Base/operators.jl                                                  425 >\n    36         0 @Base/array.jl                                                      363 _fill!\n    36         0 @LocalSearchSolvers/src/solver.jl                                   227 _candidate_cost(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{LocalSearchSolv…\n    36         3 @Base/array.jl                                                      364 _fill!\n    36         0 @CompositionalNetworks/src/inplace.jl                              1354 _compare\n    36         0 @CompositionalNetworks/src/inplace.jl                              1354 #_compare#773\n    36         0 @CompositionalNetworks/src/layers/transformation.jl                  50 _condition_residual\n    38        14 @LiLimPilot/src/MetaRepair.jl                                        43 decode_successor_views!(w::Main.ICNScoring.RouteScoreWorkspace, n::Int64, values::Vector{Int64})\n    39         0 @LocalSearchSolvers/src/model.jl                                    523 constraint_input!\n    39         0 @LiLimPilot/src/MetaRepair.jl                                        35 decode_successor_views!(w::Main.ICNScoring.RouteScoreWorkspace, n::Int64, values::Vector{Int64})\n    40        40 @Base/Base_compiler.jl                                              301 ==\n    43         4 @LiLimPilot/src/ICNScoring.jl                                        82 scalar\n    44        19 @LiLimPilot/src/ICNScoring.jl                                         ? score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"#…\n    44         0 @LiLimPilot/src/ICNScoring.jl                                       120 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"#…\n    44         0 @Base/essentials.jl                                                  11 length\n    46         0 @LiLimPilot/src/Pilot.jl                                             18 feasible_route(route::Vector{Int64}, d::PickupDeliveryProblem, D::Matrix{Float64})\n    48         0 @LiLimPilot/src/ICNScoring.jl                                       112 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"#…\n    48         0 @Base/int.jl                                                        564 ==\n    49         2 @LiLimPilot/src/MetaRepair.jl                                        40 decode_successor_views!(w::Main.ICNScoring.RouteScoreWorkspace, n::Int64, values::Vector{Int64})\n    50         0 @juliasrc/gc-stock.c                                               2565 gc_mark_loop_serial\n    51         0 @LiLimPilot/src/Hybrid.jl                                           100 pair_relocation(p::BenchmarkInstance{PickupDeliveryProblem}, routes::Vector{Vector{Int64}}, distanc…\n    51        35 @Base/array.jl                                                      962 getindex\n    51         0 @juliasrc/gc-stock.c                                               3123 _jl_gc_collect\n    51         0 @juliasrc/gc-stock.c                                               2753 gc_mark_loop\n    51         0 @juliasrc/gc-stock.c                                               2542 gc_mark_loop_serial_\n    52         0 @LiLimPilot/src/ICNScoring.jl                                       128 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"#…\n    52         0 @Base/abstractarray.jl                                             1255 _iterate_abstractarray\n    52         0 @juliasrc/gc-stock.c                                               3565 ijl_gc_collect\n    53        11 @CompositionalNetworks/src/inplace.jl                               574 #_aggregate_pairwise_sum#694\n    56         0 @LiLimPilot/src/ICNScoring.jl                                       111 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"#…\n    56         0 @LiLimPilot/src/MetaRepair.jl                                        37 decode_successor_views!(w::Main.ICNScoring.RouteScoreWorkspace, n::Int64, values::Vector{Int64})\n    56         0 @CompositionalNetworks/src/inplace.jl                               536 _pairwise_count\n    56         9 @CompositionalNetworks/src/inplace.jl                               536 #_pairwise_count#683\n    58         0 @Base/int.jl                                                       1056 +\n    58         0 @Base/int.jl                                                        592 rem\n    58         0 @Base/boot.jl                                                      1010 Int64\n    58        58 @Base/boot.jl                                                       937 toInt64\n    59         0 @LiLimPilot/src/MetaRepair.jl                                        49 decode_successor_views!(w::Main.ICNScoring.RouteScoreWorkspace, n::Int64, values::Vector{Int64})\n    63        63 @LiLimPilot/src/ICNScoring.jl                                         ? scalar\n    63         0 @CompositionalNetworks/src/inplace.jl                               539 _pairwise_count\n    63         0 @CompositionalNetworks/src/inplace.jl                               539 #_pairwise_count#684\n    64        26 @LiLimPilot/src/Pilot.jl                                             19 feasible_route(route::Vector{Int64}, d::PickupDeliveryProblem, D::Matrix{Float64})\n    67         0 @LiLimPilot/src/MetaRepair.jl                                        48 decode_successor_views!(w::Main.ICNScoring.RouteScoreWorkspace, n::Int64, values::Vector{Int64})\n    68         0 @Base/operators.jl                                                  320 !=\n    69         0 @LiLimPilot/src/ICNScoring.jl                                       126 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"#…\n    73         0 @Base/array.jl                                                      359 fill!\n    74        74 linux-vdso.so.1                                                       ? [unknown function]\n    75        75 @Base/essentials.jl                                                  10 size\n    76         1 /lib/x86_64-linux-gnu/libc.so.6                                       ? clock_gettime\n    79        79 @Base/int.jl                                                         83 <\n    80         3 /workspace/srcdir/libuv/src/unix/linux.c                           1591 uv__hrtime\n    80         0 @LiLimPilot/src/ResourceExperiment.jl                               114 run_case(path::String, method::String, seconds::Float64, seed::Int64, policy::Dict{String, Any}, ba…\n    80         0 @Base/gcutils.jl                                                    133 gc\n    81         3 @LiLimPilot/src/MetaRepair.jl                                        31 decode_successor_views!(w::Main.ICNScoring.RouteScoreWorkspace, n::Int64, values::Vector{Int64})\n    82        23 @Base/array.jl                                                     1024 _setindex!\n    82         0 /workspace/srcdir/glibc-2.17/csu/../sysdeps/x86_64/start.S          123 [unknown function]\n    82         0 /lib/x86_64-linux-gnu/libc.so.6                                       ? __libc_start_main\n    82         0 /cache/build/builder-amdci4-8/julialang/julia-ci/cli/loader_exe.c    58 main\n    82         0 @juliasrc/jlapi.c                                                  1152 jl_repl_entrypoint\n    82         0 @juliasrc/jlapi.c                                                   985 true_main\n    82         0 @julialib/julia/sys.so                                                ? jfptr__start_58396.1\n    82         0 @Base/client.jl                                                     577 _start()\n    82         0 @Base/client.jl                                                     344 exec_options(opts::Base.JLOptions)\n    82         0 @Base/Base.jl                                                       309 include(mod::Module, _path::String)\n    82         0 @Base/loading.jl                                                   3093 _include(mapexpr::Function, mod::Module, _path::String)\n    82         0 @Base/loading.jl                                                   3033 include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)\n    82         0 @Base/boot.jl                                                       489 eval(m::Module, e::Any)\n    82         0 @juliasrc/toplevel.c                                                799 ijl_toplevel_eval_in\n    82         0 @juliasrc/toplevel.c                                                754 ijl_toplevel_eval\n    82         0 @juliasrc/toplevel.c                                                683 jl_toplevel_eval_flex\n    82         0 @juliasrc/toplevel.c                                                585 jl_eval_toplevel_stmts\n    82         0 @juliasrc/toplevel.c                                                742 jl_toplevel_eval_flex\n    82         0 @juliasrc/interpreter.c                                             884 jl_interpret_toplevel_thunk\n    82         0 @juliasrc/interpreter.c                                             679 eval_body\n    82         0 @juliasrc/interpreter.c                                             194 eval_stmt_value\n    82         0 @juliasrc/interpreter.c                                             243 eval_value\n    82         0 @juliasrc/interpreter.c                                             123 do_call\n    82         0 @juliasrc/builtins.c                                                889 jl_f_invokelatest\n    82         0 @LiLimPilot/scripts/icn_performance.jl                              144 throughput()\n    82         0 @Profile/src/Profile.jl                                              60 macro expansion\n    82         0 @LiLimPilot/src/ResourceExperiment.jl                               107 run_case(path::String, method::String, seconds::Float64, seed::Int64, policy::Dict{String, Any}, ba…\n    83         0 @Base/bitarray.jl                                                   666 unsafe_bitgetindex\n    85         0 @LiLimPilot/src/Hybrid.jl                                            92 pair_relocation(p::BenchmarkInstance{PickupDeliveryProblem}, routes::Vector{Vector{Int64}}, distanc…\n    86         0 @Base/bitarray.jl                                                   672 getindex\n    87         0 @Base/Base_compiler.jl                                              198 time_ns\n    87         0 /workspace/srcdir/libuv/src/unix/core.c                             134 uv_hrtime\n    90         0 @CompositionalNetworks/src/inplace.jl                               533 _pairwise_count\n    90        17 @CompositionalNetworks/src/inplace.jl                               533 #_pairwise_count#682\n    92         0 @Base/promotion.jl                                                  404 promote\n    92         0 @Base/promotion.jl                                                  379 _promote\n    92         1 @CompositionalNetworks/src/inplace.jl                               442 #_aggregate_input#669\n   101       101 @Base/float.jl                                                      245 Float64\n   109        84 @LiLimPilot/src/MetaRepair.jl                                        38 decode_successor_views!(w::Main.ICNScoring.RouteScoreWorkspace, n::Int64, values::Vector{Int64})\n   135         0 @LocalSearchSolvers/src/model.jl                                    522 constraint_input!\n   138         7 @CompositionalNetworks/src/inplace.jl                               444 #_aggregate_input#669\n   150         0 @Base/number.jl                                                       7 convert\n   150        50 @LiLimPilot/src/MetaRepair.jl                                        47 decode_successor_views!(w::Main.ICNScoring.RouteScoreWorkspace, n::Int64, values::Vector{Int64})\n   152         0 @Base/promotion.jl                                                  433 +\n   162       162 @Base/int.jl                                                         87 +\n   165         4 @LiLimPilot/src/Hybrid.jl                                           104 pair_relocation(p::BenchmarkInstance{PickupDeliveryProblem}, routes::Vector{Vector{Int64}}, distanc…\n   171        52 @Base/range.jl                                                      928 iterate\n   172         0 @Base/essentials.jl                                                 974 getindex\n   172        27 @Base/essentials.jl                                                 389 checkbounds\n   190         0 @LiLimPilot/src/ICNScoring.jl                                       115 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"#…\n   207         0 none                                                                  ? ##composition#336\n   207         0 none                                                                  ? ##composition#336#1141\n   215        39 @Base/abstractarray.jl                                             1254 _iterate_abstractarray\n   234         0 none                                                                  ? ##composition#337\n   234         0 none                                                                  ? ##composition#337#1142\n   237       237 @Base/promotion.jl                                                  641 ==\n   252         0 @CompositionalNetworks/src/inplace.jl                               440 _aggregate_input\n   259       259 @Base/float.jl                                                      492 +\n   266       263 @Base/Base_compiler.jl                                               57 getproperty\n   267         0 @Base/abstractarray.jl                                             1247 iterate\n   278       116 @Base/array.jl                                                     1025 _setindex!\n   278         0 @CompositionalNetworks/src/inplace.jl                               565 _pairwise_counts\n   278         0 @CompositionalNetworks/src/inplace.jl                               567 #_pairwise_counts#693\n   288         0 none                                                                  ? ##composition#335#1140\n   291         0 @LiLimPilot/src/ICNScoring.jl                                       127 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"#…\n   295         0 @LiLimPilot/src/ICNScoring.jl                                        87 scalar\n   295         0 none                                                                  ? ##composition#335\n   302         0 @LiLimPilot/src/ICNScoring.jl                                       129 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"#…\n   357         0 @CompositionalNetworks/src/inplace.jl                               575 #_aggregate_pairwise_sum#694\n   360         0 @Base/array.jl                                                     1020 setindex!\n   373         0 @LiLimPilot/src/Hybrid.jl                                           220 run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Floa…\n   373         0 @LiLimPilot/src/Hybrid.jl                                            64 pair_relocation\n   380       341 @Base/essentials.jl                                                 385 checkbounds\n   441         0 @CompositionalNetworks/src/inplace.jl                               572 _aggregate_pairwise_sum\n   458       458 @Base/essentials.jl                                                 975 getindex\n   483         0 @LiLimPilot/src/ICNScoring.jl                                       113 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"#…\n   488         0 @LocalSearchSolvers/src/model.jl                                    532 compute_cost\n   736         0 @CompositionalNetworks/src/composition_ir.jl                         81 Composition\n   736         0 @CompositionalNetworks/src/composition_ir.jl                         82 #_#849\n   763         4 @LiLimPilot/src/ICNScoring.jl                                       103 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"#…\n  1230         0 @julialib/julia/sys.so                                                ? jfptr_wait_forever_70523.1\n  1230         0 @Base/task.jl                                                      1196 wait_forever()\n  1230         0 @Base/task.jl                                                      1297 wait()\n  1230         0 @juliasrc/scheduler.c                                               599 ijl_task_get_next\n  1230         0 /workspace/srcdir/libuv/src/unix/thread.c                           822 uv_cond_wait\n  1230         0 /lib/x86_64-linux-gnu/libc.so.6                                       ? pthread_cond_wait\n  1314      1231 /lib/x86_64-linux-gnu/libc.so.6                                       ? [unknown function]\n  2185         1 @LocalSearchSolvers/src/model.jl                                    532 compute_cost(c::LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.…\n  2487         0 @LocalSearchSolvers/src/utils.jl                                     74 apply\n  2487         0 @LiLimPilot/src/Hybrid.jl                                           128 #30\n  2487         0 @LiLimPilot/src/Hybrid.jl                                           128 #32\n  2511         2 @LiLimPilot/src/ICNScoring.jl                                       137 ErrorBackend\n  2515         4 @LiLimPilot/src/Hybrid.jl                                           127 #28\n  2679         0 @LocalSearchSolvers/src/solver.jl                                   231 _candidate_cost(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{LocalSearchSolv…\n  2732         0 @LocalSearchSolvers/src/strategies/proposals.jl                      53 _proposal_rank\n  2764         0 @LocalSearchSolvers/src/strategies/proposals.jl                      68 _scan_proposals!(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{LocalSearchSol…\n  2774         4 @LocalSearchSolvers/src/strategies/proposals.jl                      87 _best_proposal!(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{LocalSearchSolv…\n  2781         0 @LocalSearchSolvers/src/strategies/proposals.jl                     149 _step!(s::LocalSearchSolvers.MainSolver, model::LocalSearchSolvers._Model{LocalSearchSolvers.Variab…\n  2784         0 @LiLimPilot/src/Hybrid.jl                                           243 run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Floa…\n  2784         0 @LocalSearchSolvers/src/solver.jl                                   867 _step!(s::LocalSearchSolvers.MainSolver)\n  3180         0 @Base/threadingconstructs.jl                                        178 (::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.Reso…\n  3180         0 @Base/threadingconstructs.jl                                        246 #2\n  3180         0 @Base/threadingconstructs.jl                                        279 (::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.Para…\n  3180         0 @LiLimPilot/src/ResourceExperiment.jl                                49 macro expansion\n  3180         0 @LiLimPilot/src/ResourceExperiment.jl                               135 (::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{…\n  3180         0 @LiLimPilot/src/Hybrid.jl                                           149 kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.Erro…\n  3262         1 [any unknown stackframes]\n  4410         0 @juliasrc/task.c                                                   1285 start_task\n  4492         0 @juliasrc/julia.h                                                  2318 jl_apply\nTotal snapshots: 4492. Utilization: 73% across all threads and tasks. Use the `groupby` kwarg to break down by thread and/or task.\n"""
+finished_utc = "2026-10-04T09:27:04.770"
+gc_precollection = "full GC before each measured phase, excluded from phase timing"
+gc_threads = 1
+julia = "1.13.1"
+julia_gc_option = "1"
+mode = "throughput"
+profile_source_sha256 = "8e8b0b7c9076c0e161b63517b12b270a2bd4603193d3bdc58908f5dc8f1fdca5"
+schema = "li-lim-performance-diagnostic/1"
+started_utc = "2026-10-04T09:26:07.543"
+stdlib_loading_seconds = 0.046180378
+threads = 16
+
+[baseline]
+budgets_seconds = [10.0, 30.0]
+cpu = 8
+instance_wall_guard_seconds = 900.0
+instances = ["lc101", "lr101", "lrc101"]
+job_wall_guard_seconds = 120.0
+julia = "1.13.1"
+memory_guard_bytes = 8589934592
+methods = ["cbls", "hybrid_specialized", "hybrid_bridged", "highs"]
+schema = "li-lim-meta-pilot/1"
+scope = "diagnostic on three previously exposed instances; no confirmation or commercial comparison"
+seeds = [41, 42, 43]
+threads = 1
+
+    [baseline.cohort]
+    CBLS = "3bd4e2638c39b565aa81af41f585678f8952f60a"
+    CompositionalNetworks = "ac70b743ea64c32f57100a59ceeb68b4c54181f2"
+    ConstraintCommons = "b71a313f2b600e8879877e8e04e292eb94851bd7"
+    ConstraintDomains = "399a90fdbb25d2cefc9cea2d6c4f6565be5a7c11"
+    ConstraintModels = "4ddd8f65417ac8a8d6bb12add6faf0c0c84801c3"
+    ConstraintProgrammingExtensions = "684e2e4a1459d5ae459666350c545bfc775272c2"
+    Constraints = "fc3ca4ba26d9d15ffd6065eca0bb8a968af2ff43"
+    LocalSearchSolvers = "9010ff2a0147257a2991680981f579e8c20db733"
+    MetaStrategist = "7a5bbed52f6c4993dd72bf7f9ad1c6bd57acf583"
+    PatternFolds = "bbf38fbf8b680deb4b599b06afd747fc069d25ee"
+    QUBOConstraints = "f893f83cd7518ca3aedf0ad5d2679b2c13829446"
+    XCSP3Bridges = "fe5bceaddc5081fedd200571b480e44ca9de1947"
+
+    [baseline.environment]
+    manifest_sha256 = "77e4d46bc9c20aa3e9a3bbaf27c1f95663e6a1ce290dbac28cbad00cf6d2df27"
+    project_sha256 = "2a48b5e578f38033a568c0d03697d31b86b1bed65b39086515c6648276cf457b"
+
+    [baseline.policy]
+    fragment_seconds = 0.5
+    insertion_seed = 41
+    insertion_starts = 5
+    max_visits = 20
+    repair_every = 20
+    repair_fraction = 0.35
+
+    [baseline.source_sha256]
+    lc101 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    lr101 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    lrc101 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+
+[config]
+budget_seconds = 10.0
+clb_commit = "b340e83a72ed19acd1f1647edaafb9e363738f0f"
+cpu_order = [8, 10, 0, 2, 4, 6, 12, 14, 16, 17, 18, 19, 9, 11, 1, 3]
+icn_bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+instances = ["lc101", "lr101", "lrc101"]
+job_wall_guard_seconds = 120.0
+julia = "1.13.1"
+memory_guard_bytes = 12884901888
+methods = ["cbls_naive", "cbls_icn", "cbls_direct", "hybrid_specialized_icn", "hybrid_bridged_icn", "highs_native", "highs_portfolio"]
+portfolio_methods = ["mixed_balanced", "mixed_ls_heavy"]
+process_wall_guard_seconds = 1400.0
+schema = "li-lim-icn-threads/1"
+scope = "diagnostic on three exposed instances, fixed wall budget, no commercial comparison"
+seeds = [41, 42, 43]
+thread_counts = [1, 2, 4, 8, 16]
+
+    [config.policy]
+    fragment_seconds = 0.5
+    insertion_seed = 41
+    insertion_starts = 5
+    max_visits = 20
+    repair_every = 20
+    repair_fraction = 0.35
+
+    [config.source_sha256]
+    lc101 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    lr101 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    lrc101 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+
+[[events]]
+allocated_bytes = 200228152
+compile_seconds = 0.087749395
+gc_seconds = 0.125934341
+phase = "load ConstraintModels"
+recompile_seconds = 0.079717787
+sample = 1
+seconds = 1.596948186
+[[events]]
+allocated_bytes = 55808
+compile_seconds = 0.002544244
+gc_seconds = 0.0
+phase = "load JuMP and Benchmarks"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.002831218
+[[events]]
+allocated_bytes = 129365936
+compile_seconds = 1.151933345
+gc_seconds = 0.012366582
+phase = "include Pilot"
+recompile_seconds = 0.214655381
+sample = 1
+seconds = 1.254873121
+[[events]]
+allocated_bytes = 3323816
+compile_seconds = 0.003949275
+gc_seconds = 0.0
+phase = "include MetaRepair"
+recompile_seconds = 0.00394802
+sample = 1
+seconds = 0.046080687
+[[events]]
+allocated_bytes = 1377768
+compile_seconds = 0.006379967
+gc_seconds = 0.0
+phase = "include ICNScoring"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.020430696
+[[events]]
+allocated_bytes = 1778200
+compile_seconds = 0.004689352
+gc_seconds = 0.0
+phase = "include Hybrid"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.039215515
+[[events]]
+allocated_bytes = 2790704
+compile_seconds = 0.034017273
+gc_seconds = 0.0
+phase = "include ResourceExperiment"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.065258324
+[[events]]
+allocated_bytes = 1231895808
+compile_seconds = 3.76966929
+gc_seconds = 0.316130491
+phase = "decode error backends"
+recompile_seconds = 0.0
+sample = 1
+seconds = 3.783113693
+[[events]]
+allocated_bytes = 256492240
+candidates_per_second = 2.65887948e7
+compile_seconds = 0.003206592
+distance = 828.9368669428341
+gc_seconds = 0.167285315
+icn_calls = 8686843953
+mean_active_cpus = 15.984893929430381
+median_parent_initialization_seconds = 0.0006861145
+pair_candidates = 132943974
+phase = "hot CBLS ICN lc101"
+process_cpu_seconds = 79.93225587300003
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 41
+search_gc_seconds = 0.0
+seconds = 5.171124295
+steps = 183577
+vehicles = 10
+
+    [[events.workers]]
+    cpu_fraction = 0.9999103668558359
+    icn_calls = 478384979
+    julia_thread_id = 1
+    os_thread_id = 25077
+    pair_candidates = 7325222
+    search_wall_seconds = 4.996209875
+    thread_cpu_seconds = 4.995762049
+    worker = 1
+    [[events.workers]]
+    cpu_fraction = 0.9995553611688683
+    icn_calls = 791167527
+    julia_thread_id = 2
+    os_thread_id = 25083
+    pair_candidates = 12104562
+    search_wall_seconds = 4.99615833
+    thread_cpu_seconds = 4.993936844
+    worker = 2
+    [[events.workers]]
+    cpu_fraction = 0.9999917500682618
+    icn_calls = 474963270
+    julia_thread_id = 3
+    os_thread_id = 25084
+    pair_candidates = 7266204
+    search_wall_seconds = 4.9959201250000005
+    thread_cpu_seconds = 4.995878909
+    worker = 3
+    [[events.workers]]
+    cpu_fraction = 0.9999625785336101
+    icn_calls = 449748927
+    julia_thread_id = 4
+    os_thread_id = 25085
+    pair_candidates = 6887634
+    search_wall_seconds = 4.995982735
+    thread_cpu_seconds = 4.995795777999998
+    worker = 4
+    [[events.workers]]
+    cpu_fraction = 0.9994988605589965
+    icn_calls = 477767340
+    julia_thread_id = 5
+    os_thread_id = 25086
+    pair_candidates = 7316112
+    search_wall_seconds = 4.995890954
+    thread_cpu_seconds = 4.993387315999998
+    worker = 5
+    [[events.workers]]
+    cpu_fraction = 0.9999958712798207
+    icn_calls = 449963342
+    julia_thread_id = 6
+    os_thread_id = 25087
+    pair_candidates = 6887328
+    search_wall_seconds = 4.995979167000001
+    thread_cpu_seconds = 4.995958539999998
+    worker = 6
+    [[events.workers]]
+    cpu_fraction = 0.9999961401984717
+    icn_calls = 765507628
+    julia_thread_id = 7
+    os_thread_id = 25088
+    pair_candidates = 11717272
+    search_wall_seconds = 4.9961118099999995
+    thread_cpu_seconds = 4.996092526
+    worker = 7
+    [[events.workers]]
+    cpu_fraction = 0.9999959457464254
+    icn_calls = 450379089
+    julia_thread_id = 8
+    os_thread_id = 25089
+    pair_candidates = 6889150
+    search_wall_seconds = 4.9962341100000005
+    thread_cpu_seconds = 4.9962138540000005
+    worker = 8
+    [[events.workers]]
+    cpu_fraction = 0.9999961785877373
+    icn_calls = 448312432
+    julia_thread_id = 9
+    os_thread_id = 25090
+    pair_candidates = 6860924
+    search_wall_seconds = 4.996058704999999
+    thread_cpu_seconds = 4.996039612999999
+    worker = 9
+    [[events.workers]]
+    cpu_fraction = 0.9995323733602876
+    icn_calls = 478338783
+    julia_thread_id = 10
+    os_thread_id = 25091
+    pair_candidates = 7317674
+    search_wall_seconds = 4.996161043
+    thread_cpu_seconds = 4.993824705
+    worker = 10
+    [[events.workers]]
+    cpu_fraction = 0.9994697104490046
+    icn_calls = 477869824
+    julia_thread_id = 11
+    os_thread_id = 25092
+    pair_candidates = 7317638
+    search_wall_seconds = 4.995940416000001
+    thread_cpu_seconds = 4.993291121
+    worker = 11
+    [[events.workers]]
+    cpu_fraction = 0.9999967611845564
+    icn_calls = 747667547
+    julia_thread_id = 12
+    os_thread_id = 25093
+    pair_candidates = 11440688
+    search_wall_seconds = 4.995962345
+    thread_cpu_seconds = 4.995946164000001
+    worker = 12
+    [[events.workers]]
+    cpu_fraction = 0.9999968709095648
+    icn_calls = 787854133
+    julia_thread_id = 13
+    os_thread_id = 25094
+    pair_candidates = 12056692
+    search_wall_seconds = 4.996020513
+    thread_cpu_seconds = 4.996004879999999
+    worker = 13
+    [[events.workers]]
+    cpu_fraction = 0.9999105289482108
+    icn_calls = 460669219
+    julia_thread_id = 14
+    os_thread_id = 25095
+    pair_candidates = 7048630
+    search_wall_seconds = 4.996308762
+    thread_cpu_seconds = 4.995861737
+    worker = 14
+    [[events.workers]]
+    cpu_fraction = 0.9999969056751082
+    icn_calls = 477321008
+    julia_thread_id = 15
+    os_thread_id = 25096
+    pair_candidates = 7302336
+    search_wall_seconds = 4.995920125
+    thread_cpu_seconds = 4.9959046659999995
+    worker = 15
+    [[events.workers]]
+    cpu_fraction = 0.9999658070699625
+    icn_calls = 470928905
+    julia_thread_id = 16
+    os_thread_id = 25097
+    pair_candidates = 7205908
+    search_wall_seconds = 4.996208275
+    thread_cpu_seconds = 4.99603744
+    worker = 16
+[[events]]
+allocated_bytes = 255323216
+candidates_per_second = 2.64592168e7
+compile_seconds = 0.0
+distance = 828.9368669428341
+gc_seconds = 0.166883233
+icn_calls = 8644200330
+mean_active_cpus = 15.986388137685864
+median_parent_initialization_seconds = 0.000620404
+pair_candidates = 132296084
+phase = "hot CBLS ICN lc101"
+process_cpu_seconds = 79.93970075299995
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 42
+search_gc_seconds = 0.0
+seconds = 5.167494796
+steps = 182678
+vehicles = 10
+
+    [[events.workers]]
+    cpu_fraction = 0.9998922163198631
+    icn_calls = 455964576
+    julia_thread_id = 1
+    os_thread_id = 25077
+    pair_candidates = 6975084
+    search_wall_seconds = 4.996257312
+    thread_cpu_seconds = 4.995718797000002
+    worker = 1
+    [[events.workers]]
+    cpu_fraction = 0.9997372140312029
+    icn_calls = 774151962
+    julia_thread_id = 2
+    os_thread_id = 25083
+    pair_candidates = 11851280
+    search_wall_seconds = 4.996069638
+    thread_cpu_seconds = 4.994756741
+    worker = 2
+    [[events.workers]]
+    cpu_fraction = 0.9999924569853224
+    icn_calls = 473538802
+    julia_thread_id = 3
+    os_thread_id = 25084
+    pair_candidates = 7242028
+    search_wall_seconds = 4.996145654
+    thread_cpu_seconds = 4.9961079680000005
+    worker = 3
+    [[events.workers]]
+    cpu_fraction = 0.9999884121251778
+    icn_calls = 450564387
+    julia_thread_id = 4
+    os_thread_id = 25085
+    pair_candidates = 6898026
+    search_wall_seconds = 4.996343237
+    thread_cpu_seconds = 4.99628534
+    worker = 4
+    [[events.workers]]
+    cpu_fraction = 0.9997161872682797
+    icn_calls = 476449812
+    julia_thread_id = 5
+    os_thread_id = 25086
+    pair_candidates = 7289958
+    search_wall_seconds = 4.996252252000001
+    thread_cpu_seconds = 4.994834251999997
+    worker = 5
+    [[events.workers]]
+    cpu_fraction = 0.9999942390503822
+    icn_calls = 450163521
+    julia_thread_id = 6
+    os_thread_id = 25087
+    pair_candidates = 6892190
+    search_wall_seconds = 4.996398495
+    thread_cpu_seconds = 4.996369711
+    worker = 6
+    [[events.workers]]
+    cpu_fraction = 0.9999955765478558
+    icn_calls = 775987426
+    julia_thread_id = 7
+    os_thread_id = 25088
+    pair_candidates = 11883232
+    search_wall_seconds = 4.996097907
+    thread_cpu_seconds = 4.996075807
+    worker = 7
+    [[events.workers]]
+    cpu_fraction = 0.9999953683404021
+    icn_calls = 451530769
+    julia_thread_id = 8
+    os_thread_id = 25089
+    pair_candidates = 6910510
+    search_wall_seconds = 4.996265272
+    thread_cpu_seconds = 4.996242130999999
+    worker = 8
+    [[events.workers]]
+    cpu_fraction = 0.9999882402485873
+    icn_calls = 449034614
+    julia_thread_id = 9
+    os_thread_id = 25090
+    pair_candidates = 6871342
+    search_wall_seconds = 4.996194047
+    thread_cpu_seconds = 4.996135292999998
+    worker = 9
+    [[events.workers]]
+    cpu_fraction = 0.9997323410718507
+    icn_calls = 467240563
+    julia_thread_id = 10
+    os_thread_id = 25091
+    pair_candidates = 7153684
+    search_wall_seconds = 4.996373591
+    thread_cpu_seconds = 4.995036267
+    worker = 10
+    [[events.workers]]
+    cpu_fraction = 0.9998084265895152
+    icn_calls = 476502066
+    julia_thread_id = 11
+    os_thread_id = 25092
+    pair_candidates = 7294642
+    search_wall_seconds = 4.996314455
+    thread_cpu_seconds = 4.9953572940000015
+    worker = 11
+    [[events.workers]]
+    cpu_fraction = 0.9999958625625747
+    icn_calls = 762567187
+    julia_thread_id = 12
+    os_thread_id = 25093
+    pair_candidates = 11668518
+    search_wall_seconds = 4.996087644
+    thread_cpu_seconds = 4.996066973000001
+    worker = 12
+    [[events.workers]]
+    cpu_fraction = 0.9999966535835572
+    icn_calls = 775608907
+    julia_thread_id = 13
+    os_thread_id = 25094
+    pair_candidates = 11865616
+    search_wall_seconds = 4.99609068
+    thread_cpu_seconds = 4.996073960999999
+    worker = 13
+    [[events.workers]]
+    cpu_fraction = 0.9999928936545498
+    icn_calls = 459375252
+    julia_thread_id = 14
+    os_thread_id = 25095
+    pair_candidates = 7029898
+    search_wall_seconds = 4.9962389599999995
+    thread_cpu_seconds = 4.996203454999998
+    worker = 14
+    [[events.workers]]
+    cpu_fraction = 0.9999872253902442
+    icn_calls = 476084544
+    julia_thread_id = 15
+    os_thread_id = 25096
+    pair_candidates = 7287890
+    search_wall_seconds = 4.996160448
+    thread_cpu_seconds = 4.996096624
+    worker = 15
+    [[events.workers]]
+    cpu_fraction = 0.9999819843383942
+    icn_calls = 469435942
+    julia_thread_id = 16
+    os_thread_id = 25097
+    pair_candidates = 7182186
+    search_wall_seconds = 4.996097394
+    thread_cpu_seconds = 4.9960073860000005
+    worker = 16
+[[events]]
+allocated_bytes = 254368560
+candidates_per_second = 2.63512538e7
+compile_seconds = 0.0
+distance = 828.9368669428341
+gc_seconds = 0.164662179
+icn_calls = 8608980895
+mean_active_cpus = 15.98605203062392
+median_parent_initialization_seconds = 0.000620241
+pair_candidates = 131756269
+phase = "hot CBLS ICN lc101"
+process_cpu_seconds = 79.93972151399998
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 43
+search_gc_seconds = 0.0
+seconds = 5.165388104
+steps = 181933
+vehicles = 10
+
+    [[events.workers]]
+    cpu_fraction = 0.9998638586543663
+    icn_calls = 473895871
+    julia_thread_id = 1
+    os_thread_id = 25077
+    pair_candidates = 7250932
+    search_wall_seconds = 4.995991459
+    thread_cpu_seconds = 4.995311297999997
+    worker = 1
+    [[events.workers]]
+    cpu_fraction = 0.9999762816332173
+    icn_calls = 766191943
+    julia_thread_id = 2
+    os_thread_id = 25083
+    pair_candidates = 11725984
+    search_wall_seconds = 4.996338959
+    thread_cpu_seconds = 4.9962204539999995
+    worker = 2
+    [[events.workers]]
+    cpu_fraction = 0.9999817120328349
+    icn_calls = 470063373
+    julia_thread_id = 3
+    os_thread_id = 25084
+    pair_candidates = 7196352
+    search_wall_seconds = 4.996126643
+    thread_cpu_seconds = 4.9960352740000005
+    worker = 3
+    [[events.workers]]
+    cpu_fraction = 0.9999931935695535
+    icn_calls = 446552507
+    julia_thread_id = 4
+    os_thread_id = 25085
+    pair_candidates = 6831306
+    search_wall_seconds = 4.995863877000001
+    thread_cpu_seconds = 4.995829873000002
+    worker = 4
+    [[events.workers]]
+    cpu_fraction = 0.9999227947081425
+    icn_calls = 473373801
+    julia_thread_id = 5
+    os_thread_id = 25086
+    pair_candidates = 7245152
+    search_wall_seconds = 4.9961601170000005
+    thread_cpu_seconds = 4.995774387000001
+    worker = 5
+    [[events.workers]]
+    cpu_fraction = 0.9999861831539947
+    icn_calls = 753814017
+    julia_thread_id = 6
+    os_thread_id = 25087
+    pair_candidates = 11534909
+    search_wall_seconds = 4.995857953000001
+    thread_cpu_seconds = 4.9957889259999995
+    worker = 6
+    [[events.workers]]
+    cpu_fraction = 0.9999948093186898
+    icn_calls = 781857060
+    julia_thread_id = 7
+    os_thread_id = 25088
+    pair_candidates = 11965806
+    search_wall_seconds = 4.995875965
+    thread_cpu_seconds = 4.995850033
+    worker = 7
+    [[events.workers]]
+    cpu_fraction = 0.9999778986656562
+    icn_calls = 447539711
+    julia_thread_id = 8
+    os_thread_id = 25089
+    pair_candidates = 6851424
+    search_wall_seconds = 4.995897455
+    thread_cpu_seconds = 4.995787039
+    worker = 8
+    [[events.workers]]
+    cpu_fraction = 0.9999828440287027
+    icn_calls = 445151497
+    julia_thread_id = 9
+    os_thread_id = 25090
+    pair_candidates = 6816770
+    search_wall_seconds = 4.9959864419999995
+    thread_cpu_seconds = 4.995900730999999
+    worker = 9
+    [[events.workers]]
+    cpu_fraction = 0.9999150689363008
+    icn_calls = 474079528
+    julia_thread_id = 10
+    os_thread_id = 25091
+    pair_candidates = 7253654
+    search_wall_seconds = 4.996028325999999
+    thread_cpu_seconds = 4.995604008000001
+    worker = 10
+    [[events.workers]]
+    cpu_fraction = 0.9999609067982593
+    icn_calls = 473421829
+    julia_thread_id = 11
+    os_thread_id = 25092
+    pair_candidates = 7246632
+    search_wall_seconds = 4.996188373
+    thread_cpu_seconds = 4.995993056
+    worker = 11
+    [[events.workers]]
+    cpu_fraction = 0.9999942579833349
+    icn_calls = 762734062
+    julia_thread_id = 12
+    os_thread_id = 25093
+    pair_candidates = 11669540
+    search_wall_seconds = 4.995979927
+    thread_cpu_seconds = 4.99595124
+    worker = 12
+    [[events.workers]]
+    cpu_fraction = 0.9999939203406377
+    icn_calls = 446430166
+    julia_thread_id = 13
+    os_thread_id = 25094
+    pair_candidates = 6831462
+    search_wall_seconds = 4.995839107
+    thread_cpu_seconds = 4.995808734000001
+    worker = 13
+    [[events.workers]]
+    cpu_fraction = 0.9999764433843267
+    icn_calls = 455786767
+    julia_thread_id = 14
+    os_thread_id = 25095
+    pair_candidates = 6975826
+    search_wall_seconds = 4.995921385
+    thread_cpu_seconds = 4.995803698
+    worker = 14
+    [[events.workers]]
+    cpu_fraction = 0.9999928397521773
+    icn_calls = 472332611
+    julia_thread_id = 15
+    os_thread_id = 25096
+    pair_candidates = 7229136
+    search_wall_seconds = 4.996056126
+    thread_cpu_seconds = 4.996020353000002
+    worker = 15
+    [[events.workers]]
+    cpu_fraction = 0.9999262142931731
+    icn_calls = 465756152
+    julia_thread_id = 16
+    os_thread_id = 25097
+    pair_candidates = 7131384
+    search_wall_seconds = 4.996035355
+    thread_cpu_seconds = 4.995666718999999
+    worker = 16
+
+[measured_cohort]
+CBLS = "3bd4e2638c39b565aa81af41f585678f8952f60a"
+CompositionalNetworks = "ac70b743ea64c32f57100a59ceeb68b4c54181f2"
+ConstraintCommons = "b71a313f2b600e8879877e8e04e292eb94851bd7"
+ConstraintDomains = "399a90fdbb25d2cefc9cea2d6c4f6565be5a7c11"
+ConstraintModels = "4ddd8f65417ac8a8d6bb12add6faf0c0c84801c3"
+ConstraintProgrammingExtensions = "684e2e4a1459d5ae459666350c545bfc775272c2"
+Constraints = "fc3ca4ba26d9d15ffd6065eca0bb8a968af2ff43"
+LocalSearchSolvers = "8d0b3291420f49950cfda4e890899f384b8b7239"
+MetaStrategist = "7a5bbed52f6c4993dd72bf7f9ad1c6bd57acf583"
+PatternFolds = "bbf38fbf8b680deb4b599b06afd747fc069d25ee"
+QUBOConstraints = "f893f83cd7518ca3aedf0ad5d2679b2c13829446"
+XCSP3Bridges = "fe5bceaddc5081fedd200571b480e44ca9de1947"
+
+[[sampled_allocation_sites]]
+bytes = 464
+count = 6
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:243"
+[[sampled_allocation_sites]]
+bytes = 280
+count = 1
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:77"
+[[sampled_allocation_sites]]
+bytes = 176
+count = 2
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:219"
+[[sampled_allocation_sites]]
+bytes = 96
+count = 2
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Pilot.jl:38"
+[[sampled_allocation_sites]]
+bytes = 80
+count = 1
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:79"
+[[sampled_allocation_sites]]
+bytes = 16
+count = 1
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:161"
+[[sampled_allocation_sites]]
+bytes = 16
+count = 2
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:0"
+[[sampled_allocation_sites]]
+bytes = 16
+count = 1
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:176"
+
+[[sampled_allocation_stacks]]
+bytes = 32
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "ijl_gc_small_alloc at gc-stock.c:784", "copy at array.jl:386 [inlined]", "insertion(p::BenchmarkInstance{PickupDeliveryProblem}; starts::Int64, seed::Int64) at Pilot.jl:38", "kwcall(::@NamedTuple{starts::Int64, seed::Int64}, ::typeof(Main.Pilot.insertion), p::BenchmarkInstance{PickupDeliveryProblem}) at Pilot.jl:28", "kwcall(::@NamedTuple{starts::Int64, seed::Int64}, ::typeof(Main.Pilot.insertion), p::BenchmarkInstance{PickupDeliveryProblem})", "run_case(path::String, method::String, seconds::Float64, seed::Int64, policy::Dict{String, Any}, banks::Dict{Symbol, Main.ICNScoring.ErrorBackend}; threads::Int64, id::String, logpath::Nothing) at ResourceExperiment.jl:119", "run_case(path::String, method::String, seconds::Float64, seed::Int64, policy::Dict{String, Any}, banks::Dict{Symbol, Main.ICNScoring.ErrorBackend}) at ResourceExperiment.jl:107", "run_case(path::String, method::String, seconds::Float64, seed::Int64, policy::Dict{String, Any}, banks::Dict{Symbol, Main.ICNScoring.ErrorBackend})", "macro expansion at Allocs.jl:82 [inlined]", "throughput() at icn_performance.jl:148", "throughput()", "jl_apply at julia.h:2318 [inlined]", "jl_f_invokelatest at builtins.c:889", "jl_apply at julia.h:2318 [inlined]", "do_call at interpreter.c:123", "eval_value at interpreter.c:243", "eval_stmt_value at interpreter.c:194 [inlined]", "eval_body at interpreter.c:679", "jl_interpret_toplevel_thunk at interpreter.c:884", "ip:0xffffffffffffffff", "ip:0x2c42", "ip:0x7045d51c26e0", "jl_system_image_data at sys.so:?", "jl_toplevel_eval_flex at toplevel.c:742", "jl_eval_toplevel_stmts at toplevel.c:585", "jl_toplevel_eval_flex at toplevel.c:683", "ijl_toplevel_eval at toplevel.c:754", "ijl_toplevel_eval_in at toplevel.c:799", "eval(m::Module, e::Any) at boot.jl:489", "include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String) at loading.jl:3033", "_include(mapexpr::Function, mod::Module, _path::String) at loading.jl:3093", "include(mod::Module, _path::String) at Base.jl:309", "exec_options(opts::Base.JLOptions) at client.jl:344", "_start() at client.jl:577", "_start() at sys.so:?", "jl_apply at julia.h:2318 [inlined]", "true_main at jlapi.c:985", "jl_repl_entrypoint at jlapi.c:1152", "main at loader_exe.c:58", "ip:0x7045eb42a1c9 at libc.so.6:?", "__libc_start_main at libc.so.6:?", "ip:0x4010b8 at start.S:123"]
+type = "Vector{Int64}"
+[[sampled_allocation_stacks]]
+bytes = 64
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "jl_gc_alloc_ at gc-stock.c:814", "jl_alloc_genericmemory_unchecked at genericmemory.c:41", "GenericMemory at boot.jl:588 [inlined]", "copy at array.jl:384 [inlined]", "insertion(p::BenchmarkInstance{PickupDeliveryProblem}; starts::Int64, seed::Int64) at Pilot.jl:38", "kwcall(::@NamedTuple{starts::Int64, seed::Int64}, ::typeof(Main.Pilot.insertion), p::BenchmarkInstance{PickupDeliveryProblem}) at Pilot.jl:28", "kwcall(::@NamedTuple{starts::Int64, seed::Int64}, ::typeof(Main.Pilot.insertion), p::BenchmarkInstance{PickupDeliveryProblem})", "run_case(path::String, method::String, seconds::Float64, seed::Int64, policy::Dict{String, Any}, banks::Dict{Symbol, Main.ICNScoring.ErrorBackend}; threads::Int64, id::String, logpath::Nothing) at ResourceExperiment.jl:119", "run_case(path::String, method::String, seconds::Float64, seed::Int64, policy::Dict{String, Any}, banks::Dict{Symbol, Main.ICNScoring.ErrorBackend}) at ResourceExperiment.jl:107", "run_case(path::String, method::String, seconds::Float64, seed::Int64, policy::Dict{String, Any}, banks::Dict{Symbol, Main.ICNScoring.ErrorBackend})", "macro expansion at Allocs.jl:82 [inlined]", "throughput() at icn_performance.jl:148", "throughput()", "jl_apply at julia.h:2318 [inlined]", "jl_f_invokelatest at builtins.c:889", "jl_apply at julia.h:2318 [inlined]", "do_call at interpreter.c:123", "eval_value at interpreter.c:243", "eval_stmt_value at interpreter.c:194 [inlined]", "eval_body at interpreter.c:679", "jl_interpret_toplevel_thunk at interpreter.c:884", "ip:0xffffffffffffffff", "ip:0x2c42", "ip:0x7045d51c26e0", "jl_system_image_data at sys.so:?", "jl_toplevel_eval_flex at toplevel.c:742", "jl_eval_toplevel_stmts at toplevel.c:585", "jl_toplevel_eval_flex at toplevel.c:683", "ijl_toplevel_eval at toplevel.c:754", "ijl_toplevel_eval_in at toplevel.c:799", "eval(m::Module, e::Any) at boot.jl:489", "include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String) at loading.jl:3033", "_include(mapexpr::Function, mod::Module, _path::String) at loading.jl:3093", "include(mod::Module, _path::String) at Base.jl:309", "exec_options(opts::Base.JLOptions) at client.jl:344", "_start() at client.jl:577", "_start() at sys.so:?", "jl_apply at julia.h:2318 [inlined]", "true_main at jlapi.c:985", "jl_repl_entrypoint at jlapi.c:1152", "main at loader_exe.c:58", "ip:0x7045eb42a1c9 at libc.so.6:?", "__libc_start_main at libc.so.6:?", "ip:0x4010b8 at start.S:123"]
+type = "Memory{Int64}"
+[[sampled_allocation_stacks]]
+bytes = 32
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "ijl_gc_small_alloc at gc-stock.c:784", "_scan_proposals!(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, LocalSearchSolvers.Logger}, acceptance::LocalSearchSolvers.GreedyPlateauAcceptance{false}, workspace::LocalSearchSolvers.NeighborhoodWorkspace{Int64}, moves::LocalSearchSolvers.SwapMoveIterator{Vector{Int64}}, best_rank::Tuple{Float64, Float64})", "_best_proposal!(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, LocalSearchSolvers.Logger}, x::Int64, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu}) at proposals.jl:87", "_step!(s::LocalSearchSolvers.MainSolver, model::LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, state::LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, logger::LocalSearchSolvers.Logger, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu}) at proposals.jl:149", "_step!(s::LocalSearchSolvers.MainSolver, model::LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, state::LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, logger::LocalSearchSolvers.Logger, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu})", "_step!(s::LocalSearchSolvers.MainSolver) at solver.jl:867", "run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Float64, seed::Int64, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64, structured::Bool, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String) at Hybrid.jl:243", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}) at Hybrid.jl:149", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}})", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String) at ResourceExperiment.jl:135", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String)", "macro expansion at ResourceExperiment.jl:49 [inlined]", "(::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}})(tid::Int64; onethread::Bool) at threadingconstructs.jl:279", "#2 at threadingconstructs.jl:246 [inlined]", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})() at threadingconstructs.jl:178", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})()", "jl_apply at julia.h:2318 [inlined]", "start_task at task.c:1285"]
+type = "Tuple{Float64, Float64}"
+[[sampled_allocation_stacks]]
+bytes = 48
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "ijl_gc_small_alloc at gc-stock.c:784", "iterate at range.jl:928 [inlined]", "_deleteend! at array.jl:1289 [inlined]", "empty! at array.jl:2125 [inlined]", "_best_proposal!(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, LocalSearchSolvers.Logger}, x::Int64, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu}) at proposals.jl:82", "_step!(s::LocalSearchSolvers.MainSolver, model::LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, state::LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, logger::LocalSearchSolvers.Logger, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu}) at proposals.jl:149", "_step!(s::LocalSearchSolvers.MainSolver, model::LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, state::LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, logger::LocalSearchSolvers.Logger, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu})", "_step!(s::LocalSearchSolvers.MainSolver) at solver.jl:867", "run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Float64, seed::Int64, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64, structured::Bool, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String) at Hybrid.jl:243", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}) at Hybrid.jl:149", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}})", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String) at ResourceExperiment.jl:135", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String)", "macro expansion at ResourceExperiment.jl:49 [inlined]", "(::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}})(tid::Int64; onethread::Bool) at threadingconstructs.jl:279", "#2 at threadingconstructs.jl:246 [inlined]", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})() at threadingconstructs.jl:178", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})()", "jl_apply at julia.h:2318 [inlined]", "start_task at task.c:1285"]
+type = "LocalSearchSolvers.AssignmentMoveIterator{Int64, UnitRange{Int64}}"
+[[sampled_allocation_stacks]]
+bytes = 8
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "jl_gc_alloc_ at gc-stock.c:814", "ijl_new_structv at datatype.c:1659", "NamedTuple at boot.jl:845 [inlined]", "pair_relocation(p::BenchmarkInstance{PickupDeliveryProblem}, routes::Vector{Vector{Int64}}, distances::Matrix{Float64}, pair::Tuple{Int64, Int64}; deadline_ns::UInt64, workspace::Main.Hybrid.PairRelocationWorkspace) at Hybrid.jl:0", "pair_relocation at Hybrid.jl:64 [inlined]", "run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Float64, seed::Int64, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64, structured::Bool, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String) at Hybrid.jl:220", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}) at Hybrid.jl:149", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}})", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String) at ResourceExperiment.jl:135", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String)", "macro expansion at ResourceExperiment.jl:49 [inlined]", "(::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}})(tid::Int64; onethread::Bool) at threadingconstructs.jl:279", "#2 at threadingconstructs.jl:246 [inlined]", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})() at threadingconstructs.jl:178", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})()", "jl_apply at julia.h:2318 [inlined]", "start_task at task.c:1285"]
+type = "@NamedTuple{routes::Nothing, examined::Int64}"
+[[sampled_allocation_stacks]]
+bytes = 32
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "ijl_gc_small_alloc at gc-stock.c:784", "_scan_proposals!(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, LocalSearchSolvers.Logger}, acceptance::LocalSearchSolvers.GreedyPlateauAcceptance{false}, workspace::LocalSearchSolvers.NeighborhoodWorkspace{Int64}, moves::LocalSearchSolvers.AssignmentMoveIterator{Int64, UnitRange{Int64}}, best_rank::Tuple{Float64, Float64})", "_best_proposal!(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, LocalSearchSolvers.Logger}, x::Int64, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu}) at proposals.jl:87", "_step!(s::LocalSearchSolvers.MainSolver, model::LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, state::LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, logger::LocalSearchSolvers.Logger, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu}) at proposals.jl:149", "_step!(s::LocalSearchSolvers.MainSolver, model::LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, state::LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, logger::LocalSearchSolvers.Logger, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu})", "_step!(s::LocalSearchSolvers.MainSolver) at solver.jl:867", "run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Float64, seed::Int64, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64, structured::Bool, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String) at Hybrid.jl:243", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}) at Hybrid.jl:149", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}})", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String) at ResourceExperiment.jl:135", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String)", "macro expansion at ResourceExperiment.jl:49 [inlined]", "(::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}})(tid::Int64; onethread::Bool) at threadingconstructs.jl:279", "#2 at threadingconstructs.jl:246 [inlined]", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})() at threadingconstructs.jl:178", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})()", "jl_apply at julia.h:2318 [inlined]", "start_task at task.c:1285"]
+type = "Tuple{Float64, Float64}"
+[[sampled_allocation_stacks]]
+bytes = 32
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "ijl_gc_small_alloc at gc-stock.c:784", "_best_proposal!(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, LocalSearchSolvers.Logger}, x::Int64, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu}) at proposals.jl:87", "_step!(s::LocalSearchSolvers.MainSolver, model::LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, state::LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, logger::LocalSearchSolvers.Logger, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu}) at proposals.jl:149", "_step!(s::LocalSearchSolvers.MainSolver, model::LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, state::LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, logger::LocalSearchSolvers.Logger, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu})", "_step!(s::LocalSearchSolvers.MainSolver) at solver.jl:867", "run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Float64, seed::Int64, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64, structured::Bool, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String) at Hybrid.jl:243", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}) at Hybrid.jl:149", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}})", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String) at ResourceExperiment.jl:135", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String)", "macro expansion at ResourceExperiment.jl:49 [inlined]", "(::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}})(tid::Int64; onethread::Bool) at threadingconstructs.jl:279", "#2 at threadingconstructs.jl:246 [inlined]", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})() at threadingconstructs.jl:178", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})()", "jl_apply at julia.h:2318 [inlined]", "start_task at task.c:1285"]
+type = "Tuple{Float64, Float64}"
+[[sampled_allocation_stacks]]
+bytes = 280
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "jl_gc_alloc_ at gc-stock.c:814", "jl_alloc_genericmemory_unchecked at genericmemory.c:41", "GenericMemory at boot.jl:588 [inlined]", "array_new_memory at array.jl:1101 [inlined]", "_growend_internal!(a::Vector{Int64}, delta::Int64, len::Int64) at array.jl:1181", "_growend! at array.jl:1205 [inlined]", "resize!(a::Vector{Int64}, nl_::Int64) at array.jl:1540", "pair_relocation(p::BenchmarkInstance{PickupDeliveryProblem}, routes::Vector{Vector{Int64}}, distances::Matrix{Float64}, pair::Tuple{Int64, Int64}; deadline_ns::UInt64, workspace::Main.Hybrid.PairRelocationWorkspace) at Hybrid.jl:77", "pair_relocation at Hybrid.jl:64 [inlined]", "run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Float64, seed::Int64, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64, structured::Bool, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String) at Hybrid.jl:220", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}) at Hybrid.jl:149", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}})", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String) at ResourceExperiment.jl:135", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String)", "macro expansion at ResourceExperiment.jl:49 [inlined]", "(::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}})(tid::Int64; onethread::Bool) at threadingconstructs.jl:279", "#2 at threadingconstructs.jl:246 [inlined]", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})() at threadingconstructs.jl:178", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})()", "jl_apply at julia.h:2318 [inlined]", "start_task at task.c:1285"]
+type = "Memory{Int64}"
+[[sampled_allocation_stacks]]
+bytes = 160
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "ijl_gc_small_alloc at gc-stock.c:784", "_best_proposal!(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, LocalSearchSolvers.Logger}, x::Int64, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu}) at proposals.jl:87", "_step!(s::LocalSearchSolvers.MainSolver, model::LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, state::LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, logger::LocalSearchSolvers.Logger, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu}) at proposals.jl:149", "_step!(s::LocalSearchSolvers.MainSolver, model::LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, state::LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, logger::LocalSearchSolvers.Logger, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu})", "_step!(s::LocalSearchSolvers.MainSolver) at solver.jl:867", "run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Float64, seed::Int64, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64, structured::Bool, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String) at Hybrid.jl:243", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}) at Hybrid.jl:149", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}})", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String) at ResourceExperiment.jl:135", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String)", "macro expansion at ResourceExperiment.jl:49 [inlined]", "(::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}})(tid::Int64; onethread::Bool) at threadingconstructs.jl:279", "#2 at threadingconstructs.jl:246 [inlined]", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})() at threadingconstructs.jl:178", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})()", "jl_apply at julia.h:2318 [inlined]", "start_task at task.c:1285"]
+type = "LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, LocalSearchSolvers.Logger}"
+[[sampled_allocation_stacks]]
+bytes = 80
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "jl_gc_alloc_ at gc-stock.c:814", "jl_alloc_genericmemory_unchecked at genericmemory.c:41", "GenericMemory at boot.jl:588 [inlined]", "array_new_memory at array.jl:1101 [inlined]", "sizehint!(a::Vector{Int64}, sz::Int64; first::Bool, shrink::Bool) at array.jl:1598", "sizehint! at array.jl:1586 [inlined]", "filter! at array.jl:3044 [inlined]", "pair_relocation(p::BenchmarkInstance{PickupDeliveryProblem}, routes::Vector{Vector{Int64}}, distances::Matrix{Float64}, pair::Tuple{Int64, Int64}; deadline_ns::UInt64, workspace::Main.Hybrid.PairRelocationWorkspace) at Hybrid.jl:79", "pair_relocation at Hybrid.jl:64 [inlined]", "run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Float64, seed::Int64, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64, structured::Bool, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String) at Hybrid.jl:220", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}) at Hybrid.jl:149", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}})", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String) at ResourceExperiment.jl:135", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String)", "macro expansion at ResourceExperiment.jl:49 [inlined]", "(::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}})(tid::Int64; onethread::Bool) at threadingconstructs.jl:279", "#2 at threadingconstructs.jl:246 [inlined]", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})() at threadingconstructs.jl:178", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})()", "jl_apply at julia.h:2318 [inlined]", "start_task at task.c:1285"]
+type = "Memory{Int64}"
+[[sampled_allocation_stacks]]
+bytes = 16
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "jl_gc_alloc_ at gc-stock.c:814", "jl_new_memoryref at genericmemory.c:308", "_deepcopy_memory_t(x::Memory, T::Type, stackdict::IdDict{Any, Any}) at deepcopy.jl:116", "deepcopy_internal at deepcopy.jl:104 [inlined]", "deepcopy_internal(x::MemoryRef{Vector{Int64}}, stackdict::IdDict{Any, Any}) at deepcopy.jl:142", "deepcopy_internal(x::Vector{Vector{Int64}}, stackdict::IdDict{Any, Any}) at deepcopy.jl:133", "deepcopy at deepcopy.jl:34 [inlined]", "run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Float64, seed::Int64, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64, structured::Bool, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String) at Hybrid.jl:161", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}) at Hybrid.jl:149", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}})", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String) at ResourceExperiment.jl:135", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String)", "macro expansion at ResourceExperiment.jl:49 [inlined]", "(::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}})(tid::Int64; onethread::Bool) at threadingconstructs.jl:279", "#2 at threadingconstructs.jl:246 [inlined]", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})() at threadingconstructs.jl:178", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})()", "jl_apply at julia.h:2318 [inlined]", "start_task at task.c:1285"]
+type = "MemoryRef{Vector{Int64}}"
+[[sampled_allocation_stacks]]
+bytes = 160
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "ijl_gc_small_alloc at gc-stock.c:784", "_best_proposal!(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, LocalSearchSolvers.Logger}, x::Int64, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu}) at proposals.jl:87", "_step!(s::LocalSearchSolvers.MainSolver, model::LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, state::LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, logger::LocalSearchSolvers.Logger, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu}) at proposals.jl:149", "_step!(s::LocalSearchSolvers.MainSolver, model::LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, state::LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, logger::LocalSearchSolvers.Logger, strategy::LocalSearchSolvers.MetaStrategy{LocalSearchSolvers.WorstVariableSelector, LocalSearchSolvers.AssignSwapNeighborhood, LocalSearchSolvers.DepthSchedule{Tuple{Int64, Int64}}, LocalSearchSolvers.GreedyPlateauAcceptance{false}, LocalSearchSolvers.RestartPolicy{LocalSearchSolvers.RandomRestart}, LocalSearchSolvers.NoTabu})", "_step!(s::LocalSearchSolvers.MainSolver) at solver.jl:867", "run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Float64, seed::Int64, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64, structured::Bool, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String) at Hybrid.jl:243", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}) at Hybrid.jl:149", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}})", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String) at ResourceExperiment.jl:135", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String)", "macro expansion at ResourceExperiment.jl:49 [inlined]", "(::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}})(tid::Int64; onethread::Bool) at threadingconstructs.jl:279", "#2 at threadingconstructs.jl:246 [inlined]", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})() at threadingconstructs.jl:178", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})()", "jl_apply at julia.h:2318 [inlined]", "start_task at task.c:1285"]
+type = "LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{LocalSearchSolvers.Variable{ConstraintDomains.RangeDomain{Int64, UnitRange{Int64}}}, LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#32#33\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}}}}, LocalSearchSolvers.Objective{Main.Hybrid.var\"#34#35\"{Main.Hybrid.var\"#28#29\"{Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, BenchmarkInstance{PickupDeliveryProblem}, Matrix{Float64}}, Float64}}}, LocalSearchSolvers._State{Int64, Nothing, LocalSearchSolvers.DenseStateIndexing}, LocalSearchSolvers.Logger}"
+[[sampled_allocation_stacks]]
+bytes = 96
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "ijl_gc_small_alloc at gc-stock.c:784", "run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Float64, seed::Int64, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64, structured::Bool, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String) at Hybrid.jl:219", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}) at Hybrid.jl:149", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}})", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String) at ResourceExperiment.jl:135", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String)", "macro expansion at ResourceExperiment.jl:49 [inlined]", "(::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}})(tid::Int64; onethread::Bool) at threadingconstructs.jl:279", "#2 at threadingconstructs.jl:246 [inlined]", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})() at threadingconstructs.jl:178", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})()", "jl_apply at julia.h:2318 [inlined]", "start_task at task.c:1285"]
+type = "BenchmarkInstance{PickupDeliveryProblem}"
+[[sampled_allocation_stacks]]
+bytes = 80
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "ijl_gc_small_alloc at gc-stock.c:784", "run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Float64, seed::Int64, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64, structured::Bool, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String) at Hybrid.jl:219", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}) at Hybrid.jl:149", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}})", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String) at ResourceExperiment.jl:135", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String)", "macro expansion at ResourceExperiment.jl:49 [inlined]", "(::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}})(tid::Int64; onethread::Bool) at threadingconstructs.jl:279", "#2 at threadingconstructs.jl:246 [inlined]", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})() at threadingconstructs.jl:178", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})()", "jl_apply at julia.h:2318 [inlined]", "start_task at task.c:1285"]
+type = "Main.MetaRepair.SuccessorRouteWorkspace"
+[[sampled_allocation_stacks]]
+bytes = 16
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "ijl_gc_small_alloc at gc-stock.c:784", "(::Main.Hybrid.var\"#consider!#44\"{BenchmarkInstance{PickupDeliveryProblem}, Main.Hybrid.var\"#remaining#43\"{Float64, Main.Hybrid.var\"#elapsed#42\"{UInt64}}, Main.Hybrid.var\"#elapsed#42\"{UInt64}, Vector{Any}, LocalSearchSolvers.MainSolver, @NamedTuple{solver::LocalSearchSolvers.MainSolver, acceptance::LocalSearchSolvers.GreedyPlateauAcceptance{false}, fleet_weight::Float64, distances::Matrix{Float64}}})() at Hybrid.jl:176", "run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Float64, seed::Int64, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64, structured::Bool, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String) at Hybrid.jl:245", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}) at Hybrid.jl:149", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}})", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String) at ResourceExperiment.jl:135", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String)", "macro expansion at ResourceExperiment.jl:49 [inlined]", "(::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}})(tid::Int64; onethread::Bool) at threadingconstructs.jl:279", "#2 at threadingconstructs.jl:246 [inlined]", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})() at threadingconstructs.jl:178", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})()", "jl_apply at julia.h:2318 [inlined]", "start_task at task.c:1285"]
+type = "Float64"
+[[sampled_allocation_stacks]]
+bytes = 8
+stack = ["maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined]", "jl_gc_alloc_ at gc-stock.c:814", "ijl_box_int64 at datatype.c:1556", "NamedTuple at boot.jl:845 [inlined]", "pair_relocation(p::BenchmarkInstance{PickupDeliveryProblem}, routes::Vector{Vector{Int64}}, distances::Matrix{Float64}, pair::Tuple{Int64, Int64}; deadline_ns::UInt64, workspace::Main.Hybrid.PairRelocationWorkspace) at Hybrid.jl:0", "pair_relocation at Hybrid.jl:64 [inlined]", "run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; seconds::Float64, seed::Int64, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64, structured::Bool, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String) at Hybrid.jl:220", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}) at Hybrid.jl:149", "kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#335\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#336\"}, CompositionalNetworks.Composition{CompositionalNetworks.var\"###composition#337\"}}, scorer_name::String, hybrid::Bool, bridged::Bool, max_visits::Int64, repair_every::Int64, fragment_seconds::Float64, repair_fraction::Float64}, ::typeof(Main.Hybrid.run_cbls), p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}})", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String) at ResourceExperiment.jl:135", "(::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64})(i::Int64, worker::String)", "macro expansion at ResourceExperiment.jl:49 [inlined]", "(::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}})(tid::Int64; onethread::Bool) at threadingconstructs.jl:279", "#2 at threadingconstructs.jl:246 [inlined]", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})() at threadingconstructs.jl:178", "(::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExperiment.ParallelPhase, Main.ResourceExperiment.ExecutionContext{Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, Any}, Dict{Symbol, Main.ICNScoring.ErrorBackend}, Vector{Vector{Int64}}, BenchmarkInstance{PickupDeliveryProblem}, Main.ResourceExperiment.var\"#elapsed#22\"{UInt64}, UInt64}}, Base.OneTo{Int64}}}, Int64})()", "jl_apply at julia.h:2318 [inlined]", "start_task at task.c:1285"]
+type = "Int64"
+
+[solver_source_sha256]
+"LiLim/src/Experiment.jl" = "e1f969e3dcf0ed5e327d29bcedd54c27f89834580bf0310320fb141d16dea4ae"
+"LiLim/src/Hybrid.jl" = "b94751238620821178297149df43477f7548deb89271758a2be59066a72cc3f0"
+"LiLim/src/ICNScoring.jl" = "cdfb1c2437e0ad5df5715d613231a27c99370477e2950143a74ed2a7275f47c7"
+"LiLim/src/MetaRepair.jl" = "2e7e5aeb5a4f24faa6c2509f5193d05544a6cf26f07fb4e30d279180805bdecb"
+"LiLim/src/Pilot.jl" = "5af68ba76b17f121a4c733d64bc1288e34249fa58ad581169158fc537233c631"
+"LiLim/src/ResourceExperiment.jl" = "919d3d5e6b17ee73b5b643f83340d7bba460332d27b397052bd1536efa39f34f"

@@ -51,6 +51,9 @@ conduit à des buffers privés par worker et une correction d'itération du noya
 Sur le contrôle LC101 à seize threads, l'occupation atteint 15,97 CPU actifs et
 les allocations passent de 36,09 Go à 256 Mo sur cinq secondes. Ce résultat
 qualifie le débit ; il n'est pas une preuve de supériorité sur la qualité.
+Une capture séparée de la boucle chaude atteint 15,986 CPU actifs et ne mesure
+aucun temps de GC pendant les trois recherches de cinq secondes ; la collecte
+forcée avant leur départ reste comptée dans le coût de l'appel complet.
 
 La priorité reste la réduction du GC en multithread. Les versions par processus
 seront contrôlées ensuite avec un pool déjà chargé, GC privés, coûts de lancement
@@ -64,6 +67,16 @@ Qualifier les sorties avec le validateur original et comparer à budget et
 ressources égaux. La fenêtre d'essai Hexaly n'est pas démarrée par cette préparation.
 Les BKS SINTEF donnent des cibles de qualité ; aucun temps de référence homogène
 ne doit être inventé. La mesure utile est notre temps local d'atteinte de ces cibles.
+
+Le [premier bilan Timefold](../LiLim/results/competitors-20261004.md) comprend
+36 essais natifs Community et 18 contrôles CBLS/ICN actuels, à cinq secondes,
+sur un et seize workers. CBLS gagne les 24 paires LR101/LRC101 contre les deux
+profils testés et égale les 12 paires LC101. Aucun BKS LR101/LRC101 n'est atteint.
+Les modèles, scores, budgets et sorties sont qualifiés, mais le corpus exposé,
+trois graines et les réglages non optimisés limitent cette conclusion au pilote.
+Hexaly dispose du modèle et du contrat d'échange ; sa qualification native et
+sa campagne attendent un exécutable disponible. Ne pas compter cette préparation
+comme un résultat comparatif ni comme le démarrage de la licence d'essai.
 
 Obtenir assez de preuves de compétitivité pour proposer à une entreprise de
 financer JuliaConstraints avec une partie du budget consacré à ses licences de

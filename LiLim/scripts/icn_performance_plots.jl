@@ -10,6 +10,7 @@ append!(FINALS[3],hot(joinpath(ROOT,"results","throughput-final-repeat-4t-gc1-20
 const BEFORE=hot(joinpath(ROOT,"results","throughput-16t-gc1-20261004.toml"))
 const FIRST=hot(joinpath(ROOT,"results","throughput-workspace-16t-gc1-20261004.toml"))
 const STAGES=[BEFORE,FIRST,last(FINALS)]
+const HOT_GC=hot(joinpath(ROOT,"results","throughput-hot-gc-16t-20261004.toml"))
 const COLORS=[:firebrick3,:darkorange2,:seagreen3]
 if ARGS[2]=="xkcd"
     @eval using XKCDMakie
@@ -41,14 +42,15 @@ function render()
     first=scatter!(work,[16],[median(e["candidates_per_second"] for e in FIRST)/1e6];color=COLORS[2],marker=:rect,markersize=12)
     axislegend(work,[before,first],["Avant","Buffers seuls"];position=:lt,framevisible=false)
     xlims!(work,0.8,20);ylims!(work,0,nothing)
-    gc=Axis(fig[2,1];title="16 threads : temps passé dans le GC",ylabel="Temps GC / durée totale (%)",
+    gc=Axis(fig[2,1];title="16 threads : GC de l'appel complet",ylabel="Temps GC / durée totale (%)",
         xticks=(1:3,["Avant","Buffers ICN","+ noyau et routes"]),yticks=0:10:70)
     memory=Axis(fig[2,2];title="16 threads : allocations sur 5 secondes",ylabel="Go alloués par appel",
         xticks=(1:3,["Avant","Buffers ICN","+ noyau et routes"]))
     barplot!(gc,1:3,[100*median(e["gc_seconds"]/e["seconds"] for e in rows) for rows in STAGES];color=COLORS)
     barplot!(memory,1:3,[median(e["allocated_bytes"] for e in rows)/1e9 for rows in STAGES];color=COLORS)
     ylims!(gc,0,70);ylims!(memory,0,nothing)
-    Label(fig[3,1:2],"LC101 · mêmes ICN et voisinages · 3 graines × 5 s, 2 lots à 4 threads · Julia -O1 · GC = 1 thread\nGC de l'appel complet : inclut la collecte forcée avant le départ du chrono de recherche.\n16 threads : 8 cœurs P + 4 cœurs E + 4 voies SMT. Débit ≠ amélioration de la solution.",fontsize=16)
+    hotgc=round(median(e["search_gc_seconds"] for e in HOT_GC);digits=4)
+    Label(fig[3,1:2],"LC101 · mêmes ICN et voisinages · 3 graines × 5 s, 2 lots à 4 threads · Julia -O1 · GC = 1 thread\nGC de l'appel complet : inclut la collecte forcée avant la recherche. Mesure séparée en recherche : $(hotgc) s.\n16 threads : 8 cœurs P + 4 cœurs E + 4 voies SMT. Débit ≠ amélioration de la solution.",fontsize=16)
     if ARGS[2]=="xkcd"
         Label(fig[4,1:2],"Illustration XKCD : tracés volontairement irréguliers. Coordonnées exactes dans la version sobre.",fontsize=14)
     end

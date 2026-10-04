@@ -23,6 +23,16 @@ boucle chaude. L'occupation utilise les horloges CPU des workers et du processus
 et non le pourcentage « utilization » du profileur Julia, qui peut inclure des
 attentes de GC. On observe 97,4 à 100 % par worker à 16 threads.
 
+La capture supplémentaire `throughput-hot-gc-16t-20261004.toml`, aux mêmes
+solveurs avec instrumentation des limites du chrono, mesure séparément le
+compteur GC global avant et après la recherche. Sur les trois graines :
+**0 seconde de GC pendant la recherche**, 15,985 à 15,986 CPU actifs, 254 à
+256 Mo alloués et 26,35 à 26,59 millions de candidats/s. Les 0,165 à 0,167 seconde
+de GC de l'appel complet se trouvent hors de cet intervalle. Cela décrit ces
+essais de cinq secondes ; les allocations restantes peuvent provoquer des
+collectes dans des essais plus longs. Cette instrumentation est sauvegardée au
+commit `80fd298` et ne modifie ni le score, ni les mouvements, ni l'acceptation.
+
 LC101 est un contrôle de débit : le point d'insertion est déjà à la meilleure
 qualité connue. Ce gain ne prouve pas une amélioration des solutions ni une
 victoire contre un autre solveur.
@@ -132,7 +142,8 @@ cohorte et les empreintes du solveur figurent dans chaque capture. La campagne
 initiale de 369 essais conserve sa cohorte et son [bilan qualité](icn-threads-20261004.md).
 
 Captures essentielles : `throughput-final-*`, `throughput-final-repeat-4t-*`,
-`perfchecker-final-*` et `snoop-startup-exclusive-16t-*` dans ce répertoire.
+`throughput-hot-gc-16t-*`, `perfchecker-final-*` et
+`snoop-startup-exclusive-16t-*` dans ce répertoire.
 Les graphiques exact et XKCD sont produits par `icn_performance_plots.jl` ; les
 graphiques de réussite, anytime et temps d'atteinte des BKS restent dans
 `figures-20261004`, distincts du diagnostic de débit.
