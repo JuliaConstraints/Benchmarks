@@ -196,7 +196,8 @@ function write_report(path, summary)
             "highs_portfolio"=>"Independent serial HiGHS searches run as a parallel portfolio and merge their best validated incumbents.",
             "cbls_mix_strategy"=>"A fixed portfolio of CBLS policies uses the learned-ICN scorer and merges independent validated incumbents.",
             "mixed_balanced"=>"MetaStrategist executes a fixed balanced allocation of CBLS, specialized hybrid, bridged hybrid and serial HiGHS workers.",
-            "mixed_ls_heavy"=>"MetaStrategist executes a fixed search-heavy allocation of CBLS, specialized hybrid, bridged hybrid and serial HiGHS workers.")
+            "mixed_ls_heavy"=>"MetaStrategist executes a fixed search-heavy allocation of CBLS, specialized hybrid, bridged hybrid and serial HiGHS workers.",
+            "hexaly_native"=>"Hexaly native Modeler profile at the configured target version, launched with the same validated insertion start, full trial wall-clock cap and explicit CPU affinity; every stored incumbent is checked against the original Li-Lim validator.")
         println(io, "\n## Score and solver provenance\n\nThe ICN variants below use the frozen learned-weight bank recorded in `manifest.toml`. `Fused all` is an aggregate-ICN ablation: its pairwise violation indicators are formed directly before learned aggregation, so it does not execute the individual pair decoders used by `CBLS learned ICN`. The differential tests establish score identity on their qualified synthetic domain; benchmark performance is reported separately.\n\n| Profile | Executed score or solver path |\n|---|---|")
         for method in METHODS
             println(io, "| `", method, "` | ", get(descriptions, method, "Profile description unavailable; inspect the frozen source manifest."), " |")
@@ -210,6 +211,10 @@ function write_report(path, summary)
                 row["bks_hits"], row["planned_runs"], 100 * row["bks_hit_rate"], row["mean_best_fleet_gap"], row["mean_run_fleet_gap"], row["mean_median_run_fleet_gap"], distance))
         end
         println(io, "\n## Reproducibility\n\n- Julia: `", IDENTITY["julia"], "`.\n- Threads: ", THREADS, "; GC threads: ", IDENTITY["gc_threads"], "; affinity: `", join(IDENTITY["affinity"], ","), "`.\n- Seeds: `", join(SEEDS, ", "), "`; budget: ", BUDGET, " seconds.\n- Source manifest, solver environment, cohort, official archives, per-instance checksums and BKS values are in `manifest.toml`.\n- Detailed per-instance best, mean, median-ranked run, standard deviation, min/max spread, BKS success and time-to-target metrics are in `summary.toml` and `per-instance.csv`.\n")
+        if !isempty(get(IDENTITY, "hexaly", Dict{String,Any}()))
+            hexaly = IDENTITY["hexaly"]
+            println(io, "- Hexaly: target version `", hexaly["target_version"], "`; executable SHA-256 `", hexaly["binary_sha256"], "`; common clock skew and observed child-process CPU are recorded per trial.\n")
+        end
         if !summary["complete"]
             println(io, "## Incomplete campaign\n\n", summary["missing_runs"], " scheduled trials are missing. Completion and feasibility statistics use separate denominators; an absent run is not reported as a solver infeasibility.\n")
         end

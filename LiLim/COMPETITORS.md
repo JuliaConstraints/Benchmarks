@@ -127,6 +127,20 @@ point initial après presolve, qualifier le chrono construction/recherche commun
 et les snapshots anytime. Le CLI avec un budget de recherche seul ne suffit pas
 au classement. La préparation n'active pas de licence et ne démarre pas l'essai.
 
+Le lanceur du corpus complet accepte désormais `hexaly_native` dans
+`scripts/full_corpus_campaign.jl`. Il ne figure pas dans `--methods=all` : il
+faut le choisir explicitement, ce qui évite de démarrer une licence ou un essai
+commercial par inadvertance. On peut l'associer aux profils CBLS et
+MetaStrategist dans le même manifeste; chaque run réutilise le départ par
+insertion validé, reçoit l'affinité CPU du profil, applique le budget total
+depuis la lecture/insertion, et conserve les trajectoires seulement après audit
+dans l'instance originale. Le manifeste fige également le SHA-256 de
+l'exécutable et chaque essai mesure les CPU réellement consommés par le
+processus natif. Le générateur de rapport et de figures reconnaît le profil
+Hexaly. Cette intégration n'a pas encore été exécutée ou qualifiée : le binaire
+reste indisponible sur la machine et le modèle HXM demeure en attente de
+qualification native.
+
 ## Variante par processus
 
 LocalSearchSolvers, moteur de CBLS, possède `Distributed` et `process_threads_map`.

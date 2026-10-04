@@ -13,7 +13,7 @@ const LABELS = Dict(
     "hybrid_specialized_icn"=>"Specialized hybrid (ICN)", "hybrid_bridged_icn"=>"Bridged hybrid (ICN)",
     "highs_native"=>"HiGHS native", "highs_portfolio"=>"HiGHS portfolio",
     "cbls_mix_strategy"=>"CBLS mixed strategy", "mixed_balanced"=>"MetaStrategist equal mix",
-    "mixed_ls_heavy"=>"MetaStrategist search-heavy")
+    "mixed_ls_heavy"=>"MetaStrategist search-heavy", "hexaly_native"=>"Hexaly native")
 const COLORS = [:dodgerblue3, :darkorange2, :seagreen3, :purple3, :firebrick3,
     :gray35, :goldenrod2, :teal, :deeppink3, :sienna3]
 const MARKERS = [:circle, :rect, :utriangle, :diamond, :dtriangle, :cross, :star5, :hexagon, :pentagon, :xcross]
@@ -45,12 +45,13 @@ function attainment_plot()
     ax = Axis(fig[2, 1]; xlabel="Elapsed wall time (seconds)", ylabel="Runs reaching SINTEF BKS (%)",
         xtickformat=values -> string.(round.(values; digits=1)))
     for (index, method) in enumerate(METHODS)
-        color = COLORS[mod1(index, length(COLORS))]
+        color = method == "hexaly_native" ? :black : COLORS[mod1(index, length(COLORS))]
         rows = filter(row->row["method"] == method, SUMMARY["instance_results"])
         times = reduce(vcat, (row["bks_times_seconds"] for row in rows); init=Float64[])
         scheduled = sum(row["planned_runs"] for row in rows)
         y = [scheduled == 0 ? 0.0 : 100 * count(time->time <= t, times) / scheduled for t in grid]
-        lines!(ax, grid, y; color, linewidth=2.6, label=label(method))
+        lines!(ax, grid, y; color, linewidth=2.6,
+            linestyle=method == "hexaly_native" ? :dash : :solid, label=label(method))
     end
     hlines!(ax, [100.0]; color=:black, linestyle=:dot, linewidth=2.0, label="100% target attainment")
     xlims!(ax, 0, budget)
@@ -74,8 +75,9 @@ function quality_by_size()
         ax.xticks = (1:length(sizes), string.(sizes))
     end
     for (index, method) in enumerate(METHODS)
-        color = COLORS[mod1(index, length(COLORS))]
-        marker = MARKERS[mod1(index, length(MARKERS))]
+        color = method == "hexaly_native" ? :black : COLORS[mod1(index, length(COLORS))]
+        marker = method == "hexaly_native" ? :star5 : MARKERS[mod1(index, length(MARKERS))]
+        linestyle = method == "hexaly_native" ? :dash : :solid
         selected = sort(filter(row->row["method"] == method, SUMMARY["size_summary"]); by=row->row["size"])
         xs = [findfirst(==(row["size"]), sizes) for row in selected]
         best = [row["valid_cells"] == 0 ? NaN : row["mean_best_fleet_gap"] for row in selected]
@@ -85,11 +87,11 @@ function quality_by_size()
         distx = [findfirst(==(row["size"]), sizes) for row in distrows]
         dist = [row["mean_distance_gap_at_bks_fleet_percent"] for row in distrows]
         scatterlines!(axes[1], xs, best; color, marker, markersize=10,
-            linewidth=2.2, label=label(method))
+            linewidth=2.2, linestyle, label=label(method))
         scatterlines!(axes[2], xs, average; color, marker, markersize=10,
-            linewidth=2.2, label=label(method))
+            linewidth=2.2, linestyle, label=label(method))
         scatterlines!(axes[3], xs, median_run; color, marker, markersize=10,
-            linewidth=2.2, label=label(method))
+            linewidth=2.2, linestyle, label=label(method))
         isempty(dist) || scatterlines!(axes[4], distx, dist; color, marker,
             markersize=10, linewidth=2.2, label=label(method))
     end
@@ -108,13 +110,14 @@ function success_by_size()
     ax = Axis(fig[1, 1]; xlabel="Requests per instance", ylabel="Runs reaching SINTEF BKS (%)")
     ax.xticks = (1:length(sizes), string.(sizes))
     for (index, method) in enumerate(METHODS)
-        color = COLORS[mod1(index, length(COLORS))]
-        marker = MARKERS[mod1(index, length(MARKERS))]
+        color = method == "hexaly_native" ? :black : COLORS[mod1(index, length(COLORS))]
+        marker = method == "hexaly_native" ? :star5 : MARKERS[mod1(index, length(MARKERS))]
         selected = sort(filter(row->row["method"] == method, SUMMARY["size_summary"]); by=row->row["size"])
         xs = [findfirst(==(row["size"]), sizes) for row in selected]
         ys = [100 * row["bks_hit_rate"] for row in selected]
         scatterlines!(ax, xs, ys; color, marker, markersize=10,
-            linewidth=2.4, label=label(method))
+            linewidth=2.4, linestyle=method == "hexaly_native" ? :dash : :solid,
+            label=label(method))
     end
     hlines!(ax, [100.0]; color=:black, linestyle=:dot, linewidth=2.0)
     ylims!(ax, 0, 102)
@@ -132,7 +135,8 @@ function cpu_plot()
     Label(fig[0, 1], "Effective CPU Use by Solver Profile", fontsize=27)
     ax = Axis(fig[1, 1]; xlabel="Solver profile", ylabel="Mean active CPUs", xticks=(xs, labels))
     ax.xticklabelrotation = π / 5
-    barplot!(ax, xs, values; color=[COLORS[mod1(i,length(COLORS))] for i in eachindex(xs)])
+    barplot!(ax, xs, values; color=[row["method"] == "hexaly_native" ? :black : COLORS[mod1(i,length(COLORS))]
+        for (i,row) in enumerate(methods)])
     hlines!(ax, [SUMMARY["threads"]]; color=:black, linestyle=:dot, linewidth=2.0,
         label="Allocated worker count: $(SUMMARY["threads"])" )
     axislegend(ax; position=:rt, framevisible=false)
