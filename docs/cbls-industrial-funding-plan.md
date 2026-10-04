@@ -15,6 +15,17 @@ travaux de solveur lorsque les trois tâches ci-dessous ont terminé leurs
 exécutions et qu'aucune autre tâche Codex n'est active, en excluant ce chat du
 contrôle. Une nouvelle tâche concurrente reporte également les calculs.
 
+Consigne complémentaire du 4 octobre : corriger le pilote qui utilisait un score
+direct sans les fonctions ICN récupérées. Comparer les erreurs naïves booléennes,
+les décodeurs ICN effectivement exécutés et le score direct existant, ainsi que
+les hybrides, à 1, 2, 4, 8 et 16 threads. Distinguer parallélisme natif HiGHS et
+portefeuilles de trajectoires indépendantes. Utiliser réellement MetaStrategist
+pour exécuter des allocations mixtes, notamment 4 CBLS, 4 hybrides spécialisés,
+4 hybrides bridgés et 4 HiGHS série à 16 threads. Livrer les mesures d'utilisation
+CPU et des graphiques Julia, dont une sortie XKCDMakie. Le protocole est dans
+[ICN et threads](../LiLim/ICN_THREADS.md). L'ancienne campagne conserve son
+statut de diagnostic du score direct ; elle ne constitue pas une preuve sur ICN.
+
 | Tâche attendue | Identifiant du chat |
 |---|---|
 | Cloner le repo business-plan | `01a0fb66-d842-7193-801e-e2973852e777` |

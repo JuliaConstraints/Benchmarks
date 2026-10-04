@@ -88,7 +88,7 @@ function pair_relocation(p, routes, distances, pair; deadline_ns=typemax(UInt64)
     (; routes=best, examined)
 end
 
-function prepare_parent(p, initial; seed=41)
+function prepare_parent(p, initial; seed=41, scorer=nothing)
     Random.seed!(seed)
     validate_solution(p, initial).valid || throw(ArgumentError("valid common start required"))
     d = p.data
@@ -99,9 +99,10 @@ function prepare_parent(p, initial; seed=41)
     isfinite(fleet_weight*d.vehicles) || throw(ArgumentError("objective scalar exceeds Float64 budget"))
     model = LS.model()
     foreach(_->LS.variable!(model, LS.domain(1:n)), 2:n)
-    LS.constraint!(model, (v; X=nothing)->routing_score(p,distances,v).error, 1:n-1)
+    evaluate = scorer === nothing ? v->routing_score(p,distances,v) : v->scorer(p,distances,v)
+    LS.constraint!(model, (v; X=nothing)->evaluate(v).error, 1:n-1)
     LS.objective!(model, v->begin
-        score = routing_score(p,distances,v)
+        score = evaluate(v)
         fleet_weight*score.vehicles+score.distance
     end)
     acceptance = LS.GreedyPlateauAcceptance(;guide_infeasible=false)
@@ -122,14 +123,14 @@ end
 
 function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
         max_visits=16, repair_every=5, fragment_seconds=0.1, repair_fraction=0.35,
-        structured=true, origin_ns=nothing)
+        structured=true, origin_ns=nothing, scorer=nothing, scorer_name="direct full-route scorer/1 (no ICN)")
     entered = time_ns()
     started = origin_ns === nothing ? entered : UInt64(origin_ns)
     started <= entered || throw(ArgumentError("clock origin is in the future"))
     isfinite(seconds) && seconds > 0 || throw(ArgumentError("positive finite budget required"))
     0 <= repair_fraction <= 1 && repair_every > 0 && isfinite(fragment_seconds) && fragment_seconds > 0 || throw(ArgumentError("invalid repair policy"))
     rng = Xoshiro(seed)
-    prepared = prepare_parent(p, initial; seed)
+    prepared = prepare_parent(p, initial; seed, scorer)
     solver, acceptance = prepared.solver, prepared.acceptance
     initialization = (time_ns()-entered)/1e9
     best = deepcopy(initial)
@@ -227,7 +228,7 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
             "structured"=>structured, "pair_policy"=>"random request, best feasible greedy reinsertion/1",
             "repair_seconds"=>repair_seconds, "repair_fraction"=>repair_fraction,
             "repairs"=>repairs, "trajectory"=>trajectory, "threads"=>1,
-            "scorer"=>"direct full-route scorer/1 (no ICN)",
+            "scorer"=>scorer_name, "julia_thread_id"=>Threads.threadid(),
             "controller"=>"explicit native LS steps, paired reinsertion and atomic MetaMove commits/2",
             "hybrid"=>hybrid, "bridged"=>bridged, "fleet_weight"=>prepared.fleet_weight))
 end
