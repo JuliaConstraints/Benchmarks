@@ -17,7 +17,7 @@ const CONFIG=TOML.parsefile(joinpath(ROOT,"LiLim","config","icn-threads.toml"))
 const RESULT=Dict{String,Any}("schema"=>"li-lim-timefold-qualified-pilot/1","started_utc"=>string(now(UTC)),
     "benchmarks_commit"=>strip(read(`git -C $ROOT rev-parse HEAD`,String)),"workers"=>WIDTH,"budget_seconds"=>BUDGET,
     "profile"=>PROFILE,"cpu_affinity"=>AFFINITY,"julia"=>string(VERSION),
-    "java_runtime"=>read(pipeline(`java -version`;stderr=stdout),String),
+    "java_runtime"=>read(`java --version`,String),
     "jvm_options"=>["-XX:ActiveProcessorCount=$WIDTH","-XX:+UseSerialGC","-Xmx2g"],
     "source_sha256"=>Dict(relpath(p,ROOT)=>digest(p) for p in (
         @__FILE__,joinpath(ROOT,"LiLim","competitors","Adapters.jl"),joinpath(ROOT,"LiLim","src","Pilot.jl"),
