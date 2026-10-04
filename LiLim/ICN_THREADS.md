@@ -220,3 +220,23 @@ d'isolation et d'allocations, 141 contrôles des portefeuilles à 16 threads et
 1 434 contrôles du contrôleur hybride. Le scoreur chaud alloue zéro octet sur
 les affectations valides et invalides testées. Ces tests ne démontrent pas
 encore l'utilisation de tous les CPU sur une recherche réelle.
+
+PerfChecker après cette première correction localise les allocations restantes
+dans `_best_proposal!` de LocalSearchSolvers : l'itération sur une union de
+types d'itérateurs boxe les mouvements et les états d'itération. Une barrière
+de fonction conserve l'ordre des candidats et spécialise le parcours sur
+chaque type concret. Le contrat d'allocation couvre 4, 32 et 106 variables,
+avec conservation des candidats ex æquo ; les 10 432 contrôles de stratégies
+et les 782 contrats de performance passent. Quatre assertions flottantes de
+min-cut échouaient également dans la version originale du test : leur
+comparaison exigeait une identité bit à bit entre deux groupements de sommes.
+Seul ce test reçoit une tolérance de quelques epsilon ; son code de calcul
+et les tests exacts de NaN, infinis et zéro signé restent inchangés.
+
+La cohorte postérieure est explicite dans
+[workspace-cohort.toml](config/workspace-cohort.toml). Le lanceur la sélectionne
+via `LILIM_DIAGNOSTIC_COHORT`, contrôle les commits et la propreté des dépendances,
+et conserve l'environnement solveur original. Le mode `snoop` ajoute les traces
+SnoopCompileCore, puis charge SnoopCompile pour analyser les méthodes compilées,
+leurs temps d'inférence/LLVM et les instances devenues obsolètes. Les mesures
+instrumentées ne deviennent pas une comparaison de vitesse de démarrage.

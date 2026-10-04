@@ -3,11 +3,32 @@ const STDLIB_LOAD=@timed @eval using TOML, SHA, Dates, Statistics, LinearAlgebra
 const ROOT=normpath(joinpath(@__DIR__,"..",".."))
 const CONFIG=TOML.parsefile(joinpath(ROOT,"LiLim","config","icn-threads.toml"))
 const BASELINE=TOML.parsefile(joinpath(ROOT,"LiLim","config","current-pilot.toml"))
+const COHORT_PATH=get(ENV,"LILIM_DIAGNOSTIC_COHORT","")
+const COHORT=isempty(COHORT_PATH) ? BASELINE["cohort"] : TOML.parsefile(COHORT_PATH)["cohort"]
 const EVENTS=Any[]
+const SNOOP_TIMINGS=Any[]
+length(ARGS)==2 && ARGS[1] in ("startup","throughput","snoop") || error("usage: icn_performance.jl startup|throughput|snoop output.toml")
+if ARGS[1]=="snoop"
+    push!(LOAD_PATH,joinpath(ROOT,"LiLim","perfcheck"))
+    @eval using SnoopCompileCore
+    @eval function snooped_call(f)
+        stats=nothing
+        tree=SnoopCompileCore.@snoop_inference begin
+            stats=@timed Base.invokelatest(f)
+        end
+        stats,tree
+    end
+end
 digest(path)=bytes2hex(sha256(read(path)))
 function measure(name,f;sample=1,extra=Dict{String,Any}())
     GC.gc()
-    stats=@timed Base.invokelatest(f)
+    stats=if ARGS[1]=="snoop"
+        captured,tree=snooped_call(f)
+        push!(SNOOP_TIMINGS,(;name,sample,tree))
+        captured
+    else
+        @timed Base.invokelatest(f)
+    end
     record=merge(Dict("phase"=>name,"sample"=>sample,"seconds"=>stats.time,
         "allocated_bytes"=>stats.bytes,"gc_seconds"=>stats.gctime,
         "compile_seconds"=>stats.compile_time,"recompile_seconds"=>stats.recompile_time),extra)
@@ -15,13 +36,12 @@ function measure(name,f;sample=1,extra=Dict{String,Any}())
     println(name," #",sample,": ",round(stats.time;digits=4)," s; GC ",round(stats.gctime;digits=4)," s; compile ",round(stats.compile_time;digits=4)," s");flush(stdout)
     stats.value,record
 end
-length(ARGS)==2 && ARGS[1] in ("startup","throughput") || error("usage: icn_performance.jl startup|throughput output.toml")
 const OUT=abspath(ARGS[2]);ispath(OUT) && error("output exists")
 string(VERSION)==CONFIG["julia"] && BLAS.get_num_threads()==1 || error("runtime differs")
 for (file,key) in (("Project.toml","project_sha256"),("Manifest.toml","manifest_sha256"))
     digest(joinpath(dirname(Base.active_project()),file))==BASELINE["environment"][key] || error("environment changed")
 end
-for (name,head) in BASELINE["cohort"]
+for (name,head) in COHORT
     repo=joinpath(homedir(),".julia","dev",name)
     strip(read(`git -C $repo rev-parse HEAD`,String))==head || error("cohort changed: $name")
     isempty(strip(read(`git -C $repo status --porcelain --untracked-files=no`,String))) || error("dirty dependency: $name")
@@ -31,6 +51,7 @@ const META=Dict("schema"=>"li-lim-performance-diagnostic/1","mode"=>ARGS[1],"jul
     "julia_gc_option"=>string(Base.JLOptions().nmarkthreads),"cpu_name"=>Sys.CPU_NAME,
     "affinity"=>only(filter(l->startswith(l,"Cpus_allowed_list:"),readlines("/proc/self/status"))),
     "benchmarks_commit"=>strip(read(`git -C $ROOT rev-parse HEAD`,String)),"baseline"=>BASELINE,
+    "measured_cohort"=>COHORT,"cohort_override_sha256"=>isempty(COHORT_PATH) ? "" : digest(COHORT_PATH),
     "profile_source_sha256"=>digest(@__FILE__),"config"=>CONFIG,
     "stdlib_loading_seconds"=>STDLIB_LOAD.time,"gc_precollection"=>"full GC before each measured phase, excluded from phase timing")
 measure("load ConstraintModels",()->Core.eval(Main,:(using ConstraintModels)))
@@ -53,6 +74,7 @@ function case_details!(event,r)
     event["mean_active_cpus"]=r["mean_active_cpus"]
     event["process_cpu_seconds"]=r["process_cpu_seconds"]
     event["pair_candidates"]=sum(get(w["trace"],"pair_candidates",0) for w in r["workers"])
+    event["steps"]=sum(get(w["trace"],"steps",0) for w in r["workers"])
     event["candidates_per_second"]=event["pair_candidates"]/r["budget_seconds"]
     event["vehicles"]=r["vehicles"];event["distance"]=r["distance"]
     event["icn_calls"]=sum(w["error_backend"]["icn_decoder_calls"] for w in r["workers"])
@@ -134,7 +156,36 @@ function throughput()
         Profile.Allocs.clear()
     end
 end
-Base.invokelatest(ARGS[1]=="startup" ? startup : throughput)
+Base.invokelatest(ARGS[1]=="throughput" ? throughput : startup)
+if ARGS[1]=="snoop"
+    # Load the analysis library after instrumentation to avoid its load-time
+    # invalidations contaminating first-call inference measurements.
+    @eval using SnoopCompile
+    function summarize_snoop(captured)
+        rows=Any[]
+        function visit(node)
+            for child in node.children
+                method=Core.MethodInstance(child)
+                push!(rows,Dict("method"=>string(method),
+                    "exclusive_inference_seconds"=>SnoopCompileCore.exclusive(child;include_llvm=false),
+                    "exclusive_with_llvm_seconds"=>SnoopCompileCore.exclusive(child)))
+                visit(child)
+            end
+        end
+        visit(captured.tree)
+        sort!(rows;by=r->r["exclusive_with_llvm_seconds"],rev=true)
+        Dict("phase"=>captured.name,"sample"=>captured.sample,"method_instances"=>length(rows),
+            "inference_seconds"=>SnoopCompileCore.inclusive(captured.tree;include_llvm=false),
+            "with_llvm_seconds"=>SnoopCompileCore.inclusive(captured.tree),
+            "stale_instances"=>length(SnoopCompile.staleinstances(captured.tree)),
+            "top_methods"=>first(rows,min(50,length(rows))))
+    end
+    META["snoopcompile_version"]=string(pkgversion(SnoopCompile))
+    META["snoopcompilecore_version"]=string(pkgversion(SnoopCompileCore))
+    META["snoop_controller_manifest_sha256"]=digest(joinpath(ROOT,"LiLim","perfcheck","Manifest.toml"))
+    META["snoop_note"]="instrumented fresh-session inference and LLVM timing; not an uninstrumented startup-speed comparison; compiler per-method durations are quantized"
+    META["snoop_phases"]=[Base.invokelatest(summarize_snoop,c) for c in SNOOP_TIMINGS]
+end
 META["finished_utc"]=string(now(UTC));META["events"]=EVENTS
 mkpath(dirname(OUT));open(io->TOML.print(io,META;sorted=true),OUT,"w")
 println("Saved performance diagnostic: ",OUT)

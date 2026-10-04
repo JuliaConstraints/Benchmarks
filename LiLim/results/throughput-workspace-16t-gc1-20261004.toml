@@ -1,0 +1,715 @@
+affinity = "Cpus_allowed_list:\t0-4,6,8-12,14,16-19"
+allocation_sample_rate = 1.0e-5
+benchmarks_commit = "099cabfc90480cd4e25a6123fe989d8ad1eccb3e"
+cpu_name = "alderlake"
+cpu_profile_flat = """ Count  Overhead File                                                                Line Function\n =====  ======== ====                                                                ==== ========\n    20         0 @LocalSearchSolvers/src/strategies/move.jl                          147 value_after\n    20         0 @Base/operators.jl                                                  653 +\n    20         0 @Base/bitarray.jl                                                   665 unsafe_bitgetindex\n    20         0 @Base/int.jl                                                        582 <<\n    20        20 @Base/int.jl                                                        575 <<\n    21         0 @Base/array.jl                                                      693 _similar_for\n    21         0 @Base/abstractarray.jl                                              827 similar\n    21         0 @Base/abstractarray.jl                                              838 similar\n    21         0 @juliasrc/gc-stock.c                                               2486 gc_mark_outrefs\n    22         5 @LocalSearchSolvers/src/strategies/move.jl                            ? value_after\n    22        10 @LiLimPilot/src/ICNScoring.jl                                       115 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    22         0 @juliasrc/gf.c                                                     4394 ijl_apply_generic\n    23        23 @Base/int.jl                                                        560 <=\n    23         0 @Base/array.jl                                                     1348 _push!\n    23         5 @LiLimPilot/src/ICNScoring.jl                                       127 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    23        23 @LiLimPilot/src/Pilot.jl                                              ? feasible_route(route::Vector{Int64}, d::PickupDeliveryProblem, D::Matrix{Float64})\n    24         0 @Base/array.jl                                                      626 zeros\n    25        11 @CompositionalNetworks/src/inplace.jl                               574 #_aggregate_pairwise_sum#694\n    25         0 @Base/array.jl                                                     1345 push!\n    26         9 @Base/abstractarray.jl                                              702 checkbounds\n    26         0 @Base/int.jl                                                          ? pair_relocation(p::BenchmarkInstance{PickupDeliveryProblem}, routes::Vector{Vector{Int64…\n    27         0 @LiLimPilot/src/ICNScoring.jl                                       131 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    28        14 @LiLimPilot/src/ICNScoring.jl                                       151 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    28        28 @Base/float.jl                                                      493 -\n    28         5 @LiLimPilot/src/ICNScoring.jl                                       117 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    28         0 @CompositionalNetworks/src/layers/transformation.jl                  13 _condition_residual\n    28         0 @LiLimPilot/src/ICNScoring.jl                                       116 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    28         3 @juliasrc/datatype.c                                               1556 ijl_box_int64\n    29         0 @LiLimPilot/src/MetaRepair.jl                                        29 routes_from_successors(instance::BenchmarkInstance{PickupDeliveryProblem}, values::Vecto…\n    29         0 @Base/array.jl                                                      622 zeros\n    30         0 @Base/boot.jl                                                       588 GenericMemory\n    30         0 @juliasrc/genericmemory.c                                            41 jl_alloc_genericmemory_unchecked\n    31         4 @LiLimPilot/src/ICNScoring.jl                                       133 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    32         0 @LiLimPilot/src/ICNScoring.jl                                       121 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    32         0 @CompositionalNetworks/src/layers/transformation.jl                  15 _condition_residual\n    32         0 @LiLimPilot/src/ICNScoring.jl                                       149 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    33         0 @LocalSearchSolvers/src/solver.jl                                   361 _candidate_objective\n    33         0 @LocalSearchSolvers/src/solver.jl                                   362 _candidate_objective(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model…\n    34         4 @LocalSearchSolvers/src/strategies/move.jl                          143 value_after\n    34         0 @LiLimPilot/src/ICNScoring.jl                                       118 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    34         0 @Base/operators.jl                                                  425 >\n    35         0 @Base/array.jl                                                      759 collect(itr::Dictionaries.Dictionary{Int64, Int64})\n    35         0 @Base/array.jl                                                      765 _collect\n    35         0 @LocalSearchSolvers/src/solver.jl                                   227 _candidate_cost(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{Loca…\n    36         0 @LocalSearchSolvers/src/strategies/proposals.jl                      54 _proposal_rank\n    36         0 @LocalSearchSolvers/src/utils.jl                                     75 apply\n    36         0 @LiLimPilot/src/Hybrid.jl                                           130 #34\n    37         0 @juliasrc/gc-stock.c                                                714 gc_add_page\n    37        37 @juliasrc/gc-stock.h                                                350 set_page_metadata\n    38        13 @CompositionalNetworks/src/inplace.jl                               576 #_aggregate_pairwise_sum#694\n    38         0 @Base/array.jl                                                      963 getindex\n    38         0 @juliasrc/gc-stock.c                                                772 jl_gc_small_alloc_inner\n    39         0 @LiLimPilot/src/ICNScoring.jl                                       164 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    40         0 @LiLimPilot/src/Pilot.jl                                             18 feasible_route(route::Vector{Int64}, d::PickupDeliveryProblem, D::Matrix{Float64})\n    41         0 @LiLimPilot/src/ICNScoring.jl                                       129 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    41         0 @Base/essentials.jl                                                  11 length\n    42         0 @Base/array.jl                                                      363 _fill!\n    42         0 @Base/operators.jl                                                  320 !=\n    42        42 @Base/math.jl                                                       857 max\n    43         0 @LiLimPilot/src/ICNScoring.jl                                        94 scalar\n    43         0 @juliasrc/gc-stock.c                                               2542 gc_mark_loop_serial_\n    45        45 @juliasrc/gc-stock.c                                                926 gc_sweep_page\n    45         5 @Base/array.jl                                                      364 _fill!\n    45         4 @LocalSearchSolvers/src/model.jl                                    523 constraint_input!\n    45        45 @Base/essentials.jl                                                  10 size\n    46        38 @LiLimPilot/src/ICNScoring.jl                                         ? score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    46         0 @LiLimPilot/src/ICNScoring.jl                                        92 scalar\n    46         0 @juliasrc/gc-stock.c                                               2565 gc_mark_loop_serial\n    47         0 @juliasrc/gc-stock.c                                               3123 _jl_gc_collect\n    47         0 @juliasrc/gc-stock.c                                               2753 gc_mark_loop\n    49         0 @CompositionalNetworks/src/inplace.jl                               443 #_aggregate_input#669\n    49         0 @LiLimPilot/src/ICNScoring.jl                                       150 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    49         0 @juliasrc/gc-stock.c                                               3565 ijl_gc_collect\n    51        18 @LiLimPilot/src/Pilot.jl                                             19 feasible_route(route::Vector{Int64}, d::PickupDeliveryProblem, D::Matrix{Float64})\n    52         0 @Base/promotion.jl                                                  652 max\n    52        52 @Base/essentials.jl                                                 854 ifelse\n    52        52 @Base/Base_compiler.jl                                              301 ==\n    53         0 @Base/boot.jl                                                       661 Array\n    54         0 @Base/boot.jl                                                       649 Array\n    54         4 @LiLimPilot/src/ICNScoring.jl                                        90 scalar\n    55         0 @juliasrc/gc-stock.c                                               1002 gc_sweep_pool_page\n    56         0 @juliasrc/gc-stock.c                                               1294 gc_sweep_pool_parallel\n    56        39 @Base/array.jl                                                      962 getindex\n    59         0 @Base/abstractarray.jl                                             1255 _iterate_abstractarray\n    60        18 @LiLimPilot/src/ICNScoring.jl                                       124 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    61        61 @LiLimPilot/src/ICNScoring.jl                                         ? scalar\n    62         0 @CompositionalNetworks/src/inplace.jl                              1354 _compare\n    62         0 @CompositionalNetworks/src/inplace.jl                              1354 #_compare#773\n    62         0 @CompositionalNetworks/src/layers/transformation.jl                  50 _condition_residual\n    65        25 @Base/array.jl                                                     1024 _setindex!\n    67         0 @LiLimPilot/src/Hybrid.jl                                           100 pair_relocation(p::BenchmarkInstance{PickupDeliveryProblem}, routes::Vector{Vector{Int64…\n    68         0 @juliasrc/gc-stock.c                                               1399 gc_sweep_pool\n    72        72 @Base/int.jl                                                        393 &\n    72         0 @LiLimPilot/src/ResourceExperiment.jl                               114 run_case(path::String, method::String, seconds::Float64, seed::Int64, policy::Dict{Strin…\n    72         0 @Base/gcutils.jl                                                    133 gc\n    73        73 linux-vdso.so.1                                                       ? [unknown function]\n    74         0 @CompositionalNetworks/src/inplace.jl                               539 _pairwise_count\n    74         0 @CompositionalNetworks/src/inplace.jl                               539 #_pairwise_count#684\n    74         0 /workspace/srcdir/glibc-2.17/csu/../sysdeps/x86_64/start.S          123 [unknown function]\n    74         0 /lib/x86_64-linux-gnu/libc.so.6                                       ? __libc_start_main\n    74         0 /cache/build/builder-amdci4-8/julialang/julia-ci/cli/loader_exe.c    58 main\n    74         0 @juliasrc/jlapi.c                                                  1152 jl_repl_entrypoint\n    74         0 @juliasrc/jlapi.c                                                   985 true_main\n    74         0 @julialib/julia/sys.so                                                ? jfptr__start_58396.1\n    74         0 @Base/client.jl                                                     577 _start()\n    74         0 @Base/client.jl                                                     344 exec_options(opts::Base.JLOptions)\n    74         0 @Base/Base.jl                                                       309 include(mod::Module, _path::String)\n    74         0 @Base/loading.jl                                                   3093 _include(mapexpr::Function, mod::Module, _path::String)\n    74         0 @Base/loading.jl                                                   3033 include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)\n    74         0 @Base/boot.jl                                                       489 eval(m::Module, e::Any)\n    74         0 @juliasrc/toplevel.c                                                799 ijl_toplevel_eval_in\n    74         0 @juliasrc/toplevel.c                                                754 ijl_toplevel_eval\n    74         0 @juliasrc/toplevel.c                                                683 jl_toplevel_eval_flex\n    74         0 @juliasrc/toplevel.c                                                585 jl_eval_toplevel_stmts\n    74         0 @juliasrc/toplevel.c                                                742 jl_toplevel_eval_flex\n    74         0 @juliasrc/interpreter.c                                             884 jl_interpret_toplevel_thunk\n    74         0 @juliasrc/interpreter.c                                             679 eval_body\n    74         0 @juliasrc/interpreter.c                                             194 eval_stmt_value\n    74         0 @juliasrc/interpreter.c                                             243 eval_value\n    74         0 @juliasrc/interpreter.c                                             123 do_call\n    74         0 @juliasrc/builtins.c                                                889 jl_f_invokelatest\n    74         0 @LiLimPilot/scripts/icn_performance.jl                              121 throughput()\n    74         0 @Profile/src/Profile.jl                                              60 macro expansion\n    74         0 @LiLimPilot/src/ResourceExperiment.jl                               107 run_case(path::String, method::String, seconds::Float64, seed::Int64, policy::Dict{Strin…\n    77         0 @Base/int.jl                                                       1056 +\n    77         0 @Base/int.jl                                                        592 rem\n    77         0 @Base/boot.jl                                                      1010 Int64\n    77        77 @Base/boot.jl                                                       937 toInt64\n    77         3 /lib/x86_64-linux-gnu/libc.so.6                                       ? clock_gettime\n    78         0 /workspace/srcdir/libuv/src/unix/linux.c                           1591 uv__hrtime\n    79         0 @Base/bitarray.jl                                                   666 unsafe_bitgetindex\n    79         0 @LiLimPilot/src/ICNScoring.jl                                       142 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    86         0 @juliasrc/datatype.c                                               1154 ijl_new_bits\n    88         0 @Base/array.jl                                                      359 fill!\n    88         0 /workspace/srcdir/libuv/src/unix/core.c                             134 uv_hrtime\n    89         0 @juliasrc/gc-stock.c                                               3563 ijl_gc_collect\n    89         0 @Base/Base_compiler.jl                                              198 time_ns\n    90         0 @LiLimPilot/src/ICNScoring.jl                                       141 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    90         0 @LiLimPilot/src/Hybrid.jl                                            92 pair_relocation(p::BenchmarkInstance{PickupDeliveryProblem}, routes::Vector{Vector{Int64…\n    90         7 @LiLimPilot/src/Pilot.jl                                             15 feasible_route(route::Vector{Int64}, d::PickupDeliveryProblem, D::Matrix{Float64})\n    91         0 @juliasrc/gc-stock.c                                               3255 _jl_gc_collect\n    95         0 @CompositionalNetworks/src/inplace.jl                               533 _pairwise_count\n    95         6 @CompositionalNetworks/src/inplace.jl                               533 #_pairwise_count#682\n    95         0 @LiLimPilot/src/ICNScoring.jl                                       130 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    96         0 @juliasrc/signals-unix.c                                            514 segv_handler\n    96         0 @juliasrc/signals-unix.c                                            528 segv_handler\n    96         0 @juliasrc/safepoint.c                                               247 jl_set_gc_and_wait\n    96         0 @juliasrc/safepoint.c                                               268 jl_safepoint_wait_gc\n    97         0 @LiLimPilot/src/ICNScoring.jl                                       156 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n    98         0 @juliasrc/datatype.c                                               1858 ijl_get_nth_field\n   101         0 @LiLimPilot/src/ICNScoring.jl                                       110 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n   104       104 @Base/int.jl                                                         83 <\n   110         5 @CompositionalNetworks/src/inplace.jl                               442 #_aggregate_input#669\n   111         0 @LiLimPilot/src/ICNScoring.jl                                       158 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n   112         4 @CompositionalNetworks/src/inplace.jl                               444 #_aggregate_input#669\n   112         0 @CompositionalNetworks/src/inplace.jl                               536 _pairwise_count\n   112        10 @CompositionalNetworks/src/inplace.jl                               536 #_pairwise_count#683\n   116         0 @Base/bitarray.jl                                                   672 getindex\n   125         0 @Base/promotion.jl                                                  404 promote\n   125         0 @Base/promotion.jl                                                  379 _promote\n   126         0 @juliasrc/builtins.c                                               1059 jl_f_getfield\n   126         0 @juliasrc/datatype.c                                               1874 ijl_get_nth_field_checked\n   127         0 @LiLimPilot/src/Hybrid.jl                                           218 run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; se…\n   127       127 @Base/float.jl                                                      245 Float64\n   128         0 @Base/promotion.jl                                                  433 +\n   135         0 @juliasrc/gc-stock.c                                                806 jl_gc_alloc_\n   135         0 @juliasrc/gc-stock.c                                                792 jl_gc_small_alloc_noinline\n   140         2 @LiLimPilot/src/ICNScoring.jl                                       128 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n   141        84 @LiLimPilot/src/ICNScoring.jl                                       119 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n   147         0 @LocalSearchSolvers/src/model.jl                                    522 constraint_input!\n   151         3 @LocalSearchSolvers/src/strategies/proposals.jl                      69 _best_proposal!(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{Loca…\n   162         1 @LiLimPilot/src/Hybrid.jl                                           104 pair_relocation(p::BenchmarkInstance{PickupDeliveryProblem}, routes::Vector{Vector{Int64…\n   172       172 @Base/int.jl                                                         87 +\n   178        41 @Base/range.jl                                                      928 iterate\n   196         0 @Base/essentials.jl                                                 974 getindex\n   196        39 @Base/essentials.jl                                                 389 checkbounds\n   202         0 @Base/number.jl                                                       7 convert\n   216        28 @Base/abstractarray.jl                                             1254 _iterate_abstractarray\n   243       243 @Base/promotion.jl                                                  641 ==\n   245         0 @LiLimPilot/src/ICNScoring.jl                                       145 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n   249         0 none                                                                  ? ##composition#336\n   249         0 none                                                                  ? ##composition#336#1141\n   265         0 none                                                                  ? ##composition#337\n   265         0 none                                                                  ? ##composition#337#1142\n   268       268 @Base/float.jl                                                      492 +\n   274         0 @CompositionalNetworks/src/inplace.jl                               440 _aggregate_input\n   275         0 @Base/abstractarray.jl                                             1247 iterate\n   275       106 @Base/array.jl                                                     1025 _setindex!\n   330         0 @LiLimPilot/src/ICNScoring.jl                                       157 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n   336         0 none                                                                  ? ##composition#335#1140\n   338         0 @LiLimPilot/src/ICNScoring.jl                                       159 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n   338         0 @LiLimPilot/src/ICNScoring.jl                                        95 scalar\n   338         0 none                                                                  ? ##composition#335\n   340         0 @Base/array.jl                                                     1020 setindex!\n   371         0 @CompositionalNetworks/src/inplace.jl                               565 _pairwise_counts\n   371         0 @CompositionalNetworks/src/inplace.jl                               567 #_pairwise_counts#693\n   385       351 @Base/essentials.jl                                                 385 checkbounds\n   400         0 @LiLimPilot/src/Hybrid.jl                                           219 run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; se…\n   400         0 @LiLimPilot/src/Hybrid.jl                                            64 pair_relocation\n   442         0 @CompositionalNetworks/src/inplace.jl                               575 #_aggregate_pairwise_sum#694\n   448       448 @Base/essentials.jl                                                 975 getindex\n   484         0 @LocalSearchSolvers/src/model.jl                                    532 compute_cost\n   509         0 @LiLimPilot/src/ICNScoring.jl                                       143 score(b::Main.ICNScoring.ErrorBackend{CompositionalNetworks.Composition{CompositionalNet…\n   514         0 @CompositionalNetworks/src/inplace.jl                               572 _aggregate_pairwise_sum\n   560       560 @Base/Base_compiler.jl                                               57 getproperty\n   852         0 @CompositionalNetworks/src/composition_ir.jl                         81 Composition\n   852         0 @CompositionalNetworks/src/composition_ir.jl                         82 #_#849\n   909         0 @juliasrc/gc-stock.c                                                783 ijl_gc_small_alloc\n   909         0 @juliasrc/safepoint.c                                               268 jl_safepoint_wait_gc\n   910         0 @juliasrc/safepoint.c                                               203 jl_safepoint_start_gc\n   921         0 @juliasrc/gc-stock.c                                               3519 ijl_gc_collect\n   935         1 @LocalSearchSolvers/src/strategies/proposals.jl                      78 _best_proposal!(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{Loca…\n   989         0 @juliasrc/gc-stock.c                                                355 maybe_collect\n   992         0 @juliasrc/gc-stock.c                                                734 jl_gc_small_alloc_inner\n  1112         0 @julialib/julia/sys.so                                                ? jfptr_wait_forever_70523.1\n  1112         0 @Base/task.jl                                                      1196 wait_forever()\n  1112         0 @Base/task.jl                                                      1297 wait()\n  1112         0 @juliasrc/scheduler.c                                               599 ijl_task_get_next\n  2119         0 /workspace/srcdir/libuv/src/unix/thread.c                           822 uv_cond_wait\n  2119         0 /lib/x86_64-linux-gnu/libc.so.6                                       ? pthread_cond_wait\n  2213      2138 /lib/x86_64-linux-gnu/libc.so.6                                       ? [unknown function]\n  2583         0 @LocalSearchSolvers/src/model.jl                                    532 compute_cost(c::LocalSearchSolvers.Constraint{Main.Hybrid.var\"#30#31\"{Main.Hybrid.var\"#3…\n  2866         0 @LocalSearchSolvers/src/utils.jl                                     74 apply\n  2866         0 @LiLimPilot/src/Hybrid.jl                                           128 #30\n  2866         0 @LiLimPilot/src/Hybrid.jl                                           128 #32\n  2898         3 @LiLimPilot/src/ICNScoring.jl                                       167 ErrorBackend\n  2902         4 @LiLimPilot/src/Hybrid.jl                                           127 #28\n  3072         0 @LocalSearchSolvers/src/solver.jl                                   231 _candidate_cost(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{Loca…\n  3131         0 @LocalSearchSolvers/src/strategies/proposals.jl                      53 _proposal_rank\n  3171         0 @LocalSearchSolvers/src/strategies/proposals.jl                      70 _best_proposal!(context::LocalSearchSolvers.SearchContext{LocalSearchSolvers._Model{Loca…\n  4263         0 @LocalSearchSolvers/src/strategies/proposals.jl                     140 _step!(s::LocalSearchSolvers.MainSolver, model::LocalSearchSolvers._Model{LocalSearchSol…\n  4274         0 @LiLimPilot/src/Hybrid.jl                                           242 run_cbls(p::BenchmarkInstance{PickupDeliveryProblem}, initial::Vector{Vector{Int64}}; se…\n  4274         0 @LocalSearchSolvers/src/solver.jl                                   867 _step!(s::LocalSearchSolvers.MainSolver)\n  4807         0 @Base/threadingconstructs.jl                                        178 (::Base.Threads.var\"#threading_run##0#threading_run##1\"{Main.ResourceExperiment.var\"#2#3…\n  4807         0 @Base/threadingconstructs.jl                                        246 #2\n  4807         0 @Base/threadingconstructs.jl                                        279 (::Main.ResourceExperiment.var\"#2#3\"{Main.ResourceExperiment.var\"#4#5\"{Main.ResourceExpe…\n  4807         0 @LiLimPilot/src/ResourceExperiment.jl                                49 macro expansion\n  4807         0 @LiLimPilot/src/ResourceExperiment.jl                               134 (::Main.ResourceExperiment.var\"#invoke#23\"{Int64, Nothing, Float64, Int64, Dict{String, …\n  4807         0 @LiLimPilot/src/Hybrid.jl                                           149 kwcall(::@NamedTuple{seconds::Float64, seed::Int64, origin_ns::UInt64, scorer::Main.ICNS…\n  4881        49 [any unknown stackframes]\n  5919         0 @juliasrc/task.c                                                   1285 start_task\n  5993         0 @juliasrc/julia.h                                                  2318 jl_apply\nTotal snapshots: 6089. Utilization: 82% across all threads and tasks. Use the `groupby` kwarg to break down by thread and/or task.\n"""
+finished_utc = "2026-10-04T08:05:34.328"
+gc_precollection = "full GC before each measured phase, excluded from phase timing"
+gc_threads = 1
+julia = "1.13.1"
+julia_gc_option = "1"
+mode = "throughput"
+profile_source_sha256 = "9be71c16cee467b499cc0d38156768d65b1298f0ff7189bd76f45ebb3e62112c"
+schema = "li-lim-performance-diagnostic/1"
+started_utc = "2026-10-04T08:04:37.276"
+stdlib_loading_seconds = 0.050366944
+threads = 16
+
+[baseline]
+budgets_seconds = [10.0, 30.0]
+cpu = 8
+instance_wall_guard_seconds = 900.0
+instances = ["lc101", "lr101", "lrc101"]
+job_wall_guard_seconds = 120.0
+julia = "1.13.1"
+memory_guard_bytes = 8589934592
+methods = ["cbls", "hybrid_specialized", "hybrid_bridged", "highs"]
+schema = "li-lim-meta-pilot/1"
+scope = "diagnostic on three previously exposed instances; no confirmation or commercial comparison"
+seeds = [41, 42, 43]
+threads = 1
+
+    [baseline.cohort]
+    CBLS = "3bd4e2638c39b565aa81af41f585678f8952f60a"
+    CompositionalNetworks = "ac70b743ea64c32f57100a59ceeb68b4c54181f2"
+    ConstraintCommons = "b71a313f2b600e8879877e8e04e292eb94851bd7"
+    ConstraintDomains = "399a90fdbb25d2cefc9cea2d6c4f6565be5a7c11"
+    ConstraintModels = "4ddd8f65417ac8a8d6bb12add6faf0c0c84801c3"
+    ConstraintProgrammingExtensions = "684e2e4a1459d5ae459666350c545bfc775272c2"
+    Constraints = "fc3ca4ba26d9d15ffd6065eca0bb8a968af2ff43"
+    LocalSearchSolvers = "9010ff2a0147257a2991680981f579e8c20db733"
+    MetaStrategist = "7a5bbed52f6c4993dd72bf7f9ad1c6bd57acf583"
+    PatternFolds = "bbf38fbf8b680deb4b599b06afd747fc069d25ee"
+    QUBOConstraints = "f893f83cd7518ca3aedf0ad5d2679b2c13829446"
+    XCSP3Bridges = "fe5bceaddc5081fedd200571b480e44ca9de1947"
+
+    [baseline.environment]
+    manifest_sha256 = "77e4d46bc9c20aa3e9a3bbaf27c1f95663e6a1ce290dbac28cbad00cf6d2df27"
+    project_sha256 = "2a48b5e578f38033a568c0d03697d31b86b1bed65b39086515c6648276cf457b"
+
+    [baseline.policy]
+    fragment_seconds = 0.5
+    insertion_seed = 41
+    insertion_starts = 5
+    max_visits = 20
+    repair_every = 20
+    repair_fraction = 0.35
+
+    [baseline.source_sha256]
+    lc101 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    lr101 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    lrc101 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+
+[config]
+budget_seconds = 10.0
+clb_commit = "b340e83a72ed19acd1f1647edaafb9e363738f0f"
+cpu_order = [8, 10, 0, 2, 4, 6, 12, 14, 16, 17, 18, 19, 9, 11, 1, 3]
+icn_bank_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+instances = ["lc101", "lr101", "lrc101"]
+job_wall_guard_seconds = 120.0
+julia = "1.13.1"
+memory_guard_bytes = 12884901888
+methods = ["cbls_naive", "cbls_icn", "cbls_direct", "hybrid_specialized_icn", "hybrid_bridged_icn", "highs_native", "highs_portfolio"]
+portfolio_methods = ["mixed_balanced", "mixed_ls_heavy"]
+process_wall_guard_seconds = 1400.0
+schema = "li-lim-icn-threads/1"
+scope = "diagnostic on three exposed instances, fixed wall budget, no commercial comparison"
+seeds = [41, 42, 43]
+thread_counts = [1, 2, 4, 8, 16]
+
+    [config.policy]
+    fragment_seconds = 0.5
+    insertion_seed = 41
+    insertion_starts = 5
+    max_visits = 20
+    repair_every = 20
+    repair_fraction = 0.35
+
+    [config.source_sha256]
+    lc101 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    lr101 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    lrc101 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+
+[[events]]
+allocated_bytes = 200213200
+compile_seconds = 0.088050874
+gc_seconds = 0.092485045
+phase = "load ConstraintModels"
+recompile_seconds = 0.079542504
+sample = 1
+seconds = 1.598695209
+[[events]]
+allocated_bytes = 59944
+compile_seconds = 0.002569757
+gc_seconds = 0.0
+phase = "load JuMP and Benchmarks"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.002896111
+[[events]]
+allocated_bytes = 129365016
+compile_seconds = 1.173010066
+gc_seconds = 0.012686614
+phase = "include Pilot"
+recompile_seconds = 0.219322859
+sample = 1
+seconds = 1.278461086
+[[events]]
+allocated_bytes = 2864920
+compile_seconds = 0.003833066
+gc_seconds = 0.0
+phase = "include MetaRepair"
+recompile_seconds = 0.003832332
+sample = 1
+seconds = 0.040647726
+[[events]]
+allocated_bytes = 1546232
+compile_seconds = 0.006468855
+gc_seconds = 0.0
+phase = "include ICNScoring"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.023360728
+[[events]]
+allocated_bytes = 1777336
+compile_seconds = 0.004871039
+gc_seconds = 0.0
+phase = "include Hybrid"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.039785138
+[[events]]
+allocated_bytes = 2773928
+compile_seconds = 0.034968371
+gc_seconds = 0.0
+phase = "include ResourceExperiment"
+recompile_seconds = 0.0
+sample = 1
+seconds = 0.066774764
+[[events]]
+allocated_bytes = 1231888408
+compile_seconds = 3.839561417
+gc_seconds = 0.330201598
+phase = "decode error backends"
+recompile_seconds = 0.0
+sample = 1
+seconds = 3.853471614
+[[events]]
+allocated_bytes = 3682808448
+candidates_per_second = 2.32180672e7
+compile_seconds = 0.003248523
+distance = 828.9368669428341
+gc_seconds = 0.494573445
+icn_calls = 7585531513
+mean_active_cpus = 14.764382906402966
+median_parent_initialization_seconds = 0.0006235965
+pair_candidates = 116090336
+phase = "hot CBLS ICN lc101"
+process_cpu_seconds = 73.83070565900002
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 41
+seconds = 5.165730961
+vehicles = 10
+
+    [[events.workers]]
+    cpu_fraction = 0.9341519358558424
+    icn_calls = 432782767
+    julia_thread_id = 1
+    os_thread_id = 17183
+    pair_candidates = 6627747
+    search_wall_seconds = 4.995925154
+    thread_cpu_seconds = 4.666953153999998
+    worker = 1
+    [[events.workers]]
+    cpu_fraction = 0.9108333764673268
+    icn_calls = 423600268
+    julia_thread_id = 2
+    os_thread_id = 17201
+    pair_candidates = 6478448
+    search_wall_seconds = 4.996020914
+    thread_cpu_seconds = 4.550542598
+    worker = 2
+    [[events.workers]]
+    cpu_fraction = 0.9282909793343377
+    icn_calls = 391295520
+    julia_thread_id = 3
+    os_thread_id = 17202
+    pair_candidates = 5986858
+    search_wall_seconds = 4.996299917
+    thread_cpu_seconds = 4.638020143
+    worker = 3
+    [[events.workers]]
+    cpu_fraction = 0.9323837844460003
+    icn_calls = 417927046
+    julia_thread_id = 4
+    os_thread_id = 17203
+    pair_candidates = 6400256
+    search_wall_seconds = 4.9961527310000005
+    thread_cpu_seconds = 4.658331791
+    worker = 4
+    [[events.workers]]
+    cpu_fraction = 0.9526809769375295
+    icn_calls = 418036315
+    julia_thread_id = 5
+    os_thread_id = 17204
+    pair_candidates = 6399602
+    search_wall_seconds = 4.995817574
+    thread_cpu_seconds = 4.759420366999999
+    worker = 5
+    [[events.workers]]
+    cpu_fraction = 0.9324243190775061
+    icn_calls = 590432166
+    julia_thread_id = 6
+    os_thread_id = 17205
+    pair_candidates = 9037602
+    search_wall_seconds = 4.995928762999999
+    thread_cpu_seconds = 4.658325475000002
+    worker = 6
+    [[events.workers]]
+    cpu_fraction = 0.9023377761528826
+    icn_calls = 517392613
+    julia_thread_id = 7
+    os_thread_id = 17206
+    pair_candidates = 7920688
+    search_wall_seconds = 4.996063368
+    thread_cpu_seconds = 4.508136709
+    worker = 7
+    [[events.workers]]
+    cpu_fraction = 0.8850179232182199
+    icn_calls = 567222739
+    julia_thread_id = 8
+    os_thread_id = 17207
+    pair_candidates = 8676366
+    search_wall_seconds = 4.9959563010000005
+    thread_cpu_seconds = 4.4215108700000005
+    worker = 8
+    [[events.workers]]
+    cpu_fraction = 0.9182660995410238
+    icn_calls = 418201786
+    julia_thread_id = 9
+    os_thread_id = 17208
+    pair_candidates = 6400334
+    search_wall_seconds = 4.995858508
+    thread_cpu_seconds = 4.587527505999999
+    worker = 9
+    [[events.workers]]
+    cpu_fraction = 0.8993451378608928
+    icn_calls = 478901291
+    julia_thread_id = 10
+    os_thread_id = 17209
+    pair_candidates = 7326334
+    search_wall_seconds = 4.9960877329999995
+    thread_cpu_seconds = 4.493207211
+    worker = 10
+    [[events.workers]]
+    cpu_fraction = 0.9388340126475921
+    icn_calls = 513953021
+    julia_thread_id = 11
+    os_thread_id = 17210
+    pair_candidates = 7870188
+    search_wall_seconds = 4.995946215
+    thread_cpu_seconds = 4.690364232
+    worker = 11
+    [[events.workers]]
+    cpu_fraction = 0.9341709201991673
+    icn_calls = 452288002
+    julia_thread_id = 12
+    os_thread_id = 17211
+    pair_candidates = 6921565
+    search_wall_seconds = 4.995817593
+    thread_cpu_seconds = 4.666947517999999
+    worker = 12
+    [[events.workers]]
+    cpu_fraction = 0.9086459945740339
+    icn_calls = 444838016
+    julia_thread_id = 13
+    os_thread_id = 17212
+    pair_candidates = 6807844
+    search_wall_seconds = 4.995947040000001
+    thread_cpu_seconds = 4.539547267000001
+    worker = 13
+    [[events.workers]]
+    cpu_fraction = 0.9290105729553542
+    icn_calls = 674287460
+    julia_thread_id = 14
+    os_thread_id = 17213
+    pair_candidates = 10318716
+    search_wall_seconds = 4.995994992
+    thread_cpu_seconds = 4.64133217
+    worker = 14
+    [[events.workers]]
+    cpu_fraction = 0.9382667197835817
+    icn_calls = 434159952
+    julia_thread_id = 15
+    os_thread_id = 17214
+    pair_candidates = 6641194
+    search_wall_seconds = 4.9960180460000005
+    thread_cpu_seconds = 4.6875974639999995
+    worker = 15
+    [[events.workers]]
+    cpu_fraction = 0.931990167998431
+    icn_calls = 410212551
+    julia_thread_id = 16
+    os_thread_id = 17215
+    pair_candidates = 6276594
+    search_wall_seconds = 4.996040292999999
+    thread_cpu_seconds = 4.656260432
+    worker = 16
+[[events]]
+allocated_bytes = 3658605168
+candidates_per_second = 2.30651344e7
+compile_seconds = 0.0
+distance = 828.9368669428341
+gc_seconds = 0.489955213
+icn_calls = 7535320410
+mean_active_cpus = 14.738646852494398
+median_parent_initialization_seconds = 0.000587503
+pair_candidates = 115325672
+phase = "hot CBLS ICN lc101"
+process_cpu_seconds = 73.70100200099995
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 42
+seconds = 5.164761621
+vehicles = 10
+
+    [[events.workers]]
+    cpu_fraction = 0.9364938380491201
+    icn_calls = 525007595
+    julia_thread_id = 1
+    os_thread_id = 17183
+    pair_candidates = 8032636
+    search_wall_seconds = 4.995884356
+    thread_cpu_seconds = 4.678614914999997
+    worker = 1
+    [[events.workers]]
+    cpu_fraction = 0.9386072701069585
+    icn_calls = 580679486
+    julia_thread_id = 2
+    os_thread_id = 17201
+    pair_candidates = 8889838
+    search_wall_seconds = 4.996184899
+    thread_cpu_seconds = 4.689455469
+    worker = 2
+    [[events.workers]]
+    cpu_fraction = 0.9134469786976952
+    icn_calls = 478228148
+    julia_thread_id = 3
+    os_thread_id = 17202
+    pair_candidates = 7313710
+    search_wall_seconds = 4.9958095799999995
+    thread_cpu_seconds = 4.563407167000001
+    worker = 3
+    [[events.workers]]
+    cpu_fraction = 0.9355735030647486
+    icn_calls = 418458959
+    julia_thread_id = 4
+    os_thread_id = 17203
+    pair_candidates = 6405570
+    search_wall_seconds = 4.996104853
+    thread_cpu_seconds = 4.674223319000001
+    worker = 4
+    [[events.workers]]
+    cpu_fraction = 0.9240023988102067
+    icn_calls = 413016661
+    julia_thread_id = 5
+    os_thread_id = 17204
+    pair_candidates = 6319542
+    search_wall_seconds = 4.996055113
+    thread_cpu_seconds = 4.616366908999998
+    worker = 5
+    [[events.workers]]
+    cpu_fraction = 0.9167027479901665
+    icn_calls = 388413832
+    julia_thread_id = 6
+    os_thread_id = 17205
+    pair_candidates = 5948272
+    search_wall_seconds = 4.996109691
+    thread_cpu_seconds = 4.5799474830000015
+    worker = 6
+    [[events.workers]]
+    cpu_fraction = 0.9526939766846049
+    icn_calls = 429256304
+    julia_thread_id = 7
+    os_thread_id = 17206
+    pair_candidates = 6573170
+    search_wall_seconds = 4.996018127
+    thread_cpu_seconds = 4.759676377000002
+    worker = 7
+    [[events.workers]]
+    cpu_fraction = 0.9200820524732293
+    icn_calls = 558714616
+    julia_thread_id = 8
+    os_thread_id = 17207
+    pair_candidates = 8551566
+    search_wall_seconds = 4.9961141190000005
+    thread_cpu_seconds = 4.596834933
+    worker = 8
+    [[events.workers]]
+    cpu_fraction = 0.8939482787934753
+    icn_calls = 421054159
+    julia_thread_id = 9
+    os_thread_id = 17208
+    pair_candidates = 6443878
+    search_wall_seconds = 4.996066089
+    thread_cpu_seconds = 4.466224681
+    worker = 9
+    [[events.workers]]
+    cpu_fraction = 0.8897719893248225
+    icn_calls = 404501048
+    julia_thread_id = 10
+    os_thread_id = 17209
+    pair_candidates = 6194214
+    search_wall_seconds = 4.996176776
+    thread_cpu_seconds = 4.4454581489999985
+    worker = 10
+    [[events.workers]]
+    cpu_fraction = 0.9260112405662081
+    icn_calls = 548103548
+    julia_thread_id = 11
+    os_thread_id = 17210
+    pair_candidates = 8388988
+    search_wall_seconds = 4.995972886
+    thread_cpu_seconds = 4.626327049999999
+    worker = 11
+    [[events.workers]]
+    cpu_fraction = 0.9346676738309088
+    icn_calls = 409577811
+    julia_thread_id = 12
+    os_thread_id = 17211
+    pair_candidates = 6267270
+    search_wall_seconds = 4.995959736
+    thread_cpu_seconds = 4.669562065000001
+    worker = 12
+    [[events.workers]]
+    cpu_fraction = 0.9239919797290626
+    icn_calls = 505377381
+    julia_thread_id = 13
+    os_thread_id = 17212
+    pair_candidates = 7730712
+    search_wall_seconds = 4.995799807
+    thread_cpu_seconds = 4.616078953999999
+    worker = 13
+    [[events.workers]]
+    cpu_fraction = 0.8881657661998555
+    icn_calls = 435095277
+    julia_thread_id = 14
+    os_thread_id = 17213
+    pair_candidates = 6658484
+    search_wall_seconds = 4.995949818
+    thread_cpu_seconds = 4.4372315979999986
+    worker = 14
+    [[events.workers]]
+    cpu_fraction = 0.9375653312949965
+    icn_calls = 483629908
+    julia_thread_id = 15
+    os_thread_id = 17214
+    pair_candidates = 7403116
+    search_wall_seconds = 4.99607424
+    thread_cpu_seconds = 4.684145999999998
+    worker = 15
+    [[events.workers]]
+    cpu_fraction = 0.9189630491932522
+    icn_calls = 536205677
+    julia_thread_id = 16
+    os_thread_id = 17215
+    pair_candidates = 8204706
+    search_wall_seconds = 4.995896822
+    thread_cpu_seconds = 4.591044576999998
+    worker = 16
+[[events]]
+allocated_bytes = 3572199920
+candidates_per_second = 2.25153304e7
+compile_seconds = 0.0
+distance = 828.9368669428341
+gc_seconds = 0.481147153
+icn_calls = 7355930584
+mean_active_cpus = 14.464980623445522
+median_parent_initialization_seconds = 0.0006622645
+pair_candidates = 112576652
+phase = "hot CBLS ICN lc101"
+process_cpu_seconds = 72.33241877400002
+recompile_seconds = 0.0
+repair_calls = 0
+sample = 43
+seconds = 5.160789832
+vehicles = 10
+
+    [[events.workers]]
+    cpu_fraction = 0.9098968385838772
+    icn_calls = 438600314
+    julia_thread_id = 1
+    os_thread_id = 17183
+    pair_candidates = 6709970
+    search_wall_seconds = 4.996190721
+    thread_cpu_seconds = 4.546018142000001
+    worker = 1
+    [[events.workers]]
+    cpu_fraction = 0.8843016874203894
+    icn_calls = 418778501
+    julia_thread_id = 2
+    os_thread_id = 17201
+    pair_candidates = 6410116
+    search_wall_seconds = 4.996046365
+    thread_cpu_seconds = 4.418012231000002
+    worker = 2
+    [[events.workers]]
+    cpu_fraction = 0.8931135855212214
+    icn_calls = 503588366
+    julia_thread_id = 3
+    os_thread_id = 17202
+    pair_candidates = 7708446
+    search_wall_seconds = 4.9960205570000005
+    thread_cpu_seconds = 4.462013833
+    worker = 3
+    [[events.workers]]
+    cpu_fraction = 0.9363579071499644
+    icn_calls = 409382079
+    julia_thread_id = 4
+    os_thread_id = 17203
+    pair_candidates = 6262094
+    search_wall_seconds = 4.996281388
+    thread_cpu_seconds = 4.678307583999999
+    worker = 4
+    [[events.workers]]
+    cpu_fraction = 0.8933661940577289
+    icn_calls = 394171103
+    julia_thread_id = 5
+    os_thread_id = 17204
+    pair_candidates = 6032904
+    search_wall_seconds = 4.996123174
+    thread_cpu_seconds = 4.4633675450000005
+    worker = 5
+    [[events.workers]]
+    cpu_fraction = 0.9135102111857042
+    icn_calls = 540276608
+    julia_thread_id = 6
+    os_thread_id = 17205
+    pair_candidates = 8265470
+    search_wall_seconds = 4.99586987
+    thread_cpu_seconds = 4.563778139999997
+    worker = 6
+    [[events.workers]]
+    cpu_fraction = 0.8788727330646163
+    icn_calls = 503512118
+    julia_thread_id = 7
+    os_thread_id = 17206
+    pair_candidates = 7707490
+    search_wall_seconds = 4.99582612
+    thread_cpu_seconds = 4.390695355999998
+    worker = 7
+    [[events.workers]]
+    cpu_fraction = 0.9092796407027148
+    icn_calls = 392191945
+    julia_thread_id = 8
+    os_thread_id = 17207
+    pair_candidates = 6004088
+    search_wall_seconds = 4.996039759
+    thread_cpu_seconds = 4.5427972369999985
+    worker = 8
+    [[events.workers]]
+    cpu_fraction = 0.9065892605963194
+    icn_calls = 458695980
+    julia_thread_id = 9
+    os_thread_id = 17208
+    pair_candidates = 7023826
+    search_wall_seconds = 4.995931003
+    thread_cpu_seconds = 4.529257393999998
+    worker = 9
+    [[events.workers]]
+    cpu_fraction = 0.9169003945689477
+    icn_calls = 441252141
+    julia_thread_id = 10
+    os_thread_id = 17209
+    pair_candidates = 6751784
+    search_wall_seconds = 4.995865514
+    thread_cpu_seconds = 4.580711060999999
+    worker = 10
+    [[events.workers]]
+    cpu_fraction = 0.9020192042988114
+    icn_calls = 512428169
+    julia_thread_id = 11
+    os_thread_id = 17210
+    pair_candidates = 7844022
+    search_wall_seconds = 4.996135758
+    thread_cpu_seconds = 4.506610401
+    worker = 11
+    [[events.workers]]
+    cpu_fraction = 0.9097496690117951
+    icn_calls = 430484098
+    julia_thread_id = 12
+    os_thread_id = 17211
+    pair_candidates = 6585094
+    search_wall_seconds = 4.99570672
+    thread_cpu_seconds = 4.544842535000001
+    worker = 12
+    [[events.workers]]
+    cpu_fraction = 0.8788637024022137
+    icn_calls = 435029088
+    julia_thread_id = 13
+    os_thread_id = 17212
+    pair_candidates = 6656924
+    search_wall_seconds = 4.996122434
+    thread_cpu_seconds = 4.390910659999999
+    worker = 13
+    [[events.workers]]
+    cpu_fraction = 0.9065876950203225
+    icn_calls = 630332855
+    julia_thread_id = 14
+    os_thread_id = 17213
+    pair_candidates = 9645796
+    search_wall_seconds = 4.995974525
+    thread_cpu_seconds = 4.529289029000001
+    worker = 14
+    [[events.workers]]
+    cpu_fraction = 0.9330259106240588
+    icn_calls = 406678088
+    julia_thread_id = 15
+    os_thread_id = 17214
+    pair_candidates = 6223892
+    search_wall_seconds = 4.9959685920000005
+    thread_cpu_seconds = 4.661368144999997
+    worker = 15
+    [[events.workers]]
+    cpu_fraction = 0.904379042449624
+    icn_calls = 440529131
+    julia_thread_id = 16
+    os_thread_id = 17215
+    pair_candidates = 6744736
+    search_wall_seconds = 4.996015876
+    thread_cpu_seconds = 4.518292054
+    worker = 16
+
+[[sampled_allocation_sites]]
+bytes = 7184
+count = 295
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:242"
+[[sampled_allocation_sites]]
+bytes = 2976
+count = 15
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:43"
+[[sampled_allocation_sites]]
+bytes = 1728
+count = 2
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:218"
+[[sampled_allocation_sites]]
+bytes = 872
+count = 1
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:29"
+[[sampled_allocation_sites]]
+bytes = 456
+count = 2
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Pilot.jl:38"
+[[sampled_allocation_sites]]
+bytes = 296
+count = 1
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:77"
+[[sampled_allocation_sites]]
+bytes = 288
+count = 1
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:46"
+[[sampled_allocation_sites]]
+bytes = 192
+count = 6
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:38"
+[[sampled_allocation_sites]]
+bytes = 96
+count = 3
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:35"
+[[sampled_allocation_sites]]
+bytes = 80
+count = 1
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:79"
+[[sampled_allocation_sites]]
+bytes = 64
+count = 2
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:48"
+[[sampled_allocation_sites]]
+bytes = 32
+count = 1
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:33"
+[[sampled_allocation_sites]]
+bytes = 32
+count = 1
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/MetaRepair.jl:28"
+[[sampled_allocation_sites]]
+bytes = 16
+count = 2
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:0"
+[[sampled_allocation_sites]]
+bytes = 16
+count = 1
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:175"
+[[sampled_allocation_sites]]
+bytes = 8
+count = 1
+site = "/home/azzaare/Gits/Benchmarks/LiLim/src/Hybrid.jl:64"
+
+[solver_source_sha256]
+"LiLim/src/Experiment.jl" = "e1f969e3dcf0ed5e327d29bcedd54c27f89834580bf0310320fb141d16dea4ae"
+"LiLim/src/Hybrid.jl" = "9b90bdb83cb0f01f1dcee00f36d5100f931fab3b1f6f266f769d3bfb4f5d4b06"
+"LiLim/src/ICNScoring.jl" = "e5f82d4fa1e74ace7dfa25bdf5283538ef6befb6939346fb12aba48ee2d4687f"
+"LiLim/src/MetaRepair.jl" = "f3c5b5782cdeb5bf0f5675b9b4c7436cfcc4541ed89ab9c56dba4602971edc5e"
+"LiLim/src/Pilot.jl" = "5af68ba76b17f121a4c733d64bc1288e34249fa58ad581169158fc537233c631"
+"LiLim/src/ResourceExperiment.jl" = "617119ed47a62b28f7c5d7da9114f664859f137eb31a2a95f86bcbaed484215c"

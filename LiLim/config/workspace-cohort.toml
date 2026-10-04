@@ -1,0 +1,16 @@
+schema = "li-lim-workspace-cohort/1"
+scope = "Diagnostic after workspace and proposal-iterator optimization; original campaign cohort unchanged"
+
+[cohort]
+CBLS = "3bd4e2638c39b565aa81af41f585678f8952f60a"
+CompositionalNetworks = "ac70b743ea64c32f57100a59ceeb68b4c54181f2"
+ConstraintCommons = "b71a313f2b600e8879877e8e04e292eb94851bd7"
+ConstraintDomains = "399a90fdbb25d2cefc9cea2d6c4f6565be5a7c11"
+ConstraintModels = "4ddd8f65417ac8a8d6bb12add6faf0c0c84801c3"
+ConstraintProgrammingExtensions = "684e2e4a1459d5ae459666350c545bfc775272c2"
+Constraints = "fc3ca4ba26d9d15ffd6065eca0bb8a968af2ff43"
+LocalSearchSolvers = "8d0b3291420f49950cfda4e890899f384b8b7239"
+MetaStrategist = "7a5bbed52f6c4993dd72bf7f9ad1c6bd57acf583"
+PatternFolds = "bbf38fbf8b680deb4b599b06afd747fc069d25ee"
+QUBOConstraints = "f893f83cd7518ca3aedf0ad5d2679b2c13829446"
+XCSP3Bridges = "fe5bceaddc5081fedd200571b480e44ca9de1947"
