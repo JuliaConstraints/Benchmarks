@@ -198,8 +198,8 @@ elseif ARGS[1] in ("check-resume","resume")
         for width in CONFIG["thread_counts"]
             target=joinpath(output,string(width))
             isfile(joinpath(target,"completed.toml")) && continue
-            check_sources();segment=joinpath(resumption,string(width));mkdir(segment)
-            supervise(width,target;segment)
+            check_sources();attempt_dir=joinpath(resumption,string(width));mkdir(attempt_dir)
+            supervise(width,target;segment=attempt_dir)
             println("Finished resumed ",width," threads");flush(stdout)
         end
         save(joinpath(resumption,"completed.toml"),Dict("finished_utc"=>string(now(UTC))))
