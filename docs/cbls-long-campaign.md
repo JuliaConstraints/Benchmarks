@@ -18,6 +18,31 @@ validations et plots destinés à la consultation à distance seront poussés ic
 
 ## Résultats déjà accessibles
 
+Le palier à **120 s et 16 workers** est terminé : 108 essais sur LC101, LR101
+et LRC101, douze profils et trois graines. Le rapport revalide chaque incumbent
+et chaque point de trajectoire dans l'instance Li-Lim d'origine et fournit best,
+mean, médiane, étendue, atteinte du BKS, temps d'atteinte, usage CPU et huit
+figures anglaises exactes et XKCDMakie.
+
+- [Rapport, résultats et huit figures](../LiLim/results/sintef-campaign-120s-16t-trio-bdc0c48-20261005/report.md)
+- [Résumé complet des 36 cellules](../LiLim/results/sintef-campaign-120s-16t-trio-bdc0c48-20261005/summary.toml)
+- [Résultats détaillés par instance et profil](../LiLim/results/sintef-campaign-120s-16t-trio-bdc0c48-20261005/per-instance.csv)
+
+Sur ces neuf essais par profil, les six variantes CBLS seules atteignent le
+BKS dans 3/9 cas, uniquement sur LC101 où le départ commun le rejoint presque
+immédiatement. Les hybrides ICN spécialisés et bridgés, le portfolio HiGHS et
+les deux répartitions MetaStrategist obtiennent chacun 6/9 ; HiGHS natif en
+obtient 5/9. Tous ces succès viennent de LC101 et LR101 : aucun profil ne rejoint
+le BKS LRC101 de 14 véhicules. Sur LRC101, les deux hybrides trouvent 15
+véhicules aux trois graines, contre 16 au mieux pour CBLS seul et 19 pour
+HiGHS natif ou portfolio. Le bridge atteint les cibles LR101 plus lentement que
+la formulation spécialisée (9,49 s contre 2,91 s en moyenne conditionnelle aux
+succès). Les variantes CBLS ICN consomment en moyenne 15,90 des 16 CPU alloués ;
+la consommation élevée ne suffit donc pas, seule, à obtenir la qualité cible.
+Ces résultats sont un signal en faveur de l'hybridation et du portefeuille,
+pas une preuve générale : il s'agit de trois instances à 100 requêtes et trois
+graines.
+
 Le premier comparatif toutes variantes contient 504 essais revalidés sur LC101,
 LR101 et LRC101, avec cinq secondes par essai et 1/2/4/8/16 workers. Il couvre
 CBLS naïf, ICN, score direct et mixte, les deux hybrides HiGHS, HiGHS natif et

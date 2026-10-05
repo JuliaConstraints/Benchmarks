@@ -1046,3 +1046,31 @@ essais et enregistre leurs empreintes de campagne dans le résumé GC. La suite
 doit conserver cette mesure GC et profiler les allocations avec une cible
 PerfChecker explicitement qualifiée avant de passer aux paliers de deux et
 cinq minutes.
+
+### Palier Li-Lim à 120 secondes et 16 threads — 5 octobre 2026
+
+Le [rapport validé, ses données résumées et huit figures anglaises](../LiLim/results/sintef-campaign-120s-16t-trio-bdc0c48-20261005/report.md)
+présentent 108/108 essais : douze profils, trois graines et les trois instances
+SINTEF à 100 requêtes. Les incumbents et tous les points des trajectoires ont
+été revalidés dans chaque problème original. Le manifeste conserve les
+empreintes du code et des configurations mesurés (`16ea448`) : le commit
+documentaire de ce suivi ne modifie pas l'identité de la campagne.
+
+Les six profils CBLS sans sous-problème HiGHS obtiennent chacun 3/9 atteintes
+du BKS, toutes dues à LC101 où le départ commun rejoint déjà la référence. Les
+hybrides spécialisé et XCSP3Bridges, HiGHS en portfolio et les deux allocations
+MetaStrategist font 6/9 ; HiGHS natif fait 5/9. Aucun profil ne rejoint le BKS
+LRC101 de 14 véhicules. Sur LRC101, les hybrides obtiennent 15 véhicules aux
+trois graines, alors que CBLS seul en obtient 16 au mieux et HiGHS natif ou son
+portfolio 19. Le bridge atteint le BKS plus tard que le sous-problème
+spécialisé : 9,49 s contre 2,91 s en moyenne conditionnelle aux six succès.
+Le résultat renforce l'intérêt du prototype d'hybridation sur ce trio, sans
+établir une supériorité générale ni une victoire sur Hexaly.
+
+À 16 threads, CBLS appris consomme en moyenne 15,90 CPU actifs, l'hybride
+spécialisé 15,37, le bridge 14,77, MetaStrategist équilibré 13,46 et HiGHS natif
+4,82. L'écart entre occupation et qualité confirme que saturer les cœurs ne
+suffit pas à garantir un bon résultat ; la formulation du sous-problème et la
+stratégie d'exploration comptent. Le pilote porte sur seulement trois instances
+et trois graines. Il ne justifie pas d'allonger tout le corpus à ce budget avant
+d'élargir les familles et de mesurer le coût bridge/spécialisé plus précisément.
