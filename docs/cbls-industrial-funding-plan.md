@@ -841,3 +841,27 @@ seul ne montre donc pas encore de gain stable pour CBLS.
 La prochaine largeur à trente secondes est 4 threads, qui ajoute les profils
 MetaStrategist ; poursuivre ensuite à 8 et 16 threads avant de passer au palier
 60 secondes.
+
+## Budget de 30 secondes à 4 threads
+
+Le lot à quatre threads a terminé et qualifié les **108/108 essais** : douze
+profils, trois graines et trois instances officielles. Le [rapport détaillé,
+les données agrégées et les figures exactes et XKCDMakie en anglais](../LiLim/results/sintef-campaign-30s-4t-trio-bdc0c48-20261005/report.md)
+revalident chaque solution et chaque point de trajectoire contre le validateur
+Li-Lim original.
+
+L'hybride ICN spécialisé et le portfolio HiGHS atteignent chacun le BKS sur
+5/9 essais. L'hybride XCSP3Bridges, HiGHS natif et les deux allocations
+MetaStrategist en atteignent 4/9. Chacun des profils CBLS seuls — résidu naïf,
+ICN appris, erreur directe, deux ablations ICN fusionnées et mix de stratégies
+— en atteint 3/9. Les écarts moyens de flotte favorisent l'hybride spécialisé
+sur ce trio, mais les essais restent trop peu nombreux pour conclure à une
+supériorité générale.
+
+CBLS mobilise 3,99 à 4,00 CPU actifs en moyenne ; les hybrides 3,88 à 3,95.
+HiGHS natif en utilise 1,47, son portfolio 3,67 et MetaStrategist 3,55–3,57.
+Sur LRC101, aucun profil ne rejoint le BKS en 30 secondes ; l'hybride
+spécialisé et MetaStrategist recherche-intensive trouvent toutefois une flotte
+de 15 véhicules, au plus près des essais de ce lot. Le prochain palier garde
+30 secondes et passe à 8 threads, puis 16, avant de commencer la série à
+60 secondes.
