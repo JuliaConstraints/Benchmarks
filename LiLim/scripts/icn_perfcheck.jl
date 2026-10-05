@@ -67,15 +67,16 @@ const SETUP=quote
     const pc_threads=$THREADS
     const pc_instance=$INSTANCE
     Threads.nthreads()==pc_threads || error("PerfChecker worker thread count mismatch")
+    const pc_portfolio=ResourceExperiment.prepare_portfolio(ResourceExperiment.allocation(pc_method,pc_threads))
     # Compile the native search on a tiny case before warming the real shape.
     mktemp() do path,io
         write(io,"3 1 1\n0 0 0 0 0 100 0 0 0\n1 1 1 1 0 100 0 0 2\n2 2 1 -1 0 100 0 1 0\n3 -1 1 1 0 100 0 0 4\n4 -2 1 -1 0 100 0 3 0\n5 0 10 1 0 100 0 0 6\n6 0 11 -1 0 100 0 5 0\n");close(io)
-        Base.invokelatest(ResourceExperiment.run_case,path,pc_method,2.,41,pc_policy,pc_banks;threads=pc_threads)
+        Base.invokelatest(ResourceExperiment.run_case,path,pc_method,2.,41,pc_policy,pc_banks;threads=pc_threads,portfolio=pc_portfolio)
     end
-    Base.invokelatest(ResourceExperiment.run_case,pc_instance,pc_method,1.,41,pc_policy,pc_banks;threads=pc_threads)
+    Base.invokelatest(ResourceExperiment.run_case,pc_instance,pc_method,1.,41,pc_policy,pc_banks;threads=pc_threads,portfolio=pc_portfolio)
 end
 const WORKLOAD=quote
-    let pc_trial=ResourceExperiment.run_case(pc_instance,pc_method,2.,41,pc_policy,pc_banks;threads=pc_threads)
+    let pc_trial=ResourceExperiment.run_case(pc_instance,pc_method,2.,41,pc_policy,pc_banks;threads=pc_threads,portfolio=pc_portfolio)
         pc_trial["original_validation"] || error("invalid PerfChecker workload")
         if $METHOD in ("mixed_balanced","mixed_ls_heavy")
             pc_trial["metastrategist_executed"] && pc_trial["metastrategist_plan_reused"] || error("MetaStrategist plan was not reused")
