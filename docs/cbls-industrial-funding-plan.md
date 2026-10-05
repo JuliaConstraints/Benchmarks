@@ -821,3 +821,23 @@ long à un seul worker ne suffit donc pas à améliorer nettement CBLS sur ce tr
 Le prochain lot garde trente secondes et passe à deux threads. Les mesures
 suivantes conserveront budget, instances et graines pour séparer l'effet de la
 largeur de thread de celui du temps de recherche avant le palier 60 secondes.
+
+## Budget de 30 secondes à 2 threads
+
+Le lot à deux threads a également terminé les **90/90 essais** et passé toutes
+les sorties au validateur original. Son [rapport et ses figures en anglais,
+exactes et XKCDMakie](../LiLim/results/sintef-campaign-30s-2t-trio-bdc0c48-20261005/report.md)
+indiquent deux CPU actifs pour CBLS seul, environ 1,98–1,99 pour les hybrides,
+1,19 pour HiGHS natif et 1,80 pour son portfolio.
+
+Les résultats BKS sont 3/9 pour CBLS seul, 4/9 pour chacun des deux hybrides,
+4/9 pour HiGHS natif et 5/9 pour le portfolio HiGHS. Entre les lots 10 et 30
+secondes à deux threads, CBLS et le portfolio gardent les mêmes taux et les
+mêmes écarts moyens ; le bridge passe de 3/9 à 4/9. Sur LR101, le portfolio
+atteint le BKS aux graines 42 et 43, HiGHS natif à la graine 43 et chaque
+hybride à la graine 41. Aucun profil n'atteint LRC101. L'augmentation du budget
+seul ne montre donc pas encore de gain stable pour CBLS.
+
+La prochaine largeur à trente secondes est 4 threads, qui ajoute les profils
+MetaStrategist ; poursuivre ensuite à 8 et 16 threads avant de passer au palier
+60 secondes.
