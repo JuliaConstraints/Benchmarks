@@ -913,5 +913,34 @@ l'échauffement du solveur : `--methods=hybrid_bridged_icn` conservait un
 `SubString{String}` dans les paramètres de stratégie, que MetaStrategist
 refuse pour l'identité portable de la stratégie. Le runner convertit
 maintenant ces sélections explicites en `String` ordinaires. Cet échec n'a
-exécuté aucune mesure de solveur et n'invalide pas le garde de budget HiGHS ;
-le test ciblé sera relancé après publication du correctif.
+exécuté aucune mesure de solveur et n'invalide pas le garde de budget HiGHS.
+Après publication du correctif, l'essai ciblé à 16 threads a qualifié 1/1
+exécution `hybrid_bridged_icn` sur lc101 ; le lot complet ci-dessous a ensuite
+terminé sans nouvel échec.
+
+## Palier comparatif 30 secondes, 16 threads
+
+Le [rapport détaillé, les données agrégées et les huit figures anglaises
+(versions exactes et XKCDMakie)](../LiLim/results/sintef-campaign-30s-16t-trio-bdc0c48-20261005-budgetguard/report.md)
+publient le lot complet. Les 108/108 essais sont terminés ; toutes les
+incumbents et trajectoires ont été revalidées contre le validateur Li-Lim
+original. La campagne conserve ses manifestes et son empreinte de sources.
+
+L'hybride ICN spécialisé, le portfolio HiGHS et MetaStrategist équilibré
+atteignent chacun le BKS sur 6/9 essais ; MetaStrategist intensif réussit 5/9,
+l'hybride bridgé et HiGHS natif 4/9. Les profils CBLS seuls, ICN fusionné et
+mix de stratégies font 3/9. LC101 atteint le BKS dès le départ commun par
+insertion pour toutes les méthodes ; cette instance sert de contrôle, pas de
+différenciateur. Sur LR101, l'hybride spécialisé, le portfolio HiGHS et
+MetaStrategist équilibré réussissent sur les trois graines ; le CBLS seul ne
+rejoint pas la distance publiée. Sur LRC101, aucun profil ne rejoint le BKS
+de 14 véhicules ; l'hybride spécialisé trouve 15 véhicules, l'hybride bridgé
+16 et HiGHS natif comme son portfolio 19.
+
+Les CBLS homogènes utilisent en moyenne 15,86–15,95 CPU sur les 16 alloués ;
+les hybrides 14,57–15,30, HiGHS natif 2,24 et son portfolio 12,91. Les
+portfolios MetaStrategist équilibré et intensif consomment 13,57 et 15,06 CPU.
+L'hybride spécialisé passe de 5/9 BKS à 8 threads à 6/9 à 16, tandis que le
+portfolio HiGHS et MetaStrategist équilibré restent à 6/9. Ces résultats
+concernent le trio classique de SINTEF à 100 requêtes ; ils ne représentent ni
+le corpus complet de 354 instances ni une comparaison commerciale Hexaly.
