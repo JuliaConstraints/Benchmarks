@@ -888,3 +888,20 @@ et MetaStrategist équilibré gagnent chacun une réussite BKS (5/9 à 6/9) ; le
 score moyen de flotte de MetaStrategist équilibré s'améliore de 1,000 à 0,444
 véhicule au-dessus de la référence. Le palier à 16 threads garde les mêmes
 30 secondes et le même corpus avant d'allonger les budgets.
+
+## Garde de budget pour les réparations HiGHS
+
+Le premier essai du palier à 16 threads s'est arrêté après 4/108 sorties. La
+trace remonte à la seconde phase d'objectif de `Pilot.solve!` : HiGHS a refusé
+la mise à jour de sa limite de temps après l'optimisation du nombre de
+véhicules. Sous forte concurrence, le budget peut expirer pendant la
+construction de la seconde phase entre le contrôle du temps restant et sa
+transmission au solveur. Les quatre résultats partiels restent conservés
+localement, mais ne constituent pas une campagne qualifiée et ne sont pas
+publiés comme comparaison complète.
+
+Le solveur recalcule désormais le temps restant après la préparation de la
+phase distance et ne la lance que s'il reste plus de 50 ms ; sinon, il conserve
+la solution de flotte déjà validée. Le test de frontière passe 3/3 cas et la
+qualification PDPTW exhaustive passe 592/592 assertions. Le lot 16 threads
+complet sera relancé avec cette version et une nouvelle empreinte source.

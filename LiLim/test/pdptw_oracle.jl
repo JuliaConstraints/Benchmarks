@@ -3,6 +3,13 @@ using ConstraintModels.Benchmarks
 import MathOptInterface as MOI
 isdefined(@__MODULE__, :Pilot) || include(joinpath(@__DIR__, "..", "src", "Pilot.jl"))
 
+@testset "Pilot second-phase budget guard" begin
+    started=UInt64(1_000_000_000)
+    @test Pilot.remaining_budget(1.0,started,started+UInt64(949_000_000)) ≈ 0.051
+    @test Pilot.remaining_budget(1.0,started,started+UInt64(951_000_000)) === nothing
+    @test Pilot.remaining_budget(1.0,started,started+UInt64(1_000_000_000)) === nothing
+end
+
 function permutations(values)
     isempty(values) && return [Int[]]
     [[x; tail] for x in values for tail in permutations(filter(!=(x), values))]

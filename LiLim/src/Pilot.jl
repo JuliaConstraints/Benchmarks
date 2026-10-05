@@ -202,16 +202,27 @@ function solve!(f; seconds=30.0)
     phases=Dict{String,Any}[Dict("objective"=>"vehicles","status"=>string(termination_status(f.m)),
         "bound"=>isfinite(objective_bound(f.m)) ? objective_bound(f.m) : "unavailable")]
     solution=has_values(f.m) ? decode(f) : nothing
-    if termination_status(f.m)==MOI.OPTIMAL && (seconds-(time_ns()-started)/1e9)>0.05
-        optimum=round(Int,value(f.fleet))
-        @constraint(f.m,f.fleet==optimum)
-        @objective(f.m,Min,f.distance)
-        set_time_limit_sec(f.m,seconds-(time_ns()-started)/1e9)
-        optimize!(f.m)
-        push!(phases,Dict("objective"=>"distance","status"=>string(termination_status(f.m)),
-            "bound"=>isfinite(objective_bound(f.m)) ? objective_bound(f.m) : "unavailable"))
-        has_values(f.m) && (solution=decode(f))
+    if termination_status(f.m)==MOI.OPTIMAL
+        remaining=remaining_budget(seconds,started)
+        if remaining!==nothing
+            optimum=round(Int,value(f.fleet))
+            @constraint(f.m,f.fleet==optimum)
+            @objective(f.m,Min,f.distance)
+            remaining=remaining_budget(seconds,started)
+            if remaining!==nothing
+                set_time_limit_sec(f.m,remaining)
+                optimize!(f.m)
+                push!(phases,Dict("objective"=>"distance","status"=>string(termination_status(f.m)),
+                    "bound"=>isfinite(objective_bound(f.m)) ? objective_bound(f.m) : "unavailable"))
+                has_values(f.m) && (solution=decode(f))
+            end
+        end
     end
     return solution,phases,(time_ns()-started)/1e9
+end
+
+function remaining_budget(seconds::Real, started_ns::UInt64, now_ns::UInt64=time_ns())
+    remaining=Float64(seconds)-Float64(now_ns-started_ns)/1e9
+    remaining>0.05 ? remaining : nothing
 end
 end
