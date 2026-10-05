@@ -98,7 +98,7 @@ end
 function select_methods(threads, selector)
     allowed = unique(vcat(available_methods(threads), CAMPAIGN_CONFIG["external_methods"]))
     selector == "all" && return available_methods(threads)
-    wanted = strip.(split(selector, ','))
+    wanted = String.(strip.(split(selector, ',')))
     isempty(wanted) && error("empty method selection")
     unknown = setdiff(Set(wanted), Set(allowed))
     isempty(unknown) || error("methods unavailable at $(threads) threads: " * join(sort!(collect(unknown)), ", "))

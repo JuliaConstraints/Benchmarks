@@ -905,3 +905,13 @@ phase distance et ne la lance que s'il reste plus de 50 ms ; sinon, il conserve
 la solution de flotte déjà validée. Le test de frontière passe 3/3 cas et la
 qualification PDPTW exhaustive passe 592/592 assertions. Le lot 16 threads
 complet sera relancé avec cette version et une nouvelle empreinte source.
+
+### Sélection explicite des profils du runner
+
+Le premier essai de reproduction ciblé à 16 threads s'est arrêté avant
+l'échauffement du solveur : `--methods=hybrid_bridged_icn` conservait un
+`SubString{String}` dans les paramètres de stratégie, que MetaStrategist
+refuse pour l'identité portable de la stratégie. Le runner convertit
+maintenant ces sélections explicites en `String` ordinaires. Cet échec n'a
+exécuté aucune mesure de solveur et n'invalide pas le garde de budget HiGHS ;
+le test ciblé sera relancé après publication du correctif.
