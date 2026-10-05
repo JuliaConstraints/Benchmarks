@@ -111,6 +111,24 @@ score, validateur et lancement sont qualifiés.
 | XCSP3 Core réel | `COPInstances` référence onze problèmes officiels de compétition et un exemple de spécification ; seul ce dernier est déjà stocké localement | Pilote de faisabilité CBLS/ICN et de MetaStrategist sur un sous-ensemble résolu par plusieurs moteurs disponibles |
 | Instances de réglage classiques | Les scripts de tuning existants utilisent permutation, Golomb ruler et N-Queens | Recherche des bons profils et stratégies ; les garder séparées des confirmations de routage et des autres familles |
 
+### Qualification des sources classiques au 5 octobre 2026
+
+L'inspection en lecture seule de `COPInstances` (`dfc7344c8948550d0895968f6ad29a98449d643e`)
+confirme onze références XCSP3 Core vers des problèmes officiels et une entrée
+distincte d'exemple de spécification, avec empreintes des archives et des membres.
+Seul l'exemple `stretch-roster.xml` est présent dans le checkout local : les onze
+archives de compétition ne sont pas encore matérialisées en fichiers d'instances.
+La même version référence dix instances ITC 2019 Early avec leurs métadonnées,
+mais leur accès est explicitement marqué `manual` et aucun XML n'est présent dans
+le checkout. Ces catalogues identifient des candidats, pas un corpus prêt à lancer.
+
+La prochaine étape pour ces familles est de récupérer les données depuis leurs
+sources officielles, confirmer les conditions d'accès et les empreintes, puis
+qualifier le parseur, la représentation, la fonction d'erreur réellement appelée
+et un validateur indépendant. Aucune mesure de performance ne doit être publiée
+avant cette qualification. Cela garde séparés le mini-corpus XCSP3 vérifiable,
+les grands jeux de compétition et les instances de tuning.
+
 Les références, licences, archives, versions et empreintes seront revérifiées
 avant téléchargement ou inclusion. Pour chaque famille, conserver l'objectif et
 les contraintes officiels, distinguer faisabilité et qualité, puis réserver des
