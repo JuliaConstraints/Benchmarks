@@ -155,12 +155,10 @@ function cpu_plot()
     ax.xticklabelrotation = π / 5
     barplot!(ax, xs, values; color=[row["method"] == "hexaly_native" ? :black : COLORS[mod1(i,length(COLORS))]
         for (i,row) in enumerate(methods)])
-    hlines!(ax, [SUMMARY["threads"]]; color=:black, linestyle=:dot, linewidth=2.0,
-        label="Allocated worker count: $(SUMMARY["threads"])" )
-    axislegend(ax; position=:rt, framevisible=false)
+    hlines!(ax, [SUMMARY["threads"]]; color=:black, linestyle=:dot, linewidth=2.0)
     finite_values = filter(isfinite, values)
     ylims!(ax, 0, max(SUMMARY["threads"] + 1, maximum(finite_values; init=0.0) + 1))
-    Label(fig[2, 1], "CPU time includes initialization, model setup, search and validation inside each trial's shared budget.", fontsize=14)
+    Label(fig[2, 1], "Dotted line marks the allocated worker count ($(SUMMARY["threads"])). CPU time includes initialization, model setup, search and validation inside each trial's shared budget.", fontsize=14)
     savefig(fig, "lilim-cpu-use")
 end
 

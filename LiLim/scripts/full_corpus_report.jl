@@ -196,7 +196,7 @@ function write_report(path, summary)
             " extracted instance checksums were verified. Every stored incumbent and every trajectory point in the report was revalidated against the original Li-Lim instance. The fleet objective has priority; raw double-precision Euclidean distance is compared only after fleet count.\n")
         println(io, "SINTEF publishes its distance targets to ", summary["bks_distance_digits"],
             " decimal places. BKS attainment rounds the candidate to that displayed precision; raw double-precision distances remain in the results and determine solver rankings.\n")
-        println(io, "## English figures\n\nEach plot has a precise version and an XKCDMakie version. The dotted zero line marks the published SINTEF reference where applicable.\n")
+        println(io, "## English figures\n\nEach plot has a precise version and an XKCDMakie version. The dotted zero line marks the published SINTEF reference where applicable; the dotted line in the CPU plot marks the allocated worker count.\n")
         figures = (
             ("lilim-bks-attainment", "Time to the SINTEF best-known target"),
             ("lilim-best-mean-median-vs-bks", "Best, mean and median search quality"),

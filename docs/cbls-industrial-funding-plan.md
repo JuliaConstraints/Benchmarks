@@ -768,3 +768,38 @@ mesure donc l'allocation hybride de 16 workers, pas l'effet pur de SMT. Une
 expérience P-only distincte pourra isoler SMT plus tard si ce point est
 important. Puis les budgets augmenteront par puissances de deux sur les profils
 retenus avant d'élargir le corpus officiel au-delà du trio pilote.
+
+## Comparaison à 16 threads — 5 octobre 2026
+
+Le lot à seize workers a également terminé les **108/108 essais** et revérifié
+chaque solution et chaque point de trajectoire avec le validateur Li-Lim
+original. Le [rapport, les données reproductibles et les figures exactes et
+XKCDMakie en anglais](../LiLim/results/sintef-campaign-10s-16t-trio-bdc0c48-20261005/report.md)
+consignent l'affinité réellement employée : huit cœurs P, quatre cœurs E et
+quatre fils SMT des cœurs P.
+
+Les taux BKS sont 3/9 pour CBLS seul, 4/9 pour chacun des deux hybrides, 4/9
+pour HiGHS natif, et 6/9 pour HiGHS portfolio et MetaStrategist équilibré.
+MetaStrategist recherche-intensive reste à 4/9. Face au palier 8 threads, ces
+taux restent stables. Les écarts moyens de flotte s'améliorent cependant pour
+CBLS naïf/ICN/direct (1,111 à 0,889), hybride spécialisé (0,778 à 0,556) et
+bridgé (1,000 à 0,667) ; ils sont stables pour les deux meilleurs portfolios.
+Personne n'atteint le BKS LRC101 en dix secondes. Ces écarts proviennent d'une
+campagne courte et ne suffisent pas à déclarer un avantage reproductible.
+
+Les variantes CBLS atteignent 14,72–15,98 CPU actifs en moyenne ; les hybrides
+15,35 (spécialisé) et 14,37 (bridgé). MetaStrategist atteint 14,07 pour
+l'allocation équilibrée et 15,10 pour l'allocation recherche-intensive. Ainsi,
+le mélange matériel à 16 workers reste très occupé. CBLS mobilise environ deux
+fois plus de CPU actifs qu'à huit threads, sans améliorer son taux BKS sur ce
+trio. Ces compteurs ne mesurent pas le nombre de mouvements évalués par seconde ;
+un test de débit dédié devra établir si le débit utile double aussi. Le
+portefeuille HiGHS utilise 14,22 CPU actifs, alors que HiGHS natif demeure à
+1,07.
+
+Les quatre largeurs demandées sont maintenant couvertes à 1/2/4/8/16, à budget
+constant de dix secondes. Avant d'augmenter les durées, comparer le débit par
+cœur et les résultats moyens aux meilleurs ; garder en tête que le palier 16
+ajoute des cœurs E et n'est pas un pur test SMT. La prochaine série conserve le
+même petit corpus pour 30, 60 et 120 secondes, puis 300 et 600 secondes, avec
+les profils retenus uniquement si leur classement reste cohérent.
