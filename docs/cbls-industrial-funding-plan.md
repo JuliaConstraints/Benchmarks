@@ -944,3 +944,33 @@ L'hybride spécialisé passe de 5/9 BKS à 8 threads à 6/9 à 16, tandis que le
 portfolio HiGHS et MetaStrategist équilibré restent à 6/9. Ces résultats
 concernent le trio classique de SINTEF à 100 requêtes ; ils ne représentent ni
 le corpus complet de 354 instances ni une comparaison commerciale Hexaly.
+
+## Palier comparatif 60 secondes, 16 threads
+
+Le [rapport validé et les huit figures anglaises (versions exactes et
+XKCDMakie)](../LiLim/results/sintef-campaign-60s-16t-trio-bdc0c48-20261005/report.md)
+contiennent 108/108 essais qualifiés. Les incumbents et tous les points des
+trajectoires ont été revérifiés dans les trois instances SINTEF. Les profils
+spécialisé ICN, HiGHS portfolio et MetaStrategist équilibré obtiennent chacun
+6/9 BKS ; l'hybride bridgé et MetaStrategist recherche-intensive font 5/9,
+HiGHS natif 4/9. Chaque variante CBLS seule atteint 3/9, uniquement grâce à
+lc101, où le départ commun satisfait déjà le BKS en environ 4 ms.
+
+lr101 distingue les profils : l'hybride spécialisé, le portfolio HiGHS et
+MetaStrategist équilibré font 3/3 ; l'hybride bridgé et MetaStrategist
+recherche-intensive 2/3 ; CBLS seul ne retrouve pas la distance publiée.
+Sur l'instance plus difficile lrc101, aucun profil n'atteint le BKS de 14
+véhicules. Le meilleur hybride spécialisé trouve 15 véhicules sur les trois
+graines ; l'hybride bridgé en trouve 15 au mieux et 15,67 en moyenne. CBLS
+seul est à 16 au mieux, HiGHS natif et son portfolio à 19. Ce résultat
+confirme un avantage utile de l'hybridation sur ce cas, sans encore démontrer
+une supériorité générale.
+
+Les variantes CBLS simples consomment en moyenne 15,90–15,92 CPU sur les 16
+alloués. Les hybrides spécialisé et bridgé en utilisent 15,34 et 14,68,
+HiGHS natif 3,37, le portfolio HiGHS 12,68, et MetaStrategist équilibré et
+recherche-intensive 13,53 et 15,07. Le niveau CPU seul ne suffit donc pas à
+garantir l'amélioration de la qualité. Ce palier reste un trio ciblé de trois
+instances à 100 requêtes, trois graines et 60 secondes ; il ne représente pas
+le corpus complet et n'inclut pas Hexaly. Étape suivante : élargir le panel
+classique avant de tirer des conclusions de performance.
