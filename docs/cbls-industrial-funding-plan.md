@@ -974,3 +974,36 @@ garantir l'amélioration de la qualité. Ce palier reste un trio ciblé de trois
 instances à 100 requêtes, trois graines et 60 secondes ; il ne représente pas
 le corpus complet et n'inclut pas Hexaly. Étape suivante : élargir le panel
 classique avant de tirer des conclusions de performance.
+
+## Comparaison 8 contre 16 threads à 60 secondes
+
+Le [rapport complet à 8 threads et ses figures anglaises exactes et
+XKCDMakie](../LiLim/results/sintef-campaign-60s-8t-trio-bdc0c48-20261005/report.md)
+contient 108/108 essais validés. Sur le même trio, les taux BKS globaux sont
+proches de ceux du palier 16 threads : hybride spécialisé 5/9 contre 6/9,
+bridge XCSP3 4/9 contre 5/9, HiGHS natif 4/9 aux deux largeurs, portfolio
+HiGHS 6/9, MetaStrategist équilibré 6/9 et intensif 5/9 aux deux largeurs.
+Ces taux incluent les neuf succès triviaux de lc101 ; sur lr101, le profil
+spécialisé passe de 2/3 à 8 threads à 3/3 à 16, le bridge de 1/3 à 2/3,
+HiGHS natif reste à 1/3, le portfolio HiGHS et MetaStrategist équilibré
+restent à 3/3, et MetaStrategist intensif à 2/3.
+
+Sur lrc101, le meilleur hybride spécialisé atteint 15 véhicules aux deux
+largeurs ; sa moyenne est de 15,33 à 8 threads et de 15 à 16 threads. Le
+bridge fait 15 véhicules au mieux aux deux largeurs et sa moyenne est de
+15,67. MetaStrategist équilibré fait mieux à 8 threads sur ces trois graines
+(15,33 véhicules moyens, meilleur 15) qu'à 16 (16 aux trois graines), tandis
+que son profil intensif obtient 16,33 à 8 threads et 16 à 16 threads. Aucun
+profil ne rejoint le BKS de 14 véhicules. Les trois graines ne justifient pas
+encore de déclarer une largeur gagnante : 8 threads est meilleur dans
+certaines cellules, 16 dans d'autres.
+
+Les CBLS seuls consomment environ 7,98 CPU à 8 threads et 15,90–15,92 à 16 ;
+l'hybride spécialisé utilise 7,78 puis 15,34, le bridge 7,56 puis 14,68,
+HiGHS natif 2,32 puis 3,37, et HiGHS portfolio 6,74 puis 12,68. Sur cette
+machine, `lscpu` rapporte 20 processeurs logiques et 12 cœurs physiques : le
+lot 8 threads était épinglé sur huit cœurs distincts, tandis que la largeur
+16 utilise les 12 cœurs plus quatre frères SMT. Cette comparaison mesure donc
+la largeur et l'accès SMT combinés ; ce n'est pas un test isolant exactement
+8 cœurs physiques contre 16 cœurs physiques. Avant de conclure, élargir le
+panel à plusieurs familles et augmenter le nombre de graines.

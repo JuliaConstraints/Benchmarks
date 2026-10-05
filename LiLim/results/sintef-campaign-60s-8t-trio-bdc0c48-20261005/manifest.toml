@@ -1,0 +1,172 @@
+complete = true
+completed_trials = 108
+finished_utc = "2026-10-05T10:18:53.104"
+run_fingerprint = "ab6f54132f57074e2d4e9aeb5c7fae9a7870bde67f0e47d8e014dd88ac393c38"
+started_utc = "2026-10-05T08:36:28.570"
+
+[identity]
+affinity = [0, 2, 4, 6, 8, 10, 12, 14]
+benchmarks_commit = "ab1f671760c46a369f38ffeae52ff2d48658a269"
+bks_distance_digits = 2
+budget_seconds = 60.0
+gc_threads = 1
+instances = ["lc101", "lr101", "lrc101"]
+julia = "1.13.1"
+methods = ["cbls_naive", "cbls_icn", "cbls_direct", "hybrid_specialized_icn", "hybrid_bridged_icn", "highs_native", "highs_portfolio", "cbls_icn_fused_scalar", "cbls_icn_fused_all", "cbls_mix_strategy", "mixed_balanced", "mixed_ls_heavy"]
+objective = "Original feasibility; minimize fleet, then total double-precision Euclidean distance; no rounding in the measured objective"
+runner_sha256 = "d349967776146d40447e4a2f1f1e70909104e62fdb7ee2b16fc0fb9b59f05c2f"
+schema = "li-lim-sintef-full-corpus/1"
+seeds = [41, 42, 43]
+threads = 8
+trajectory_policy = "Retain each original-validator-approved incumbent with its elapsed wall time; time-to-BKS is censored at the campaign budget"
+
+    [identity.cohort]
+    CBLS = "3bd4e2638c39b565aa81af41f585678f8952f60a"
+    CompositionalNetworks = "ac70b743ea64c32f57100a59ceeb68b4c54181f2"
+    ConstraintCommons = "b71a313f2b600e8879877e8e04e292eb94851bd7"
+    ConstraintDomains = "399a90fdbb25d2cefc9cea2d6c4f6565be5a7c11"
+    ConstraintModels = "4ddd8f65417ac8a8d6bb12add6faf0c0c84801c3"
+    ConstraintProgrammingExtensions = "684e2e4a1459d5ae459666350c545bfc775272c2"
+    Constraints = "fc3ca4ba26d9d15ffd6065eca0bb8a968af2ff43"
+    LocalSearchSolvers = "8d0b3291420f49950cfda4e890899f384b8b7239"
+    MetaStrategist = "7a5bbed52f6c4993dd72bf7f9ad1c6bd57acf583"
+    PatternFolds = "bbf38fbf8b680deb4b599b06afd747fc069d25ee"
+    QUBOConstraints = "f893f83cd7518ca3aedf0ad5d2679b2c13829446"
+    XCSP3Bridges = "fe5bceaddc5081fedd200571b480e44ca9de1947"
+
+    [identity.environment]
+    manifest_sha256 = "77e4d46bc9c20aa3e9a3bbaf27c1f95663e6a1ce290dbac28cbad00cf6d2df27"
+    project_sha256 = "2a48b5e578f38033a568c0d03697d31b86b1bed65b39086515c6648276cf457b"
+
+    [identity.hexaly]
+
+    [identity.instance_sha256]
+    lc101 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    lr101 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    lrc101 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+
+    [identity.official_archive_sha256]
+    "pdp_100.zip" = "d106694e9e18cebc32b63c322e1000620238392c1b9d98d92de82ef7e4b43cd9"
+    "pdp_200.zip" = "0d83737d8ede85b83ac4ec2d162479794d091e915cc921c0912ee9739e5de4d9"
+    "pdp_400.zip" = "32942a790aebaff0a05e056bd78a3837e926891360229c065b3afeccd1636347"
+    "pdp_600.zip" = "315dcfbf582fdade4bb978758c1a1ccbfb93bdf9b092efb3cc017194f113bd8f"
+    "pdptw1000.zip" = "9975f6bd429785e220839fc01cb9138c49c98148970d8a76de34dab6ed3028fc"
+    "pdptw800.zip" = "a137c29515ec0d5567382129b15d28710298f4551abd2c39a441198093397ea4"
+
+    [identity.policy]
+    fragment_seconds = 0.5
+    insertion_seed = 41
+    insertion_starts = 5
+    max_visits = 20
+    repair_every = 20
+    repair_fraction = 0.35
+
+    [identity.source_sha256]
+    "LiLim/competitors/Adapters.jl" = "8547671d91c56abddfe7a6394067b9d7ee43304e71a98ab7104fd7cf91ff7cfc"
+    "LiLim/config/competitors.toml" = "99636406202c02bba2e2889e85b8f6885c09c8234eaf98c2886d4c92d7e7b194"
+    "LiLim/config/current-pilot.toml" = "64152e620eb0baadd13b826cb50a10c6cb82b39afeaf6483d7420293647d10b3"
+    "LiLim/config/full-corpus-campaign.toml" = "31a0ecb1f4d4759b94b8aa5887c55e50d32ab4d9fe3615c656088b29d594e6c4"
+    "LiLim/config/icn-threads.toml" = "e2293e74ddb84eaf6ee8d6d425838c6e3ee1f61fbea699265a7d71dec54d0bf2"
+    "LiLim/config/sintef-pdptw-bks-20261004.toml" = "ddd983d04065732a2bd680c2f1967922b29fdbe620c8ddaa6a214b0e7f77a7b9"
+    "LiLim/config/workspace-cohort.toml" = "3d006924cd6e264b3bb7c3e2ef35ec7e4ea611705e6bf2629576aac099b07748"
+    "LiLim/native/hexaly/pdptw.hxm" = "1edbb9f2fe3d00f2d97b84ca0cc0b6bae26f66df50664ed550d233812ad921a3"
+    "LiLim/scripts/full_corpus_campaign.jl" = "d349967776146d40447e4a2f1f1e70909104e62fdb7ee2b16fc0fb9b59f05c2f"
+    "LiLim/scripts/full_corpus_plots.jl" = "b557c3860f4f1a9981015693e5a185729594f20732fd733c96852a015e2701a1"
+    "LiLim/scripts/full_corpus_report.jl" = "65ae32970f0d7774750672ae3e12be0f923145ed8a11975717de77a0ff7d4890"
+    "LiLim/src/BenchmarkTargets.jl" = "f0e8402db539b95fdf6072a7537f351002d73ebf6df55d401aaf1ea8ec262c60"
+    "LiLim/src/Experiment.jl" = "e1f969e3dcf0ed5e327d29bcedd54c27f89834580bf0310320fb141d16dea4ae"
+    "LiLim/src/Hybrid.jl" = "2f9753e31790429d2afc52705815d4bd661ed4577cbf176bdfa9e15dba1b70e8"
+    "LiLim/src/ICNScoring.jl" = "2f387c20345bf38b571304d764031a52db73db0f12601f1e8143ccca3fa7958a"
+    "LiLim/src/MetaRepair.jl" = "a29fd9ffce1344efdcac16e6bdd8b80bf2be3ab025cab3332b138ba58c16e72d"
+    "LiLim/src/Pilot.jl" = "5a08683820a39270c168b4436c6a8aa5e1b759b9e949074c776218e2212bd9da"
+    "LiLim/src/ResourceExperiment.jl" = "df1152581ba33a1f24d2f9012e375fa43d74b0e7a35683e0e501dce41e504907"
+    "LiLim/test/icn_resources.jl" = "ef79b22ab5b3b83696090c5e736c133207804c5412fc7aed69d6d2b6cb8ef44e"
+
+    [identity.targets.lc101]
+    distance = 828.94
+    vehicles = 10
+
+    [identity.targets.lr101]
+    distance = 1650.8
+    vehicles = 19
+
+    [identity.targets.lrc101]
+    distance = 1708.8
+    vehicles = 14
+
+[[warmup_segments]]
+started_utc = "2026-10-05T08:37:02.541"
+threads = 8
+
+    [[warmup_segments.runs]]
+    budget_seconds = 2.0
+    instance = "lc101"
+    method = "cbls_naive"
+    seconds = 4.369038311
+    valid = true
+    [[warmup_segments.runs]]
+    budget_seconds = 2.0
+    instance = "lc101"
+    method = "cbls_icn"
+    seconds = 2.195069175
+    valid = true
+    [[warmup_segments.runs]]
+    budget_seconds = 2.0
+    instance = "lc101"
+    method = "cbls_direct"
+    seconds = 2.151709999
+    valid = true
+    [[warmup_segments.runs]]
+    budget_seconds = 2.0
+    instance = "lc101"
+    method = "hybrid_specialized_icn"
+    seconds = 2.17101456
+    valid = true
+    [[warmup_segments.runs]]
+    budget_seconds = 2.0
+    instance = "lc101"
+    method = "hybrid_bridged_icn"
+    seconds = 2.156664265
+    valid = true
+    [[warmup_segments.runs]]
+    budget_seconds = 2.0
+    instance = "lc101"
+    method = "highs_native"
+    seconds = 2.849162013
+    valid = true
+    [[warmup_segments.runs]]
+    budget_seconds = 2.0
+    instance = "lc101"
+    method = "highs_portfolio"
+    seconds = 1.680754825
+    valid = true
+    [[warmup_segments.runs]]
+    budget_seconds = 2.0
+    instance = "lc101"
+    method = "cbls_icn_fused_scalar"
+    seconds = 2.319082624
+    valid = true
+    [[warmup_segments.runs]]
+    budget_seconds = 2.0
+    instance = "lc101"
+    method = "cbls_icn_fused_all"
+    seconds = 2.188239644
+    valid = true
+    [[warmup_segments.runs]]
+    budget_seconds = 2.0
+    instance = "lc101"
+    method = "cbls_mix_strategy"
+    seconds = 2.165281426
+    valid = true
+    [[warmup_segments.runs]]
+    budget_seconds = 2.0
+    instance = "lc101"
+    method = "mixed_balanced"
+    seconds = 2.165791852
+    valid = true
+    [[warmup_segments.runs]]
+    budget_seconds = 2.0
+    instance = "lc101"
+    method = "mixed_ls_heavy"
+    seconds = 2.187552381
+    valid = true
