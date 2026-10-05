@@ -761,10 +761,10 @@ natif ne tire toujours pas parti de tous les threads pour ces instances.
 
 La machine est un Intel Core i7-12700 : 12 cœurs physiques, dont huit cœurs P
 avec deux processeurs logiques chacun et quatre cœurs E à un processeur logique
-chacun. Le lot 8 threads utilise un processeur logique par cœur P. Le prochain
-palier à 16 threads utilisera les deux processeurs logiques de chacun des huit
-cœurs P pour isoler l'effet SMT ; les cœurs E resteront hors de cette mesure.
-Un palier complémentaire à 12 workers pourra ensuite mesurer l'allocation d'un
-worker par cœur physique (8 P + 4 E). Puis les budgets augmenteront par
-puissances de deux sur les profils retenus avant d'élargir le corpus officiel
-au-delà du trio pilote.
+chacun. Le lot 8 threads utilise un processeur logique par cœur P. Selon l'ordre
+d'affinité figé, le lot à 16 threads combinera huit cœurs P, quatre cœurs E et
+quatre processeurs logiques SMT supplémentaires sur les cœurs P. Cette largeur
+mesure donc l'allocation hybride de 16 workers, pas l'effet pur de SMT. Une
+expérience P-only distincte pourra isoler SMT plus tard si ce point est
+important. Puis les budgets augmenteront par puissances de deux sur les profils
+retenus avant d'élargir le corpus officiel au-delà du trio pilote.
