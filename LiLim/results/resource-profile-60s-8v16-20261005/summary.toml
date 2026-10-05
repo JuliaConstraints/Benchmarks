@@ -1,0 +1,492 @@
+schema = "li-lim-resource-profile-summary/1"
+
+[campaigns]
+16 = "3cc67919fb14f15b044bda4fe48e5dea6d1ac5033fb90262c67606be4fde2ca3"
+8 = "ab6f54132f57074e2d4e9aeb5c7fae9a7870bde67f0e47d8e014dd88ac393c38"
+
+[[methods]]
+mean_active_cpus = 7.9833484642068875
+mean_gc_seconds = 0.12316609411111108
+mean_gc_wall_percent = 0.2052755569752376
+median_gc_seconds = 0.1235759
+median_gc_wall_percent = 0.20595800858313626
+method = "cbls_icn"
+runs = 9
+threads = 8
+[[methods]]
+mean_active_cpus = 15.909594834574968
+mean_gc_seconds = 0.1759200281111111
+mean_gc_wall_percent = 0.29319719996342253
+median_gc_seconds = 0.169532423
+median_gc_wall_percent = 0.28255155822290345
+method = "cbls_icn"
+runs = 9
+threads = 16
+[[methods]]
+mean_active_cpus = 7.7780056267172295
+mean_gc_seconds = 1.7884913811111107
+mean_gc_wall_percent = 2.980793231858876
+median_gc_seconds = 2.020065092
+median_gc_wall_percent = 3.3667439109037507
+method = "hybrid_specialized_icn"
+runs = 9
+threads = 8
+[[methods]]
+mean_active_cpus = 15.341687121917365
+mean_gc_seconds = 2.3867250958888886
+mean_gc_wall_percent = 3.9778337541630595
+median_gc_seconds = 2.627318675
+median_gc_wall_percent = 4.378815630671098
+method = "hybrid_specialized_icn"
+runs = 9
+threads = 16
+[[methods]]
+mean_active_cpus = 7.5576800161987245
+mean_gc_seconds = 4.1857339437777785
+mean_gc_wall_percent = 6.976171902045289
+median_gc_seconds = 3.720517435
+median_gc_wall_percent = 6.200814018289734
+method = "hybrid_bridged_icn"
+runs = 9
+threads = 8
+[[methods]]
+mean_active_cpus = 14.676681243246072
+mean_gc_seconds = 5.596476586222222
+mean_gc_wall_percent = 9.32736402304902
+median_gc_seconds = 4.930449733
+median_gc_wall_percent = 8.217326150459087
+method = "hybrid_bridged_icn"
+runs = 9
+threads = 16
+[[methods]]
+mean_active_cpus = 6.897669415254583
+mean_gc_seconds = 1.7209194555555556
+mean_gc_wall_percent = 2.867912874889914
+median_gc_seconds = 1.589867225
+median_gc_wall_percent = 2.6491842630866023
+method = "mixed_balanced"
+runs = 9
+threads = 8
+[[methods]]
+mean_active_cpus = 13.532814701857529
+mean_gc_seconds = 2.599769315888889
+mean_gc_wall_percent = 4.332328549647325
+median_gc_seconds = 2.362852968
+median_gc_wall_percent = 3.93720669506178
+method = "mixed_balanced"
+runs = 9
+threads = 16
+[[methods]]
+mean_active_cpus = 7.451603814951247
+mean_gc_seconds = 1.1442310878888888
+mean_gc_wall_percent = 1.9068826010773594
+median_gc_seconds = 1.018171138
+median_gc_wall_percent = 1.696638655150842
+method = "mixed_ls_heavy"
+runs = 9
+threads = 8
+[[methods]]
+mean_active_cpus = 15.07393606542541
+mean_gc_seconds = 1.960470017111111
+mean_gc_wall_percent = 3.267129807609145
+median_gc_seconds = 1.688968944
+median_gc_wall_percent = 2.8143873236472645
+method = "mixed_ls_heavy"
+runs = 9
+threads = 16
+
+[perfchecker.16.cbls_icn]
+file = "perfchecker-cbls-icn-16t-planned-20261005.toml"
+gc_threads_environment = "1"
+method = "cbls_icn"
+perfchecker_revision = "1cc09a98db569b382f91dc10f6a569c1c728b6aa"
+status = "complete"
+threads = 16
+
+    [perfchecker.16.cbls_icn.collectors.profile]
+    sampled_sites = 390
+    samples = 3104
+
+        [[perfchecker.16.cbls_icn.collectors.profile.top_sites]]
+        samples = 2047
+        site = "~/.julia/dev/LocalSearchSolvers/src/utils.jl:74"
+        [[perfchecker.16.cbls_icn.collectors.profile.top_sites]]
+        samples = 204
+        site = "~/.julia/dev/MetaStrategist/src/specialization.jl:243"
+        [[perfchecker.16.cbls_icn.collectors.profile.top_sites]]
+        samples = 100
+        site = "~/.julia/dev/CompositionalNetworks/src/layers/transformation.jl:13"
+        [[perfchecker.16.cbls_icn.collectors.profile.top_sites]]
+        samples = 86
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:572"
+        [[perfchecker.16.cbls_icn.collectors.profile.top_sites]]
+        samples = 84
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:576"
+        [[perfchecker.16.cbls_icn.collectors.profile.top_sites]]
+        samples = 75
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:533"
+        [[perfchecker.16.cbls_icn.collectors.profile.top_sites]]
+        samples = 65
+        site = "~/.julia/dev/LocalSearchSolvers/src/model.jl:522"
+        [[perfchecker.16.cbls_icn.collectors.profile.top_sites]]
+        samples = 61
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:575"
+
+    [perfchecker.16.cbls_icn.collectors.wall_profile]
+    sampled_sites = 136
+    samples = 318
+
+        [[perfchecker.16.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 221
+        site = "~/.julia/dev/LocalSearchSolvers/src/utils.jl:74"
+        [[perfchecker.16.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 22
+        site = "~/.julia/dev/MetaStrategist/src/specialization.jl:243"
+        [[perfchecker.16.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 9
+        site = "~/.julia/dev/CompositionalNetworks/src/layers/transformation.jl:13"
+        [[perfchecker.16.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 8
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:575"
+        [[perfchecker.16.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 7
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:572"
+        [[perfchecker.16.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 6
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:533"
+        [[perfchecker.16.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 6
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:576"
+        [[perfchecker.16.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 5
+        site = "~/.julia/dev/LocalSearchSolvers/src/model.jl:522"
+
+[perfchecker.16.mixed_balanced]
+file = "perfchecker-meta-balanced-16t-20261005.toml"
+gc_threads_environment = "1"
+method = "mixed_balanced"
+perfchecker_revision = "1cc09a98db569b382f91dc10f6a569c1c728b6aa"
+status = "complete"
+threads = 16
+
+    [perfchecker.16.mixed_balanced.collectors.profile]
+    sampled_sites = 582
+    samples = 3960
+
+        [[perfchecker.16.mixed_balanced.collectors.profile.top_sites]]
+        samples = 798
+        site = "~/.julia/dev/LocalSearchSolvers/src/utils.jl:74"
+        [[perfchecker.16.mixed_balanced.collectors.profile.top_sites]]
+        samples = 571
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/bridge_optimizer.jl:1998"
+        [[perfchecker.16.mixed_balanced.collectors.profile.top_sites]]
+        samples = 503
+        site = "~/.julia/packages/HiGHS/FDUra/src/gen/libhighs.jl:344"
+        [[perfchecker.16.mixed_balanced.collectors.profile.top_sites]]
+        samples = 406
+        site = "~/.julia/dev/MetaStrategist/src/specialization.jl:243"
+        [[perfchecker.16.mixed_balanced.collectors.profile.top_sites]]
+        samples = 256
+        site = "~/.julia/packages/HiGHS/FDUra/src/MOI_wrapper.jl:3498"
+        [[perfchecker.16.mixed_balanced.collectors.profile.top_sites]]
+        samples = 100
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Utilities/DoubleDicts.jl:101"
+        [[perfchecker.16.mixed_balanced.collectors.profile.top_sites]]
+        samples = 86
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/lazy_bridge_optimizer.jl:175"
+        [[perfchecker.16.mixed_balanced.collectors.profile.top_sites]]
+        samples = 77
+        site = "~/.julia/packages/HiGHS/FDUra/src/gen/libhighs.jl:1538"
+
+    [perfchecker.16.mixed_balanced.collectors.wall_profile]
+    sampled_sites = 127
+    samples = 278
+
+        [[perfchecker.16.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 71
+        site = "~/.julia/dev/LocalSearchSolvers/src/utils.jl:74"
+        [[perfchecker.16.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 45
+        site = "~/.julia/packages/HiGHS/FDUra/src/gen/libhighs.jl:344"
+        [[perfchecker.16.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 30
+        site = "~/.julia/dev/MetaStrategist/src/specialization.jl:243"
+        [[perfchecker.16.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 30
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/bridge_optimizer.jl:1998"
+        [[perfchecker.16.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 9
+        site = "~/.julia/dev/XCSP3Bridges/src/serialization.jl:6"
+        [[perfchecker.16.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 6
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:576"
+        [[perfchecker.16.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 5
+        site = "~/.julia/dev/CompositionalNetworks/src/layers/transformation.jl:13"
+        [[perfchecker.16.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 5
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/lazy_bridge_optimizer.jl:161"
+
+[perfchecker.16.mixed_ls_heavy]
+file = "perfchecker-meta-heavy-16t-20261005.toml"
+gc_threads_environment = "1"
+method = "mixed_ls_heavy"
+perfchecker_revision = "1cc09a98db569b382f91dc10f6a569c1c728b6aa"
+status = "complete"
+threads = 16
+
+    [perfchecker.16.mixed_ls_heavy.collectors.profile]
+    sampled_sites = 616
+    samples = 4031
+
+        [[perfchecker.16.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 1334
+        site = "~/.julia/dev/LocalSearchSolvers/src/utils.jl:74"
+        [[perfchecker.16.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 484
+        site = "~/.julia/dev/MetaStrategist/src/specialization.jl:243"
+        [[perfchecker.16.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 448
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/bridge_optimizer.jl:1998"
+        [[perfchecker.16.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 221
+        site = "~/.julia/packages/HiGHS/FDUra/src/gen/libhighs.jl:344"
+        [[perfchecker.16.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 91
+        site = "~/.julia/packages/JuMP/fQTIY/src/optimizer_interface.jl:1267"
+        [[perfchecker.16.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 86
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/lazy_bridge_optimizer.jl:161"
+        [[perfchecker.16.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 81
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/lazy_bridge_optimizer.jl:175"
+        [[perfchecker.16.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 80
+        site = "~/.julia/packages/HiGHS/FDUra/src/MOI_wrapper.jl:3498"
+
+    [perfchecker.16.mixed_ls_heavy.collectors.wall_profile]
+    sampled_sites = 146
+    samples = 335
+
+        [[perfchecker.16.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 144
+        site = "~/.julia/dev/LocalSearchSolvers/src/utils.jl:74"
+        [[perfchecker.16.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 27
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/bridge_optimizer.jl:1998"
+        [[perfchecker.16.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 25
+        site = "~/.julia/packages/HiGHS/FDUra/src/gen/libhighs.jl:344"
+        [[perfchecker.16.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 25
+        site = "~/.julia/dev/MetaStrategist/src/specialization.jl:243"
+        [[perfchecker.16.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 9
+        site = "~/.julia/packages/HiGHS/FDUra/src/MOI_wrapper.jl:3498"
+        [[perfchecker.16.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 7
+        site = "~/.julia/packages/JuMP/fQTIY/src/optimizer_interface.jl:1267"
+        [[perfchecker.16.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 6
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:533"
+        [[perfchecker.16.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 5
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/lazy_bridge_optimizer.jl:473"
+
+[perfchecker.8.cbls_icn]
+file = "perfchecker-cbls-icn-8t-planned-20261005.toml"
+gc_threads_environment = "1"
+method = "cbls_icn"
+perfchecker_revision = "1cc09a98db569b382f91dc10f6a569c1c728b6aa"
+status = "complete"
+threads = 8
+
+    [perfchecker.8.cbls_icn.collectors.profile]
+    sampled_sites = 235
+    samples = 1241
+
+        [[perfchecker.8.cbls_icn.collectors.profile.top_sites]]
+        samples = 777
+        site = "~/.julia/dev/LocalSearchSolvers/src/utils.jl:74"
+        [[perfchecker.8.cbls_icn.collectors.profile.top_sites]]
+        samples = 156
+        site = "~/.julia/dev/MetaStrategist/src/specialization.jl:243"
+        [[perfchecker.8.cbls_icn.collectors.profile.top_sites]]
+        samples = 42
+        site = "~/.julia/dev/CompositionalNetworks/src/layers/transformation.jl:13"
+        [[perfchecker.8.cbls_icn.collectors.profile.top_sites]]
+        samples = 35
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:572"
+        [[perfchecker.8.cbls_icn.collectors.profile.top_sites]]
+        samples = 31
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:575"
+        [[perfchecker.8.cbls_icn.collectors.profile.top_sites]]
+        samples = 22
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:576"
+        [[perfchecker.8.cbls_icn.collectors.profile.top_sites]]
+        samples = 19
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:533"
+        [[perfchecker.8.cbls_icn.collectors.profile.top_sites]]
+        samples = 16
+        site = "~/.julia/dev/CompositionalNetworks/src/layers/transformation.jl:15"
+
+    [perfchecker.8.cbls_icn.collectors.wall_profile]
+    sampled_sites = 108
+    samples = 274
+
+        [[perfchecker.8.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 174
+        site = "~/.julia/dev/LocalSearchSolvers/src/utils.jl:74"
+        [[perfchecker.8.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 26
+        site = "~/.julia/dev/MetaStrategist/src/specialization.jl:243"
+        [[perfchecker.8.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 14
+        site = "~/.julia/dev/CompositionalNetworks/src/layers/transformation.jl:13"
+        [[perfchecker.8.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 9
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:575"
+        [[perfchecker.8.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 6
+        site = "~/.julia/dev/CompositionalNetworks/src/layers/transformation.jl:15"
+        [[perfchecker.8.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 6
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:572"
+        [[perfchecker.8.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 6
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:576"
+        [[perfchecker.8.cbls_icn.collectors.wall_profile.top_sites]]
+        samples = 5
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:533"
+
+[perfchecker.8.mixed_balanced]
+file = "perfchecker-meta-balanced-8t-20261005.toml"
+gc_threads_environment = "1"
+method = "mixed_balanced"
+perfchecker_revision = "1cc09a98db569b382f91dc10f6a569c1c728b6aa"
+status = "complete"
+threads = 8
+
+    [perfchecker.8.mixed_balanced.collectors.profile]
+    sampled_sites = 435
+    samples = 2508
+
+        [[perfchecker.8.mixed_balanced.collectors.profile.top_sites]]
+        samples = 767
+        site = "~/.julia/dev/MetaStrategist/src/specialization.jl:243"
+        [[perfchecker.8.mixed_balanced.collectors.profile.top_sites]]
+        samples = 473
+        site = "~/.julia/dev/LocalSearchSolvers/src/utils.jl:74"
+        [[perfchecker.8.mixed_balanced.collectors.profile.top_sites]]
+        samples = 347
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/bridge_optimizer.jl:1998"
+        [[perfchecker.8.mixed_balanced.collectors.profile.top_sites]]
+        samples = 102
+        site = "~/.julia/packages/HiGHS/FDUra/src/gen/libhighs.jl:344"
+        [[perfchecker.8.mixed_balanced.collectors.profile.top_sites]]
+        samples = 66
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/lazy_bridge_optimizer.jl:175"
+        [[perfchecker.8.mixed_balanced.collectors.profile.top_sites]]
+        samples = 57
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/lazy_bridge_optimizer.jl:161"
+        [[perfchecker.8.mixed_balanced.collectors.profile.top_sites]]
+        samples = 40
+        site = "~/.julia/dev/LocalSearchSolvers/src/solver.jl:220"
+        [[perfchecker.8.mixed_balanced.collectors.profile.top_sites]]
+        samples = 37
+        site = "~/.julia/dev/XCSP3Bridges/src/serialization.jl:6"
+
+    [perfchecker.8.mixed_balanced.collectors.wall_profile]
+    sampled_sites = 119
+    samples = 292
+
+        [[perfchecker.8.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 91
+        site = "~/.julia/dev/LocalSearchSolvers/src/utils.jl:74"
+        [[perfchecker.8.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 55
+        site = "~/.julia/packages/HiGHS/FDUra/src/gen/libhighs.jl:344"
+        [[perfchecker.8.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 28
+        site = "~/.julia/dev/MetaStrategist/src/specialization.jl:243"
+        [[perfchecker.8.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 22
+        site = "~/.julia/packages/HiGHS/FDUra/src/MOI_wrapper.jl:3498"
+        [[perfchecker.8.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 15
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/bridge_optimizer.jl:1998"
+        [[perfchecker.8.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 8
+        site = "~/.julia/packages/JuMP/fQTIY/src/optimizer_interface.jl:1267"
+        [[perfchecker.8.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 7
+        site = "~/.julia/packages/HiGHS/FDUra/src/gen/libhighs.jl:1538"
+        [[perfchecker.8.mixed_balanced.collectors.wall_profile.top_sites]]
+        samples = 5
+        site = "~/.julia/dev/CompositionalNetworks/src/inplace.jl:575"
+
+[perfchecker.8.mixed_ls_heavy]
+file = "perfchecker-meta-heavy-8t-20261005.toml"
+gc_threads_environment = "1"
+method = "mixed_ls_heavy"
+perfchecker_revision = "1cc09a98db569b382f91dc10f6a569c1c728b6aa"
+status = "complete"
+threads = 8
+
+    [perfchecker.8.mixed_ls_heavy.collectors.profile]
+    sampled_sites = 443
+    samples = 2678
+
+        [[perfchecker.8.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 1075
+        site = "~/.julia/dev/MetaStrategist/src/specialization.jl:243"
+        [[perfchecker.8.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 635
+        site = "~/.julia/dev/LocalSearchSolvers/src/utils.jl:74"
+        [[perfchecker.8.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 231
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/bridge_optimizer.jl:1998"
+        [[perfchecker.8.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 97
+        site = "~/.julia/dev/LocalSearchSolvers/src/solver.jl:220"
+        [[perfchecker.8.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 53
+        site = "~/.julia/packages/HiGHS/FDUra/src/gen/libhighs.jl:344"
+        [[perfchecker.8.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 35
+        site = "~/.julia/packages/JuMP/fQTIY/src/optimizer_interface.jl:1267"
+        [[perfchecker.8.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 34
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/lazy_bridge_optimizer.jl:175"
+        [[perfchecker.8.mixed_ls_heavy.collectors.profile.top_sites]]
+        samples = 31
+        site = "~/.julia/dev/CompositionalNetworks/src/layers/transformation.jl:13"
+
+    [perfchecker.8.mixed_ls_heavy.collectors.wall_profile]
+    sampled_sites = 124
+    samples = 284
+
+        [[perfchecker.8.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 123
+        site = "~/.julia/dev/LocalSearchSolvers/src/utils.jl:74"
+        [[perfchecker.8.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 43
+        site = "~/.julia/dev/MetaStrategist/src/specialization.jl:243"
+        [[perfchecker.8.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 20
+        site = "~/.julia/packages/HiGHS/FDUra/src/gen/libhighs.jl:344"
+        [[perfchecker.8.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 13
+        site = "~/.julia/packages/HiGHS/FDUra/src/MOI_wrapper.jl:3498"
+        [[perfchecker.8.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 11
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/bridge_optimizer.jl:1998"
+        [[perfchecker.8.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 6
+        site = "~/.julia/packages/MathOptInterface/lY2WB/src/Bridges/lazy_bridge_optimizer.jl:473"
+        [[perfchecker.8.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 6
+        site = "~/.julia/dev/CompositionalNetworks/src/layers/transformation.jl:13"
+        [[perfchecker.8.mixed_ls_heavy.collectors.wall_profile.top_sites]]
+        samples = 5
+        site = "~/.julia/dev/LocalSearchSolvers/src/strategies/move.jl:143"

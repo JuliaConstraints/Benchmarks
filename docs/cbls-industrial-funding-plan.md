@@ -1007,3 +1007,42 @@ lot 8 threads était épinglé sur huit cœurs distincts, tandis que la largeur
 la largeur et l'accès SMT combinés ; ce n'est pas un test isolant exactement
 8 cœurs physiques contre 16 cœurs physiques. Avant de conclure, élargir le
 panel à plusieurs familles et augmenter le nombre de graines.
+
+### Profil GC et PerfChecker sur le lot 60 secondes — 5 octobre 2026
+
+Le [rapport GC et PerfChecker](../LiLim/results/resource-profile-60s-8v16-20261005/report.md)
+ajoute une figure anglaise exacte et XKCD comparant les mesures des essais
+validés à 8 et 16 threads. Il publie également les captures PerfChecker
+reproductibles de CBLS ICN, MetaStrategist équilibré et MetaStrategist
+recherche-intensive aux deux largeurs. Les profils réutilisent le plan
+MetaStrategist préparé avant mesure ; les avertissements DWARF du collecteur
+sont non fatals. Les profils indiquent des échantillons d'appels, pas une
+mesure d'occupation ni une attribution directe du temps mural.
+
+La part GC moyenne de CBLS ICN est basse sur ce pilote : 0,21 % à 8 threads et
+0,29 % à 16. Elle ne justifie pas d'expliquer le débit CBLS observé ici par le
+GC seul. Elle augmente pour les hybrides : 2,98/3,98 % (spécialisé) et
+6,98/9,33 % (XCSP3Bridges), puis 2,87/4,33 % pour MetaStrategist équilibré et
+1,91/3,27 % pour la variante recherche-intensive. Ces nombres sont calculés
+run par run à partir du compteur global de temps GC divisé par le temps mural
+de recherche ; ils n'indiquent pas les octets alloués, et trois graines par
+instance ne fondent aucune conclusion statistique générale.
+
+Les captures ICN placent `LocalSearchSolvers/src/utils.jl:74` (application
+d'un mouvement) en tête, puis les transformations et agrégations de
+`CompositionalNetworks`. Les profils MetaStrategist ajoutent le dispatch de
+`MetaStrategist/src/specialization.jl:243`, les wrappers JuMP/MOI et HiGHS ;
+les appels de bridge sont particulièrement visibles dans l'allocation
+équilibrée. La prochaine optimisation de débit doit d'abord mesurer et réduire
+le coût de `apply` pour CBLS seul, puis vérifier si le chemin ICN fusionné
+supprime effectivement du coût dans le moteur. Les hybrides exigent un suivi
+distinct de leurs constructions MOI/bridge et de la collecte. La capture
+d'allocations PerfChecker n'ayant pas identifié de sites cibles, elle reste à
+résoudre avant d'affirmer une cause GC ou un volume d'allocations.
+
+Le [script post-traitement](../LiLim/scripts/icn_gc_report.jl) conserve le
+manifeste des campagnes historiques intact : il vérifie les sceaux SHA-256 des
+essais et enregistre leurs empreintes de campagne dans le résumé GC. La suite
+doit conserver cette mesure GC et profiler les allocations avec une cible
+PerfChecker explicitement qualifiée avant de passer aux paliers de deux et
+cinq minutes.
