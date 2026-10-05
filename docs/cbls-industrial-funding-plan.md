@@ -803,3 +803,21 @@ cœur et les résultats moyens aux meilleurs ; garder en tête que le palier 16
 ajoute des cœurs E et n'est pas un pur test SMT. La prochaine série conserve le
 même petit corpus pour 30, 60 et 120 secondes, puis 300 et 600 secondes, avec
 les profils retenus uniquement si leur classement reste cohérent.
+
+## Premier palier long — 30 secondes à 1 thread
+
+Le premier lot de trente secondes a terminé les **90/90 essais** à un thread.
+Le [rapport détaillé et ses figures précises et XKCDMakie en anglais](../LiLim/results/sintef-campaign-30s-1t-trio-bdc0c48-20261005/report.md)
+confirment que toutes les sorties restent validées sur le problème original et
+que chaque méthode consomme en moyenne un CPU actif.
+
+CBLS naïf, ICN appris, direct et ses deux ablations fusionnées restent à 3/9
+réussites BKS. L'hybride spécialisé atteint 4/9, l'hybride bridgé 4/9, HiGHS
+natif et son portefeuille série 4/9. Par rapport au diagnostic à dix secondes,
+le seul gain de taux BKS est l'hybride bridgé (3/9 à 4/9) ; les écarts moyens
+de flotte restent inchangés et aucun profil n'atteint LRC101. Un budget plus
+long à un seul worker ne suffit donc pas à améliorer nettement CBLS sur ce trio.
+
+Le prochain lot garde trente secondes et passe à deux threads. Les mesures
+suivantes conserveront budget, instances et graines pour séparer l'effet de la
+largeur de thread de celui du temps de recherche avant le palier 60 secondes.
