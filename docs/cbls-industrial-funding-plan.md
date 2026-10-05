@@ -1,7 +1,8 @@
 # Plan de benchmarks pour financer JuliaConstraints
 
-Proposition du 2 octobre 2026, à exécuter par étapes. Ce document fixe la démarche ;
-il ne rapporte pas une campagne nouvelle ni un accord de financement.
+Proposition du 2 octobre 2026, à exécuter par étapes, complétée par les états
+d'avancement datés ci-dessous. Elle fixe la démarche et ne vaut pas accord de
+financement.
 
 Consigne courante du 4 octobre : poursuivre la campagne comparative multi-jours
 sur le corpus officiel complet, avec un objectif réaliste par étapes et sans
@@ -42,6 +43,27 @@ sont prêts, les sauvegarder par commit et push sur GitLab avant d'élargir la
 campagne.
 
 ## Objectif et résultat attendu
+
+### Premier pilote officiel SINTEF — 5 octobre 2026
+
+Le [rapport et ses figures](../LiLim/results/sintef-campaign-10s-1t-trio-bdc0c48-20261005/report.md)
+présentent 90 essais sur LC101, LR101 et LRC101 : dix profils CBLS/ICN, hybrides
+et HiGHS, trois graines, dix secondes par essai et un thread fixé sur un cœur P.
+Les 90 solutions et leurs trajectoires ont passé le validateur original ; chaque
+profil a utilisé en moyenne un CPU actif.
+
+LC101 atteint la référence avec tous les profils à partir du départ commun. Sur
+LR101, l'hybride ICN spécialisé et HiGHS natif l'atteignent chacun sur une graine
+différente. L'hybride bridgé ne l'atteint pas dans ce lot. Aucun profil n'atteint
+la référence LRC101 en dix secondes. Les variantes ICN fusionnées ne montrent
+pas de gain de qualité mesurable ici. Ce résultat reste un diagnostic court sur
+trois instances ; il ne permet pas de conclure sur les 354 instances, les autres
+largeurs de thread ni les budgets plus longs.
+
+La suite immédiate est de répéter les mêmes instances, graines, profils et
+budgets à 2, 4, 8 et 16 threads pour isoler l'effet de la largeur. Après cette
+comparaison, étendre les profils retenus au corpus officiel complet et allonger
+les budgets selon les paliers fixés dans le protocole.
 
 ### État du 4 octobre 2026 après qualification ICN et diagnostic GC
 

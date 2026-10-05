@@ -8,11 +8,11 @@ STYLE in ("exact", "xkcd") || error("style must be exact or xkcd")
 const METHODS = SUMMARY["methods"]
 const LABELS = Dict(
     "cbls_naive"=>"CBLS naive", "cbls_icn"=>"CBLS learned ICN",
-    "cbls_icn_fused_scalar"=>"CBLS fused scalar ICN", "cbls_icn_fused_all"=>"CBLS ICN + fused violation indicators",
+    "cbls_icn_fused_scalar"=>"ICN fused scalar", "cbls_icn_fused_all"=>"ICN fused all",
     "cbls_direct"=>"CBLS direct error",
-    "hybrid_specialized_icn"=>"Specialized hybrid (ICN)", "hybrid_bridged_icn"=>"Bridged hybrid (ICN)",
+    "hybrid_specialized_icn"=>"Hybrid ICN specialized", "hybrid_bridged_icn"=>"Hybrid ICN + XCSP3",
     "highs_native"=>"HiGHS native", "highs_portfolio"=>"HiGHS portfolio",
-    "cbls_mix_strategy"=>"CBLS mixed strategy", "mixed_balanced"=>"MetaStrategist equal mix",
+    "cbls_mix_strategy"=>"CBLS strategy mix", "mixed_balanced"=>"MetaStrategist equal mix",
     "mixed_ls_heavy"=>"MetaStrategist search-heavy", "hexaly_native"=>"Hexaly native")
 const COLORS = [:dodgerblue3, :darkorange2, :seagreen3, :purple3, :firebrick3,
     :gray35, :goldenrod2, :teal, :deeppink3, :sienna3]
@@ -63,29 +63,44 @@ end
 
 function quality_by_size()
     sizes = sort!(unique([row["size"] for row in SUMMARY["size_summary"]]))
-    fig = Figure(size=(1550, 1750))
-    Label(fig[0, 1], "Best, Mean and Median Search Quality Against SINTEF References", fontsize=27)
+    instance_mode = length(sizes) == 1
+    rows = instance_mode ? SUMMARY["instance_results"] : SUMMARY["size_summary"]
+    categories = instance_mode ? sort!(unique([row["instance"] for row in rows])) : sizes
+    xvalue(row) = findfirst(==(instance_mode ? row["instance"] : row["size"]), categories)
+    xoffset(index) = (index - (length(METHODS) + 1) / 2) * 0.03
+    fig = Figure(size=(1950, 1750))
+    Label(fig[0, 1:2], "Best, Mean and Median Search Quality Against SINTEF References", fontsize=27)
     titles = ("Best validated run across seeds", "Mean fleet across feasible seeds",
         "Fleet from one actual median-ranked run", "Median-ranked distance when fleet matches BKS")
-    axes = [Axis(fig[row, 1]; xlabel=row == 4 ? "Requests per instance" : "",
+    axes = [Axis(fig[row, 1]; xlabel=row == 4 ? (instance_mode ? "Official 100-request instance" : "Requests per instance") : "",
         ylabel=row < 4 ? "Vehicle gap from SINTEF BKS" : "Distance gap at the BKS fleet (%)",
         title=titles[row]) for row in 1:4]
-    for ax in axes
+    for (index, ax) in enumerate(axes)
         hlines!(ax, [0.0]; color=:black, linestyle=:dot, linewidth=2.0)
-        ax.xticks = (1:length(sizes), string.(sizes))
+        ax.xticks = (1:length(categories), string.(categories))
+        xlims!(ax, 0.5, length(categories) + 0.5)
     end
     for (index, method) in enumerate(METHODS)
         color = method == "hexaly_native" ? :black : COLORS[mod1(index, length(COLORS))]
         marker = method == "hexaly_native" ? :star5 : MARKERS[mod1(index, length(MARKERS))]
         linestyle = method == "hexaly_native" ? :dash : :solid
-        selected = sort(filter(row->row["method"] == method, SUMMARY["size_summary"]); by=row->row["size"])
-        xs = [findfirst(==(row["size"]), sizes) for row in selected]
-        best = [row["valid_cells"] == 0 ? NaN : row["mean_best_fleet_gap"] for row in selected]
-        average = [row["valid_cells"] == 0 ? NaN : row["mean_run_fleet_gap"] for row in selected]
-        median_run = [row["valid_cells"] == 0 ? NaN : row["mean_median_run_fleet_gap"] for row in selected]
-        distrows = filter(row->row["distance_cells"] > 0, selected)
-        distx = [findfirst(==(row["size"]), sizes) for row in distrows]
-        dist = [row["mean_distance_gap_at_bks_fleet_percent"] for row in distrows]
+        selected = sort(filter(row->row["method"] == method, rows); by=row->instance_mode ? row["instance"] : row["size"])
+        xs = [xvalue(row) + xoffset(index) for row in selected]
+        best = [instance_mode ? (row["feasible_runs"] == 0 ? NaN : row["best_vehicles"]-row["bks_vehicles"]) :
+            (row["valid_cells"] == 0 ? NaN : row["mean_best_fleet_gap"]) for row in selected]
+        average = [instance_mode ? (row["feasible_runs"] == 0 ? NaN : row["mean_vehicles"]-row["bks_vehicles"]) :
+            (row["valid_cells"] == 0 ? NaN : row["mean_run_fleet_gap"]) for row in selected]
+        median_run = [instance_mode ? (row["feasible_runs"] == 0 ? NaN : row["median_vehicles"]-row["bks_vehicles"]) :
+            (row["valid_cells"] == 0 ? NaN : row["mean_median_run_fleet_gap"]) for row in selected]
+        if instance_mode
+            distrows = filter(row->row["median_vehicles"] == row["bks_vehicles"] && row["median_distance"] >= 0, selected)
+            distx = [xvalue(row) + xoffset(index) for row in distrows]
+            dist = [100 * (row["median_distance"] / row["bks_distance"] - 1) for row in distrows]
+        else
+            distrows = filter(row->row["distance_cells"] > 0, selected)
+            distx = [xvalue(row) + xoffset(index) for row in distrows]
+            dist = [row["mean_distance_gap_at_bks_fleet_percent"] for row in distrows]
+        end
         scatterlines!(axes[1], xs, best; color, marker, markersize=10,
             linewidth=2.2, linestyle, label=label(method))
         scatterlines!(axes[2], xs, average; color, marker, markersize=10,
@@ -95,25 +110,28 @@ function quality_by_size()
         isempty(dist) || scatterlines!(axes[4], distx, dist; color, marker,
             markersize=10, linewidth=2.2, label=label(method))
     end
-    axislegend(axes[1]; position=:rb, framevisible=false, labelsize=13, nbanks=2)
-    axislegend(axes[2]; position=:rb, framevisible=false, labelsize=13, nbanks=2)
-    axislegend(axes[3]; position=:rb, framevisible=false, labelsize=13, nbanks=2)
-    axislegend(axes[4]; position=:rb, framevisible=false, labelsize=13, nbanks=2)
-    Label(fig[5, 1], "Negative fleet gaps beat the reference. The median panel reports one real run selected by lexicographic result order. Distance gaps are shown only when that run matches the BKS fleet; dotted zero lines mark the SINTEF reference.", fontsize=14)
+    Legend(fig[2:4, 2], axes[1]; framevisible=false, labelsize=15)
+    Label(fig[5, 1:2], "Negative fleet gaps beat the reference. The median panel reports one real run selected by lexicographic result order. Distance gaps are shown only when that run matches the BKS fleet; dotted zero lines mark the SINTEF reference.", fontsize=14)
     savefig(fig, "lilim-best-mean-median-vs-bks")
 end
 
 function success_by_size()
     sizes = sort!(unique([row["size"] for row in SUMMARY["size_summary"]]))
-    fig = Figure(size=(1550, 900))
-    Label(fig[0, 1], "Best-Known Solution Success by Problem Size", fontsize=27)
-    ax = Axis(fig[1, 1]; xlabel="Requests per instance", ylabel="Runs reaching SINTEF BKS (%)")
-    ax.xticks = (1:length(sizes), string.(sizes))
+    instance_mode = length(sizes) == 1
+    rows = instance_mode ? SUMMARY["instance_results"] : SUMMARY["size_summary"]
+    categories = instance_mode ? sort!(unique([row["instance"] for row in rows])) : sizes
+    xvalue(row) = findfirst(==(instance_mode ? row["instance"] : row["size"]), categories)
+    xoffset(index) = (index - (length(METHODS) + 1) / 2) * 0.03
+    fig = Figure(size=(1950, 900))
+    Label(fig[0, 1:2], instance_mode ? "Best-Known Solution Success by Instance" : "Best-Known Solution Success by Problem Size", fontsize=27)
+    ax = Axis(fig[1, 1]; xlabel=instance_mode ? "Official 100-request instance" : "Requests per instance", ylabel="Runs reaching SINTEF BKS (%)")
+    ax.xticks = (1:length(categories), string.(categories))
+    xlims!(ax, 0.5, length(categories) + 0.5)
     for (index, method) in enumerate(METHODS)
         color = method == "hexaly_native" ? :black : COLORS[mod1(index, length(COLORS))]
         marker = method == "hexaly_native" ? :star5 : MARKERS[mod1(index, length(MARKERS))]
-        selected = sort(filter(row->row["method"] == method, SUMMARY["size_summary"]); by=row->row["size"])
-        xs = [findfirst(==(row["size"]), sizes) for row in selected]
+        selected = sort(filter(row->row["method"] == method, rows); by=row->instance_mode ? row["instance"] : row["size"])
+        xs = [xvalue(row) + xoffset(index) for row in selected]
         ys = [100 * row["bks_hit_rate"] for row in selected]
         scatterlines!(ax, xs, ys; color, marker, markersize=10,
             linewidth=2.4, linestyle=method == "hexaly_native" ? :dash : :solid,
@@ -121,8 +139,8 @@ function success_by_size()
     end
     hlines!(ax, [100.0]; color=:black, linestyle=:dot, linewidth=2.0)
     ylims!(ax, 0, 102)
-    axislegend(ax; position=:rb, framevisible=false, labelsize=13, nbanks=2)
-    Label(fig[2, 1], "Rates use every scheduled seed; incomplete runs remain in the denominator.", fontsize=14)
+    Legend(fig[1, 2], ax; framevisible=false, labelsize=15)
+    Label(fig[2, 1:2], "Rates use every scheduled seed; incomplete runs remain in the denominator.", fontsize=14)
     savefig(fig, "lilim-bks-success-by-size")
 end
 

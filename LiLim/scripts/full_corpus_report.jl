@@ -187,7 +187,7 @@ end
 function write_report(path, summary)
     mkpath(dirname(path))
     open(path, "w") do io
-        println(io, "# SINTEF Li-Lim Full-Corpus Benchmark Report\n")
+        println(io, "# SINTEF Li-Lim Benchmark Report\n")
         println(io, "Campaign fingerprint: `", summary["run_fingerprint"], "`. The frozen scope contains ",
             summary["instance_count"], " instances, ", summary["method_count"], " solver profiles, ",
             summary["seed_count"], " independent seeds, ", summary["threads"], " workers and a ",
@@ -196,6 +196,23 @@ function write_report(path, summary)
             " extracted instance checksums were verified. Every stored incumbent and every trajectory point in the report was revalidated against the original Li-Lim instance. The fleet objective has priority; raw double-precision Euclidean distance is compared only after fleet count.\n")
         println(io, "SINTEF publishes its distance targets to ", summary["bks_distance_digits"],
             " decimal places. BKS attainment rounds the candidate to that displayed precision; raw double-precision distances remain in the results and determine solver rankings.\n")
+        println(io, "## English figures\n\nEach plot has a precise version and an XKCDMakie version. The dotted zero line marks the published SINTEF reference where applicable.\n")
+        figures = (
+            ("lilim-bks-attainment", "Time to the SINTEF best-known target"),
+            ("lilim-best-mean-median-vs-bks", "Best, mean and median search quality"),
+            ("lilim-bks-success-by-size", "Best-known solution success by instance or size"),
+            ("lilim-cpu-use", "Effective CPU use by solver profile"),
+        )
+        for (name, caption) in figures
+            exact_png = relpath(joinpath(CAMPAIGN, "figures-exact", name * ".png"), dirname(path))
+            exact_pdf = relpath(joinpath(CAMPAIGN, "figures-exact", name * ".pdf"), dirname(path))
+            xkcd_png = relpath(joinpath(CAMPAIGN, "figures-xkcd", name * "-xkcd.png"), dirname(path))
+            xkcd_pdf = relpath(joinpath(CAMPAIGN, "figures-xkcd", name * "-xkcd.pdf"), dirname(path))
+            println(io, "### ", caption, "\n")
+            println(io, "![", caption, "](", exact_png, ")\n")
+            println(io, "[Exact PNG](", exact_png, ") · [Exact PDF](", exact_pdf,
+                ") · [XKCD PNG](", xkcd_png, ") · [XKCD PDF](", xkcd_pdf, ")\n")
+        end
         println(io, "## Results by solver profile\n\n| Profile | Completed / planned | Feasible / completed | BKS hits / planned | Best fleet gap per instance | Mean-run fleet gap per instance | Median-run fleet gap per instance | Median distance gap at BKS fleet | Mean time to BKS (s) | Mean active CPUs |")
         println(io, "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
         for row in summary["method_summary"]
@@ -232,7 +249,7 @@ function write_report(path, summary)
             println(io, @sprintf("| %d | %s | %d / %d (%.1f%%) | %.3f | %.3f | %.3f | %s |", row["size"], row["method"],
                 row["bks_hits"], row["planned_runs"], 100 * row["bks_hit_rate"], row["mean_best_fleet_gap"], row["mean_run_fleet_gap"], row["mean_median_run_fleet_gap"], distance))
         end
-        println(io, "\n## Reproducibility\n\n- Julia: `", IDENTITY["julia"], "`.\n- Threads: ", THREADS, "; GC threads: ", IDENTITY["gc_threads"], "; affinity: `", join(IDENTITY["affinity"], ","), "`.\n- Seeds: `", join(SEEDS, ", "), "`; budget: ", BUDGET, " seconds.\n- Source manifest, solver environment, cohort, official archives, per-instance checksums and BKS values are in `manifest.toml`.\n- Detailed per-instance best, mean, median-ranked run, standard deviation, min/max spread, BKS success and time-to-target metrics are in `summary.toml` and `per-instance.csv`.\n")
+        println(io, "\n## Reproducibility\n\n- Julia: `", IDENTITY["julia"], "`.\n- Threads: ", THREADS, "; GC threads: ", IDENTITY["gc_threads"], "; affinity: `", join(IDENTITY["affinity"], ","), "`.\n- Seeds: `", join(SEEDS, ", "), "`; budget: ", BUDGET, " seconds.\n- Source manifest, solver environment, cohort, official archives, per-instance checksums and BKS values are in `manifest.toml`.\n- Detailed per-instance best, mean, median-ranked run, standard deviation, min/max spread, BKS success and time-to-target metrics are in `summary.toml` and `per-instance.csv`.")
         if !isempty(get(IDENTITY, "hexaly", Dict{String,Any}()))
             hexaly = IDENTITY["hexaly"]
             println(io, "- Hexaly: target version `", hexaly["target_version"], "`; executable SHA-256 `", hexaly["binary_sha256"], "`; common clock skew and observed child-process CPU are recorded per trial.\n")
