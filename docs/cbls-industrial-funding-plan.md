@@ -731,6 +731,35 @@ Les temps CPU incluent l'initialisation et la validation dans le budget.
 
 La comparaison confirme le débit des variantes CBLS sur quatre workers, mais
 la qualité BKS n'augmente pas pour CBLS seule entre 1, 2 et 4 threads sur ce
-trio. L'étape suivante garde ce protocole à 8 puis 16 threads ; elle mesurera
-le gain de largeur au-delà des huit cœurs physiques supposés. Ensuite seulement,
-étendre les profils prometteurs au corpus complet et faire croître les budgets.
+trio. Le résultat à 8 threads suit.
+
+## Comparaison à 8 threads — 5 octobre 2026
+
+Le lot à huit threads a terminé les **108/108 essais** sur lc101, lr101 et
+lrc101. Les mêmes douze profils, graines, budget, empreintes et validateurs
+originaux sont conservés. Le [rapport complet et ses figures précises et
+XKCDMakie en anglais](../LiLim/results/sintef-campaign-10s-8t-trio-bdc0c48-20261005/report.md)
+publie les distributions et l'usage CPU.
+
+CBLS seul garde 3/9 réussites BKS, contre 4/9 pour les deux hybrides et HiGHS
+natif. Le portefeuille HiGHS et MetaStrategist équilibré atteignent chacun 6/9 ;
+MetaStrategist recherche-intensive atteint 4/9. Sur LRC101, MetaStrategist
+équilibré trouve 15 véhicules pour la graine 43 et l'hybride ICN spécialisé
+trouve la même flotte sur cette graine ; les deux restent hors de la référence
+SINTEF. Sur LR101, le portefeuille HiGHS et MetaStrategist équilibré atteignent
+la référence sur les trois graines, tandis que l'hybride spécialisé l'atteint
+sur une. Ces nombres suggèrent un intérêt du portfolio mixte, mais trois
+instances et trois graines ne suffisent pas à départager les profils de façon
+fiable.
+
+CBLS seul utilise 7,98 à 7,99 CPU actifs sur huit. Les deux hybrides sont à
+7,50–7,81, HiGHS natif à 1,04, le portefeuille HiGHS à 7,18, et MetaStrategist
+à 7,05–7,51. CBLS sature donc huit workers dans ce cas ; l'allocation mixte
+équilibrée reste sous son budget de huit processeurs, tout en augmentant de
+6,03 à 7,05 CPU actifs par rapport au palier quatre threads. Le pool HiGHS
+natif ne tire toujours pas parti de tous les threads pour ces instances.
+
+Le prochain palier garde corpus, graines et budget fixes à 16 threads pour
+mesurer l'effet des processeurs logiques supplémentaires. Puis les paliers de
+durée augmenteront par puissances de deux sur les profils retenus, avant
+d'élargir le corpus officiel au-delà du trio pilote.
