@@ -865,3 +865,26 @@ spécialisé et MetaStrategist recherche-intensive trouvent toutefois une flotte
 de 15 véhicules, au plus près des essais de ce lot. Le prochain palier garde
 30 secondes et passe à 8 threads, puis 16, avant de commencer la série à
 60 secondes.
+
+## Budget de 30 secondes à 8 threads
+
+Le palier à huit threads a terminé les **108/108 essais** et le validateur
+Li-Lim original a accepté toutes les solutions et trajectoires. Le [rapport,
+les tableaux détaillés et les figures exactes et XKCDMakie en anglais](../LiLim/results/sintef-campaign-30s-8t-trio-bdc0c48-20261005/report.md)
+publient les résultats complets.
+
+Le portfolio HiGHS et MetaStrategist équilibré atteignent chacun le BKS sur
+6/9 essais, contre 5/9 pour l'hybride spécialisé et MetaStrategist intensif,
+4/9 pour l'hybride bridgé et HiGHS natif, et 3/9 pour chacun des profils CBLS
+seuls. Sur lr101, MetaStrategist équilibré et le portfolio HiGHS réussissent
+sur les trois graines. Aucun profil ne rejoint le BKS sur LRC101 ;
+MetaStrategist équilibré et l'hybride spécialisé trouvent toutefois 15
+véhicules sur deux graines chacun.
+
+CBLS utilise 7,98–7,99 CPU actifs sur huit. Les hybrides sont à 7,52–7,79 ;
+HiGHS natif à 1,66, son portfolio à 6,86, MetaStrategist équilibré à 6,93 et
+sa variante intensive à 7,46. Comparé au palier 4 threads, le portfolio HiGHS
+et MetaStrategist équilibré gagnent chacun une réussite BKS (5/9 à 6/9) ; le
+score moyen de flotte de MetaStrategist équilibré s'améliore de 1,000 à 0,444
+véhicule au-dessus de la référence. Le palier à 16 threads garde les mêmes
+30 secondes et le même corpus avant d'allonger les budgets.
