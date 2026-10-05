@@ -133,6 +133,24 @@ The user's pre-existing PerfChecker development checkout remains untouched.
 The controller uses a separate pinned source and does not alter the solver
 environment.
 
+### 5 October post-fix capture
+
+The first PerfChecker pass after inlining `ICNScoring.scalar` used Benchmarks
+`acc5cf95` and the fixed scorer source hash recorded in
+[`perfchecker-cbls-icn-postfix-20261005.toml`](perfchecker-cbls-icn-postfix-20261005.toml).
+It ran on one Julia/GC thread with the original frozen solver and controller
+environments. The CPU profiler exported 202 stack rows over 9.095 seconds and
+the wall profiler exported 79 stack rows over 6.502 seconds; both show the
+learned `ErrorBackend` in the active search path.
+
+The third, allocation-profile collector exited with `Allocation profiler found
+no target source sites`. PerfChecker 1.0.0-rc1 therefore saved no allocation
+table and did not set `complete = true`. This is an incomplete capture, not a
+zero-allocation result. The collector's sampling/filter behavior needs a
+separate investigation before a future capture; this pass did not change its
+sampling rate, budget, controller, or solver environment. The partial record
+and process resource envelopes are retained for provenance.
+
 SnoopCompile 3.2.9 / SnoopCompileCore 3.1.3 instrumented a sixteen-thread
 session. Decoding the bank induced about 4,067 method instances; the first naive
 CBLS preparation about 14,406, then ICN 739 and bridges 3,218. On the second
