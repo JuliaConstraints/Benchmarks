@@ -701,3 +701,36 @@ La suite immédiate est le même trio à 4 threads, où les deux allocations
 MetaStrategist deviennent disponibles, puis à 8 et 16 threads. Conserver les
 instances, graines, objectifs et budget pour isoler la largeur avant d'étendre
 les profils retenus au corpus des 354 instances et aux budgets supérieurs.
+
+## Comparaison à 4 threads — 5 octobre 2026
+
+Le lot à quatre threads a terminé les **108/108 essais** sur le même trio,
+avec les mêmes graines et budgets ; les deux allocations fixes MetaStrategist
+sont incluses. Les 108 solutions et toutes les trajectoires ont été revalidées
+sur les instances Li-Lim originales. Le [rapport et les figures exactes et
+XKCDMakie en anglais](../LiLim/results/sintef-campaign-10s-4t-trio-bdc0c48-20261005/report.md)
+incluent les temps vers les cibles SINTEF, le meilleur, la moyenne, la médiane
+réelle et l'occupation CPU.
+
+Sur les neuf essais par profil, les variantes CBLS seule (naïve, ICN appris,
+score direct, ICN fusionné et mix de stratégies) font chacune 3/9 réussites
+BKS. L'hybride spécialisé, l'hybride bridgé et les deux allocations
+MetaStrategist font 4/9 ; HiGHS natif fait 4/9, et le portefeuille HiGHS 5/9.
+Les meilleures exécutions de l'hybride spécialisé réduisent l'écart moyen de
+flotte à 0,333 véhicule par instance ; le portefeuille HiGHS a le plus de
+réussites BKS. Aucun profil n'atteint la référence LRC101 dans cette fenêtre de
+dix secondes. Les taux restent des mesures exploratoires sur trois instances
+et trois graines, pas un classement général ni une comparaison Hexaly.
+
+Les variantes CBLS et hybrides spécialisées utilisent en moyenne 3,84 à 4,00
+CPU actifs sur quatre ; le HiGHS natif n'en utilise que 1,03. Le portefeuille
+HiGHS atteint 3,76 CPU actifs. MetaStrategist en utilise 3,58 à 3,59 : les
+allocations mixtes parallélisent effectivement le travail, mais ne saturent pas
+encore leurs quatre cœurs autant que les profils de recherche locale seuls.
+Les temps CPU incluent l'initialisation et la validation dans le budget.
+
+La comparaison confirme le débit des variantes CBLS sur quatre workers, mais
+la qualité BKS n'augmente pas pour CBLS seule entre 1, 2 et 4 threads sur ce
+trio. L'étape suivante garde ce protocole à 8 puis 16 threads ; elle mesurera
+le gain de largeur au-delà des huit cœurs physiques supposés. Ensuite seulement,
+étendre les profils prometteurs au corpus complet et faire croître les budgets.
