@@ -670,3 +670,34 @@ Julia observés sur la machine étaient inactifs (0 % CPU) et ne correspondaient
 autre tâche Codex reste active. Le contrôle des tâches et des processus est refait
 juste avant chaque lot ; toute nouvelle tâche reporte le lot. Tout nouveau jeu de
 figures est commité et poussé dès qu'il est prêt.
+
+## Comparaison à 2 threads — 5 octobre 2026
+
+Le lot diagnostique à deux threads a terminé les **90/90 essais** sur lc101,
+lr101 et lrc101, avec les mêmes trois graines et dix secondes par essai que le
+lot à un thread. Toutes les solutions et trajectoires ont été revérifiées par le
+validateur Li-Lim original. Le [rapport détaillé](../LiLim/results/sintef-campaign-10s-2t-trio-bdc0c48-20261005/report.md)
+publie les valeurs par instance, moyenne, écart-type, médiane réelle, temps
+d'atteinte SINTEF et les quatre figures exactes et XKCD en anglais.
+
+Le nombre de réussites BKS reste à 3/9 pour CBLS naïf, appris ICN, direct, ICN
+fusionné et mix de stratégies. L'hybride ICN spécialisé atteint 4/9, le bridge
+3/9, HiGHS natif 4/9 et son portefeuille série 5/9. Comparé au lot à un thread,
+le portefeuille HiGHS passe de 4 à 5 réussites ; son écart moyen de flotte
+descend de 2,111 à 1,889 véhicule et l'écart de la vraie exécution médiane de
+2,333 à 1,667. Les variantes CBLS gardent les mêmes taux sur ce trio et les
+hybrides spécialisés restent à 4/9. C'est un signal exploratoire, limité aux
+trois instances déjà exposées ; aucune sélection de stratégie n'a été faite
+après lecture des résultats.
+
+L'occupation CPU moyenne confirme environ 2,00 processeurs actifs pour CBLS,
+1,98 pour l'hybride bridgé, 1,85 pour le portefeuille HiGHS et 1,03 pour HiGHS
+natif à deux threads alloués. Les deux voies CBLS/hybrides saturent donc les
+cœurs qui leur sont réservés ; le HiGHS natif n'emploie pas en continu son
+budget de deux cœurs sur ces essais. Le palier à deux threads n'inclut pas encore
+les deux plans MetaStrategist, réservés aux largeurs d'au moins quatre threads.
+
+La suite immédiate est le même trio à 4 threads, où les deux allocations
+MetaStrategist deviennent disponibles, puis à 8 et 16 threads. Conserver les
+instances, graines, objectifs et budget pour isoler la largeur avant d'étendre
+les profils retenus au corpus des 354 instances et aux budgets supérieurs.
