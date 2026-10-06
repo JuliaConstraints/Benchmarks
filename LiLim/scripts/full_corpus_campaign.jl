@@ -40,10 +40,12 @@ function cli(args)
         error("usage: full_corpus_campaign.jl --budget=SECONDS --output=DIR --threads=N [--instances=all|ID,...] [--methods=all|strategies|NAME,...] [--seeds=41,42,43] [--hexaly=PATH] [--ortools=PYTHON] [--resume]")
     budget = parse(Float64, values["budget"])
     isfinite(budget) && budget > 0 || error("budget must be positive and finite")
+    local_ortools = joinpath(ROOT, "LiLim", "native", "ortools", ".venv", "bin", "python")
+    default_ortools = isfile(local_ortools) ? local_ortools : "python3"
     (; budget, output=abspath(values["output"]), threads=parse(Int, values["threads"]),
        instances=get(values, "instances", "all"), methods=get(values, "methods", "all"),
        hexaly=get(values, "hexaly", get(ENV, "HEXALY_EXECUTABLE", "hexaly")),
-       ortools=get(values, "ortools", get(ENV, "ORTOOLS_PYTHON", "python3")),
+       ortools=get(values, "ortools", get(ENV, "ORTOOLS_PYTHON", default_ortools)),
        seeds=parse.(Int, split(get(values, "seeds", join(THREAD_CONFIG["seeds"], ",")), ',')), resume)
 end
 

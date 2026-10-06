@@ -58,9 +58,26 @@ shared-scale panels, fixed references and interactive solver selection.
 
 The full-corpus runner accepts `--methods=all,ortools_native` and
 `--ortools=/absolute/path/to/python` (or `ORTOOLS_PYTHON`). The Python environment
-must provide the version pinned in [requirements.txt](native/ortools/requirements.txt).
+must provide the versions pinned in [requirements.txt](native/ortools/requirements.txt).
+Without an explicit override, the runner first selects
+`LiLim/native/ortools/.venv/bin/python` when it exists, then falls back to `python3`.
 Python is required here by the official OR-Tools RoutingModel interface used for
 this external solver; the campaign, validation, aggregation and plots remain in Julia.
+
+OR-Tools 9.14.6206 is installed on this host in that isolated environment with
+Python 3.12.3. Dependency consistency, native RoutingModel/CP-SAT/linear-solver
+library loading and the adapter command-line entry point were checked on
+6 October 2026. No solver search was started during installation. The environment
+and bytecode caches are ignored by Git; exact runtime dependency versions are saved.
+To reproduce it from the repository root on a host with Python 3.12 and
+`venv`/`pip` available, use the [official pip installation approach](https://developers.google.com/optimization/install/python)
+with the frozen requirements:
+
+```sh
+python3.12 -m venv LiLim/native/ortools/.venv
+LiLim/native/ortools/.venv/bin/python -m pip install --only-binary=:all: -r LiLim/native/ortools/requirements.txt
+LiLim/native/ortools/.venv/bin/python -m pip check
+```
 
 The OR-Tools profile uses Guided Local Search on one configured P-core, the shared
 insertion start, and a dominating fixed vehicle cost for fleet-first ranking.
@@ -73,8 +90,10 @@ labels do not modify the OR-Tools search, so they measure repeated timings rathe
 than independent random-seed experiments. Wider campaign thread counts do not
 increase this solver's one-thread allocation.
 
-The adapter currently has no measured solver trial: the pinned OR-Tools dependency
-is not installed on this host. See the [capability and hardware estimate](results/hexaly-capability-estimate-20261006.md)
+The adapter still has no measured solver trial. Model execution and exported
+solutions/trajectories must pass the original validator before comparative use;
+that qualification waits until the other active tasks release resources.
+See the [capability and hardware estimate](results/hexaly-capability-estimate-20261006.md)
 for the published Hexaly comparison, local evidence and limitations.
 
 ## Current reconstructed cohort (2 October 2026)

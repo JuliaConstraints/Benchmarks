@@ -76,6 +76,17 @@ et les 13 formes de marqueurs interactifs sont vérifiés sans rendu. Aucune
 nouvelle cohorte comparative n'a encore été lancée. La campagne attend la disponibilité des ressources conformément
 à la consigne existante. Aucun gagnant n'est désigné avant les nouveaux essais.
 
+### Installation OR-Tools — 6 octobre 2026
+
+OR-Tools 9.14.6206 est installé dans l'environnement dédié
+`LiLim/native/ortools/.venv`, avec Python 3.12.3. Le lanceur le sélectionne
+automatiquement ; les options explicites gardent la priorité. Les dépendances
+exactes et les instructions de reproduction sont sauvegardées dans le dépôt,
+sans les binaires de l'environnement. Leur cohérence et le chargement des
+bibliothèques natives sont vérifiés. Aucun calcul comparatif n'a été lancé :
+la qualification du modèle et des trajectoires par le validateur original
+reste à faire lorsque les autres tâches auront libéré les ressources.
+
 ### Premier pilote officiel SINTEF — 5 octobre 2026
 
 Le [rapport et ses figures](../LiLim/results/sintef-campaign-10s-1t-trio-bdc0c48-20261005/report.md)
