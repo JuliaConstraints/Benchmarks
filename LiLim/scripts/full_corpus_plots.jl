@@ -15,8 +15,20 @@ const LABELS = Dict(
     "cbls_mix_strategy"=>"CBLS strategy mix", "mixed_balanced"=>"MetaStrategist equal mix",
     "mixed_ls_heavy"=>"MetaStrategist search-heavy", "hexaly_native"=>"Hexaly native")
 const COLORS = [:dodgerblue3, :darkorange2, :seagreen3, :purple3, :firebrick3,
-    :gray35, :goldenrod2, :teal, :deeppink3, :sienna3]
-const MARKERS = [:circle, :rect, :utriangle, :diamond, :dtriangle, :cross, :star5, :hexagon, :pentagon, :xcross]
+    :gray35, :cyan3, :deeppink3, :sienna3, :steelblue3, :darkslateblue, :olivedrab3]
+const MARKERS = [:circle, :rect, :utriangle, :diamond, :dtriangle, :cross,
+    :star5, :hexagon, :pentagon, :xcross, :octagon, :star4]
+const PROFILE_STYLES = let
+    profiles = filter(!=("hexaly_native"), METHODS)
+    length(profiles) <= length(COLORS) || error("add an explicit color and marker for every solver profile")
+    Dict(method => (color=COLORS[i], marker=MARKERS[i]) for (i, method) in enumerate(profiles))
+end
+function profile_style(method)
+    method == "hexaly_native" && return (color=:black, marker=:star8)
+    get(PROFILE_STYLES, method) do
+        error("no explicit plot style configured for solver profile $method")
+    end
+end
 label(method) = get(LABELS, method, replace(method, '_' => ' '))
 
 if STYLE == "xkcd"
@@ -45,7 +57,8 @@ function attainment_plot()
     ax = Axis(fig[2, 1]; xlabel="Elapsed wall time (seconds)", ylabel="Runs reaching SINTEF BKS (%)",
         xtickformat=values -> string.(round.(values; digits=1)))
     for (index, method) in enumerate(METHODS)
-        color = method == "hexaly_native" ? :black : COLORS[mod1(index, length(COLORS))]
+        style = profile_style(method)
+        color = style.color
         rows = filter(row->row["method"] == method, SUMMARY["instance_results"])
         times = reduce(vcat, (row["bks_times_seconds"] for row in rows); init=Float64[])
         scheduled = sum(row["planned_runs"] for row in rows)
@@ -54,7 +67,7 @@ function attainment_plot()
             linestyle=method == "hexaly_native" ? :dash : :solid)
         marker_positions = 1:10:length(grid)
         scatter!(ax, grid[marker_positions], y[marker_positions]; color,
-            marker=MARKERS[mod1(index, length(MARKERS))], markersize=10, label=label(method))
+            marker=style.marker, markersize=10, label=label(method))
     end
     hlines!(ax, [100.0]; color=:black, linestyle=:dot, linewidth=2.0, label="100% target attainment")
     xlims!(ax, 0, budget)
@@ -84,8 +97,8 @@ function quality_by_size()
         xlims!(ax, 0.5, length(categories) + 0.5)
     end
     for (index, method) in enumerate(METHODS)
-        color = method == "hexaly_native" ? :black : COLORS[mod1(index, length(COLORS))]
-        marker = method == "hexaly_native" ? :star5 : MARKERS[mod1(index, length(MARKERS))]
+        style = profile_style(method)
+        color, marker = style.color, style.marker
         linestyle = method == "hexaly_native" ? :dash : :solid
         selected = sort(filter(row->row["method"] == method, rows); by=row->instance_mode ? row["instance"] : row["size"])
         xs = [xvalue(row) + xoffset(index) for row in selected]
@@ -131,8 +144,8 @@ function success_by_size()
     ax.xticks = (1:length(categories), string.(categories))
     xlims!(ax, 0.5, length(categories) + 0.5)
     for (index, method) in enumerate(METHODS)
-        color = method == "hexaly_native" ? :black : COLORS[mod1(index, length(COLORS))]
-        marker = method == "hexaly_native" ? :star5 : MARKERS[mod1(index, length(MARKERS))]
+        style = profile_style(method)
+        color, marker = style.color, style.marker
         selected = sort(filter(row->row["method"] == method, rows); by=row->instance_mode ? row["instance"] : row["size"])
         xs = [xvalue(row) + xoffset(index) for row in selected]
         ys = [100 * row["bks_hit_rate"] for row in selected]
@@ -156,8 +169,7 @@ function cpu_plot()
     Label(fig[0, 1], "Effective CPU Use by Solver Profile", fontsize=27)
     ax = Axis(fig[1, 1]; xlabel="Solver profile", ylabel="Mean active CPUs", xticks=(xs, labels))
     ax.xticklabelrotation = π / 5
-    barplot!(ax, xs, values; color=[row["method"] == "hexaly_native" ? :black : COLORS[mod1(i,length(COLORS))]
-        for (i,row) in enumerate(methods)])
+    barplot!(ax, xs, values; color=[profile_style(row["method"]).color for row in methods])
     hlines!(ax, [SUMMARY["threads"]]; color=:black, linestyle=:dot, linewidth=2.0)
     finite_values = filter(isfinite, values)
     ylims!(ax, 0, max(SUMMARY["threads"] + 1, maximum(finite_values; init=0.0) + 1))

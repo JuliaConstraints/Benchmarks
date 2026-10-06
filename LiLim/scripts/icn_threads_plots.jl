@@ -17,6 +17,7 @@ const LABELS=Dict("cbls_naive"=>"CBLS naive", "cbls_icn"=>"CBLS ICN",
     "mixed_ls_heavy"=>"CBLS-heavy mix")
 const COLORS=[:gray45,:dodgerblue3,:darkorange2,:seagreen3,:purple3,
     :firebrick3,:sienna3,:deeppink3,:black]
+const MARKERS=[:circle,:rect,:utriangle,:diamond,:dtriangle,:cross,:star5,:hexagon,:pentagon]
 subset(id,method,width)=filter(r->r["instance"]==id && r["method"]==method && r["threads_requested"]==width,RECORDS)
 lexmiddle(rs)=sort(rs;by=r->(r["vehicles"],r["distance"]))[cld(length(rs),2)]
 work(r)=sum(get(w["trace"],"pair_candidates",0) for w in r["workers"])/r["budget_seconds"]
@@ -53,8 +54,8 @@ function successplots()
             xs=[w for w in WIDTHS if !isempty(subset(id,method,w))]
             success=[100*mean(hit(r,id) for r in subset(id,method,w)) for w in xs]
             progress=[100*mean(improved(r) for r in subset(id,method,w)) for w in xs]
-            line=scatterlines!(ax,xs,success;color=COLORS[j],markersize=9,linestyle=j>=8 ? :dash : :solid)
-            scatterlines!(gain,xs,progress;color=COLORS[j],markersize=9,linestyle=j>=8 ? :dash : :solid)
+            line=scatterlines!(ax,xs,success;color=COLORS[j],marker=MARKERS[j],markersize=9,linestyle=j>=8 ? :dash : :solid)
+            scatterlines!(gain,xs,progress;color=COLORS[j],marker=MARKERS[j],markersize=9,linestyle=j>=8 ? :dash : :solid)
             if col==1;push!(legends,line);push!(labels,LABELS[method]);end
         end
     end
@@ -91,10 +92,14 @@ function successplots()
             ys=[p===nothing ? NaN : Float64(p["vehicles"]) for p in points]
             ds=[p===nothing ? NaN : Float64(p["distance"]) for p in points]
             style=j>=8 ? :dash : :solid
+            mark_positions=1:20:length(grid)
             stairs!(fleet,grid,ys;step=:post,color=COLORS[j],linestyle=style)
+            scatter!(fleet,grid[mark_positions],ys[mark_positions];color=COLORS[j],marker=MARKERS[j],markersize=8)
             stairs!(distance,grid,ds;step=:post,color=COLORS[j],linestyle=style)
+            scatter!(distance,grid[mark_positions],ds[mark_positions];color=COLORS[j],marker=MARKERS[j],markersize=8)
             fractions=[100*mean(any(e->e["seconds"]<=t && hit(e,id),r["trajectory"]) for r in rs) for t in grid]
             stairs!(target,grid,fractions;step=:post,color=COLORS[j],linestyle=style)
+            scatter!(target,grid[mark_positions],fractions[mark_positions];color=COLORS[j],marker=MARKERS[j],markersize=8)
         end
     end
     Label(anytime[3,1:3],"Lexicographic median over 3 seeds. Gray dotted lines: SINTEF reference. Frontier reconstructed from private discoveries; final merge across workers.",fontsize=14)
@@ -138,8 +143,8 @@ for (col,id) in enumerate(INSTANCES)
         lows=[minimum(r["vehicles"] for r in subset(id,method,width)) for width in xs]
         highs=[maximum(r["vehicles"] for r in subset(id,method,width)) for width in xs]
         band!(fleet,xs,lows,highs;color=(COLORS[j],0.07))
-        line=scatterlines!(fleet,xs,vehicles;color=COLORS[j],markersize=8,linestyle=j>=8 ? :dash : :solid)
-        scatterlines!(dist,xs,distances;color=COLORS[j],markersize=8,linestyle=j>=8 ? :dash : :solid)
+        line=scatterlines!(fleet,xs,vehicles;color=COLORS[j],marker=MARKERS[j],markersize=8,linestyle=j>=8 ? :dash : :solid)
+        scatterlines!(dist,xs,distances;color=COLORS[j],marker=MARKERS[j],markersize=8,linestyle=j>=8 ? :dash : :solid)
         if col==1
             push!(legend_lines,line);push!(legend_labels,LABELS[method])
         end
@@ -159,7 +164,7 @@ for (col,id) in enumerate(INSTANCES)
     for (j,method) in enumerate(METHODS)
         xs=[width for width in WIDTHS if !isempty(subset(id,method,width))]
         ys=[median(r["mean_active_cpus"] for r in subset(id,method,width)) for width in xs]
-        scatterlines!(ax,xs,ys;color=COLORS[j],markersize=8,linestyle=j>=8 ? :dash : :solid)
+        scatterlines!(ax,xs,ys;color=COLORS[j],marker=MARKERS[j],markersize=8,linestyle=j>=8 ? :dash : :solid)
     end
     ylims!(ax,0,17)
 end
@@ -178,7 +183,7 @@ for (col,id) in enumerate(INSTANCES)
         baseline=median(work(r) for r in subset(id,method,1))
         baseline>0 || error("zero throughput baseline")
         ys=[median(work(r) for r in subset(id,method,width))/baseline for width in WIDTHS]
-        line=scatterlines!(ax,WIDTHS,ys;color=COLORS[j],markersize=8)
+        line=scatterlines!(ax,WIDTHS,ys;color=COLORS[j],marker=MARKERS[j],markersize=8)
         if col==1;push!(throughput_lines,line);push!(throughput_labels,LABELS[method]);end
     end
 end
@@ -200,7 +205,7 @@ for method in ("cbls_icn","hybrid_specialized_icn","highs_native","mixed_balance
     j=findfirst(==(method),METHODS)
     xs=[width for width in WIDTHS if !isempty(subset("lr101",method,width))]
     ys=[median(r["mean_active_cpus"] for r in subset("lr101",method,width)) for width in xs]
-    scatterlines!(ax,xs,ys;color=COLORS[j],markersize=11,label=LABELS[method])
+    scatterlines!(ax,xs,ys;color=COLORS[j],marker=MARKERS[j],markersize=11,label=LABELS[method])
 end
 Legend(fun[2,1],ax;orientation=:horizontal,nbanks=2,tellwidth=false,framevisible=false)
 Label(fun[3,1],"XKCD illustration. Real data; lines are intentionally irregular.\nExact scientific figures are provided separately.",fontsize=14)

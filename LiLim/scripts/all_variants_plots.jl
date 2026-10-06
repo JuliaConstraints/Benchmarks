@@ -6,7 +6,9 @@ const DATA=TOML.parsefile(abspath(ARGS[1]));const OUT=abspath(ARGS[2]);mkpath(OU
 const ROWS=DATA["records"];const METHODS=DATA["methods"];const LABELS=DATA["labels"]
 const IDS=DATA["instances"];const WIDTHS=DATA["widths"];const TARGETS=DATA["targets"]
 const COLORS=[:gray50,:dodgerblue3,:darkorange2,:navy,:seagreen3,:purple3,:firebrick3,:sienna3,
-    :deeppink3,:black,:goldenrod2,:olive,:teal,:steelblue,:magenta3]
+    :deeppink3,:black,:cyan3,:olive,:teal,:steelblue,:magenta3]
+const MARKERS=[:circle,:rect,:utriangle,:diamond,:dtriangle,:cross,:star5,:hexagon,:pentagon,:xcross,
+    :octagon,:star4,:star6,:ltriangle,:rtriangle]
 style(j)=j in (3,6,8,10,12,15) ? :dash : :solid
 subset(id,method,width)=filter(r->r["instance"]==id&&r["method"]==method&&r["threads"]==width,ROWS)
 key(r)=(r["vehicles"],r["distance"])
@@ -26,7 +28,8 @@ function exportfig(fig,name)
     for ext in ("png","pdf");save(joinpath(OUT,name*suffix*"."*ext),fig;px_per_unit=1.5) end
 end
 function footer!(fig,row;reference=true)
-    elements=Any[LineElement(color=COLORS[j],linestyle=style(j),linewidth=2.3) for j in eachindex(METHODS)];labels=copy(LABELS)
+    elements=Any[Any[LineElement(color=COLORS[j],linestyle=style(j),linewidth=2.3),
+        MarkerElement(color=COLORS[j],marker=MARKERS[j],markersize=10)] for j in eachindex(METHODS)];labels=copy(LABELS)
     if reference;push!(elements,LineElement(color=:gray30,linestyle=:dot,linewidth=2));push!(labels,"BKS SINTEF") end
     Label(fig[row,1:3],"5 s · same insertion start · 3 runs per cell · BKS distance rounded to published $(get(DATA,"bks_distance_digits",2)) decimals · LC101 starts at its BKS",fontsize=14)
     Legend(fig[row+1,1:3],elements,labels;orientation=:horizontal,nbanks=4,tellwidth=false,framevisible=false,labelsize=14)
@@ -49,8 +52,8 @@ function quality(;best=false)
         widthaxis(fleet);widthaxis(distance);refs(fleet,distance,id,maximum(r["initial_vehicles"] for r in ROWS if r["instance"]==id))
         for (j,m) in enumerate(METHODS)
             xs=[w for w in WIDTHS if !isempty(subset(id,m,w))];rs=[best ? first(sort(subset(id,m,w);by=key)) : middle(subset(id,m,w)) for w in xs]
-            scatterlines!(fleet,xs,[r["vehicles"] for r in rs];color=COLORS[j],linestyle=style(j),marker=j%3==0 ? :rect : :circle,markersize=8)
-            scatterlines!(distance,xs,[r["distance"] for r in rs];color=COLORS[j],linestyle=style(j),marker=j%3==0 ? :rect : :circle,markersize=8)
+            scatterlines!(fleet,xs,[r["vehicles"] for r in rs];color=COLORS[j],linestyle=style(j),marker=MARKERS[j],markersize=8)
+            scatterlines!(distance,xs,[r["distance"] for r in rs];color=COLORS[j],linestyle=style(j),marker=MARKERS[j],markersize=8)
         end
     end
     footer!(fig,3);exportfig(fig,best ? "all-variants-quality-best" : "all-variants-quality")
@@ -63,8 +66,8 @@ function success()
         for ax in (bks,gain);widthaxis(ax);ylims!(ax,-5,105) end
         for (j,m) in enumerate(METHODS)
             xs=[w for w in WIDTHS if !isempty(subset(id,m,w))]
-            scatterlines!(bks,xs,[100*mean(hit(r,id) for r in subset(id,m,w)) for w in xs];color=COLORS[j],linestyle=style(j),markersize=8)
-            scatterlines!(gain,xs,[100*mean(improved(r) for r in subset(id,m,w)) for w in xs];color=COLORS[j],linestyle=style(j),markersize=8)
+            scatterlines!(bks,xs,[100*mean(hit(r,id) for r in subset(id,m,w)) for w in xs];color=COLORS[j],linestyle=style(j),marker=MARKERS[j],markersize=8)
+            scatterlines!(gain,xs,[100*mean(improved(r) for r in subset(id,m,w)) for w in xs];color=COLORS[j],linestyle=style(j),marker=MARKERS[j],markersize=8)
         end
     end
     footer!(fig,3;reference=false);exportfig(fig,"all-variants-success")
@@ -99,9 +102,16 @@ function anytime(width)
         for (j,m) in enumerate(METHODS)
             rows=subset(id,m,width)
             points=[begin events=[at(r,t) for r in rows];any(isnothing,events) ? nothing : middle(events) end for t in grid]
-            stairs!(fleet,grid,[p===nothing ? NaN : Float64(p["vehicles"]) for p in points];step=:post,color=COLORS[j],linestyle=style(j))
-            stairs!(distance,grid,[p===nothing ? NaN : Float64(p["distance"]) for p in points];step=:post,color=COLORS[j],linestyle=style(j))
-            stairs!(rate,grid,[100*mean(any(e->e["seconds"]<=t&&hit(e,id),r["trajectory"]) for r in rows) for t in grid];step=:post,color=COLORS[j],linestyle=style(j))
+            fleet_values=[p===nothing ? NaN : Float64(p["vehicles"]) for p in points]
+            distance_values=[p===nothing ? NaN : Float64(p["distance"]) for p in points]
+            rate_values=[100*mean(any(e->e["seconds"]<=t&&hit(e,id),r["trajectory"]) for r in rows) for t in grid]
+            mark_positions=1:20:length(grid)
+            stairs!(fleet,grid,fleet_values;step=:post,color=COLORS[j],linestyle=style(j))
+            scatter!(fleet,grid[mark_positions],fleet_values[mark_positions];color=COLORS[j],marker=MARKERS[j],markersize=7)
+            stairs!(distance,grid,distance_values;step=:post,color=COLORS[j],linestyle=style(j))
+            scatter!(distance,grid[mark_positions],distance_values[mark_positions];color=COLORS[j],marker=MARKERS[j],markersize=7)
+            stairs!(rate,grid,rate_values;step=:post,color=COLORS[j],linestyle=style(j))
+            scatter!(rate,grid[mark_positions],rate_values[mark_positions];color=COLORS[j],marker=MARKERS[j],markersize=7)
         end
     end
     footer!(fig,4);exportfig(fig,"all-variants-anytime-$(width)t")
@@ -113,7 +123,7 @@ function cpuplot()
         lines!(ax,WIDTHS,WIDTHS;color=:gray30,linestyle=:dot)
         for (j,m) in enumerate(METHODS)
             xs=[w for w in WIDTHS if !isempty(subset(id,m,w))]
-            scatterlines!(ax,xs,[median(r["mean_active_cpus"] for r in subset(id,m,w)) for w in xs];color=COLORS[j],linestyle=style(j),markersize=8)
+            scatterlines!(ax,xs,[median(r["mean_active_cpus"] for r in subset(id,m,w)) for w in xs];color=COLORS[j],linestyle=style(j),marker=MARKERS[j],markersize=8)
         end
     end
     footer!(fig,2;reference=false);exportfig(fig,"all-variants-cpu")

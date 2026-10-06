@@ -4,6 +4,7 @@ const ROOT=normpath(joinpath(@__DIR__,".."));const OUT=abspath(ARGS[1]);mkpath(O
 include(joinpath(ROOT,"src","BenchmarkTargets.jl"))
 const IDS=["lc101","lr101","lrc101"];const WIDTHS=[1,2,4,8,16]
 const COLORS=[:seagreen3,:dodgerblue3,:darkorange2]
+const MARKERS=[:circle,:rect,:utriangle]
 const LABELS=["CBLS + ICN","Timefold LA 400","Timefold LA 1,000"]
 const TARGETS=TOML.parsefile(joinpath(ROOT,"config","diagnostic-targets.toml"))
 const DATA=Dict{Tuple{String,Int,Int},Vector{Any}}()
@@ -40,7 +41,8 @@ function exportfig(fig,name)
     for extension in ("png","pdf");save(joinpath(OUT,name*suffix*"."*extension),fig;px_per_unit=1.5) end
 end
 function render()
-    legends=[LineElement(color=c,linewidth=2.5) for c in COLORS]
+    legends=[Any[LineElement(color=COLORS[kind],linewidth=2.5),
+        MarkerElement(color=COLORS[kind],marker=MARKERS[kind],markersize=11)] for kind in 1:3]
     reference=LineElement(color=:gray30,linestyle=:dot,linewidth=2)
     quality=Figure(size=(1500,1100))
     Label(quality[0,1:3],"CBLS / Timefold: quality and reference in 5 seconds",fontsize=27)
@@ -70,17 +72,24 @@ function render()
         for kind in 1:3
             style=kind==3 ? :dash : :solid
             summaries=[lexmedian(DATA[(id,w,kind)]) for w in WIDTHS]
-            scatterlines!(fleet,WIDTHS,[r["vehicles"] for r in summaries];color=COLORS[kind],linestyle=style,markersize=10)
-            scatterlines!(distance,WIDTHS,[r["distance"] for r in summaries];color=COLORS[kind],linestyle=style,markersize=10)
-            scatterlines!(rate,WIDTHS,[100*mean(hit(r,id) for r in DATA[(id,w,kind)]) for w in WIDTHS];color=COLORS[kind],linestyle=style,markersize=10)
+            scatterlines!(fleet,WIDTHS,[r["vehicles"] for r in summaries];color=COLORS[kind],linestyle=style,marker=MARKERS[kind],markersize=10)
+            scatterlines!(distance,WIDTHS,[r["distance"] for r in summaries];color=COLORS[kind],linestyle=style,marker=MARKERS[kind],markersize=10)
+            scatterlines!(rate,WIDTHS,[100*mean(hit(r,id) for r in DATA[(id,w,kind)]) for w in WIDTHS];color=COLORS[kind],linestyle=style,marker=MARKERS[kind],markersize=10)
             rs=DATA[(id,16,kind)]
             points=[begin
                 events=[at(r,t) for r in rs]
                 any(isnothing,events) ? nothing : lexmedian(events)
             end for t in grid]
-            stairs!(fleettime,grid,[p===nothing ? NaN : Float64(p["vehicles"]) for p in points];step=:post,color=COLORS[kind],linestyle=style)
-            stairs!(disttime,grid,[p===nothing ? NaN : Float64(p["distance"]) for p in points];step=:post,color=COLORS[kind],linestyle=style)
-            stairs!(ratetime,grid,[100*mean(any(e->e["seconds"]<=t && hit(e,id),r["trajectory"]) for r in rs) for t in grid];step=:post,color=COLORS[kind],linestyle=style)
+            fleet_values=[p===nothing ? NaN : Float64(p["vehicles"]) for p in points]
+            distance_values=[p===nothing ? NaN : Float64(p["distance"]) for p in points]
+            rate_values=[100*mean(any(e->e["seconds"]<=t && hit(e,id),r["trajectory"]) for r in rs) for t in grid]
+            mark_positions=1:20:length(grid)
+            stairs!(fleettime,grid,fleet_values;step=:post,color=COLORS[kind],linestyle=style)
+            scatter!(fleettime,grid[mark_positions],fleet_values[mark_positions];color=COLORS[kind],marker=MARKERS[kind],markersize=9)
+            stairs!(disttime,grid,distance_values;step=:post,color=COLORS[kind],linestyle=style)
+            scatter!(disttime,grid[mark_positions],distance_values[mark_positions];color=COLORS[kind],marker=MARKERS[kind],markersize=9)
+            stairs!(ratetime,grid,rate_values;step=:post,color=COLORS[kind],linestyle=style)
+            scatter!(ratetime,grid[mark_positions],rate_values[mark_positions];color=COLORS[kind],marker=MARKERS[kind],markersize=9)
         end
     end
     caption="Exposed diagnostic set · 3 seeds · same insertion start · fleet, then distance · dotted lines: SINTEF BKS\nCommunity runs independent serial solvers in one JVM. CBLS uses independent Julia workers. Different solver versions/profiles."
