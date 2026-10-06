@@ -6,9 +6,11 @@ The official SINTEF archive checksums and all 3 extracted instance checksums wer
 
 SINTEF publishes its distance targets to 2 decimal places. BKS attainment rounds the candidate to that displayed precision; raw double-precision distances remain in the results and determine solver rankings.
 
-## English figures
+## Interactive comparison and English figures
 
-Each plot has a precise version and an XKCDMakie version. The dotted zero line marks the published SINTEF reference where applicable; the dotted line in the CPU plot marks the allocated worker count.
+[Open the interactive comparison](figures-exact/interactive.html) to select profiles individually or by solver family. The best profile per family starts selected, ranked by BKS hit rate, then median fleet gap, mean fleet gap and distance. SINTEF references remain visible even when all profiles are hidden. The dashboard is self-contained and works offline.
+
+Each static figure has an exact and an XKCDMakie version. Crowded comparisons use one panel per solver profile with common scales, and dotted lines keep the published SINTEF fleet/distance targets visible. The CPU figure marks the allocated worker count.
 
 ### Time to the SINTEF best-known target
 
@@ -16,11 +18,29 @@ Each plot has a precise version and an XKCDMakie version. The dotted zero line m
 
 [Exact PNG](figures-exact/lilim-bks-attainment.png) · [Exact PDF](figures-exact/lilim-bks-attainment.pdf) · [XKCD PNG](figures-xkcd/lilim-bks-attainment-xkcd.png) · [XKCD PDF](figures-xkcd/lilim-bks-attainment-xkcd.pdf)
 
-### Best, mean and median search quality
+### Best fleet gap by solver profile
 
-![Best, mean and median search quality](figures-exact/lilim-best-mean-median-vs-bks.png)
+![Best fleet gap by solver profile](figures-exact/lilim-quality-best-fleet-gap-by-profile.png)
 
-[Exact PNG](figures-exact/lilim-best-mean-median-vs-bks.png) · [Exact PDF](figures-exact/lilim-best-mean-median-vs-bks.pdf) · [XKCD PNG](figures-xkcd/lilim-best-mean-median-vs-bks-xkcd.png) · [XKCD PDF](figures-xkcd/lilim-best-mean-median-vs-bks-xkcd.pdf)
+[Exact PNG](figures-exact/lilim-quality-best-fleet-gap-by-profile.png) · [Exact PDF](figures-exact/lilim-quality-best-fleet-gap-by-profile.pdf) · [XKCD PNG](figures-xkcd/lilim-quality-best-fleet-gap-by-profile-xkcd.png) · [XKCD PDF](figures-xkcd/lilim-quality-best-fleet-gap-by-profile-xkcd.pdf)
+
+### Mean-run fleet gap by solver profile
+
+![Mean-run fleet gap by solver profile](figures-exact/lilim-quality-mean-fleet-gap-by-profile.png)
+
+[Exact PNG](figures-exact/lilim-quality-mean-fleet-gap-by-profile.png) · [Exact PDF](figures-exact/lilim-quality-mean-fleet-gap-by-profile.pdf) · [XKCD PNG](figures-xkcd/lilim-quality-mean-fleet-gap-by-profile-xkcd.png) · [XKCD PDF](figures-xkcd/lilim-quality-mean-fleet-gap-by-profile-xkcd.pdf)
+
+### Median-run fleet gap by solver profile
+
+![Median-run fleet gap by solver profile](figures-exact/lilim-quality-median-fleet-gap-by-profile.png)
+
+[Exact PNG](figures-exact/lilim-quality-median-fleet-gap-by-profile.png) · [Exact PDF](figures-exact/lilim-quality-median-fleet-gap-by-profile.pdf) · [XKCD PNG](figures-xkcd/lilim-quality-median-fleet-gap-by-profile-xkcd.png) · [XKCD PDF](figures-xkcd/lilim-quality-median-fleet-gap-by-profile-xkcd.pdf)
+
+### Median distance gap by solver profile
+
+![Median distance gap by solver profile](figures-exact/lilim-quality-distance-gap-by-profile.png)
+
+[Exact PNG](figures-exact/lilim-quality-distance-gap-by-profile.png) · [Exact PDF](figures-exact/lilim-quality-distance-gap-by-profile.pdf) · [XKCD PNG](figures-xkcd/lilim-quality-distance-gap-by-profile-xkcd.png) · [XKCD PDF](figures-xkcd/lilim-quality-distance-gap-by-profile-xkcd.pdf)
 
 ### Best-known solution success by instance or size
 

@@ -196,10 +196,14 @@ function write_report(path, summary)
             " extracted instance checksums were verified. Every stored incumbent and every trajectory point in the report was revalidated against the original Li-Lim instance. The fleet objective has priority; raw double-precision Euclidean distance is compared only after fleet count.\n")
         println(io, "SINTEF publishes its distance targets to ", summary["bks_distance_digits"],
             " decimal places. BKS attainment rounds the candidate to that displayed precision; raw double-precision distances remain in the results and determine solver rankings.\n")
-        println(io, "## English figures\n\nEach plot has a precise version and an XKCDMakie version. The dotted zero line marks the published SINTEF reference where applicable; the dotted line in the CPU plot marks the allocated worker count.\n")
+        println(io, "## Interactive comparison and English figures\n\n[Open the interactive comparison](figures-exact/interactive.html) to select individual profiles or whole solver families. It opens with the best profile in each family selected; fixed SINTEF target marks remain visible when profiles are hidden. Crowded static solver comparisons use one small panel per profile, with shared scales, so overlapping curves remain separately inspectable. Every static plot has a precise version and an XKCDMakie version. Dotted zero lines mark the SINTEF reference where applicable; the dotted line in the CPU plot marks the allocated worker count.\n")
+        println(io, "### Interactive view\n\nThe dashboard is self-contained and works offline. Its controls select CBLS, hybrid, HiGHS, MetaStrategist or Hexaly profiles individually or by family, and its measure selector switches between BKS attainment, fleet/distance gaps and CPU use. Hover over a marker for the corresponding value.\n")
         figures = (
             ("lilim-bks-attainment", "Time to the SINTEF best-known target"),
-            ("lilim-best-mean-median-vs-bks", "Best, mean and median search quality"),
+            ("lilim-quality-best-fleet-gap-by-profile", "Best fleet gap by solver profile"),
+            ("lilim-quality-mean-fleet-gap-by-profile", "Mean-run fleet gap by solver profile"),
+            ("lilim-quality-median-fleet-gap-by-profile", "Median-run fleet gap by solver profile"),
+            ("lilim-quality-distance-gap-by-profile", "Median distance gap by solver profile"),
             ("lilim-bks-success-by-size", "Best-known solution success by instance or size"),
             ("lilim-cpu-use", "Effective CPU use by solver profile"),
         )
