@@ -51,7 +51,10 @@ function attainment_plot()
         scheduled = sum(row["planned_runs"] for row in rows)
         y = [scheduled == 0 ? 0.0 : 100 * count(time->time <= t, times) / scheduled for t in grid]
         lines!(ax, grid, y; color, linewidth=2.6,
-            linestyle=method == "hexaly_native" ? :dash : :solid, label=label(method))
+            linestyle=method == "hexaly_native" ? :dash : :solid)
+        marker_positions = 1:10:length(grid)
+        scatter!(ax, grid[marker_positions], y[marker_positions]; color,
+            marker=MARKERS[mod1(index, length(MARKERS))], markersize=10, label=label(method))
     end
     hlines!(ax, [100.0]; color=:black, linestyle=:dot, linewidth=2.0, label="100% target attainment")
     xlims!(ax, 0, budget)
