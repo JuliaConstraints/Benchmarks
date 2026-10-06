@@ -5,6 +5,7 @@ import LocalSearchSolvers as LS
 using ..Benchmarks
 using ..MetaRepair
 using ..Pilot
+include("SearchPolicies.jl")
 
 export run_cbls, routing_score, prepare_parent, pair_relocation
 
@@ -136,7 +137,8 @@ function pair_relocation(p, routes, distances, pair; deadline_ns=typemax(UInt64)
     (; routes=best, examined)
 end
 
-function prepare_parent(p, initial; seed=41, scorer=nothing, plateau_rejection=10)
+function prepare_parent(p, initial; seed=41, scorer=nothing, plateau_rejection=10,
+        search_policy="legacy")
     Random.seed!(seed)
     validate_solution(p, initial).valid || throw(ArgumentError("valid common start required"))
     d = p.data
@@ -153,10 +155,9 @@ function prepare_parent(p, initial; seed=41, scorer=nothing, plateau_rejection=1
         score = evaluate(v)
         fleet_weight*score.vehicles+score.distance
     end)
-    acceptance = LS.GreedyPlateauAcceptance(;guide_infeasible=false,reject_plateau_percent=plateau_rejection)
-    restart = LS.restart_policy(LS.restart(nothing, Val(:random); rp=0.);
-        reset_fraction=0., source=:best)
-    strategy = LS.MetaStrategy(model; acceptance, tabu=LS.tabu(), restart)
+    policy = SearchPolicies.materialize(model,search_policy;plateau_rejection)
+    strategy = policy.strategy
+    acceptance = strategy.acceptance
     options = LS.Options(dynamic=false, process_threads_map=Dict(1=>1),
         print_level=:silent, log_mode=:silent, log_to_file=false,
         progress_mode=:none, use_progress_meter=false)
@@ -165,14 +166,14 @@ function prepare_parent(p, initial; seed=41, scorer=nothing, plateau_rejection=1
     values = successors(p, initial)
     foreach(i->LS._value!(solver,i,values[i]), eachindex(values))
     LS._compute!(solver)
-    LS._reset_proposal_acceptance!(acceptance, solver.model, solver.state)
-    (; solver, acceptance, fleet_weight, distances)
+    SearchPolicies.synchronize!(solver)
+    (; solver, acceptance, fleet_weight, distances, policy_description=policy.description)
 end
 
 function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
         max_visits=16, repair_every=5, fragment_seconds=0.1, repair_fraction=0.35,
         structured=true, origin_ns=nothing, scorer=nothing, scorer_name="direct full-route scorer/1 (no ICN)",
-        pair_selection=:best, pair_every=1, plateau_rejection=10)
+        pair_selection=:best, pair_every=1, plateau_rejection=10, search_policy="legacy")
     entered = time_ns()
     started = origin_ns === nothing ? entered : UInt64(origin_ns)
     started <= entered || throw(ArgumentError("clock origin is in the future"))
@@ -180,12 +181,14 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
     0 <= repair_fraction <= 1 && repair_every > 0 && isfinite(fragment_seconds) && fragment_seconds > 0 || throw(ArgumentError("invalid repair policy"))
     rng = Xoshiro(seed)
     pair_selection in (:best,:first) && pair_every>0 || throw(ArgumentError("invalid pair policy"))
-    prepared = prepare_parent(p, initial; seed, scorer, plateau_rejection)
-    solver, acceptance = prepared.solver, prepared.acceptance
+    prepared = prepare_parent(p, initial; seed, scorer, plateau_rejection, search_policy)
+    solver = prepared.solver
     initialization = (time_ns()-entered)/1e9
     best = deepcopy(initial)
     best_quality = validate_solution(p, best).objective
     steps = 0
+    infeasible_steps = 0
+    max_tabu_entries = 0
     pair_candidates = 0
     pair_moves = 0
     repair_seconds = 0.
@@ -214,7 +217,10 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
     end
     resolver = HighsRouteResolver(; bridged, max_visits)
     while remaining() > 0
-        if hybrid && steps % repair_every == 0 && repair_seconds < repair_fraction*seconds
+        # Native resets may temporarily break successor topology or feasibility.
+        # The native scorer repairs these states; feasible-route operators and
+        # RO snapshots are meaningful only once the current state is feasible.
+        if hybrid && iszero(LS.get_error(solver)) && steps % repair_every == 0 && repair_seconds < repair_fraction*seconds
             current_routes = routes_from_successors!(route_workspace,p,LS.get_values(solver))
             groups = route_groups!(group_workspace,current_routes,max_visits)
             if !isempty(groups)
@@ -234,14 +240,14 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
                     if outcome.move !== nothing && remaining() > 0
                         LS._commit!(solver.model, solver.state, outcome.move)
                         LS._compute!(solver)
-                        LS._reset_proposal_acceptance!(acceptance, solver.model, solver.state)
+                        SearchPolicies.synchronize!(solver)
                         consider!()
                     end
                 end
             end
         end
         remaining() > 0 || break
-        if structured && steps % pair_every == 0
+        if structured && iszero(LS.get_error(solver)) && steps % pair_every == 0
             current = routes_from_successors!(route_workspace,p,LS.get_values(solver))
             relocation = pair_relocation(p,current,prepared.distances,rand(rng,p.data.pairs);
                 deadline_ns,workspace=pair_workspace,selection=pair_selection)
@@ -258,7 +264,7 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
                     iszero(LS._candidate_cost(solver,move)) || error("pair relocation failed CBLS score")
                     if remaining() > 0
                         LS._commit!(solver,move); LS._compute!(solver)
-                        LS._reset_proposal_acceptance!(acceptance,solver.model,solver.state)
+                        SearchPolicies.synchronize!(solver)
                         pair_moves += 1
                         consider!()
                     end
@@ -268,6 +274,8 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
         remaining() > 0 || break
         LS._step!(solver)
         steps += 1
+        iszero(LS.get_error(solver)) || (infeasible_steps += 1)
+        max_tabu_entries = max(max_tabu_entries,LS.length_tabu(solver.strategies))
         consider!()
     end
     # A bounded operation may finish after the deadline. It cannot backdate a
@@ -278,6 +286,10 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
     return (; routes=best, validation,
         trace=Dict("seconds"=>elapsed(), "budget_seconds"=>seconds,
             "initialization_seconds"=>initialization, "steps"=>steps,
+            "search_policy"=>prepared.policy_description,
+            "infeasible_steps"=>infeasible_steps,"max_tabu_entries"=>max_tabu_entries,
+            "sequence_or_exhaustion_resets"=>SearchPolicies.sequence_resets(solver.strategies.restart),
+            "reset_counter_scope"=>"native universal sequence index or exhaustion count; -1 means random/tabu-trigger count unavailable",
             "pair_candidates"=>pair_candidates, "pair_moves"=>pair_moves,
             "structured"=>structured, "pair_policy"=>"random request, $(pair_selection) feasible improving reinsertion/2",
             "pair_every"=>pair_every,"plateau_rejection_percent"=>plateau_rejection,

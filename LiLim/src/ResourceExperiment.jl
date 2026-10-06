@@ -13,12 +13,16 @@ function cpu_seconds(id=2)
 end
 
 const METHODS = ("cbls_naive","cbls_icn","cbls_icn_fused_scalar","cbls_icn_fused_all","cbls_direct","hybrid_specialized_icn",
-    "hybrid_bridged_icn","highs_native","highs_portfolio","mixed_balanced","mixed_ls_heavy","cbls_mix_strategy")
+    "hybrid_bridged_icn","highs_native","highs_portfolio","mixed_balanced","mixed_ls_heavy","cbls_mix_strategy",
+    Hybrid.SearchPolicies.METHODS...,sort!(collect(keys(Hybrid.SearchPolicies.PORTFOLIOS)))...)
 
 "Each entry is one serial search worker, including a serial HiGHS worker."
 function allocation(method,threads)
     method in METHODS && threads > 0 || throw(ArgumentError("invalid configuration"))
-    if method == "highs_native"
+    if haskey(Hybrid.SearchPolicies.PORTFOLIOS,method)
+        policies = Hybrid.SearchPolicies.PORTFOLIOS[method]
+        return [policies[mod1(i,length(policies))] for i in 1:threads]
+    elseif method == "highs_native"
         return ["highs_native"]
     elseif method == "highs_portfolio"
         return fill("highs_serial",threads)
@@ -36,6 +40,17 @@ function allocation(method,threads)
                 fill("hybrid_bridged_icn",max(0,q-1)),["highs_serial"])
     end
     fill(method,threads)
+end
+
+"Resolve the exact lane policy once, outside its search loop."
+function worker_settings(worker)
+    variant = get(Hybrid.SearchPolicies.VARIANTS,worker,nothing)
+    (; search_policy=variant===nothing ? "legacy" : variant["policy"],
+        hybrid=variant===nothing ? startswith(worker,"hybrid") : get(variant,"hybrid",false),
+        bridged=variant===nothing ? worker=="hybrid_bridged_icn" : get(variant,"bridged",false),
+        pair_selection=worker in ("cbls_icn_first","cbls_icn_sparse_first") ? :first : :best,
+        pair_every=worker=="cbls_icn_sparse_first" ? 4 : 1,
+        plateau_rejection=worker=="cbls_icn_no_plateau" ? 100 : worker=="cbls_icn_sparse_first" ? 75 : 10)
 end
 
 mutable struct ExecutionContext{F}
@@ -145,12 +160,9 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
             Hybrid.run_cbls(p,initial;seconds,seed=lane_seed,origin_ns=origin,
                 scorer=backend,
                 scorer_name="route constraints/2: "*string(backend_kind),
-                hybrid=startswith(worker,"hybrid"),bridged=worker=="hybrid_bridged_icn",
+                worker_settings(worker)...,
                 max_visits=policy["max_visits"],repair_every=policy["repair_every"],
-                fragment_seconds=policy["fragment_seconds"],repair_fraction=policy["repair_fraction"],
-                pair_selection=worker in ("cbls_icn_first","cbls_icn_sparse_first") ? :first : :best,
-                pair_every=worker=="cbls_icn_sparse_first" ? 4 : 1,
-                plateau_rejection=worker=="cbls_icn_no_plateau" ? 100 : worker=="cbls_icn_sparse_first" ? 75 : 10)
+                fragment_seconds=policy["fragment_seconds"],repair_fraction=policy["repair_fraction"])
         end
         result.validation.valid || error("invalid worker solution")
         Dict{String,Any}("worker"=>i,"method"=>worker,"seed"=>lane_seed,

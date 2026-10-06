@@ -1,5 +1,59 @@
 # Small Li–Lim pilot
 
+## Existing strategy screening (6 October 2026)
+
+Historical method names, allocations, acceptance and zero-fraction reset settings
+remain available. `tabu()` meant **no tabu** in those CBLS lanes. The native
+stagnation trigger could still restore the best state, without perturbing it.
+Their old trial files, manifests and published results remain untouched.
+
+[strategy-variants.toml](config/strategy-variants.toml) adds 17 existing policy
+combinations: short/long tabu, accepted/proposal tabu clocks, keen/weak tabu,
+random partial resets from best/current, scaled universal resets, tabu-triggered
+resets, selection-exhaustion resets with periodic full resets, assignment-only
+search, the native compatibility strategy and the existing late-acceptance policy
+with histories of 64 and 400. The settings are initial screening candidates,
+not tuned recommendations. All added score paths use the recovered ICN bank;
+four variants also use specialized or qualified bridged HiGHS repairs. Two new
+MetaStrategist portfolios cycle diverse policy lanes, including mixed hybrids.
+These are fixed portfolios, not adaptive strategy selection.
+
+Use `--methods=cbls_icn,hybrid_specialized_icn,strategies` for the initial screen.
+`--methods=all,strategies` adds the variants to every historical internal method;
+`all` alone retains its previous meaning. Native OR-Tools/Hexaly remain separate
+opt-in profiles. The source manifest now freezes the strategy catalog and the
+reused `SolverSmoke/src/Profiles.jl` acceptance implementation.
+
+The first screen uses LC101/LR101/LRC101, seeds 41/42/43, 8 seconds and one P-core.
+Inspect fleet-first best/mean/median/spread, BKS/time-to-target, CPU use, GC,
+infeasible-step share and actual tabu entries. Retain a few complementary
+profiles for 32/128-second screens and widths 1/2/4/8/16, then confirm with
+unexposed official instances and fresh seeds. LC101's already-optimal common
+start cannot establish competitive superiority. Avoid multiplying every policy,
+instance, seed, budget and thread width before screening them.
+
+After a native reset, successor assignments can temporarily be structurally or
+semantically infeasible. Pair reinsertion and RO snapshots wait for feasibility;
+the native ICN search continues. Every exported incumbent is independently
+validated in the original problem, and late improvements remain censored.
+Policy caches and tabu state are synchronized after externally committed moves.
+Random/tabu-triggered reset counts are not observable from native strategy types;
+reports show them as unavailable rather than inventing counts. Universal and
+exhaustion counters use the actual native state. Partial resets operate on raw
+successor variables and may be ineffective; that is a measured screening question.
+
+Run `LiLim/test/search_policies.jl --routes` in the qualified solver environment
+for strategy contracts and recovered-ICN/original-validator integration. This
+test mode does not solve a HiGHS subproblem. Run `LiLim/test/hybrid.jl` and
+`LiLim/test/icn_resources.jl` before the comparative cohort when resources are free.
+The strategy/ICN route qualification passed 298 assertions on 6 October; six
+additional checks of the actual campaign selectors passed. No comparative
+strategy cohort has run yet. All 37 configured internal/external plot profiles
+have distinct color/marker pairs; all 13 interactive marker shapes and the
+embedded JavaScript syntax were checked without rendering.
+Reports and plots support the larger catalog, with distinct color/marker pairs,
+shared-scale panels, fixed references and interactive solver selection.
+
 ## OR-Tools comparison profile (6 October 2026)
 
 The full-corpus runner accepts `--methods=all,ortools_native` and

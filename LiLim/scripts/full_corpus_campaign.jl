@@ -37,7 +37,7 @@ function cli(args)
         values[name] = value
     end
     all(key -> haskey(values, key), ("budget", "output", "threads")) ||
-        error("usage: full_corpus_campaign.jl --budget=SECONDS --output=DIR --threads=N [--instances=all|ID,...] [--methods=all|NAME,...] [--seeds=41,42,43] [--hexaly=PATH] [--ortools=PYTHON] [--resume]")
+        error("usage: full_corpus_campaign.jl --budget=SECONDS --output=DIR --threads=N [--instances=all|ID,...] [--methods=all|strategies|NAME,...] [--seeds=41,42,43] [--hexaly=PATH] [--ortools=PYTHON] [--resume]")
     budget = parse(Float64, values["budget"])
     isfinite(budget) && budget > 0 || error("budget must be positive and finite")
     (; budget, output=abspath(values["output"]), threads=parse(Int, values["threads"]),
@@ -97,11 +97,16 @@ function available_methods(threads)
 end
 
 function select_methods(threads, selector)
-    allowed = unique(vcat(available_methods(threads), CAMPAIGN_CONFIG["external_methods"]))
+    strategies = vcat(collect(Hybrid.SearchPolicies.METHODS),
+        sort!(collect(keys(Hybrid.SearchPolicies.PORTFOLIOS))))
+    allowed = unique(vcat(available_methods(threads), strategies, CAMPAIGN_CONFIG["external_methods"]))
     wanted = String.(strip.(split(selector, ',')))
     isempty(wanted) && error("empty method selection")
     if "all" in wanted
         wanted = unique(vcat(available_methods(threads), filter(!=("all"), wanted)))
+    end
+    if "strategies" in wanted
+        wanted = unique(vcat(filter(!=("strategies"),wanted),strategies))
     end
     unknown = setdiff(Set(wanted), Set(allowed))
     isempty(unknown) || error("methods unavailable at $(threads) threads: " * join(sort!(collect(unknown)), ", "))
@@ -176,6 +181,9 @@ function check_environment(threads)
     measured = vcat(filter(path -> endswith(path, ".jl"), readdir(joinpath(ROOT, "LiLim", "src"); join=true)),
         [CAMPAIGN_CONFIG_PATH, BKS_PATH, BASELINE_PATH, COHORT_PATH,
          joinpath(ROOT, "LiLim", "config", "icn-threads.toml"),
+         Hybrid.SearchPolicies.CONFIG_PATH,
+         joinpath(ROOT, "SolverSmoke", "src", "Profiles.jl"),
+         joinpath(ROOT, "LiLim", "test", "search_policies.jl"),
          joinpath(ROOT, "LiLim", "test", "icn_resources.jl"),
          joinpath(ROOT, "LiLim", "test", "competitors.jl"),
          joinpath(ROOT, "LiLim", "competitors", "Adapters.jl"),
@@ -211,6 +219,9 @@ function source_manifest()
     files = vcat(filter(path -> endswith(path, ".jl"), readdir(joinpath(ROOT, "LiLim", "src"); join=true)),
         [RUNNER_PATH, CAMPAIGN_CONFIG_PATH, BKS_PATH, BASELINE_PATH, COHORT_PATH,
          joinpath(ROOT, "LiLim", "config", "icn-threads.toml"),
+         Hybrid.SearchPolicies.CONFIG_PATH,
+         joinpath(ROOT, "SolverSmoke", "src", "Profiles.jl"),
+         joinpath(ROOT, "LiLim", "test", "search_policies.jl"),
          joinpath(ROOT, "LiLim", "test", "icn_resources.jl"),
          joinpath(ROOT, "LiLim", "test", "competitors.jl"),
          joinpath(ROOT, "LiLim", "competitors", "Adapters.jl"),
@@ -240,6 +251,7 @@ function campaign_identity(opts, instances, methods, hexaly_executable, ortools_
         "instances" => [row.id for row in instances],
         "targets" => Dict(row.id => Dict("vehicles"=>row.bks_vehicles,"distance"=>row.bks_distance) for row in instances),
         "methods" => methods,
+        "strategy_variants" => Hybrid.SearchPolicies.CONFIG,
         "hexaly" => hexaly_identity,
         "ortools" => ortools_identity === nothing ? Dict{String,Any}() : ortools_identity,
         "seeds" => opts.seeds,

@@ -44,6 +44,38 @@ campagne.
 
 ## Objectif et résultat attendu
 
+### Variantes des stratégies existantes — 6 octobre 2026
+
+La demande courante conserve toutes les anciennes configurations et ajoute des
+variétés fondées sur les stratégies déjà implémentées. Le
+[catalogue exécutable](../LiLim/config/strategy-variants.toml) propose 17 politiques,
+21 variantes CBLS/hybrides et deux portefeuilles MetaStrategist supplémentaires.
+Il réutilise tabu, resets partiels, séquences universelles, épuisement de sélection
+et acceptation différée déjà présents. Les fonctions ICN récupérées restent
+exécutées ; les hybrides conservent les bridges qualifiés et le validateur original.
+
+Les anciennes campagnes restent intactes. Leur `tabu()` désactivait le tabu ;
+leurs resets de stagnation restauraient le meilleur état avec fraction zéro.
+Ces profils restent des témoins disponibles, sans prétendre représenter toute
+la capacité de CBLS. Les nouveaux resets peuvent créer des états infaisables :
+les opérateurs sur routes et les captures RO attendent leur réparation par la
+recherche native. Seuls les incumbents valides et reçus dans le budget sont publiés.
+
+Premier criblage prévu : 8 s, un cœur P, LC101/LR101/LRC101 et trois graines,
+avec les témoins CBLS ICN et hybride spécialisé. Puis quelques profils retenus
+à 32 et 128 s, aux largeurs 1/2/4/8/16, avant confirmation sur instances et
+graines non utilisées au criblage. La sélection regarde flotte puis distance,
+meilleur/moyenne/médiane/dispersion, BKS, temps à la cible, CPU et GC. Les tableaux
+ajoutent la part de pas infaisables, les entrées tabu observées et les compteurs
+natifs de resets disponibles. Les figures gardent leurs références et leurs
+contrôles interactifs ; les paires couleur/marque différencient le catalogue élargi.
+
+Les contrats natifs et l'intégration ICN passent 298 assertions ; six contrôles
+des vrais sélecteurs de campagne passent également. Les 37 styles de profils
+et les 13 formes de marqueurs interactifs sont vérifiés sans rendu. Aucune
+nouvelle cohorte comparative n'a encore été lancée. La campagne attend la disponibilité des ressources conformément
+à la consigne existante. Aucun gagnant n'est désigné avant les nouveaux essais.
+
 ### Premier pilote officiel SINTEF — 5 octobre 2026
 
 Le [rapport et ses figures](../LiLim/results/sintef-campaign-10s-1t-trio-bdc0c48-20261005/report.md)

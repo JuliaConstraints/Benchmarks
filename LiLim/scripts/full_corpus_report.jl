@@ -134,10 +134,24 @@ function method_summaries(cells, method)
     end
     bks_times = reduce(vcat, (row["bks_times_seconds"] for row in selected); init=Float64[])
     active_cpu = Float64[]
+    gc_seconds = Float64[]
+    infeasible_fraction = Float64[]
+    tabu_entries = Int[]
+    reset_counts = Int[]
     for id in INSTANCE_IDS, seed in SEEDS
         path = joinpath(CAMPAIGN, "trials", id * "__" * method * "__seed-" * string(seed) * ".toml")
         isfile(path) || continue
-        push!(active_cpu, TOML.parsefile(path)["mean_active_cpus"])
+        record=TOML.parsefile(path)
+        push!(active_cpu, record["mean_active_cpus"])
+        haskey(record,"search_gc_seconds") && push!(gc_seconds,record["search_gc_seconds"])
+        for worker in get(record,"workers",Any[])
+            trace=worker["trace"]
+            get(trace,"steps",0)>0 && haskey(trace,"infeasible_steps") &&
+                push!(infeasible_fraction,trace["infeasible_steps"]/trace["steps"])
+            haskey(trace,"max_tabu_entries") && push!(tabu_entries,trace["max_tabu_entries"])
+            get(trace,"sequence_or_exhaustion_resets",-1)>=0 &&
+                push!(reset_counts,trace["sequence_or_exhaustion_resets"])
+        end
     end
     Dict{String,Any}(
         "method"=>method, "planned_runs"=>planned, "completed_runs"=>completed, "feasible_runs"=>feasible,
@@ -152,7 +166,11 @@ function method_summaries(cells, method)
         "mean_time_to_bks_seconds"=>(isempty(bks_times) ? -1.0 : mean(bks_times)),
         "median_time_to_bks_seconds"=>(isempty(bks_times) ? -1.0 : median(bks_times)),
         "bks_time_observations"=>length(bks_times),
-        "mean_active_cpus"=>(isempty(active_cpu) ? -1.0 : mean(active_cpu)))
+        "mean_active_cpus"=>(isempty(active_cpu) ? -1.0 : mean(active_cpu)),
+        "mean_search_gc_seconds"=>(isempty(gc_seconds) ? -1.0 : mean(gc_seconds)),
+        "mean_infeasible_step_fraction"=>(isempty(infeasible_fraction) ? -1.0 : mean(infeasible_fraction)),
+        "max_observed_tabu_entries"=>maximum(tabu_entries;init=-1),
+        "mean_sequence_or_exhaustion_resets"=>(isempty(reset_counts) ? -1.0 : mean(reset_counts)))
 end
 
 function size_summaries(cells, methods)
@@ -247,7 +265,26 @@ function write_report(path, summary)
             "hexaly_native"=>"Hexaly native Modeler profile at the configured target version, launched with the same validated insertion start, full trial wall-clock cap and explicit CPU affinity; every stored incumbent is checked against the original Li-Lim validator.")
         println(io, "\n## Score and solver provenance\n\nThe ICN variants below use the frozen learned-weight bank recorded in `manifest.toml`. `Fused all` is an aggregate-ICN ablation: its pairwise violation indicators are formed directly before learned aggregation, so it does not execute the individual pair decoders used by `CBLS learned ICN`. The differential tests establish score identity on their qualified synthetic domain; benchmark performance is reported separately.\n\n| Profile | Executed score or solver path |\n|---|---|")
         for method in METHODS
-            println(io, "| `", method, "` | ", get(descriptions, method, "Profile description unavailable; inspect the frozen source manifest."), " |")
+            config=get(IDENTITY,"strategy_variants",Dict())
+            variant=findfirst(row->row["method"]==method,get(config,"variants",Any[]))
+            description=get(descriptions, method, "Profile description unavailable; inspect the frozen source manifest.")
+            if variant!==nothing
+                row=config["variants"][variant]
+                description="Recovered learned ICN scorer with existing policy `$(row["policy"])`; " *
+                    (get(row,"hybrid",false) ? (get(row,"bridged",false) ? "qualified XCSP3Bridges RO repair." : "specialized HiGHS RO repair.") : "native CBLS and paired reinsertion.")
+            elseif haskey(get(config,"portfolios",Dict()),method)
+                description="MetaStrategist executes fixed independently seeded lanes: " * join(config["portfolios"][method],", ") * ". No adaptive allocation or live exchange."
+            end
+            println(io, "| `", method, "` | ", description, " |")
+        end
+        if haskey(IDENTITY,"strategy_variants")
+            println(io,"\n## Executed strategy diagnostics\n\nHistorical CBLS lanes retain their greedy acceptance, no tabu and zero-fraction best-state resets. Added policies can temporarily become infeasible; feasible-route reinsertion and RO snapshots are skipped until the native scorer has restored feasibility. Exported best solutions and trajectory points remain independently validated. Reset probabilities are per native step; the native stagnation trigger also applies except for exhaustion policies. Partial resets change raw successor variables, and can be ineffective on route structure; their quality is measured rather than assumed.\n")
+            println(io,"| Profile | Mean search GC (s) | Mean infeasible-step share | Maximum tabu entries | Mean observable native resets per lane |\n|---|---:|---:|---:|---:|")
+            for row in summary["method_summary"]
+                showvalue(key;percent=false)=row[key]<0 ? "—" : @sprintf("%.3f%s",row[key]*(percent ? 100 : 1),percent ? "%" : "")
+                println(io,"| `",row["method"],"` | ",showvalue("mean_search_gc_seconds")," | ",showvalue("mean_infeasible_step_fraction";percent=true)," | ",row["max_observed_tabu_entries"]<0 ? "—" : row["max_observed_tabu_entries"]," | ",showvalue("mean_sequence_or_exhaustion_resets")," |")
+            end
+            println(io,"\nNative universal-sequence and exhaustion reset counts are observable. Random/tabu-triggered counts are unavailable and shown as a dash; they are never inferred. GC is measured across the entire process, and infeasible-step share is a lane average. Exact policy settings, allocations and source hashes are frozen in the manifest and lane traces.\n")
         end
         println(io, "\nA fleet gap of zero means the fleet matches the SINTEF reference; a negative gap is better. Best, mean-run and median-run fleet gaps are averaged per instance so large instances do not dominate. Per-instance output includes the best run, one actual median-ranked run, mean, standard deviation and full min/max spread across feasible seeds. The distance gap is shown only for instance cells whose median-ranked run uses the BKS fleet; distance remains a secondary objective. BKS time is conditional on hits, and misses are censored at the campaign budget in the attainment plot.\n")
         println(io, "## Results by problem size\n\n| Requests | Profile | BKS hits / planned | Mean best fleet gap | Mean run fleet gap | Mean median-run fleet gap | Median-run distance gap at BKS fleet |")

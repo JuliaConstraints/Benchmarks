@@ -15,6 +15,13 @@ const LABELS = Dict(
     "cbls_mix_strategy"=>"CBLS strategy mix", "mixed_balanced"=>"MetaStrategist equal mix",
     "mixed_ls_heavy"=>"MetaStrategist search-heavy", "ortools_native"=>"OR-Tools RoutingModel (GLS)",
     "hexaly_native"=>"Hexaly native")
+const STRATEGY_CONFIG = TOML.parsefile(joinpath(@__DIR__,"..","config","strategy-variants.toml"))
+for variant in STRATEGY_CONFIG["variants"]
+    prefix = get(variant,"hybrid",false) ? (get(variant,"bridged",false) ? "Hybrid XCSP3" : "Hybrid specialized") : "CBLS ICN"
+    LABELS[variant["method"]] = prefix * " · " * replace(variant["policy"],'_'=>' ')
+end
+LABELS["cbls_strategy_diverse"] = "CBLS diverse strategy mix"
+LABELS["mixed_strategy_diverse"] = "MetaStrategist diverse mix"
 const COLORS = [:dodgerblue3, :darkorange2, :seagreen3, :purple3, :firebrick3,
     :gray35, :cyan3, :deeppink3, :sienna3, :steelblue3, :darkslateblue, :olivedrab3,
     :deepskyblue3]
@@ -22,13 +29,24 @@ const HTML_COLORS = ["#0072B2", "#D55E00", "#009E73", "#7B61A8", "#CC3311", "#55
     "#00A6D6", "#CC79A7", "#A65E2E", "#31708E", "#6B4C9A", "#8A9A00", "#0081A7"]
 const MARKERS = [:circle, :rect, :utriangle, :diamond, :dtriangle, :cross,
     :star5, :hexagon, :pentagon, :xcross, :octagon, :star4, :star8]
+const STYLE_ORDER = vcat(["cbls_naive","cbls_icn","cbls_icn_fused_scalar","cbls_icn_fused_all",
+    "cbls_direct","hybrid_specialized_icn","hybrid_bridged_icn","highs_native",
+    "highs_portfolio","cbls_mix_strategy","mixed_balanced","mixed_ls_heavy","ortools_native"],
+    [v["method"] for v in STRATEGY_CONFIG["variants"]],
+    ["cbls_strategy_diverse","mixed_strategy_diverse"])
 const PROFILE_STYLES = let
     profiles = filter(!=("hexaly_native"), METHODS)
-    length(profiles) <= length(COLORS) || error("add an explicit color and marker for every solver profile")
-    Dict(method => (color=COLORS[i], marker=MARKERS[i]) for (i, method) in enumerate(profiles))
+    all(m->m in STYLE_ORDER,profiles) || error("unknown solver plot style")
+    length(profiles) <= length(COLORS)*length(MARKERS) || error("plot style combinations exhausted")
+    # Preserve the first palette; later uses of a color always change its marker.
+    Dict(method => (color=COLORS[mod1(i,length(COLORS))],
+        html_color=HTML_COLORS[mod1(i,length(COLORS))],
+        marker=MARKERS[mod1(i+div(i-1,length(COLORS)),length(MARKERS))],
+        linestyle=(:solid,:dash,:dot)[mod1(1+div(i-1,length(COLORS)),3)])
+        for method in profiles for i in (findfirst(==(method),STYLE_ORDER),))
 end
 function profile_style(method)
-    method == "hexaly_native" && return (color=:black, marker=:star8)
+    method == "hexaly_native" && return (color=:black, html_color="#111111", marker=:star8,linestyle=:dash)
     get(PROFILE_STYLES, method) do
         error("no explicit plot style configured for solver profile $method")
     end
@@ -65,7 +83,7 @@ solver_family(method) = startswith(method, "hybrid_") ? "Hybrid" :
     startswith(method, "highs_") ? "HiGHS" : startswith(method, "mixed_") ? "MetaStrategist" :
     method == "ortools_native" ? "OR-Tools" :
     method == "hexaly_native" ? "Hexaly" : "CBLS"
-line_style(method) = method in ("hexaly_native", "ortools_native") ? :dash : :solid
+line_style(method) = method in ("hexaly_native", "ortools_native") ? :dash : profile_style(method).linestyle
 
 function write_dashboard()
     rows = SUMMARY["instance_results"]
@@ -74,17 +92,14 @@ function write_dashboard()
         push!(methods, row["method"])
     end
     profiles = Any[]
-    color_index = 0
     for method in methods
-        if method != "hexaly_native"
-            color_index += 1
-        end
+        style = profile_style(method)
         methodrow = only(filter(row->row["method"] == method, SUMMARY["method_summary"]))
         instancerows = sort(filter(row->row["method"] == method, rows); by=row->row["instance"])
         push!(profiles, Dict{String,Any}(
             "id"=>method, "label"=>label(method), "family"=>solver_family(method),
-            "color"=>(method == "hexaly_native" ? "#111111" : HTML_COLORS[color_index]),
-            "marker"=>string(method == "hexaly_native" ? :star8 : MARKERS[color_index]),
+            "color"=>style.html_color,
+            "marker"=>string(style.marker),
             "dash"=>(solver_family(method) == "Hybrid" ? "9 3" : solver_family(method) == "HiGHS" ? "2 3" : solver_family(method) == "MetaStrategist" ? "7 3 2 3" : solver_family(method) == "OR-Tools" ? "3 2 1 2" : ""),
             "hitRate"=>methodrow["bks_hit_rate"], "bestFleetGap"=>methodrow["mean_best_fleet_gap"],
             "meanFleetGap"=>methodrow["mean_run_fleet_gap"], "medianFleetGap"=>methodrow["mean_median_run_fleet_gap"],
@@ -157,7 +172,10 @@ function metricData(p,key){
    return [i.id,v];
  });
 }
-function shape(p,x,y){let r=5,c=p.color,m=p.marker;switch(m){case 'rect':return `<rect x="${x-4}" y="${y-4}" width="8" height="8" fill="${c}" stroke="white"/>`;case 'diamond':return `<path d="M ${x} ${y-6} L ${x+5} ${y} L ${x} ${y+6} L ${x-5} ${y} Z" fill="${c}" stroke="white"/>`;case 'utriangle':case 'dtriangle':return `<path d="M ${x} ${y+(m==='utriangle'? -6:6)} L ${x+5} ${y+(m==='utriangle'?4:-4)} L ${x-5} ${y+(m==='utriangle'?4:-4)} Z" fill="${c}" stroke="white"/>`;case 'cross':case 'xcross':return `<path d="${m==='cross'?`M${x-5} ${y}h10 M${x} ${y-5}v10`:`M${x-4} ${y-4}l8 8 M${x+4} ${y-4}l-8 8`}" stroke="${c}" stroke-width="2.5"/>`;default:return `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" stroke="white" stroke-width="1.2"/>`}}
+function shape(p,x,y){let r=5,c=p.color,m=p.marker;
+ const polygon={pentagon:5,hexagon:6,octagon:8},star=m.match(/^star([458])$/),n=star?2*Number(star[1]):polygon[m];
+ if(n){let points=Array.from({length:n},(_,i)=>{let a=-Math.PI/2+2*Math.PI*i/n,rr=star&&i%2?2.5:6;return `${x+rr*Math.cos(a)},${y+rr*Math.sin(a)}`}).join(' ');return `<polygon points="${points}" fill="${c}" stroke="white" stroke-width="1"/>`}
+ switch(m){case 'rect':return `<rect x="${x-4}" y="${y-4}" width="8" height="8" fill="${c}" stroke="white"/>`;case 'diamond':return `<path d="M ${x} ${y-6} L ${x+5} ${y} L ${x} ${y+6} L ${x-5} ${y} Z" fill="${c}" stroke="white"/>`;case 'utriangle':case 'dtriangle':return `<path d="M ${x} ${y+(m==='utriangle'? -6:6)} L ${x+5} ${y+(m==='utriangle'?4:-4)} L ${x-5} ${y+(m==='utriangle'?4:-4)} Z" fill="${c}" stroke="white"/>`;case 'cross':case 'xcross':return `<path d="${m==='cross'?`M${x-5} ${y}h10 M${x} ${y-5}v10`:`M${x-4} ${y-4}l8 8 M${x+4} ${y-4}l-8 8`}" stroke="${c}" stroke-width="2.5"/>`;default:return `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" stroke="white" stroke-width="1.2"/>`}}
 function draw(){
  const key=document.getElementById('metric').value,chosen=DATA.profiles.filter(p=>selected.has(p.id));
  const cpu=key==='cpu',att=key==='attainment',labels=att?[]:cpu?chosen.map(p=>p.label):DATA.instances;
