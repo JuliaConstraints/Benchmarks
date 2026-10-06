@@ -1,5 +1,28 @@
 # Small Li–Lim pilot
 
+## OR-Tools comparison profile (6 October 2026)
+
+The full-corpus runner accepts `--methods=all,ortools_native` and
+`--ortools=/absolute/path/to/python` (or `ORTOOLS_PYTHON`). The Python environment
+must provide the version pinned in [requirements.txt](native/ortools/requirements.txt).
+Python is required here by the official OR-Tools RoutingModel interface used for
+this external solver; the campaign, validation, aggregation and plots remain in Julia.
+
+The OR-Tools profile uses Guided Local Search on one configured P-core, the shared
+insertion start, and a dominating fixed vehicle cost for fleet-first ranking.
+Its distance costs are scaled by 1,000,000, and its time constraints by 10,000
+with conservative rounding; reported distance comes from the original unrounded
+Julia validator. It is a local competitor profile, not an exact reproduction of
+the vendor's published model. Every retained incumbent is independently audited,
+and improvements delivered after the wall budget are censored. Repetition seed
+labels do not modify the OR-Tools search, so they measure repeated timings rather
+than independent random-seed experiments. Wider campaign thread counts do not
+increase this solver's one-thread allocation.
+
+The adapter currently has no measured solver trial: the pinned OR-Tools dependency
+is not installed on this host. See the [capability and hardware estimate](results/hexaly-capability-estimate-20261006.md)
+for the published Hexaly comparison, local evidence and limitations.
+
 ## Current reconstructed cohort (2 October 2026)
 
 The historical vendor reader/validator and dataset API below are absent from the

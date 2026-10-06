@@ -61,4 +61,42 @@ include(joinpath(@__DIR__,"..","competitors","Adapters.jl"))
         cpus=collect(0:15),trial_start_epoch_ms=epoch_ms)
     @test "hxTimeLimit=500,100" in long.exec
     @test_throws ArgumentError CompetitorAdapters.hexaly_command("hexaly","in","out";threads=0,seconds=60,seed=41,cpus=Int[],trial_start_epoch_ms=epoch_ms)
+
+    ortools=Dict{String,Any}("schema"=>"li-lim-ortools-native/1",
+        "ortools_version"=>"9.14.6206","internal_search_threads"=>1,
+        "guided_local_search"=>true,"distance_scale"=>1_000_000,"time_scale"=>10_000,
+        "seed_used_by_routing_search"=>false,"common_start_accepted"=>true,
+        "objective_policy"=>"lexicographic vehicles then distance using a dominating fixed vehicle cost",
+        "seconds"=>1.8,"solver_seconds"=>1.1,"vehicles"=>one_route_q.vehicles,
+        "distance"=>one_route_q.distance,"routes"=>one_route,"trajectory"=>deepcopy(trace["trajectory"]))
+    audited=CompetitorAdapters.audit_ortools_trial(p,initial,ortools;budget_seconds=1.6,common_start_seconds=0.3)
+    @test audited["routes"]==one_route
+    @test length(audited["trajectory"])==2
+    @test audited["trajectory"][2]["seconds"]==0.5
+    @test audited["audited_incumbents"]==1
+    @test audited["late_incumbents_censored"]==2
+    @test audited["common_start_accepted"]
+    @test audited["original_validation"] && audited["within_budget_feasible"]
+    late=deepcopy(ortools);late["trajectory"][1]["seconds"]=1.7
+    @test CompetitorAdapters.audit_ortools_trial(p,initial,late;budget_seconds=1.6,common_start_seconds=0.3)["routes"]==initial
+    for (field,value) in (("ortools_version","9.13.0"),("internal_search_threads",2),
+            ("guided_local_search",false),("distance_scale",100),("time_scale",1),
+            ("seed_used_by_routing_search",true),("solver_seconds",NaN),
+            ("solver_seconds",2.0),("seconds",Inf),("vehicles",2),("distance",0.0))
+        bad=deepcopy(ortools);bad[field]=value
+        @test_throws ErrorException CompetitorAdapters.audit_ortools_trial(p,initial,bad;budget_seconds=1.6,common_start_seconds=0.3)
+    end
+    for (field,value) in (("routes",[[3,2,4,5]]),("seconds",0.2),("seconds",2.0),
+            ("distance",0.0),("vehicles",2))
+        bad=deepcopy(ortools);bad["trajectory"][1][field]=value
+        @test_throws ErrorException CompetitorAdapters.audit_ortools_trial(p,initial,bad;budget_seconds=1.6,common_start_seconds=0.3)
+    end
+    @test_throws ArgumentError CompetitorAdapters.audit_ortools_trial(p,initial,ortools;budget_seconds=-1)
+    epoch_ns=epoch_ms*1_000_000
+    command=CompetitorAdapters.ortools_command("python3","runner.py","in","out";
+        seconds=60,seed=41,trial_start_epoch_ns=epoch_ns,cpus=[8])
+    @test command.exec[1:3]==["taskset","--cpu-list","8"]
+    @test "--trial-start-epoch-ns=$epoch_ns" in command.exec
+    @test_throws ArgumentError CompetitorAdapters.ortools_command("python3","runner.py","in","out";
+        seconds=60,seed=41,trial_start_epoch_ns=epoch_ns,cpus=[8,10])
 end

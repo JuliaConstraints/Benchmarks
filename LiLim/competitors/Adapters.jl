@@ -1,7 +1,8 @@
 module CompetitorAdapters
 using TOML, SHA
 using ..Benchmarks, ..Pilot
-export export_common_start, audit_timefold, audit_hexaly, audit_hexaly_trial, hexaly_command
+export export_common_start, audit_timefold, audit_hexaly, audit_hexaly_trial, hexaly_command,
+    audit_ortools_trial, ortools_command
 
 "One-based node IDs, depot=1; complete native fleet and an independently validated start."
 function export_common_start(io,p,initial)
@@ -59,6 +60,92 @@ function audit_hexaly(p,output)
     validation.objective.vehicles==output["vehicles"] || error("Hexaly fleet mismatch")
     isapprox(validation.objective.distance,output["distance"];atol=1e-7,rtol=1e-12) || error("Hexaly distance mismatch")
     validation
+end
+"""Audit OR-Tools' result and each within-budget incumbent against Li-Lim."""
+function audit_ortools_trial(p, initial, output; budget_seconds, common_start_seconds=0.)
+    isfinite(budget_seconds) && budget_seconds >= 0 ||
+        throw(ArgumentError("OR-Tools budget must be finite and nonnegative"))
+    isfinite(common_start_seconds) && common_start_seconds >= 0 ||
+        throw(ArgumentError("OR-Tools common start must be finite and nonnegative"))
+    output["schema"] == "li-lim-ortools-native/1" || error("wrong OR-Tools schema")
+    output["ortools_version"] == "9.14.6206" || error("OR-Tools version differs from the frozen baseline")
+    output["internal_search_threads"] == 1 || error("OR-Tools routing profile must use one internal search thread")
+    output["guided_local_search"] || error("OR-Tools profile is not Guided Local Search")
+    output["distance_scale"] == 1_000_000 && output["time_scale"] == 10_000 ||
+        error("OR-Tools integer scales differ from the frozen model")
+    output["seed_used_by_routing_search"] === false || error("OR-Tools default seed policy changed")
+    output["objective_policy"] == "lexicographic vehicles then distance using a dominating fixed vehicle cost" ||
+        error("OR-Tools objective policy changed")
+    final_seconds = Float64(output["seconds"])
+    isfinite(final_seconds) && final_seconds >= common_start_seconds || error("invalid OR-Tools final clock")
+    solver_seconds = Float64(output["solver_seconds"])
+    isfinite(solver_seconds) && 0 <= solver_seconds <= final_seconds + 1e-6 ||
+        error("invalid OR-Tools search duration")
+    initial_check = validate_solution(p, initial)
+    initial_check.valid || error("invalid common-start fallback")
+    final_routes = [Int.(route) for route in output["routes"]]
+    final_check = validate_solution(p, final_routes)
+    final_check.valid || error("OR-Tools final route violates the original Li-Lim problem")
+    final_check.objective.vehicles == output["vehicles"] || error("OR-Tools final fleet mismatch")
+    isapprox(final_check.objective.distance, output["distance"]; atol=1e-7, rtol=1e-12) ||
+        error("OR-Tools final distance mismatch")
+
+    best_routes = deepcopy(initial)
+    best = initial_check.objective
+    trajectory = Any[]
+    censored = 0
+    audited_count = 0
+    if common_start_seconds <= budget_seconds
+        push!(trajectory, Dict("seconds"=>common_start_seconds,"vehicles"=>best.vehicles,
+            "distance"=>best.distance,"routes"=>deepcopy(initial),"source"=>"common_start"))
+    end
+    observations = sort(collect(get(output,"trajectory",Any[])); by=event->event["seconds"])
+    for event in observations
+        seconds = Float64(event["seconds"])
+        isfinite(seconds) && common_start_seconds <= seconds <= final_seconds || error("invalid OR-Tools trajectory clock")
+        if seconds > budget_seconds
+            censored += 1
+            continue
+        end
+        routes = [Int.(route) for route in event["routes"]]
+        checked = validate_solution(p, routes)
+        checked.valid || error("OR-Tools trajectory incumbent violates the original Li-Lim problem")
+        checked.objective.vehicles == event["vehicles"] || error("OR-Tools trajectory fleet mismatch")
+        isapprox(checked.objective.distance, event["distance"]; atol=1e-7, rtol=1e-12) ||
+            error("OR-Tools trajectory distance mismatch")
+        audited_count += 1
+        if (checked.objective.vehicles,checked.objective.distance) < (best.vehicles,best.distance)
+            best_routes = deepcopy(routes)
+            best = checked.objective
+            push!(trajectory, Dict("seconds"=>seconds,"vehicles"=>best.vehicles,
+                "distance"=>best.distance,"routes"=>deepcopy(best_routes),"source"=>"ortools_gls"))
+        end
+    end
+    if final_seconds > budget_seconds
+        censored += 1
+    elseif (final_check.objective.vehicles,final_check.objective.distance) < (best.vehicles,best.distance)
+        best_routes = deepcopy(final_routes)
+        best = final_check.objective
+        push!(trajectory, Dict("seconds"=>final_seconds,"vehicles"=>best.vehicles,
+            "distance"=>best.distance,"routes"=>deepcopy(best_routes),"source"=>"ortools_final"))
+    end
+    Dict("routes"=>best_routes,"vehicles"=>best.vehicles,"distance"=>best.distance,
+        "trajectory"=>trajectory,"original_validation"=>true,
+        "within_budget_feasible"=>!isempty(trajectory),"audited_incumbents"=>audited_count,
+        "late_incumbents_censored"=>censored,
+        "common_start_accepted"=>Bool(output["common_start_accepted"]))
+end
+
+"Launch the pinned Python RoutingModel adapter with single-core CPU affinity."
+function ortools_command(python, script, input, output; seconds, seed, trial_start_epoch_ns, cpus)
+    seconds isa Real && isfinite(seconds) && seconds >= 0 ||
+        throw(ArgumentError("OR-Tools time limit must be finite and nonnegative"))
+    seed isa Integer && seed > 0 || throw(ArgumentError("OR-Tools trial seed label must be positive"))
+    trial_start_epoch_ns isa Integer && trial_start_epoch_ns > 0 ||
+        throw(ArgumentError("OR-Tools needs a positive common-start epoch"))
+    length(cpus) == 1 && only(cpus) isa Integer && only(cpus) >= 0 ||
+        throw(ArgumentError("OR-Tools RoutingModel baseline is pinned to exactly one CPU"))
+    `taskset --cpu-list $(join(cpus,',')) $python $script --input=$input --output=$output --seconds=$seconds --seed=$seed --trial-start-epoch-ns=$trial_start_epoch_ns`
 end
 """Audit Hexaly's final solution and every within-budget anytime observation."""
 function audit_hexaly_trial(p, initial, output, trace; budget_seconds, common_start_seconds=0.)

@@ -13,13 +13,15 @@ const LABELS = Dict(
     "hybrid_specialized_icn"=>"Hybrid ICN specialized", "hybrid_bridged_icn"=>"Hybrid ICN + XCSP3",
     "highs_native"=>"HiGHS native", "highs_portfolio"=>"HiGHS portfolio",
     "cbls_mix_strategy"=>"CBLS strategy mix", "mixed_balanced"=>"MetaStrategist equal mix",
-    "mixed_ls_heavy"=>"MetaStrategist search-heavy", "hexaly_native"=>"Hexaly native")
+    "mixed_ls_heavy"=>"MetaStrategist search-heavy", "ortools_native"=>"OR-Tools RoutingModel (GLS)",
+    "hexaly_native"=>"Hexaly native")
 const COLORS = [:dodgerblue3, :darkorange2, :seagreen3, :purple3, :firebrick3,
-    :gray35, :cyan3, :deeppink3, :sienna3, :steelblue3, :darkslateblue, :olivedrab3]
+    :gray35, :cyan3, :deeppink3, :sienna3, :steelblue3, :darkslateblue, :olivedrab3,
+    :deepskyblue3]
 const HTML_COLORS = ["#0072B2", "#D55E00", "#009E73", "#7B61A8", "#CC3311", "#555555",
-    "#00A6D6", "#CC79A7", "#A65E2E", "#31708E", "#6B4C9A", "#8A9A00"]
+    "#00A6D6", "#CC79A7", "#A65E2E", "#31708E", "#6B4C9A", "#8A9A00", "#0081A7"]
 const MARKERS = [:circle, :rect, :utriangle, :diamond, :dtriangle, :cross,
-    :star5, :hexagon, :pentagon, :xcross, :octagon, :star4]
+    :star5, :hexagon, :pentagon, :xcross, :octagon, :star4, :star8]
 const PROFILE_STYLES = let
     profiles = filter(!=("hexaly_native"), METHODS)
     length(profiles) <= length(COLORS) || error("add an explicit color and marker for every solver profile")
@@ -61,7 +63,9 @@ json(value) = error("unsupported dashboard value: $(typeof(value))")
 
 solver_family(method) = startswith(method, "hybrid_") ? "Hybrid" :
     startswith(method, "highs_") ? "HiGHS" : startswith(method, "mixed_") ? "MetaStrategist" :
+    method == "ortools_native" ? "OR-Tools" :
     method == "hexaly_native" ? "Hexaly" : "CBLS"
+line_style(method) = method in ("hexaly_native", "ortools_native") ? :dash : :solid
 
 function write_dashboard()
     rows = SUMMARY["instance_results"]
@@ -81,7 +85,7 @@ function write_dashboard()
             "id"=>method, "label"=>label(method), "family"=>solver_family(method),
             "color"=>(method == "hexaly_native" ? "#111111" : HTML_COLORS[color_index]),
             "marker"=>string(method == "hexaly_native" ? :star8 : MARKERS[color_index]),
-            "dash"=>(solver_family(method) == "Hybrid" ? "9 3" : solver_family(method) == "HiGHS" ? "2 3" : solver_family(method) == "MetaStrategist" ? "7 3 2 3" : ""),
+            "dash"=>(solver_family(method) == "Hybrid" ? "9 3" : solver_family(method) == "HiGHS" ? "2 3" : solver_family(method) == "MetaStrategist" ? "7 3 2 3" : solver_family(method) == "OR-Tools" ? "3 2 1 2" : ""),
             "hitRate"=>methodrow["bks_hit_rate"], "bestFleetGap"=>methodrow["mean_best_fleet_gap"],
             "meanFleetGap"=>methodrow["mean_run_fleet_gap"], "medianFleetGap"=>methodrow["mean_median_run_fleet_gap"],
             "distanceGap"=>methodrow["median_distance_gap_at_bks_fleet_percent"],
@@ -209,8 +213,7 @@ function attainment_plot()
         times = reduce(vcat, (row["bks_times_seconds"] for row in rows); init=Float64[])
         scheduled = sum(row["planned_runs"] for row in rows)
         y = [scheduled == 0 ? 0.0 : 100 * count(time->time <= t, times) / scheduled for t in grid]
-        lines!(ax, grid, y; color, linewidth=2.6,
-            linestyle=method == "hexaly_native" ? :dash : :solid)
+        lines!(ax, grid, y; color, linewidth=2.6, linestyle=line_style(method))
         marker_positions = 1:10:length(grid)
         scatter!(ax, grid[marker_positions], y[marker_positions]; color,
             marker=style.marker, markersize=10)
@@ -288,7 +291,7 @@ function quality_by_size()
             style = series[method][5]
             isempty(ys) || scatterlines!(ax, xs, ys; color=style.color, marker=style.marker,
                 markersize=9, linewidth=2.0,
-                linestyle=method == "hexaly_native" ? :dash : :solid)
+                linestyle=line_style(method))
         end
         Label(fig[nrows + 1, 1:ncols], "One panel per solver profile · common scale within this figure · negative fleet gaps beat the reference · dotted zero marks the SINTEF reference", fontsize=14)
         savefig(fig, filenames[column])
@@ -319,7 +322,7 @@ function success_by_size()
             ylabel=col == 1 ? "Runs reaching SINTEF BKS (%)" : "",
             xticks=(1:length(categories), string.(categories)), yticks=0:25:100)
         scatterlines!(ax, xs, ys; color, marker, markersize=9,
-            linewidth=2.4, linestyle=method == "hexaly_native" ? :dash : :solid,
+            linewidth=2.4, linestyle=line_style(method),
             )
         hlines!(ax, [100.0]; color=:black, linestyle=:dot, linewidth=1.7)
         xlims!(ax, 0.5, length(categories) + 0.5)
