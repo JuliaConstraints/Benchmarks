@@ -22,7 +22,7 @@ gc = "SerialGC; retain Java CPU and wall measurements; do not equate requested w
 
 [hexaly]
 target_version = "15.0"
-status = "model, exchange, anytime trajectory and common wall-clock budget prepared; SDK/executable absent; native compilation, semantic and timing qualification pending"
+status = "model, exchange, anytime trajectory and common wall-clock budget prepared; native compilation, semantic and timing qualification require a licensed Hexaly 15.0 host"
 model = "LiLim/native/hexaly/pdptw.hxm"
 objectives = "hard original feasibility; minimize fleet, then distance without rounding"
 objective_time_phase_weights = [5, 1]

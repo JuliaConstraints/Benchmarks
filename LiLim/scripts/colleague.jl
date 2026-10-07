@@ -9,6 +9,12 @@ const SOLVER_ENV = joinpath(DEV,"ConstraintModels/perf/pdptw")
 const PYTHON=NativeSolvers.default_python(ROOT)
 digest(path) = bytes2hex(sha256(read(path)))
 
+function clone_cohort(url, branch, path)
+    # A Windows global autocrlf setting must not change the frozen source bytes.
+    # This setting belongs only to a newly created checkout.
+    run(`git clone --config core.autocrlf=false --single-branch --branch $branch $url $path`)
+end
+
 function launch(command)
     try
         run(command)
@@ -74,12 +80,18 @@ function setup(opts=Dict{String,String}())
             get(CONFIG,"public_status","published")=="published" || error("This source cohort has not been published; existing development checkouts were preserved.")
             url = "https://github.com/JuliaConstraints/"*name*".jl.git"
             branch = CONFIG["public_branch"]
-            run(`git clone --single-branch --branch $branch $url $path`)
+            clone_cohort(url, branch, path)
         end
         isdir(joinpath(path,".git")) || error("Not a development clone: $path")
         strip(read(`git -C $path rev-parse HEAD`,String))==sha || error("Cohort mismatch at $path; existing files were preserved.")
         isempty(strip(read(`git -C $path status --porcelain --untracked-files=no`,String))) || error("Dirty dependency: $path")
     end
+    for (file, key) in (("Project.toml", "project_sha256"), ("Manifest.toml", "manifest_sha256"))
+        digest(joinpath(SOLVER_ENV, file)) == CONFIG["environment"][key] ||
+            error("Frozen solver environment bytes differ: $file. Git newline conversion can cause this; the existing checkout was preserved. Use a fresh cohort checkout with core.autocrlf=false.")
+    end
+    digest(joinpath(ROOT,"LiLim/resources/icn-pdptw-witnesses.toml")) == CONFIG["portable_icn_bank_sha256"] ||
+        error("Frozen ICN bank bytes differ. Existing files were preserved; use a clean handoff checkout with core.autocrlf=false.")
     import_code = "using Pkg; Pkg.instantiate(;allow_autoprecomp=false); Pkg.precompile()"
     for environment in (SOLVER_ENV,joinpath(ROOT,"LiLim/plotting"))
         manifest = joinpath(environment,"Manifest.toml"); before = digest(manifest)
@@ -116,7 +128,7 @@ function setup_ghost()
     for (name,entry) in sort!(collect(entries);by=first)
         path = joinpath(DEV,name)
         if !ispath(path)
-            run(`git clone --single-branch --branch $(entry["branch"]) $(entry["url"]) $path`)
+            clone_cohort(entry["url"], entry["branch"], path)
             run(`git -C $path checkout --detach $(entry["commit"])`)
         end
         strip(read(`git -C $path rev-parse HEAD`,String)) == entry["commit"] || error("Optional cohort mismatch at $path; existing checkout preserved")
@@ -200,7 +212,7 @@ function data_setup()
 end
 
 function qualify(opts)
-    for test in ("ghost_frontend.jl","native_solvers.jl","campaign_catalog.jl","competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl")
+    for test in ("cohort_checkout.jl","ghost_frontend.jl","native_solvers.jl","campaign_catalog.jl","competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl")
         launch(launcher(opts,joinpath(ROOT,"LiLim/test",test),String[];threads=1))
     end
     launch(launcher(opts,joinpath(ROOT,"LiLim/test/search_policies.jl"),["--routes"];threads=1))
