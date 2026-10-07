@@ -62,4 +62,10 @@ end
     @test result.trace["guide"]["authority"]=="guidance_only"
     @test all(point["seconds"]<=.03 for point in result.trace["trajectory"])
     @test initial==[[2,3],[4,5],[6,7]]
+    partial=Hybrid.QUBOGuidance.Guide([(1,3)],[1.],[];provenance="sparse external guide fixture")
+    sparse_result=Hybrid.run_cbls(p,initial;seconds=1.,hybrid=true,bridged=false,max_visits=4,
+        repair_every=1,fragment_selection="qubo",guide_mode="absolute",guide=partial,seed=41)
+    @test sparse_result.validation.valid
+    @test !isempty(sparse_result.trace["repairs"])
+    @test all(point["seconds"]<=1. for point in sparse_result.trace["trajectory"])
 end

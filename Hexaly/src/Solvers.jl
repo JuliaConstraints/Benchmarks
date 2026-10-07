@@ -34,7 +34,8 @@ function prepare_cbls(p;kind=:direct,policy="greedy_guided",seed=41,hybrid=false
     for i in eachindex(start);LS._value!(solver,i,start[i]);end
     Base.invokelatest(LS._compute!,solver);SearchPolicies.synchronize!(solver)
     repair_every>0 && fragment_seconds>0 && 0<=repair_fraction<=1 && max_visits>0 || throw(ArgumentError("invalid fragment limits"))
-    guide_mode in ("none","absolute","conditional") && guide_every>0 && 0<=guide_fraction<=1 || throw(ArgumentError("invalid guide limits"))
+    guide_mode in ("none","absolute","conditional") && guide_every>0 && guide_depth>0 &&
+        0<=guide_fraction<=1 && 0<=guide_exploration<=1 || throw(ArgumentError("invalid guide limits"))
     fragment_selection in ("random","bottleneck","qubo") || throw(ArgumentError("invalid fragment selection"))
     guide_started=time_ns()
     if guide_mode!="none" && guide===nothing
@@ -62,7 +63,7 @@ function fragment_scope(lane,values,rng;guided=true)
     c=lane.controls;n=length(values)
     if guided && c.fragment_selection=="qubo" && lane.guide!==nothing
         ids=QUBOGuidance.scope!(lane.workspace,lane.guide,values,c.guide_depth,rng;
-            mode=c.guide_mode,exploration=c.guide_exploration)
+            mode=c.guide_mode=="none" ? "absolute" : c.guide_mode,exploration=c.guide_exploration)
     elseif c.fragment_selection=="bottleneck"
         ids=sortperm(values;rev=true)[1:min(c.max_visits,n)]
     else
@@ -93,10 +94,11 @@ function search!(lane;seconds=1.,max_steps=typemax(Int))
         (time_ns()-start)/1e9<=seconds || return
         candidate isa AbstractVector || (candidate=decision_values!(lane.validation_buffer,candidate))
         checked=validate(lane.p,candidate)
-        if checked.valid && (incumbent===nothing || checked.objective<best_objective)
+        observed=(time_ns()-start)/1e9
+        if checked.valid && observed<=seconds && (incumbent===nothing || checked.objective<best_objective)
             incumbent=Int.(candidate)
             best_objective=checked.objective
-            push!(trajectory,Dict("seconds"=>(time_ns()-start)/1e9,"values"=>copy(incumbent),"objective"=>collect(checked.objective)))
+            push!(trajectory,Dict("seconds"=>observed,"values"=>copy(incumbent),"objective"=>collect(checked.objective)))
         end
     end
     while steps<max_steps && (time_ns()-start)/1e9<seconds
@@ -112,12 +114,15 @@ function search!(lane;seconds=1.,max_steps=typemax(Int))
                     LS.MetaVariableRequest(group,snapshot,budget,Random.default_rng()))
                 repair_seconds+=outcome.elapsed;push!(repair_traces,outcome.trace)
                 if outcome.move!==nothing && (time_ns()-start)/1e9<seconds
-                    LS._commit!(lane.solver,outcome.move);LS._compute!(lane.solver);SearchPolicies.synchronize!(lane.solver);repairs+=1
-                consider(LS.get_values(lane.solver))
+                    iszero(LS._candidate_cost(lane.solver,outcome.move)) || error("RO repair fails the qualified error backend")
+                    if (time_ns()-start)/1e9<seconds
+                        LS._commit!(lane.solver,outcome.move);LS._compute!(lane.solver);SearchPolicies.synchronize!(lane.solver);repairs+=1
+                        consider(LS.get_values(lane.solver))
+                    end
                 end
             end
         end
-        if lane.guide!==nothing && steps%c.guide_every==0 && guide_seconds<c.guide_fraction*seconds
+        if c.guide_mode!="none" && lane.guide!==nothing && steps%c.guide_every==0 && guide_seconds<c.guide_fraction*seconds
             guide_started=time_ns();values=decision_values!(lane.current,LS.get_values(lane.solver))
             proposal=QUBOGuidance.proposal!(lane.workspace,lane.guide,values,c.guide_depth,Random.default_rng();
                 mode=c.guide_mode,exploration=c.guide_exploration)
@@ -318,7 +323,9 @@ function LS.resolve_meta_variable(resolver::MIPResolver,request::LS.MetaVariable
     finish(move=nothing)=(;move,trace,elapsed=(time_ns()-started)/1e9)
     remaining()>0 || return finish()
     # Bin/station symmetry is valid for a free model, but not after fixing original labels.
+    build_started=time_ns()
     built=mip_model(p;symmetry=false,max_cells=resolver.max_cells);m=built.model;n=length(current)
+    trace["build_seconds"]=(time_ns()-build_started)/1e9
     assignment=Dict{VariableRef,Float64}()
     if p.family in (:bpp,:bppc,:vbp,:salbp)
         a=m[:a]

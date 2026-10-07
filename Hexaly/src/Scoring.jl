@@ -27,23 +27,33 @@ mutable struct Backend{F}
     bank_sha256::String
     workspace::Union{Nothing,ScoreWorkspace}
 end
+const DECODER_LOCK=ReentrantLock()
+const DECODERS=Dict{String,Function}()
+
+"Compile each exact bank once; only its pure function is shared between owned lanes."
+function bank_decoder(bank)
+    bytes=read(bank);hash=bytes2hex(sha256(bytes))
+    decoder=lock(DECODER_LOCK) do
+        get!(DECODERS,hash) do
+            witness=TOML.parse(String(bytes))["witnesses"][4]
+            witness["family"]=="sum" && witness["variant"]=="scalar condition" || error("Wrong scalar witness")
+            network=CN.learnable_composition((;op=(==),val=2);max_depth=1)
+            available=parentindices(network.weights)[1];offset=0;parts=String[]
+            for layer in network.layers
+                ops=[name for (j,name) in enumerate(keys(layer.fn)) if offset+j in available]
+                push!(parts,repr((layer.name,layer.mutex,ops)));offset+=length(layer.fn)
+            end
+            bytes2hex(sha256("ICN:"*join(parts,";")))==witness["schema_sha256"] || error("ICN schema changed")
+            weights=BitVector(witness["weights"])
+            CN.check_weights_validity(network,weights) && CN.apply!(network,weights) || error("Invalid ICN weights")
+            CN.composition(network).f
+        end
+    end
+    (;decoder,hash)
+end
 function prepare_backend(kind;bank=joinpath(@__DIR__,"../../LiLim/resources/icn-pdptw-witnesses.toml"))
     kind in (:naive,:direct,:icn,:icn_fused) || throw(ArgumentError("Unknown error backend"))
-    decoder=nothing;hash=""
-    if kind in (:icn,:icn_fused)
-        witness=TOML.parsefile(bank)["witnesses"][4]
-        witness["family"]=="sum" && witness["variant"]=="scalar condition" || error("Wrong scalar witness")
-        network=CN.learnable_composition((;op=(==),val=2);max_depth=1)
-        available=parentindices(network.weights)[1];offset=0;parts=String[]
-        for layer in network.layers
-            ops=[name for (j,name) in enumerate(keys(layer.fn)) if offset+j in available]
-            push!(parts,repr((layer.name,layer.mutex,ops)));offset+=length(layer.fn)
-        end
-        bytes2hex(sha256("ICN:"*join(parts,";")))==witness["schema_sha256"] || error("ICN schema changed")
-        weights=BitVector(witness["weights"])
-        CN.check_weights_validity(network,weights) && CN.apply!(network,weights) || error("Invalid ICN weights")
-        decoder=CN.composition(network);hash=bytes2hex(sha256(read(bank)))
-    end
+    decoder,hash=kind in (:icn,:icn_fused) ? bank_decoder(bank) : (nothing,"")
     Backend(kind,decoder,Float64[],[0.],0,0,hash,nothing)
 end
 
@@ -124,22 +134,22 @@ function residuals!(terms,p::Problem,values;atol=p.family==:maintenance ? 1e-5 :
     elseif f==:mssc
         get(d,"require_nonempty",false) && add(d["clusters"]-length(distinct_labels!(workspace,x)))
     elseif f in (:rcpsp,:jssp,:fjsp)
-        n=length(d["duration"]);s=view(x,1:n)
-        duration=f==:fjsp ? [d["alternatives"][i][x[n+i]][2] for i in 1:n] : d["duration"]
-        for i in 1:n;add(s[i]+duration[i]-d["horizon"]);end
-        for(a,b)in d["precedence"];add(s[a]+duration[a]-s[b]);end
+        jobs=length(d["duration"]);starts=view(x,1:jobs)
+        duration=f==:fjsp ? [d["alternatives"][i][x[jobs+i]][2] for i in 1:jobs] : d["duration"]
+        for i in 1:jobs;add(starts[i]+duration[i]-d["horizon"]);end
+        for(a,b)in d["precedence"];add(starts[a]+duration[a]-starts[b]);end
         if f==:rcpsp
-            events=sort!(unique(vcat(s,s.+duration)))
+            events=sort!(unique(vcat(starts,starts.+duration)))
             for t in events,r in axes(d["resource_use"],2)
-                add(sum((d["resource_use"][i,r] for i in 1:n if s[i]<=t<s[i]+duration[i]);init=0.)-d["capacity"][r])
+                add(sum((d["resource_use"][i,r] for i in 1:jobs if starts[i]<=t<starts[i]+duration[i]);init=0.)-d["capacity"][r])
             end
         else
-            machine=f==:fjsp ? [d["alternatives"][i][x[n+i]][1] for i in 1:n] : d["machine"]
+            machine=f==:fjsp ? [d["alternatives"][i][x[jobs+i]][1] for i in 1:jobs] : d["machine"]
             groups=Dict{Int,Vector{Int}}()
-            for i in 1:n;duration[i]>0 && push!(get!(groups,machine[i],Int[]),i);end
+            for i in 1:jobs;duration[i]>0 && push!(get!(groups,machine[i],Int[]),i);end
             for tasks in Base.values(groups)
-                sort!(tasks;by=i->s[i]);finish=-1
-                for i in tasks;add(finish-s[i]);finish=max(finish,s[i]+duration[i]);end
+                sort!(tasks;by=i->starts[i]);finish=-1
+                for i in tasks;add(finish-starts[i]);finish=max(finish,starts[i]+duration[i]);end
             end
         end
     elseif f==:aircraft_landing
@@ -154,8 +164,8 @@ function residuals!(terms,p::Problem,values;atol=p.family==:maintenance ? 1e-5 :
     elseif f==:maintenance
         H=d["horizon"];R=length(d["capacity_upper"][1]);used=zeros(H,R)
         for i in eachindex(x)
-            s=x[i];len=d["duration"][i][s];add(s+len-1-H)
-            for t in s:min(H,s+len-1);used[t,:].+=d["resource_use_by_start"][i][s][t-s+1];end
+            start_time=x[i];len=d["duration"][i][start_time];add(start_time+len-1-H)
+            for t in start_time:min(H,start_time+len-1);used[t,:].+=d["resource_use_by_start"][i][start_time][t-start_time+1];end
         end
         for t in 1:H,r in 1:R
             add(d["capacity_lower"][t][r]-used[t,r]-atol);add(used[t,r]-d["capacity_upper"][t][r]-atol)
@@ -166,7 +176,7 @@ function residuals!(terms,p::Problem,values;atol=p.family==:maintenance ? 1e-5 :
     end
     terms
 end
-function error_value(b,p,x)
+function error_value(b,p,x)::Float64
     b.evaluations+=1;residuals!(b.residuals,p,x;workspace=workspace!(b,p))
     if b.kind==:naive;return Float64(count(>(0),b.residuals))
     elseif b.kind==:direct;return sum(b.residuals)
@@ -181,7 +191,7 @@ function error_value(b,p,x)
 end
 
 "Search-only objective kernels; the independent original validator still audits every incumbent."
-function search_objective_value(b,p,values)
+function search_objective_value(b,p,values)::Float64
     p.family in (:bpp,:bppc,:vbp,:salbp,:rcpsp,:jssp,:fjsp,:aircraft_landing) || return objective_value(p,values)
     w=workspace!(b,p);integer_values!(w,values) || return Inf
     x=w.integers;d=p.data
@@ -213,7 +223,7 @@ function aircraft_cost(x,target,early,late)
     total
 end
 
-function objective_value(p,x)
+function objective_value(p,x)::Float64
     # Return the search objective even for infeasible assignments. Feasibility is handled separately.
     q=validate(p,x).objective
     if p.family==:cvrptw

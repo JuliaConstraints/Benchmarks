@@ -87,6 +87,7 @@ end
 include("../test/campaign.jl")
 include("../test/strategy_panel.jl")
 states["strategy_panel"]=Dict("status"=>"passed","configurations"=>496,"meta_recipes"=>180,
+    "functional_workers"=>min(2,Threads.nthreads()),
     "scope"=>"small_original_validator_and_owned_buffer_qualification_not_performance")
 report=Dict("schema"=>"discrete-original-qualification/1","checked_at_utc"=>string(now(UTC)),"status"=>"passed","checks"=>states)
 for arg in ARGS

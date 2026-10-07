@@ -47,7 +47,8 @@ function preflight(opts)
     worker=joinpath(output,"classical-qualification.toml")
     state="not_run"
     if parse(Bool,get(opts,"qualify","true"))
-        child=LiLimKit.launcher(opts,joinpath(ROOT,"Hexaly/scripts/qualify.jl"),["--output="*worker];threads=1)
+        child=LiLimKit.launcher(opts,joinpath(ROOT,"Hexaly/scripts/qualify.jl"),["--output="*worker];
+            threads=LiLimKit.qualification_width(opts,"classical_strategy_panel"))
         haskey(opts,"hexaly") && (child=addenv(child,"HEXALY_EXECUTABLE"=>opts["hexaly"]))
         r=LiLimKit.NativeSolvers.capture(child;timeout=600)
         state=r.code==0 && isfile(worker) ? "passed" : "failed"
@@ -93,7 +94,8 @@ function main(args=ARGS)
         LiLimKit.setup(original);fetch_sources(ROOT,TOML.parsefile(joinpath(ROOT,"Hexaly/config/sources.toml"));select=get(opts,"sources","all"))
     elseif cmd=="qualify"
         arguments=haskey(opts,"output") ? ["--output="*abspath(opts["output"])] : String[]
-        child=LiLimKit.launcher(opts,joinpath(ROOT,"Hexaly/scripts/qualify.jl"),arguments;threads=1)
+        child=LiLimKit.launcher(opts,joinpath(ROOT,"Hexaly/scripts/qualify.jl"),arguments;
+            threads=LiLimKit.qualification_width(opts,"classical_strategy_panel"))
         haskey(opts,"hexaly") && (child=addenv(child,"HEXALY_EXECUTABLE"=>opts["hexaly"]))
         LiLimKit.launch(child)
     elseif cmd=="run"

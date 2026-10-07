@@ -35,6 +35,10 @@ and available Hexaly. Methods run in separate trials. Use `--instances=all` for
 the 354 frozen SINTEF instances, after selecting a practical method/seed budget.
 Timefold is checked by preflight but remains outside this sealed campaign selector.
 
+The additional [496-configuration strategy panel](../Hexaly/STRATEGIES.md) is
+opt-in. It includes heterogeneous MetaStrategist roles, bounded HiGHS/RINS/local
+branching repairs and sparse value-pair QUBO neighborhood guidance.
+
 Widths **1/2/4/8/16** are supported. `--cpus=...` chooses Linux affinity; other
 systems use solver thread caps. The default order selects physical cores before
 SMT siblings, without distinguishing P/E cores. Actual CPU use is recorded.

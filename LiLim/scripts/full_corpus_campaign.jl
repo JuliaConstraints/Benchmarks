@@ -182,6 +182,8 @@ function source_manifest()
          joinpath(ROOT, "SolverSmoke", "src", "Profiles.jl"),
          joinpath(ROOT, "LiLim", "test", "search_policies.jl"),
          joinpath(ROOT, "LiLim", "test", "icn_resources.jl"),
+         joinpath(ROOT, "LiLim", "test", "strategy_panel.jl"),
+         joinpath(ROOT, "LiLim", "test", "ro_fragments.jl"),
          joinpath(ROOT, "LiLim", "test", "competitors.jl"),
          joinpath(ROOT, "LiLim", "competitors", "Adapters.jl"),
          joinpath(ROOT, "LiLim", "native", "ortools", "pdptw.py"),

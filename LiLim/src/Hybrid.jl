@@ -186,7 +186,8 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
     rng = Xoshiro(seed)
     pair_selection in (:best,:first) && pair_every>0 || throw(ArgumentError("invalid pair policy"))
     fragment_selection in ("random","bottleneck","qubo") || throw(ArgumentError("unknown fragment selector"))
-    guide_mode in ("none","absolute","conditional") && guide_every>0 && 0<=guide_fraction<=1 || throw(ArgumentError("invalid guide policy"))
+    guide_mode in ("none","absolute","conditional") && guide_every>0 && guide_depth>0 &&
+        0<=guide_fraction<=1 && 0<=guide_exploration<=1 || throw(ArgumentError("invalid guide policy"))
     prepared = prepare_parent(p, initial; seed, scorer, plateau_rejection, search_policy,policy_overrides)
     solver = prepared.solver
     initialization = (time_ns()-entered)/1e9
@@ -246,7 +247,9 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
                     select_started=time_ns()
                     chosen=QUBOGuidance.scope!(gw,guide,LS.get_values(solver),guide_depth,rng;
                         mode=guide_mode=="none" ? "absolute" : guide_mode,exploration=guide_exploration)
-                    group=argmax(g->sum(gw.selected[node-1] for r in g for node in current_routes[r]),groups)
+                    # Sparse/capped guides can omit parent decisions outside their last mapped atom.
+                    group=argmax(g->sum(node-1<=length(gw.selected) && gw.selected[node-1]
+                        for r in g for node in current_routes[r]),groups)
                     guide_seconds+=(time_ns()-select_started)/1e9
                     group
                 else
@@ -274,7 +277,7 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
             end
         end
         remaining() > 0 || break
-        if guide!==nothing && iszero(LS.get_error(solver)) && steps%guide_every==0 && guide_seconds<guide_fraction*seconds
+        if guide_mode!="none" && guide!==nothing && iszero(LS.get_error(solver)) && steps%guide_every==0 && guide_seconds<guide_fraction*seconds
             guide_started=time_ns();values=LS.get_values(solver)
             proposal=QUBOGuidance.proposal!(gw,guide,values,guide_depth,rng;mode=guide_mode,exploration=guide_exploration)
             guide_candidates+=proposal.examined
