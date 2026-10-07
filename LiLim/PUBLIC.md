@@ -104,13 +104,25 @@ is redistributed here. The model and exchange audit are prepared, but native
 Hexaly compilation/search are **not yet qualified on our machine**.
 The supplied native test is a gate: failures must be fixed and requalified
 before comparative Hexaly results can be reported.
-Missing solvers or licenses are explicitly skipped by default; model defects
-and invalid routes still fail. Use `--missing-solvers=error` to require all
+The colleague can prepare and check the host with one command. `check` includes
+setup and all functional qualification tests, reuses existing installations,
+prints CPU/RAM information, and requires licensed Hexaly 15.0. A missing license
+or a failed native model test makes this command fail. It starts no comparative
+campaign and prints `READY` only after every required test passes.
+
+```sh
+julia LiLim/scripts/colleague.jl check
+```
+
+If `hexaly` is not on PATH, supply `--hexaly=/path/to/hexaly`.
+In ordinary `qualify` and `run` commands, missing solvers or licenses are
+explicitly skipped by default; model defects and invalid routes still fail.
+Use `--missing-solvers=error` with `run` to require all
 selected profiles. A local installed Hexaly currently has no usable license,
 so native Hexaly search remains unqualified here.
 
 ```sh
-julia LiLim/scripts/colleague.jl qualify --hexaly=/path/to/hexaly
+julia LiLim/scripts/colleague.jl check --hexaly=/path/to/hexaly
 julia LiLim/scripts/colleague.jl run --budget=60 --threads=8 --hexaly=/path/to/hexaly --methods=hexaly_native,ortools_native,cbls_icn,hybrid_specialized_icn,hybrid_bridged_icn,mixed_balanced --output=LiLim/results/hexaly-60s-8t
 ```
 

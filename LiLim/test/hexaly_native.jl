@@ -8,6 +8,7 @@ const HEXALY = try
     NativeSolvers.resolve_hexaly(get(ENV,"HEXALY_EXECUTABLE","hexaly"))
 catch e
     e isa NativeSolvers.UnavailableSolver || rethrow()
+    get(ENV,"JULIACONSTRAINTS_REQUIRE_HEXALY","0")=="1" && rethrow()
     println("Skipped ",e.method,": ",e.reason)
     nothing
 end

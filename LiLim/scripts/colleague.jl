@@ -1,4 +1,4 @@
-# Pinned handoff: setup, qualify, run, report, and export.
+# Pinned handoff: check, setup, qualify, run, report, and export.
 using TOML, SHA, Downloads, Pkg
 include(joinpath(@__DIR__,"..","src","NativeSolvers.jl"))
 include(joinpath(@__DIR__,"..","src","PlatformResources.jl"))
@@ -211,14 +211,35 @@ function data_setup()
     println("All 354 official instances and six archives verified.")
 end
 
-function qualify(opts)
+function qualify(opts; require_hexaly=false)
     for test in ("cohort_checkout.jl","ghost_frontend.jl","native_solvers.jl","campaign_catalog.jl","competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl")
         launch(launcher(opts,joinpath(ROOT,"LiLim/test",test),String[];threads=1))
     end
     launch(launcher(opts,joinpath(ROOT,"LiLim/test/search_policies.jl"),["--routes"];threads=1))
     launch(launcher(opts,joinpath(ROOT,"LiLim/test/ghost_native.jl"),String[];threads=1))
     launch(addenv(launcher(opts,joinpath(ROOT,"LiLim/test/hexaly_native.jl"),String[];threads=1),
-        "HEXALY_EXECUTABLE"=>get(opts,"hexaly",get(ENV,"HEXALY_EXECUTABLE","hexaly"))))
+        "HEXALY_EXECUTABLE"=>get(opts,"hexaly",get(ENV,"HEXALY_EXECUTABLE","hexaly")),
+        "JULIACONSTRAINTS_REQUIRE_HEXALY"=>(require_hexaly ? "1" : "0")))
+end
+
+"Prepare the colleague's host and require actual licensed Hexaly qualification."
+function check(opts; hexaly_resolver=NativeSolvers.resolve_hexaly,
+        setup_runner=setup, qualification_runner=qualify)
+    string(VERSION)=="1.13.1" || error("Install Julia 1.13.1 first.")
+    for program in (Sys.islinux() ? ("git","taskset","lscpu") : ("git",))
+        Sys.which(program)===nothing && error("Missing prerequisite: $program")
+    end
+    order=topology()
+    width=parse(Int,get(opts,"threads","1"))
+    1<=width<=length(order) || error("Requested worker count exceeds available CPUs")
+    println("Host: ",Sys.KERNEL," / ",Sys.ARCH,"; Julia ",VERSION,
+        "; available logical CPUs: ",length(order),"; RAM: ",round(Sys.total_memory()/2.0^30;digits=1)," GiB")
+    # Fail before setup if Hexaly cannot execute a licensed 15.0 model.
+    prepared=copy(opts)
+    prepared["hexaly"]=hexaly_resolver(get(opts,"hexaly",get(ENV,"HEXALY_EXECUTABLE","hexaly")))
+    setup_runner(prepared)
+    qualification_runner(prepared; require_hexaly=true)
+    println("READY: Hexaly 15.0 and original PDPTW model qualification passed. No comparative campaign was started.")
 end
 
 function report(opts)
@@ -259,9 +280,10 @@ function export_results(opts)
 end
 
 function main(args=ARGS)
-    isempty(args) && error("usage: colleague.jl setup|qualify|run|report|export [--name=value]")
+    isempty(args) && error("usage: colleague.jl check|setup|qualify|run|report|export [--name=value]")
     command=first(args); opts=options(args[2:end])
-    if command=="setup"; setup(opts)
+    if command=="check"; check(opts)
+    elseif command=="setup"; setup(opts)
     elseif command=="qualify"; qualify(opts)
     elseif command=="run"; campaign(opts)
     elseif command=="report"; report(opts)
