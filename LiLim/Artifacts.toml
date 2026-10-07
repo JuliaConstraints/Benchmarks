@@ -1,14 +1,97 @@
-[absl_py_python312]
+# Unmodified official wheels; archive SHA-256 values remain upstream byte checks.
+# Windows trees were reproduced on Windows in CI 37618773198; Unix trees retain
+# their original hashes. Julia's executable-mode hashing differs between hosts.
+[[absl_py_python312]]
+arch = "x86_64"
 git-tree-sha1 = "437fb70d2a8225a5161eb6ee910f5ef15bda08e4"
 lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[absl_py_python312.download]]
+    sha256 = "0f17b89f2a4eaaedc4f28c622998aa690564b3012a396a4ffad0821007fe03ba"
+    url = "https://files.pythonhosted.org/packages/58/0a/a10b45aab35b175aded078a462dc8d0c698f5b13946e7cb0869097b78bb6/absl_py-2.5.0-py3-none-any.whl"
+[[absl_py_python312]]
+arch = "aarch64"
+git-tree-sha1 = "437fb70d2a8225a5161eb6ee910f5ef15bda08e4"
+lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[absl_py_python312.download]]
+    sha256 = "0f17b89f2a4eaaedc4f28c622998aa690564b3012a396a4ffad0821007fe03ba"
+    url = "https://files.pythonhosted.org/packages/58/0a/a10b45aab35b175aded078a462dc8d0c698f5b13946e7cb0869097b78bb6/absl_py-2.5.0-py3-none-any.whl"
+[[absl_py_python312]]
+arch = "x86_64"
+git-tree-sha1 = "437fb70d2a8225a5161eb6ee910f5ef15bda08e4"
+lazy = true
+os = "macos"
+
+    [[absl_py_python312.download]]
+    sha256 = "0f17b89f2a4eaaedc4f28c622998aa690564b3012a396a4ffad0821007fe03ba"
+    url = "https://files.pythonhosted.org/packages/58/0a/a10b45aab35b175aded078a462dc8d0c698f5b13946e7cb0869097b78bb6/absl_py-2.5.0-py3-none-any.whl"
+[[absl_py_python312]]
+arch = "aarch64"
+git-tree-sha1 = "437fb70d2a8225a5161eb6ee910f5ef15bda08e4"
+lazy = true
+os = "macos"
+
+    [[absl_py_python312.download]]
+    sha256 = "0f17b89f2a4eaaedc4f28c622998aa690564b3012a396a4ffad0821007fe03ba"
+    url = "https://files.pythonhosted.org/packages/58/0a/a10b45aab35b175aded078a462dc8d0c698f5b13946e7cb0869097b78bb6/absl_py-2.5.0-py3-none-any.whl"
+[[absl_py_python312]]
+arch = "x86_64"
+git-tree-sha1 = "5456d934e1e5111f8a52a5d14323653540a197be"
+lazy = true
+os = "windows"
 
     [[absl_py_python312.download]]
     sha256 = "0f17b89f2a4eaaedc4f28c622998aa690564b3012a396a4ffad0821007fe03ba"
     url = "https://files.pythonhosted.org/packages/58/0a/a10b45aab35b175aded078a462dc8d0c698f5b13946e7cb0869097b78bb6/absl_py-2.5.0-py3-none-any.whl"
 
-[immutabledict_python312]
+[[immutabledict_python312]]
+arch = "x86_64"
 git-tree-sha1 = "cf477806ade3593d33c7775d62e8823b7a213692"
 lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[immutabledict_python312.download]]
+    sha256 = "c9facdc0ff30fdb8e35bd16532026cac472a549e182c94fa201b51b25e4bf7bf"
+    url = "https://files.pythonhosted.org/packages/a3/ce/f9018bf69ae91b273b6391a095e7c93fa5e1617f25b6ba81ad4b20c9df10/immutabledict-4.3.1-py3-none-any.whl"
+[[immutabledict_python312]]
+arch = "aarch64"
+git-tree-sha1 = "cf477806ade3593d33c7775d62e8823b7a213692"
+lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[immutabledict_python312.download]]
+    sha256 = "c9facdc0ff30fdb8e35bd16532026cac472a549e182c94fa201b51b25e4bf7bf"
+    url = "https://files.pythonhosted.org/packages/a3/ce/f9018bf69ae91b273b6391a095e7c93fa5e1617f25b6ba81ad4b20c9df10/immutabledict-4.3.1-py3-none-any.whl"
+[[immutabledict_python312]]
+arch = "x86_64"
+git-tree-sha1 = "cf477806ade3593d33c7775d62e8823b7a213692"
+lazy = true
+os = "macos"
+
+    [[immutabledict_python312.download]]
+    sha256 = "c9facdc0ff30fdb8e35bd16532026cac472a549e182c94fa201b51b25e4bf7bf"
+    url = "https://files.pythonhosted.org/packages/a3/ce/f9018bf69ae91b273b6391a095e7c93fa5e1617f25b6ba81ad4b20c9df10/immutabledict-4.3.1-py3-none-any.whl"
+[[immutabledict_python312]]
+arch = "aarch64"
+git-tree-sha1 = "cf477806ade3593d33c7775d62e8823b7a213692"
+lazy = true
+os = "macos"
+
+    [[immutabledict_python312.download]]
+    sha256 = "c9facdc0ff30fdb8e35bd16532026cac472a549e182c94fa201b51b25e4bf7bf"
+    url = "https://files.pythonhosted.org/packages/a3/ce/f9018bf69ae91b273b6391a095e7c93fa5e1617f25b6ba81ad4b20c9df10/immutabledict-4.3.1-py3-none-any.whl"
+[[immutabledict_python312]]
+arch = "x86_64"
+git-tree-sha1 = "387c7d052d0568457e6502acddf8a06ff6d673cc"
+lazy = true
+os = "windows"
 
     [[immutabledict_python312.download]]
     sha256 = "c9facdc0ff30fdb8e35bd16532026cac472a549e182c94fa201b51b25e4bf7bf"
@@ -54,7 +137,7 @@ os = "macos"
     url = "https://files.pythonhosted.org/packages/60/39/789131c1188c078dcb3a1692e72e1e050c68b88ffe72c9ccaac9bcd7a9cd/numpy-2.5.3-cp312-cp312-macosx_11_0_arm64.whl"
 [[numpy_python312]]
 arch = "x86_64"
-git-tree-sha1 = "e2f79a3493d1e0d98bb39760247ba2917771e8d3"
+git-tree-sha1 = "ac17b876bf65de5c468583c270f3e8a61fa77da3"
 lazy = true
 os = "windows"
 
@@ -102,7 +185,7 @@ os = "macos"
     url = "https://files.pythonhosted.org/packages/31/ad/964ee5341767dd9e2f13e76f0a36d45aa8d81ad776c80bdd6dedc8f2f462/ortools-9.14.6206-cp312-cp312-macosx_11_0_arm64.whl"
 [[ortools_python312]]
 arch = "x86_64"
-git-tree-sha1 = "8bacf0ab85ad9451501a2611301385c62a2f7f81"
+git-tree-sha1 = "bd93c4121d4a3f220c6d49fd2569ad061ca64917"
 lazy = true
 os = "windows"
 
@@ -150,7 +233,7 @@ os = "macos"
     url = "https://files.pythonhosted.org/packages/18/8f/48907c7c707b61a8e5018c32e1a3f70623209bfb59020a2f6196159d3aa7/pandas-3.0.6-cp312-cp312-macosx_11_0_arm64.whl"
 [[pandas_python312]]
 arch = "x86_64"
-git-tree-sha1 = "571d93b072e3bb2adc1fbe1dd76cb8269e78e5bb"
+git-tree-sha1 = "5d97c94af6262b3957167b32b530c2cf568565ae"
 lazy = true
 os = "windows"
 
@@ -158,41 +241,241 @@ os = "windows"
     sha256 = "3ef908d28590b3f42d7070e7ad8f9b34b442b260b7f3c1afb57e0040c58cdb1b"
     url = "https://files.pythonhosted.org/packages/bd/2a/14b3b17cd75cef4a1ee1af4234eb41cc1afe4103b98c2d80e8916abfd42b/pandas-3.0.6-cp312-cp312-win_amd64.whl"
 
-[protobuf_python312]
+[[protobuf_python312]]
+arch = "x86_64"
 git-tree-sha1 = "030f5c86ce7733e9c6b709a5c6b995acce1b5063"
 lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[protobuf_python312.download]]
+    sha256 = "720a6c7e6b77288b85063569baae8536671b39f15cc22037ec7045658d80489e"
+    url = "https://files.pythonhosted.org/packages/f7/af/ab3c51ab7507a7325e98ffe691d9495ee3d3aa5f589afad65ec920d39821/protobuf-6.31.1-py3-none-any.whl"
+[[protobuf_python312]]
+arch = "aarch64"
+git-tree-sha1 = "030f5c86ce7733e9c6b709a5c6b995acce1b5063"
+lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[protobuf_python312.download]]
+    sha256 = "720a6c7e6b77288b85063569baae8536671b39f15cc22037ec7045658d80489e"
+    url = "https://files.pythonhosted.org/packages/f7/af/ab3c51ab7507a7325e98ffe691d9495ee3d3aa5f589afad65ec920d39821/protobuf-6.31.1-py3-none-any.whl"
+[[protobuf_python312]]
+arch = "x86_64"
+git-tree-sha1 = "030f5c86ce7733e9c6b709a5c6b995acce1b5063"
+lazy = true
+os = "macos"
+
+    [[protobuf_python312.download]]
+    sha256 = "720a6c7e6b77288b85063569baae8536671b39f15cc22037ec7045658d80489e"
+    url = "https://files.pythonhosted.org/packages/f7/af/ab3c51ab7507a7325e98ffe691d9495ee3d3aa5f589afad65ec920d39821/protobuf-6.31.1-py3-none-any.whl"
+[[protobuf_python312]]
+arch = "aarch64"
+git-tree-sha1 = "030f5c86ce7733e9c6b709a5c6b995acce1b5063"
+lazy = true
+os = "macos"
+
+    [[protobuf_python312.download]]
+    sha256 = "720a6c7e6b77288b85063569baae8536671b39f15cc22037ec7045658d80489e"
+    url = "https://files.pythonhosted.org/packages/f7/af/ab3c51ab7507a7325e98ffe691d9495ee3d3aa5f589afad65ec920d39821/protobuf-6.31.1-py3-none-any.whl"
+[[protobuf_python312]]
+arch = "x86_64"
+git-tree-sha1 = "030f5c86ce7733e9c6b709a5c6b995acce1b5063"
+lazy = true
+os = "windows"
 
     [[protobuf_python312.download]]
     sha256 = "720a6c7e6b77288b85063569baae8536671b39f15cc22037ec7045658d80489e"
     url = "https://files.pythonhosted.org/packages/f7/af/ab3c51ab7507a7325e98ffe691d9495ee3d3aa5f589afad65ec920d39821/protobuf-6.31.1-py3-none-any.whl"
 
-[python_dateutil_python312]
+[[python_dateutil_python312]]
+arch = "x86_64"
 git-tree-sha1 = "b9f2cc417a2ccf106d8abc260bea10647826231e"
 lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[python_dateutil_python312.download]]
+    sha256 = "a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"
+    url = "https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl"
+[[python_dateutil_python312]]
+arch = "aarch64"
+git-tree-sha1 = "b9f2cc417a2ccf106d8abc260bea10647826231e"
+lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[python_dateutil_python312.download]]
+    sha256 = "a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"
+    url = "https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl"
+[[python_dateutil_python312]]
+arch = "x86_64"
+git-tree-sha1 = "b9f2cc417a2ccf106d8abc260bea10647826231e"
+lazy = true
+os = "macos"
+
+    [[python_dateutil_python312.download]]
+    sha256 = "a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"
+    url = "https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl"
+[[python_dateutil_python312]]
+arch = "aarch64"
+git-tree-sha1 = "b9f2cc417a2ccf106d8abc260bea10647826231e"
+lazy = true
+os = "macos"
+
+    [[python_dateutil_python312.download]]
+    sha256 = "a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"
+    url = "https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl"
+[[python_dateutil_python312]]
+arch = "x86_64"
+git-tree-sha1 = "7afc21812617642d4f932a11ef5b462a90bf158c"
+lazy = true
+os = "windows"
 
     [[python_dateutil_python312.download]]
     sha256 = "a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"
     url = "https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl"
 
-[six_python312]
+[[six_python312]]
+arch = "x86_64"
 git-tree-sha1 = "eb2b1bbf1c5d62febb6f4cf1680babb5a9398b1c"
 lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[six_python312.download]]
+    sha256 = "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"
+    url = "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl"
+[[six_python312]]
+arch = "aarch64"
+git-tree-sha1 = "eb2b1bbf1c5d62febb6f4cf1680babb5a9398b1c"
+lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[six_python312.download]]
+    sha256 = "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"
+    url = "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl"
+[[six_python312]]
+arch = "x86_64"
+git-tree-sha1 = "eb2b1bbf1c5d62febb6f4cf1680babb5a9398b1c"
+lazy = true
+os = "macos"
+
+    [[six_python312.download]]
+    sha256 = "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"
+    url = "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl"
+[[six_python312]]
+arch = "aarch64"
+git-tree-sha1 = "eb2b1bbf1c5d62febb6f4cf1680babb5a9398b1c"
+lazy = true
+os = "macos"
+
+    [[six_python312.download]]
+    sha256 = "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"
+    url = "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl"
+[[six_python312]]
+arch = "x86_64"
+git-tree-sha1 = "353f2ca106fdf014dfc9df30dd35083f740d3148"
+lazy = true
+os = "windows"
 
     [[six_python312.download]]
     sha256 = "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"
     url = "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl"
 
-[typing_extensions_python312]
+[[typing_extensions_python312]]
+arch = "x86_64"
 git-tree-sha1 = "0d5f19cddcef10de38326a7ff23b4c4c70c3fb5c"
 lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[typing_extensions_python312.download]]
+    sha256 = "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
+    url = "https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl"
+[[typing_extensions_python312]]
+arch = "aarch64"
+git-tree-sha1 = "0d5f19cddcef10de38326a7ff23b4c4c70c3fb5c"
+lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[typing_extensions_python312.download]]
+    sha256 = "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
+    url = "https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl"
+[[typing_extensions_python312]]
+arch = "x86_64"
+git-tree-sha1 = "0d5f19cddcef10de38326a7ff23b4c4c70c3fb5c"
+lazy = true
+os = "macos"
+
+    [[typing_extensions_python312.download]]
+    sha256 = "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
+    url = "https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl"
+[[typing_extensions_python312]]
+arch = "aarch64"
+git-tree-sha1 = "0d5f19cddcef10de38326a7ff23b4c4c70c3fb5c"
+lazy = true
+os = "macos"
+
+    [[typing_extensions_python312.download]]
+    sha256 = "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
+    url = "https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl"
+[[typing_extensions_python312]]
+arch = "x86_64"
+git-tree-sha1 = "f6e02786ae46490206228a1f156ad527eeddd47d"
+lazy = true
+os = "windows"
 
     [[typing_extensions_python312.download]]
     sha256 = "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
     url = "https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl"
 
-[tzdata_python312]
+[[tzdata_python312]]
+arch = "x86_64"
 git-tree-sha1 = "a8c15cd2f1dfbb19c85aa48366bcd6e63869fbe4"
 lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[tzdata_python312.download]]
+    sha256 = "b683bd1b6659ddcd810ff02ad09ba821d4bf1065072805063eb35c49617905ac"
+    url = "https://files.pythonhosted.org/packages/94/21/1e5995a1c920cce14e4bffae20c665ec10e7ed03ab25e006cd741092b718/tzdata-2026.5-py2.py3-none-any.whl"
+[[tzdata_python312]]
+arch = "aarch64"
+git-tree-sha1 = "a8c15cd2f1dfbb19c85aa48366bcd6e63869fbe4"
+lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[tzdata_python312.download]]
+    sha256 = "b683bd1b6659ddcd810ff02ad09ba821d4bf1065072805063eb35c49617905ac"
+    url = "https://files.pythonhosted.org/packages/94/21/1e5995a1c920cce14e4bffae20c665ec10e7ed03ab25e006cd741092b718/tzdata-2026.5-py2.py3-none-any.whl"
+[[tzdata_python312]]
+arch = "x86_64"
+git-tree-sha1 = "a8c15cd2f1dfbb19c85aa48366bcd6e63869fbe4"
+lazy = true
+os = "macos"
+
+    [[tzdata_python312.download]]
+    sha256 = "b683bd1b6659ddcd810ff02ad09ba821d4bf1065072805063eb35c49617905ac"
+    url = "https://files.pythonhosted.org/packages/94/21/1e5995a1c920cce14e4bffae20c665ec10e7ed03ab25e006cd741092b718/tzdata-2026.5-py2.py3-none-any.whl"
+[[tzdata_python312]]
+arch = "aarch64"
+git-tree-sha1 = "a8c15cd2f1dfbb19c85aa48366bcd6e63869fbe4"
+lazy = true
+os = "macos"
+
+    [[tzdata_python312.download]]
+    sha256 = "b683bd1b6659ddcd810ff02ad09ba821d4bf1065072805063eb35c49617905ac"
+    url = "https://files.pythonhosted.org/packages/94/21/1e5995a1c920cce14e4bffae20c665ec10e7ed03ab25e006cd741092b718/tzdata-2026.5-py2.py3-none-any.whl"
+[[tzdata_python312]]
+arch = "x86_64"
+git-tree-sha1 = "089e182e2971924f3260362c1b7eb0bc31e4369b"
+lazy = true
+os = "windows"
 
     [[tzdata_python312.download]]
     sha256 = "b683bd1b6659ddcd810ff02ad09ba821d4bf1065072805063eb35c49617905ac"
