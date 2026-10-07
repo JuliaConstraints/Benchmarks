@@ -7,6 +7,15 @@ const SOLVER_ENV = joinpath(DEV,"ConstraintModels/perf/pdptw")
 const PYTHON = get(ENV,"ORTOOLS_PYTHON",joinpath(ROOT,"LiLim/native/ortools/.venv/bin/python"))
 digest(path) = bytes2hex(sha256(read(path)))
 
+function launch(command)
+    try
+        run(command)
+    catch exception
+        exception isa ProcessFailedException || rethrow()
+        error("Child command failed; see its diagnostics above. Environment variable values are omitted.")
+    end
+end
+
 function options(args)
     result = Dict{String,String}()
     for arg in args
@@ -125,21 +134,21 @@ end
 
 function qualify(opts)
     for test in ("competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl")
-        run(launcher(opts,joinpath(ROOT,"LiLim/test",test),String[];threads=1))
+        launch(launcher(opts,joinpath(ROOT,"LiLim/test",test),String[];threads=1))
     end
-    run(launcher(opts,joinpath(ROOT,"LiLim/test/search_policies.jl"),["--routes"];threads=1))
+    launch(launcher(opts,joinpath(ROOT,"LiLim/test/search_policies.jl"),["--routes"];threads=1))
     if haskey(opts,"hexaly")
-        run(addenv(launcher(opts,joinpath(ROOT,"LiLim/test/hexaly_native.jl"),String[];threads=1),"HEXALY_EXECUTABLE"=>opts["hexaly"]))
+        launch(addenv(launcher(opts,joinpath(ROOT,"LiLim/test/hexaly_native.jl"),String[];threads=1),"HEXALY_EXECUTABLE"=>opts["hexaly"]))
     end
 end
 
 function report(opts)
     haskey(opts,"output") || error("report requires --output=CAMPAIGN_DIR")
     output = abspath(opts["output"])
-    run(launcher(opts,joinpath(ROOT,"LiLim/scripts/full_corpus_report.jl"),[output];threads=1))
+    launch(launcher(opts,joinpath(ROOT,"LiLim/scripts/full_corpus_report.jl"),[output];threads=1))
     summary = joinpath(output,"summary.toml")
     for style in ("exact","xkcd")
-        run(launcher(opts,joinpath(ROOT,"LiLim/scripts/full_corpus_plots.jl"),[summary,joinpath(output,"figures-"*style),style];plot=true,threads=1))
+        launch(launcher(opts,joinpath(ROOT,"LiLim/scripts/full_corpus_plots.jl"),[summary,joinpath(output,"figures-"*style),style];plot=true,threads=1))
     end
 end
 
@@ -153,7 +162,7 @@ function campaign(opts)
         "--seeds="*get(opts,"seeds","41,42,43"),"--ortools="*PYTHON]
     haskey(opts,"hexaly") && push!(args,"--hexaly="*opts["hexaly"])
     get(opts,"resume","false")=="true" && push!(args,"--resume")
-    run(launcher(opts,joinpath(ROOT,"LiLim/scripts/full_corpus_campaign.jl"),args))
+    launch(launcher(opts,joinpath(ROOT,"LiLim/scripts/full_corpus_campaign.jl"),args))
     report(opts)
 end
 

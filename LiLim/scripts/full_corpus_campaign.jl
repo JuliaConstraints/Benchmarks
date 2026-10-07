@@ -550,7 +550,7 @@ function warmup(methods, row, policy, banks, plans, seconds, output, hexaly_exec
     results
 end
 
-function run()
+function campaign_main()
     opts = cli(ARGS)
     opts.threads > 0 || error("thread count must be positive")
     check_environment(opts.threads)
@@ -658,4 +658,4 @@ function run()
     println("Completed ", total, " qualified trials. Campaign fingerprint: ", fingerprint)
 end
 
-run()
+campaign_main()
