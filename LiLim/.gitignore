@@ -4,3 +4,6 @@ _research/
 /native/ortools/.venv/
 /native/ortools/__pycache__/
 /native/ghost/environment/
+/results/**/trials/
+/results/**/logs/
+/results/**/*.tar.gz

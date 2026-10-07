@@ -56,8 +56,9 @@ through the Julia MOI wrapper, permutation moves, and the same qualified PDPTW
 ICN scorer. Each Julia lane owns a native worker and private callback buffers.
 Its ABI does not expose RNG seeds or tabu/reset counters; repetition labels
 are not passed as seeds. Every returned incumbent is checked independently.
-Import/model/common-start time is included
-inside each trial budget; Julia warmup is measured separately. The exposed trio
+Native subprocess launch/imports, model construction and the common start count
+inside each trial budget. Julia packages load once in the campaign process;
+solver warmup is measured separately. The exposed trio
 is not a held-out confirmation corpus and does not justify general superiority.
 
 For wider comparisons, use `--threads=8` or `--threads=16`. Defaults then include
