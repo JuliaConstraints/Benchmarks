@@ -2,6 +2,7 @@
 using TOML, SHA, Downloads, Pkg
 include(joinpath(@__DIR__,"..","src","NativeSolvers.jl"))
 include(joinpath(@__DIR__,"..","src","PlatformResources.jl"))
+include(joinpath(@__DIR__,"..","src","HexalyPreflight.jl"))
 const ROOT = normpath(joinpath(@__DIR__, "..", ".."))
 const CONFIG = TOML.parsefile(joinpath(ROOT,"LiLim/config/workspace-cohort.toml"))
 const DEV = abspath(get(ENV,"JULIACONSTRAINTS_COHORT_ROOT",joinpath(homedir(),".julia/dev/JuliaConstraintsBench")))
@@ -29,7 +30,7 @@ function options(args)
     for arg in args
         startswith(arg,"--") && occursin('=',arg) || error("use --name=value")
         key,value = split(arg[3:end],'=';limit=2)
-        key in ("threads","cpus","budget","methods","instances","seeds","hexaly","output","resume","ortools","missing-solvers") || error("unknown option: $key")
+        key in ("threads","cpus","budget","methods","instances","seeds","hexaly","output","resume","ortools","missing-solvers","prepare","qualify","gurobi","cplex","cpoptimizer") || error("unknown option: $key")
         haskey(result,key) && error("duplicate option: $key")
         result[key] = value
     end
@@ -211,8 +212,9 @@ function data_setup()
     println("All 354 official instances and six archives verified.")
 end
 
+const CORE_QUALIFICATION_TESTS = ("cohort_checkout.jl","hexaly_preflight.jl","ghost_frontend.jl","native_solvers.jl","campaign_catalog.jl","competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl")
 function qualify(opts; require_hexaly=false)
-    for test in ("cohort_checkout.jl","ghost_frontend.jl","native_solvers.jl","campaign_catalog.jl","competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl")
+    for test in CORE_QUALIFICATION_TESTS
         launch(launcher(opts,joinpath(ROOT,"LiLim/test",test),String[];threads=1))
     end
     launch(launcher(opts,joinpath(ROOT,"LiLim/test/search_policies.jl"),["--routes"];threads=1))
@@ -220,6 +222,121 @@ function qualify(opts; require_hexaly=false)
     launch(addenv(launcher(opts,joinpath(ROOT,"LiLim/test/hexaly_native.jl"),String[];threads=1),
         "HEXALY_EXECUTABLE"=>get(opts,"hexaly",get(ENV,"HEXALY_EXECUTABLE","hexaly")),
         "JULIACONSTRAINTS_REQUIRE_HEXALY"=>(require_hexaly ? "1" : "0")))
+end
+
+"Inspect every published benchmark and save a complete report even when a solver is absent."
+function preflight(opts)
+    prepare = parse(Bool,get(opts,"prepare","true"))
+    qualify_models = parse(Bool,get(opts,"qualify","true"))
+    output = abspath(get(opts,"output",joinpath(ROOT,"LiLim/results/hexaly-preflight-"*
+        HexalyPreflight.Dates.format(HexalyPreflight.Dates.now(HexalyPreflight.Dates.UTC),"yyyymmdd-HHMMSS"))))
+    ispath(output) && error("Preflight output already exists; choose a new --output directory")
+    c = HexalyPreflight.catalogue(joinpath(ROOT,"LiLim/config/hexaly-benchmark-catalog.toml"))
+    checks = Dict{String,Any}()
+    solvers = Dict{String,Any}()
+    qualified = Dict{String,String}()
+    host_cpus = PlatformResources.allowed_cpus()
+    host_ok = string(VERSION)=="1.13.1" && all(p->Sys.which(p)!==nothing,
+        Sys.islinux() ? ("git","taskset","lscpu") : ("git",))
+    checks["host"] = Dict("status"=>host_ok ? "passed" : "failed",
+        "reason"=>host_ok ? "prerequisites_present" : "Julia_1.13.1_or_host_utilities_missing")
+    if prepare && host_ok
+        try
+            setup(opts)
+            checks["setup"] = Dict("status"=>"passed","reason"=>"existing_installations_reused")
+        catch
+            checks["setup"] = Dict("status"=>"failed","reason"=>"setup_failed_existing_files_preserved")
+        end
+    else
+        checks["setup"] = Dict("status"=>"not_run","reason"=>prepare ? "host_prerequisites_missing" : "prepare_false")
+    end
+    environment_ok = host_ok
+    for (name,expected) in CONFIG["cohort"]
+        path = joinpath(DEV,name)
+        ok = isdir(joinpath(path,".git")) &&
+            strip(read(`git -C $path rev-parse HEAD`,String))==expected &&
+            isempty(strip(read(`git -C $path status --porcelain --untracked-files=no`,String)))
+        checks["source:"*name] = Dict("status"=>ok ? "passed" : "failed","expected_commit"=>expected)
+        environment_ok &= ok
+    end
+    for (file,key) in (("Project.toml","project_sha256"),("Manifest.toml","manifest_sha256"))
+        path = joinpath(SOLVER_ENV,file)
+        ok = isfile(path) && digest(path)==CONFIG["environment"][key]
+        checks["environment:"*file] = Dict("status"=>ok ? "passed" : "failed","expected_sha256"=>CONFIG["environment"][key])
+        environment_ok &= ok
+    end
+    bank = joinpath(ROOT,"LiLim/resources/icn-pdptw-witnesses.toml")
+    bank_ok = isfile(bank) && digest(bank)==CONFIG["portable_icn_bank_sha256"]
+    checks["ICN_bank"] = Dict("status"=>bank_ok ? "passed" : "failed")
+    environment_ok &= bank_ok
+    for (name,resolver) in (("hexaly",()->NativeSolvers.resolve_hexaly(get(opts,"hexaly",get(ENV,"HEXALY_EXECUTABLE","hexaly")))),
+            ("ortools",()->NativeSolvers.resolve_ortools(get(opts,"ortools",PYTHON);root=ROOT)),
+            ("ghost",()->NativeSolvers.resolve_ghost(;root=ROOT)))
+        try
+            identity = resolver()
+            solvers[name] = Dict("status"=>"available","reason"=>"installation_probe_passed")
+            name=="hexaly" && (solvers[name]["version"]="15.0"; solvers[name]["executable_sha256"]=digest(identity))
+            name=="ortools" && (solvers[name]["version"]=identity["ortools_version"])
+        catch e
+            solvers[name] = Dict("status"=>e isa NativeSolvers.UnavailableSolver ? "skipped" : "failed",
+                "reason"=>e isa NativeSolvers.UnavailableSolver ? e.reason : "installation_probe_failed")
+        end
+    end
+    for (name,default) in (("gurobi","gurobi_cl"),("cplex","cplex"),("cpoptimizer","cpoptimizer"))
+        path = NativeSolvers.executable(get(opts,name,default))
+        solvers[name] = Dict("status"=>path===nothing ? "not_detected" : "detected_unqualified",
+            "reason"=>path===nothing ? "CLI_not_found_API_installation_not_ruled_out" : "license_and_original_models_not_qualified")
+    end
+    for name in ("cbls","icn","metastrategist","highs")
+        solvers[name] = Dict("status"=>environment_ok ? "prepared" : "blocked","reason"=>"original_model_tests_required")
+    end
+    if qualify_models && environment_ok
+        tests = [(test,String[]) for test in CORE_QUALIFICATION_TESTS]
+        push!(tests,("search_policies.jl",["--routes"]))
+        solvers["ghost"]["status"]=="available" && push!(tests,("ghost_native.jl",String[]))
+        core_ok = true
+        for (test,args) in tests
+            result = NativeSolvers.capture(launcher(opts,joinpath(ROOT,"LiLim/test",test),args;threads=1);timeout=300)
+            ok = result.code==0 && !result.timed_out
+            checks["test:"*test] = Dict("status"=>ok ? "passed" : "failed",
+                "reason"=>result.timed_out ? "qualification_timeout" : "exit_code_"*string(result.code))
+            core_ok &= ok
+        end
+        qualified["pdptw:core"] = core_ok ? "passed" : "failed"
+        solvers["ortools"]["status"]=="available" &&
+            (qualified["pdptw:ortools"]=checks["test:ortools_native.jl"]["status"])
+        for name in ("cbls","icn","metastrategist","highs")
+            solvers[name]["status"] = core_ok ? "available" : "failed"
+            solvers[name]["reason"] = core_ok ? "PDPTW_functional_suite_passed" : "PDPTW_functional_suite_failed"
+        end
+        if solvers["hexaly"]["status"]=="available"
+            command = addenv(launcher(opts,joinpath(ROOT,"LiLim/test/hexaly_native.jl"),String[];threads=1),
+                "HEXALY_EXECUTABLE"=>get(opts,"hexaly",get(ENV,"HEXALY_EXECUTABLE","hexaly")),
+                "JULIACONSTRAINTS_REQUIRE_HEXALY"=>"1")
+            result = NativeSolvers.capture(command;timeout=300)
+            ok = result.code==0 && !result.timed_out
+            qualified["pdptw:hexaly"] = ok ? "passed" : "failed"
+            checks["test:hexaly_native.jl"] = Dict("status"=>qualified["pdptw:hexaly"],
+                "reason"=>result.timed_out ? "qualification_timeout" : "exit_code_"*string(result.code))
+        end
+    end
+    rows = HexalyPreflight.coverage(ROOT,DEV,c;solvers,qualification=qualified,environment_ok)
+    ready = count(row->row["status"]=="ready_available_solvers",rows)
+    failed = any(state->state["status"]=="failed",values(checks)) ||
+        any(state->state["status"]=="failed",values(solvers))
+    report = Dict{String,Any}("schema"=>"hexaly-all-benchmarks-preflight/1","source"=>c["source"],
+        "catalogue_sha256"=>digest(joinpath(ROOT,"LiLim/config/hexaly-benchmark-catalog.toml")),
+        "checked_at_utc"=>string(HexalyPreflight.Dates.now(HexalyPreflight.Dates.UTC)),"entry_count"=>length(rows),
+        "status"=>failed ? "failed" : ready==length(rows) && solvers["hexaly"]["status"]=="available" ? "ready" : "blocked",
+        "host"=>Dict("os"=>string(Sys.KERNEL),"architecture"=>string(Sys.ARCH),"julia"=>string(VERSION),
+            "cpus"=>host_cpus,"ram_gib"=>round(Sys.total_memory()/2.0^30;digits=1)),
+        "checks"=>checks,"solvers"=>solvers,"benchmarks"=>rows)
+    HexalyPreflight.save_report(output,report)
+    for row in rows
+        println(uppercase(row["status"])," | ",row["family"]," | ",join(row["issues"],", "))
+    end
+    println("Preflight: ",ready,"/",length(rows)," entries ready for available solvers; report: ",joinpath(output,"report.md"))
+    report["status"]=="ready" ? 0 : report["status"]=="failed" ? 1 : 2
 end
 
 "Prepare the colleague's host and require actual licensed Hexaly qualification."
@@ -280,9 +397,10 @@ function export_results(opts)
 end
 
 function main(args=ARGS)
-    isempty(args) && error("usage: colleague.jl check|setup|qualify|run|report|export [--name=value]")
+    isempty(args) && error("usage: colleague.jl preflight|check|setup|qualify|run|report|export [--name=value]")
     command=first(args); opts=options(args[2:end])
-    if command=="check"; check(opts)
+    if command=="preflight"; exit(preflight(opts))
+    elseif command=="check"; check(opts)
     elseif command=="setup"; setup(opts)
     elseif command=="qualify"; qualify(opts)
     elseif command=="run"; campaign(opts)

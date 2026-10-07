@@ -97,6 +97,25 @@ fingerprint prevent mixing sources, budgets or earlier evidence.
 
 ## Licensed Hexaly host
 
+For the complete published catalogue, run:
+
+```sh
+julia LiLim/scripts/colleague.jl preflight
+```
+
+This prepares missing dependencies, verifies the frozen cohort and official
+Li-Lim bytes, detects the published comparator solvers, and runs available
+original-model qualification tests. Every one of the 20 catalogue entries
+appears in the English `report.md` and machine-readable `report.toml` under the
+printed output directory. Missing optional solvers are listed as skipped;
+missing adapters, corpora, models and validators remain explicit blockers.
+Exit codes are 0 for full readiness, 1 for a failed check and 2 for incomplete
+coverage. The command never treats a generic Hexaly license probe as qualification
+of another problem family and starts no comparative campaign.
+Use `--prepare=false --qualify=false` for a read-only inventory, or
+`--output=/path/to/a/new/directory` to choose where to save the report.
+Existing output directories are preserved and rejected.
+
 Target: Hexaly Optimizer **15.0**, with its **Modeler command-line executable**
 (`hexaly`, accepting `.hxm` files); Studio is not required. Install and activate
 the colleague's license through Hexaly's own distribution. No binary or license
