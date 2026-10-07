@@ -105,6 +105,15 @@ end
 
 "Merge functional model evidence without promoting it to published-corpus qualification."
 function discrete_evidence!(report, checks; core_state)
+    solvers=get(report,"solvers",Dict{String,Any}())
+    for (name,evidence) in checks
+        haskey(solvers,name) || continue
+        state=solvers[name]
+        get(evidence,"status","")=="passed" || continue
+        previous=get(state,"qualified_families",get(state,"qualification","")=="passed" ? ["pdptw"] : String[])
+        state["qualified_families"]=sort!(unique(vcat(previous,get(evidence,"qualified_families",String[]))))
+        get(state,"qualification","")=="failed" || (state["qualification"]="passed")
+    end
     for row in report["benchmarks"]
         row["id"] in ("pdptw","irp") && continue
         family = row["id"]=="large_cvrp" ? "cvrp" :
@@ -133,24 +142,40 @@ function discrete_evidence!(report, checks; core_state)
     report
 end
 
+"Runnable-kit readiness and exact published reproduction are separate checks."
+function kit_status(report;qualify)
+    get(report["classical_qualification"],"status","")=="failed" && return "qualification_failed"
+    any(s->s["status"]=="failed",values(report["checks"])) && return "qualification_failed"
+    any(s->s["status"]=="failed" || get(s,"qualification","")=="failed",values(report["solvers"])) && return "qualification_failed"
+    qualify || return "inventory_complete"
+    report["classical_qualification"]["status"]=="passed" || return "incomplete_solver_coverage"
+    all(row->row["status"]=="verified",report["selected_original_inputs"]) || return "incomplete_solver_coverage"
+    any(s->s["status"] in ("detected_unqualified","prepared","blocked"),values(report["solvers"])) && return "incomplete_solver_coverage"
+    "ready_available_solvers"
+end
+
 function save_report(directory,report;refresh=false)
     # Repeated checks receive new directories; never overwrite another run's evidence.
     ispath(directory) && !refresh && error("Preflight output already exists; choose a new --output directory")
     mkpath(directory)
     open(io->TOML.print(io,report;sorted=true),joinpath(directory,"report.toml"),"w")
     open(joinpath(directory,"report.md"),"w") do io
-        println(io,"# Hexaly benchmark preflight\n")
+        println(io,"# Solver and benchmark preflight\n")
         println(io,"Source: [Hexaly benchmark page]($(report["source"]))\n")
         println(io,"Checked: $(report["checked_at_utc"]). Catalogue entries: $(report["entry_count"]). ",
             "Overall status: **$(report["status"])**.\n")
-        println(io,"This checks host readiness and original model qualification. It starts no comparative campaign. ",
-            "Unavailable optional solvers are skipped; unavailable models, data or validators are blockers.\n")
+        haskey(report,"requalified_at_utc") && println(io,
+            "Targeted requalification: $(report["requalified_at_utc"]). Earlier failed check states are retained in the machine-readable evidence.\n")
+        haskey(report,"published_reproduction_status") && println(io,
+            "Published-corpus reproduction: **$(report["published_reproduction_status"])**; independent of solver readiness.\n")
+        println(io,"All kit solvers are checked. Absent optional solvers are skipped; model, corpus and validator gaps remain explicit.\n")
         println(io,"## Host\n\nOS: $(report["host"]["os"]), architecture: $(report["host"]["architecture"]), ",
             "Julia: $(report["host"]["julia"]), available CPU IDs: $(join(report["host"]["cpus"],", ")), ",
             "RAM: $(report["host"]["ram_gib"]) GiB.\n")
-        println(io,"## Solver availability\n\n| Solver | Status | Detail |\n|---|---|---|")
+        println(io,"## Solvers\n\n| Solver | Installation | Qualification | Detail |\n|---|---|---|---|")
         for (name,state) in sort!(collect(report["solvers"]);by=first)
-            println(io,"| $name | $(state["status"]) | $(get(state,"reason",get(state,"version",""))) |")
+            status = get(state,"qualification",state["status"] in ("skipped","not_detected") ? "skipped" : "not_run")
+            println(io,"| $name | $(state["status"]) | $status | $(get(state,"reason",get(state,"version",""))) |")
         end
         println(io,"\n## All benchmark entries\n\n| Benchmark | Status | Checks still required |\n|---|---|---|")
         for row in report["benchmarks"]

@@ -1,0 +1,1392 @@
+active_entry_count = 19
+catalogue_sha256 = "b762e28f468307d1ba4ff81eba2cdd34976a28fb97068255d5e2730fc2d95045"
+checked_at_utc = "2026-10-07T17:33:19.683"
+continuous_deferred = ["irp"]
+entry_count = 20
+published_reproduction_status = "incomplete_published_reproduction"
+requalified_at_utc = "2026-10-07T17:41:22.677"
+schema = "solver-benchmark-preflight/1"
+source = "https://www.hexaly.com/benchmarks"
+status = "incomplete_solver_coverage"
+
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "CVRP"
+id = "cvrp"
+issues = ["model_not_qualified:ortools", "original_corpus_and_references_unqualified"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-capacitated-vehicle-routing-problem-cvrp"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.functional_inputs]]
+    entry = "cvrp"
+    id = "cvrp_A_n32_k5"
+    scope = "functional_smoke"
+    status = "verified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "gurobi"
+    [[benchmarks.solvers]]
+    installation = "available"
+    qualification = "not_run"
+    reason = "installation_probe_passed"
+    solver = "ortools"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "CVRPTW"
+id = "cvrptw"
+issues = ["model_not_qualified:ortools", "original_corpus_and_references_unqualified"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-gurobi-or-tools-capacitated-vehicle-routing-problem-with-time-windows-cvrptw"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.functional_inputs]]
+    entry = "cvrptw"
+    id = "cvrptw_R101_25"
+    scope = "functional_smoke"
+    status = "verified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "gurobi"
+    [[benchmarks.solvers]]
+    installation = "available"
+    qualification = "not_run"
+    reason = "installation_probe_passed"
+    solver = "ortools"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "RCPSP"
+id = "rcpsp"
+issues = ["original_corpus_and_references_unqualified", "published_instance_qualification_pending:ortools"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-or-tools-on-the-resource-constrained-project-scheduling-problem-rcpsp"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.functional_inputs]]
+    entry = "rcpsp"
+    id = "rcpsp_Pat1"
+    scope = "functional_smoke"
+    status = "verified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "gurobi"
+    [[benchmarks.solvers]]
+    installation = "available"
+    qualification = "functional_passed"
+    qualification_scope = "small_exact_integer_original_validator_qualification_not_performance"
+    reason = "installation_probe_passed"
+    solver = "ortools"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "FJSP"
+id = "fjsp"
+issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-flexible-job-shop-scheduling-problem-fjsp"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.functional_inputs]]
+    entry = "fjsp"
+    id = "fjsp_Mk01"
+    scope = "functional_smoke"
+    status = "verified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "gurobi"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "SALBP"
+id = "salbp"
+issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-vs-cpo-simple-assembly-line-balancing-problem-salbp"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.functional_inputs]]
+    entry = "salbp"
+    id = "salbp_n20_52"
+    scope = "functional_smoke"
+    status = "verified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "gurobi"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "cpoptimizer"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "Aircraft landing"
+id = "aircraft_landing"
+issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-on-the-aircraft-landing-problem"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.functional_inputs]]
+    entry = "aircraft_landing"
+    id = "aircraft_airland1"
+    scope = "functional_smoke"
+    status = "verified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+[[benchmarks]]
+equivalence = "Local fleet-first comparison; common insertion start; not identical to the published Hexaly/OR-Tools models"
+family = "PDPTW / Li-Lim"
+id = "pdptw"
+issues = []
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-google-or-tools-pickup-and-delivery-problem-with-time-windows-pdptw"
+status = "ready_available_solvers"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/LiLim/scripts/full_corpus_campaign.jl"
+    sha256 = "0b1f65072766527b9a074aecf070e9c760d38ea8f452b9678af418d91eb2ea3f"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/LiLim/config/sintef-pdptw-bks-20261004.toml"
+    sha256 = "ddd983d04065732a2bd680c2f1967922b29fdbe620c8ddaa6a214b0e7f77a7b9"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/LiLim/native/hexaly/pdptw.hxm"
+    sha256 = "1edbb9f2fe3d00f2d97b84ca0cc0b6bae26f66df50664ed550d233812ad921a3"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/.julia/dev/JuliaConstraintsHandoff/ConstraintModels/src/benchmarks/Benchmarks.jl"
+    sha256 = "169cf7286440d5d7a84317eadf7d888099b218c88c08ef340cd15e61774ba42e"
+    status = "present"
+
+    [benchmarks.data]
+    issues = []
+    manifest_sha256 = "ddd983d04065732a2bd680c2f1967922b29fdbe620c8ddaa6a214b0e7f77a7b9"
+    status = "verified"
+    verified_archives = 6
+    verified_instances = 354
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "available"
+    qualification = "passed"
+    reason = "installation_probe_passed"
+    solver = "ortools"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "TSP"
+functional_inputs = []
+id = "tsp"
+issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-traveling-salesman-problem-tsp"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "gurobi"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "Team orienteering"
+id = "top"
+issues = ["model_not_qualified:ortools", "original_corpus_and_references_unqualified"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-gurobi-or-tools-team-orienteering-problem-top"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.functional_inputs]]
+    entry = "top"
+    id = "top_p4_2_a"
+    scope = "functional_smoke"
+    status = "verified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "gurobi"
+    [[benchmarks.solvers]]
+    installation = "available"
+    qualification = "not_run"
+    reason = "installation_probe_passed"
+    solver = "ortools"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "Large CVRP"
+functional_inputs = []
+id = "large_cvrp"
+issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/large-scale-instances-capacitated-vehicle-routing-problem-cvrp"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "Large JSSP"
+id = "large_jssp"
+issues = ["original_corpus_and_references_unqualified", "published_instance_qualification_pending:ortools"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-cp-optimizer-vs-or-tools-on-the-job-shop-scheduling-problem-jssp"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.functional_inputs]]
+    entry = "large_jssp"
+    id = "jssp_ft06"
+    scope = "functional_smoke"
+    status = "verified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "cpoptimizer"
+    [[benchmarks.solvers]]
+    installation = "available"
+    qualification = "functional_passed"
+    qualification_scope = "small_exact_integer_original_validator_qualification_not_performance"
+    reason = "installation_probe_passed"
+    solver = "ortools"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "gurobi"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "cplex"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "Vector bin packing"
+id = "vbp"
+issues = ["original_corpus_and_references_unqualified", "published_instance_qualification_pending:ortools"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-gurobi-or-tools-on-the-vector-bin-packing-problem-vbp"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.functional_inputs]]
+    entry = "vbp"
+    id = "vbp_a1_1"
+    scope = "functional_smoke"
+    status = "verified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "gurobi"
+    [[benchmarks.solvers]]
+    installation = "available"
+    qualification = "functional_passed"
+    qualification_scope = "small_exact_integer_original_validator_qualification_not_performance"
+    reason = "installation_probe_passed"
+    solver = "ortools"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "Bin packing with conflicts"
+id = "bppc"
+issues = ["original_corpus_and_references_unqualified", "published_instance_qualification_pending:ortools"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-gurobi-or-tools-bin-packing-problem-with-conflicts-bppc"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.functional_inputs]]
+    entry = "bppc"
+    id = "bppc_5_0_1"
+    scope = "functional_smoke"
+    status = "verified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "gurobi"
+    [[benchmarks.solvers]]
+    installation = "available"
+    qualification = "functional_passed"
+    qualification_scope = "small_exact_integer_original_validator_qualification_not_performance"
+    reason = "installation_probe_passed"
+    solver = "ortools"
+[[benchmarks]]
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "Inventory routing"
+id = "irp"
+issues = []
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-establishes-new-records-for-the-inventory-routing-problem-irp"
+solvers = []
+status = "deferred_continuous"
+
+    [benchmarks.assets]
+
+    [benchmarks.data]
+    status = "deferred"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "Bin packing"
+id = "bpp"
+issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-bin-packing-problem"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.functional_inputs]]
+    entry = "bpp"
+    id = "bpp_t60_00"
+    scope = "functional_smoke"
+    status = "verified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "gurobi"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "Minimum sum-of-squares clustering"
+id = "mssc"
+issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-k-means-clustering-mssc"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.functional_inputs]]
+    entry = "mssc"
+    id = "mssc_ruspini_k2"
+    scope = "functional_smoke"
+    status = "verified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "gurobi"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "RCPSP records"
+functional_inputs = []
+id = "rcpsp_records"
+issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-breaks-records-for-the-resource-constrained-project-scheduling-problem-rcpsp"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "Quadratic assignment"
+id = "qap"
+issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-quadratic-assignment-problem"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.functional_inputs]]
+    entry = "qap"
+    id = "qap_esc32c"
+    scope = "functional_smoke"
+    status = "verified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "gurobi"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "Car sequencing with paint-shop batching"
+id = "car_sequencing"
+issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-on-the-car-sequencing-problem-with-paint-shop-batching-constraints"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.functional_inputs]]
+    entry = "car_sequencing"
+    id = "carseq_035"
+    scope = "functional_smoke"
+    status = "verified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "gurobi"
+[[benchmarks]]
+discrete_model_qualification = "passed"
+equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+family = "Maintenance scheduling"
+id = "maintenance"
+issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-maintenance-scheduling-problem"
+published_corpus_qualification = "not_complete"
+status = "prepared_models_published_corpus_pending"
+
+    [benchmarks.assets.adapter]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/scripts/run.jl"
+    sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+    status = "present"
+
+    [benchmarks.assets.data_manifest]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/config/instances.toml"
+    sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+    status = "present"
+
+    [benchmarks.assets.hexaly_model]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Hexaly.jl"
+    sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+    status = "present"
+
+    [benchmarks.assets.validator]
+    path = "/home/azzaare/Gits/Benchmarks/Hexaly/src/Problems.jl"
+    sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+    status = "present"
+
+    [benchmarks.data]
+    issues = ["original_corpus_and_references_unqualified"]
+    status = "unqualified"
+
+    [[benchmarks.functional_inputs]]
+    entry = "maintenance"
+    id = "maintenance_example1"
+    scope = "functional_smoke"
+    status = "verified"
+
+    [[benchmarks.solvers]]
+    installation = "skipped"
+    qualification = "not_run"
+    reason = "license_unavailable"
+    solver = "hexaly"
+    [[benchmarks.solvers]]
+    installation = "not_detected"
+    qualification = "not_run"
+    reason = "CLI_not_found_API_installation_not_ruled_out"
+    solver = "gurobi"
+
+[checks.ICN_bank]
+status = "passed"
+
+[checks."environment:Manifest.toml"]
+expected_sha256 = "9b767180147d7dd41d5b34c1b1958a13ba5acf979a54ba316ec78ad287e5deaf"
+status = "passed"
+
+[checks."environment:Project.toml"]
+expected_sha256 = "2a48b5e578f38033a568c0d03697d31b86b1bed65b39086515c6648276cf457b"
+status = "passed"
+
+[checks.host]
+reason = "prerequisites_present"
+status = "passed"
+
+[checks.setup]
+reason = "prepare_false"
+status = "not_run"
+
+[checks."source:CBLS"]
+expected_commit = "3687ece072aa2dc17f4eee87eadd706d97ab6752"
+status = "passed"
+
+[checks."source:CompositionalNetworks"]
+expected_commit = "169d8f77840d498d6628ea9b1feb007d40a7dc60"
+status = "passed"
+
+[checks."source:ConstraintCommons"]
+expected_commit = "3fb67945eac691003b3efe8a120afe17c8a89d24"
+status = "passed"
+
+[checks."source:ConstraintDomains"]
+expected_commit = "5e7aecd196b86e1ab49d7085d5678b47bdb6c4f4"
+status = "passed"
+
+[checks."source:ConstraintModels"]
+expected_commit = "f360e193299dd45ecbf53a8d3c76e36dabc8846d"
+status = "passed"
+
+[checks."source:ConstraintProgrammingExtensions"]
+expected_commit = "8c74772899742ebc007a717872c508420d2a423e"
+status = "passed"
+
+[checks."source:Constraints"]
+expected_commit = "9c9adabfe84f395aa3dd58eec6405c8e41020ffa"
+status = "passed"
+
+[checks."source:LocalSearchSolvers"]
+expected_commit = "57c5aaff0c2714e42e3c2a4335617354d08120ef"
+status = "passed"
+
+[checks."source:MetaStrategist"]
+expected_commit = "3c6ad5b057af4910bed99412ba24f7bc8d329587"
+status = "passed"
+
+[checks."source:PatternFolds"]
+expected_commit = "1293e55bd8db802ba169ec142610d83213cd9cf6"
+status = "passed"
+
+[checks."source:QUBOConstraints"]
+expected_commit = "3e5612ce5c20af3f115c4dd9afa146878c57b0ca"
+status = "passed"
+
+[checks."source:XCSP3Bridges"]
+expected_commit = "ad6cc7c25799eecebad95bb02f57392361db0c5c"
+status = "passed"
+
+[checks."test:campaign_catalog.jl"]
+reason = "exit_code_0"
+status = "passed"
+
+[checks."test:cohort_checkout.jl"]
+reason = "exit_code_0"
+status = "passed"
+
+[checks."test:competitors.jl"]
+reason = "exit_code_0"
+status = "passed"
+
+[checks."test:ghost_frontend.jl"]
+reason = "exit_code_0"
+status = "passed"
+
+[checks."test:ghost_native.jl"]
+reason = "exit_code_0"
+status = "passed"
+
+[checks."test:hexaly_preflight.jl"]
+previous_status = "failed"
+reason = "exit_code_0_after_targeted_requalification"
+source_sha256 = "c60d335138b30b4978d9c90ae5ce7af8803573a8c397a44722ecd151cbf53216"
+status = "passed"
+
+[checks."test:hybrid.jl"]
+reason = "exit_code_0"
+status = "passed"
+
+[checks."test:icn_resources.jl"]
+reason = "exit_code_0"
+status = "passed"
+
+[checks."test:native_solvers.jl"]
+reason = "exit_code_0"
+status = "passed"
+
+[checks."test:ortools_native.jl"]
+reason = "exit_code_0"
+status = "passed"
+
+[checks."test:search_policies.jl"]
+reason = "exit_code_0"
+status = "passed"
+
+[checks."test:timefold_native.jl"]
+reason = "exit_code_0"
+status = "passed"
+
+[classical_qualification]
+checked_at_utc = "2026-10-07T17:34:52.896"
+schema = "discrete-original-qualification/1"
+status = "passed"
+
+    [classical_qualification.checks.core]
+    families = ["tsp", "cvrp", "cvrptw", "top", "qap", "bpp", "bppc", "vbp", "mssc", "rcpsp", "jssp", "fjsp", "salbp", "aircraft_landing", "car_sequencing", "maintenance"]
+    policies = ["assignment", "compatibility", "exhaustion_always_full", "exhaustion_full", "exhaustion_partial", "greedy_guided", "late_400", "late_64", "late_full_reset", "reset_best_full", "reset_best_large", "reset_best_small", "reset_current", "reset_current_full", "tabu_accepted", "tabu_keen", "tabu_long", "tabu_random_full", "tabu_random_partial", "tabu_reset", "tabu_reset_full", "tabu_short", "tabu_weak", "universal_best", "universal_best_full", "universal_current", "universal_current_full"]
+    status = "passed"
+
+    [classical_qualification.checks.ghost]
+    qualified_families = ["bpp"]
+    scope = "Julia_wrapper_BPP_direct_and_ICN_callbacks_only"
+    status = "passed"
+    threads = 1
+
+    [classical_qualification.checks.hexaly]
+    reason = "license_unavailable"
+    status = "skipped"
+
+    [classical_qualification.checks.original_samples]
+    instances = ["cvrp_A_n32_k5", "cvrptw_R101_25", "fjsp_Mk01", "jssp_ft06", "bpp_t60_00", "qap_esc32c", "aircraft_airland1", "mssc_ruspini_k2", "rcpsp_Pat1", "salbp_n20_52", "carseq_035", "bppc_5_0_1", "vbp_a1_1", "top_p4_2_a", "maintenance_example1"]
+    scope = "format_and_error_zero_set_not_complete_published_corpus"
+    status = "passed"
+
+    [classical_qualification.checks.ortools]
+    qualified_families = ["bpp", "bppc", "vbp", "salbp", "rcpsp", "jssp", "fjsp", "aircraft_landing"]
+    scope = "small_exact_integer_original_validator_qualification_not_performance"
+    status = "passed"
+    version = "9.14.6206"
+
+[host]
+architecture = "x86_64"
+cpus = [8]
+julia = "1.13.1"
+os = "Linux"
+ram_gib = 31.1
+
+[[selected_original_inputs]]
+entry = "cvrp"
+id = "cvrp_A_n32_k5"
+scope = "functional_smoke"
+status = "verified"
+[[selected_original_inputs]]
+entry = "cvrptw"
+id = "cvrptw_R101_25"
+scope = "functional_smoke"
+status = "verified"
+[[selected_original_inputs]]
+entry = "fjsp"
+id = "fjsp_Mk01"
+scope = "functional_smoke"
+status = "verified"
+[[selected_original_inputs]]
+entry = "large_jssp"
+id = "jssp_ft06"
+scope = "functional_smoke"
+status = "verified"
+[[selected_original_inputs]]
+entry = "bpp"
+id = "bpp_t60_00"
+scope = "functional_smoke"
+status = "verified"
+[[selected_original_inputs]]
+entry = "qap"
+id = "qap_esc32c"
+scope = "functional_smoke"
+status = "verified"
+[[selected_original_inputs]]
+entry = "aircraft_landing"
+id = "aircraft_airland1"
+scope = "functional_smoke"
+status = "verified"
+[[selected_original_inputs]]
+entry = "mssc"
+id = "mssc_ruspini_k2"
+scope = "functional_smoke"
+status = "verified"
+[[selected_original_inputs]]
+entry = "rcpsp"
+id = "rcpsp_Pat1"
+scope = "functional_smoke"
+status = "verified"
+[[selected_original_inputs]]
+entry = "salbp"
+id = "salbp_n20_52"
+scope = "functional_smoke"
+status = "verified"
+[[selected_original_inputs]]
+entry = "car_sequencing"
+id = "carseq_035"
+scope = "functional_smoke"
+status = "verified"
+[[selected_original_inputs]]
+entry = "bppc"
+id = "bppc_5_0_1"
+scope = "functional_smoke"
+status = "verified"
+[[selected_original_inputs]]
+entry = "vbp"
+id = "vbp_a1_1"
+scope = "functional_smoke"
+status = "verified"
+[[selected_original_inputs]]
+entry = "top"
+id = "top_p4_2_a"
+scope = "functional_smoke"
+status = "verified"
+[[selected_original_inputs]]
+entry = "maintenance"
+id = "maintenance_example1"
+scope = "functional_smoke"
+status = "verified"
+
+[solvers.cbls]
+qualification = "passed"
+reason = "PDPTW_functional_suite_passed"
+status = "available"
+
+[solvers.cplex]
+reason = "CLI_not_found_API_installation_not_ruled_out"
+status = "not_detected"
+
+[solvers.cpoptimizer]
+reason = "CLI_not_found_API_installation_not_ruled_out"
+status = "not_detected"
+
+[solvers.ghost]
+qualification = "passed"
+qualification_scope = "original_PDPTW_functional_tests"
+qualified_families = ["bpp", "pdptw"]
+reason = "installation_probe_passed"
+status = "available"
+
+[solvers.gurobi]
+reason = "CLI_not_found_API_installation_not_ruled_out"
+status = "not_detected"
+
+[solvers.hexaly]
+reason = "license_unavailable"
+status = "skipped"
+
+[solvers.highs]
+qualification = "passed"
+reason = "PDPTW_functional_suite_passed"
+status = "available"
+
+[solvers.icn]
+qualification = "passed"
+reason = "PDPTW_functional_suite_passed"
+status = "available"
+
+[solvers.juls]
+reason = "historical_adapter_not_in_frozen_public_cohort"
+status = "detected_unqualified"
+
+[solvers.local_search]
+qualification = "passed"
+reason = "PDPTW_functional_suite_passed"
+status = "available"
+
+[solvers.metastrategist]
+qualification = "passed"
+reason = "PDPTW_functional_suite_passed"
+status = "available"
+
+[solvers.ortools]
+qualification = "passed"
+qualification_scope = "original_PDPTW_functional_tests"
+qualified_families = ["aircraft_landing", "bpp", "bppc", "fjsp", "jssp", "pdptw", "rcpsp", "salbp", "vbp"]
+reason = "installation_probe_passed"
+status = "available"
+version = "9.14.6206"
+
+[solvers.timefold]
+qualification = "passed"
+qualification_scope = "original_PDPTW_functional_tests"
+reason = "installation_probe_passed"
+status = "available"
+version = "2.6.0"
+
+[[sources]]
+id = "cvrp"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+status = "verified"
+url = "https://www.hexaly.com/examples/cvrp.zip"
+[[sources]]
+id = "cvrptw"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+status = "verified"
+url = "https://www.hexaly.com/examples/cvrptw.zip"
+[[sources]]
+id = "pdptw"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+status = "verified"
+url = "https://www.hexaly.com/examples/pdptw.zip"
+[[sources]]
+id = "tsp"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+status = "verified"
+url = "https://www.hexaly.com/examples/tsp.zip"
+[[sources]]
+id = "flexiblejobshop"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+status = "verified"
+url = "https://www.hexaly.com/examples/flexiblejobshop.zip"
+[[sources]]
+id = "jobshop"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+status = "verified"
+url = "https://www.hexaly.com/examples/jobshop.zip"
+[[sources]]
+id = "bin_packing"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+status = "verified"
+url = "https://www.hexaly.com/examples/bin_packing.zip"
+[[sources]]
+id = "qap"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+status = "verified"
+url = "https://www.hexaly.com/examples/qap.zip"
+[[sources]]
+id = "aircraft_landing"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+status = "verified"
+url = "https://www.hexaly.com/examples/aircraft_landing.zip"
+[[sources]]
+id = "kmeans"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+status = "verified"
+url = "https://www.hexaly.com/examples/kmeans.zip"
+[[sources]]
+id = "rcpsp"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+status = "verified"
+url = "https://www.hexaly.com/examples/rcpsp.zip"
+[[sources]]
+id = "assembly_line_balancing"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+status = "verified"
+url = "https://www.hexaly.com/examples/assembly_line_balancing.zip"
+[[sources]]
+id = "car_sequencing_color"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+status = "verified"
+url = "https://www.hexaly.com/examples/car_sequencing_color.zip"
+[[sources]]
+id = "vbp"
+scope = "published_original_data_bundle_selection_and_references_still_required"
+status = "verified"
+url = "https://www.hexaly.com/wp-content/uploads/2025/04/VBP_modified_instances.zip"
+[[sources]]
+id = "bppc"
+scope = "published_original_data_bundle_selection_and_references_still_required"
+status = "verified"
+url = "https://site.unibo.it/operations-research/en/research/library-of-codes-and-instances-1/bppc.zip/@@download/file/BPPC.zip"
+[[sources]]
+id = "fjsp_corpus"
+scope = "published_original_data_bundle_selection_and_references_still_required"
+status = "verified"
+url = "https://www.hexaly.com/wp-content/uploads/2022/10/fjssp-instances.zip"
+[[sources]]
+id = "top_chao4"
+scope = "original_functional_qualification_subset_not_published_selection"
+status = "verified"
+url = "https://www.mech.kuleuven.be/en/mim/op/instances/ChaoTOP4"
+[[sources]]
+id = "maintenance_example"
+scope = "original_functional_qualification_subset_not_published_selection"
+status = "verified"
+url = "https://raw.githubusercontent.com/rte-france/challenge-roadef-2020/052def4d47271f913f89a68169083059732360f3/example1.json"
+[[sources]]
+id = "maintenance_solution"
+scope = "original_functional_qualification_subset_not_published_selection"
+status = "verified"
+url = "https://raw.githubusercontent.com/rte-france/challenge-roadef-2020/052def4d47271f913f89a68169083059732360f3/output1.txt"
+[[sources]]
+id = "maintenance_checker"
+scope = "original_functional_qualification_subset_not_published_selection"
+status = "verified"
+url = "https://raw.githubusercontent.com/rte-france/challenge-roadef-2020/052def4d47271f913f89a68169083059732360f3/RTE_ChallengeROADEF2020_checker.py"

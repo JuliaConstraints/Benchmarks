@@ -31,6 +31,22 @@ const PYTHON=joinpath(Sys.BINDIR,Base.julia_exename()) # Real executable, fake p
         missing="silence",ortools_resolver=missing_ortools,hexaly_resolver=missing_hexaly)
 end
 
+@testset "Timefold availability and universal SDK bindings" begin
+    missing = "__missing_java__"
+    @test_throws NativeSolvers.UnavailableSolver NativeSolvers.resolve_timefold(missing;root=ROOT)
+    probe=(command;timeout=15)->(;code=0,output="openjdk 17.0.1",timed_out=false)
+    @test_throws NativeSolvers.UnavailableSolver NativeSolvers.resolve_timefold(PYTHON;root=ROOT,install=true,probe)
+    sdk=TOML.parsefile(joinpath(ROOT,"LiLim/native/timefold/sdk.toml"))
+    @test sdk["version"]=="2.6.0" && sdk["java_major"]==21
+    @test length(sdk["jars"])==20
+    for platform in (Pkg.BinaryPlatforms.Platform("x86_64","linux";libc="glibc"),
+        Pkg.BinaryPlatforms.Platform("aarch64","linux";libc="glibc"),
+        Pkg.BinaryPlatforms.Platform("x86_64","macos"),Pkg.BinaryPlatforms.Platform("aarch64","macos"),
+        Pkg.BinaryPlatforms.Platform("x86_64","windows")), jar in sdk["jars"]
+        @test Pkg.Artifacts.artifact_hash(jar["artifact"],NativeSolvers.SolverArtifacts.BINDINGS;platform)!==nothing
+    end
+end
+
 @testset "Version, native library, timeout and license probes" begin
     probe(output;code=0,timed_out=false)=command->(;output,code,timed_out)
     mktemp() do native,io

@@ -42,7 +42,7 @@ end
             r=Base.invokelatest(solve_ghost,p;seconds=.05,kind)
             @test !isempty(r.values) && validate(p,r.values).valid
         end
-        states["ghost"]=Dict("status"=>"passed","scope"=>"Julia_wrapper_BPP_direct_and_ICN_callbacks_only","threads"=>1)
+        states["ghost"]=Dict("status"=>"passed","qualified_families"=>["bpp"],"scope"=>"Julia_wrapper_BPP_direct_and_ICN_callbacks_only","threads"=>1)
     end
 end
 @testset "Original source-format samples and native Hexaly gate" begin

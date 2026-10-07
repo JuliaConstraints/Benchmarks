@@ -28,13 +28,13 @@ function options(args)
         startswith(arg,"--") && occursin('=',arg) || error("Use --name=value")
         k,v=split(arg[3:end],'=';limit=2)
         k in ("threads","cpus","budget","methods","instances","seeds","hexaly","output","resume","ortools",
-            "missing-solvers","prepare","qualify","gurobi","cplex","cpoptimizer","selection","sources","max-cells") || error("Unknown option $k")
+            "missing-solvers","prepare","qualify","gurobi","cplex","cpoptimizer","selection","sources","max-cells","java") || error("Unknown option $k")
         haskey(opts,k) && error("Duplicate option $k");opts[k]=v
     end
     opts
 end
 function preflight(opts)
-    output=abspath(get(opts,"output",joinpath(ROOT,"Hexaly/results/preflight-"*Dates.format(now(UTC),"yyyymmdd-HHMMSS"))))
+    output=abspath(get(opts,"output",joinpath(ROOT,"LiLim/results/preflight-"*Dates.format(now(UTC),"yyyymmdd-HHMMSS"))))
     ispath(output) && error("Choose a new preflight output directory; previous evidence is preserved")
     original=copy(opts);original["output"]=output
     for k in ("selection","sources","max-cells");pop!(original,k,nothing);end
@@ -62,11 +62,12 @@ function preflight(opts)
         row["id"] in ("pdptw","irp") && continue
         row["functional_inputs"]=filter(r->r["entry"]==row["id"],inputs)
     end
-    report["status"]=state=="failed" || code==1 ? "qualification_failed" : "incomplete_published_reproduction"
+    report["published_reproduction_status"]="incomplete_published_reproduction"
+    report["status"]=code==1 ? "qualification_failed" : LiLimKit.HexalyPreflight.kit_status(report;qualify=parse(Bool,get(opts,"qualify","true")))
     LiLimKit.HexalyPreflight.save_report(output,report;refresh=true)
     write_discrete_detail(output,report,state,inputs)
-    println("Preflight saved: ",joinpath(output,"report.md"),". No comparative campaign started.")
-    state=="failed" || code==1 ? 1 : 2
+    println("Preflight status: ",report["status"],"; report: ",joinpath(output,"report.md"))
+    report["status"]=="qualification_failed" ? 1 : report["status"] in ("ready_available_solvers","inventory_complete") ? 0 : 2
 end
 function write_discrete_detail(output,report,state,inputs)
     open(joinpath(output,"report.md"),"a") do io
