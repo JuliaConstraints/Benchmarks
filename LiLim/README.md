@@ -6,7 +6,8 @@ Li-Lim is the first qualification target for the new Etendu-aligned cohort.
 The [Hexaly coverage catalog](config/hexaly-benchmark-catalog.toml) records all
 20 benchmark pages, with their exact source URLs. Other families still need
 their data/model adapters and original validators; an inventory entry is not
-a completed reproduction. The new public cohort has not been published yet.
+a completed reproduction. The public Etendu-aligned source cohort is pinned in
+`workspace-cohort.toml`; see [the colleague instructions](PUBLIC.md).
 Existing public snapshots and historical trial evidence remain available.
 
 The strategy catalog now contains 27 policies, 35 ICN/hybrid variants and four
@@ -17,7 +18,7 @@ and complementary hybrid/portfolio combinations. Policy state remains local to
 each worker. No comparative performance claim follows from these settings.
 
 `--methods=panel` selects the historical methods supported at the requested width,
-all strategy variants and portfolios, OR-Tools and Hexaly. `all` retains its old
+all strategy variants and portfolios, OR-Tools, GHOST.jl and Hexaly. `all` retains its old
 internal-method meaning. `--missing-solvers=skip` is the default: absent SDKs,
 unsupported installed versions and unavailable licenses are recorded explicitly
 in the manifest/report and excluded from performance denominators. Use
@@ -56,20 +57,19 @@ Only the explicitly requested `colleague.jl setup` may install a missing SDK.
   `11b06263-fdad-4e56-a327-8fd38a91e0b8` and was qualified historically at
   `ebeef2c43a094b92d3b11d4642c03b81667597e4` (`forge/moi-wrapper-2026`). Its
   original sources were not recovered. A new native JuMP/MOI wrapper, version
-  0.2.0, is now saved in the private
-  [GHOST.jl repository](https://gitlab.naze.baffier.fr/others/GHOST.jl), under
-  `~/.julia/dev/GHOST`, with the matching
-  [GHOST_jll source/build recipe](https://gitlab.naze.baffier.fr/others/GHOST_jll.jl).
+  0.2.0, is now public in
+  [GHOST.jl](https://github.com/JuliaConstraints/GHOST.jl), with the matching
+  [GHOST_jll source/build recipe](https://github.com/JuliaConstraints/GHOST_jll.jl).
   The C ABI is carried on upstream `develop` at `37bbfdf`, saved at native
-  commit `74a147ea` in
+  commit `0894555e` in
   [GHOST](https://gitlab.naze.baffier.fr/others/GHOST/-/tree/forge/julia-callbacks-20261007).
   The new wrapper prepares 11 saved ICN variants and automatic catalogue
-  bindings without user-written error functions. Source syntax checks passed;
-  native compilation, MOI execution, platform artifacts and the original Li-Lim
-  validator qualification remain pending. The accessible older pure-Julia port
-  has a different UUID and is not a replacement. JuLS and
-  GHOST.jl are not yet auto-installed by `colleague.jl setup` or included in this
-  runner's `panel`; unavailable support is not a performance result. Historical
+  bindings without user-written error functions. Its 1,665 frontend assertions
+  passed locally. Native C ABI tests passed on Linux x86_64/aarch64, macOS
+  Intel/Apple Silicon and Windows x86_64. The matching Artifacts include full
+  corresponding GPL source. `setup` installs missing wrapper packages and
+  Artifacts; `panel` calls GHOST exclusively through GHOST.jl. JuLS remains a
+  separate environment and is not in this panel. Historical
   C++ trial evidence remains unchanged and must not be relabeled as GHOST.jl.
 
 OR-Tools is distributed under [Apache 2.0](https://github.com/google/or-tools/blob/v9.14/LICENSE);
@@ -90,8 +90,12 @@ OR-Tools import also passed. These checks perform no RoutingModel search.
 The GHOST frontend checks passed 32 assertions: direct C++ commands and compiler
 entry points refuse execution before dependency loading or filesystem changes.
 This is an interface-policy check, not a GHOST.jl solver qualification.
-Requalification of route policies, ICN resources, hybrids and actual native
-solvers on this new cohort remains pending until shared compute resources are free.
+Actual OR-Tools GLS searches passed 39 assertions against the original PDPTW
+validator. Hybrid qualification passed 1,483 assertions; ICN resources passed
+30,107 zero-set assertions plus workspace/portfolio checks. Existing strategy
+qualification passed, including route moves and reset/late-acceptance semantics.
+These are small functional qualifications. Comparative timing campaigns wait
+for exclusive resources; no ranking is inferred from functional tests.
 
 ```sh
 julia LiLim/scripts/colleague.jl setup
@@ -99,8 +103,8 @@ julia LiLim/scripts/colleague.jl qualify
 julia LiLim/scripts/colleague.jl run --threads=1 --budget=8 --methods=panel --instances=lc101,lr101,lrc101 --seeds=41,42,43 --output=LiLim/results/new-cohort-screen
 ```
 
-`setup` preserves existing development clones and refuses to clone the unpublished
-new cohort. It becomes a complete public handoff after publication and qualification.
+`setup` preserves existing development clones, reuses matching versions and
+rejects mismatched or dirty sources without resetting them.
 Keep new runs in new output directories; stopped historical runs are not resumed.
 Bulk trial/log evidence stays local. Selected validated summaries/reports/figures
 are the Git deliverables.

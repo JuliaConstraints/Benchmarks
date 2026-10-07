@@ -1,16 +1,18 @@
 # Reproducible Li-Lim comparison handoff
 
-This Linux kit compares the same original PDPTW instances, a common feasible
+This Linux/macOS/Windows kit compares the same original PDPTW instances, a common feasible
 insertion start, a shared wall-clock budget, and a fleet-first objective followed
 by unrounded Euclidean distance. Every exported solution and every trajectory
 point is checked by the original ConstraintModels validator. It is a local
 comparison, not an identical reproduction of the vendor's published experiment.
 
-Prerequisites: **Julia 1.13.1**, Git, Python 3.12 with `venv`, `unzip`, and Linux
-`taskset`/`lscpu`. No private repository, account or token is required.
+Prerequisites: **Julia 1.13.1**, Git, Python 3.12 and, on Linux,
+`taskset`/`lscpu`. No private repository, account or token is required. macOS
+Intel and Apple Silicon are supported; Windows x86_64 and Linux x86_64/aarch64
+have matching native distributions. Functional CI is separate from performance measurement.
 
 ```sh
-git clone --single-branch --branch bench/lilim-20261007 https://github.com/JuliaConstraints/Benchmarks.git ~/Gits/JuliaConstraintsBenchmarks
+git clone --single-branch --branch bench/lilim-etendu-20261007 https://github.com/JuliaConstraints/Benchmarks.git ~/Gits/JuliaConstraintsBenchmarks
 cd ~/Gits/JuliaConstraintsBenchmarks
 julia LiLim/scripts/colleague.jl setup
 julia LiLim/scripts/colleague.jl qualify
@@ -19,13 +21,20 @@ julia LiLim/scripts/colleague.jl run --budget=60 --threads=1 --output=LiLim/resu
 
 Setup clones the twelve public package snapshots into
 `~/.julia/dev/JuliaConstraintsBench`, installs the frozen Julia environments and
-OR-Tools 9.14.6206 in a dedicated Python environment, downloads the six official
+OR-Tools 9.14.6206 only if absent, downloads the six official
 SINTEF archives, and checks all 354 instance hashes. Existing mismatched or dirty
 checkouts are preserved and rejected. `workspace-cohort.toml` records public
 commit IDs, their original qualified commits, and identical runtime-file hashes.
 Public snapshots exclude private history, research logs and bulk artifacts.
 The three recovered ICN witness recipes are bundled with their provenance;
 their weights are unchanged and were not retrained for this comparison.
+Existing OR-Tools installations are reused first. Missing SDKs use checked
+upstream wheel Artifacts loaded through PYTHONPATH; setup does not modify an
+existing Python environment or reinstall a present solver. HiGHS uses its Julia
+JLL. GHOST.jl and GHOST_jll are additional public, pinned Julia source packages;
+the latter downloads only a missing matching native Artifact, with GPL source
+and license included. A GHOST environment is derived from the frozen core while
+checking that every existing dependency version remains identical.
 
 `qualify` runs actual OR-Tools GLS searches on tiny instances, including unit
 capacity, pickup precedence with zero travel, nonzero depot service and empty
@@ -37,13 +46,19 @@ authoritative. Rounding is a documented modeling difference.
 The default diagnostic uses LC101, LR101 and LRC101 with repetition labels
 41/42/43. OR-Tools RoutingModel is **single-threaded**; those labels do not change
 its GLS random seed. Its repetitions measure variation in elapsed execution.
-CBLS workers use independent seeds. Import/model/common-start time is included
+CBLS workers use independent seeds. GHOST uses its development C++ engine
+through the Julia MOI wrapper, permutation moves, and the same qualified PDPTW
+ICN scorer. Each Julia lane owns a native worker and private callback buffers.
+Its ABI does not expose RNG seeds or tabu/reset counters; repetition labels
+are not passed as seeds. Every returned incumbent is checked independently.
+Import/model/common-start time is included
 inside each trial budget; Julia warmup is measured separately. The exposed trio
 is not a held-out confirmation corpus and does not justify general superiority.
 
 For wider comparisons, use `--threads=8` or `--threads=16`. Defaults then include
-CBLS strategy mix and two MetaStrategist portfolios alongside ICN, specialized
-and XCSP3 hybrids, HiGHS and OR-Tools. Each method runs serially as a separate
+the historical CBLS profiles, 35 ICN/hybrid variants and four MetaStrategist
+portfolios, with partial/full resets, tabu and late acceptance, alongside
+HiGHS, OR-Tools, GHOST and available Hexaly. Each method runs serially as a separate
 trial. The launcher chooses one logical CPU per physical core before SMT
 siblings; on hybrid CPUs this does not distinguish P/E cores. For controlled
 affinity pass `--cpus=8,10,0,2,4,6,12,14` (replace with your host's CPU IDs).
@@ -71,6 +86,10 @@ is redistributed here. The model and exchange audit are prepared, but native
 Hexaly compilation/search are **not yet qualified on our machine**.
 The supplied native test is a gate: failures must be fixed and requalified
 before comparative Hexaly results can be reported.
+Missing solvers or licenses are explicitly skipped by default; model defects
+and invalid routes still fail. Use `--missing-solvers=error` to require all
+selected profiles. A local installed Hexaly currently has no usable license,
+so native Hexaly search remains unqualified here.
 
 ```sh
 julia LiLim/scripts/colleague.jl qualify --hexaly=/path/to/hexaly
@@ -101,3 +120,8 @@ out of source commits. Never include a Hexaly license or credentials.
 
 Official references: [SINTEF data and objective](https://www.sintef.no/projectweb/top/pdptw/li-lim-benchmark/),
 [Hexaly's published PDPTW comparison](https://www.hexaly.com/benchmarks/hexaly-vs-google-or-tools-pickup-and-delivery-problem-with-time-windows-pdptw).
+
+The [coverage catalog](config/hexaly-benchmark-catalog.toml) inventories all 20
+Hexaly benchmark pages. This ready-to-run handoff targets Li-Lim first; other
+families require their own model and original-validator qualification. Their
+presence in the catalog does not imply runnable reproductions.

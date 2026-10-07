@@ -188,7 +188,7 @@ function source_manifest()
     Dict(relpath(abspath(path), ROOT) => digest(path) for path in files)
 end
 
-function campaign_identity(opts, instances, methods, hexaly_executable, ortools_identity; requested_methods=methods, skipped_methods=[])
+function campaign_identity(opts, instances, methods, hexaly_executable, ortools_identity; requested_methods=methods, skipped_methods=[], ghost_identity=nothing)
     hexaly_identity = hexaly_executable === nothing ? Dict{String,Any}() : Dict{String,Any}(
         "path"=>hexaly_executable,
         "target_version"=>HEXALY_CONFIG["target_version"],
@@ -213,6 +213,7 @@ function campaign_identity(opts, instances, methods, hexaly_executable, ortools_
         "strategy_variants" => Hybrid.SearchPolicies.CONFIG,
         "hexaly" => hexaly_identity,
         "ortools" => ortools_identity === nothing ? Dict{String,Any}() : ortools_identity,
+        "ghost" => ghost_identity === nothing ? Dict{String,Any}() : ghost_identity,
         "seeds" => opts.seeds,
         "budget_seconds" => opts.budget,
         "threads" => opts.threads,
@@ -491,6 +492,13 @@ function warmup(methods, row, policy, banks, plans, seconds, output, hexaly_exec
             "seconds"=>record["wall_seconds"],"valid"=>record["original_validation"],
             "budget_seconds"=>seconds,"mean_active_cpus"=>record["mean_active_cpus"]))
     end
+    if "ghost_icn" in methods
+        Base.invokelatest(GHOSTNative.warmup,row.path,policy;threads=Threads.nthreads(),id=row.id)
+        record = Base.invokelatest(GHOSTNative.run_case,row.path,seconds,first(THREAD_CONFIG["seeds"]),policy;
+            threads=Threads.nthreads(),id=row.id)
+        push!(results,Dict("instance"=>row.id,"method"=>"ghost_icn",
+            "seconds"=>record["wall_seconds"],"valid"=>record["original_validation"],"budget_seconds"=>seconds))
+    end
     results
 end
 
@@ -503,13 +511,15 @@ function campaign_main()
     requested_methods = select_methods(opts.threads, opts.methods)
     availability = NativeSolvers.resolve_requested(requested_methods; missing=opts.missing_solvers,
         ortools_resolver=()->NativeSolvers.resolve_ortools(opts.ortools; root=ROOT),
-        hexaly_resolver=()->resolve_hexaly(opts))
+        hexaly_resolver=()->resolve_hexaly(opts),
+        ghost_resolver=()->NativeSolvers.resolve_ghost(;root=ROOT))
     methods = availability.methods
     hexaly_executable = availability.hexaly
     ortools_identity = availability.ortools
+    availability.ghost === nothing || Base.include(Main,joinpath(ROOT,"LiLim/src/GHOSTNative.jl"))
     allunique(opts.seeds) && all(>(0), opts.seeds) || error("seeds must be distinct positive integers")
     identity = campaign_identity(opts, instances, methods, hexaly_executable, ortools_identity;
-        requested_methods, skipped_methods=availability.skipped)
+        requested_methods, skipped_methods=availability.skipped,ghost_identity=availability.ghost)
     fingerprint = stable_sha(identity)
     output = opts.output
     manifest_path = joinpath(output, "manifest.toml")
@@ -585,6 +595,9 @@ function campaign_main()
             logpath = joinpath(output, "logs", row.id * "__" * method * "__seed-" * string(seed) * ".log")
             run_ortools_case(row, opts.budget, seed, THREAD_CONFIG["policy"], opts.threads,
                 ortools_identity, logpath)
+        elseif method == "ghost_icn"
+            Base.invokelatest(GHOSTNative.run_case,row.path,opts.budget,seed,THREAD_CONFIG["policy"];
+                threads=opts.threads,id=row.id)
         else
             native_log = method == "highs_native" ? joinpath(output, "logs", row.id * "__" * method * "__seed-" * string(seed) * ".log") : nothing
             native_log === nothing || mkpath(dirname(native_log))

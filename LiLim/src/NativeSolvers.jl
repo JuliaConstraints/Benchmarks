@@ -1,5 +1,5 @@
 module NativeSolvers
-using SHA
+using SHA, TOML, Pkg
 include("SolverArtifacts.jl")
 
 struct UnavailableSolver <: Exception
@@ -132,20 +132,50 @@ function resolve_hexaly(name; probe=capture)
 end
 
 "Only explicitly unavailable optional solvers may be skipped; defects still fail."
-function resolve_requested(methods; missing="skip", ortools_resolver, hexaly_resolver)
+function resolve_ghost(; root, install=false)
+    environment = joinpath(root,"LiLim/native/ghost/environment")
+    metadata = joinpath(environment,"qualification.toml")
+    isfile(metadata) || throw(UnavailableSolver("ghost_icn","run_setup_for_ghost_environment"))
+    saved = TOML.parsefile(metadata)
+    for name in ("Project.toml","Manifest.toml")
+        digest(joinpath(environment,name)) == saved[name] || error("GHOST optional environment changed: $name")
+    end
+    cohort = TOML.parsefile(joinpath(root,"LiLim/config/workspace-cohort.toml"))["optional_cohort"]
+    for (name,entry) in cohort
+        path = saved["sources"][name]
+        strip(read(`git -C $path rev-parse HEAD`,String)) == entry["commit"] || error("GHOST source cohort changed: $name")
+        isempty(strip(read(`git -C $path status --porcelain --untracked-files=no`,String))) || error("Dirty optional source: $name")
+    end
+    environment in LOAD_PATH || push!(LOAD_PATH,environment)
+    @eval import GHOST_jll
+    path_resolver = @eval GHOST_jll.library_path
+    library = try
+        Base.invokelatest(path_resolver; install)
+    catch exception
+        message = sprint(showerror,exception)
+        occursin("not installed",message) && throw(UnavailableSolver("ghost_icn","artifact_not_installed"))
+        occursin("no qualified Artifact",message) && throw(UnavailableSolver("ghost_icn","no_artifact_for_host_platform"))
+        rethrow()
+    end
+    merge(saved,Dict("library_sha256"=>digest(library),"native_library"=>library))
+end
+
+function resolve_requested(methods; missing="skip", ortools_resolver, hexaly_resolver,
+    ghost_resolver=()->throw(UnavailableSolver("ghost_icn","wrapper_environment_unavailable")))
     missing in ("skip","error") || throw(ArgumentError("missing-solvers must be skip or error"))
     selected = String[]; skipped = Dict{String,String}[]
-    ortools = nothing; hexaly = nothing
+    ortools = nothing; hexaly = nothing; ghost = nothing
     for method in methods
         try
             method=="ortools_native" && (ortools=ortools_resolver())
             method=="hexaly_native" && (hexaly=hexaly_resolver())
+            method=="ghost_icn" && (ghost=ghost_resolver())
             push!(selected,method)
         catch e
             e isa UnavailableSolver && missing=="skip" || rethrow()
             push!(skipped,Dict("method"=>method,"status"=>"skipped","reason"=>e.reason))
         end
     end
-    (; methods=selected, skipped, ortools, hexaly)
+    (; methods=selected, skipped, ortools, hexaly, ghost)
 end
 end

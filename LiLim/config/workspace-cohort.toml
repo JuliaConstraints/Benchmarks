@@ -1,28 +1,38 @@
 etendu_manifest_sha256 = "1ec6c04b0020b9902cbd1a391864d1ad037dd075b3eff9e595f5e69b76591e79"
 portable_icn_bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
 public_branch = "bench/lilim-etendu-20261007"
-public_status = "unpublished"
+public_status = "published"
 schema = "li-lim-workspace-cohort/1"
+scope = "Public Etendu-aligned source snapshots. Source code and solver environment match the private preparation; platform qualification is recorded separately."
 source_branch = "bench/etendu-sync-20261007"
-scope = "Etendu-aligned local development cohort. Existing public snapshots are retained as historical references; public synchronization is pending."
 
 [cohort]
-CBLS = "e8ff7c563b8e4655d3fcd035fbda6d3dd9d6df52"
-CompositionalNetworks = "fe5d21f31797d93391552919abc3d6e7a6db92d9"
-ConstraintCommons = "249ba1055bddf1407967643d087f16514b290a41"
-ConstraintDomains = "51455db64d56863b8f212c72ea98d8446793694f"
-ConstraintModels = "d0ff0e5a810e96b2d9158f4d4f38f936a18d0aad"
-ConstraintProgrammingExtensions = "04f270eaa8bf1a8cf07a4848225dcd77fee14cd3"
-Constraints = "2b3897c3dba21ca26f0a467a958ace8de3d4128f"
-LocalSearchSolvers = "cd0949c3e0bce5a3a4d5ad9ac08436002ceae2b0"
-MetaStrategist = "aada710f9bdb1520f8655807392192ca4d6e53f8"
-PatternFolds = "a665ff20a2a72ff929f91b50106b05acac1e1662"
-QUBOConstraints = "f893f83cd7518ca3aedf0ad5d2679b2c13829446"
-XCSP3Bridges = "fe5bceaddc5081fedd200571b480e44ca9de1947"
+CBLS = "3687ece072aa2dc17f4eee87eadd706d97ab6752"
+CompositionalNetworks = "169d8f77840d498d6628ea9b1feb007d40a7dc60"
+ConstraintCommons = "3fb67945eac691003b3efe8a120afe17c8a89d24"
+ConstraintDomains = "5e7aecd196b86e1ab49d7085d5678b47bdb6c4f4"
+ConstraintModels = "f360e193299dd45ecbf53a8d3c76e36dabc8846d"
+ConstraintProgrammingExtensions = "8c74772899742ebc007a717872c508420d2a423e"
+Constraints = "9c9adabfe84f395aa3dd58eec6405c8e41020ffa"
+LocalSearchSolvers = "57c5aaff0c2714e42e3c2a4335617354d08120ef"
+MetaStrategist = "3c6ad5b057af4910bed99412ba24f7bc8d329587"
+PatternFolds = "1293e55bd8db802ba169ec142610d83213cd9cf6"
+QUBOConstraints = "3e5612ce5c20af3f115c4dd9afa146878c57b0ca"
+XCSP3Bridges = "ad6cc7c25799eecebad95bb02f57392361db0c5c"
 
 [environment]
 manifest_sha256 = "9b767180147d7dd41d5b34c1b1958a13ba5acf979a54ba316ec78ad287e5deaf"
 project_sha256 = "2a48b5e578f38033a568c0d03697d31b86b1bed65b39086515c6648276cf457b"
+
+[optional_cohort.GHOST]
+url = "https://github.com/JuliaConstraints/GHOST.jl.git"
+branch = "main"
+commit = "75be7a567478ebbabece912677d1fa0b228ec26d"
+
+[optional_cohort.GHOST_jll]
+url = "https://github.com/JuliaConstraints/GHOST_jll.jl.git"
+branch = "main"
+commit = "d32e43e0afda0da43d2779e209a0b011624e0f43"
 
 [etendu_installed_cohort]
 CBLS = "e8ff7c563b8e4655d3fcd035fbda6d3dd9d6df52"
@@ -51,6 +61,20 @@ MetaStrategist = "3d7a077739d2f4ed8e8a97d55da02a742d2ccbb6"
 PatternFolds = "ecd537e3d54a0c67f946bcd61f878bc19b7e6bee"
 QUBOConstraints = "1102bf67b922dc71d43a090b9b6e5641d53528fa"
 XCSP3Bridges = "c0fafa8c07746660bdd5c0dfe7829e0028caa644"
+
+[private_source_cohort]
+CBLS = "e8ff7c563b8e4655d3fcd035fbda6d3dd9d6df52"
+CompositionalNetworks = "fe5d21f31797d93391552919abc3d6e7a6db92d9"
+ConstraintCommons = "249ba1055bddf1407967643d087f16514b290a41"
+ConstraintDomains = "51455db64d56863b8f212c72ea98d8446793694f"
+ConstraintModels = "d0ff0e5a810e96b2d9158f4d4f38f936a18d0aad"
+ConstraintProgrammingExtensions = "04f270eaa8bf1a8cf07a4848225dcd77fee14cd3"
+Constraints = "2b3897c3dba21ca26f0a467a958ace8de3d4128f"
+LocalSearchSolvers = "cd0949c3e0bce5a3a4d5ad9ac08436002ceae2b0"
+MetaStrategist = "aada710f9bdb1520f8655807392192ca4d6e53f8"
+PatternFolds = "a665ff20a2a72ff929f91b50106b05acac1e1662"
+QUBOConstraints = "f893f83cd7518ca3aedf0ad5d2679b2c13829446"
+XCSP3Bridges = "fe5bceaddc5081fedd200571b480e44ca9de1947"
 
 [runtime_source_cohort]
 CBLS = "3bd4e2638c39b565aa81af41f585678f8952f60a"

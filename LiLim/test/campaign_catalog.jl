@@ -9,7 +9,7 @@ include(joinpath(@__DIR__,"..","src","CampaignCatalog.jl"))
         panel=CampaignCatalog.select_methods(width,"panel")
         @test allunique(panel)
         @test all(m->m in panel,historical)
-        @test all(m->m in panel,["ortools_native","hexaly_native","cbls_icn_reset_best_full",
+        @test all(m->m in panel,["ortools_native","hexaly_native","ghost_icn","cbls_icn_reset_best_full",
             "cbls_icn_tabu_random_partial","hybrid_specialized_icn_full_reset","mixed_restart_diverse"])
         strategies=CampaignCatalog.select_methods(width,"strategies")
         @test length(strategies)==39

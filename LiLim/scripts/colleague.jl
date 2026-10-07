@@ -87,6 +87,14 @@ function setup(opts=Dict{String,String}())
             "JULIA_PKG_PRECOMPILE_AUTO"=>"0","JULIA_NUM_PRECOMPILE_TASKS"=>"1","OPENBLAS_NUM_THREADS"=>"1"))
         digest(manifest)==before || error("Package setup changed the frozen manifest")
     end
+    missing=get(opts,"missing-solvers","skip")
+    missing in ("skip","error") || error("missing-solvers must be skip or error")
+    try
+        setup_ghost()
+    catch e
+        e isa NativeSolvers.UnavailableSolver && missing=="skip" || rethrow()
+        println("Skipped ",e.method,": ",e.reason)
+    end
     python=get(opts,"ortools",PYTHON)
     missing=get(opts,"missing-solvers","skip")
     missing in ("skip","error") || error("missing-solvers must be skip or error")
@@ -99,6 +107,59 @@ function setup(opts=Dict{String,String}())
     end
     data_setup()
     println("Pinned source, environments and official data ready. Next: julia LiLim/scripts/colleague.jl qualify")
+end
+
+"Derive the optional wrapper environment without changing the frozen core."
+function setup_ghost()
+    entries = CONFIG["optional_cohort"]
+    sources = Dict{String,String}()
+    for (name,entry) in sort!(collect(entries);by=first)
+        path = joinpath(DEV,name)
+        if !ispath(path)
+            run(`git clone --single-branch --branch $(entry["branch"]) $(entry["url"]) $path`)
+            run(`git -C $path checkout --detach $(entry["commit"])`)
+        end
+        strip(read(`git -C $path rev-parse HEAD`,String)) == entry["commit"] || error("Optional cohort mismatch at $path; existing checkout preserved")
+        isempty(strip(read(`git -C $path status --porcelain --untracked-files=no`,String))) || error("Dirty optional dependency: $name")
+        sources[name] = path
+    end
+    environment = joinpath(ROOT,"LiLim/native/ghost/environment")
+    metadata = joinpath(environment,"qualification.toml")
+    if isdir(environment)
+        NativeSolvers.resolve_ghost(;root=ROOT,install=true)
+        println("Existing GHOST wrapper environment reused.")
+        return
+    end
+    mkpath(environment)
+    baseline = TOML.parsefile(joinpath(SOLVER_ENV,"Manifest.toml"))
+    project = TOML.parsefile(joinpath(SOLVER_ENV,"Project.toml"))
+    for (name,source) in project["sources"]
+        source["path"] = joinpath(DEV,name)
+    end
+    derived = deepcopy(baseline)
+    for (name,rows) in derived["deps"], row in rows
+        haskey(row,"path") && (row["path"] = joinpath(DEV,name))
+    end
+    open(io->TOML.print(io,project;sorted=true),joinpath(environment,"Project.toml"),"w")
+    open(io->TOML.print(io,derived;sorted=true),joinpath(environment,"Manifest.toml"),"w")
+    Pkg.activate(environment)
+    Pkg.develop([Pkg.PackageSpec(path=sources[name]) for name in sort!(collect(keys(sources)))];preserve=Pkg.PRESERVE_ALL)
+    Pkg.instantiate(;allow_autoprecomp=false)
+    resolved = TOML.parsefile(joinpath(environment,"Manifest.toml"))
+    for (name,rows) in baseline["deps"], row in rows
+        actual = only(filter(r->r["uuid"]==row["uuid"],resolved["deps"][name]))
+        get(actual,"version",nothing) == get(row,"version",nothing) || error("Optional GHOST setup changed frozen dependency: $name")
+    end
+    Pkg.precompile()
+    environment in LOAD_PATH || push!(LOAD_PATH,environment)
+    @eval import GHOST_jll
+    saved = Dict("Project.toml"=>digest(joinpath(environment,"Project.toml")),
+        "Manifest.toml"=>digest(joinpath(environment,"Manifest.toml")),"sources"=>sources,
+        "core_manifest_sha256"=>digest(joinpath(SOLVER_ENV,"Manifest.toml")),
+        "cohort"=>entries)
+    open(io->TOML.print(io,saved;sorted=true),metadata,"w")
+    NativeSolvers.resolve_ghost(;root=ROOT,install=true)
+    println("GHOST.jl and matching platform Artifact ready; all frozen core versions retained.")
 end
 
 function data_setup()
@@ -143,6 +204,7 @@ function qualify(opts)
         launch(launcher(opts,joinpath(ROOT,"LiLim/test",test),String[];threads=1))
     end
     launch(launcher(opts,joinpath(ROOT,"LiLim/test/search_policies.jl"),["--routes"];threads=1))
+    launch(launcher(opts,joinpath(ROOT,"LiLim/test/ghost_native.jl"),String[];threads=1))
     launch(addenv(launcher(opts,joinpath(ROOT,"LiLim/test/hexaly_native.jl"),String[];threads=1),
         "HEXALY_EXECUTABLE"=>get(opts,"hexaly",get(ENV,"HEXALY_EXECUTABLE","hexaly"))))
 end

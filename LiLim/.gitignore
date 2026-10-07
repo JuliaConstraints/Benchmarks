@@ -3,3 +3,4 @@ vendor/
 _research/
 /native/ortools/.venv/
 /native/ortools/__pycache__/
+/native/ghost/environment/
