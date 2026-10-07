@@ -42,9 +42,10 @@ end
             visit(Int[],collect(2:7))
             policy = Dict("insertion_starts"=>1,"insertion_seed"=>41)
             # Preheat on this synthetic problem before the bounded test clock.
-            GHOSTNative.warmup(path,policy;threads=1,id="tiny")
-            first = GHOSTNative.run_case(path,3.,41,policy;threads=1,id="tiny")
-            result = GHOSTNative.run_case(path,1.,42,policy;threads=1,id="tiny")
+            for width in unique([1,min(2,Threads.nthreads())])
+            GHOSTNative.warmup(path,policy;threads=width,id="tiny")
+            first = GHOSTNative.run_case(path,3.,41,policy;threads=width,id="tiny")
+            result = GHOSTNative.run_case(path,1.,42,policy;threads=width,id="tiny")
             for trial in (first,result)
                 @test trial["original_validation"]
                 @test trial["objective_evaluations"] > 0
@@ -52,6 +53,8 @@ end
                 @test all(e->e["seconds"] <= trial["budget_seconds"],trial["trajectory"])
                 @test all(e->validate_solution(p,e["routes"]).valid,trial["trajectory"])
                 @test validate_solution(p,trial["routes"]).valid
+                @test trial["source_sha256"] == NativeSolvers.digest(path)
+            end
             end
         end
     end

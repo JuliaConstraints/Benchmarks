@@ -1,6 +1,6 @@
 "GHOST's Julia MOI wrapper with the existing qualified PDPTW ICNs."
 module GHOSTNative
-using GHOST, JuMP, TOML
+using GHOST, JuMP, TOML, SHA
 using ..Benchmarks, ..Pilot, ..MetaRepair, ..ICNScoring
 include("PlatformResources.jl")
 import MathOptInterface as MOI
@@ -161,6 +161,7 @@ function run_case(path, seconds, seed, policy; threads=1, id=nothing)
     gc = Base.GC_Diff(Base.gc_num(),gc_before)
     Dict{String,Any}("schema"=>"li-lim-resource-trial/1", "instance"=>p.id,
         "method"=>"ghost_icn", "seed"=>seed,"seed_applied_to_search"=>false,
+        "source_sha256"=>bytes2hex(sha256(read(path))),
         "budget_seconds"=>seconds,"wall_seconds"=>wall,"outer_elapsed_seconds"=>wall,
         "threads_requested"=>threads,"julia_threads_available"=>Threads.nthreads(),
         "threads_mode"=>"independent GHOST.jl models; one native worker and private ICN workspace per Julia lane",
