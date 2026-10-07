@@ -1,0 +1,55 @@
+[cpsat]
+adapter_sha256 = "53131afba66ba7549f2b62ab0c62f35148838133d80f5b983bb06f1a7a5c68bb"
+affinity_enforced = true
+cpus = [8, 9]
+multicore_status = "passed"
+native_runner_sha256 = "a528b5120d2c3dd170ccdc36dcb52d2416619b8ca2a4dd669e984d945c0c9982"
+objective = "conservative integer model; original distances audited"
+ortools_version = "9.14.6206"
+qualification_sha256 = "492066e2b3cfc42e9836dc493832772dd5e79194992eddb05e85f60bedd96186"
+scope = "four_small_original_PDPTW_models"
+status = "passed"
+workers = 2
+
+    [[cpsat.cases]]
+    case = "integer distances"
+    distance = 8.0
+    native_threads_sampled = 1
+    native_worker_log_verified = true
+    original_validation = true
+    vehicles = 1
+    [[cpsat.cases]]
+    case = "tight windows require separate vehicles"
+    distance = 8.0
+    native_threads_sampled = 1
+    native_worker_log_verified = true
+    original_validation = true
+    vehicles = 2
+    [[cpsat.cases]]
+    case = "zero travel still requires pickup precedence"
+    distance = 0.0
+    native_threads_sampled = 1
+    native_worker_log_verified = true
+    original_validation = true
+    vehicles = 1
+    [[cpsat.cases]]
+    case = "waiting and fractional depot service"
+    distance = 8.0
+    native_threads_sampled = 1
+    native_worker_log_verified = true
+    original_validation = true
+    vehicles = 1
+
+[routing_portfolio]
+adapter_sha256 = "53131afba66ba7549f2b62ab0c62f35148838133d80f5b983bb06f1a7a5c68bb"
+affinity_enforced = true
+cpus = [8, 9]
+gls_coefficients = [0.1, 0.2]
+native_runner_sha256 = "a528b5120d2c3dd170ccdc36dcb52d2416619b8ca2a4dd669e984d945c0c9982"
+native_threads_sampled = [1, 1]
+ortools_version = "9.14.6206"
+overlapping_searches_verified = true
+processes = 2
+qualification_sha256 = "492066e2b3cfc42e9836dc493832772dd5e79194992eddb05e85f60bedd96186"
+scope = "small_original_PDPTW_model"
+status = "passed"

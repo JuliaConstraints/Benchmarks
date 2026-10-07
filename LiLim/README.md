@@ -194,11 +194,49 @@ labels do not modify the OR-Tools search, so they measure repeated timings rathe
 than independent random-seed experiments. Wider campaign thread counts do not
 increase this solver's one-thread allocation.
 
-The adapter still has no measured solver trial. Model execution and exported
-solutions/trajectories must pass the original validator before comparative use;
-that qualification waits until the other active tasks release resources.
+The default GLS adapter has passed original-validator functional qualification.
+Comparative timing evidence remains separate from these small correctness checks.
 See the [capability and hardware estimate](results/hexaly-capability-estimate-20261006.md)
 for the published Hexaly comparison, local evidence and limitations.
+
+The universal `scripts/colleague.jl preflight` additionally qualifies two execution
+profiles on at most two allocated CPUs, reusing the installed OR-Tools SDK:
+
+- **Routing portfolio:** independent native processes, one CPU each, a shared
+  wall deadline and GLS coefficients 0.1 and 0.2. Routing seed labels do not provide
+  search diversification. Original-valid within-budget incumbents are merged
+  with fleet-first ranking; each worker remains independently auditable.
+- **Generalized CP-SAT:** the official OR-Tools 9.14 RoutingModel translator,
+  CP local search disabled, `num_workers` explicitly set and the seed applied to
+  CP-SAT. Four small PDPTW cases cover capacity, tight windows, waiting, depot
+  service and strict pickup order at zero travel. A complete enumeration using
+  the original validator supplies the tiny-instance reference. Native solver logs
+  must confirm that CP-SAT started with the requested worker count.
+
+The generalized CP-SAT adapter exports the final incumbent after native search
+returns. Its Python Routing solution monitor cannot safely observe CP-SAT worker
+threads. CP-SAT target times are therefore observed upper bounds from the final
+export, not first-hit times. Intermediate Routing incumbents remain observable.
+
+Both profiles retain the existing conservative integer time grid and rounded
+distance costs. Native optimality would concern that integer model; original
+floating-point distances and feasibility remain authoritative. These profiles
+are functional preflight additions, not new sealed campaign selectors. Historical
+`ortools_native` trials retain their one-process, one-worker interpretation.
+
+Every native launch limits OpenBLAS, OpenMP, MKL, BLIS, Accelerate and NumExpr to
+one numerical thread; Routing's internal CP-SAT calls are also capped at one.
+CP-SAT's own worker pool has its separate explicit budget. On Linux, each Routing
+process is pinned to its own CPU and CP-SAT to its allocated CPU set. macOS and
+Windows enforce worker limits without hard affinity. Process IDs, CPU allocation,
+CPU time and callback samples of native thread counts are recorded. Samples are
+not a continuous peak measurement. Independent processes duplicate model memory
+and pay startup costs; thread caps do not establish scalability or eliminate
+memory-bandwidth contention. No speedup is claimed by the preflight.
+
+Use `--cpus=8,9` to select two CPU IDs on Linux, or `--cpus=8` for one. With one
+allocated CPU the portfolio is skipped, CP-SAT is checked serially and its
+multicore qualification is explicitly marked as skipped in `report.toml`.
 
 ## Current reconstructed cohort (2 October 2026)
 

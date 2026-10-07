@@ -1,10 +1,10 @@
 active_entry_count = 19
-catalogue_sha256 = "b762e28f468307d1ba4ff81eba2cdd34976a28fb97068255d5e2730fc2d95045"
+catalogue_sha256 = "aa6cc3cde98dc06a9a7a63f5c3c8385ed81b1fb36d7030ffa0c62e9695b82f8e"
 checked_at_utc = "2026-10-07T17:33:19.683"
 continuous_deferred = ["irp"]
 entry_count = 20
 published_reproduction_status = "incomplete_published_reproduction"
-requalified_at_utc = "2026-10-07T17:41:22.677"
+requalified_at_utc = "2026-10-07T21:02:00.640"
 schema = "solver-benchmark-preflight/1"
 source = "https://www.hexaly.com/benchmarks"
 status = "incomplete_solver_coverage"
@@ -1101,6 +1101,10 @@ status = "passed"
 reason = "exit_code_0"
 status = "passed"
 
+[checks."test:ortools_parallel.jl"]
+reason = "exit_code_0"
+status = "passed"
+
 [checks."test:search_policies.jl"]
 reason = "exit_code_0"
 status = "passed"
@@ -1282,6 +1286,68 @@ qualified_families = ["aircraft_landing", "bpp", "bppc", "fjsp", "jssp", "pdptw"
 reason = "installation_probe_passed"
 status = "available"
 version = "9.14.6206"
+
+    [solvers.ortools.profiles.cpsat]
+    adapter_sha256 = "53131afba66ba7549f2b62ab0c62f35148838133d80f5b983bb06f1a7a5c68bb"
+    affinity_enforced = true
+    cpus = [8, 9]
+    multicore_status = "passed"
+    native_runner_sha256 = "a528b5120d2c3dd170ccdc36dcb52d2416619b8ca2a4dd669e984d945c0c9982"
+    objective = "conservative integer model; original distances audited"
+    ortools_version = "9.14.6206"
+    qualification_sha256 = "492066e2b3cfc42e9836dc493832772dd5e79194992eddb05e85f60bedd96186"
+    scope = "four_small_original_PDPTW_models"
+    status = "passed"
+    workers = 2
+
+        [[solvers.ortools.profiles.cpsat.cases]]
+        case = "integer distances"
+        distance = 8.0
+        native_threads_sampled = 1
+        native_worker_log_verified = true
+        original_validation = true
+        vehicles = 1
+        [[solvers.ortools.profiles.cpsat.cases]]
+        case = "tight windows require separate vehicles"
+        distance = 8.0
+        native_threads_sampled = 1
+        native_worker_log_verified = true
+        original_validation = true
+        vehicles = 2
+        [[solvers.ortools.profiles.cpsat.cases]]
+        case = "zero travel still requires pickup precedence"
+        distance = 0.0
+        native_threads_sampled = 1
+        native_worker_log_verified = true
+        original_validation = true
+        vehicles = 1
+        [[solvers.ortools.profiles.cpsat.cases]]
+        case = "waiting and fractional depot service"
+        distance = 8.0
+        native_threads_sampled = 1
+        native_worker_log_verified = true
+        original_validation = true
+        vehicles = 1
+
+    [solvers.ortools.profiles.routing_gls]
+    processes = 1
+    scope = "small_original_PDPTW_models"
+    status = "passed"
+    workers = 1
+
+    [solvers.ortools.profiles.routing_portfolio]
+    adapter_sha256 = "53131afba66ba7549f2b62ab0c62f35148838133d80f5b983bb06f1a7a5c68bb"
+    affinity_enforced = true
+    cpus = [8, 9]
+    gls_coefficients = [0.1, 0.2]
+    native_runner_sha256 = "a528b5120d2c3dd170ccdc36dcb52d2416619b8ca2a4dd669e984d945c0c9982"
+    native_threads_sampled = [1, 1]
+    ortools_version = "9.14.6206"
+    overlapping_searches_verified = true
+    processes = 2
+    qualification_sha256 = "492066e2b3cfc42e9836dc493832772dd5e79194992eddb05e85f60bedd96186"
+    scope = "small_original_PDPTW_model"
+    status = "passed"
 
 [solvers.timefold]
 qualification = "passed"
