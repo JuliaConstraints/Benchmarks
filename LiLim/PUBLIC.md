@@ -17,7 +17,7 @@ Intel and Apple Silicon are supported; Windows x86_64 and Linux x86_64/aarch64
 have matching native distributions. Functional CI is separate from performance measurement.
 
 ```sh
-git clone --single-branch --branch bench/lilim-etendu-20261007 https://github.com/JuliaConstraints/Benchmarks.git ~/Gits/JuliaConstraintsBenchmarks
+git clone --config core.autocrlf=false --single-branch --branch bench/lilim-etendu-20261007 https://github.com/JuliaConstraints/Benchmarks.git ~/Gits/JuliaConstraintsBenchmarks
 cd ~/Gits/JuliaConstraintsBenchmarks
 julia LiLim/scripts/colleague.jl setup
 julia LiLim/scripts/colleague.jl qualify
@@ -28,8 +28,11 @@ Setup clones the twelve public package snapshots into
 `~/.julia/dev/JuliaConstraintsBench`, installs the frozen Julia environments and
 OR-Tools 9.14.6206 only if absent, downloads the six official
 SINTEF archives, and checks all 354 instance hashes. Existing mismatched or dirty
-checkouts are preserved and rejected. `workspace-cohort.toml` records public
-commit IDs, their original qualified commits, and identical runtime-file hashes.
+checkouts are preserved and rejected. New clones retain LF endings on every platform
+without changing the user's global Git configuration. A pre-existing checkout
+with converted bytes is preserved and rejected before package setup.
+`workspace-cohort.toml` records public commit IDs, their original qualified
+commits, and identical runtime-file hashes.
 Public snapshots exclude private history, research logs and bulk artifacts.
 The three recovered ICN witness recipes are bundled with their provenance;
 their weights are unchanged and were not retrained for this comparison.

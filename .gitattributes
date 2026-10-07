@@ -1,2 +1,6 @@
-# Scientific evidence hashes refer to exact bytes, including native CRLF output.
-SolverSmoke/evidence/** -text
+*.jl text eol=lf
+*.toml text eol=lf
+*.hxm text eol=lf
+*.py text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
