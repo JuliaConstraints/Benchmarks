@@ -55,10 +55,19 @@ Only the explicitly requested `colleague.jl setup` may install a missing SDK.
   launchers are disabled. The intended wrapper has UUID
   `11b06263-fdad-4e56-a327-8fd38a91e0b8` and was qualified historically at
   `ebeef2c43a094b92d3b11d4642c03b81667597e4` (`forge/moi-wrapper-2026`). Its
-  sources and JLL checkout are absent here, although SolverSmoke still references
-  them. The accessible older pure-Julia port has a different UUID and is not a
-  replacement for this wrapper. Recover the correct sources, then qualify its
-  platform artifact and Li-Lim model against the original validator. JuLS and
+  original sources were not recovered. A new native JuMP/MOI wrapper, version
+  0.2.0, is now saved in the private
+  [GHOST.jl repository](https://gitlab.naze.baffier.fr/others/GHOST.jl), under
+  `~/.julia/dev/GHOST`, with the matching
+  [GHOST_jll source/build recipe](https://gitlab.naze.baffier.fr/others/GHOST_jll.jl).
+  The C ABI is carried on upstream `develop` at `37bbfdf`, saved at native
+  commit `74a147ea` in
+  [GHOST](https://gitlab.naze.baffier.fr/others/GHOST/-/tree/forge/julia-callbacks-20261007).
+  The new wrapper prepares 11 saved ICN variants and automatic catalogue
+  bindings without user-written error functions. Source syntax checks passed;
+  native compilation, MOI execution, platform artifacts and the original Li-Lim
+  validator qualification remain pending. The accessible older pure-Julia port
+  has a different UUID and is not a replacement. JuLS and
   GHOST.jl are not yet auto-installed by `colleague.jl setup` or included in this
   runner's `panel`; unavailable support is not a performance result. Historical
   C++ trial evidence remains unchanged and must not be relabeled as GHOST.jl.

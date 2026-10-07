@@ -175,12 +175,31 @@ lanceurs C++ directs sont désactivés. Le wrapper attendu porte l'UUID
 `11b06263-fdad-4e56-a327-8fd38a91e0b8` ; son ancienne qualification identifie la
 branche `forge/moi-wrapper-2026`, commit
 `ebeef2c43a094b92d3b11d4642c03b81667597e4`.
-Les sources et le JLL ne sont pas présents dans le checkout Linux actuel ; les
-chemins `SolverSmoke/vendor/GHOST` et `SolverSmoke/vendor/GHOST_jll` sont donc
-non résolus. Le dépôt privé homonyme accessible contient un ancien port Julia
-d'un autre UUID : il ne remplace pas ce wrapper. La récupération des bonnes
-sources, la disponibilité du JLL par plateforme et la qualification originale
-du modèle Li-Lim restent nécessaires. Aucun remplacement C++ automatique.
+Les sources historiques n'ont pas été récupérées. Une nouvelle version 0.2.0
+du [wrapper JuMP/MOI](https://gitlab.naze.baffier.fr/others/GHOST.jl) est sauvegardée
+sous `~/.julia/dev/GHOST`, avec le
+[JLL et sa recette d'Artifact](https://gitlab.naze.baffier.fr/others/GHOST_jll.jl)
+sous `~/.julia/dev/GHOST_jll`. Elle conserve l'UUID du wrapper, sans prétendre
+reproduire l'ancien commit. La branche native privée
+[`forge/julia-callbacks-20261007`](https://gitlab.naze.baffier.fr/others/GHOST/-/tree/forge/julia-callbacks-20261007)
+inclut upstream `develop` au commit `37bbfdf` et l'extension de l'ABI C au commit
+`74a147ea`. Les chemins historiques `SolverSmoke/vendor/...` restent non résolus.
+Le port Julia homonyme d'un autre UUID n'est pas utilisé.
+
+La nouvelle source prépare un catalogue de onze variantes ICN : l'utilisateur
+déclare une contrainte JuMP standard ou une identité et ses paramètres, sans
+implémenter une fonction d'erreur. Les poids sont des témoins sélectionnés dans
+la grammaire apprenable et vérifiés sur des affectations finies ; leur provenance
+ne démontre pas un entraînement. Les concepts originaux restent le validateur
+indépendant. Chaque session possède ses buffers et son workspace ; les callbacks
+restent sur le thread Julia appelant. Les workers C++ natifs sont réservés aux
+modèles sans callback Julia.
+
+Les vérifications de syntaxe des sources passent. La compilation native, les
+tests MOI/ICN du nouveau wrapper, les Artifacts par plateforme et le modèle
+Li-Lim restent à qualifier : les autres chats actifs reportent cette exécution.
+Aucune disponibilité dans le panel ni qualification antérieure n'est attribuée
+à cette nouvelle version. Aucun remplacement C++ automatique.
 
 ## GHOST et JuLS Linux — historique
 
