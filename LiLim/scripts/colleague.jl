@@ -30,7 +30,7 @@ function options(args)
     for arg in args
         startswith(arg,"--") && occursin('=',arg) || error("use --name=value")
         key,value = split(arg[3:end],'=';limit=2)
-        key in ("threads","cpus","budget","methods","instances","seeds","hexaly","output","resume","ortools","missing-solvers","prepare","qualify","gurobi","cplex","cpoptimizer") || error("unknown option: $key")
+        key in ("threads","cpus","budget","methods","instances","seeds","hexaly","output","resume","ortools","missing-solvers","prepare","qualify","gurobi","cplex","cpoptimizer","java") || error("unknown option: $key")
         haskey(result,key) && error("duplicate option: $key")
         result[key] = value
     end
@@ -66,7 +66,8 @@ function launcher(options, script, arguments; plot=false, threads=parse(Int,get(
     addenv(cmd,"OPENBLAS_NUM_THREADS"=>"1","OMP_NUM_THREADS"=>"1","MKL_NUM_THREADS"=>"1",
         "JULIA_NUM_PRECOMPILE_TASKS"=>"1","JULIACONSTRAINTS_COHORT_ROOT"=>DEV,
         "JULIACONSTRAINTS_CPU_ORDER"=>join(order,','),"JULIACONSTRAINTS_TEST_CPU"=>string(first(selected)),
-        "ORTOOLS_PYTHON"=>get(options,"ortools",PYTHON))
+        "ORTOOLS_PYTHON"=>get(options,"ortools",PYTHON),
+        "JAVA_EXECUTABLE"=>get(options,"java",get(ENV,"JAVA_EXECUTABLE","java")))
 end
 
 function setup(opts=Dict{String,String}())
@@ -118,8 +119,16 @@ function setup(opts=Dict{String,String}())
         e isa NativeSolvers.UnavailableSolver && missing=="skip" || rethrow()
         println("Skipped ",e.method,": ",e.reason)
     end
+    try
+        cpu = haskey(opts,"cpus") ? first(parse.(Int,split(opts["cpus"],','))) : first(topology())
+        NativeSolvers.resolve_timefold(get(opts,"java",get(ENV,"JAVA_EXECUTABLE","java"));root=ROOT,install=true,cpus=[cpu])
+        println("Timefold ready; existing Java and SDK archives reused where present.")
+    catch e
+        e isa NativeSolvers.UnavailableSolver && missing=="skip" || rethrow()
+        println("Skipped ",e.method,": ",e.reason)
+    end
     data_setup()
-    println("Pinned source, environments and official data ready. Next: julia LiLim/scripts/colleague.jl qualify")
+    println("Pinned sources, solvers and official Li-Lim inputs verified.")
 end
 
 "Derive the optional wrapper environment without changing the frozen core."
@@ -219,6 +228,7 @@ function qualify(opts; require_hexaly=false)
     end
     launch(launcher(opts,joinpath(ROOT,"LiLim/test/search_policies.jl"),["--routes"];threads=1))
     launch(launcher(opts,joinpath(ROOT,"LiLim/test/ghost_native.jl"),String[];threads=1))
+    launch(launcher(opts,joinpath(ROOT,"LiLim/test/timefold_native.jl"),String[];threads=1))
     launch(addenv(launcher(opts,joinpath(ROOT,"LiLim/test/hexaly_native.jl"),String[];threads=1),
         "HEXALY_EXECUTABLE"=>get(opts,"hexaly",get(ENV,"HEXALY_EXECUTABLE","hexaly")),
         "JULIACONSTRAINTS_REQUIRE_HEXALY"=>(require_hexaly ? "1" : "0")))
@@ -228,7 +238,7 @@ end
 function preflight(opts)
     prepare = parse(Bool,get(opts,"prepare","true"))
     qualify_models = parse(Bool,get(opts,"qualify","true"))
-    output = abspath(get(opts,"output",joinpath(ROOT,"LiLim/results/hexaly-preflight-"*
+    output = abspath(get(opts,"output",joinpath(ROOT,"LiLim/results/preflight-"*
         HexalyPreflight.Dates.format(HexalyPreflight.Dates.now(HexalyPreflight.Dates.UTC),"yyyymmdd-HHMMSS"))))
     ispath(output) && error("Preflight output already exists; choose a new --output directory")
     c = HexalyPreflight.catalogue(joinpath(ROOT,"LiLim/config/hexaly-benchmark-catalog.toml"))
@@ -271,43 +281,66 @@ function preflight(opts)
     environment_ok &= bank_ok
     for (name,resolver) in (("hexaly",()->NativeSolvers.resolve_hexaly(get(opts,"hexaly",get(ENV,"HEXALY_EXECUTABLE","hexaly")))),
             ("ortools",()->NativeSolvers.resolve_ortools(get(opts,"ortools",PYTHON);root=ROOT)),
+            ("timefold",()->NativeSolvers.resolve_timefold(get(opts,"java",get(ENV,"JAVA_EXECUTABLE","java"));root=ROOT)),
             ("ghost",()->NativeSolvers.resolve_ghost(;root=ROOT)))
+        if name=="hexaly" && !qualify_models
+            path=NativeSolvers.executable(get(opts,"hexaly",get(ENV,"HEXALY_EXECUTABLE","hexaly")))
+            solvers[name]=Dict("status"=>path===nothing ? "skipped" : "detected_unqualified",
+                "reason"=>path===nothing ? "executable_not_found" : "license_probe_not_run")
+            continue
+        end
         try
             identity = resolver()
             solvers[name] = Dict("status"=>"available","reason"=>"installation_probe_passed")
             name=="hexaly" && (solvers[name]["version"]="15.0"; solvers[name]["executable_sha256"]=digest(identity))
             name=="ortools" && (solvers[name]["version"]=identity["ortools_version"])
+            name=="timefold" && (solvers[name]["version"]=identity["version"])
         catch e
             solvers[name] = Dict("status"=>e isa NativeSolvers.UnavailableSolver ? "skipped" : "failed",
                 "reason"=>e isa NativeSolvers.UnavailableSolver ? e.reason : "installation_probe_failed")
         end
     end
+    juls_path = joinpath(homedir(),".julia/dev/JuLS/Project.toml")
+    solvers["juls"] = Dict("status"=>isfile(juls_path) ? "detected_unqualified" : "skipped",
+        "reason"=>isfile(juls_path) ? "historical_adapter_not_in_frozen_public_cohort" : "package_not_detected")
     for (name,default) in (("gurobi","gurobi_cl"),("cplex","cplex"),("cpoptimizer","cpoptimizer"))
         path = NativeSolvers.executable(get(opts,name,default))
         solvers[name] = Dict("status"=>path===nothing ? "not_detected" : "detected_unqualified",
             "reason"=>path===nothing ? "CLI_not_found_API_installation_not_ruled_out" : "license_and_original_models_not_qualified")
     end
-    for name in ("cbls","icn","metastrategist","highs")
+    for name in ("cbls","local_search","icn","metastrategist","highs")
         solvers[name] = Dict("status"=>environment_ok ? "prepared" : "blocked","reason"=>"original_model_tests_required")
     end
     if qualify_models && environment_ok
         tests = [(test,String[]) for test in CORE_QUALIFICATION_TESTS]
         push!(tests,("search_policies.jl",["--routes"]))
         solvers["ghost"]["status"]=="available" && push!(tests,("ghost_native.jl",String[]))
+        solvers["timefold"]["status"]=="available" && push!(tests,("timefold_native.jl",String[]))
         core_ok = true
         for (test,args) in tests
             result = NativeSolvers.capture(launcher(opts,joinpath(ROOT,"LiLim/test",test),args;threads=1);timeout=300)
             ok = result.code==0 && !result.timed_out
             checks["test:"*test] = Dict("status"=>ok ? "passed" : "failed",
                 "reason"=>result.timed_out ? "qualification_timeout" : "exit_code_"*string(result.code))
-            core_ok &= ok
+            test in ("ortools_native.jl","ghost_native.jl","timefold_native.jl") || (core_ok &= ok)
         end
         qualified["pdptw:core"] = core_ok ? "passed" : "failed"
         solvers["ortools"]["status"]=="available" &&
             (qualified["pdptw:ortools"]=checks["test:ortools_native.jl"]["status"])
-        for name in ("cbls","icn","metastrategist","highs")
+        if solvers["ortools"]["status"]=="available"
+            solvers["ortools"]["qualification"]=qualified["pdptw:ortools"]
+            solvers["ortools"]["qualification_scope"]="original_PDPTW_functional_tests"
+        end
+        for name in ("cbls","local_search","icn","metastrategist","highs")
             solvers[name]["status"] = core_ok ? "available" : "failed"
             solvers[name]["reason"] = core_ok ? "PDPTW_functional_suite_passed" : "PDPTW_functional_suite_failed"
+            solvers[name]["qualification"] = core_ok ? "passed" : "failed"
+        end
+        for (name,test) in (("ghost","ghost_native.jl"),("timefold","timefold_native.jl"))
+            solvers[name]["status"]=="available" || continue
+            qualified["pdptw:"*name] = checks["test:"*test]["status"]
+            solvers[name]["qualification"] = qualified["pdptw:"*name]
+            solvers[name]["qualification_scope"] = "original_PDPTW_functional_tests"
         end
         if solvers["hexaly"]["status"]=="available"
             command = addenv(launcher(opts,joinpath(ROOT,"LiLim/test/hexaly_native.jl"),String[];threads=1),
@@ -316,6 +349,8 @@ function preflight(opts)
             result = NativeSolvers.capture(command;timeout=300)
             ok = result.code==0 && !result.timed_out
             qualified["pdptw:hexaly"] = ok ? "passed" : "failed"
+            solvers["hexaly"]["qualification"] = qualified["pdptw:hexaly"]
+            solvers["hexaly"]["qualification_scope"] = "original_PDPTW_functional_tests"
             checks["test:hexaly_native.jl"] = Dict("status"=>qualified["pdptw:hexaly"],
                 "reason"=>result.timed_out ? "qualification_timeout" : "exit_code_"*string(result.code))
         end
@@ -324,19 +359,16 @@ function preflight(opts)
     ready = count(row->row["status"]=="ready_available_solvers",rows)
     failed = any(state->state["status"]=="failed",values(checks)) ||
         any(state->state["status"]=="failed",values(solvers))
-    report = Dict{String,Any}("schema"=>"hexaly-all-benchmarks-preflight/1","source"=>c["source"],
+    active=count(row->row["status"]!="deferred_continuous",rows)
+    report = Dict{String,Any}("schema"=>"solver-benchmark-preflight/1","source"=>c["source"],
         "catalogue_sha256"=>digest(joinpath(ROOT,"LiLim/config/hexaly-benchmark-catalog.toml")),
         "checked_at_utc"=>string(HexalyPreflight.Dates.now(HexalyPreflight.Dates.UTC)),"entry_count"=>length(rows),
-        "status"=>failed ? "failed" : ready==length(rows) && solvers["hexaly"]["status"]=="available" ? "ready" : "blocked",
+        "status"=>failed ? "failed" : ready==active ? "ready" : "blocked",
         "host"=>Dict("os"=>string(Sys.KERNEL),"architecture"=>string(Sys.ARCH),"julia"=>string(VERSION),
             "cpus"=>host_cpus,"ram_gib"=>round(Sys.total_memory()/2.0^30;digits=1)),
         "checks"=>checks,"solvers"=>solvers,"benchmarks"=>rows)
     HexalyPreflight.save_report(output,report)
-    for row in rows
-        println(uppercase(row["status"])," | ",row["family"]," | ",join(row["issues"],", "))
-    end
-    active=count(row->row["status"]!="deferred_continuous",rows)
-    println("Preflight: ",ready,"/",active," active entries ready for available solvers; report: ",joinpath(output,"report.md"))
+    println("Li-Lim original-model checks: ",get(qualified,"pdptw:core","not_run"),"; report: ",joinpath(output,"report.md"))
     report["status"]=="ready" ? 0 : report["status"]=="failed" ? 1 : 2
 end
 

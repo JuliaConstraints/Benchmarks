@@ -32,6 +32,22 @@ const CATALOG = HexalyPreflight.catalogue(joinpath(ROOT,"LiLim/config/hexaly-ben
     @test only(filter(row->row["id"]=="pdptw",merged["benchmarks"]))==only(filter(row->row["id"]=="pdptw",rows))
     HexalyPreflight.discrete_evidence!(merged,evidence;core_state="passed")
     @test count(==("published_instance_qualification_pending:ortools"),scheduling["issues"])==1
+    readiness=Dict("classical_qualification"=>Dict("status"=>"passed"),
+        "checks"=>Dict("core"=>Dict("status"=>"passed")),
+        "solvers"=>Dict("ortools"=>Dict("status"=>"available","qualification"=>"passed"),
+            "hexaly"=>Dict("status"=>"skipped","reason"=>"license_unavailable")),
+        "selected_original_inputs"=>[Dict("status"=>"verified")],
+        "published_reproduction_status"=>"incomplete_published_reproduction")
+    @test HexalyPreflight.kit_status(readiness;qualify=true)=="ready_available_solvers"
+    @test HexalyPreflight.kit_status(readiness;qualify=false)=="inventory_complete"
+    readiness["solvers"]["ortools"]["qualification"]="failed"
+    @test HexalyPreflight.kit_status(readiness;qualify=true)=="qualification_failed"
+    readiness["solvers"]["ortools"]["qualification"]="passed"
+    readiness["solvers"]["gurobi"]=Dict("status"=>"detected_unqualified")
+    @test HexalyPreflight.kit_status(readiness;qualify=true)=="incomplete_solver_coverage"
+    delete!(readiness["solvers"],"gurobi")
+    readiness["selected_original_inputs"][1]["status"]="missing"
+    @test HexalyPreflight.kit_status(readiness;qualify=true)=="incomplete_solver_coverage"
     mktempdir() do root
         @test_throws ErrorException HexalyPreflight.asset(root,root,"../outside")
         @test HexalyPreflight.asset(root,root,"")["status"]=="missing"

@@ -1,6 +1,3 @@
-# Unmodified official wheels; archive SHA-256 values remain upstream byte checks.
-# Windows trees were reproduced on Windows in CI 37618773198; Unix trees retain
-# their original hashes. Julia's executable-mode hashing differs between hosts.
 [[absl_py_python312]]
 arch = "x86_64"
 git-tree-sha1 = "437fb70d2a8225a5161eb6ee910f5ef15bda08e4"
@@ -384,6 +381,166 @@ os = "windows"
     [[six_python312.download]]
     sha256 = "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"
     url = "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl"
+
+[timefold_HdrHistogram]
+git-tree-sha1 = "113c80c89eae2f9ecfba7bb03ca8b639b055ee65"
+lazy = true
+
+    [[timefold_HdrHistogram.download]]
+    sha256 = "22d1d4316c4ec13a68b559e98c8256d69071593731da96136640f864fa14fad8"
+    url = "https://repo.maven.apache.org/maven2/org/hdrhistogram/HdrHistogram/2.2.2/HdrHistogram-2.2.2.jar"
+
+[timefold_angus_activation]
+git-tree-sha1 = "748830ebf3b9cfceb4b3854b5b183fcd449a5920"
+lazy = true
+
+    [[timefold_angus_activation.download]]
+    sha256 = "a6bd35c538cf90fff941ad6258c40c08fca0b5c9c3f536c657114f27ce0527a7"
+    url = "https://repo.maven.apache.org/maven2/org/eclipse/angus/angus-activation/2.0.3/angus-activation-2.0.3.jar"
+
+[timefold_gizmo2]
+git-tree-sha1 = "f10e411f12f0afb2ab8b4d7a7bf8cf024c58ca8e"
+lazy = true
+
+    [[timefold_gizmo2.download]]
+    sha256 = "777af2f3b98bbc238938e95c0679c5a1473ec86513e1b88c36901a30c58c9b8e"
+    url = "https://repo.maven.apache.org/maven2/io/quarkus/gizmo/gizmo2/2.1.1/gizmo2-2.1.1.jar"
+
+[timefold_istack_commons_runtime]
+git-tree-sha1 = "a785cb50ad82ba490889ad0614979880e0e1738e"
+lazy = true
+
+    [[timefold_istack_commons_runtime.download]]
+    sha256 = "7fd6792361f4dd00f8c56af4a20cecc0066deea4a8f3dec38348af23fc2296ee"
+    url = "https://repo.maven.apache.org/maven2/com/sun/istack/istack-commons-runtime/4.1.2/istack-commons-runtime-4.1.2.jar"
+
+["timefold_jakarta.activation_api"]
+git-tree-sha1 = "646ff258066db7df3e9d87379f6410eaee245822"
+lazy = true
+
+    [["timefold_jakarta.activation_api".download]]
+    sha256 = "c9db52100ce6c8aac95cc39075f95720d2e561b11f8051b81c121ad4effd7004"
+    url = "https://repo.maven.apache.org/maven2/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar"
+
+["timefold_jakarta.xml.bind_api"]
+git-tree-sha1 = "5748f1e5f99159cfb81f9053e29e0838f3145cf0"
+lazy = true
+
+    [["timefold_jakarta.xml.bind_api".download]]
+    sha256 = "5e489b6c874c4119e003ff1403db523ee3a8959ec499f3de29e77245efccf216"
+    url = "https://repo.maven.apache.org/maven2/jakarta/xml/bind/jakarta.xml.bind-api/4.0.5/jakarta.xml.bind-api-4.0.5.jar"
+
+[timefold_jaxb_core]
+git-tree-sha1 = "67becedbdaf71ee5e815bff4e4fe0f468194ae0c"
+lazy = true
+
+    [[timefold_jaxb_core.download]]
+    sha256 = "6b014df25d22c8446cc2df0a378c5b2137747f197a731d99eb24c756b26f7e8d"
+    url = "https://repo.maven.apache.org/maven2/org/glassfish/jaxb/jaxb-core/4.0.9/jaxb-core-4.0.9.jar"
+
+[timefold_jaxb_runtime]
+git-tree-sha1 = "446c6974fd18b7e74b4c5990f5e03f41620879be"
+lazy = true
+
+    [[timefold_jaxb_runtime.download]]
+    sha256 = "93e09b7316b6af68d6e2083e4c297daf28e8957f45d725077af812c0b12c39ab"
+    url = "https://repo.maven.apache.org/maven2/org/glassfish/jaxb/jaxb-runtime/4.0.9/jaxb-runtime-4.0.9.jar"
+
+[timefold_jboss_logging]
+git-tree-sha1 = "c5127c0a1970e4995e54fe03c4729ed6ccf189ef"
+lazy = true
+
+    [[timefold_jboss_logging.download]]
+    sha256 = "924529a679ad76a4665115c47f053e47c6fd272f59a632ba70db481c925ef7a2"
+    url = "https://repo.maven.apache.org/maven2/org/jboss/logging/jboss-logging/3.6.0.Final/jboss-logging-3.6.0.Final.jar"
+
+[timefold_jdk_classfile_backport]
+git-tree-sha1 = "33fafbaa6f085260aff47e2b8692df35a7fc467f"
+lazy = true
+
+    [[timefold_jdk_classfile_backport.download]]
+    sha256 = "2eb2741b04c632ca361fb7dc947e993785639e76233129e84b2c85d618ae12ca"
+    url = "https://repo.maven.apache.org/maven2/io/smallrye/classfile/jdk-classfile-backport/26/jdk-classfile-backport-26.jar"
+
+[timefold_jspecify]
+git-tree-sha1 = "b5fd10e2b47aefc713cc2ce7da83810d5d5f12cb"
+lazy = true
+
+    [[timefold_jspecify.download]]
+    sha256 = "070d75f261fe4c5b8202508366715f7f2d4660f88c8ef7e6d3575e48c9683b66"
+    url = "https://repo.maven.apache.org/maven2/org/jspecify/jspecify/1.0.1/jspecify-1.0.1.jar"
+
+[timefold_micrometer_commons]
+git-tree-sha1 = "d67b6716ec5b39cd0bde62a9ad8c133707a0af0f"
+lazy = true
+
+    [[timefold_micrometer_commons.download]]
+    sha256 = "03919dc71e2417ec4b5c254c4ba924963c972e124190f73cdcb68ed51c6eede6"
+    url = "https://repo.maven.apache.org/maven2/io/micrometer/micrometer-commons/1.17.0/micrometer-commons-1.17.0.jar"
+
+[timefold_micrometer_core]
+git-tree-sha1 = "2f61e855e0292c19f7ea91c72be1cd22d168cbe3"
+lazy = true
+
+    [[timefold_micrometer_core.download]]
+    sha256 = "73503e701a377fafeaf33b71b9b8910a8d7884cbba88ab27971b33b3753b65aa"
+    url = "https://repo.maven.apache.org/maven2/io/micrometer/micrometer-core/1.17.0/micrometer-core-1.17.0.jar"
+
+[timefold_micrometer_observation]
+git-tree-sha1 = "1a44996063fda18fa536bca49242abc4a0198429"
+lazy = true
+
+    [[timefold_micrometer_observation.download]]
+    sha256 = "2fc95a327578d3b2a81c3ff40e646a4a21e46b0153ccbbf91690142bf80d9661"
+    url = "https://repo.maven.apache.org/maven2/io/micrometer/micrometer-observation/1.17.0/micrometer-observation-1.17.0.jar"
+
+[timefold_slf4j_api]
+git-tree-sha1 = "ce423bd5812043e4b73823d8e9a6db84ceddc271"
+lazy = true
+
+    [[timefold_slf4j_api.download]]
+    sha256 = "44508fd1576500688c790b190acdd16fec4f8c79a3e0b900afd70503cf055f55"
+    url = "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar"
+
+[timefold_slf4j_simple]
+git-tree-sha1 = "99f27041ae54f51dc3e91772e16310595f7ad207"
+lazy = true
+
+    [[timefold_slf4j_simple.download]]
+    sha256 = "ddfea59ac074c6d3e24ac2c38622d2d963895e17f70b38ed4bdae4d780be6964"
+    url = "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar"
+
+[timefold_smallrye_common_constraint]
+git-tree-sha1 = "fe29f22ae4ab0f8c62549ae02ccadaec733fa120"
+lazy = true
+
+    [[timefold_smallrye_common_constraint.download]]
+    sha256 = "9ce104ceb2284024fcf8d427ad2abcbb533e6afedf517a2b8727269f6a5920a6"
+    url = "https://repo.maven.apache.org/maven2/io/smallrye/common/smallrye-common-constraint/2.16.0/smallrye-common-constraint-2.16.0.jar"
+
+[timefold_smallrye_common_resource]
+git-tree-sha1 = "80ce127906a78fc3825fd3f76cabd52bd70aa5d0"
+lazy = true
+
+    [[timefold_smallrye_common_resource.download]]
+    sha256 = "00fefb18cf87306ad8427d444c8f098de5c64c82183579b0b7d7c14f28308413"
+    url = "https://repo.maven.apache.org/maven2/io/smallrye/common/smallrye-common-resource/2.16.0/smallrye-common-resource-2.16.0.jar"
+
+[timefold_timefold_solver_core]
+git-tree-sha1 = "950f0ef77c638d00bd0b6dec1a8ea422d87d0ed3"
+lazy = true
+
+    [[timefold_timefold_solver_core.download]]
+    sha256 = "6c5d37d1d94d21d7fb687bd78e446cff71b6314854f98ad32b3045a7300d1e0f"
+    url = "https://repo.maven.apache.org/maven2/ai/timefold/solver/timefold-solver-core/2.6.0/timefold-solver-core-2.6.0.jar"
+
+[timefold_txw2]
+git-tree-sha1 = "a4b95c88595e62b9659835bfcd675ab4bf191294"
+lazy = true
+
+    [[timefold_txw2.download]]
+    sha256 = "d6343e5945d87266ca4e8974a0a2a876e1bd147a00fb65ed3f2e1a3a00f3a82a"
+    url = "https://repo.maven.apache.org/maven2/org/glassfish/jaxb/txw2/4.0.9/txw2-4.0.9.jar"
 
 [[typing_extensions_python312]]
 arch = "x86_64"

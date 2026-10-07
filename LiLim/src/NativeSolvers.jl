@@ -1,6 +1,7 @@
 module NativeSolvers
 using SHA, TOML, Pkg
 include("SolverArtifacts.jl")
+include("PlatformResources.jl")
 
 struct UnavailableSolver <: Exception
     method::String
@@ -180,4 +181,5 @@ function resolve_requested(methods; missing="skip", ortools_resolver, hexaly_res
     end
     (; methods=selected, skipped, ortools, hexaly, ghost)
 end
+include("TimefoldRuntime.jl")
 end

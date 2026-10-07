@@ -1,185 +1,68 @@
-# Reproducible Li-Lim comparison handoff
+# Li-Lim comparison guide
 
-This Linux/macOS/Windows kit compares the same original PDPTW instances, a common feasible
-insertion start, a shared wall-clock budget, and a fleet-first objective followed
-by unrounded Euclidean distance. Every exported solution and every trajectory
-point is checked by the original ConstraintModels validator. It is a local
-comparison, not an identical reproduction of the vendor's published experiment.
-
-The GHOST wrapper and PDPTW adapter passed 2,413 local assertions, including
-exhaustive tiny-instance feasibility checks and actual one- and two-lane searches
-with the downloaded native Artifact. OR-Tools GLS has also passed its original
-PDPTW model qualification. These functional checks do not establish solver rankings.
-
-[The full public handoff qualification](https://github.com/JuliaConstraints/Benchmarks/actions/runs/37627574567)
-passed on 7 October 2026 on Linux x86_64/aarch64, macOS 15 Intel/Apple Silicon,
-and Windows x86_64. Each host checked the frozen source bytes, ran the original
-model qualification, proved setup reused installed dependencies, and completed
-two sealed OR-Tools/GHOST trials with validated reports and English exact and
-XKCD figures. Native Hexaly search remains a separate licensed-host gate.
-
-Prerequisites: **Julia 1.13.1**, Git, Python 3.12 and, on Linux,
-`taskset`/`lscpu`. No private repository, account or token is required. macOS
-Intel and Apple Silicon are supported; Windows x86_64 and Linux x86_64/aarch64
-have matching native distributions. Functional CI is separate from performance measurement.
+Start with the shared preflight from the repository root:
 
 ```sh
-git clone --config core.autocrlf=false --single-branch --branch bench/lilim-etendu-20261007 https://github.com/JuliaConstraints/Benchmarks.git ~/Gits/JuliaConstraintsBenchmarks
-cd ~/Gits/JuliaConstraintsBenchmarks
-julia LiLim/scripts/colleague.jl setup
-julia LiLim/scripts/colleague.jl qualify
-julia LiLim/scripts/colleague.jl run --budget=60 --threads=1 --output=LiLim/results/local-60s-1t
+julia --startup-file=no scripts/colleague.jl preflight
 ```
 
-Setup clones the twelve public package snapshots into
-`~/.julia/dev/JuliaConstraintsBench`, installs the frozen Julia environments and
-OR-Tools 9.14.6206 only if absent, downloads the six official
-SINTEF archives, and checks all 354 instance hashes. Existing mismatched or dirty
-checkouts are preserved and rejected. New clones retain LF endings on every platform
-without changing the user's global Git configuration. A pre-existing checkout
-with converted bytes is preserved and rejected before package setup.
-`workspace-cohort.toml` records public commit IDs, their original qualified
-commits, and identical runtime-file hashes.
-Public snapshots exclude private history, research logs and bulk artifacts.
-The three recovered ICN witness recipes are bundled with their provenance;
-their weights are unchanged and were not retrained for this comparison.
-Existing OR-Tools installations are reused first. Missing SDKs use checked
-upstream wheel Artifacts loaded through PYTHONPATH; setup does not modify an
-existing Python environment or reinstall a present solver. HiGHS uses its Julia
-JLL. GHOST.jl and GHOST_jll are additional public, pinned Julia source packages;
-the latter downloads only a missing matching native Artifact, with GPL source
-and license included. A GHOST environment is derived from the frozen core while
-checking that every existing dependency version remains identical.
+It checks every kit solver. Hexaly is optional; absent solvers are skipped.
+The [repository guide](../README.md) lists prerequisites and coverage.
 
-`qualify` runs actual OR-Tools GLS searches on tiny instances, including unit
-capacity, pickup precedence with zero travel, nonzero depot service and empty
-vehicles; it also checks ICN scoring, hybrid behavior and existing strategies.
-The OR-Tools adapter uses conservative integer time scaling (10,000) and
-distance scaling (1,000,000). The original double-precision validator remains
-authoritative. Rounding is a documented modeling difference.
-
-The default diagnostic uses LC101, LR101 and LRC101 with repetition labels
-41/42/43. OR-Tools RoutingModel is **single-threaded**; those labels do not change
-its GLS random seed. Its repetitions measure variation in elapsed execution.
-CBLS workers use independent seeds. GHOST uses its development C++ engine
-through the Julia MOI wrapper, permutation moves, and the same qualified PDPTW
-ICN scorer. Each Julia lane owns a native worker and private callback buffers.
-Its ABI does not expose RNG seeds or tabu/reset counters; repetition labels
-are not passed as seeds. Every returned incumbent is checked independently.
-Native subprocess launch/imports, model construction and the common start count
-inside each trial budget. Julia packages load once in the campaign process;
-solver warmup is measured separately. The exposed trio
-is not a held-out confirmation corpus and does not justify general superiority.
-
-For wider comparisons, use `--threads=8` or `--threads=16`. Defaults then include
-the historical CBLS profiles, 35 ICN/hybrid variants and four MetaStrategist
-portfolios, with partial/full resets, tabu and late acceptance, alongside
-HiGHS, OR-Tools, GHOST and available Hexaly. Each method runs serially as a separate
-trial. The launcher chooses one logical CPU per physical core before SMT
-siblings; on hybrid CPUs this does not distinguish P/E cores. For controlled
-affinity pass `--cpus=8,10,0,2,4,6,12,14` (replace with your host's CPU IDs).
-OR-Tools always uses just the first selected CPU. CPU time and GC evidence are
-reported; requested worker counts are not claimed to be active CPU counts.
-Search-phase GC and GHOST's whole-trial GC are reported separately; the latter
-also includes parsing, insertion, model construction and original validation.
+## Compare
 
 ```sh
-julia LiLim/scripts/colleague.jl run --budget=8 --threads=1 --output=LiLim/results/smoke-8s-1t
-julia LiLim/scripts/colleague.jl run --budget=60 --threads=8 --output=LiLim/results/local-60s-8t
-julia LiLim/scripts/colleague.jl run --budget=600 --threads=8 --output=LiLim/results/local-600s-8t
+julia --startup-file=no scripts/colleague.jl lilim --instances=lc101,lr101,lrc101 --methods=cbls_icn,hybrid_specialized_icn,strategies,ortools_native,ghost_icn,hexaly_native --budget=60 --threads=1 --seeds=41,42,43 --output=LiLim/results/local-60s-1t
 ```
 
-Use `--methods=...`, `--instances=...` (or `all`) and `--seeds=...` to choose a
-bounded cohort. Do not start the full solver/instance/seed/width grid blindly.
-To stop after the current trial, create `OUTPUT/STOP_AFTER_TRIAL`; remove that
-file and repeat the exact command with `--resume=true`. Seals and the campaign
-fingerprint prevent mixing sources, budgets or earlier evidence.
+Omit `--methods` to use the complete existing panel: historical CBLS profiles,
+35 ICN/hybrid variants, four MetaStrategist portfolios, HiGHS, OR-Tools, GHOST
+and available Hexaly. Methods run in separate trials. Use `--instances=all` for
+the 354 frozen SINTEF instances, after selecting a practical method/seed budget.
+Timefold is checked by preflight but remains outside this sealed campaign selector.
 
-## Licensed Hexaly host
+Widths **1/2/4/8/16** are supported. `--cpus=...` chooses Linux affinity; other
+systems use solver thread caps. The default order selects physical cores before
+SMT siblings, without distinguishing P/E cores. Actual CPU use is recorded.
+OR-Tools RoutingModel uses one CPU. CBLS lanes use independent seeds; OR-Tools
+and GHOST repetition labels do not control their native RNGs.
 
-For the complete benchmark-page catalogue, use the [discrete toolkit](../Hexaly/README.md):
+Create `OUTPUT/STOP_AFTER_TRIAL` to stop after the current sealed trial. Remove
+it and repeat the identical command with `--resume=true` to resume. Changed
+source, environment or trial settings cannot be mixed into existing evidence.
+
+## Results
+
+The command validates exported solutions and trajectories against the original
+problem and produces best/mean/median/spread, feasibility, BKS attainment,
+time-to-target, English exact/XKCDMakie figures and an offline solver-selectable
+dashboard. Fleet is minimized before unrounded Euclidean distance. Statistics
+must compare distance at the same fleet size. SINTEF references provide targets,
+not comparable historical runtimes.
 
 ```sh
-julia --startup-file=no Hexaly/scripts/colleague.jl preflight
+julia --startup-file=no LiLim/scripts/colleague.jl export --output=LiLim/results/local-60s-1t
 ```
 
-It retains 20 protocol entries and prepares 19 discrete entries. The original IRP delivery quantities are continuous and deferred. Small models, original-format samples and eight native OR-Tools CP-SAT models are functionally qualified; exact published selections, BKS records and further native Hexaly models remain separate gates. The command starts no comparative campaign and reports incomplete readiness rather than calling those gates passed.
+Return the printed evidence archive; keep bulk trials out of source commits.
+Never include licenses or credentials.
 
-For the complete published catalogue, run:
+## Solver details
 
-```sh
-julia LiLim/scripts/colleague.jl preflight
-```
+- **OR-Tools 9.14.6206:** RoutingModel guided local search; integer time scale
+  10,000 and distance scale 1,000,000. Original double-precision validation remains authoritative.
+- **GHOST:** exclusively GHOST.jl through JuMP/MOI, with lane-owned native
+  workers and callback buffers. Its ABI exposes no seed or tabu/reset counters.
+- **Hexaly:** existing Optimizer 15.0 Modeler executable and license; Studio is
+  unnecessary. Pass `--hexaly=/path/to/hexaly` when needed. The fleet/distance
+  search allocation is 5:1, differing from a distance-only vendor model.
+- **Timefold:** Community 2.6.0, route-level incremental scorer, independent
+  serial solvers; preflight validates its scorer and native output.
 
-This prepares missing dependencies, verifies the frozen cohort and official
-Li-Lim bytes, detects the published comparator solvers, and runs available
-original-model qualification tests. Every one of the 20 catalogue entries
-appears in the English `report.md` and machine-readable `report.toml` under the
-printed output directory. Missing optional solvers are listed as skipped;
-missing adapters, corpora, models and validators remain explicit blockers.
-Exit codes are 0 for full readiness, 1 for a failed check and 2 for incomplete
-coverage. The command never treats a generic Hexaly license probe as qualification
-of another problem family and starts no comparative campaign.
-Use `--prepare=false --qualify=false` for a read-only inventory, or
-`--output=/path/to/a/new/directory` to choose where to save the report.
-Existing output directories are preserved and rejected.
+Setup, imports and model construction are recorded separately; the common trial
+clock includes preparation. Late native incumbents are censored. These are local
+comparisons; hardware, versions and modeling differences from published experiments
+are recorded in the [protocol](config/hexaly-benchmark-catalog.toml).
 
-Target: Hexaly Optimizer **15.0**, with its **Modeler command-line executable**
-(`hexaly`, accepting `.hxm` files); Studio is not required. Install and activate
-the colleague's license through Hexaly's own distribution. No binary or license
-is redistributed here. The model and exchange audit are prepared, but native
-Hexaly compilation/search are **not yet qualified on our machine**.
-The supplied native test is a gate: failures must be fixed and requalified
-before comparative Hexaly results can be reported.
-The colleague can prepare and check the host with one command. `check` includes
-setup and all functional qualification tests, reuses existing installations,
-prints CPU/RAM information, and requires licensed Hexaly 15.0. A missing license
-or a failed native model test makes this command fail. It starts no comparative
-campaign and prints `READY` only after every required test passes.
-
-```sh
-julia LiLim/scripts/colleague.jl check
-```
-
-If `hexaly` is not on PATH, supply `--hexaly=/path/to/hexaly`.
-In ordinary `qualify` and `run` commands, missing solvers or licenses are
-explicitly skipped by default; model defects and invalid routes still fail.
-Use `--missing-solvers=error` with `run` to require all
-selected profiles. A local installed Hexaly currently has no usable license,
-so native Hexaly search remains unqualified here.
-
-```sh
-julia LiLim/scripts/colleague.jl check --hexaly=/path/to/hexaly
-julia LiLim/scripts/colleague.jl run --budget=60 --threads=8 --hexaly=/path/to/hexaly --methods=hexaly_native,ortools_native,cbls_icn,hybrid_specialized_icn,hybrid_bridged_icn,mixed_balanced --output=LiLim/results/hexaly-60s-8t
-```
-
-The Hexaly model minimizes fleet then distance in a documented 5:1 allocation of
-the remaining search time, preserving original continuous feasibility. This
-differs from a distance-only vendor model. Model setup time counts in the common
-budget; late improvements are censored. Native qualification must be run first.
-Other Hexaly versions are preserved and explicitly skipped by this 15.0 gate.
-Supporting one requires a separate adapter qualification; it must not be
-silently described as a 15.0 reproduction.
-
-## Return independently verifiable results
-
-`run` produces fleet-first best, mean, median, standard deviation/range, BKS
-attainment and time-to-target, English exact and XKCDMakie figures, and an
-offline interactive dashboard with solver selection and fixed reference marks.
-The SINTEF BKS table supplies a target, not a comparable historical runtime.
-
-```sh
-julia LiLim/scripts/colleague.jl export --output=LiLim/results/local-60s-1t
-```
-
-Return the printed `.tar.gz` file. It contains manifest, sealed route evidence,
-summaries, logs and figures for an independent audit. Keep this bulk evidence
-out of source commits. Never include a Hexaly license or credentials.
-
-Official references: [SINTEF data and objective](https://www.sintef.no/projectweb/top/pdptw/li-lim-benchmark/),
-[Hexaly's published PDPTW comparison](https://www.hexaly.com/benchmarks/hexaly-vs-google-or-tools-pickup-and-delivery-problem-with-time-windows-pdptw).
-
-The [coverage catalog](config/hexaly-benchmark-catalog.toml) inventories all 20
-Hexaly benchmark pages. This ready-to-run handoff targets Li-Lim first; other
-families require their own model and original-validator qualification. Their
-presence in the catalog does not imply runnable reproductions.
+Sources: [SINTEF Li-Lim](https://www.sintef.no/projectweb/top/pdptw/li-lim-benchmark/),
+[Hexaly PDPTW comparison](https://www.hexaly.com/benchmarks/hexaly-vs-google-or-tools-pickup-and-delivery-problem-with-time-windows-pdptw).
