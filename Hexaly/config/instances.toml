@@ -1,0 +1,311 @@
+schema = "hexaly-instance-selection/1"
+scope = "Functional original-format smoke inputs; not the exact published benchmark selection"
+
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "cvrp"
+metric = "original_primal_objective"
+published_budgets_seconds = [60]
+published_data_scope = "CVRPLIB X (Uchoa), 100-1000 customers"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "cvrptw"
+metric = "original_primal_objective"
+published_budgets_seconds = [60]
+published_data_scope = "Solomon and Gehring-Homberger, 100-1000 customers"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "rcpsp"
+metric = "original_primal_objective"
+published_budgets_seconds = [60]
+published_data_scope = "RG300, 480 instances of 300 activities"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "fjsp"
+metric = "original_primal_objective"
+published_budgets_seconds = [60]
+published_data_scope = "Seven published classical instance collections"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "salbp"
+metric = "original_primal_objective"
+published_budgets_seconds = [60]
+published_data_scope = "Otto 2013, 525 large and 525 very large instances"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "aircraft_landing"
+metric = "original_primal_objective"
+published_budgets_seconds = [60, 300, 1800, 3600]
+published_data_scope = "OR-Library airland1-13, static single runway"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "pdptw"
+metric = "original_primal_objective"
+published_budgets_seconds = [60, 600]
+published_data_scope = "354 original SINTEF Li-Lim instances"
+status = "use_qualified_LiLim_selection"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "tsp"
+metric = "original_primal_objective"
+published_budgets_seconds = [60]
+published_data_scope = "133 TSPLIB instances up to 10000 cities with proven optimum"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "top"
+metric = "original_primal_objective"
+published_budgets_seconds = [60]
+published_data_scope = "Chao 157 and Dang 82 selected instances"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "large_cvrp"
+metric = "original_primal_objective"
+published_budgets_seconds = [60, 600, 3600]
+published_data_scope = "Arnold/Gendreau/Sorensen 3000-30000 customers, DIMACS"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "large_jssp"
+metric = "original_primal_objective"
+published_budgets_seconds = [600]
+published_data_scope = "Da Col/Teppan industrial large JSSP, up to 1 million activities"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "vbp"
+metric = "original_primal_objective"
+published_budgets_seconds = [60]
+published_data_scope = "Hexaly modified ROADEF 2012 vector instances"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "bppc"
+metric = "original_primal_objective"
+published_budgets_seconds = [60]
+published_data_scope = "800 Muritiba instances"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "deferred_continuous_decisions_by_user"
+id = "irp"
+metric = "original_primal_objective"
+published_budgets_seconds = [1800]
+published_data_scope = "ROADEF 2016 Air Liquide, continuous delivery quantities"
+status = "deferred_continuous"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "bpp"
+metric = "original_primal_objective"
+published_budgets_seconds = [60]
+published_data_scope = "240 large hard BPPLIB instances selected by Gschwind/Irnich"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "mssc"
+metric = "original_primal_objective"
+published_budgets_seconds = [60]
+published_data_scope = "Selected UCI and TSPLIB point sets; per-instance k and normalization must be frozen"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "rcpsp_records"
+metric = "certified_lower_bound"
+published_budgets_seconds = [60]
+published_data_scope = "RG300, dual bound records, not primal makespans"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "qap"
+metric = "original_primal_objective"
+published_budgets_seconds = [60]
+published_data_scope = "26 largest Taillard QAPLIB instances"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "car_sequencing"
+metric = "original_primal_objective"
+published_budgets_seconds = [60, 600]
+published_data_scope = "80 ROADEF 2005 A/B/X instances with fixed past-day prefix"
+status = "published_selection_and_reference_records_pending"
+[[entries]]
+decision_scope = "discrete_decisions_real_derived_data_allowed"
+id = "maintenance"
+metric = "original_primal_objective"
+published_budgets_seconds = [60, 600]
+published_data_scope = "ROADEF 2020 RTE, 15 A + 15 B + 15 C instances"
+status = "published_selection_and_reference_records_pending"
+
+[[instances]]
+entry = "cvrp"
+family = "cvrp"
+id = "cvrp_A_n32_k5"
+metric = "original_primal"
+path = "Hexaly/data/cvrp/extracted/cvrp/instances/A-n32-k5.vrp"
+reference_kind = "unavailable"
+scope = "functional_smoke"
+sha256 = "b76d3f4a452fde2a6a005d58b01d39590be9c95bef2792a19002b7b770de9f6e"
+
+    [instances.parameters]
+    vehicles = 5
+[[instances]]
+entry = "cvrptw"
+family = "cvrptw"
+id = "cvrptw_R101_25"
+metric = "original_primal"
+path = "Hexaly/data/cvrptw/extracted/cvrptw/instances/R101.25.txt"
+reference_kind = "unavailable"
+scope = "functional_smoke"
+sha256 = "db03565c5812c04a884d2893c6fca5247291a86663f95fa76020f0926b8f751c"
+
+    [instances.parameters]
+[[instances]]
+entry = "fjsp"
+family = "fjsp"
+id = "fjsp_Mk01"
+metric = "original_primal"
+path = "Hexaly/data/flexiblejobshop/extracted/flexiblejobshop/instances/Mk01.fjs"
+reference_kind = "unavailable"
+scope = "functional_smoke"
+sha256 = "0c1a8cf9b7bddd841bc13e896a388e4c96943690fda12eba8b132d1f4a8c1848"
+
+    [instances.parameters]
+[[instances]]
+entry = "large_jssp"
+family = "jssp"
+id = "jssp_ft06"
+metric = "original_primal"
+path = "Hexaly/data/jobshop/extracted/jobshop/instances/ft06.txt"
+reference_kind = "unavailable"
+scope = "functional_smoke"
+sha256 = "192d8c302af50b06d0ef70ee0871dc6b7269f8c3e5b839ebd3c25326d79c1959"
+
+    [instances.parameters]
+[[instances]]
+entry = "bpp"
+family = "bpp"
+id = "bpp_t60_00"
+metric = "original_primal"
+path = "Hexaly/data/bin_packing/extracted/bin_packing/instances/t60_00.txt"
+reference_kind = "unavailable"
+scope = "functional_smoke"
+sha256 = "8b9d52e92bd2652af69f5420779df3ad9b2576ed08b406d1ad9252e82557341c"
+
+    [instances.parameters]
+[[instances]]
+entry = "qap"
+family = "qap"
+id = "qap_esc32c"
+metric = "original_primal"
+path = "Hexaly/data/qap/extracted/qap/instances/esc32c.dat"
+reference_kind = "unavailable"
+scope = "functional_smoke"
+sha256 = "6c1bc2241c85dac403eefc2854bf1ac2f0743ad2aeb75dcd6b6ef0fb3cc3662d"
+
+    [instances.parameters]
+[[instances]]
+entry = "aircraft_landing"
+family = "aircraft_landing"
+id = "aircraft_airland1"
+metric = "original_primal"
+path = "Hexaly/data/aircraft_landing/extracted/aircraft_landing/instances/airland1.txt"
+reference_kind = "unavailable"
+scope = "functional_smoke"
+sha256 = "7eef48bc59463af927ff3fb10a464a277e5e35e2b073c529d123074a97577377"
+
+    [instances.parameters]
+[[instances]]
+entry = "mssc"
+family = "mssc"
+id = "mssc_ruspini_k2"
+metric = "original_primal"
+path = "Hexaly/data/kmeans/extracted/kmeans/instances/ruspini.dat"
+reference_kind = "unavailable"
+scope = "functional_smoke"
+sha256 = "0e84efc2855f0f472a582ee880999a80b084e28a0dd36f9a8e0efd1a6d24adff"
+
+    [instances.parameters]
+    clusters = 2
+[[instances]]
+entry = "rcpsp"
+family = "rcpsp"
+id = "rcpsp_Pat1"
+metric = "original_primal"
+path = "Hexaly/data/rcpsp/extracted/rcpsp/instances/Pat1.rcp"
+reference_kind = "unavailable"
+scope = "functional_smoke"
+sha256 = "97983fd442b705d6f19604c78915d092b81f051c3ee4038a8e271a04a98bab52"
+
+    [instances.parameters]
+[[instances]]
+entry = "salbp"
+family = "salbp"
+id = "salbp_n20_52"
+metric = "original_primal"
+path = "Hexaly/data/assembly_line_balancing/extracted/assembly_line_balancing/instances/instance_n20_52.alb"
+reference_kind = "unavailable"
+scope = "functional_smoke"
+sha256 = "c7b44e266352ab9cc85aa48b3d6a37a4fbf4097fcb5ba584e28bb1d48e4330bc"
+
+    [instances.parameters]
+[[instances]]
+entry = "car_sequencing"
+family = "car_sequencing"
+id = "carseq_035"
+metric = "original_primal"
+path = "Hexaly/data/car_sequencing_color/extracted/car_sequencing_color/instances/035_CH1_RAF_EP_S50_J4.in"
+reference_kind = "unavailable"
+scope = "functional_smoke"
+sha256 = "6a0032396e6d70a1bcaa8e4a57d597bc43988c671470842026cf733bbddefb85"
+
+    [instances.parameters]
+[[instances]]
+entry = "bppc"
+family = "bppc"
+id = "bppc_5_0_1"
+metric = "original_primal"
+path = "Hexaly/data/bppc/extracted/Istanze/BPPC_5_0_1.txt"
+reference_kind = "unavailable"
+scope = "functional_smoke"
+sha256 = "739e17b1e36d0a3a03d3c996ff773c5ef3f50bcabcc23dd064f3615b5bb15963"
+
+    [instances.parameters]
+[[instances]]
+entry = "vbp"
+family = "vbp"
+id = "vbp_a1_1"
+metric = "original_primal"
+path = "Hexaly/data/vbp/extracted/modified_instances/model_a1_1_first_fit.txt"
+reference_kind = "unavailable"
+scope = "functional_smoke"
+sha256 = "b335d12029d74bacdb7c77aa061424f831626271280e74290dfea91f64964a4b"
+
+    [instances.parameters]
+[[instances]]
+entry = "top"
+family = "top"
+id = "top_p4_2_a"
+metric = "original_primal"
+path = "Hexaly/data/top_chao4/extracted/p4.2.a.txt"
+reference_kind = "unavailable"
+scope = "functional_smoke"
+sha256 = "12cec2760894f41c4518ecd82919d02e333ffa0745da7e98ee5a9c66ecc9508f"
+
+    [instances.parameters]
+[[instances]]
+entry = "maintenance"
+family = "maintenance"
+id = "maintenance_example1"
+metric = "original_primal"
+path = "Hexaly/data/maintenance_example/example1.json"
+reference_kind = "unavailable"
+scope = "functional_smoke"
+sha256 = "e5e7549e4adab1df43ca85ead4203bf37b661a647f927fd9b3ef1b2ca037b585"
+
+    [instances.parameters]
