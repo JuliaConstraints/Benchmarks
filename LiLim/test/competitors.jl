@@ -95,7 +95,8 @@ include(joinpath(@__DIR__,"..","competitors","Adapters.jl"))
     epoch_ns=epoch_ms*1_000_000
     command=CompetitorAdapters.ortools_command("python3","runner.py","in","out";
         seconds=60,seed=41,trial_start_epoch_ns=epoch_ns,cpus=[8])
-    @test command.exec[1:3]==["taskset","--cpu-list","8"]
+    @test Sys.islinux() ? command.exec[1:3]==["taskset","--cpu-list","8"] :
+        command.exec[1:2]==["python3","runner.py"]
     @test "--trial-start-epoch-ns=$epoch_ns" in command.exec
     @test_throws ArgumentError CompetitorAdapters.ortools_command("python3","runner.py","in","out";
         seconds=60,seed=41,trial_start_epoch_ns=epoch_ns,cpus=[8,10])
