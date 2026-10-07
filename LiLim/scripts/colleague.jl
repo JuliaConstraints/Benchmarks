@@ -221,9 +221,9 @@ function data_setup()
     println("All 354 official instances and six archives verified.")
 end
 
-const CORE_QUALIFICATION_TESTS = ("cohort_checkout.jl","hexaly_preflight.jl","ghost_frontend.jl","native_solvers.jl","campaign_catalog.jl","competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl","ortools_parallel.jl")
+const CORE_QUALIFICATION_TESTS = ("cohort_checkout.jl","hexaly_preflight.jl","ghost_frontend.jl","native_solvers.jl","campaign_catalog.jl","competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl","ortools_parallel.jl","strategy_panel.jl","ro_fragments.jl")
 function qualification_width(opts,test)
-    test=="ortools_parallel.jl" || return 1
+    test in ("ortools_parallel.jl","icn_resources.jl","classical_strategy_panel") || return 1
     cpus=haskey(opts,"cpus") ? parse.(Int,split(opts["cpus"],',')) : topology()
     min(2,length(cpus))
 end
@@ -339,7 +339,8 @@ function preflight(opts)
                 parallel=qualify_ortools_parallel(opts);result=parallel.result
                 merge!(solvers["ortools"]["profiles"],parallel.evidence)
             else
-                result = NativeSolvers.capture(launcher(opts,joinpath(ROOT,"LiLim/test",test),args;threads=1);timeout=300)
+                result = NativeSolvers.capture(launcher(opts,joinpath(ROOT,"LiLim/test",test),args;
+                    threads=qualification_width(opts,test));timeout=300)
             end
             ok = result.code==0 && !result.timed_out
             checks["test:"*test] = Dict("status"=>ok ? "passed" : "failed",

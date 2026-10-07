@@ -16,16 +16,19 @@ const DEFAULTS = (acceptance="greedy", guide_infeasible=true, plateau_rejection=
     probability=0.0, fraction=0.0, source="best", universal_scale=64,
     tabu_threshold=8, full_every=0)
 
-function settings(id)
+function settings(id;overrides=(;))
     haskey(CONFIG["profiles"], id) || throw(ArgumentError("unknown search policy $id"))
     row = CONFIG["profiles"][id]
     unknown = setdiff(Set(keys(row)), Set(string.(keys(DEFAULTS))))
     isempty(unknown) || throw(ArgumentError("unknown policy fields: $unknown"))
-    merge(DEFAULTS, (; (Symbol(k)=>v for (k,v) in row)...))
+    supplied=overrides isa NamedTuple ? overrides : (;(Symbol(k)=>v for (k,v) in pairs(overrides))...)
+    isempty(setdiff(Set(keys(supplied)),Set(keys(DEFAULTS)))) || throw(ArgumentError("unknown policy override"))
+    merge(DEFAULTS, (; (Symbol(k)=>v for (k,v) in row)...),supplied)
 end
 
-function materialize(model, id; plateau_rejection=10)
+function materialize(model, id; plateau_rejection=10,overrides=(;))
     if id == "legacy"
+        isempty(overrides) || throw(ArgumentError("historical legacy policy does not accept overrides"))
         acceptance = LS.GreedyPlateauAcceptance(;guide_infeasible=false,
             reject_plateau_percent=plateau_rejection)
         restart = LS.restart_policy(LS.restart(nothing, Val(:random); rp=0.);
@@ -38,8 +41,10 @@ function materialize(model, id; plateau_rejection=10)
             "stagnation_reset"=>"native reset after more than variable-count rejected steps; restores best without perturbation")
         return (;strategy,description)
     end
-    c = settings(id)
+    c = settings(id;overrides)
     0 <= c.probability <= 1 && isfinite(c.probability) || throw(ArgumentError("invalid restart probability"))
+    0 <= c.fraction <= 1 && isfinite(c.fraction) && 0<=c.plateau_rejection<=100 || throw(ArgumentError("invalid reset/plateau fraction"))
+    c.local_tenure>=0 && c.selected_tenure>=0 && c.clock in ("proposal","accepted") || throw(ArgumentError("invalid tabu parameters"))
     c.universal_scale > 0 && c.history > 0 || throw(ArgumentError("positive sequence scale and history required"))
     acceptance = if c.acceptance == "greedy"
         LS.GreedyPlateauAcceptance(;guide_infeasible=c.guide_infeasible,

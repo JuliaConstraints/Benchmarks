@@ -1,0 +1,108 @@
+schema = "strategy-panel-functional-qualification/1"
+date_utc = "2026-10-08"
+scope = "Bounded functional checks and allocation diagnostics; no comparative campaign"
+julia = "1.13.1"
+perfchecker = "1.0.0"
+intermediate_implementation_commit = "4ce0c7d"
+solver_project_sha256 = "2a48b5e578f38033a568c0d03697d31b86b1bed65b39086515c6648276cf457b"
+solver_manifest_sha256 = "9b767180147d7dd41d5b34c1b1958a13ba5acf979a54ba316ec78ad287e5deaf"
+configurations = 496
+meta_configurations = 180
+configuration_and_guide_assertions = 10442
+RO_assertions = 66
+classical_panel_assertions = 69
+historical_classical_assertions = 3945
+historical_LiLim_controller_assertions = 1483
+LiLim_ICN_resource_assertions = 30253
+historical_selector_assertions = 47
+checkout_and_worker_cap_assertions = 22
+functional_thread_widths = [1, 2]
+profiling_scenarios = 27
+affinity = "Linux taskset CPU 8; functional and profiling runs use one or two Julia workers on this same CPU"
+resource_caps = "One GC/BLAS thread; one native HiGHS thread in RO/profile checks; historical native-width qualification requests two"
+timing_qualification = "unqualified: other chats were active; only functional and allocation conclusions are reported"
+
+[guide_kernels]
+oracle = "Full independent polynomial energy versus canonical sparse energy and simultaneous deltas"
+warmed_energy_bytes = 0
+warmed_delta_bytes = 0
+warmed_depth_proposal_bytes = 0
+LLVM_observation = "energy kernel contains <4 x double> vector operations on this host"
+SIMD_scope = "host compiler observation; no portable speedup claim"
+
+[guide_perfchecker]
+scenario = "qubo_proposal_n32_d4"
+repetitions_per_observation = 1024
+observations = 5
+allocated_bytes_per_observation = 288
+observed_gc_seconds = 0.0
+correctness = "passed"
+allocation_scope = "PerfChecker operation lifecycle, including its dispatch/observation overhead"
+
+[packing_callbacks]
+fixture = "BPP weights [2,2,3], capacity 4, assignment [1,2,3]"
+repetitions = 1024
+error_before_bytes = 1277952
+error_after_bytes = 16384
+objective_before_bytes = 1933312
+objective_after_bytes = 0
+error_intermediate_workspace_bytes = 49152
+error_final_bytes = 16384
+backend_scope = "All four classical backends: naive, direct, ICN and fused ICN"
+before_scope = "Same working implementation before introducing owned score/objective workspaces"
+after_scope = "Warmed callbacks; same assignment, original objective and feasible zero set"
+
+[CBLS_perfchecker]
+scenario = "xp_cbls_direct_greedy_p0_w1"
+steps_per_observation = 256
+seed = 41
+observations_before = 2
+observations_after = 2
+allocated_bytes_before = 4454792
+allocated_bytes_after = 655544
+allocation_reduction_percent = 85.2845
+allocated_bytes_final = 483512
+final_allocation_reduction_percent = 89.1462
+observed_gc_seconds_before = 0.0
+observed_gc_seconds_after = 0.0
+correctness = "passed"
+scope = "Real CBLS executed through typed MetaStrategist on a tiny BPP fixture; preparation/verification excluded"
+limitations = "No observed GC in a short run does not establish zero GC in long runs; native models and other families retain allocations"
+
+[decoder_preparation]
+backends = 16
+before_bytes = 17822688
+after_bytes = 115952
+scope = "Repeated ICN backend construction after the first compiled bank; file-content verification retained"
+sharing = "Compiled pure scalar function by bank SHA256; private inputs, residuals, counters and score workspaces"
+
+[MetaStrategist_perfchecker]
+scenario = "xp_meta_qubo_ro_balanced_balanced_equal_w2"
+steps_per_lane = 256
+width = 2
+observations_per_diagnostic = 2
+gc_observation_bytes = [4215608, 4215608]
+lock_observation_bytes = [3792120, 3792120]
+observed_gc_seconds = 0.0
+observed_lock_conflicts = 0
+correctness = "passed"
+limits = "Separate instrumented runs; two Julia workers restricted to CPU 8; no scaling or universal absence-of-contention claim"
+
+[final_source_hashes]
+Scoring_sha256 = "24476c549b0b6560d1d5f761776c25a701811f234f5b5b9481f8a24d82b257b0"
+Solvers_sha256 = "ce14f35c754a6285c1c7631b20758cc249d3fea47771c0839fd227774aaa9c37"
+guide_sha256 = "60e9e585bfebb6b9d048fc9d742c471193c4813452fd2ad31193b3475e860c07"
+scenarios_sha256 = "1b1937301e8b048b3291d44cd059f8cc1a66cff696c3160f71539aa4f0775ce1"
+
+[SnoopCompile]
+isolated_PerfChecker_status = "unavailable: SnoopCompile is absent from the frozen solver project"
+direct_capture_status = "complete"
+correctness = "passed"
+version = "3.2.9"
+scenario = "xp_meta_qubo_ro_balanced_balanced_equal_w2"
+inclusive_inference_seconds = 133.32801687717438
+direct_root_children = 834
+optional_project_sha256 = "212d6105f789d98719f9deb9673bcb7aef8c2f5d8d978e6975b1ccc8e19f28ea"
+optional_manifest_sha256 = "00f70d61802ae27987be4b0f9da5ecb64feb6515b382c75c88b80d499f3a0d25"
+load_path_scope = "Frozen solver project first; existing LiLim/perfcheck optional tools second; no installation or environment edits"
+limits = "First full scenario lifecycle, instrumented inclusive accumulation; not wall time or a qualified timing comparison; no precompile/sysimage export"

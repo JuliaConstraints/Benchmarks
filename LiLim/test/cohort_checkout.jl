@@ -1,6 +1,14 @@
 using Test
 include(joinpath(@__DIR__,"..","scripts","colleague.jl"))
 
+@testset "Qualification worker caps respect the allocated CPUs" begin
+    for test in ("ortools_parallel.jl","icn_resources.jl","classical_strategy_panel")
+        @test qualification_width(Dict("cpus"=>"8"),test)==1
+        @test qualification_width(Dict("cpus"=>"8,9,10,11"),test)==2
+    end
+    @test qualification_width(Dict("cpus"=>"8,9"),"strategy_panel.jl")==1
+end
+
 @testset "Frozen checkout bytes survive a global CRLF policy" begin
     mktempdir() do directory
         global_config = joinpath(directory,"global.gitconfig")

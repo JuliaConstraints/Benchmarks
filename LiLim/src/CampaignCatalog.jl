@@ -1,5 +1,6 @@
 module CampaignCatalog
 using TOML
+include("StrategyPanel.jl")
 const CONFIG_ROOT=normpath(joinpath(@__DIR__,"..","config"))
 const THREAD_CONFIG=TOML.parsefile(joinpath(CONFIG_ROOT,"icn-threads.toml"))
 const CAMPAIGN_CONFIG=TOML.parsefile(joinpath(CONFIG_ROOT,"full-corpus-campaign.toml"))
@@ -13,10 +14,11 @@ end
 
 function select_methods(threads,selector)
     strategies=vcat([row["method"] for row in STRATEGIES["variants"]],sort!(collect(keys(STRATEGIES["portfolios"]))))
-    allowed=unique(vcat(available_methods(threads),strategies,CAMPAIGN_CONFIG["external_methods"]))
-    wanted=String.(strip.(split(selector,',')))
+    historical=unique(vcat(available_methods(threads),strategies,CAMPAIGN_CONFIG["external_methods"]))
+    allowed=unique(vcat(historical,StrategyPanel.methods()))
+    wanted=StrategyPanel.expand(String.(strip.(split(selector,','))))
     any(isempty,wanted) && throw(ArgumentError("empty method selection"))
-    for (token,expansion) in (("panel",allowed),("all",available_methods(threads)),("strategies",strategies))
+    for (token,expansion) in (("panel",historical),("all",available_methods(threads)),("strategies",strategies))
         token in wanted && (wanted=unique(vcat(filter(!=(token),wanted),expansion)))
     end
     unknown=setdiff(Set(wanted),Set(allowed))

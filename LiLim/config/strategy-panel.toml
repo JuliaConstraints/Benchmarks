@@ -1,0 +1,56 @@
+schema = "julia-constraints-strategy-panel/1"
+scope = "Opt-in additive configurations; preparation is not performance qualification"
+selectors = ["cbls-panel", "hybrid-panel", "meta-panel", "qubo-panel", "extended-panel"]
+backends = ["naive", "direct", "icn", "icn_fused_all"]
+thread_widths = [1, 2, 4, 8, 16]
+budgets_seconds = [8, 32, 128, 512]
+seed_policy = "Independent deterministic worker seeds; confirmation uses fresh seeds and unexposed instances"
+
+[sweeps]
+plateau = [0, 25, 75]
+tabu_tenure = [4, 8, 16, 32]
+tabu_clock = ["proposal", "accepted"]
+late_history = [32, 128, 512, 2048]
+restart_probability = [0.001, 0.01, 0.05]
+restart_fraction = [0.05, 0.25, 1.0]
+restart_source = ["best", "current"]
+universal_scale = [16, 64, 256]
+exhaustion_full_every = [0, 4, 16]
+
+[repair.light]
+max_visits = 8
+every = 64
+slice_seconds = 0.125
+fraction = 0.15
+radius = 2
+[repair.balanced]
+max_visits = 12
+every = 32
+slice_seconds = 0.5
+fraction = 0.35
+radius = 4
+[repair.heavy]
+max_visits = 20
+every = 8
+slice_seconds = 2.0
+fraction = 0.60
+radius = 8
+
+[guide]
+depths = [2, 4, 8]
+every = [16, 64]
+exploration = [0.05, 0.25]
+max_atoms = 2048
+max_terms = 20000
+max_values = 8
+max_candidates = 32
+fraction = 0.10
+matrix_convention = "canonical polynomial: diagonal linear terms and one coefficient per unordered bit pair"
+external_environment = "JULIACONSTRAINTS_QUBO_GUIDE"
+authority = "Guidance only; original constraints and learned ICN errors retain acceptance authority"
+
+[screening]
+policy = "Select small stratified cohorts, then promote complementary profiles; never expand the full grid by default"
+initial_instances = ["lc101", "lr101", "lrc101"]
+initial_seeds = [41, 42, 43]
+metrics = ["original_feasibility", "fleet_first_best_mean_median_spread", "BKS_attainment", "time_to_target", "CPU", "GC", "allocations", "guide_seconds", "RO_build_LP_MIP_seconds", "accepted_meta_moves"]

@@ -19,6 +19,7 @@ const CASES=fixtures()
             x=collect(tuple);checked=validate(p,x)
             direct=Base.invokelatest(error_value,backends[2],p,x)
             @test iszero(direct)==checked.valid
+            @test Base.invokelatest(search_objective_value,backends[2],p,x)≈ReproductionScoring.objective_value(p,x)
             for b in backends
                 e=Base.invokelatest(error_value,b,p,x)
                 @test isfinite(e) && e>=0 && iszero(e)==checked.valid
@@ -31,9 +32,42 @@ const CASES=fixtures()
     @test validate(CASES[:tsp],[1,2,3]).objective==(4.,)
     @test validate(CASES[:top],[1,2,1,1]).objective==(-9.,)
     @test validate(CASES[:maintenance],[1,2]).objective[1]≈1.25
+    @test search_objective_value(backends[2],CASES[:bpp],[NaN,1,2])==Inf
+    @test search_objective_value(backends[2],CASES[:bpp],[1,1])==Inf
     @test !validate(CASES[:maintenance],[1,1]).valid
     @test_throws ArgumentError problem(:jssp,Dict("duration"=>[1,1],"machine"=>[1,2],"precedence"=>[[1,2],[2,1]],"horizon"=>2))
     @test_throws ArgumentError problem(:qap,Dict("flow"=>[[1]],"distance"=>[[0,1],[1,0]]))
+end
+@testset "Packing callback buffers reduce allocation pressure" begin
+    p=CASES[:bpp];a=prepare_backend(:direct);b=prepare_backend(:direct);x=[1,2,3]
+    error_value(a,p,x);error_value(b,p,x)
+    @test a.workspace!==b.workspace && a.workspace.integers!==b.workspace.integers
+    function objective_allocations(backend,p,x)
+        search_objective_value(backend,p,x);ReproductionScoring.objective_value(p,x)
+        optimized=@allocated for _ in 1:1024;search_objective_value(backend,p,x);end
+        oracle=@allocated for _ in 1:1024;ReproductionScoring.objective_value(p,x);end
+        (;optimized,oracle)
+    end
+    objective_allocations(a,p,x)
+    bytes=objective_allocations(a,p,x)
+    @test bytes.optimized<bytes.oracle÷8
+    icn=prepare_backend(:icn);fused=prepare_backend(:icn_fused)
+    @test icn.decoder===fused.decoder
+    @test icn.input!==fused.input && icn.residuals!==fused.residuals
+    clones=Vector{Any}(undef,Threads.nthreads())
+    Threads.@threads :static for i in eachindex(clones)
+        clones[i]=prepare_backend(:icn_fused)
+        for _ in 1:100;Base.invokelatest(error_value,clones[i],p,i%2==0 ? [1,1,1] : x);end
+    end
+    @test all(b->b.decoder===icn.decoder && b.calls==100,clones)
+    @test allunique(objectid(b.input) for b in clones)
+    mktemp() do path,io
+        original=joinpath(@__DIR__,"../../LiLim/resources/icn-pdptw-witnesses.toml")
+        row=TOML.parsefile(original);row["witnesses"][4]["schema_sha256"]="invalid"
+        TOML.print(io,row);close(io)
+        @test_throws ErrorException prepare_backend(:icn;bank=path)
+        @test prepare_backend(:icn).decoder===icn.decoder
+    end
 end
 @testset "Original reader boundaries and metrics" begin
     mktempdir() do d

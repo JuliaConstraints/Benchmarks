@@ -32,9 +32,13 @@ resets can be ineffective; unavailable counters are reported as unavailable.
 
 MetaStrategist runs independent seeded lanes. Classical hybrid repairs use
 bounded HiGHS integer fragments through actual meta-variables, preserve decisions
-outside the fragment and validate every accepted repair. FJSP currently needs a
-complete small decision group. Qualified XCSP3 bridge repairs remain in Li-Lim.
+outside the fragment and validate every accepted repair. FJSP can fix original
+starts and machine choices separately. Qualified XCSP3 bridge repairs remain in Li-Lim.
 The general model layer is functional; large-instance GC/scaling is unqualified.
+
+The [opt-in strategy panel](STRATEGIES.md) adds 496 distinct configurations,
+including 180 heterogeneous MetaStrategist recipes, bounded LP/MIP repairs,
+QUBO-guided deep neighborhoods and explicit PerfChecker scenarios.
 
 ## Explicit comparisons
 

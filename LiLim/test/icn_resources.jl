@@ -153,6 +153,9 @@ function qualify()
             ResourceExperiment.warmup(path,policy,BANKS)
             methods = collect(ResourceExperiment.METHODS[1:7])
             push!(methods,"cbls_mix_strategy")
+            panel_methods = ["xp_cbls_icn_fused_all_tabu_t16_accepted",
+                "xp_hybrid_late_400_balanced_rins_ipx", "xp_meta_qubo_ro_balanced_balanced_equal"]
+            append!(methods,panel_methods)
             Threads.nthreads() >= 4 && append!(methods,["mixed_balanced","mixed_ls_heavy"])
             for method in methods
                 record=ResourceExperiment.run_case(path,method,0.5,41,policy,BANKS)
@@ -160,6 +163,16 @@ function qualify()
                 @test record["vehicles"] <= 3
                 @test record["process_cpu_seconds"] >= 0
                 @test all(e["seconds"] <= 0.5 for e in record["trajectory"])
+                if method in panel_methods
+                    panel = record["strategy_panel"]
+                    @test panel["workers"] == Threads.nthreads()
+                    @test length(panel["effective_lanes"]) == length(record["workers"])
+                    for w in record["workers"]
+                        expected = ResourceExperiment.panel_worker(w["method"])
+                        @test w["error_backend"]["backend"] == string(expected.backend)
+                        @test all(e->e["seconds"]<=0.5,w["trace"]["trajectory"])
+                    end
+                end
                 if method != "highs_native"
                     @test record["metastrategist_executed"]
                     @test length(unique(w["julia_thread_id"] for w in record["workers"])) == Threads.nthreads()

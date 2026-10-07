@@ -4,10 +4,17 @@ using JuMP,Random
 import CBLS, LocalSearchSolvers as LS, MathOptInterface as MOI, MetaStrategist as MS, HiGHS
 include("../../LiLim/src/SearchPolicies.jl")
 include("../../LiLim/src/PlatformResources.jl")
+include("../../LiLim/src/StrategyPanel.jl")
+include("../../LiLim/src/QUBOGuidance.jl")
+include("../../LiLim/src/ROFragments.jl")
 export prepare_cbls,search!,portfolio,mip_model,solve_mip,solve_ghost,POLICIES
 const POLICIES=sort!(collect(keys(SearchPolicies.CONFIG["profiles"])))
 
-function prepare_cbls(p;kind=:direct,policy="greedy_guided",seed=41,hybrid=false,max_cells=250_000)
+function prepare_cbls(p;kind=:direct,policy="greedy_guided",seed=41,hybrid=false,max_cells=250_000,
+        overrides=(;),max_visits=16,repair_every=32,fragment_seconds=.5,repair_fraction=.25,
+        repair_mode="mip",lp_solver="simplex",mip_lp_solver="choose",radius=4,
+        fragment_selection="random",guide_mode="none",guide_depth=4,guide_every=32,
+        guide_exploration=.1,guide_fraction=.1,guide=nothing,id="",instance_sha256=nothing,warm_start=false)
     hybrid && !(p.family in (:bpp,:bppc,:vbp,:salbp,:rcpsp,:jssp,:fjsp,:aircraft_landing)) && throw(ArgumentError("No qualified MIP repair for $(p.family)"))
     hybrid && check_mip_size(p,max_cells)
     Random.seed!(seed)
@@ -15,9 +22,9 @@ function prepare_cbls(p;kind=:direct,policy="greedy_guided",seed=41,hybrid=false
     @variable(model,first(ds[i])<=x[i=1:n]<=last(ds[i]),Int)
     err=(v;X=nothing)->error_value(b,p,v)
     @constraint(model,x in CBLS.Error(err))
-    obj=v->ReproductionScoring.objective_value(p,v)
+    obj=v->ReproductionScoring.search_objective_value(b,p,v)
     @objective(model,Min,CBLS.ScalarFunction(obj,x))
-    material=SearchPolicies.materialize(opt.backend_model,policy)
+    material=SearchPolicies.materialize(opt.backend_model,policy;overrides)
     options=LS.Options(dynamic=false,process_threads_map=Dict(1=>1),print_level=:silent,
         log_mode=:silent,log_to_file=false,progress_mode=:none,use_progress_meter=false)
     solver=LS.solver(opt.backend_model;options,strategies=material.strategy)
@@ -26,43 +33,118 @@ function prepare_cbls(p;kind=:direct,policy="greedy_guided",seed=41,hybrid=false
     start=initial(p)
     for i in eachindex(start);LS._value!(solver,i,start[i]);end
     Base.invokelatest(LS._compute!,solver);SearchPolicies.synchronize!(solver)
-    (;p,model,solver,backend=b,policy=material.description,seed,start,hybrid,max_cells)
+    repair_every>0 && fragment_seconds>0 && 0<=repair_fraction<=1 && max_visits>0 || throw(ArgumentError("invalid fragment limits"))
+    guide_mode in ("none","absolute","conditional") && guide_every>0 && guide_depth>0 &&
+        0<=guide_fraction<=1 && 0<=guide_exploration<=1 || throw(ArgumentError("invalid guide limits"))
+    fragment_selection in ("random","bottleneck","qubo") || throw(ArgumentError("invalid fragment selection"))
+    guide_started=time_ns()
+    if guide_mode!="none" && guide===nothing
+        relations=Tuple{Int,Int,Float64}[(i,i+1,1.) for i in 1:n-1]
+        for key in ("precedence","conflicts"),(i,j) in get(p.data,key,Tuple{Int,Int}[])
+            push!(relations,(i,j,2.))
+        end
+        guide=QUBOGuidance.configured_guide(ds,relations;id,instance_sha256)
+    end
+    workspace=guide===nothing ? nothing : QUBOGuidance.Workspace(guide)
+    controls=(;max_visits,repair_every,fragment_seconds,repair_fraction,repair_mode,lp_solver,mip_lp_solver,
+        radius,fragment_selection,guide_mode,guide_depth,guide_every,guide_exploration,guide_fraction,warm_start)
+    (;p,model,solver,backend=b,policy=material.description,seed,start,hybrid,max_cells,controls,
+        guide,workspace,candidate=copy(start),current=copy(start),validation_buffer=copy(start),
+        guide_build_seconds=guide_mode=="none" ? 0. : (time_ns()-guide_started)/1e9)
+end
+
+function decision_values!(buffer,source)
+    for i in eachindex(buffer);buffer[i]=Int(source[i]);end
+    buffer
+end
+
+"RO scopes preserve complete bins or selected original scheduling decisions."
+function fragment_scope(lane,values,rng;guided=true)
+    c=lane.controls;n=length(values)
+    if guided && c.fragment_selection=="qubo" && lane.guide!==nothing
+        ids=QUBOGuidance.scope!(lane.workspace,lane.guide,values,c.guide_depth,rng;
+            mode=c.guide_mode=="none" ? "absolute" : c.guide_mode,exploration=c.guide_exploration)
+    elseif c.fragment_selection=="bottleneck"
+        ids=sortperm(values;rev=true)[1:min(c.max_visits,n)]
+    else
+        ids=randperm(rng,n)[1:min(c.max_visits,n)]
+    end
+    if lane.p.family in (:bpp,:bppc,:vbp,:salbp)
+        # Extend to entire selected bins/stations; reject oversized fragments.
+        labels=Set(values[i] for i in ids)
+        ids=findall(v->v in labels,values)
+        length(ids)>c.max_visits && return Int[]
+    end
+    sort!(collect(ids))
 end
 
 function search!(lane;seconds=1.,max_steps=typemax(Int))
     seconds>0 && isfinite(seconds) || throw(ArgumentError("Positive finite solve budget"))
     start=time_ns();cpu=PlatformResources.cpu_seconds(3);steps=0;infeasible=0;tabu_peak=0;repairs=0;repair_seconds=0.
-    gc_start=Base.gc_num().total_time
+    gc_start=Base.gc_num().total_time;c=lane.controls
+    guide_seconds=lane.guide_build_seconds;guide_candidates=0;guide_moves=0;repair_traces=Any[]
     incumbent=validate(lane.p,lane.start).valid ? copy(lane.start) : nothing
     trajectory=Dict{String,Any}[]
     if incumbent!==nothing
         push!(trajectory,Dict("seconds"=>0.,"values"=>copy(incumbent),"objective"=>collect(validate(lane.p,incumbent).objective)))
     end
+    best_objective=incumbent===nothing ? nothing : validate(lane.p,incumbent).objective
+    last_native_best=Ref(Inf)
     function consider(candidate)
         (time_ns()-start)/1e9<=seconds || return
+        candidate isa AbstractVector || (candidate=decision_values!(lane.validation_buffer,candidate))
         checked=validate(lane.p,candidate)
-        if checked.valid && (incumbent===nothing || checked.objective<validate(lane.p,incumbent).objective)
+        observed=(time_ns()-start)/1e9
+        if checked.valid && observed<=seconds && (incumbent===nothing || checked.objective<best_objective)
             incumbent=Int.(candidate)
-            push!(trajectory,Dict("seconds"=>(time_ns()-start)/1e9,"values"=>copy(incumbent),"objective"=>collect(checked.objective)))
+            best_objective=checked.objective
+            push!(trajectory,Dict("seconds"=>observed,"values"=>copy(incumbent),"objective"=>collect(checked.objective)))
         end
     end
     while steps<max_steps && (time_ns()-start)/1e9<seconds
-        if lane.hybrid && steps%32==0 && repair_seconds<.25seconds
+        if lane.hybrid && steps%c.repair_every==0 && repair_seconds<c.repair_fraction*seconds
             snapshot=(p=lane.p,values=Int.(collect(LS.get_values(lane.solver))))
-            ids=sort!(randperm(length(snapshot.values))[1:min(16,length(snapshot.values))])
-            group=LS.MetaVariable(:integer_fragment,ids)
-            budget=min(.5,max(0.,seconds-(time_ns()-start)/1e9),.25seconds-repair_seconds)
-            outcome=LS.resolve_meta_variable(MIPResolver(lane.max_cells),LS.MetaVariableRequest(group,snapshot,budget,Random.default_rng()))
-            repair_seconds+=outcome.elapsed
-            if outcome.move!==nothing && (time_ns()-start)/1e9<seconds
-                LS._commit!(lane.solver,outcome.move);LS._compute!(lane.solver);SearchPolicies.synchronize!(lane.solver);repairs+=1
-                consider(collect(LS.get_values(lane.solver)))
+            select_started=time_ns();ids=fragment_scope(lane,snapshot.values,Random.default_rng();guided=guide_seconds<c.guide_fraction*seconds)
+            c.fragment_selection=="qubo" && (guide_seconds+=(time_ns()-select_started)/1e9)
+            budget=min(c.fragment_seconds,max(0.,seconds-(time_ns()-start)/1e9),c.repair_fraction*seconds-repair_seconds)
+            if !isempty(ids) && budget>0
+                group=LS.MetaVariable(:integer_fragment,ids)
+                outcome=LS.resolve_meta_variable(MIPResolver(lane.max_cells;mode=c.repair_mode,lp_solver=c.lp_solver,
+                    mip_lp_solver=c.mip_lp_solver,radius=c.radius,warm_start=c.warm_start),
+                    LS.MetaVariableRequest(group,snapshot,budget,Random.default_rng()))
+                repair_seconds+=outcome.elapsed;push!(repair_traces,outcome.trace)
+                if outcome.move!==nothing && (time_ns()-start)/1e9<seconds
+                    iszero(LS._candidate_cost(lane.solver,outcome.move)) || error("RO repair fails the qualified error backend")
+                    if (time_ns()-start)/1e9<seconds
+                        LS._commit!(lane.solver,outcome.move);LS._compute!(lane.solver);SearchPolicies.synchronize!(lane.solver);repairs+=1
+                        consider(LS.get_values(lane.solver))
+                    end
+                end
             end
+        end
+        if c.guide_mode!="none" && lane.guide!==nothing && steps%c.guide_every==0 && guide_seconds<c.guide_fraction*seconds
+            guide_started=time_ns();values=decision_values!(lane.current,LS.get_values(lane.solver))
+            proposal=QUBOGuidance.proposal!(lane.workspace,lane.guide,values,c.guide_depth,Random.default_rng();
+                mode=c.guide_mode,exploration=c.guide_exploration)
+            guide_candidates+=proposal.examined;copyto!(lane.candidate,values)
+            for (i,v) in zip(proposal.ids,proposal.values);lane.candidate[i]=v;end
+            checked=validate(lane.p,lane.candidate)
+            current=validate(lane.p,values)
+            if checked.valid && (!current.valid || checked.objective<current.objective) && (time_ns()-start)/1e9<seconds
+                move=LS.MetaMove(LS.MetaVariable(:qubo_depth,proposal.ids),proposal.values;provenance=(source=:qubo_guidance,))
+                iszero(LS._candidate_cost(lane.solver,move)) || error("Guide proposal fails the qualified error backend")
+                LS._commit!(lane.solver,move);LS._compute!(lane.solver);SearchPolicies.synchronize!(lane.solver)
+                guide_moves+=1;consider(lane.candidate)
+            end
+            guide_seconds+=(time_ns()-guide_started)/1e9
         end
         (time_ns()-start)/1e9<seconds || break
         LS._step!(lane.solver);steps+=1;tabu_peak=max(tabu_peak,LS.length_tabu(lane.solver))
         LS.get_error(lane.solver)>0 && (infeasible+=1)
-        consider(collect(LS.best_values(lane.solver)))
+        # Validate/copy only a changed native incumbent, rather than every step.
+        if LS.best_value(lane.solver)<last_native_best[]
+            consider(LS.best_values(lane.solver));last_native_best[]=LS.best_value(lane.solver)
+        end
     end
     # Every trajectory assignment is checked in the original model again on delivery.
     all(row->validate(lane.p,row["values"]).valid,trajectory) || error("Invalid exported trajectory")
@@ -74,6 +156,8 @@ function search!(lane;seconds=1.,max_steps=typemax(Int))
         "steps"=>steps,"infeasible_steps"=>infeasible,"tabu_peak"=>tabu_peak,
         "observable_resets"=>SearchPolicies.sequence_resets(lane.solver.strategies.restart),
         "repair_moves"=>repairs,"repair_seconds"=>repair_seconds,
+        "repair_traces"=>repair_traces,"guide_seconds"=>guide_seconds,"guide_candidates"=>guide_candidates,
+        "guide_moves"=>guide_moves,"guide"=>lane.guide===nothing ? Dict("authority"=>"disabled") : QUBOGuidance.metadata(lane.guide),
         "process_gc_seconds"=>(Base.gc_num().total_time-gc_start)/1e9,
         "policy"=>lane.policy,"error_backend"=>string(lane.backend.kind),"seed"=>lane.seed,
         "icn_calls"=>lane.backend.calls,"score_evaluations"=>lane.backend.evaluations,
@@ -96,9 +180,10 @@ function (phase::ParallelPhase)(ctx::PortfolioContext)
     end
     nothing
 end
-function portfolio(p;workers=[(;kind=:icn_fused,policy="late_400")],seconds=1.,seed=41,max_steps=typemax(Int))
+function portfolio(p;workers=[(;kind=:icn_fused,policy="late_400")],seconds=1.,seed=41,max_steps=typemax(Int),prepared_lanes=nothing)
     length(workers)<=Threads.nthreads() || throw(ArgumentError("Start Julia with at least one thread per lane"))
-    lanes=Tuple(prepare_cbls(p;w...,seed=seed+i-1) for (i,w) in enumerate(workers))
+    lanes=prepared_lanes===nothing ? Tuple(prepare_cbls(p;w...,seed=seed+i-1) for (i,w) in enumerate(workers)) : Tuple(prepared_lanes)
+    length(lanes)==length(workers) || throw(DimensionMismatch("prepared portfolio lanes"))
     catalog=MS.PhaseCatalog()
     MS.register_phase!(catalog,MS.PhaseDefinition(:search,:classical_portfolio,
         (parameters,context)->ParallelPhase(parameters.workers);version="1",reads=(:instance,),writes=(:incumbents,),requires=(:threads,)))
@@ -163,7 +248,7 @@ function mip_model(p;max_cells=250_000,symmetry=true)
             end
         end
         @objective(m,Min,makespan)
-        return (;model=m,decode=()->vcat(round.(Int,value.(s)),[argmax(value.(a)) for a in assignments]))
+        return (;model=m,assignments,decode=()->vcat(round.(Int,value.(s)),[argmax(value.(a)) for a in assignments]))
     elseif f in (:rcpsp,:jssp)
         n=length(d["duration"]);H=d["horizon"]
         if f==:rcpsp
@@ -223,29 +308,53 @@ end
 
 struct MIPResolver <: LS.AbstractMetaVariableResolver
     max_cells::Int
+    mode::String
+    lp_solver::String
+    mip_lp_solver::String
+    radius::Int
+    warm_start::Bool
 end
-MIPResolver()=MIPResolver(250_000)
+MIPResolver(max_cells=250_000;mode="mip",lp_solver="simplex",mip_lp_solver="choose",radius=4,warm_start=false)=
+    MIPResolver(max_cells,mode,lp_solver,mip_lp_solver,radius,warm_start)
 function LS.resolve_meta_variable(resolver::MIPResolver,request::LS.MetaVariableRequest)
     started=time_ns();p=request.snapshot.p;current=request.snapshot.values;ids=Set(LS.scope(request.variable))
     remaining()=max(0.,Float64(request.budget)-(time_ns()-started)/1e9)
-    finish(move=nothing)=(;move,elapsed=(time_ns()-started)/1e9)
+    trace=Dict{String,Any}("mode"=>resolver.mode,"warm_start"=>resolver.warm_start)
+    finish(move=nothing)=(;move,trace,elapsed=(time_ns()-started)/1e9)
     remaining()>0 || return finish()
     # Bin/station symmetry is valid for a free model, but not after fixing original labels.
+    build_started=time_ns()
     built=mip_model(p;symmetry=false,max_cells=resolver.max_cells);m=built.model;n=length(current)
+    trace["build_seconds"]=(time_ns()-build_started)/1e9
+    assignment=Dict{VariableRef,Float64}()
     if p.family in (:bpp,:bppc,:vbp,:salbp)
         a=m[:a]
+        for i in 1:n,b in axes(a,2);assignment[a[i,b]]=Float64(current[i]==b);end
+        for b in eachindex(m[:used]);assignment[m[:used][b]]=Float64(b in current);end
         for i in 1:n;i in ids || fix(a[i,current[i]],1;force=true);end
     elseif p.family==:fjsp
-        # The alternatives are model auxiliaries; currently the whole FJSP is repaired.
-        # Do not advertise a partial move when machine choices cannot be fixed independently.
-        ids==Set(eachindex(current)) || return finish()
+        tasks=n÷2
+        for i in 1:tasks
+            assignment[m[:s][i]]=Float64(current[i])
+            i in ids || fix(m[:s][i],current[i];force=true)
+            for k in eachindex(built.assignments[i])
+                v=built.assignments[i][k];assignment[v]=Float64(current[tasks+i]==k)
+                tasks+i in ids || fix(v,assignment[v];force=true)
+            end
+        end
     else
         starts=p.family==:aircraft_landing ? m[:t] : m[:s]
+        for i in 1:n;assignment[starts[i]]=Float64(current[i]);end
         for i in 1:n;i in ids || fix(starts[i],current[i];force=true);end
     end
     remaining()>0 || return finish()
-    set_optimizer(m,HiGHS.Optimizer);set_silent(m);set_attribute(m,MOI.NumberOfThreads(),1);set_time_limit_sec(m,remaining())
-    optimize!(m);has_values(m) || return finish()
+    if resolver.warm_start || resolver.mode!="mip" || resolver.mip_lp_solver!="choose"
+        ROFragments.optimize_fragment!(m;remaining,assignment,mode=resolver.mode,lp_solver=resolver.lp_solver,
+            mip_lp_solver=resolver.mip_lp_solver,radius=resolver.radius,trace) || return finish()
+    else
+        set_optimizer(m,HiGHS.Optimizer);set_silent(m);set_attribute(m,MOI.NumberOfThreads(),1);set_time_limit_sec(m,remaining())
+        optimize!(m);has_values(m) || return finish()
+    end
     candidate=built.decode();validate(p,candidate).valid || error("RO fragment failed original validator")
     all(i->i in ids || candidate[i]==current[i],eachindex(current)) || error("RO fragment changed a fixed parent decision")
     objective_value=ReproductionScoring.objective_value

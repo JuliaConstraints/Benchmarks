@@ -1,4 +1,6 @@
 using TOML, Statistics, CairoMakie, Random
+include("../src/StrategyPanel.jl")
+include("../src/PanelPlotStyles.jl")
 
 length(ARGS) in (2, 3) || error("usage: full_corpus_plots.jl SUMMARY.toml OUTPUT_DIR [exact|xkcd]")
 const SUMMARY = TOML.parsefile(abspath(ARGS[1]))
@@ -35,17 +37,11 @@ const STYLE_ORDER = vcat(["cbls_naive","cbls_icn","cbls_icn_fused_scalar","cbls_
     [v["method"] for v in STRATEGY_CONFIG["variants"][1:21]],
     ["cbls_strategy_diverse","mixed_strategy_diverse"],
     [v["method"] for v in STRATEGY_CONFIG["variants"][22:end]],
-    sort!(setdiff(collect(keys(STRATEGY_CONFIG["portfolios"])),["cbls_strategy_diverse","mixed_strategy_diverse"])),["ghost_icn"])
+    sort!(setdiff(collect(keys(STRATEGY_CONFIG["portfolios"])),["cbls_strategy_diverse","mixed_strategy_diverse"])),["ghost_icn"],StrategyPanel.methods())
 const PROFILE_STYLES = let
     profiles = filter(!=("hexaly_native"), METHODS)
     all(m->m in STYLE_ORDER,profiles) || error("unknown solver plot style")
-    length(profiles) <= length(COLORS)*length(MARKERS) || error("plot style combinations exhausted")
-    # Preserve the first palette; later uses of a color always change its marker.
-    Dict(method => (color=COLORS[mod1(i,length(COLORS))],
-        html_color=HTML_COLORS[mod1(i,length(COLORS))],
-        marker=MARKERS[mod1(i+div(i-1,length(COLORS)),length(MARKERS))],
-        linestyle=(:solid,:dash,:dot)[mod1(1+div(i-1,length(COLORS)),3)])
-        for method in profiles for i in (findfirst(==(method),STYLE_ORDER),))
+    PanelPlotStyles.styles(profiles,STYLE_ORDER)
 end
 function profile_style(method)
     method == "hexaly_native" && return (color=:black, html_color="#111111", marker=:star8,linestyle=:dash)
@@ -81,7 +77,9 @@ json(value::Tuple) = json(collect(value))
 json(value::AbstractDict) = "{" * join((json(string(key)) * ":" * json(item) for (key, item) in value), ",") * "}"
 json(value) = error("unsupported dashboard value: $(typeof(value))")
 
-solver_family(method) = startswith(method, "hybrid_") ? "Hybrid" :
+solver_family(method) = startswith(method,"xp_meta_") ? "MetaStrategist" :
+    startswith(method,"xp_hybrid_") ? "Hybrid" : startswith(method,"xp_qubo_") ? "QUBO-guided CBLS" :
+    startswith(method, "hybrid_") ? "Hybrid" :
     startswith(method, "highs_") ? "HiGHS" : startswith(method, "mixed_") ? "MetaStrategist" :
     method == "ortools_native" ? "OR-Tools" :
     method == "ghost_icn" ? "GHOST" :

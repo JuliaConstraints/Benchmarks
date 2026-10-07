@@ -7,15 +7,19 @@ import MetaStrategist as MS
 export allocation, run_case, warmup, prepare_portfolio, cpu_seconds
 
 include("PlatformResources.jl")
+include("StrategyPanel.jl")
 cpu_seconds(id=2)=PlatformResources.cpu_seconds(id)
 
 const METHODS = ("cbls_naive","cbls_icn","cbls_icn_fused_scalar","cbls_icn_fused_all","cbls_direct","hybrid_specialized_icn",
     "hybrid_bridged_icn","highs_native","highs_portfolio","mixed_balanced","mixed_ls_heavy","cbls_mix_strategy",
-    Hybrid.SearchPolicies.METHODS...,sort!(collect(keys(Hybrid.SearchPolicies.PORTFOLIOS)))...)
+    Hybrid.SearchPolicies.METHODS...,sort!(collect(keys(Hybrid.SearchPolicies.PORTFOLIOS)))...,StrategyPanel.methods()...)
 
 "Each entry is one serial search worker, including a serial HiGHS worker."
 function allocation(method,threads)
     method in METHODS && threads > 0 || throw(ArgumentError("invalid configuration"))
+    if haskey(StrategyPanel.CATALOG,method)
+        return [method*"@"*string(threads)*":"*string(i) for i in 1:threads]
+    end
     if haskey(Hybrid.SearchPolicies.PORTFOLIOS,method)
         policies = Hybrid.SearchPolicies.PORTFOLIOS[method]
         return [policies[mod1(i,length(policies))] for i in 1:threads]
@@ -40,7 +44,22 @@ function allocation(method,threads)
 end
 
 "Resolve the exact lane policy once, outside its search loop."
+function panel_worker(worker)
+    occursin('@',worker) || return nothing
+    id,tail=split(worker,'@';limit=2);width,index=parse.(Int,split(tail,':'))
+    StrategyPanel.allocation(id,width)[index]
+end
 function worker_settings(worker)
+    panel=panel_worker(worker)
+    if panel!==nothing
+        return (;search_policy=panel.policy,policy_overrides=panel.overrides,
+            hybrid=panel.hybrid,bridged=panel.bridged,max_visits=panel.max_visits,
+            repair_every=panel.repair_every,fragment_seconds=panel.fragment_seconds,repair_fraction=panel.repair_fraction,
+            repair_mode=panel.repair_mode,lp_solver=panel.lp_solver,mip_lp_solver=panel.mip_lp_solver,radius=panel.radius,
+            fragment_selection=panel.fragment_selection,guide_mode=panel.guide_mode,guide_depth=panel.guide_depth,
+            guide_every=panel.guide_every,guide_exploration=panel.guide_exploration,guide_fraction=panel.guide_fraction,
+            pair_selection=panel.pair_selection,pair_every=panel.pair_every,warm_start=true)
+    end
     variant = get(Hybrid.SearchPolicies.VARIANTS,worker,nothing)
     (; search_policy=variant===nothing ? "legacy" : variant["policy"],
         hybrid=variant===nothing ? startswith(worker,"hybrid") : get(variant,"hybrid",false),
@@ -146,7 +165,8 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
         # Lane 1 retains the repetition seed. Further lanes deterministically
         # diversify independently, identically in every homogeneous profile.
         lane_seed = seed + 10_000*(i-1)
-        backend_kind = worker == "cbls_naive" ? :naive : worker == "cbls_direct" ? :direct :
+        panel=panel_worker(worker)
+        backend_kind = panel!==nothing ? panel.backend : worker == "cbls_naive" ? :naive : worker == "cbls_direct" ? :direct :
             worker == "cbls_icn_fused_scalar" ? :icn_fused_scalar :
             worker == "cbls_icn_fused_all" ? :icn_fused_all : :icn
         bank_kind = backend_kind in (:icn_fused_scalar,:icn_fused_all) ? :icn : backend_kind
@@ -154,12 +174,12 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
         result = if worker in ("highs_native","highs_serial")
             highs_worker(p,initial,seconds,lane_seed,origin,worker=="highs_native" ? threads : 1;logpath)
         else
+            parameters=merge((;max_visits=policy["max_visits"],repair_every=policy["repair_every"],
+                fragment_seconds=policy["fragment_seconds"],repair_fraction=policy["repair_fraction"]),worker_settings(worker))
             Hybrid.run_cbls(p,initial;seconds,seed=lane_seed,origin_ns=origin,
                 scorer=backend,
                 scorer_name="route constraints/2: "*string(backend_kind),
-                worker_settings(worker)...,
-                max_visits=policy["max_visits"],repair_every=policy["repair_every"],
-                fragment_seconds=policy["fragment_seconds"],repair_fraction=policy["repair_fraction"])
+                instance_sha256=bytes2hex(sha256(read(path))),parameters...)
         end
         result.validation.valid || error("invalid worker solution")
         Dict{String,Any}("worker"=>i,"method"=>worker,"seed"=>lane_seed,
@@ -214,6 +234,7 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
         "metastrategist_executed"=>strategy!==nothing,
         "metastrategist_plan_reused"=>portfolio!==nothing,
         "metastrategist_plan_key"=>strategy===nothing ? "" : strategy.key,
+        "strategy_panel"=>haskey(StrategyPanel.CATALOG,method) ? StrategyPanel.metadata(method,threads) : Dict{String,Any}(),
         "coordination"=>"static allocation, independently seeded workers, final best merge; no adaptive allocation or inter-worker incumbent exchange")
 end
 
