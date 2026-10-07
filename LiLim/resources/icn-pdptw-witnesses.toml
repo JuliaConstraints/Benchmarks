@@ -1,0 +1,108 @@
+provenance = "Recovered manually constructed witnesses; original weights and schema hashes preserved; no new training."
+schema = "pdptw-essential-icn-witnesses/1"
+source_commit = "b340e83a72ed19acd1f1647edaafb9e363738f0f"
+source_sha256 = "61225eadc114677498e781befe67afbbcab98b480f81c5b7b0f2e0009297ecaf"
+
+[[witnesses]]
+[[witnesses]]
+binding_runtime = "NamedTuple()"
+binding_sample = "nothing"
+checked = 320
+decoded = "composition(x) = sum(elementwise_sum([count_great_left(x), count_less_left(x)]))"
+factory = "learnable_composition; max_depth=1"
+family = "all_equal"
+formula = "sum_i count(j<i: x[j]!=x[i])"
+input_reference = "CompositionalNetworks.InputReference{Tuple{}}(())"
+restriction = ""
+satisfied = 8
+schema = "ICN:(:Transformation, false, [:id, :absolute, :positive_part, :predecessor_counts, :orbit_exclusion_indicators, :nonfixed_indicators, :disjoint_pair_differences, :count_equal_right, :count_less_right, :count_great_right, :count_equal_left, :count_less_left, :count_great_left, :contiguous_vars_minus, :contiguous_vars_minus_rev, :count_equal, :count_less, :count_great, :nonzero]);(:Arithmetic, true, [:sum, :product, :difference]);(:Aggregation, true, [:sum, :count_elements, :count_zero, :count_positive, :maximum, :minimum, :first_or_zero, :argmin, :argmax]);(:Comparison, true, [:id])"
+schema_sha256 = "cceaec644790b0424a50239706e1e5dd5ecef1d8c349ab066c93be92ff95e74d"
+signature = "NamedTuple()"
+variant = "numeric list"
+view_slots = "nothing"
+violated = 312
+weights = [false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, true, false, false, true, false, false, false, false, false, false, false, false, true]
+[[witnesses]]
+[[witnesses]]
+binding_runtime = "NamedTuple()"
+binding_sample = "nothing"
+checked = 1920
+decoded = "composition(x) = condition_residual(sum(x))"
+factory = "learnable_composition; max_depth=1"
+family = "sum"
+formula = "r_op(sum(x), val)"
+input_reference = "CompositionalNetworks.InputReference{Tuple{}}(())"
+restriction = ""
+satisfied = 1174
+schema = "ICN:(:Transformation, false, [:id, :absolute, :positive_part, :predecessor_counts, :orbit_exclusion_indicators, :nonfixed_indicators, :disjoint_pair_differences, :count_equal_right, :count_less_right, :count_great_right, :count_equal_left, :count_less_left, :count_great_left, :count_equal_val, :count_less_val, :count_great_val, :var_minus_val, :val_minus_var, :contiguous_vars_minus, :contiguous_vars_minus_rev, :count_equal, :count_less, :count_great, :count_bounding_val, :nonzero, :first_equal_position, :condition_residuals]);(:Arithmetic, true, [:sum, :product, :difference]);(:Aggregation, true, [:sum, :count_elements, :count_zero, :count_positive, :count_op_val, :maximum, :minimum, :first_or_zero, :argmin, :argmax]);(:Comparison, true, [:id, :condition_residual, :abs_val, :val_minus_var, :var_minus_val])"
+schema_sha256 = "c232df131ecc90c9ece3a293e83aec0a471715c36475751535b6eb1aa46c21e6"
+signature = "(op = ==, val = 2)"
+variant = "scalar condition"
+view_slots = "nothing"
+violated = 746
+weights = [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, true, false, false, false, false, false, false, false, false, false, false, true, false, false, false]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+[[witnesses]]
+binding_runtime = "NamedTuple()"
+binding_sample = "nothing"
+checked = 324
+decoded = "composition(x) = sum(elementwise_sum([count_equal_left(x), count_great_left(x)]))"
+factory = "learnable_composition; max_depth=1"
+family = "ordered"
+formula = "sum_i violating_left_counts(x, <)"
+input_reference = "CompositionalNetworks.InputReference{Tuple{}}(())"
+restriction = ""
+satisfied = 9
+schema = "ICN:(:Transformation, false, [:id, :absolute, :positive_part, :predecessor_counts, :orbit_exclusion_indicators, :nonfixed_indicators, :disjoint_pair_differences, :count_equal_right, :count_less_right, :count_great_right, :count_equal_left, :count_less_left, :count_great_left, :contiguous_vars_minus, :contiguous_vars_minus_rev, :count_equal, :count_less, :count_great, :nonzero]);(:Arithmetic, true, [:sum, :product, :difference]);(:Aggregation, true, [:sum, :count_elements, :count_zero, :count_positive, :maximum, :minimum, :first_or_zero, :argmin, :argmax]);(:Comparison, true, [:id])"
+schema_sha256 = "cceaec644790b0424a50239706e1e5dd5ecef1d8c349ab066c93be92ff95e74d"
+signature = "NamedTuple()"
+variant = "order <, without offsets"
+view_slots = "nothing"
+violated = 315
+weights = [false, false, false, false, false, false, false, false, false, false, true, false, true, false, false, false, false, false, false, true, false, false, true, false, false, false, false, false, false, false, false, true]

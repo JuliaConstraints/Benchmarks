@@ -1,0 +1,40 @@
+schema = "li-lim-competitor-protocol/1"
+scope = "exposed diagnostic corpus; industrial superiority requires a separate confirmation corpus"
+instances = ["lc101", "lr101", "lrc101"]
+seeds = [41, 42, 43]
+resource_widths = [1, 2, 4, 8, 16]
+diagnostic_seconds = 5.0
+comparison_seconds = 10.0
+objective = "feasibility, fleet, then unrounded Euclidean distance"
+reference_runtime = "unavailable in SINTEF BKS table; measure time to the BKS target locally"
+starting_point = "same qualified 5-start insertion with seed 41; report preparation separately"
+
+[timefold]
+version = "2.6.0"
+edition = "Community"
+java = "21"
+scorer = "route-level IncrementalScoreCalculator; only changed routes recomputed"
+profiles = ["default", "late_acceptance_1000"]
+default_effective_profile = "late acceptance 400, accepted-count-limit 1; explicit late_acceptance_400 is the same policy, not a separate ablation"
+native_move_threads = 0
+parallelism = "one serial native solver, or explicit independent solvers in one JVM; not Enterprise move-thread solving"
+gc = "SerialGC; retain Java CPU and wall measurements; do not equate requested workers with active CPUs"
+
+[hexaly]
+target_version = "15.0"
+status = "model, exchange, anytime trajectory and common wall-clock budget prepared; SDK/executable absent; native compilation, semantic and timing qualification pending"
+model = "LiLim/native/hexaly/pdptw.hxm"
+objectives = "hard original feasibility; minimize fleet, then distance without rounding"
+objective_time_phase_weights = [5, 1]
+objective_time_phase_policy = "At model parameterization, subtract elapsed common wall time from the total budget, floor remaining solver seconds, then allocate floor(5T/6) seconds to fleet and the remainder to distance; proven fleet optimality transfers unused phase time to distance."
+common_clock = "epoch-millisecond origin captured before shared instance read/insertion/export; HXM input, model build, search and trajectory writes use the same wall clock; Julia monotonic process time is cross-checked during qualification"
+trajectory = "classic Modeler display callback, one-second minimum interval, append only lexicographic improvements, original-validator audit, late observations censored"
+thread_parameter = "hxNbThreads is indicative; enforce affinity and record actual CPU"
+license = "not activated by this preparation"
+required_qualification = ["parse/compile model", "zero-time injected valid and invalid cases", "empty routes and nonzero depot service", "original route validation", "bounded solve with measured build and search clocks", "anytime events before the common deadline", "current initial point after presolve"]
+
+[processes]
+priority = "after multithread allocation/GC corrections"
+cbls = "LocalSearchSolvers has Distributed workers and process_threads_map; retain preloaded workers and private GC"
+metastrategist = "current pilot phase implements Julia threads; distributed phase must be explicitly added and qualified"
+comparison = "equal total CPU ceiling and wall budget; report cold launch, compilation, serialization, per-process GC/RSS and warm pool reuse"

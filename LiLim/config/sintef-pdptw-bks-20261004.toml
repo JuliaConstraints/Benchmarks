@@ -1,0 +1,1809 @@
+name_normalization = "lowercase instance filenames"
+objective = "minimize vehicles, then total Euclidean distance; double precision; published distance rounded to two decimals"
+retrieved_utc = "2026-10-04T12:19:54.565"
+schema = "sintef-pdptw-best-known/1"
+source = "SINTEF TOP Li & Lim PDPTW benchmark pages"
+
+[archive_sha256]
+"pdp_100.zip" = "d106694e9e18cebc32b63c322e1000620238392c1b9d98d92de82ef7e4b43cd9"
+"pdp_200.zip" = "0d83737d8ede85b83ac4ec2d162479794d091e915cc921c0912ee9739e5de4d9"
+"pdp_400.zip" = "32942a790aebaff0a05e056bd78a3837e926891360229c065b3afeccd1636347"
+"pdp_600.zip" = "315dcfbf582fdade4bb978758c1a1ccbfb93bdf9b092efb3cc017194f113bd8f"
+"pdptw1000.zip" = "9975f6bd429785e220839fc01cb9138c49c98148970d8a76de34dab6ed3028fc"
+"pdptw800.zip" = "a137c29515ec0d5567382129b15d28710298f4551abd2c39a441198093397ea4"
+
+[instances.100.lc101]
+distance = 828.94
+vehicles = 10
+
+[instances.100.lc102]
+distance = 828.94
+vehicles = 10
+
+[instances.100.lc103]
+distance = 1035.35
+vehicles = 9
+
+[instances.100.lc104]
+distance = 860.01
+vehicles = 9
+
+[instances.100.lc105]
+distance = 828.94
+vehicles = 10
+
+[instances.100.lc106]
+distance = 828.94
+vehicles = 10
+
+[instances.100.lc107]
+distance = 828.94
+vehicles = 10
+
+[instances.100.lc108]
+distance = 826.44
+vehicles = 10
+
+[instances.100.lc109]
+distance = 1000.6
+vehicles = 9
+
+[instances.100.lc201]
+distance = 591.56
+vehicles = 3
+
+[instances.100.lc202]
+distance = 591.56
+vehicles = 3
+
+[instances.100.lc203]
+distance = 591.17
+vehicles = 3
+
+[instances.100.lc204]
+distance = 590.6
+vehicles = 3
+
+[instances.100.lc205]
+distance = 588.88
+vehicles = 3
+
+[instances.100.lc206]
+distance = 588.49
+vehicles = 3
+
+[instances.100.lc207]
+distance = 588.29
+vehicles = 3
+
+[instances.100.lc208]
+distance = 588.32
+vehicles = 3
+
+[instances.100.lr101]
+distance = 1650.8
+vehicles = 19
+
+[instances.100.lr102]
+distance = 1487.57
+vehicles = 17
+
+[instances.100.lr103]
+distance = 1292.68
+vehicles = 13
+
+[instances.100.lr104]
+distance = 1013.39
+vehicles = 9
+
+[instances.100.lr105]
+distance = 1377.11
+vehicles = 14
+
+[instances.100.lr106]
+distance = 1252.62
+vehicles = 12
+
+[instances.100.lr107]
+distance = 1111.31
+vehicles = 10
+
+[instances.100.lr108]
+distance = 968.97
+vehicles = 9
+
+[instances.100.lr109]
+distance = 1208.96
+vehicles = 11
+
+[instances.100.lr110]
+distance = 1159.35
+vehicles = 10
+
+[instances.100.lr111]
+distance = 1108.9
+vehicles = 10
+
+[instances.100.lr112]
+distance = 1003.77
+vehicles = 9
+
+[instances.100.lr201]
+distance = 1253.23
+vehicles = 4
+
+[instances.100.lr202]
+distance = 1197.67
+vehicles = 3
+
+[instances.100.lr203]
+distance = 949.4
+vehicles = 3
+
+[instances.100.lr204]
+distance = 849.05
+vehicles = 2
+
+[instances.100.lr205]
+distance = 1054.02
+vehicles = 3
+
+[instances.100.lr206]
+distance = 931.63
+vehicles = 3
+
+[instances.100.lr207]
+distance = 903.06
+vehicles = 2
+
+[instances.100.lr208]
+distance = 734.85
+vehicles = 2
+
+[instances.100.lr209]
+distance = 930.59
+vehicles = 3
+
+[instances.100.lr210]
+distance = 964.22
+vehicles = 3
+
+[instances.100.lr211]
+distance = 911.52
+vehicles = 2
+
+[instances.100.lrc101]
+distance = 1708.8
+vehicles = 14
+
+[instances.100.lrc102]
+distance = 1558.07
+vehicles = 12
+
+[instances.100.lrc103]
+distance = 1258.74
+vehicles = 11
+
+[instances.100.lrc104]
+distance = 1128.4
+vehicles = 10
+
+[instances.100.lrc105]
+distance = 1637.62
+vehicles = 13
+
+[instances.100.lrc106]
+distance = 1424.73
+vehicles = 11
+
+[instances.100.lrc107]
+distance = 1230.14
+vehicles = 11
+
+[instances.100.lrc108]
+distance = 1147.43
+vehicles = 10
+
+[instances.100.lrc201]
+distance = 1406.94
+vehicles = 4
+
+[instances.100.lrc202]
+distance = 1374.27
+vehicles = 3
+
+[instances.100.lrc203]
+distance = 1089.07
+vehicles = 3
+
+[instances.100.lrc204]
+distance = 818.66
+vehicles = 3
+
+[instances.100.lrc205]
+distance = 1302.2
+vehicles = 4
+
+[instances.100.lrc206]
+distance = 1159.03
+vehicles = 3
+
+[instances.100.lrc207]
+distance = 1062.05
+vehicles = 3
+
+[instances.100.lrc208]
+distance = 852.76
+vehicles = 3
+
+[instances.1000.lc1_10_1]
+distance = 42488.66
+vehicles = 100
+
+[instances.1000.lc1_10_10]
+distance = 42929.15
+vehicles = 86
+
+[instances.1000.lc1_10_2]
+distance = 44548.51
+vehicles = 94
+
+[instances.1000.lc1_10_3]
+distance = 45906.3
+vehicles = 78
+
+[instances.1000.lc1_10_4]
+distance = 37782.17
+vehicles = 72
+
+[instances.1000.lc1_10_5]
+distance = 42477.4
+vehicles = 100
+
+[instances.1000.lc1_10_6]
+distance = 42838.39
+vehicles = 101
+
+[instances.1000.lc1_10_7]
+distance = 42854.99
+vehicles = 100
+
+[instances.1000.lc1_10_8]
+distance = 42949.56
+vehicles = 98
+
+[instances.1000.lc1_10_9]
+distance = 43564.01
+vehicles = 90
+
+[instances.1000.lc2_10_1]
+distance = 16879.24
+vehicles = 30
+
+[instances.1000.lc2_10_10]
+distance = 17043.64
+vehicles = 29
+
+[instances.1000.lc2_10_2]
+distance = 20764.09
+vehicles = 30
+
+[instances.1000.lc2_10_3]
+distance = 19299.48
+vehicles = 29
+
+[instances.1000.lc2_10_4]
+distance = 17886.97
+vehicles = 29
+
+[instances.1000.lc2_10_5]
+distance = 17137.53
+vehicles = 31
+
+[instances.1000.lc2_10_6]
+distance = 19387.75
+vehicles = 30
+
+[instances.1000.lc2_10_7]
+distance = 18389.37
+vehicles = 31
+
+[instances.1000.lc2_10_8]
+distance = 17015.03
+vehicles = 30
+
+[instances.1000.lc2_10_9]
+distance = 18225.3
+vehicles = 30
+
+[instances.1000.lr1_10_1]
+distance = 56744.91
+vehicles = 100
+
+[instances.1000.lr1_10_10]
+distance = 45510.71
+vehicles = 38
+
+[instances.1000.lr1_10_2]
+distance = 49349.84
+vehicles = 80
+
+[instances.1000.lr1_10_3]
+distance = 41483.89
+vehicles = 54
+
+[instances.1000.lr1_10_4]
+distance = 30788.11
+vehicles = 27
+
+[instances.1000.lr1_10_5]
+distance = 59053.68
+vehicles = 58
+
+[instances.1000.lr1_10_6]
+distance = 51058.53
+vehicles = 46
+
+[instances.1000.lr1_10_7]
+distance = 38563.2
+vehicles = 35
+
+[instances.1000.lr1_10_8]
+distance = 29613.27
+vehicles = 24
+
+[instances.1000.lr1_10_9]
+distance = 54582.25
+vehicles = 47
+
+[instances.1000.lr2_10_1]
+distance = 62859.29
+vehicles = 17
+
+[instances.1000.lr2_10_10]
+distance = 44888.99
+vehicles = 10
+
+[instances.1000.lr2_10_2]
+distance = 51357.3
+vehicles = 14
+
+[instances.1000.lr2_10_3]
+distance = 42908.33
+vehicles = 10
+
+[instances.1000.lr2_10_4]
+distance = 26595.39
+vehicles = 8
+
+[instances.1000.lr2_10_5]
+distance = 54951.12
+vehicles = 13
+
+[instances.1000.lr2_10_6]
+distance = 46253.37
+vehicles = 11
+
+[instances.1000.lr2_10_7]
+distance = 39648.54
+vehicles = 8
+
+[instances.1000.lr2_10_8]
+distance = 26742.31
+vehicles = 6
+
+[instances.1000.lr2_10_9]
+distance = 50781.83
+vehicles = 12
+
+[instances.1000.lrc1_10_1]
+distance = 49111.78
+vehicles = 82
+
+[instances.1000.lrc1_10_10]
+distance = 36539.03
+vehicles = 47
+
+[instances.1000.lrc1_10_2]
+distance = 45547.38
+vehicles = 71
+
+[instances.1000.lrc1_10_3]
+distance = 35616.85
+vehicles = 53
+
+[instances.1000.lrc1_10_4]
+distance = 27211.87
+vehicles = 40
+
+[instances.1000.lrc1_10_5]
+distance = 50323.04
+vehicles = 72
+
+[instances.1000.lrc1_10_6]
+distance = 45115.22
+vehicles = 67
+
+[instances.1000.lrc1_10_7]
+distance = 41560.52
+vehicles = 60
+
+[instances.1000.lrc1_10_8]
+distance = 40770.1
+vehicles = 55
+
+[instances.1000.lrc1_10_9]
+distance = 40934.27
+vehicles = 52
+
+[instances.1000.lrc2_10_1]
+distance = 34463.46
+vehicles = 22
+
+[instances.1000.lrc2_10_10]
+distance = 29085.28
+vehicles = 11
+
+[instances.1000.lrc2_10_2]
+distance = 38619.13
+vehicles = 19
+
+[instances.1000.lrc2_10_3]
+distance = 27218.08
+vehicles = 16
+
+[instances.1000.lrc2_10_4]
+distance = 23212.46
+vehicles = 11
+
+[instances.1000.lrc2_10_5]
+distance = 40638.13
+vehicles = 16
+
+[instances.1000.lrc2_10_6]
+distance = 30910.65
+vehicles = 17
+
+[instances.1000.lrc2_10_7]
+distance = 33275.24
+vehicles = 15
+
+[instances.200.lc1_2_1]
+distance = 2704.57
+vehicles = 20
+
+[instances.200.lc1_2_10]
+distance = 2942.13
+vehicles = 17
+
+[instances.200.lc1_2_2]
+distance = 2764.56
+vehicles = 19
+
+[instances.200.lc1_2_3]
+distance = 3127.78
+vehicles = 17
+
+[instances.200.lc1_2_4]
+distance = 2693.41
+vehicles = 17
+
+[instances.200.lc1_2_5]
+distance = 2702.05
+vehicles = 20
+
+[instances.200.lc1_2_6]
+distance = 2701.04
+vehicles = 20
+
+[instances.200.lc1_2_7]
+distance = 2701.04
+vehicles = 20
+
+[instances.200.lc1_2_8]
+distance = 3354.27
+vehicles = 19
+
+[instances.200.lc1_2_9]
+distance = 2724.24
+vehicles = 18
+
+[instances.200.lc2_2_1]
+distance = 1931.44
+vehicles = 6
+
+[instances.200.lc2_2_10]
+distance = 1817.45
+vehicles = 6
+
+[instances.200.lc2_2_2]
+distance = 1881.4
+vehicles = 6
+
+[instances.200.lc2_2_3]
+distance = 1844.33
+vehicles = 6
+
+[instances.200.lc2_2_4]
+distance = 1767.12
+vehicles = 6
+
+[instances.200.lc2_2_5]
+distance = 1891.21
+vehicles = 6
+
+[instances.200.lc2_2_6]
+distance = 1857.78
+vehicles = 6
+
+[instances.200.lc2_2_7]
+distance = 1850.13
+vehicles = 6
+
+[instances.200.lc2_2_8]
+distance = 1824.34
+vehicles = 6
+
+[instances.200.lc2_2_9]
+distance = 1854.21
+vehicles = 6
+
+[instances.200.lr1_2_1]
+distance = 4819.12
+vehicles = 20
+
+[instances.200.lr1_2_10]
+distance = 3664.08
+vehicles = 11
+
+[instances.200.lr1_2_2]
+distance = 4621.21
+vehicles = 17
+
+[instances.200.lr1_2_3]
+distance = 4402.38
+vehicles = 14
+
+[instances.200.lr1_2_4]
+distance = 3027.06
+vehicles = 10
+
+[instances.200.lr1_2_5]
+distance = 4760.18
+vehicles = 16
+
+[instances.200.lr1_2_6]
+distance = 4800.94
+vehicles = 13
+
+[instances.200.lr1_2_7]
+distance = 3543.36
+vehicles = 12
+
+[instances.200.lr1_2_8]
+distance = 2759.32
+vehicles = 9
+
+[instances.200.lr1_2_9]
+distance = 5050.75
+vehicles = 13
+
+[instances.200.lr2_2_1]
+distance = 4073.1
+vehicles = 5
+
+[instances.200.lr2_2_10]
+distance = 3254.83
+vehicles = 3
+
+[instances.200.lr2_2_2]
+distance = 3796.0
+vehicles = 4
+
+[instances.200.lr2_2_3]
+distance = 3098.36
+vehicles = 4
+
+[instances.200.lr2_2_4]
+distance = 2486.0
+vehicles = 3
+
+[instances.200.lr2_2_5]
+distance = 3438.39
+vehicles = 4
+
+[instances.200.lr2_2_6]
+distance = 4457.95
+vehicles = 3
+
+[instances.200.lr2_2_7]
+distance = 3098.35
+vehicles = 3
+
+[instances.200.lr2_2_8]
+distance = 2449.36
+vehicles = 2
+
+[instances.200.lr2_2_9]
+distance = 3922.11
+vehicles = 3
+
+[instances.200.lrc1_2_1]
+distance = 3606.06
+vehicles = 19
+
+[instances.200.lrc1_2_10]
+distance = 2928.9
+vehicles = 12
+
+[instances.200.lrc1_2_2]
+distance = 3671.02
+vehicles = 15
+
+[instances.200.lrc1_2_3]
+distance = 3154.92
+vehicles = 13
+
+[instances.200.lrc1_2_4]
+distance = 2631.82
+vehicles = 10
+
+[instances.200.lrc1_2_5]
+distance = 3715.81
+vehicles = 16
+
+[instances.200.lrc1_2_6]
+distance = 3572.16
+vehicles = 16
+
+[instances.200.lrc1_2_7]
+distance = 3666.34
+vehicles = 14
+
+[instances.200.lrc1_2_8]
+distance = 3145.74
+vehicles = 13
+
+[instances.200.lrc1_2_9]
+distance = 3157.34
+vehicles = 13
+
+[instances.200.lrc2_2_1]
+distance = 3595.18
+vehicles = 6
+
+[instances.200.lrc2_2_10]
+distance = 2437.88
+vehicles = 3
+
+[instances.200.lrc2_2_2]
+distance = 3158.25
+vehicles = 5
+
+[instances.200.lrc2_2_3]
+distance = 2881.99
+vehicles = 4
+
+[instances.200.lrc2_2_4]
+distance = 2835.4
+vehicles = 3
+
+[instances.200.lrc2_2_5]
+distance = 2776.93
+vehicles = 5
+
+[instances.200.lrc2_2_6]
+distance = 2707.96
+vehicles = 5
+
+[instances.200.lrc2_2_7]
+distance = 3010.68
+vehicles = 4
+
+[instances.200.lrc2_2_8]
+distance = 2399.89
+vehicles = 4
+
+[instances.200.lrc2_2_9]
+distance = 2208.49
+vehicles = 4
+
+[instances.400.lc1_4_1]
+distance = 7152.06
+vehicles = 40
+
+[instances.400.lc1_4_10]
+distance = 7850.22
+vehicles = 34
+
+[instances.400.lc1_4_2]
+distance = 8007.79
+vehicles = 38
+
+[instances.400.lc1_4_3]
+distance = 8678.23
+vehicles = 32
+
+[instances.400.lc1_4_4]
+distance = 6451.68
+vehicles = 30
+
+[instances.400.lc1_4_5]
+distance = 7150.0
+vehicles = 40
+
+[instances.400.lc1_4_6]
+distance = 7154.02
+vehicles = 40
+
+[instances.400.lc1_4_7]
+distance = 7149.43
+vehicles = 40
+
+[instances.400.lc1_4_8]
+distance = 8305.42
+vehicles = 38
+
+[instances.400.lc1_4_9]
+distance = 7451.2
+vehicles = 36
+
+[instances.400.lc2_4_1]
+distance = 4116.33
+vehicles = 12
+
+[instances.400.lc2_4_10]
+distance = 3828.44
+vehicles = 12
+
+[instances.400.lc2_4_2]
+distance = 4144.29
+vehicles = 12
+
+[instances.400.lc2_4_3]
+distance = 4401.08
+vehicles = 12
+
+[instances.400.lc2_4_4]
+distance = 3743.95
+vehicles = 12
+
+[instances.400.lc2_4_5]
+distance = 4030.63
+vehicles = 12
+
+[instances.400.lc2_4_6]
+distance = 3900.29
+vehicles = 12
+
+[instances.400.lc2_4_7]
+distance = 3962.51
+vehicles = 12
+
+[instances.400.lc2_4_8]
+distance = 3844.45
+vehicles = 12
+
+[instances.400.lc2_4_9]
+distance = 4188.93
+vehicles = 12
+
+[instances.400.lr1_4_1]
+distance = 10639.75
+vehicles = 40
+
+[instances.400.lr1_4_10]
+distance = 8192.65
+vehicles = 20
+
+[instances.400.lr1_4_2]
+distance = 11009.51
+vehicles = 30
+
+[instances.400.lr1_4_3]
+distance = 9245.48
+vehicles = 22
+
+[instances.400.lr1_4_4]
+distance = 7007.9
+vehicles = 15
+
+[instances.400.lr1_4_5]
+distance = 11374.06
+vehicles = 28
+
+[instances.400.lr1_4_6]
+distance = 11334.11
+vehicles = 23
+
+[instances.400.lr1_4_7]
+distance = 8675.36
+vehicles = 18
+
+[instances.400.lr1_4_8]
+distance = 6164.82
+vehicles = 13
+
+[instances.400.lr1_4_9]
+distance = 9859.47
+vehicles = 24
+
+[instances.400.lr2_4_1]
+distance = 9726.88
+vehicles = 8
+
+[instances.400.lr2_4_10]
+distance = 7596.62
+vehicles = 5
+
+[instances.400.lr2_4_2]
+distance = 9405.4
+vehicles = 7
+
+[instances.400.lr2_4_3]
+distance = 10176.94
+vehicles = 5
+
+[instances.400.lr2_4_4]
+distance = 6201.84
+vehicles = 4
+
+[instances.400.lr2_4_5]
+distance = 9894.46
+vehicles = 6
+
+[instances.400.lr2_4_6]
+distance = 8946.91
+vehicles = 5
+
+[instances.400.lr2_4_7]
+distance = 7993.16
+vehicles = 4
+
+[instances.400.lr2_4_8]
+distance = 5260.42
+vehicles = 4
+
+[instances.400.lr2_4_9]
+distance = 7926.07
+vehicles = 6
+
+[instances.400.lrc1_4_1]
+distance = 9124.52
+vehicles = 36
+
+[instances.400.lrc1_4_10]
+distance = 7064.36
+vehicles = 23
+
+[instances.400.lrc1_4_2]
+distance = 8346.06
+vehicles = 31
+
+[instances.400.lrc1_4_3]
+distance = 7805.16
+vehicles = 24
+
+[instances.400.lrc1_4_4]
+distance = 5803.31
+vehicles = 19
+
+[instances.400.lrc1_4_5]
+distance = 8847.4
+vehicles = 32
+
+[instances.400.lrc1_4_6]
+distance = 8394.47
+vehicles = 30
+
+[instances.400.lrc1_4_7]
+distance = 8037.87
+vehicles = 28
+
+[instances.400.lrc1_4_8]
+distance = 7930.15
+vehicles = 26
+
+[instances.400.lrc1_4_9]
+distance = 8004.24
+vehicles = 25
+
+[instances.400.lrc2_4_1]
+distance = 9738.95
+vehicles = 11
+
+[instances.400.lrc2_4_10]
+distance = 5395.71
+vehicles = 6
+
+[instances.400.lrc2_4_2]
+distance = 7159.95
+vehicles = 10
+
+[instances.400.lrc2_4_3]
+distance = 6426.47
+vehicles = 8
+
+[instances.400.lrc2_4_4]
+distance = 5238.77
+vehicles = 5
+
+[instances.400.lrc2_4_5]
+distance = 7309.54
+vehicles = 10
+
+[instances.400.lrc2_4_6]
+distance = 6337.08
+vehicles = 9
+
+[instances.400.lrc2_4_7]
+distance = 6292.23
+vehicles = 8
+
+[instances.400.lrc2_4_8]
+distance = 5767.72
+vehicles = 7
+
+[instances.400.lrc2_4_9]
+distance = 6272.92
+vehicles = 6
+
+[instances.600.lc1_6_1]
+distance = 14095.64
+vehicles = 60
+
+[instances.600.lc1_6_10]
+distance = 15432.55
+vehicles = 51
+
+[instances.600.lc1_6_2]
+distance = 15048.16
+vehicles = 57
+
+[instances.600.lc1_6_3]
+distance = 14874.68
+vehicles = 49
+
+[instances.600.lc1_6_4]
+distance = 13300.55
+vehicles = 47
+
+[instances.600.lc1_6_5]
+distance = 14086.3
+vehicles = 60
+
+[instances.600.lc1_6_6]
+distance = 14090.79
+vehicles = 60
+
+[instances.600.lc1_6_7]
+distance = 14083.76
+vehicles = 60
+
+[instances.600.lc1_6_8]
+distance = 14880.7
+vehicles = 58
+
+[instances.600.lc1_6_9]
+distance = 15207.58
+vehicles = 53
+
+[instances.600.lc2_6_1]
+distance = 7977.98
+vehicles = 19
+
+[instances.600.lc2_6_10]
+distance = 7946.6
+vehicles = 17
+
+[instances.600.lc2_6_2]
+distance = 9900.48
+vehicles = 18
+
+[instances.600.lc2_6_3]
+distance = 8512.94
+vehicles = 17
+
+[instances.600.lc2_6_4]
+distance = 7860.38
+vehicles = 17
+
+[instances.600.lc2_6_5]
+distance = 9051.53
+vehicles = 18
+
+[instances.600.lc2_6_6]
+distance = 8775.55
+vehicles = 18
+
+[instances.600.lc2_6_7]
+distance = 9376.58
+vehicles = 18
+
+[instances.600.lc2_6_8]
+distance = 7579.93
+vehicles = 18
+
+[instances.600.lc2_6_9]
+distance = 8714.22
+vehicles = 18
+
+[instances.600.lr1_6_1]
+distance = 22821.65
+vehicles = 59
+
+[instances.600.lr1_6_10]
+distance = 19298.25
+vehicles = 25
+
+[instances.600.lr1_6_2]
+distance = 20137.22
+vehicles = 45
+
+[instances.600.lr1_6_3]
+distance = 17846.17
+vehicles = 37
+
+[instances.600.lr1_6_4]
+distance = 13127.56
+vehicles = 28
+
+[instances.600.lr1_6_5]
+distance = 23623.52
+vehicles = 37
+
+[instances.600.lr1_6_6]
+distance = 23084.5
+vehicles = 30
+
+[instances.600.lr1_6_7]
+distance = 16963.37
+vehicles = 24
+
+[instances.600.lr1_6_8]
+distance = 11917.7
+vehicles = 18
+
+[instances.600.lr1_6_9]
+distance = 21835.87
+vehicles = 31
+
+[instances.600.lr2_6_1]
+distance = 21759.33
+vehicles = 11
+
+[instances.600.lr2_6_10]
+distance = 16390.64
+vehicles = 7
+
+[instances.600.lr2_6_2]
+distance = 21289.7
+vehicles = 9
+
+[instances.600.lr2_6_3]
+distance = 17480.06
+vehicles = 7
+
+[instances.600.lr2_6_4]
+distance = 10639.08
+vehicles = 6
+
+[instances.600.lr2_6_5]
+distance = 22625.89
+vehicles = 8
+
+[instances.600.lr2_6_6]
+distance = 19099.49
+vehicles = 7
+
+[instances.600.lr2_6_7]
+distance = 14645.32
+vehicles = 6
+
+[instances.600.lr2_6_8]
+distance = 12341.9
+vehicles = 4
+
+[instances.600.lr2_6_9]
+distance = 18259.2
+vehicles = 8
+
+[instances.600.lrc1_6_1]
+distance = 18288.9
+vehicles = 52
+
+[instances.600.lrc1_6_10]
+distance = 13963.66
+vehicles = 29
+
+[instances.600.lrc1_6_2]
+distance = 16515.41
+vehicles = 43
+
+[instances.600.lrc1_6_3]
+distance = 13975.98
+vehicles = 36
+
+[instances.600.lrc1_6_4]
+distance = 10800.44
+vehicles = 25
+
+[instances.600.lrc1_6_5]
+distance = 17463.94
+vehicles = 45
+
+[instances.600.lrc1_6_6]
+distance = 19025.36
+vehicles = 41
+
+[instances.600.lrc1_6_7]
+distance = 15914.85
+vehicles = 37
+
+[instances.600.lrc1_6_8]
+distance = 15317.63
+vehicles = 33
+
+[instances.600.lrc1_6_9]
+distance = 15344.64
+vehicles = 33
+
+[instances.600.lrc2_6_1]
+distance = 14578.92
+vehicles = 16
+
+[instances.600.lrc2_6_10]
+distance = 13054.5
+vehicles = 7
+
+[instances.600.lrc2_6_2]
+distance = 13850.22
+vehicles = 13
+
+[instances.600.lrc2_6_3]
+distance = 12432.91
+vehicles = 10
+
+[instances.600.lrc2_6_4]
+distance = 9833.92
+vehicles = 7
+
+[instances.600.lrc2_6_5]
+distance = 14380.37
+vehicles = 13
+
+[instances.600.lrc2_6_6]
+distance = 14962.08
+vehicles = 12
+
+[instances.600.lrc2_6_7]
+distance = 14094.26
+vehicles = 10
+
+[instances.600.lrc2_6_8]
+distance = 13179.58
+vehicles = 9
+
+[instances.600.lrc2_6_9]
+distance = 16309.78
+vehicles = 8
+
+[instances.800.lc1_8_1]
+distance = 25184.38
+vehicles = 80
+
+[instances.800.lc1_8_10]
+distance = 27099.59
+vehicles = 68
+
+[instances.800.lc1_8_2]
+distance = 29735.85
+vehicles = 76
+
+[instances.800.lc1_8_3]
+distance = 27287.8
+vehicles = 62
+
+[instances.800.lc1_8_4]
+distance = 22686.08
+vehicles = 59
+
+[instances.800.lc1_8_5]
+distance = 25211.22
+vehicles = 80
+
+[instances.800.lc1_8_6]
+distance = 25164.25
+vehicles = 80
+
+[instances.800.lc1_8_7]
+distance = 25158.38
+vehicles = 80
+
+[instances.800.lc1_8_8]
+distance = 26688.17
+vehicles = 77
+
+[instances.800.lc1_8_9]
+distance = 26975.61
+vehicles = 71
+
+[instances.800.lc2_8_1]
+distance = 11687.06
+vehicles = 24
+
+[instances.800.lc2_8_10]
+distance = 12226.42
+vehicles = 23
+
+[instances.800.lc2_8_2]
+distance = 13713.13
+vehicles = 24
+
+[instances.800.lc2_8_3]
+distance = 12981.37
+vehicles = 24
+
+[instances.800.lc2_8_4]
+distance = 12917.34
+vehicles = 23
+
+[instances.800.lc2_8_5]
+distance = 12298.33
+vehicles = 25
+
+[instances.800.lc2_8_6]
+distance = 12645.71
+vehicles = 24
+
+[instances.800.lc2_8_7]
+distance = 14041.47
+vehicles = 24
+
+[instances.800.lc2_8_8]
+distance = 12924.1
+vehicles = 23
+
+[instances.800.lc2_8_9]
+distance = 11629.41
+vehicles = 24
+
+[instances.800.lr1_8_1]
+distance = 39291.32
+vehicles = 80
+
+[instances.800.lr1_8_10]
+distance = 31091.07
+vehicles = 30
+
+[instances.800.lr1_8_2]
+distance = 34071.19
+vehicles = 59
+
+[instances.800.lr1_8_3]
+distance = 29223.1
+vehicles = 44
+
+[instances.800.lr1_8_4]
+distance = 20675.7
+vehicles = 25
+
+[instances.800.lr1_8_5]
+distance = 39809.68
+vehicles = 48
+
+[instances.800.lr1_8_6]
+distance = 36244.9
+vehicles = 38
+
+[instances.800.lr1_8_7]
+distance = 27078.09
+vehicles = 30
+
+[instances.800.lr1_8_8]
+distance = 20705.45
+vehicles = 19
+
+[instances.800.lr1_8_9]
+distance = 38499.0
+vehicles = 39
+
+[instances.800.lr2_8_1]
+distance = 41873.12
+vehicles = 14
+
+[instances.800.lr2_8_10]
+distance = 30136.86
+vehicles = 8
+
+[instances.800.lr2_8_2]
+distance = 36549.69
+vehicles = 11
+
+[instances.800.lr2_8_3]
+distance = 26391.07
+vehicles = 9
+
+[instances.800.lr2_8_4]
+distance = 20618.03
+vehicles = 6
+
+[instances.800.lr2_8_5]
+distance = 34816.5
+vehicles = 11
+
+[instances.800.lr2_8_6]
+distance = 28814.65
+vehicles = 9
+
+[instances.800.lr2_8_7]
+distance = 25502.39
+vehicles = 7
+
+[instances.800.lr2_8_8]
+distance = 18327.23
+vehicles = 5
+
+[instances.800.lr2_8_9]
+distance = 30515.5
+vehicles = 10
+
+[instances.800.lrc1_8_1]
+distance = 32252.28
+vehicles = 66
+
+[instances.800.lrc1_8_10]
+distance = 24622.59
+vehicles = 39
+
+[instances.800.lrc1_8_2]
+distance = 27878.89
+vehicles = 56
+
+[instances.800.lrc1_8_3]
+distance = 24371.95
+vehicles = 48
+
+[instances.800.lrc1_8_4]
+distance = 18208.51
+vehicles = 34
+
+[instances.800.lrc1_8_5]
+distance = 31169.16
+vehicles = 58
+
+[instances.800.lrc1_8_6]
+distance = 28961.66
+vehicles = 54
+
+[instances.800.lrc1_8_7]
+distance = 28768.4
+vehicles = 50
+
+[instances.800.lrc1_8_8]
+distance = 26902.93
+vehicles = 44
+
+[instances.800.lrc1_8_9]
+distance = 24854.96
+vehicles = 44
+
+[instances.800.lrc2_8_1]
+distance = 23074.22
+vehicles = 20
+
+[instances.800.lrc2_8_10]
+distance = 19604.12
+vehicles = 9
+
+[instances.800.lrc2_8_2]
+distance = 22220.95
+vehicles = 17
+
+[instances.800.lrc2_8_3]
+distance = 20379.26
+vehicles = 14
+
+[instances.800.lrc2_8_4]
+distance = 14711.8
+vehicles = 11
+
+[instances.800.lrc2_8_5]
+distance = 23602.44
+vehicles = 16
+
+[instances.800.lrc2_8_6]
+distance = 22591.26
+vehicles = 15
+
+[instances.800.lrc2_8_7]
+distance = 25436.79
+vehicles = 13
+
+[instances.800.lrc2_8_8]
+distance = 22604.36
+vehicles = 11
+
+[instances.800.lrc2_8_9]
+distance = 22594.69
+vehicles = 10
+
+[source_pages.100]
+sha256 = "0098ff5e9d61eb2b352e29d52a315478617ed50723ffc7aaff6bdfd0d203ba2c"
+url = "https://www.sintef.no/projectweb/top/pdptw/100-customers/"
+
+[source_pages.1000]
+sha256 = "1969c381bc90309a7601a65eb2b1f81fb91d66e25386fa2c0cdfe88c1657a14d"
+url = "https://www.sintef.no/projectweb/top/pdptw/1000-customers/"
+
+[source_pages.200]
+sha256 = "690476981e72d7d5adc998c6457df8d0fb6ccd17ee6296c2c3a57d07238737f4"
+url = "https://www.sintef.no/projectweb/top/pdptw/200-customers/"
+
+[source_pages.400]
+sha256 = "02b206cc42c256883a8d3c183c1d656f411466731e40c7a5e16fb171c1aafc9c"
+url = "https://www.sintef.no/projectweb/top/pdptw/400-customers/"
+
+[source_pages.600]
+sha256 = "3205fff34b0f549a67c9199b8b6e75daf5f1b2afa72e552d037933b2d79a3c26"
+url = "https://www.sintef.no/projectweb/top/pdptw/600-customers/"
+
+[source_pages.800]
+sha256 = "3c3ec7f932dfce496fb0d7bc43bc56815b8af1def89c073f4e9b8dffe74d773a"
+url = "https://www.sintef.no/projectweb/top/pdptw/800-customers/"
+
+[instance_sha256]
+"100.lc101" = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+"100.lc102" = "923f2deac2af799d14ec56d64c9523286d0b2b2fa1a33e0394116931545ee6c7"
+"100.lc103" = "ea323d10ff4ce81fe4bd5e35b3de144d307291eb0cb75ce83d92691503ce0b04"
+"100.lc104" = "5ca7f0ac37517b88808e2a512f8e91cc446dec0cdc8c4db2adb7a0cafc301308"
+"100.lc105" = "5672faf6ca2d1b5a65851ad5b1f153e31ebd8b93ae751094d6ee5fb7c47c41d8"
+"100.lc106" = "1a335c03d9d184c0d2d3d1ee9f493eaff2506abe2afc0699183683ab9a25da35"
+"100.lc107" = "33a24c996fa65eadd22a9bc0031545e9ab50b7eb10b43c9f10b8aac4d9ae28a0"
+"100.lc108" = "02c9bc9a57c5b87ed8145371070ac71f10864bb6769d15174b098b63c2abc9bb"
+"100.lc109" = "42788d3c95ca96f5776b7714113b1db61b22dadbf95bbc5c8e1d900887f4b79e"
+"100.lc201" = "35566e18d81f5eae236406e54f6af1c8a843d5ad8e9ecf6031a7728b3ed7ac76"
+"100.lc202" = "ce68f1430ec809433d33f67638ad9a546198bd961a345f9d3213250a7ab8f41a"
+"100.lc203" = "345df1365b25241a4939273498c80648826f5d2dbc9fcf33c5ab28e47d71e4c6"
+"100.lc204" = "f327822117e558143c5bc5c751eeaf998e3d9df5aa676fe12c95a0d126deb9d2"
+"100.lc205" = "628258b25c1fe92eb9487b4d060b7cf87f74fe87c39e657a57783de2ba578429"
+"100.lc206" = "8ef7230e9bb483963b286f6d6149f2b99c2f0b4c63cba2789d9b42d019d6e8f7"
+"100.lc207" = "f3e6ae50ba2139a67ce860a8eff2e04c8f1c228b692103f451f26706efead084"
+"100.lc208" = "771a287315713f912f1140345e7c167e0ca8322e49ebfd82c795ba474ea3b4f4"
+"100.lr101" = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+"100.lr102" = "241426304e619c69ad19c1355f2146db04868387d46cb353b1c953590d8b6e8f"
+"100.lr103" = "a6a8a6db7f88a4a8ccdcf93b583b840ca94744e03e88f0e6d380d40c4b3ca343"
+"100.lr104" = "b56575448afab9d4ccacfbc62f2d397fbcb495241991b0e4ea47e800aa9c43e7"
+"100.lr105" = "24a0c50f150279d6479d34a85c223dd146445e69f242d8fea0102f27a960aab1"
+"100.lr106" = "d962cccc1e2065d3eaf1dbfe7d7c2c7dfd4404bc226a5413f4962243128f592a"
+"100.lr107" = "c24e453558b76a8326772b7bb2dc150a5e33ee2b0116fbd828d67bf867ef2ff4"
+"100.lr108" = "f89e773f2a3ea7a6e4312aba8c2cd7d3054faf51f74048852a3f8f308d291933"
+"100.lr109" = "914542dd138424a4f2181dc1b0ed30a913081d0b30b54f321bb85d5fc93293f3"
+"100.lr110" = "37f7c9fa250958697bbb4ffe08e69a62cc159670df72c4f64233d79facce6685"
+"100.lr111" = "893a47fabb3ca01742c051360dac16641e89cef3d32718cdd31e856d72f475ca"
+"100.lr112" = "01f5f1dd8c2128b5ec978af1a600bb9d4c1204da90f75f400eb287acd30661f9"
+"100.lr201" = "dfd2bdb9f83e0aab83455e29643f41f903b407a03be793a6c5c0233fcc5fcea3"
+"100.lr202" = "5472ec42c53fbea081a7faddd24fa5aa8cd515e4323f30b4dd4f898930f0e10b"
+"100.lr203" = "d618b7c690ce4f5165d6b5f7b7b61fdb5a9bd93fd038e5b989b9d9d25e55717b"
+"100.lr204" = "df5fde77a771ddde8aa3b2d82a9546482b7800c9c32a74ee5701c285a3a5de27"
+"100.lr205" = "570d69d137eee5cfa56ecccb80c4d000e651511659a21ceaac3476fbc1062bba"
+"100.lr206" = "003418581541162bc17b998e5dd5b1f025ad09244b8f8e3f082d1c01201e49e3"
+"100.lr207" = "e78b1ed0719adfff8ed603f7dc8c0d966d92c408f2827903c7dcfe92be2c1801"
+"100.lr208" = "8f754ffc7a43b8e0944a955cecb2782f2677b9b2ca974bc4492948b33e0f93b4"
+"100.lr209" = "6d26ec72e1d5ef7ead44abdf5e6066a57d32236b62190205da46af2146d629bd"
+"100.lr210" = "e1f1412b7411a528b93dc4bd5558c51612df40ea37fef8308f2c56f076b141b5"
+"100.lr211" = "e67338506ac56a7b24426983f7f8b7209d200c3079ea6e2442cde3044d81fc1f"
+"100.lrc101" = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+"100.lrc102" = "8d55e6ab37092838f55f872277d4baf687c10411bf0cf27c6dc33f449ffd6132"
+"100.lrc103" = "3ebed18c06924301ca0eb8c56a85c09ad654425dd6517a756966db60b2ce10cf"
+"100.lrc104" = "e5c59f119ae45137627b316f1d2721807c62c315f0624ad8bb68418a124ac8ac"
+"100.lrc105" = "b8cf34cf138d703b43cd57f0e471606b29fec117e7394221d23f1c7d6f9e7e87"
+"100.lrc106" = "51fcdadadb1743ccc9e9a7916de317a422409a777e0fc2a2580650d74cd4447d"
+"100.lrc107" = "44a11a3b22af420dcb22bf2068f722e7bca1bbc54ea16fdf73976e3c92720e94"
+"100.lrc108" = "77f3964851965ea281fa416986d62b509b427ff95776ab38a8ac1b2481789e66"
+"100.lrc201" = "63d31ea3c5f1ad30ec6f9a3486f831608322a745960ffd86dce5026b23114499"
+"100.lrc202" = "0f1d85c9bb037604d84ca6a0547bba85ca9b4aa52ca2e8425a3da687d4907ed7"
+"100.lrc203" = "c5ef42186fad470505e8150557caf797f6405432a7759190b39c58595a3d9345"
+"100.lrc204" = "6b71fcc37574c6fdf0abaad9537494a9b8d654d70f817867e8b3dc7f412e184d"
+"100.lrc205" = "90f2dc4abf17a5502a100c69c8359a44db59c7efafba3177ebc8c20e7cca039a"
+"100.lrc206" = "4bf2a20602dd1df96ebac083c586911a03b0bd9bed1105c9d576c4003e6a9aeb"
+"100.lrc207" = "1b6f9dd95780f5b19b01376f3ebf0487e9cc135e7a436d1d6d8004193fc33b86"
+"100.lrc208" = "60a20f42a2f218bec33278d2325b6c9991bac99728ee640187128cf3290f4985"
+"200.lc1_2_1" = "94b48505d6965a9ded7937f095ebf6f54d13748b79d24fe4c3517ea1d7fa5380"
+"200.lc1_2_10" = "890df467c000a299e1bd59f954d66ffa7f49de01188c6d109007bda097c5bf1b"
+"200.lc1_2_2" = "7bce62d6153b5baaa48ec313ec05e34a68d0dbe981924e2fb631de0c1fd806ee"
+"200.lc1_2_3" = "429fc4446d784104883534f453810ea034f13f4eeed6af065521a3f970a29901"
+"200.lc1_2_4" = "ec1727323e8950d10bdb9a4214dd9e0d207436e2506e5acb2b0b2df78e5751b0"
+"200.lc1_2_5" = "082199b158c37229ea279ce36a0fdf808f71b16a2e1458caf727d9cc813229b2"
+"200.lc1_2_6" = "82fb9825f132c3256d0537578cebda2acea0de27470d6854e12262cd9cb9c3f0"
+"200.lc1_2_7" = "e7f90ca7fe1dd9caed1c86f91771f7b733ac8072407555c279153b21406b4d8b"
+"200.lc1_2_8" = "ad306b7ee7f8704b5b3d530cd9aea8ceb8a8e161e980f38fed065e26340b2649"
+"200.lc1_2_9" = "bd3b06f3a46967d9c8fd42df8de5f90cc0cf6744aaaf1e91a7e80d3607a9d8f4"
+"200.lc2_2_1" = "4381ee3e71341254fb192f8e532fb02a2e9237ac44b95c097613590d84b8ed33"
+"200.lc2_2_10" = "99ad6b66cfb90b72cdaa91d826671eebb605f509317654ee350cdbae4078dfff"
+"200.lc2_2_2" = "0323dd57a8e2824071b12d09c09a6ba6db00cbdcd8ac2290704ff4f2b2fdfb71"
+"200.lc2_2_3" = "57a0dd6ec0dbcc4ea0d3f62a99b7c13cd58d42adf21069b6aec8112d921b329d"
+"200.lc2_2_4" = "07a3b83f1b96314fc511da87137fb41a8f88544003cf013621574089a2bf7a8c"
+"200.lc2_2_5" = "d649d40304414c8b26811724bf1e4c6dfaf1359b11b442133871a436b3d10ab0"
+"200.lc2_2_6" = "f970d84b15e800c72409c959c0afeedd70d06f5ccc9d2362843da3e3512c0226"
+"200.lc2_2_7" = "aa92c6fd724c04c614108f8c02b4a2dcba27a918b3c826f0004543bd7ca8ec36"
+"200.lc2_2_8" = "4411cc240aea52899d0f9afc86d838d0d357d2bc7c5cf6eedcc4a6c41930c217"
+"200.lc2_2_9" = "39f70be61f061d10134acaac77c458e65034218ce70c80952448a48aaa16909d"
+"200.lr1_2_1" = "d160f84ac28688746635b1bec1a2e7a7451cf1100f6d8ba73dd9fdb724edf951"
+"200.lr1_2_10" = "4f2255dcca3a963050442704395951ecb0fd1d97d2c8246a1df0288d79847baa"
+"200.lr1_2_2" = "dfad2e8605931e7d1d0a6f4e273130ad7052b76f1ece80a63c63735939383d16"
+"200.lr1_2_3" = "f47f592292b0ee68c3498011141ea75f5695842c18958581ce19da0a50e9dc2d"
+"200.lr1_2_4" = "34f402bbe0856612d4010f422a92aae3f84e4a43b459acb61adf1911addca75c"
+"200.lr1_2_5" = "d17637be274165a31dc751e4dd53373d72015e94a9e1489ae6802c3bcae7fbc1"
+"200.lr1_2_6" = "38c6161c18deae8061f3fa95ea9368fa0706687abb6854892d931f8d7c63ea06"
+"200.lr1_2_7" = "c744364a19b11821592288ea502f0503fa131623bd31a06466623764ca3eca8f"
+"200.lr1_2_8" = "6fb83427c7f96e3c443d3f8d476809eb67732fdd341f49260e87e788051b3d2d"
+"200.lr1_2_9" = "22f15d88cae6994cd13bcaf81042f270df231197cba0cbd7e62dcffde11954b6"
+"200.lr2_2_1" = "0c516ffd3a8aecd98d78e2fc21c842c888a6c116dd76647860bd062d459b579e"
+"200.lr2_2_10" = "61ce783ce92f650f11314091e98bd8d3177f091dd048c670b1525c90d0808919"
+"200.lr2_2_2" = "ecf65b1f4ad0518e34f2c204c4c323440152a00754ecbde91f81b22acbccf972"
+"200.lr2_2_3" = "2eb676d9774670474b1082f5080cb096a93db5c64b6e1eb664ed5ac9609c0623"
+"200.lr2_2_4" = "cb1c23afd92af1b66d9a0f2c5f6545d06077b20d83411716fd20c26293ae3465"
+"200.lr2_2_5" = "0c43202256e2874893c094dd8da738f42c47d9b0a78122144fe2ef2a7805bcf0"
+"200.lr2_2_6" = "f69f636879a32299f023018ac874b1add804275e668e8d3ddad1ea2826be7c59"
+"200.lr2_2_7" = "70606e1e56bed6f20139d3c06441e496d54cc7dc4a1d226f29ad154d344681dd"
+"200.lr2_2_8" = "66e19a1ca0bef67ac3c9de5e82841e71867c122db3645a7777c10831e6ced42e"
+"200.lr2_2_9" = "0c9cdf56652550049df6992c379ee14148bd173eeec85991ffd22164f7fdedbc"
+"200.lrc1_2_1" = "c84c1b5144be68771901452efb4980200dc38afafbbfd33c907fc01ccf9ff773"
+"200.lrc1_2_10" = "79e76ace23bccf5f20ffa25a2b877b5dd95efddd68af268c30a1d2afb581af33"
+"200.lrc1_2_2" = "e0bbcce67bc5b7c103a6595712ac1ba62447520ae4b2990abae9aaeb318913e3"
+"200.lrc1_2_3" = "c0f0573d7678ec8688f9fa496b34589043df436ab12f246e30dd864f18a1d855"
+"200.lrc1_2_4" = "e4b3c8dd38fe7056eb7dbfba02f446a9cc3807a8479f83c45709b20f2d4092ea"
+"200.lrc1_2_5" = "553e0da416304b90b3aa512a8b7d394dc29f4f6fd60c4d979513c29099e26fa8"
+"200.lrc1_2_6" = "eea15a5822babdb082f2103973e952169b30122bd46c06a39133e4876bc3b57c"
+"200.lrc1_2_7" = "aaebb9bd7c65e1ca334b3c14c3db7ea9cca58834a0258e3b3988d75b06f65382"
+"200.lrc1_2_8" = "80de865ac8eca66cec173fd5931d56e3f61fd36302ac14f0d0422298b31b6f60"
+"200.lrc1_2_9" = "f5ba96b63920b81eb67c10c4cddf981814faaa3151a5b065eb8c1eca1a3efb46"
+"200.lrc2_2_1" = "d42bcd388a7d1962dd150b04b59ab41e3fd76ccb29fc05a19f4b7204f19290fe"
+"200.lrc2_2_10" = "d55cc97a53d18e94e2e6bb9b80c38d84cf68795d09f72e3c4cb228a5ab2f827e"
+"200.lrc2_2_2" = "53116141afd2aa4f47499f6202e8bc069cb55b501679901620bc4e8657ec9540"
+"200.lrc2_2_3" = "f1bc76c8ef38c44849cd8e91af515dd0ffca2d9b5571099ece25fbaa0891eed1"
+"200.lrc2_2_4" = "906282749c2e7828280e116bf5245d6bf228c513a658317a2553467aa86e8774"
+"200.lrc2_2_5" = "df24e30d34f6057b2d2b05e8b0e78e4b1fc3fe648159a6ead7ada53b8c65538d"
+"200.lrc2_2_6" = "c3d0018e28ef13b434b8846799d2cf7dd0dd0a3bb7016cd8b04bb6f2c2f0c6f7"
+"200.lrc2_2_7" = "c74f4e5a181edc29a47a14500fc61fe8da39a6cc7f72520ce10da49896cc5d80"
+"200.lrc2_2_8" = "9828bfa41e35a5af9ddef040b66ce7b5a0aef571e8a6ea137f729638d9cc3919"
+"200.lrc2_2_9" = "8a60ec56f11e842e1f7bef233f047b1daf799b2bb482dd5bebb5adab82560407"
+"400.lc1_4_1" = "a95bddfebbea84129f269faf441ef12d0e78d979146d95f9dd9b057ae8b1ea4c"
+"400.lc1_4_10" = "cfcd3e16439b0d63b59f149808eebe788d235d981c33d1244b62a88be2f18f9b"
+"400.lc1_4_2" = "15d86fed3b674fd3bf25dd44cef53a184304ce5df099bc8adfdc1ea083651137"
+"400.lc1_4_3" = "93073af9d7888caeca26c52f552587da66b61701741616c5c40a6559dff7be2f"
+"400.lc1_4_4" = "aec8c03e1686fb1d454d5377199525527700bf827e228d9247360f75369d0b74"
+"400.lc1_4_5" = "cabfdea020979d31028c59a6b1a1d96d16d5782bd7a1545aeb30339f2874153d"
+"400.lc1_4_6" = "ad2874d2e8743b804dffc59f795cf56b9f6a09b931881378ae7d863aaa1c4b1c"
+"400.lc1_4_7" = "4485cbd5ac7070ccc79fa52e3fdfb3f643a205dd7a49f8e34a5cd458d6e5f4e7"
+"400.lc1_4_8" = "317df6d2e7cd23ebddc44b2f9a7daab5905888735ad92653f5f94919d9e26b34"
+"400.lc1_4_9" = "bb8c23a2725f774266f5d5e9984e8c47d3589221af91cb24cbca8421b2ad1992"
+"400.lc2_4_1" = "6cefc70dd5ddb52cfb069ec9782ca5f501a6a52e0c37cc74236e49ab4663554c"
+"400.lc2_4_10" = "749dd66af4e693a78d8e9729135965f21b2107c55e6eff7b955afd15a3c426fa"
+"400.lc2_4_2" = "0333fab744a8dd1b3c50dfcafbd7eb88d942142d27b9b35e9047393b45c9d0dd"
+"400.lc2_4_3" = "630fa99c053b7e13af6fd84ce2c0553c2445b751981843ed540372b9c961423c"
+"400.lc2_4_4" = "80942f6dc23304848738a9e80390320d3a82273808a4efe0d5566f29ffee208b"
+"400.lc2_4_5" = "f5ce4ac612eb6ee53c87b80738c81ba54d8373cace03e7e86f3519127fe8bdbe"
+"400.lc2_4_6" = "57412cef42af13d8d027635511e61c96bcf47af0c3c1914161a0cfe87926a490"
+"400.lc2_4_7" = "d096a0da209a26bba4563aecc3f869e7582e9911c8fe01a50c133ceb72c01dbc"
+"400.lc2_4_8" = "403bc2c5610e356de272fe9e59e9a76de965030bcdb1415ad413be79360525b6"
+"400.lc2_4_9" = "d8843e045f0571c5b0eb5834d1282a89bd514f8622b4a0a304071beaff11298d"
+"400.lr1_4_1" = "3b9bf7b068ca6047a62a7a50bbe9e4d49b932152f090335dada27945dbe55d1b"
+"400.lr1_4_10" = "515fcc13d5cb7552eb596318177cfd44123c35307c70ea8249971e5de649028c"
+"400.lr1_4_2" = "390f731f053a42c7e4873aa64c329717f62cd04ace6cf2a27beca0b7b2ad35d2"
+"400.lr1_4_3" = "ddd839faba4b305a79a09487e2d8fc571acdfc58926252048a1eac1c766ec3d6"
+"400.lr1_4_4" = "9e5df55c5708912ea1751dc81b877febfdee2900d912ec7278f0767a982ab2da"
+"400.lr1_4_5" = "b17a401770a567e68b45ff930a6ec49f85add953b63b957cde54458bf6483a1f"
+"400.lr1_4_6" = "efa9fd0715059dc9bb25ce5f55048d1ce8b12a9f34c62093de0b4dcf7763ea12"
+"400.lr1_4_7" = "bc1689e62920681e4e4b6399b7284bd36e6a958ad6b0218a2df87852f9c8ed84"
+"400.lr1_4_8" = "ffc16738bd6846ea0834ef09b63b33cf6ca7a19af4ce674086fcfc651ce062f6"
+"400.lr1_4_9" = "093cfadd414f93e9c9f298a889dc06749eeb748d6ee14a23208657da87251569"
+"400.lr2_4_1" = "2de1e0cf44e55de6e2643ad19a7ae32f5dab6293890913d23e52b050edffad2d"
+"400.lr2_4_10" = "107b1d477151f8074a96b4c03ee81b1f1ee1501978ee537529186483d779d07b"
+"400.lr2_4_2" = "30685cb3b2f20463352000f24af8a1c3888086f1cb3279bf1fdf797001ea2796"
+"400.lr2_4_3" = "71460756e60e301a423bd4cc163332b8fc75a649e97bce8853fe1b1eef595290"
+"400.lr2_4_4" = "5c0f56c9a249ecde944ef1529520378f593a337d211c328814e872c06977a62a"
+"400.lr2_4_5" = "77c46a89a131946cad5acd961d8cd65ad4f96bf6bf7429c442a8558738d887ba"
+"400.lr2_4_6" = "04160e38023b37a118c42dc9e19d09d1b34d539d68e0ba990550954659795a30"
+"400.lr2_4_7" = "5244dc42775cd915c6431710ef7317557144c70750d4fd462262fc8134159dc2"
+"400.lr2_4_8" = "cc088726a447ca23005fa8d489e923d21bcc98d82f36c2c5e6e5eee084e09b03"
+"400.lr2_4_9" = "a93624ef2e18b49ab885f2f5caacacea005a8eba8f81a12bd421de2d4ecf75fb"
+"400.lrc1_4_1" = "a19b0d15898f132a17107bccf05a4b1aa568ae81924d0400fcfb0f80feecc88b"
+"400.lrc1_4_10" = "ddd5df1ba8dabc82540ff9e5da8b21d5ca57d668b2bd87a628058e6841737b69"
+"400.lrc1_4_2" = "635a57e596015e653eddc5f8f751a49dac1edf5f5f448f7e30937b61d4fff27c"
+"400.lrc1_4_3" = "111a9d2384f01e61391092eaad7b0855b3d9da2b947532085cbfea11bee0699b"
+"400.lrc1_4_4" = "1655ce44999af768b9baa4c4aa3cb0f5c514ff116c5277c38e7333b867d490ef"
+"400.lrc1_4_5" = "5f3a86455a111f07d768ab678bd5edbe7377944671f247f785236645a2e40360"
+"400.lrc1_4_6" = "c06ca0b6a03eff18286cc6c72ff2f51da355544c784bff27212720edd1adc417"
+"400.lrc1_4_7" = "462ef18efb430c6defe25b6d3b8afcb55c96238bea91466bfd381fc4b5d001c9"
+"400.lrc1_4_8" = "3b1160a206771cc47c447545a624d44afdbd6b12c2486fa69975341355691aa0"
+"400.lrc1_4_9" = "18e845d85535a39b79f1acec9afb11e7db0367b18a2a45926b5f6f55994784dc"
+"400.lrc2_4_1" = "9805a0a4245e468e337696480c8694a90af468475acac4178bff441187da5761"
+"400.lrc2_4_10" = "70421775ccc582e1daebd23390ea66d6ae72d03dcbc8e944e1d4f4e428423117"
+"400.lrc2_4_2" = "8ef6286ed16d7b223627933469783d7c5de778b28aad12a9c61601dce7779b7f"
+"400.lrc2_4_3" = "5d6ff33888429fafd369834421d05695089b68cb7240349cb41152e54f73bdab"
+"400.lrc2_4_4" = "7927afbbaf26fa84cc50ba0d3da0181fbac366b92217708f34c552069e01a462"
+"400.lrc2_4_5" = "7815850ede950e3cac867dc2791922be89e84775b284a0366f1b77446898b7bb"
+"400.lrc2_4_6" = "9578eca8ef389bad077307905c96cfba6206dcbb66d4e9417daa8dca5e0aea5f"
+"400.lrc2_4_7" = "0d02558de05056f7198d54b2e88c5b6feb7c2eb778dc95e20d9aff0b31b35da0"
+"400.lrc2_4_8" = "5f6815f6573a55b8110dbda3ef215af289cc624a2c9f2374f65ff0eeb2f11fcb"
+"400.lrc2_4_9" = "858180fd4342985a8f1c9dfb06b10170e8883baa3098140dc7d566dc5fe29d7b"
+"600.lc1_6_1" = "af2248b4db1f4a3f0b2d6baba6edabe6445efdad9ded0aee35ccbf3f57d5cc05"
+"600.lc1_6_10" = "62b89a7a76405ccb25224991bde93669ef212e99588bd0b5cfb6b22523306927"
+"600.lc1_6_2" = "82247e2f84ad77c709e5f7ceef735a45a3dda02dc9acc002e94c15d1b2a4bc0d"
+"600.lc1_6_3" = "a683d918257e4002d29d63313d5a1d92a78b62e591103e2da00243082804194b"
+"600.lc1_6_4" = "71d0b167c02d9a7513d7461735a761d5214f3d2c5617fb5c254d3c13ca580f81"
+"600.lc1_6_5" = "dd9b89e843643299513441a5a713a78b914b2c25505a8e88113f43c822dfd1fb"
+"600.lc1_6_6" = "0062ec95099bedbf8f7ab837dd3f8be398ed677fa373254253defe9f8b609360"
+"600.lc1_6_7" = "8095a620961c0056448f0aa625419d5a5ee6e22bc05408170790960ac40d18a3"
+"600.lc1_6_8" = "ff6c14b41025eda717744a4cd032c55c09d4316278d19ae85646d69824ecef95"
+"600.lc1_6_9" = "5174c545d94a4c723ea907ecabcbf44f0311b7dee5ecbd38af8f3f9f0d8f22e3"
+"600.lc2_6_1" = "27db70f79cd6e9f9e502e7338961bead122923afed9c23c87b36e91989023332"
+"600.lc2_6_10" = "6b6ed50dbb21f9ac1c64a75476d04fe33bd373adcded1589826c9524f1ff8022"
+"600.lc2_6_2" = "b2ce3e97d4466115cc92a888f15d99d37195b1db5d8d11ed4a5ca28be8f524a4"
+"600.lc2_6_3" = "2a6f892930598de52b5bbccb1e18f326fcb1aa5a35c5bac473bb47ac3ff8d169"
+"600.lc2_6_4" = "be42a5251bc5c6b181ce78176d1cc78424fc12ef74f7b34000411cd1710f40f4"
+"600.lc2_6_5" = "19e8debb15ffc61e80680e8a8f63375b1848efe572402f2e53aea8ef89abae50"
+"600.lc2_6_6" = "1f1146e1d8039a6ea7f25cebe0369676a6a24af8b34d2473c1533b9d3d22f617"
+"600.lc2_6_7" = "7554f720421bbf32dde93af8dba07084ddc1cd7bf46e044a02cba6a70f4e5460"
+"600.lc2_6_8" = "ec94528e866c1a4eebe06bb1281fa4e6a9d0277da2b7481eb17f0882628ef9bf"
+"600.lc2_6_9" = "7f359ca5868dc08c5f0659535f66447887d70a067023bb6f12df7e4df3a801de"
+"600.lr1_6_1" = "230724dbfef93a2a6f2fed323936c4157c4aa0f548084569a4a60456bc536f3e"
+"600.lr1_6_10" = "97355e85d1f080d1ea8dedc727a668b47e2dde2dddca65d18147d788daddba0d"
+"600.lr1_6_2" = "84984765cb9c25a7d15828f24ca4a10b6b9d0e7592188310f34f761d06f9ae57"
+"600.lr1_6_3" = "7f05bf493a211679e9cbcc7dadd074d9b104975e9d639b9b3f1be85080c2bb44"
+"600.lr1_6_4" = "338f02c1d2cbf3cae54b62b07afe899826bfffb22cf85a6d9fb1699012030d02"
+"600.lr1_6_5" = "995f10c2e63fab1df935318b3e9174dde1d8dfbc57253546ff1fe0824b4bcb9a"
+"600.lr1_6_6" = "25285c60a21fb94290a15c7c0e6ad56ab4782f4b04436c4fc86c802374990ee0"
+"600.lr1_6_7" = "c23505f5c2636ed35164b07f47312e08732f32dfff13f61477146e64b35c6f23"
+"600.lr1_6_8" = "8e0395b84f7555f8105325deb414ab7d20ea18a3a8cc199ec66f70f542735298"
+"600.lr1_6_9" = "ece900966edda79dc4b7dc5ac9e29919b6ce16a3f87f4120babbf113cd295495"
+"600.lr2_6_1" = "adbce0dc2de6f1102cdcc49b9e362c396dd32dbe0ca329a96f08079ef45e2244"
+"600.lr2_6_10" = "c8a370d8a71a798553bcfe0a49872e62344029c90173c364296a76fd97d09bdc"
+"600.lr2_6_2" = "3d42fbb16cb3986a3b34b42a4a42f8f1c37b4ca33e22c4fceaa6d1469a8f4d6d"
+"600.lr2_6_3" = "9884459130f69d7535e31f7b33492efdc10671b966d49b653e7a33166e0f29e5"
+"600.lr2_6_4" = "a7510222351f93be77518dcaba7b9aca95b478c3a41f3575daf6cbe79bcd5b42"
+"600.lr2_6_5" = "73fd420a4a61df1b5d1208106306e432aee40f5b566bc7b33dc2db7bb52193a9"
+"600.lr2_6_6" = "f456aa755465022369337cea9de79b0444eb7cc6528c529c1060eec255b812d5"
+"600.lr2_6_7" = "7d2315ea2a03e7dc8794388f0e531edc58be664db17cf4cd38426b817b435303"
+"600.lr2_6_8" = "c1924647839b1a1bbf820e1170792368ff201bf8453194cfcf266523b9114c20"
+"600.lr2_6_9" = "175c97bee00380860d3b5360b07fce6bbf1ffa4ab6638faa9135eed6df110b7d"
+"600.lrc1_6_1" = "338d7699bd50353a71e955f258d8e2e5777e5fcced5692a219603791530ec69e"
+"600.lrc1_6_10" = "1152a1bf49282f13ba77a216dee7c3e1ed788f73033d0b60d3196b73db87823a"
+"600.lrc1_6_2" = "e89541662524eb4143908399f1c80226675fb4c453ffc80032fd87955a804277"
+"600.lrc1_6_3" = "d910b5f02dc8121caed6f48b0e2de6ce7f5daa8907900f89659e05826d411a60"
+"600.lrc1_6_4" = "52b142a988f793d1756a0db2699eb79bf2a7c0278f6e5177f5b5188445748f83"
+"600.lrc1_6_5" = "8389fe7c9df97498ca9dda5ee4695302926e2caedda87486d41ccb9f715328db"
+"600.lrc1_6_6" = "62b7691e2d7b50b24ffa7d3e76c2c563c4bead75129fa7d877094eb6cd653a13"
+"600.lrc1_6_7" = "c7263f8fd315691a3595d3d1783e013a277901ab529b7a530bc045d4fe76a620"
+"600.lrc1_6_8" = "e629aaf832380eef48ee26eadc9aacf12b46c57f0ba2edae1af6e9a797f039fc"
+"600.lrc1_6_9" = "7592466b55e0335b058f9efb335cf820ad9d787dbd86405d82dc42dce6a857ea"
+"600.lrc2_6_1" = "267df6f66ee1e25f17782226436a7fffa2ed9d6f5c13f4cbc06e404c3caacb54"
+"600.lrc2_6_10" = "8c1810c34333bb2a3802c8a1fe2ec40d107bc59227fc8f039b4e40916507f4a1"
+"600.lrc2_6_2" = "56f3570597ebaed768f35e051de9538ecb2556d4a8e56d8525dba83dbb131a79"
+"600.lrc2_6_3" = "bec6f49424746400e9afd70f8e548ad9fee67cc23951b5266205a3631d29f0be"
+"600.lrc2_6_4" = "5fbac93795f113f58090e1109c755eccef9812f29fa39870388ae543114793fe"
+"600.lrc2_6_5" = "f6cf5314f692f01582122d1fdb819d9077ca3dad8aaf8e44cc233e0e60538efc"
+"600.lrc2_6_6" = "533e11d09e429a8f7fb7fd4daef567bef8a96aa91c9e4ebec0af7a224d4edd95"
+"600.lrc2_6_7" = "3c0645da75b16e3ceadb208a26f30fe3ad35a61b4116f6688e5d1025a43a7e62"
+"600.lrc2_6_8" = "53f12c57ee6948e2041bd4c27f44dc3962bbab112e3285af6700cab5e4cf4447"
+"600.lrc2_6_9" = "847aead012c080da0a1c4ac1469b1640c94dd7001232bf31ac31ad7c30dbc20a"
+"800.lc1_8_1" = "6e54b631f4991266c9f3767f62f33872364f5923192c4e8f895578ed7f128251"
+"800.lc1_8_10" = "00d88c4915f6783549cf4f6e53e261196a19ab64950353afc0fd1c8b0c0c192a"
+"800.lc1_8_2" = "71e3eb1b82becab9ace31eb9248cf429f8c76f29825b1dd98a633dcd406a4896"
+"800.lc1_8_3" = "1c6febdd01d04b1d23268a43dac8984bd2ff1f0877748f2d328896f81a2b8832"
+"800.lc1_8_4" = "ef6ac5499fd8e6ddbcb616a57232f27827c935de6f5330eafbfc1932fd6ee342"
+"800.lc1_8_5" = "09c05a74c986c6d40e2c1eedcd14b40ac696563217d5211ee0e58e1fc22b9a2a"
+"800.lc1_8_6" = "18b03d555019766a98ac7234d59b8820e0dc98234d44c4641b0254316b935340"
+"800.lc1_8_7" = "17921c95368169885bae5092b34f0b32bee280316093966d1371ed8e2b51ab6e"
+"800.lc1_8_8" = "994b9a99a0086395146c2cca182a7ae3f355dd1e8192e1adc3ba4199ef7ae283"
+"800.lc1_8_9" = "d99340a1def66423a269904ac6b10bb34c36c688fbeae5b7ea2e6c1bc71ad033"
+"800.lc2_8_1" = "3e94ca2745076c4d3949520f9b143afdc47db9954e3f931250413ee795eb16c3"
+"800.lc2_8_10" = "2f7fb1aea456ea1b9ecf8db3224e7bd15525a0575f76bf8a6e5560c936b3ada3"
+"800.lc2_8_2" = "8ed1495c23c4ae0b80e639635b2ee8e4e78e484eb1118bd4cb9007ff3094c07d"
+"800.lc2_8_3" = "d45017d1fd05697db21dbaf5965c182f9fae75fdaaace898b8de9bf47c8f886f"
+"800.lc2_8_4" = "72defcc0966f060729a37438e7122e9fce6181bf32424dbee388885ed6a3974e"
+"800.lc2_8_5" = "3dd08bbdf7fb9590ddbf7e2a353e188d2f276b7d7bc9eeb41487442a3f079393"
+"800.lc2_8_6" = "0aa49e726b35457a7e8808b692aecdb4200a49a85f7fac521b0d9e4f2c4547b5"
+"800.lc2_8_7" = "859dae88ac45789a0021f87d851514de418714c5c56cea4dc65195d84f36b23b"
+"800.lc2_8_8" = "407a3ba7b2196923c420d6c97f991ade95fd927850d1c77dd4de8203582c5d56"
+"800.lc2_8_9" = "d4d3538db625f16b08feb9f5030c76368e4264860c30b03f6196a6b21ffd11a9"
+"800.lr1_8_1" = "1dff0a57b793ff0e2a0018460604ffecd9140e1839af90170de1d47358400076"
+"800.lr1_8_10" = "e9022ca958f6aaf6bb4f5d0999730c858dc78a4844f62a309256db9cc57ec675"
+"800.lr1_8_2" = "f52a86a1b31a4113651a0c539c096c389c814c78bae9e52b6359ba1430091714"
+"800.lr1_8_3" = "bd2bacd5c72488dced523345c144fbb06618d2949c81e2a7bb75b3a1708b2946"
+"800.lr1_8_4" = "1f4a08c0af78c770a85b1bd92c8b8736195ec0eefa7ddda8fa78f3ff3ca8d7ab"
+"800.lr1_8_5" = "c14d81907c721db6f508d89be992b4d5421a0cd6381de27333ff3de579952572"
+"800.lr1_8_6" = "9195410bd6976c3cad836b58de193473d8b74d184c593aff549727642eb2619e"
+"800.lr1_8_7" = "c21352655829240dd1831b7228e59ff1cee3ff0bfe1580e5ecb2bf04939b0848"
+"800.lr1_8_8" = "19e86f1eaffb7fe096a4b62977ecb16431bdfcba7967c7165781e80ce5a140d3"
+"800.lr1_8_9" = "e724fb2d10ab961a8fba457577484c91637f519c24e90703a8878e04fabd4426"
+"800.lr2_8_1" = "be90a6382845a480c231222936c757419888a9d505f6fffc7cd4a45cf8fb8de1"
+"800.lr2_8_10" = "7a752166f77893613b8142dcb0329ce3cf4b69b6915a4174c93b182ba18bf146"
+"800.lr2_8_2" = "e1eaffdb41e1922dbabfe3e1817c760a60d382229950772a9a51af395776efe5"
+"800.lr2_8_3" = "c34b44c70364c7a50966eb94cf51297db8c7e5b115985087f6d5186cfd25b2b0"
+"800.lr2_8_4" = "a5e155080f540b7a7c9f3acd2ab6102ebdcf20bd38eead0eb40add4ff4ebe5bb"
+"800.lr2_8_5" = "6fbf098470e802316a42185865d87956f1ef5748edb20e80f38e5e1f1c49a8ed"
+"800.lr2_8_6" = "878212590c3acab4723b48af4c45790be2ebe60d6b5c3b5498ec92cc762612d1"
+"800.lr2_8_7" = "72298e4f83d8af6945e67e634263b6cf7ac9c5a5924c57567a5abd0981fff7c5"
+"800.lr2_8_8" = "425b071dec2adbfe9d587f498a6e1644a04d3ab1ba45f411cb624c4b3dfa4b24"
+"800.lr2_8_9" = "c7d845eb551e6ccb43cf21d4bec36fac751ed40a860abeb1095ecb30fbf63eb6"
+"800.lrc1_8_1" = "4bca38ba421b394a2a0adb2b102e4208b656da5263bc0e5b25fead93a7191bdf"
+"800.lrc1_8_10" = "7c19a67ad97df4a1df16500da50781d08e254e8e9b1d933d7f65bfd3e9f8236f"
+"800.lrc1_8_2" = "689e8e9b258576552def67de130af3c5a75c00bd1e3a99ff7eee9a6c41c9ba3e"
+"800.lrc1_8_3" = "95f19d531649aa50ce33fdf49bb6c2f6e765b8a92347985755587313dee45680"
+"800.lrc1_8_4" = "584061375a0adb71a5dc6b4e51ac5843da36b2dfc1a64138131b00f929d029dc"
+"800.lrc1_8_5" = "533dc41e59514d1f3f78758e952ce54193abbeca1e85565d6ff311cc043ff09f"
+"800.lrc1_8_6" = "9cc6e223b557fa78edc29c606fee6e6d6774c57b685a3d8dfde58488e4cb9388"
+"800.lrc1_8_7" = "80e7a66577db0ae493531700a5c48e8659fb8cb24b5489d199b9c88b04a9ad20"
+"800.lrc1_8_8" = "05efa5ee13a71f15c18957baf9cd1d674338a4afd1575dc7a4d3fa2980aa20c2"
+"800.lrc1_8_9" = "ae9b16597d37cf95ec72062a746afcd4b4f6d2cad80f37125b417656cf18e290"
+"800.lrc2_8_1" = "fb8ad3d7b3d804f5657d10a7628b2020df933abd7a959152d6404968fc34aa06"
+"800.lrc2_8_10" = "57a9d028b7ad3944423173273c180a693dffd80051377bb50b084d9e3bbae0b5"
+"800.lrc2_8_2" = "d723c71d43b8f0bd8fad2cd576814c14bce1874a5bb2519e3d45f9ec5152aeae"
+"800.lrc2_8_3" = "6f97ddf92b444fc0c3f4f217ecb2975d235478d34f8515c22f13416fe1d9c3ea"
+"800.lrc2_8_4" = "6000880509cfc5357f943da5530fd284abcc1515a3e8fb32d1de0067cf15e56b"
+"800.lrc2_8_5" = "fa51b9be7bcf3af6a7d5d0a5639e9255d5710ab3928fcb20a5fc9e1ae1ea92b9"
+"800.lrc2_8_6" = "06eb6de0c82c3212b41363556dafd612dd1015d5b4babe0e088247414848a09c"
+"800.lrc2_8_7" = "f3266ea7e76a88a3f399652acba329a5a891be61d42155e3fd0a90005b497636"
+"800.lrc2_8_8" = "46b2821b84f02e72a6ee51690e7d5bee10ab2edf8af35be7e504f2f1a10b89a9"
+"800.lrc2_8_9" = "f30ad7ca545ee7370f04ead97ad01cd99e2961bd988c92136c8b3d14f948d59e"
+"1000.lc1_10_1" = "d08ad6ff55399c9f8bfaf59d96d3d146279e3203dc02c44e982dba1799893ded"
+"1000.lc1_10_10" = "a6b66a43116f851f39f84aaf8e1771086ded3089e89ee6f21f5fc472476942c8"
+"1000.lc1_10_2" = "f709d10eb6ff81b0ae5e24cbf82989a44d8c4187a2410772dc5da087e5ef368a"
+"1000.lc1_10_3" = "73470a347b8e4642fa4cb3887f73ca243ae79915dfa5512f1b1b63d1cd773618"
+"1000.lc1_10_4" = "e38dcf19f7b20c4da50a58a446b9c640381fc0035594c9592180d88f063f7aab"
+"1000.lc1_10_5" = "1371637ed4f47d7e7b576f19161d18627e5551e237af631e5fd8fa46cc170a65"
+"1000.lc1_10_6" = "89d7a5ce08965223b711d35aa2a57b76e4ec4d9abe3044c5c5860247311d064b"
+"1000.lc1_10_7" = "c98275c7a6f9b5569aeffe63e649157af76e68e7abb1b7c0adb817defd6f1843"
+"1000.lc1_10_8" = "96493a02e9b1c18c59aacb836bfcc6ba2adc2d2ba35afebddbb33cfaafde19eb"
+"1000.lc1_10_9" = "0cfb3e6c5c91ef4ad6dac32aa0fcc4ded838753cd6777a33b94d08fa57d8d935"
+"1000.lc2_10_1" = "8353499704bd0cb5cd9d4bc5d26756b886efa61143c48bbb502345e6c4dc0a00"
+"1000.lc2_10_10" = "2cd5ee1cf40592069889c6ce11c0fed7aa85cd1eaf8549de04783d5dda1ecd1e"
+"1000.lc2_10_2" = "faf637625ece88ca3cf57e64b7fc830984efb0bf7413f584fdc3c536c8861dc8"
+"1000.lc2_10_3" = "f5951a6d186e89e42c55afc6d6426e074ea1c9552d09469cd55ee95668e9036e"
+"1000.lc2_10_4" = "55247cc89b9bbabb81a0c85ee8756f0444bbe3b11c8cf9264bd18817dcb23498"
+"1000.lc2_10_5" = "a4980295e970925e601943252696bbcd180e96af9c255848593b1a43efa277ec"
+"1000.lc2_10_6" = "b6c831b9109c79a7379090c2ec2bc228e04870d0198eb0a857aa4c2d1e9e42af"
+"1000.lc2_10_7" = "83edf5737aae92e45dc5e66f4beffdce53263985f452c50e8e453504706b3dee"
+"1000.lc2_10_8" = "63733b849bb8610df963c7543ea90b442e1645b5f8952defafbcbc1c1e36894c"
+"1000.lc2_10_9" = "0f2187881e9ed71e84a6b3ea78ed8fd2e1c7ab54f71bfffa7b9e5e377769568a"
+"1000.lr1_10_1" = "ea4db537b56ee81913c4896744928f9b4eb8493272bbbfccff19ed85c044e02a"
+"1000.lr1_10_10" = "d124542d57f16ff878af0eba0c18af4b77094f1ab3ca6eba2c31c2a22684634f"
+"1000.lr1_10_2" = "e2b1dd9c585a1ea772bf2586592590e968dccab3781414d0b3c6a0eb17a502bd"
+"1000.lr1_10_3" = "b8a128b3247824109dea3b433b4cae0449d25cd9ce94da76055d337e25713c90"
+"1000.lr1_10_4" = "fcf743594ad0a4f75d5a001315e0118291a39c32312c099fc47aa049a7003112"
+"1000.lr1_10_5" = "a5a50a94e0c360388fe309148e56227150ff47b72e67e4722d9ba7728123c8b8"
+"1000.lr1_10_6" = "1f26dca205a3c839cbac951b431c4f881238ca047a1974a473f4f8ac7b1568d2"
+"1000.lr1_10_7" = "d7003838c9de0524998d182a203816f56dd91cd56ea161ca2cbbb2cbe2da2207"
+"1000.lr1_10_8" = "a7b2fc33f521083694fd203a0a1c3eae77fd16c5888d6dff17e324e3d773d535"
+"1000.lr1_10_9" = "471c548a4ecaf4d6bb2210710d71df0a91eaf76a2eef5d2998bff12db9282b12"
+"1000.lr2_10_1" = "b84340cb0f213448fa399e00e632b37bb4e14c0810e236372d843c3ebf88d90f"
+"1000.lr2_10_10" = "fc309515a4f13b7ceccb79e8a022a2bdc8ca37cc00ee3235d221ec82df8314e4"
+"1000.lr2_10_2" = "abeb8073c5c8b616c55f1fa0d979798925285189d2ce5acd1e20d2b7ab3ee5e2"
+"1000.lr2_10_3" = "704e16d68f2cd8cf968b814bf3aea79568f30e0e033aea2de98f8049c61d4b50"
+"1000.lr2_10_4" = "5ed64f37131dc750add8010afc638e79a0e6192cb413a1ee91a7aaa1b0a22bac"
+"1000.lr2_10_5" = "b0aac3936fcbcf3f3a994ad7e648368479019007523aa8e190041bf94c94d21e"
+"1000.lr2_10_6" = "79ecb343f9ba5aab79a52813ada77c1bdaf5892e92751c56fa562e821be0d6c7"
+"1000.lr2_10_7" = "e8531600b5fe88115b517e22d8e2f2df71447af7a7a7ef1dd5f742cca9322be8"
+"1000.lr2_10_8" = "ed46921cb54717aeda5746042960b6a95f99188e7726a592aa23e534b1a262f1"
+"1000.lr2_10_9" = "bbc059a5e38a0be78b5ea11060f610c3d61e2332321c6d6a49c7d163d25fb7cb"
+"1000.lrc1_10_1" = "82c5a9b9656c5613996f2faea3d591d4ca8d08dc06a82cfd7ee63bf0ee06dc13"
+"1000.lrc1_10_10" = "b20319a22fd0fbee684076ab587beaff2961255a45d07000a063ca99f1ba72e2"
+"1000.lrc1_10_2" = "6ce6059121cfa344ff93993078ee10fa08f5ccc778b2f0459d3a3f4c26105435"
+"1000.lrc1_10_3" = "9ba8600e8abb6c65931e0f0c2607082915997711026d6bfad242081a002c4a79"
+"1000.lrc1_10_4" = "96ce1fd5d7d3e27b0518882e97499b5d4a581e73bac78b2367a547072ebc317e"
+"1000.lrc1_10_5" = "7d6a0a9ae6a1856d0072dc2830056d62ad6a1e3c0ee1cda5db13e3055750d40a"
+"1000.lrc1_10_6" = "c75d0838d70c322efe6bf10996bc212dedc1376eb8c98ed46f73321fcae0a3a1"
+"1000.lrc1_10_7" = "066a9d0f0d4ecd671ad632ea85c5b0f015a47ec75a1355d25447fc4635fa87bc"
+"1000.lrc1_10_8" = "17898577a24182d1213da47bdd9c5aebe301c43c621c1f58b386c5b9c9e51daa"
+"1000.lrc1_10_9" = "47fee7ef148960f3afd0d5fa5b72a681b7ccc77a50b15ab254816b55a666d78a"
+"1000.lrc2_10_1" = "e47e0050c51ec320ea54598cf5bf9c48cd0a3194525994302678833b44662f42"
+"1000.lrc2_10_10" = "eeafa0b6d8a3d0cc76c9afed79aaa984547714b190ce75e904324ff28ee57f26"
+"1000.lrc2_10_2" = "7a20419538e06b948a5b8f270057604c0d0423d53316805ab251a6a3dc674fbf"
+"1000.lrc2_10_3" = "43671450683a3b8df17cbb9eaa7c52f5cdfd35428a180611bba57bf30bd52f7f"
+"1000.lrc2_10_4" = "6f43123b68e828b29790392ea2faef2062583234e433c19c52092dd20cb89331"
+"1000.lrc2_10_5" = "ce3f4d899c0eea841b6f224f8629f2f10d53dbf6d23773ca467ca18d6d7fe909"
+"1000.lrc2_10_6" = "e043717c61c2f7bffcbd6ff77066f2c7db3477e4ba48b35e68208850da278a8b"
+"1000.lrc2_10_7" = "5997063847444bb90c86a9ecff14aafd99c243f28c9476e7d5cb6da5ba4ba7ac"

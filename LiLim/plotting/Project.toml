@@ -1,0 +1,10 @@
+[deps]
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+XKCDMakie = "ef1f67d4-2c0d-4f2d-9282-34421b12c95e"
+TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
+
+[compat]
+XKCDMakie = "=0.1.0"
+CairoMakie = "0.15"
+julia = "1.13"

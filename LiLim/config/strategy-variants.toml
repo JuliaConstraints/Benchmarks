@@ -1,0 +1,192 @@
+schema = "li-lim-existing-strategy-variants/1"
+scope = "Additive strategy screening; all historical method names and defaults are retained"
+selection = "Opt in with --methods=strategies or --methods=all,strategies; all alone remains historical"
+
+[screening]
+instances = ["lc101", "lr101", "lrc101"]
+seeds = [41, 42, 43]
+first_budget_seconds = 8.0
+followup_budgets_seconds = [32.0, 128.0]
+first_threads = 1
+followup_threads = [1, 2, 4, 8, 16]
+selection_policy = "Rank fleet first and distance second per instance; inspect best, mean, median, spread, BKS/time-to-target, CPU and GC. Confirmation uses unexposed official instances and fresh seeds; screening is not confirmation."
+
+[profiles.tabu_short]
+tabu = "event"
+local_tenure = 4
+selected_tenure = 1
+[profiles.tabu_long]
+tabu = "event"
+local_tenure = 16
+selected_tenure = 4
+[profiles.tabu_accepted]
+tabu = "event"
+local_tenure = 8
+selected_tenure = 2
+clock = "accepted"
+[profiles.tabu_keen]
+tabu = "keen"
+local_tenure = 8
+[profiles.tabu_weak]
+tabu = "weak"
+local_tenure = 8
+selected_tenure = 2
+[profiles.reset_best_small]
+restart = "random"
+probability = 0.01
+fraction = 0.05
+[profiles.reset_best_large]
+restart = "random"
+probability = 0.01
+fraction = 0.25
+[profiles.reset_current]
+restart = "random"
+probability = 0.01
+fraction = 0.10
+source = "current"
+[profiles.universal_best]
+restart = "universal"
+fraction = 0.10
+universal_scale = 64
+[profiles.universal_current]
+restart = "universal"
+fraction = 0.25
+source = "current"
+universal_scale = 64
+[profiles.tabu_reset]
+tabu = "weak"
+local_tenure = 8
+selected_tenure = 2
+restart = "tabu"
+fraction = 0.10
+[profiles.exhaustion_partial]
+selector = "remaining"
+tabu = "event"
+local_tenure = 8
+clock = "accepted"
+restart = "exhaustion"
+source = "current"
+fraction = 0.10
+tabu_threshold = 8
+[profiles.exhaustion_full]
+selector = "remaining"
+tabu = "event"
+local_tenure = 8
+clock = "accepted"
+restart = "exhaustion"
+source = "current"
+fraction = 0.10
+tabu_threshold = 8
+full_every = 8
+[profiles.assignment]
+neighborhood = "assignment"
+selector = "remaining"
+tabu = "event"
+local_tenure = 4
+restart = "exhaustion"
+source = "current"
+fraction = 0.05
+tabu_threshold = 4
+[profiles.compatibility]
+acceptance = "compatibility"
+tabu = "weak"
+local_tenure = 8
+selected_tenure = 4
+restart = "universal"
+universal_scale = 1
+fraction = 1.0
+source = "current"
+[profiles.late_64]
+acceptance = "late"
+history = 64
+tabu = "event"
+local_tenure = 8
+selected_tenure = 1
+restart = "random"
+probability = 0.01
+fraction = 0.05
+[profiles.late_400]
+acceptance = "late"
+history = 400
+tabu = "event"
+local_tenure = 8
+selected_tenure = 1
+restart = "random"
+probability = 0.01
+fraction = 0.05
+
+[[variants]]
+method = "cbls_icn_tabu_short"
+policy = "tabu_short"
+[[variants]]
+method = "cbls_icn_tabu_long"
+policy = "tabu_long"
+[[variants]]
+method = "cbls_icn_tabu_accepted"
+policy = "tabu_accepted"
+[[variants]]
+method = "cbls_icn_tabu_keen"
+policy = "tabu_keen"
+[[variants]]
+method = "cbls_icn_tabu_weak"
+policy = "tabu_weak"
+[[variants]]
+method = "cbls_icn_reset_best_small"
+policy = "reset_best_small"
+[[variants]]
+method = "cbls_icn_reset_best_large"
+policy = "reset_best_large"
+[[variants]]
+method = "cbls_icn_reset_current"
+policy = "reset_current"
+[[variants]]
+method = "cbls_icn_universal_best"
+policy = "universal_best"
+[[variants]]
+method = "cbls_icn_universal_current"
+policy = "universal_current"
+[[variants]]
+method = "cbls_icn_tabu_reset"
+policy = "tabu_reset"
+[[variants]]
+method = "cbls_icn_exhaustion_partial"
+policy = "exhaustion_partial"
+[[variants]]
+method = "cbls_icn_exhaustion_full"
+policy = "exhaustion_full"
+[[variants]]
+method = "cbls_icn_assignment"
+policy = "assignment"
+[[variants]]
+method = "cbls_icn_compatibility"
+policy = "compatibility"
+[[variants]]
+method = "cbls_icn_late_64"
+policy = "late_64"
+[[variants]]
+method = "cbls_icn_late_400"
+policy = "late_400"
+[[variants]]
+method = "hybrid_specialized_icn_exhaustion"
+policy = "exhaustion_partial"
+hybrid = true
+bridged = false
+[[variants]]
+method = "hybrid_bridged_icn_exhaustion"
+policy = "exhaustion_partial"
+hybrid = true
+bridged = true
+[[variants]]
+method = "hybrid_specialized_icn_late"
+policy = "late_400"
+hybrid = true
+bridged = false
+[[variants]]
+method = "hybrid_bridged_icn_late"
+policy = "late_400"
+hybrid = true
+bridged = true
+
+[portfolios]
+cbls_strategy_diverse = ["cbls_icn_tabu_short", "cbls_icn_exhaustion_partial", "cbls_icn_universal_best", "cbls_icn_late_400"]
+mixed_strategy_diverse = ["cbls_icn_late_400", "hybrid_specialized_icn_exhaustion", "hybrid_bridged_icn_late", "highs_serial"]
