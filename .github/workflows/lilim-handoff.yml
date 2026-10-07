@@ -6,6 +6,38 @@ on:
 permissions:
   contents: read
 jobs:
+  windows_wheel_trees:
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - name: Verify upstream archives and Windows Artifact tree hashes
+        shell: bash
+        run: |
+          julia --startup-file=no --threads=1 --gcthreads=1 -e '
+          using Pkg, Downloads, SHA
+          include("LiLim/src/SolverArtifacts.jl")
+          platform = Pkg.BinaryPlatforms.HostPlatform()
+          matches = Bool[]
+          for package in SolverArtifacts.PACKAGES
+              name = package * "_python312"
+              meta = Pkg.Artifacts.artifact_meta(name, SolverArtifacts.BINDINGS; platform)
+              download = only(meta["download"])
+              actual = mktempdir() do directory
+                  wheel = joinpath(directory, "sdk.whl")
+                  Downloads.download(download["url"], wheel)
+                  bytes2hex(sha256(read(wheel))) == download["sha256"] || error("Upstream wheel checksum mismatch")
+                  Pkg.Artifacts.create_artifact() do destination
+                      run(pipeline(`$(Pkg.PlatformEngines.exe7z()) x -y -o$destination $wheel`; stdout=devnull))
+                  end
+              end
+              println("WINDOWS_TREE|", name, "|", actual)
+              push!(matches, string(actual) == meta["git-tree-sha1"])
+          end
+          all(matches) || error("Windows Artifact bindings require the verified native tree hashes printed above")'
   qualify:
     strategy:
       fail-fast: false
