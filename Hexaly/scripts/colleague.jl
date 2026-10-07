@@ -56,15 +56,11 @@ function preflight(opts)
     report["classical_qualification"]=isfile(worker) ? TOML.parsefile(worker) : Dict("status"=>state)
     report["sources"]=source_state;report["selected_original_inputs"]=inputs
     report["active_entry_count"]=19;report["continuous_deferred"]= ["irp"]
+    checks=get(report["classical_qualification"],"checks",Dict{String,Any}())
+    LiLimKit.HexalyPreflight.discrete_evidence!(report,checks;core_state=state)
     for row in report["benchmarks"]
         row["id"] in ("pdptw","irp") && continue
-        row["discrete_model_qualification"]=state
         row["functional_inputs"]=filter(r->r["entry"]==row["id"],inputs)
-        row["published_corpus_qualification"]="not_complete"
-        if state=="passed"
-            filter!(!=("core_qualification_not_passed"),row["issues"])
-            row["status"]="prepared_models_published_corpus_pending"
-        end
     end
     report["status"]=state=="failed" || code==1 ? "qualification_failed" : "incomplete_published_reproduction"
     LiLimKit.HexalyPreflight.save_report(output,report;refresh=true)

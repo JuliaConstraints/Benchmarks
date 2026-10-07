@@ -14,6 +14,24 @@ const CATALOG = HexalyPreflight.catalogue(joinpath(ROOT,"LiLim/config/hexaly-ben
     @test only(filter(row->row["id"]=="irp",rows))["status"]=="deferred_continuous"
     @test all(row->"original_corpus_and_references_unqualified" in row["issues"],filter(row->!(row["id"] in ("pdptw","irp")),rows))
     @test !any(row->row["status"]=="ready_available_solvers",rows)
+    evidence = Dict("ortools"=>Dict("status"=>"passed","qualified_families"=>["rcpsp","jssp","vbp","bppc"],
+        "scope"=>"small_original_models_only"))
+    merged = Dict("benchmarks"=>deepcopy(rows))
+    HexalyPreflight.discrete_evidence!(merged,evidence;core_state="passed")
+    scheduling = only(filter(row->row["id"]=="large_jssp",merged["benchmarks"]))
+    native = only(filter(row->row["solver"]=="ortools",scheduling["solvers"]))
+    @test native["qualification"]=="functional_passed"
+    @test native["qualification_scope"]=="small_original_models_only"
+    @test !("model_not_qualified:ortools" in scheduling["issues"])
+    @test "published_instance_qualification_pending:ortools" in scheduling["issues"]
+    @test "original_corpus_and_references_unqualified" in scheduling["issues"]
+    @test scheduling["status"]=="prepared_models_published_corpus_pending"
+    routing = only(filter(row->row["id"]=="cvrp",merged["benchmarks"]))
+    @test "model_not_qualified:ortools" in routing["issues"]
+    @test only(filter(row->row["id"]=="irp",merged["benchmarks"]))["status"]=="deferred_continuous"
+    @test only(filter(row->row["id"]=="pdptw",merged["benchmarks"]))==only(filter(row->row["id"]=="pdptw",rows))
+    HexalyPreflight.discrete_evidence!(merged,evidence;core_state="passed")
+    @test count(==("published_instance_qualification_pending:ortools"),scheduling["issues"])==1
     mktempdir() do root
         @test_throws ErrorException HexalyPreflight.asset(root,root,"../outside")
         @test HexalyPreflight.asset(root,root,"")["status"]=="missing"
