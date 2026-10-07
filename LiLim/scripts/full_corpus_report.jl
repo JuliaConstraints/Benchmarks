@@ -135,6 +135,7 @@ function method_summaries(cells, method)
     bks_times = reduce(vcat, (row["bks_times_seconds"] for row in selected); init=Float64[])
     active_cpu = Float64[]
     gc_seconds = Float64[]
+    whole_trial_gc_seconds = Float64[]
     infeasible_fraction = Float64[]
     tabu_entries = Int[]
     reset_counts = Int[]
@@ -144,6 +145,8 @@ function method_summaries(cells, method)
         record=TOML.parsefile(path)
         push!(active_cpu, record["mean_active_cpus"])
         haskey(record,"search_gc_seconds") && push!(gc_seconds,record["search_gc_seconds"])
+        haskey(record,"gc_scope") && startswith(record["gc_scope"],"whole trial:") &&
+            push!(whole_trial_gc_seconds,record["gc_seconds"])
         for worker in get(record,"workers",Any[])
             trace=worker["trace"]
             get(trace,"steps",0)>0 && haskey(trace,"infeasible_steps") &&
@@ -168,6 +171,7 @@ function method_summaries(cells, method)
         "bks_time_observations"=>length(bks_times),
         "mean_active_cpus"=>(isempty(active_cpu) ? -1.0 : mean(active_cpu)),
         "mean_search_gc_seconds"=>(isempty(gc_seconds) ? -1.0 : mean(gc_seconds)),
+        "mean_whole_trial_gc_seconds"=>(isempty(whole_trial_gc_seconds) ? -1.0 : mean(whole_trial_gc_seconds)),
         "mean_infeasible_step_fraction"=>(isempty(infeasible_fraction) ? -1.0 : mean(infeasible_fraction)),
         "max_observed_tabu_entries"=>maximum(tabu_entries;init=-1),
         "mean_sequence_or_exhaustion_resets"=>(isempty(reset_counts) ? -1.0 : mean(reset_counts)))
@@ -289,12 +293,12 @@ function write_report(path, summary)
         end
         if haskey(IDENTITY,"strategy_variants")
             println(io,"\n## Executed strategy diagnostics\n\nHistorical CBLS lanes retain their greedy acceptance, no tabu and zero-fraction best-state resets. Added policies can temporarily become infeasible; feasible-route reinsertion and RO snapshots are skipped until the native scorer has restored feasibility. Exported best solutions and trajectory points remain independently validated. Reset probabilities are per native step; the native stagnation trigger also applies except for exhaustion policies. Partial resets change raw successor variables, and can be ineffective on route structure; their quality is measured rather than assumed.\n")
-            println(io,"| Profile | Mean search GC (s) | Mean infeasible-step share | Maximum tabu entries | Mean observable native resets per lane |\n|---|---:|---:|---:|---:|")
+            println(io,"| Profile | Mean search GC (s) | Mean whole-trial GC (s) | Mean infeasible-step share | Maximum tabu entries | Mean observable native resets per lane |\n|---|---:|---:|---:|---:|---:|")
             for row in summary["method_summary"]
                 showvalue(key;percent=false)=row[key]<0 ? "—" : @sprintf("%.3f%s",row[key]*(percent ? 100 : 1),percent ? "%" : "")
-                println(io,"| `",row["method"],"` | ",showvalue("mean_search_gc_seconds")," | ",showvalue("mean_infeasible_step_fraction";percent=true)," | ",row["max_observed_tabu_entries"]<0 ? "—" : row["max_observed_tabu_entries"]," | ",showvalue("mean_sequence_or_exhaustion_resets")," |")
+                println(io,"| `",row["method"],"` | ",showvalue("mean_search_gc_seconds")," | ",showvalue("mean_whole_trial_gc_seconds")," | ",showvalue("mean_infeasible_step_fraction";percent=true)," | ",row["max_observed_tabu_entries"]<0 ? "—" : row["max_observed_tabu_entries"]," | ",showvalue("mean_sequence_or_exhaustion_resets")," |")
             end
-            println(io,"\nNative universal-sequence and exhaustion reset counts are observable. Random/tabu-triggered counts are unavailable and shown as a dash; they are never inferred. GC is measured across the entire process, and infeasible-step share is a lane average. Exact policy settings, allocations and source hashes are frozen in the manifest and lane traces.\n")
+            println(io,"\nNative universal-sequence and exhaustion reset counts are observable. Random/tabu-triggered counts are unavailable and shown as a dash; they are never inferred. GC counters cover all Julia lanes in the process: search-phase and whole-trial measurements are reported separately. GHOST's whole-trial measurement includes parsing, common insertion, model construction, search and original validation; it is not a search-only measurement. Infeasible-step share is a lane average. Exact policy settings, allocations and source hashes are frozen in the manifest and lane traces.\n")
         end
         println(io, "\nA fleet gap of zero means the fleet matches the SINTEF reference; a negative gap is better. Best, mean-run and median-run fleet gaps are averaged per instance so large instances do not dominate. Per-instance output includes the best run, one actual median-ranked run, mean, standard deviation and full min/max spread across feasible seeds. The distance gap is shown only for instance cells whose median-ranked run uses the BKS fleet; distance remains a secondary objective. BKS time is conditional on hits, and misses are censored at the campaign budget in the attainment plot.\n")
         println(io, "## Results by problem size\n\n| Requests | Profile | BKS hits / planned | Mean best fleet gap | Mean run fleet gap | Mean median-run fleet gap | Median-run distance gap at BKS fleet |")

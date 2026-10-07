@@ -1,6 +1,6 @@
 "GHOST's Julia MOI wrapper with the existing qualified PDPTW ICNs."
 module GHOSTNative
-using GHOST, JuMP, TOML
+using GHOST, JuMP, TOML, SHA
 using ..Benchmarks, ..Pilot, ..MetaRepair, ..ICNScoring
 include("PlatformResources.jl")
 import MathOptInterface as MOI
@@ -161,6 +161,7 @@ function run_case(path, seconds, seed, policy; threads=1, id=nothing)
     gc = Base.GC_Diff(Base.gc_num(),gc_before)
     Dict{String,Any}("schema"=>"li-lim-resource-trial/1", "instance"=>p.id,
         "method"=>"ghost_icn", "seed"=>seed,"seed_applied_to_search"=>false,
+        "source_sha256"=>bytes2hex(sha256(read(path))),
         "budget_seconds"=>seconds,"wall_seconds"=>wall,"outer_elapsed_seconds"=>wall,
         "threads_requested"=>threads,"julia_threads_available"=>Threads.nthreads(),
         "threads_mode"=>"independent GHOST.jl models; one native worker and private ICN workspace per Julia lane",
@@ -171,6 +172,7 @@ function run_case(path, seconds, seed, policy; threads=1, id=nothing)
         "process_cpu_seconds"=>PlatformResources.cpu_seconds()-cpu_before,
         "mean_active_cpus"=>(PlatformResources.cpu_seconds()-cpu_before)/max(wall,eps()),
         "gc_seconds"=>gc.total_time/1e9,"gc_bytes"=>gc.allocd,
+        "gc_scope"=>"whole trial: parsing, common insertion, model construction, search and original validation",
         "reset_counters"=>"not exposed by native ABI", "tabu_counters"=>"not exposed by native ABI")
 end
 end

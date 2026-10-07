@@ -6,6 +6,11 @@ by unrounded Euclidean distance. Every exported solution and every trajectory
 point is checked by the original ConstraintModels validator. It is a local
 comparison, not an identical reproduction of the vendor's published experiment.
 
+The GHOST wrapper and PDPTW adapter passed 2,413 local assertions, including
+exhaustive tiny-instance feasibility checks and actual one- and two-lane searches
+with the downloaded native Artifact. OR-Tools GLS has also passed its original
+PDPTW model qualification. These functional checks do not establish solver rankings.
+
 Prerequisites: **Julia 1.13.1**, Git, Python 3.12 and, on Linux,
 `taskset`/`lscpu`. No private repository, account or token is required. macOS
 Intel and Apple Silicon are supported; Windows x86_64 and Linux x86_64/aarch64
@@ -64,6 +69,8 @@ siblings; on hybrid CPUs this does not distinguish P/E cores. For controlled
 affinity pass `--cpus=8,10,0,2,4,6,12,14` (replace with your host's CPU IDs).
 OR-Tools always uses just the first selected CPU. CPU time and GC evidence are
 reported; requested worker counts are not claimed to be active CPU counts.
+Search-phase GC and GHOST's whole-trial GC are reported separately; the latter
+also includes parsing, insertion, model construction and original validation.
 
 ```sh
 julia LiLim/scripts/colleague.jl run --budget=8 --threads=1 --output=LiLim/results/smoke-8s-1t

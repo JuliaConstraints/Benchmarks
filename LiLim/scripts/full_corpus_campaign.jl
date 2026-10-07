@@ -493,11 +493,13 @@ function warmup(methods, row, policy, banks, plans, seconds, output, hexaly_exec
             "budget_seconds"=>seconds,"mean_active_cpus"=>record["mean_active_cpus"]))
     end
     if "ghost_icn" in methods
+        started = time_ns()
         Base.invokelatest(GHOSTNative.warmup,row.path,policy;threads=Threads.nthreads(),id=row.id)
         record = Base.invokelatest(GHOSTNative.run_case,row.path,seconds,first(THREAD_CONFIG["seeds"]),policy;
             threads=Threads.nthreads(),id=row.id)
         push!(results,Dict("instance"=>row.id,"method"=>"ghost_icn",
-            "seconds"=>record["wall_seconds"],"valid"=>record["original_validation"],"budget_seconds"=>seconds))
+            "seconds"=>(time_ns()-started)/1e9,"trial_wall_seconds"=>record["wall_seconds"],
+            "valid"=>record["original_validation"],"budget_seconds"=>seconds))
     end
     results
 end
