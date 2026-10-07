@@ -13,7 +13,9 @@ function default_python(root)
     haskey(ENV,"ORTOOLS_PYTHON") && return ENV["ORTOOLS_PYTHON"]
     local_python=joinpath(root,"LiLim/native/ortools/.venv",Sys.iswindows() ? "Scripts/python.exe" : "bin/python")
     isfile(local_python) && return local_python
-    for name in ("python3","python")
+    # setup-python and the standard Windows installer expose python.exe;
+    # an unrelated python3 alias can point to another ABI on the same PATH.
+    for name in (Sys.iswindows() ? ("python","python3") : ("python3","python"))
         path=Sys.which(name)
         path===nothing || return path
     end

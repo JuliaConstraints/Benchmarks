@@ -28,15 +28,32 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Require the native OR-Tools SDK before expensive Julia setup
+        shell: bash
+        run: |
+          julia --startup-file=no --threads=1 --gcthreads=1 -e '
+          include("LiLim/src/NativeSolvers.jl")
+          python = NativeSolvers.default_python(pwd())
+          println("Selected Python: ", python)
+          try
+              identity = NativeSolvers.install_ortools(python; root=pwd())
+              println("Native OR-Tools ready: ", identity["ortools_version"], "; Python ", identity["python_version"])
+          catch
+              paths = NativeSolvers.SolverArtifacts.python_paths()
+              probe = `$python -c "import sys; print(sys.version); import ortools; from ortools.constraint_solver import _pywrapcp"`
+              paths === nothing || (probe = addenv(probe, "PYTHONPATH"=>NativeSolvers.SolverArtifacts.python_path(paths), "PYTHONNOUSERSITE"=>"1"))
+              run(ignorestatus(probe))
+              rethrow()
+          end'
       - name: Set up missing solvers and verify frozen sources
         shell: bash
-        run: julia --startup-file=no --threads=1 --gcthreads=1 LiLim/scripts/colleague.jl setup
+        run: julia --startup-file=no --threads=1 --gcthreads=1 LiLim/scripts/colleague.jl setup --missing-solvers=error
       - name: Validate actual solvers against original PDPTW
         shell: bash
         run: julia --startup-file=no --threads=1 --gcthreads=1 LiLim/scripts/colleague.jl qualify
       - name: Prove setup reuses installed packages and Artifacts
         shell: bash
-        run: julia --startup-file=no --threads=1 --gcthreads=1 LiLim/scripts/colleague.jl setup
+        run: julia --startup-file=no --threads=1 --gcthreads=1 LiLim/scripts/colleague.jl setup --missing-solvers=error
       - name: Exercise sealed trials, report and English figures
         shell: bash
-        run: julia --startup-file=no --threads=1 --gcthreads=1 LiLim/scripts/colleague.jl run --budget=8 --threads=1 --methods=ortools_native,ghost_icn --instances=lc101 --seeds=41 --output=LiLim/results/ci-functional-smoke
+        run: julia --startup-file=no --threads=1 --gcthreads=1 LiLim/scripts/colleague.jl run --budget=8 --threads=1 --methods=ortools_native,ghost_icn --instances=lc101 --seeds=41 --missing-solvers=error --output=LiLim/results/ci-functional-smoke
