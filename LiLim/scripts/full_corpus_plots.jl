@@ -14,7 +14,7 @@ const LABELS = Dict(
     "highs_native"=>"HiGHS native", "highs_portfolio"=>"HiGHS portfolio",
     "cbls_mix_strategy"=>"CBLS strategy mix", "mixed_balanced"=>"MetaStrategist equal mix",
     "mixed_ls_heavy"=>"MetaStrategist search-heavy", "ortools_native"=>"OR-Tools RoutingModel (GLS)",
-    "hexaly_native"=>"Hexaly native")
+    "hexaly_native"=>"Hexaly native", "ghost_icn"=>"GHOST ICN")
 const STRATEGY_CONFIG = TOML.parsefile(joinpath(@__DIR__,"..","config","strategy-variants.toml"))
 for variant in STRATEGY_CONFIG["variants"]
     prefix = get(variant,"hybrid",false) ? (get(variant,"bridged",false) ? "Hybrid XCSP3" : "Hybrid specialized") : "CBLS ICN"
