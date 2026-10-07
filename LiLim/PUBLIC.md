@@ -107,8 +107,9 @@ The Hexaly model minimizes fleet then distance in a documented 5:1 allocation of
 the remaining search time, preserving original continuous feasibility. This
 differs from a distance-only vendor model. Model setup time counts in the common
 budget; late improvements are censored. Native qualification must be run first.
-On a different Hexaly version, retain the version and qualify again rather
-than silently describing it as a 15.0 reproduction.
+Other Hexaly versions are preserved and explicitly skipped by this 15.0 gate.
+Supporting one requires a separate adapter qualification; it must not be
+silently described as a 15.0 reproduction.
 
 ## Return independently verifiable results
 
