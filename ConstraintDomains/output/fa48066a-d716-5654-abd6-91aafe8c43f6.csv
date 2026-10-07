@@ -1,0 +1,10 @@
+bytes,percentage,filenames,linenumbers
+24576,96.85,C:\Users\jeanf\.julia\packages\ConstraintDomains\usdrb\src\explore.jl,108
+192,0.76,C:\Users\jeanf\.julia\packages\ConstraintDomains\usdrb\src\explore.jl,42
+160,0.63,C:\Users\jeanf\.julia\packages\ConstraintDomains\usdrb\src\explore.jl,66
+128,0.5,C:\Users\jeanf\.julia\packages\ConstraintDomains\usdrb\src\explore.jl,181
+112,0.44,C:\Users\jeanf\.julia\packages\ConstraintDomains\usdrb\src\explore.jl,144
+96,0.38,C:\Users\jeanf\.julia\packages\ConstraintDomains\usdrb\src\explore.jl,179
+64,0.25,C:\Users\jeanf\.julia\packages\ConstraintDomains\usdrb\src\explore.jl,27
+32,0.13,C:\Users\jeanf\.julia\packages\ConstraintDomains\usdrb\src\explore.jl,145
+16,0.06,C:\Users\jeanf\.julia\packages\ConstraintDomains\usdrb\src\explore.jl,160
