@@ -1,21 +1,22 @@
-# Qualified native GHOST/JuLS pilots with the common preparation charged as a prefix.
+# JuLS pilot; the historical direct C++ GHOST path is no longer authorized.
+# Check before loading packages or creating an output directory.
+!isempty(ARGS) && first(ARGS)=="ghost" && error("GHOST must use the GHOST.jl wrapper. The Li-Lim wrapper adapter is pending source recovery and qualification; direct C++ execution is disabled.")
 using ConstraintModels, JuMP, TOML, SHA, Dates
 using ConstraintModels.Benchmarks
 include(joinpath(@__DIR__,"..","src","Pilot.jl"))
 include(joinpath(@__DIR__,"..","competitors","Adapters.jl"))
 include(joinpath(@__DIR__,"..","competitors","Permutation.jl"))
-length(ARGS)==5 || error("usage: ghost|juls workers seconds default|greedy|annealing new-output.toml")
+length(ARGS)==5 || error("usage: juls workers seconds greedy|annealing new-output.toml")
 const ENGINE=ARGS[1];const WIDTH=parse(Int,ARGS[2]);const BUDGET=parse(Float64,ARGS[3]);const PROFILE=ARGS[4];const OUT=abspath(ARGS[5])
-ENGINE in ("ghost","juls") && WIDTH in (1,2,4,8,16) && BUDGET>0 || error("invalid engine/resources")
-(ENGINE=="ghost" ? PROFILE=="default" : PROFILE in ("greedy","annealing")) || error("invalid profile")
+ENGINE=="juls" && WIDTH in (1,2,4,8,16) && BUDGET>0 || error("invalid engine/resources")
+PROFILE in ("greedy","annealing") || error("invalid profile")
 ispath(OUT) && error("output exists")
 const ROOT=normpath(joinpath(@__DIR__,"..",".."));const CONFIG=TOML.parsefile(joinpath(ROOT,"LiLim/config/icn-threads.toml"))
 const AFFINITY=join(CONFIG["cpu_order"][1:WIDTH],',')
-const GHOST=joinpath(homedir(),".cache/juliaconstraints/ghost-pdptw")
 const JULS=joinpath(homedir(),".julia/juliaup/julia-1.11.9+0.x64.linux.gnu/bin/julia")
 digest(p)=bytes2hex(sha256(read(p)))
-const SOURCE=joinpath(ROOT,"LiLim/native",ENGINE,ENGINE=="ghost" ? "pdptw.cpp" : "pdptw.jl")
-const UPSTREAM=ENGINE=="ghost" ? joinpath(homedir(),"Gits/GHOST") : joinpath(homedir(),".julia/dev/JuLS")
+const SOURCE=joinpath(ROOT,"LiLim/native/juls/pdptw.jl")
+const UPSTREAM=joinpath(homedir(),".julia/dev/JuLS")
 isempty(strip(read(`git -C $UPSTREAM status --porcelain --untracked-files=no`,String))) || error("dirty native dependency")
 const RESULT=Dict{String,Any}("schema"=>"li-lim-native-local-search-qualified/1","started_utc"=>string(now(UTC)),
     "benchmarks_commit"=>strip(read(`git -C $ROOT rev-parse HEAD`,String)),"engine"=>ENGINE,"profile"=>PROFILE,
@@ -23,11 +24,7 @@ const RESULT=Dict{String,Any}("schema"=>"li-lim-native-local-search-qualified/1"
     "upstream_commit"=>strip(read(`git -C $UPSTREAM rev-parse HEAD`,String)),
     "source_sha256"=>Dict(relpath(p,ROOT)=>digest(p) for p in (@__FILE__,SOURCE,joinpath(ROOT,"LiLim/competitors/Permutation.jl"),joinpath(ROOT,"LiLim/competitors/Adapters.jl"),joinpath(ROOT,"LiLim/src/Pilot.jl"))),
     "seed_controlled"=>ENGINE=="juls","instances"=>Any[])
-if ENGINE=="ghost"
-    RESULT["binary_sha256"]=digest(GHOST);RESULT["compiler"]=read(`g++ --version`,String)
-else
-    RESULT["environment_sha256"]=Dict(f=>digest(joinpath(ROOT,"LiLim/native/juls",f)) for f in ("Project.toml","Manifest.toml"))
-end
+RESULT["environment_sha256"]=Dict(f=>digest(joinpath(ROOT,"LiLim/native/juls",f)) for f in ("Project.toml","Manifest.toml"))
 function campaign()
     p=read_benchmark(joinpath(ROOT,"LiLim/data/raw/pdp_100/lc101.txt"),:li_lim)
     initial=Pilot.insertion(p;starts=5,seed=41);CompetitorAdapters.export_common_start(devnull,p,initial)
@@ -41,8 +38,7 @@ function campaign()
             input=joinpath(exchange,"input.txt");output=joinpath(exchange,"native.toml")
             export_seconds=@elapsed open(io->CompetitorAdapters.export_common_start(io,p,initial),input,"w")
             prefix=prep.time+export_seconds;native_budget=BUDGET-prefix;native_budget>0 || error("late preparation")
-            cmd=ENGINE=="ghost" ? `taskset --cpu-list $AFFINITY timeout --kill-after=5s 120s $GHOST $input $native_budget $WIDTH $output` :
-                `taskset --cpu-list $AFFINITY timeout --kill-after=5s 120s $JULS --startup-file=no --threads=$WIDTH --gcthreads=1 --project=$(joinpath(ROOT,"LiLim/native/juls")) $SOURCE $input $native_budget $PROFILE $output`
+            cmd=`taskset --cpu-list $AFFINITY timeout --kill-after=5s 120s $JULS --startup-file=no --threads=$WIDTH --gcthreads=1 --project=$(joinpath(ROOT,"LiLim/native/juls")) $SOURCE $input $native_budget $PROFILE $output`
             println(ENGINE," ",PROFILE," ",id," ",WIDTH,"t");flush(stdout)
             cold=@elapsed run(pipeline(cmd;stdout=devnull))
             native=TOML.parsefile(output);trials=Any[];d=PermutationRoutes.read_common(input)

@@ -1,3 +1,4 @@
+error("This historical mixed pilot requires a direct C++ GHOST route. It is disabled; new GHOST tests must use the qualified GHOST.jl wrapper.")
 include("activate.jl")
 using TOML, SHA, UUIDs, Dates
 root=projectdir();attempt=datadir("sims",string(uuid4()));mkpath(attempt)

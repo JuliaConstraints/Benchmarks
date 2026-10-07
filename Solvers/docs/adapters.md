@@ -28,7 +28,11 @@ Sources locales examinées à réutiliser, sans exécuter leurs campagnes histor
   pas défaut GHOST général de dix. Les anciennes limites CPU ne sont pas réutilisées.
 * ConstraintModels : `scripts/solver_profiles.jl` pour le profil GHOST-like partiel et
   `docs/src/solver-strategy-profiles.md` pour les références publiques et écarts connus.
-* GHOST.jl : `CAPI` et `Optimizer` ; vérifier quel binaire est effectivement chargé.
+* GHOST.jl : seule interface GHOST autorisée (`CAPI` et `Optimizer`) ; vérifier
+  quel binaire `GHOST_jll` est effectivement chargé. Aucun lancement direct d'un
+  adaptateur C++ ni remplacement par l'ancien port Julia homonyme. Les sources
+  du wrapper attendu (UUID `11b06263-fdad-4e56-a327-8fd38a91e0b8`) restent à
+  récupérer dans ce checkout avant qualification.
 
 Éviter toute importation de script historique ayant des effets globaux, un environnement
 implicite ou une allocation CPU incompatible. Porter uniquement les petits adaptateurs

@@ -50,10 +50,18 @@ Only the explicitly requested `colleague.jl setup` may install a missing SDK.
   probe, followed by original-validator checks; missing access is skipped.
 - Timefold currently uses the existing Maven/Java adapter, not these Artifacts.
   CBLS/ICN/MetaStrategist remain Julia source dependencies. JuLS is installed
-  locally through its separate Julia environment, while GHOST uses the existing
-  native C++ checkout and compiled adapter. They are not currently auto-installed
-  by `colleague.jl setup`, nor included in this runner's `panel` selector; their
-  older separate adapters still need a portable handoff and cohort qualification.
+  locally through its separate Julia environment. GHOST must be called through
+  **GHOST.jl**, with its native library provided by `GHOST_jll`; direct C++
+  launchers are disabled. The intended wrapper has UUID
+  `11b06263-fdad-4e56-a327-8fd38a91e0b8` and was qualified historically at
+  `ebeef2c43a094b92d3b11d4642c03b81667597e4` (`forge/moi-wrapper-2026`). Its
+  sources and JLL checkout are absent here, although SolverSmoke still references
+  them. The accessible older pure-Julia port has a different UUID and is not a
+  replacement for this wrapper. Recover the correct sources, then qualify its
+  platform artifact and Li-Lim model against the original validator. JuLS and
+  GHOST.jl are not yet auto-installed by `colleague.jl setup` or included in this
+  runner's `panel`; unavailable support is not a performance result. Historical
+  C++ trial evidence remains unchanged and must not be relabeled as GHOST.jl.
 
 OR-Tools is distributed under [Apache 2.0](https://github.com/google/or-tools/blob/v9.14/LICENSE);
 HiGHS uses [MIT](https://github.com/ERGO-Code/HiGHS/blob/master/LICENSE.txt).
@@ -70,6 +78,9 @@ is still required. Do not label cross-host measurements as identical hardware.
 The no-reinstallation/availability tests passed 85 assertions and the actual
 catalog/selector tests passed 47 assertions on Linux. The artifact SDK's native
 OR-Tools import also passed. These checks perform no RoutingModel search.
+The GHOST frontend checks passed 32 assertions: direct C++ commands and compiler
+entry points refuse execution before dependency loading or filesystem changes.
+This is an interface-policy check, not a GHOST.jl solver qualification.
 Requalification of route policies, ICN resources, hybrids and actual native
 solvers on this new cohort remains pending until shared compute resources are free.
 

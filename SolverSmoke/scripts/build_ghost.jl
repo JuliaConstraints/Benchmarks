@@ -1,3 +1,4 @@
+error("Direct C++ GHOST adapters are disabled. Use the GHOST.jl wrapper and its qualified GHOST_jll artifact.")
 include("activate.jl")
 root=projectdir();source=abspath(root,"..","..","GHOST","build-jump-wrapper","install-test")
 snapshot=joinpath(root,"vendor","ghost-native")

@@ -1,3 +1,4 @@
+error("Direct C++ GHOST adapters are disabled. Use the GHOST.jl wrapper and its qualified GHOST_jll artifact.")
 include("activate.jl")
 using Downloads, SHA, Pkg, TOML
 root=projectdir();runtime=joinpath(root,"runtime")

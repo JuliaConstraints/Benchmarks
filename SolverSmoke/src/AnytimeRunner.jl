@@ -6,9 +6,11 @@ save(path,data)=open(io->TOML.print(io,data;sorted=true),path,"w")
 const configurations=[[(engine=e,profile=p) for e in ("lss_native","cbls_jump") for p in
     ("default","assignment","juls_greedy_like","ghost_assignment_like","timefold_late_acceptance_like")];
     [(engine="timefold_native",profile=p) for p in ("default","late_acceptance_400")];
-    [(engine="ghost_native_cpp",profile="default_permutation"),(engine="juls_native",profile="greedy_swap"),
+    [(engine="juls_native",profile="greedy_swap"),
         (engine="highs_control",profile="compact_mip")]]
 function command(job,warm;worker_root=root)
+    get(job,"engine",nothing)=="ghost_native_cpp" &&
+        error("GHOST must use GHOST.jl. Historical direct C++ configurations are retained as evidence only and cannot be launched.")
     engine=job["engine"];input=job["input"];out=job["out"];budget=job["budget"];seed=job["seed"];profile=job["profile"]
     threads=get(job,"threads",engine=="timefold_native" ? 1 : 4)
     threads in (1,2,4) || error("Expected 1, 2 or 4 threads")
@@ -20,8 +22,6 @@ function command(job,warm;worker_root=root)
         runtime=TOML.parsefile(joinpath(worker_root,"runtime","runtime.toml"));java=joinpath(runtime["java_home"],"bin","java.exe")
         target=joinpath(worker_root,"native","timefold","target");classpath=join([joinpath(target,"classes"),joinpath(target,"dependency","*")],';')
         return `$java -XX:ActiveProcessorCount=$threads -XX:+UseSerialGC -Xmx1g -Dorg.slf4j.simpleLogger.defaultLogLevel=warn -cp $classpath bench.AnytimeRouting $input $profile $budget $seed $out $warm`
-    elseif engine=="ghost_native_cpp"
-        return `$(joinpath(worker_root,"runtime","ghost-portable","ghost_anytime.exe")) $input $budget $out $threads`
     elseif engine=="highs_control"
         return runtime_env(`$(Base.julia_cmd()) --startup-file=no --compiled-modules=existing --threads=$threads,0 --gcthreads=1 --project=$worker_root $(joinpath(worker_root,"scripts","anytime_highs.jl")) $input $budget $seed $out $warm`)
     elseif engine=="juls_native"

@@ -44,7 +44,7 @@ function main()
             save(joinpath(out,"started.toml"),Dict("revision"=>revision,"code_sha256"=>qualification["code_sha256"],
                 "started_utc"=>string(now(UTC)),"cpu_ceiling"=>4,"affinity"=>"f0","budgets"=>[30,60,120,240],
                 "worker_rss_ceiling_bytes"=>4*1024^3,"minimum_host_free_bytes"=>512*1024^2,"timefold_max_heap"=>"1g",
-                "seeds"=>[1,2,3],"instances"=>354,"configurations"=>15,"hpo_allocation"=>"Other task remains on CPUs 0-3",
+                "seeds"=>[1,2,3],"instances"=>354,"configurations"=>length(configurations),"hpo_allocation"=>"Other task remains on CPUs 0-3",
                 "purpose"=>"Diagnostic anytime baseline, not final solver ranking; native formulations require further tuning"))
         else
             old=TOML.parsefile(joinpath(out,"started.toml"))
@@ -56,10 +56,10 @@ function main()
         # Interleave sizes so all six size families get early observations.
         bysize=[sort(filter(c->c["nominal_tasks"]==n,cases);by=c->c["id"]) for n in (100,200,400,600,800,1000)]
         order=[group[i] for i in 1:maximum(length.(bysize)) for group in bysize if i<=length(group)]
-        priority=[("timefold_native","default"),("cbls_jump","default"),("ghost_native_cpp","default_permutation"),
+        priority=[("timefold_native","default"),("cbls_jump","default"),
             ("juls_native","greedy_swap"),("lss_native","default")]
         configs=sort(configurations;by=c->something(findfirst(==((c.engine,c.profile)),priority),c.engine=="highs_control" ? 100 : 50),alg=Base.Sort.MergeSort)
-        finished=0;total=354*15*4*3
+        finished=0;total=354*length(configurations)*4*3
         println("CAMPAIGN=",out," PID=",getpid()," JOBS=",total);flush(stdout)
         for budget in (30,60,120,240), seed in 1:3, case in order, config in configs
             isfile(joinpath(out,"STOP")) && (println("Stopped between jobs; remove STOP to resume.");return)
