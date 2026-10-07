@@ -5,8 +5,10 @@ import CompositionalNetworks as CN
 using ..MetaRepair
 
 export ErrorBackend, load_backend, clone_backend, score, metadata
-const BANK = joinpath(homedir(), ".julia", "dev", "ConstraintLearningBenchmarks",
+const LEGACY_BANK = joinpath(homedir(), ".julia", "dev", "ConstraintLearningBenchmarks",
     "scripts", "xcsp3_core", "learnable_catalog", "weights.toml")
+const PORTABLE_BANK = normpath(joinpath(@__DIR__, "..", "resources", "icn-pdptw-witnesses.toml"))
+const BANK = get(ENV, "JULIACONSTRAINTS_ICN_BANK", isfile(PORTABLE_BANK) ? PORTABLE_BANK : LEGACY_BANK)
 
 function schema_hash(network)
     available = parentindices(network.weights)[1]

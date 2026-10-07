@@ -1,4 +1,4 @@
-using ConstraintModels, JuMP, TOML, SHA, Dates, LinearAlgebra
+using ConstraintModels, JuMP, TOML, SHA, Dates, LinearAlgebra, Pkg
 using ConstraintModels.Benchmarks
 
 const ROOT = normpath(joinpath(@__DIR__, "..", ".."))
@@ -15,7 +15,11 @@ const CAMPAIGN_CONFIG = TOML.parsefile(CAMPAIGN_CONFIG_PATH)
 const BASELINE_PATH = joinpath(ROOT, "LiLim", "config", "current-pilot.toml")
 const BASELINE = TOML.parsefile(BASELINE_PATH)
 const COHORT_PATH = joinpath(ROOT, "LiLim", "config", "workspace-cohort.toml")
-const COHORT = TOML.parsefile(COHORT_PATH)["cohort"]
+const COHORT_CONFIG = TOML.parsefile(COHORT_PATH)
+const COHORT = COHORT_CONFIG["cohort"]
+const COHORT_ROOT = get(ENV, "JULIACONSTRAINTS_COHORT_ROOT", dirname(pkgdir(ConstraintModels)))
+const CPU_ORDER = haskey(ENV, "JULIACONSTRAINTS_CPU_ORDER") ?
+    parse.(Int, split(ENV["JULIACONSTRAINTS_CPU_ORDER"], ',')) : CAMPAIGN_CONFIG["cpu_order"]
 const BKS_PATH = joinpath(ROOT, "LiLim", "config", "sintef-pdptw-bks-20261004.toml")
 const BKS = TOML.parsefile(BKS_PATH)
 const HEXALY_CONFIG_PATH = joinpath(ROOT, "LiLim", "config", "competitors.toml")
@@ -167,19 +171,20 @@ function check_environment(threads)
     Threads.nthreads() == threads || error("launched Julia thread count differs from --threads")
     threads in CAMPAIGN_CONFIG["thread_counts"] || error("thread width is not in the frozen protocol")
     BLAS.get_num_threads() == 1 || error("BLAS must be single-threaded")
-    sort(allowed_cpus()) == sort(CAMPAIGN_CONFIG["cpu_order"][1:threads]) || error("CPU affinity differs from the frozen topology order")
+    length(CPU_ORDER) >= threads && allunique(CPU_ORDER) || error("invalid CPU order")
+    sort(allowed_cpus()) == sort(CPU_ORDER[1:threads]) || error("CPU affinity differs from the selected topology order")
     env = dirname(Base.active_project())
     for (file, key) in (("Project.toml", "project_sha256"), ("Manifest.toml", "manifest_sha256"))
         digest(joinpath(env, file)) == BASELINE["environment"][key] || error("solver environment changed: $file")
     end
+    dependencies = Dict(info.name=>info for info in values(Pkg.dependencies()))
     for (name, expected) in COHORT
-        repo = joinpath(homedir(), ".julia", "dev", name)
+        repo = joinpath(COHORT_ROOT, name)
+        realpath(dependencies[name].source) == realpath(repo) || error("loaded dependency path differs from the checked cohort: $name")
         strip(read(`git -C $repo rev-parse HEAD`, String)) == expected || error("development cohort changed: $name")
         isempty(strip(read(`git -C $repo status --porcelain --untracked-files=no`, String))) || error("dirty dependency: $name")
     end
-    bank = joinpath(homedir(), ".julia", "dev", "ConstraintLearningBenchmarks",
-        "scripts", "xcsp3_core", "learnable_catalog", "weights.toml")
-    digest(bank) == THREAD_CONFIG["icn_bank_sha256"] || error("learned ICN bank changed")
+    digest(ICNScoring.BANK) in (THREAD_CONFIG["icn_bank_sha256"], COHORT_CONFIG["portable_icn_bank_sha256"]) || error("recovered ICN bank changed")
     measured = vcat(filter(path -> endswith(path, ".jl"), readdir(joinpath(ROOT, "LiLim", "src"); join=true)),
         [CAMPAIGN_CONFIG_PATH, BKS_PATH, BASELINE_PATH, COHORT_PATH,
          joinpath(ROOT, "LiLim", "config", "icn-threads.toml"),
@@ -247,6 +252,8 @@ function campaign_identity(opts, instances, methods, hexaly_executable, ortools_
         "runner_sha256" => digest(RUNNER_PATH),
         "source_sha256" => source_manifest(),
         "cohort" => COHORT,
+        "icn_bank_sha256" => digest(ICNScoring.BANK),
+        "cpu_order" => CPU_ORDER,
         "environment" => BASELINE["environment"],
         "official_archive_sha256" => BKS["archive_sha256"],
         "instance_sha256" => Dict(row.id => row.source_sha256 for row in instances),
@@ -352,7 +359,7 @@ function run_ortools_case(row, seconds, seed, policy, threads, ortools_identity,
         end
         common_start_seconds = elapsed()
         common_start_seconds < seconds || error("OR-Tools exchange export exceeded wall budget")
-        cpus = CAMPAIGN_CONFIG["cpu_order"][1:1]
+        cpus = CPU_ORDER[1:1]
         command = CompetitorAdapters.ortools_command(ortools_identity["python"],
             joinpath(ROOT, "LiLim", "native", "ortools", "pdptw.py"), input_path, output_path;
             seconds, seed, trial_start_epoch_ns=origin_epoch_ns, cpus)
@@ -446,7 +453,7 @@ function run_hexaly_case(row, seconds, seed, policy, threads, executable, logpat
         end
         common_start_seconds = elapsed()
         common_start_seconds < seconds || error("Hexaly exchange export exceeded wall budget")
-        cpus = CAMPAIGN_CONFIG["cpu_order"][1:threads]
+        cpus = CPU_ORDER[1:threads]
         command = CompetitorAdapters.hexaly_command(executable, input_path, output_path;
             threads, seconds=Int(seconds), seed, cpus, trial_start_epoch_ms=origin_epoch_ms,
             trajectory=trajectory_path)
@@ -597,6 +604,14 @@ function run()
             verify_trial(path, row, method, seed, opts.budget, opts.threads, problem, fingerprint)
             completed += 1
             continue
+        end
+        if isfile(joinpath(output,"STOP_AFTER_TRIAL"))
+            manifest = TOML.parsefile(manifest_path)
+            manifest["completed_trials"] = completed
+            manifest["complete"] = false
+            atomic(manifest_path,io->TOML.print(io,manifest;sorted=true))
+            println("Stopped between trials; preserve seals and resume the same campaign after removing STOP_AFTER_TRIAL.")
+            return
         end
         isfile(path * ".sha256") && error("orphan trial checksum: $path")
         started = time_ns()
