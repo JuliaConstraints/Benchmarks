@@ -122,7 +122,7 @@ discrete_model_qualification = "passed"
 equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
 family = "RCPSP"
 id = "rcpsp"
-issues = ["model_not_qualified:ortools", "original_corpus_and_references_unqualified"]
+issues = ["original_corpus_and_references_unqualified", "published_instance_qualification_pending:ortools"]
 published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-or-tools-on-the-resource-constrained-project-scheduling-problem-rcpsp"
 published_corpus_qualification = "not_complete"
 status = "prepared_models_published_corpus_pending"
@@ -169,7 +169,8 @@ status = "prepared_models_published_corpus_pending"
     solver = "gurobi"
     [[benchmarks.solvers]]
     installation = "available"
-    qualification = "not_run"
+    qualification = "functional_passed"
+    qualification_scope = "small_exact_integer_original_validator_qualification_not_performance"
     reason = "installation_probe_passed"
     solver = "ortools"
 [[benchmarks]]
@@ -512,7 +513,7 @@ discrete_model_qualification = "passed"
 equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
 family = "Large JSSP"
 id = "large_jssp"
-issues = ["model_not_qualified:ortools", "original_corpus_and_references_unqualified"]
+issues = ["original_corpus_and_references_unqualified", "published_instance_qualification_pending:ortools"]
 published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-cp-optimizer-vs-or-tools-on-the-job-shop-scheduling-problem-jssp"
 published_corpus_qualification = "not_complete"
 status = "prepared_models_published_corpus_pending"
@@ -559,7 +560,8 @@ status = "prepared_models_published_corpus_pending"
     solver = "cpoptimizer"
     [[benchmarks.solvers]]
     installation = "available"
-    qualification = "not_run"
+    qualification = "functional_passed"
+    qualification_scope = "small_exact_integer_original_validator_qualification_not_performance"
     reason = "installation_probe_passed"
     solver = "ortools"
     [[benchmarks.solvers]]
@@ -577,7 +579,7 @@ discrete_model_qualification = "passed"
 equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
 family = "Vector bin packing"
 id = "vbp"
-issues = ["model_not_qualified:ortools", "original_corpus_and_references_unqualified"]
+issues = ["original_corpus_and_references_unqualified", "published_instance_qualification_pending:ortools"]
 published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-gurobi-or-tools-on-the-vector-bin-packing-problem-vbp"
 published_corpus_qualification = "not_complete"
 status = "prepared_models_published_corpus_pending"
@@ -624,7 +626,8 @@ status = "prepared_models_published_corpus_pending"
     solver = "gurobi"
     [[benchmarks.solvers]]
     installation = "available"
-    qualification = "not_run"
+    qualification = "functional_passed"
+    qualification_scope = "small_exact_integer_original_validator_qualification_not_performance"
     reason = "installation_probe_passed"
     solver = "ortools"
 [[benchmarks]]
@@ -632,7 +635,7 @@ discrete_model_qualification = "passed"
 equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
 family = "Bin packing with conflicts"
 id = "bppc"
-issues = ["model_not_qualified:ortools", "original_corpus_and_references_unqualified"]
+issues = ["original_corpus_and_references_unqualified", "published_instance_qualification_pending:ortools"]
 published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-gurobi-or-tools-bin-packing-problem-with-conflicts-bppc"
 published_corpus_qualification = "not_complete"
 status = "prepared_models_published_corpus_pending"
@@ -679,7 +682,8 @@ status = "prepared_models_published_corpus_pending"
     solver = "gurobi"
     [[benchmarks.solvers]]
     installation = "available"
-    qualification = "not_run"
+    qualification = "functional_passed"
+    qualification_scope = "small_exact_integer_original_validator_qualification_not_performance"
     reason = "installation_probe_passed"
     solver = "ortools"
 [[benchmarks]]

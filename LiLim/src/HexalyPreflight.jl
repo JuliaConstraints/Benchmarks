@@ -103,6 +103,36 @@ function coverage(root,cohort,c; solvers,qualification,environment_ok)
     rows
 end
 
+"Merge functional model evidence without promoting it to published-corpus qualification."
+function discrete_evidence!(report, checks; core_state)
+    for row in report["benchmarks"]
+        row["id"] in ("pdptw","irp") && continue
+        family = row["id"]=="large_cvrp" ? "cvrp" :
+            row["id"]=="large_jssp" ? "jssp" :
+            row["id"]=="rcpsp_records" ? "rcpsp" : row["id"]
+        row["discrete_model_qualification"] = core_state
+        row["published_corpus_qualification"] = "not_complete"
+        for comparator in row["solvers"]
+            name = comparator["solver"]
+            evidence = get(checks,name,Dict{String,Any}())
+            if comparator["installation"]=="available" && get(evidence,"status","")=="passed" &&
+                    family in get(evidence,"qualified_families",String[])
+                comparator["qualification"] = "functional_passed"
+                comparator["qualification_scope"] = get(evidence,"scope","small_model_only")
+                filter!(!=("model_not_qualified:"*name),row["issues"])
+                pending = "published_instance_qualification_pending:"*name
+                pending in row["issues"] || push!(row["issues"],pending)
+            end
+        end
+        if core_state=="passed"
+            filter!(!=("core_qualification_not_passed"),row["issues"])
+            row["status"] = "prepared_models_published_corpus_pending"
+        end
+        sort!(unique!(row["issues"]))
+    end
+    report
+end
+
 function save_report(directory,report;refresh=false)
     # Repeated checks receive new directories; never overwrite another run's evidence.
     ispath(directory) && !refresh && error("Preflight output already exists; choose a new --output directory")
