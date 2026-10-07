@@ -11,6 +11,13 @@ exhaustive tiny-instance feasibility checks and actual one- and two-lane searche
 with the downloaded native Artifact. OR-Tools GLS has also passed its original
 PDPTW model qualification. These functional checks do not establish solver rankings.
 
+[The full public handoff qualification](https://github.com/JuliaConstraints/Benchmarks/actions/runs/37627574567)
+passed on 7 October 2026 on Linux x86_64/aarch64, macOS 15 Intel/Apple Silicon,
+and Windows x86_64. Each host checked the frozen source bytes, ran the original
+model qualification, proved setup reused installed dependencies, and completed
+two sealed OR-Tools/GHOST trials with validated reports and English exact and
+XKCD figures. Native Hexaly search remains a separate licensed-host gate.
+
 Prerequisites: **Julia 1.13.1**, Git, Python 3.12 and, on Linux,
 `taskset`/`lscpu`. No private repository, account or token is required. macOS
 Intel and Apple Silicon are supported; Windows x86_64 and Linux x86_64/aarch64
