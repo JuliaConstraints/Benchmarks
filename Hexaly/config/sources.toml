@@ -1,0 +1,216 @@
+checked_date = "2026-10-07"
+schema = "hexaly-original-sources/1"
+
+[[sources]]
+filename = "cvrp.zip"
+format = "zip"
+id = "cvrp"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+sha256 = "98693204c3de4f6f7e8f3d5dd0c69c2bf0d31ce94c52d1c17d6a0097f7c4011d"
+url = "https://www.hexaly.com/examples/cvrp.zip"
+usage = "External Hexaly application templates; not copied into CBLS implementations"
+
+    [sources.model_files]
+    "cvrp/cvrp.hxm" = "50634046547ea1d8afe07882dabe8f138a62279dc74038efb4931a7b62300f69"
+[[sources]]
+filename = "cvrptw.zip"
+format = "zip"
+id = "cvrptw"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+sha256 = "52ccd6035a1515edf452221b992174dab1ac71757e3257d77539cebd76e32da2"
+url = "https://www.hexaly.com/examples/cvrptw.zip"
+usage = "External Hexaly application templates; not copied into CBLS implementations"
+
+    [sources.model_files]
+    "cvrptw/cvrptw.hxm" = "bc5a51819967fa7e070cd282585528f45a21df84a34b524bba619966c9e0120f"
+[[sources]]
+filename = "pdptw.zip"
+format = "zip"
+id = "pdptw"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+sha256 = "e47f10b58a48b85c3754d57df6e74b1f580e9e575b28807af1366d55ceed659c"
+url = "https://www.hexaly.com/examples/pdptw.zip"
+usage = "External Hexaly application templates; not copied into CBLS implementations"
+
+    [sources.model_files]
+    "pdptw/pdptw.hxm" = "b56402fcc08b153db0a22bcc2e456dff8194091300792bf0747512d2e89e4c70"
+[[sources]]
+filename = "tsp.zip"
+format = "zip"
+id = "tsp"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+sha256 = "0d95aa6accde2833b5628151757964c142effa98ec5ccca20041f7230ab0913e"
+url = "https://www.hexaly.com/examples/tsp.zip"
+usage = "External Hexaly application templates; not copied into CBLS implementations"
+
+    [sources.model_files]
+    "tsp/tsp.hxm" = "9787e2fea834a6f9756b88368a8393efa6884203d0b188b315806a21886690fa"
+[[sources]]
+filename = "flexiblejobshop.zip"
+format = "zip"
+id = "flexiblejobshop"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+sha256 = "65c050677a36b45022fc22350a1836c6a68f1ee7bc3b23f98b2d6d37f3a84211"
+url = "https://www.hexaly.com/examples/flexiblejobshop.zip"
+usage = "External Hexaly application templates; not copied into CBLS implementations"
+
+    [sources.model_files]
+    "flexiblejobshop/flexible_jobshop.hxm" = "7af31bf88c36118d5f3118587ee0dcb84c8175592a44ce5efb948e472e6de3e8"
+[[sources]]
+filename = "jobshop.zip"
+format = "zip"
+id = "jobshop"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+sha256 = "6b7bf017f34d2a1a62023853f626771195e5bd3e9368c3d8eec87a702e415f47"
+url = "https://www.hexaly.com/examples/jobshop.zip"
+usage = "External Hexaly application templates; not copied into CBLS implementations"
+
+    [sources.model_files]
+    "jobshop/jobshop.hxm" = "353d5873a8a86a74c9ac74b54f5269f3aa11fe3e5cba1ed3e1b29192e6a9af06"
+[[sources]]
+filename = "bin_packing.zip"
+format = "zip"
+id = "bin_packing"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+sha256 = "21f2809993bfab7b0523dc4e5f40e8048921effcbe2ceb882b64a07d1de2068e"
+url = "https://www.hexaly.com/examples/bin_packing.zip"
+usage = "External Hexaly application templates; not copied into CBLS implementations"
+
+    [sources.model_files]
+    "bin_packing/bin_packing.hxm" = "f1e1358caaa627b00110c4ef6e24f6b079ca80bf8a9da81fd0ef48e91a1b6921"
+[[sources]]
+filename = "qap.zip"
+format = "zip"
+id = "qap"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+sha256 = "4219a33a883a88d72662ca924b635de3515a4eb082ece004c89f520f08f8e22a"
+url = "https://www.hexaly.com/examples/qap.zip"
+usage = "External Hexaly application templates; not copied into CBLS implementations"
+
+    [sources.model_files]
+    "qap/qap.hxm" = "729b69806fe777989e2b007571bf52d3dfdb0791031d416b229cbc630c4ee1c4"
+[[sources]]
+filename = "aircraft_landing.zip"
+format = "zip"
+id = "aircraft_landing"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+sha256 = "b44d3bb1f51813ffdf0e75ad3c28e4ba57d92d363d9596aad2214386da3bd5c6"
+url = "https://www.hexaly.com/examples/aircraft_landing.zip"
+usage = "External Hexaly application templates; not copied into CBLS implementations"
+
+    [sources.model_files]
+    "aircraft_landing/aircraft_landing.hxm" = "377ac4b281fd4d21a822b20a7a61fb3be4a70ef28a536975e2fad83b764ab089"
+[[sources]]
+filename = "kmeans.zip"
+format = "zip"
+id = "kmeans"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+sha256 = "6a2c8b4730e6ff2f0303b3e2b491028a9b9c9097911a512c4fa8cff446b56c4d"
+url = "https://www.hexaly.com/examples/kmeans.zip"
+usage = "External Hexaly application templates; not copied into CBLS implementations"
+
+    [sources.model_files]
+    "kmeans/kmeans.hxm" = "c5c2c0eb17123eb96d8a2e0ee6ae1fa25a78e45c4dd3b81275dff5d130e2193a"
+[[sources]]
+filename = "rcpsp.zip"
+format = "zip"
+id = "rcpsp"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+sha256 = "62a9fbc73ba2d15b8f40b84ea673103c9bf16cd4340f454b961c38d3c9fe5176"
+url = "https://www.hexaly.com/examples/rcpsp.zip"
+usage = "External Hexaly application templates; not copied into CBLS implementations"
+
+    [sources.model_files]
+    "rcpsp/rcpsp.hxm" = "26d5e668d2dbf6ec659f71d923be88310cb60c33bf2d5b128b4a34a60b81c90b"
+[[sources]]
+filename = "assembly_line_balancing.zip"
+format = "zip"
+id = "assembly_line_balancing"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+sha256 = "bae69ac44473e87cbbee1fdb5c1186e968c7d506f5a5dc04a0c7bd660a1962c6"
+url = "https://www.hexaly.com/examples/assembly_line_balancing.zip"
+usage = "External Hexaly application templates; not copied into CBLS implementations"
+
+    [sources.model_files]
+    "assembly_line_balancing/assembly_line_balancing.hxm" = "6ae71e08f7375968c90d296e61393cf8f1c2f1d49320693294763bf96defe3da"
+[[sources]]
+filename = "car_sequencing_color.zip"
+format = "zip"
+id = "car_sequencing_color"
+scope = "vendor_template_and_examples_not_complete_published_corpus"
+sha256 = "a0064a3a8e36e5479ce5cf9c3002a16da71b40103ba111cf3cdae28fd8132099"
+url = "https://www.hexaly.com/examples/car_sequencing_color.zip"
+usage = "External Hexaly application templates; not copied into CBLS implementations"
+
+    [sources.model_files]
+    "car_sequencing_color/car_sequencing_color.hxm" = "d712221c755145f5861bc066006882838679e4c18570d9da48e459297173ad88"
+[[sources]]
+filename = "vbp.zip"
+format = "zip"
+id = "vbp"
+scope = "published_original_data_bundle_selection_and_references_still_required"
+sha256 = "1c004283f60d9ca0b745283db17375c13e77235bbcfbb8ab129f85f01f1bdb12"
+url = "https://www.hexaly.com/wp-content/uploads/2025/04/VBP_modified_instances.zip"
+usage = "Original data for local comparisons; no redistribution in Git"
+
+    [sources.model_files]
+[[sources]]
+filename = "bppc.zip"
+format = "zip"
+id = "bppc"
+scope = "published_original_data_bundle_selection_and_references_still_required"
+sha256 = "9fd09e20c8ff9931562991ded41771c42ab1e07b6ab24c13391ff397ebd41147"
+url = "https://site.unibo.it/operations-research/en/research/library-of-codes-and-instances-1/bppc.zip/@@download/file/BPPC.zip"
+usage = "Original data for local comparisons; no redistribution in Git"
+
+    [sources.model_files]
+[[sources]]
+filename = "fjsp_corpus.zip"
+format = "zip"
+id = "fjsp_corpus"
+scope = "published_original_data_bundle_selection_and_references_still_required"
+sha256 = "0a9fa1367ff99a37a5f6adc0018728bf503abc6bdb3cc372eac0983f409ee43a"
+url = "https://www.hexaly.com/wp-content/uploads/2022/10/fjssp-instances.zip"
+usage = "Original data for local comparisons; no redistribution in Git"
+
+    [sources.model_files]
+[[sources]]
+filename = "chao4.zip"
+format = "zip"
+id = "top_chao4"
+scope = "original_functional_qualification_subset_not_published_selection"
+sha256 = "1c4e8ec2ac60b4371e82e18ef3e0ab167351b0cc4b80d51f67e957c49311de54"
+url = "https://www.mech.kuleuven.be/en/mim/op/instances/ChaoTOP4"
+usage = "Fetch original data/checker only; do not redistribute in Git"
+
+    [sources.model_files]
+[[sources]]
+filename = "example1.json"
+format = "raw"
+id = "maintenance_example"
+scope = "original_functional_qualification_subset_not_published_selection"
+sha256 = "e5e7549e4adab1df43ca85ead4203bf37b661a647f927fd9b3ef1b2ca037b585"
+url = "https://raw.githubusercontent.com/rte-france/challenge-roadef-2020/052def4d47271f913f89a68169083059732360f3/example1.json"
+usage = "Fetch original data/checker only; do not redistribute in Git"
+
+    [sources.model_files]
+[[sources]]
+filename = "output1.txt"
+format = "raw"
+id = "maintenance_solution"
+scope = "original_functional_qualification_subset_not_published_selection"
+sha256 = "d730f8fd049b3d9d7dc5d28bd1feca2f33e4ccf3a988ab527728146ce2343f4b"
+url = "https://raw.githubusercontent.com/rte-france/challenge-roadef-2020/052def4d47271f913f89a68169083059732360f3/output1.txt"
+usage = "Fetch original data/checker only; do not redistribute in Git"
+
+    [sources.model_files]
+[[sources]]
+filename = "checker.py"
+format = "raw"
+id = "maintenance_checker"
+scope = "original_functional_qualification_subset_not_published_selection"
+sha256 = "9f1d7be2c5610d79ccbdd762c5c8736308fddc34e1ab39e6a6619be761f8322a"
+url = "https://raw.githubusercontent.com/rte-france/challenge-roadef-2020/052def4d47271f913f89a68169083059732360f3/RTE_ChallengeROADEF2020_checker.py"
+usage = "Fetch original data/checker only; do not redistribute in Git"
+
+    [sources.model_files]

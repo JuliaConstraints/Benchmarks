@@ -41,3 +41,8 @@ Manifest.toml
 /LiLim/results/**/STOP_AFTER_TRIAL
 /LiLim/native/ortools/.venv/
 /LiLim/native/timefold/target/
+
+# Original third-party corpora and vendor templates are fetched by checksum.
+/Hexaly/data/
+/Hexaly/results/**/trials/
+/Hexaly/results/**/logs/

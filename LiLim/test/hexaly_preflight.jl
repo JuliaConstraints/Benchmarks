@@ -10,8 +10,9 @@ const CATALOG = HexalyPreflight.catalogue(joinpath(ROOT,"LiLim/config/hexaly-ben
     rows = HexalyPreflight.coverage(ROOT,joinpath(homedir(),".julia/dev/JuliaConstraintsHandoff"),CATALOG;
         solvers,qualification=Dict{String,String}(),environment_ok=true)
     @test length(rows)==20
-    @test all(row->row["status"]=="blocked",rows)
-    @test all(row->"adapter_missing" in row["issues"],filter(row->row["id"]!="pdptw",rows))
+    @test all(row->row["status"]=="blocked",filter(row->row["id"]!="irp",rows))
+    @test only(filter(row->row["id"]=="irp",rows))["status"]=="deferred_continuous"
+    @test all(row->"original_corpus_and_references_unqualified" in row["issues"],filter(row->!(row["id"] in ("pdptw","irp")),rows))
     @test !any(row->row["status"]=="ready_available_solvers",rows)
     mktempdir() do root
         @test_throws ErrorException HexalyPreflight.asset(root,root,"../outside")

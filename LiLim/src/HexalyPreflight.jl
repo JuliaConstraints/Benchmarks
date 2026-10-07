@@ -64,6 +64,12 @@ end
 function coverage(root,cohort,c; solvers,qualification,environment_ok)
     rows = Dict{String,Any}[]
     for entry in c["benchmarks"]
+        if startswith(get(entry,"decision_scope",""),"deferred_continuous")
+            push!(rows,Dict{String,Any}("id"=>entry["id"],"family"=>entry["family"],
+                "published_benchmark_url"=>entry["published_benchmark_url"],"equivalence"=>entry["equivalence"],
+                "status"=>"deferred_continuous","issues"=>String[],"assets"=>Dict(),"data"=>Dict("status"=>"deferred"),"solvers"=>[]))
+            continue
+        end
         assets = Dict(name=>asset(root,cohort,get(entry,name,"")) for name in
             ("adapter","validator","hexaly_model","data_manifest"))
         issues = [name*"_missing" for (name,a) in assets if a["status"]!="present"]
