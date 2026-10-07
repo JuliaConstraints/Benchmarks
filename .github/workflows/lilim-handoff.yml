@@ -60,6 +60,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: julia-actions/cache@v3
+        with:
+          cache-name: lilim-handoff-julia-1.13.1
+          delete-old-caches: 'false'
       - name: Require the native OR-Tools SDK before expensive Julia setup
         shell: bash
         run: |
