@@ -1,4 +1,4 @@
-"""Public, pinned Linux handoff: setup, qualify, run, report, and export."""
+# Public, pinned Linux handoff: setup, qualify, run, report, and export.
 using TOML, SHA, Downloads
 const ROOT = normpath(joinpath(@__DIR__, "..", ".."))
 const CONFIG = TOML.parsefile(joinpath(ROOT,"LiLim/config/workspace-cohort.toml"))
