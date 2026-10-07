@@ -62,10 +62,11 @@ function (o::RouteObjective)(values)
         checked = validate_solution(o.evaluator.problem, routes)
         checked.valid || error("GHOST ICN zero set disagrees with the original PDPTW validator")
         key = (checked.objective.vehicles, checked.objective.distance)
-        if key < o.best_key
+        observed_seconds = elapsed(o)
+        if key < o.best_key && observed_seconds <= o.budget
             o.best_key = key
             o.best_routes = deepcopy(routes)
-            push!(o.trajectory, Dict("seconds"=>elapsed(o), "vehicles"=>key[1],
+            push!(o.trajectory, Dict("seconds"=>observed_seconds, "vehicles"=>key[1],
                 "distance"=>key[2], "routes"=>deepcopy(routes), "source"=>"ghost_icn"))
         end
     end
