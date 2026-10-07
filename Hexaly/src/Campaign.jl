@@ -1,5 +1,5 @@
 module ReproductionCampaign
-using TOML,SHA,Dates,Statistics
+using TOML,SHA,Dates,Statistics,Random
 import HiGHS
 using ..ReproductionProblems,..ReproductionSelections,..ReproductionSolvers
 using ..ReproductionORTools,..ReproductionHexaly
@@ -13,7 +13,9 @@ function code_hash(root)
     paths=sort!(vcat([joinpath(dir,file) for (dir,_,files)in walkdir(joinpath(root,"Hexaly"))
         for file in files if (endswith(file,".jl") || endswith(file,".py") || endswith(file,".toml")) &&
         !("data" in splitpath(relpath(dir,joinpath(root,"Hexaly")))) && !("results" in splitpath(relpath(dir,joinpath(root,"Hexaly"))))],
-        [joinpath(root,"LiLim/config/strategy-variants.toml"),joinpath(root,"LiLim/resources/icn-pdptw-witnesses.toml")]))
+        [joinpath(root,"LiLim",p) for p in ("config/strategy-variants.toml","resources/icn-pdptw-witnesses.toml",
+            "config/workspace-cohort.toml","config/hexaly-benchmark-catalog.toml","src/NativeSolvers.jl",
+            "src/PlatformResources.jl","src/SearchPolicies.jl","src/SolverArtifacts.jl")]))
     bytes2hex(sha256(join([relpath(p,root)*":"*digest(p) for p in paths],"\n")))
 end
 function status_result(p,values,status;bound=NaN,seconds=NaN)
@@ -53,7 +55,7 @@ function solve(root,row,p,path,method;seconds,threads,seed,max_cells)
     # Select only actual existing profile IDs; each worker owns its solver, ICN and buffers.
     phases=filter(p->p in POLICIES,phases);isempty(phases) && error("Missing portfolio profiles")
     workers=[(;kind=method=="metastrategist_mixed" && mod1(i,4)==3 ? :direct : kind,
-        policy=phases[mod1(i,length(phases))],hybrid=method=="hybrid_highs" || (method=="metastrategist_mixed" && mod1(i,4)==2)) for i in 1:threads]
+        policy=phases[mod1(i,length(phases))],hybrid=method=="hybrid_highs" || (method=="metastrategist_mixed" && mod1(i,4)==2),max_cells) for i in 1:threads]
     prepared_at=time_ns()
     lanes=[prepare_cbls(p;w...,seed=seed+i-1) for (i,w)in enumerate(workers)]
     preparation=(time_ns()-prepared_at)/1e9
@@ -66,6 +68,7 @@ function solve(root,row,p,path,method;seconds,threads,seed,max_cells)
         outcomes=portfolio(p;workers,seconds,seed)
     else
         Threads.@threads :static for i in eachindex(lanes)
+            Random.seed!(lanes[i].seed)
             outcomes[i]=Base.invokelatest(search!,lanes[i];seconds)
         end
     end

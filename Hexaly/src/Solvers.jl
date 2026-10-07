@@ -7,8 +7,9 @@ include("../../LiLim/src/PlatformResources.jl")
 export prepare_cbls,search!,portfolio,mip_model,solve_mip,solve_ghost,POLICIES
 const POLICIES=sort!(collect(keys(SearchPolicies.CONFIG["profiles"])))
 
-function prepare_cbls(p;kind=:direct,policy="greedy_guided",seed=41,hybrid=false)
+function prepare_cbls(p;kind=:direct,policy="greedy_guided",seed=41,hybrid=false,max_cells=250_000)
     hybrid && !(p.family in (:bpp,:bppc,:vbp,:salbp,:rcpsp,:jssp,:fjsp,:aircraft_landing)) && throw(ArgumentError("No qualified MIP repair for $(p.family)"))
+    hybrid && check_mip_size(p,max_cells)
     Random.seed!(seed)
     b=prepare_backend(kind);opt=CBLS.Optimizer();model=direct_model(opt);ds=domains(p);n=length(ds)
     @variable(model,first(ds[i])<=x[i=1:n]<=last(ds[i]),Int)
@@ -25,7 +26,7 @@ function prepare_cbls(p;kind=:direct,policy="greedy_guided",seed=41,hybrid=false
     start=initial(p)
     for i in eachindex(start);LS._value!(solver,i,start[i]);end
     Base.invokelatest(LS._compute!,solver);SearchPolicies.synchronize!(solver)
-    (;p,model,solver,backend=b,policy=material.description,seed,start,hybrid)
+    (;p,model,solver,backend=b,policy=material.description,seed,start,hybrid,max_cells)
 end
 
 function search!(lane;seconds=1.,max_steps=typemax(Int))
@@ -51,7 +52,7 @@ function search!(lane;seconds=1.,max_steps=typemax(Int))
             ids=sort!(randperm(length(snapshot.values))[1:min(16,length(snapshot.values))])
             group=LS.MetaVariable(:integer_fragment,ids)
             budget=min(.5,max(0.,seconds-(time_ns()-start)/1e9),.25seconds-repair_seconds)
-            outcome=LS.resolve_meta_variable(MIPResolver(),LS.MetaVariableRequest(group,snapshot,budget,Random.default_rng()))
+            outcome=LS.resolve_meta_variable(MIPResolver(lane.max_cells),LS.MetaVariableRequest(group,snapshot,budget,Random.default_rng()))
             repair_seconds+=outcome.elapsed
             if outcome.move!==nothing && (time_ns()-start)/1e9<seconds
                 LS._commit!(lane.solver,outcome.move);LS._compute!(lane.solver);SearchPolicies.synchronize!(lane.solver);repairs+=1
@@ -109,7 +110,22 @@ function portfolio(p;workers=[(;kind=:icn_fused,policy="late_400")],seconds=1.,s
 end
 
 "Exact integer formulations for optional MIP/CP comparators; size caps reject unsuitable expansions."
+function check_mip_size(p,limit)
+    d=p.data;f=p.family;n=length(domains(p))
+    cells=if f in (:bpp,:bppc,:vbp,:salbp);n*last(first(domains(p)))
+    elseif f==:rcpsp;n*(d["horizon"]+1)
+    elseif f==:fjsp;(n÷2)^2
+    elseif f==:jssp
+        counts=Dict{Int,Int}()
+        for i in eachindex(d["duration"]);d["duration"][i]>0 && (counts[d["machine"][i]]=get(counts,d["machine"][i],0)+1);end
+        sum(c*(c-1)÷2 for c in values(counts))
+    elseif f==:aircraft_landing;n*n
+    else;throw(ArgumentError("No qualified integer fragment for $f"));end
+    cells<=limit || throw(ArgumentError("Integer formulation exceeds model-size cap"))
+    nothing
+end
 function mip_model(p;max_cells=250_000,symmetry=true)
+    check_mip_size(p,max_cells)
     d=p.data;f=p.family;m=Model();ds=domains(p)
     if f in (:bpp,:bppc,:vbp,:salbp)
         n=length(ds);B=last(first(ds));n*B<=max_cells || throw(ArgumentError("Assignment formulation exceeds model-size cap"))
@@ -205,14 +221,17 @@ function solve_mip(p,factory;seconds=1.,threads=1,max_cells=250_000)
     (;values,status=termination_status(prepared.model),bound=objective_bound(prepared.model))
 end
 
-struct MIPResolver <: LS.AbstractMetaVariableResolver end
-function LS.resolve_meta_variable(::MIPResolver,request::LS.MetaVariableRequest)
+struct MIPResolver <: LS.AbstractMetaVariableResolver
+    max_cells::Int
+end
+MIPResolver()=MIPResolver(250_000)
+function LS.resolve_meta_variable(resolver::MIPResolver,request::LS.MetaVariableRequest)
     started=time_ns();p=request.snapshot.p;current=request.snapshot.values;ids=Set(LS.scope(request.variable))
     remaining()=max(0.,Float64(request.budget)-(time_ns()-started)/1e9)
     finish(move=nothing)=(;move,elapsed=(time_ns()-started)/1e9)
     remaining()>0 || return finish()
     # Bin/station symmetry is valid for a free model, but not after fixing original labels.
-    built=mip_model(p;symmetry=false);m=built.model;n=length(current)
+    built=mip_model(p;symmetry=false,max_cells=resolver.max_cells);m=built.model;n=length(current)
     if p.family in (:bpp,:bppc,:vbp,:salbp)
         a=m[:a]
         for i in 1:n;i in ids || fix(a[i,current[i]],1;force=true);end

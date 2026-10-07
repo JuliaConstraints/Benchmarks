@@ -97,6 +97,14 @@ fingerprint prevent mixing sources, budgets or earlier evidence.
 
 ## Licensed Hexaly host
 
+For the complete benchmark-page catalogue, use the [discrete toolkit](../Hexaly/README.md):
+
+```sh
+julia --startup-file=no Hexaly/scripts/colleague.jl preflight
+```
+
+It retains 20 protocol entries and prepares 19 discrete entries. The original IRP delivery quantities are continuous and deferred. Small models, original-format samples and eight native OR-Tools CP-SAT models are functionally qualified; exact published selections, BKS records and further native Hexaly models remain separate gates. The command starts no comparative campaign and reports incomplete readiness rather than calling those gates passed.
+
 For the complete published catalogue, run:
 
 ```sh

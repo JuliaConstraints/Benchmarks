@@ -66,22 +66,26 @@ function preflight(opts)
             row["status"]="prepared_models_published_corpus_pending"
         end
     end
-    open(io->TOML.print(io,report;sorted=true),joinpath(output,"report.toml"),"w")
+    report["status"]=state=="failed" || code==1 ? "qualification_failed" : "incomplete_published_reproduction"
+    LiLimKit.HexalyPreflight.save_report(output,report;refresh=true)
+    write_discrete_detail(output,report,state,inputs)
+    println("Preflight saved: ",joinpath(output,"report.md"),". No comparative campaign started.")
+    state=="failed" || code==1 ? 1 : 2
+end
+function write_discrete_detail(output,report,state,inputs)
     open(joinpath(output,"report.md"),"a") do io
         println(io,"\n## Discrete toolkit qualification\n\nActive entries: 19. IRP is deferred because original delivery quantities are continuous. ",
             "Classical model/validator tests: **$state**. The committed instance selection is a functional smoke set, not the exact published cohorts. ",
             "Complete published selections and reference records remain mandatory before claiming reproduction.\n")
         println(io,"| Original input | Scope | Bytes |\n|---|---|---|")
         for r in inputs;println(io,"| $(r["id"]) | $(r["scope"]) | $(r["status"]) |");end
-        if isfile(worker)
+        if haskey(get(report,"classical_qualification",Dict()),"checks")
             println(io,"\n| Native adapter | Qualification | Scope |\n|---|---|---|")
             for (name,check) in sort!(collect(report["classical_qualification"]["checks"]);by=first)
                 println(io,"| $name | $(check["status"]) | $(get(check,"scope",get(check,"reason","see machine-readable evidence"))) |")
             end
         end
     end
-    println("Preflight saved: ",joinpath(output,"report.md"),". No comparative campaign started.")
-    state=="failed" || code==1 ? 1 : 2
 end
 function main(args=ARGS)
     isempty(args) && error("Usage: colleague.jl preflight|prepare|qualify|run|lilim|report [--name=value]")

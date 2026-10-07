@@ -15,6 +15,7 @@ using .ReproductionCampaign
         @test validate(p,vcat(outcome.move.replacements,[3])).valid
     end
     restricted=problem(:vbp,Dict("weights"=>[[1,3],[3,1],[2,2]],"capacity"=>[4,4],"max_bins"=>2))
+    @test_throws ArgumentError prepare_cbls(restricted;hybrid=true,max_cells=1)
     @test validate(restricted,initial(restricted)).valid
     r=solve_mip(restricted,ReproductionSolvers.HiGHS.Optimizer;seconds=1.)
     @test validate(restricted,r.values).valid

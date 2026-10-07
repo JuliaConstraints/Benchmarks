@@ -103,9 +103,9 @@ function coverage(root,cohort,c; solvers,qualification,environment_ok)
     rows
 end
 
-function save_report(directory,report)
+function save_report(directory,report;refresh=false)
     # Repeated checks receive new directories; never overwrite another run's evidence.
-    ispath(directory) && error("Preflight output already exists; choose a new --output directory")
+    ispath(directory) && !refresh && error("Preflight output already exists; choose a new --output directory")
     mkpath(directory)
     open(io->TOML.print(io,report;sorted=true),joinpath(directory,"report.toml"),"w")
     open(joinpath(directory,"report.md"),"w") do io

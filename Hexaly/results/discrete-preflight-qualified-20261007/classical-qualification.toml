@@ -1,0 +1,28 @@
+checked_at_utc = "2026-10-07T16:31:01.005"
+schema = "discrete-original-qualification/1"
+status = "passed"
+
+[checks.core]
+families = ["tsp", "cvrp", "cvrptw", "top", "qap", "bpp", "bppc", "vbp", "mssc", "rcpsp", "jssp", "fjsp", "salbp", "aircraft_landing", "car_sequencing", "maintenance"]
+policies = ["assignment", "compatibility", "exhaustion_always_full", "exhaustion_full", "exhaustion_partial", "greedy_guided", "late_400", "late_64", "late_full_reset", "reset_best_full", "reset_best_large", "reset_best_small", "reset_current", "reset_current_full", "tabu_accepted", "tabu_keen", "tabu_long", "tabu_random_full", "tabu_random_partial", "tabu_reset", "tabu_reset_full", "tabu_short", "tabu_weak", "universal_best", "universal_best_full", "universal_current", "universal_current_full"]
+status = "passed"
+
+[checks.ghost]
+scope = "Julia_wrapper_BPP_direct_and_ICN_callbacks_only"
+status = "passed"
+threads = 1
+
+[checks.hexaly]
+reason = "license_unavailable"
+status = "skipped"
+
+[checks.original_samples]
+instances = ["cvrp_A_n32_k5", "cvrptw_R101_25", "fjsp_Mk01", "jssp_ft06", "bpp_t60_00", "qap_esc32c", "aircraft_airland1", "mssc_ruspini_k2", "rcpsp_Pat1", "salbp_n20_52", "carseq_035", "bppc_5_0_1", "vbp_a1_1", "top_p4_2_a", "maintenance_example1"]
+scope = "format_and_error_zero_set_not_complete_published_corpus"
+status = "passed"
+
+[checks.ortools]
+qualified_families = ["bpp", "bppc", "vbp", "salbp", "rcpsp", "jssp", "fjsp", "aircraft_landing"]
+scope = "small_exact_integer_original_validator_qualification_not_performance"
+status = "passed"
+version = "9.14.6206"

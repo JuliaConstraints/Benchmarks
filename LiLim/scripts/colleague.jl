@@ -335,7 +335,8 @@ function preflight(opts)
     for row in rows
         println(uppercase(row["status"])," | ",row["family"]," | ",join(row["issues"],", "))
     end
-    println("Preflight: ",ready,"/",length(rows)," entries ready for available solvers; report: ",joinpath(output,"report.md"))
+    active=count(row->row["status"]!="deferred_continuous",rows)
+    println("Preflight: ",ready,"/",active," active entries ready for available solvers; report: ",joinpath(output,"report.md"))
     report["status"]=="ready" ? 0 : report["status"]=="failed" ? 1 : 2
 end
 
