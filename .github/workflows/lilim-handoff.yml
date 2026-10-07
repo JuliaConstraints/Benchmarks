@@ -37,3 +37,6 @@ jobs:
       - name: Prove setup reuses installed packages and Artifacts
         shell: bash
         run: julia --startup-file=no --threads=1 --gcthreads=1 LiLim/scripts/colleague.jl setup
+      - name: Exercise sealed trials, report and English figures
+        shell: bash
+        run: julia --startup-file=no --threads=1 --gcthreads=1 LiLim/scripts/colleague.jl run --budget=8 --threads=1 --methods=ortools_native,ghost_icn --instances=lc101 --seeds=41 --output=LiLim/results/ci-functional-smoke
