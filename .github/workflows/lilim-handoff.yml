@@ -1,7 +1,7 @@
 name: Public solver kit qualification
 on:
   push:
-    branches: [bench/lilim-etendu-20261007]
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
