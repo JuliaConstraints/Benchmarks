@@ -60,7 +60,7 @@ function ortools_identity(python; python_path="", probe=capture)
         addenv(`$candidate -c $code`, "PYTHONPATH"=>python_path, "PYTHONNOUSERSITE"=>"1")
     result = probe(command)
     result.timed_out && throw(UnavailableSolver("ortools_native", "import_probe_timed_out"))
-    lines = split(result.output, '\n')
+    lines = strip.(split(result.output, '\n'))
     version_line = findfirst(l->startswith(l, "PYTHON|"), lines)
     python_version = version_line === nothing ? "unknown" : split(lines[version_line], '|')[2]
     result.code == 0 || throw(UnavailableSolver("ortools_native",

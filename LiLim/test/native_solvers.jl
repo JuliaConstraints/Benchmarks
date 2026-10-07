@@ -39,6 +39,16 @@ end
         identity=NativeSolvers.ortools_identity(PYTHON;probe=good)
         @test identity["native_module_sha256"]==bytes2hex(sha256("fixture"))
         @test identity["python_version"]=="3.12.3"
+        # Windows stdout uses CRLF. A missing package must reach the installer,
+        # and a successful native path must not retain a trailing carriage return.
+        windows_good=probe("PYTHON|3.12.3\r\nPRESENT\r\nORTOOLS|9.14.6206|$native\r\n")
+        @test NativeSolvers.ortools_identity(PYTHON;probe=windows_good)==identity
+        windows_missing=try
+            NativeSolvers.ortools_identity(PYTHON;probe=probe("PYTHON|3.12.3\r\nMISSING\r\n";code=1))
+        catch exception
+            exception
+        end
+        @test windows_missing.reason=="package_not_installed"
         for p in (probe("PYTHON|3.12.3\nMISSING\n";code=1),
             probe("PRESENT\n";code=1),probe("";timed_out=true),
             probe("PYTHON|3.12.3\nORTOOLS|9.15|$native\n"))
