@@ -17,6 +17,7 @@ const BASELINE = TOML.parsefile(BASELINE_PATH)
 const COHORT_PATH = joinpath(ROOT, "LiLim", "config", "workspace-cohort.toml")
 const COHORT_CONFIG = TOML.parsefile(COHORT_PATH)
 const COHORT = COHORT_CONFIG["cohort"]
+const SOLVER_ENVIRONMENT = get(COHORT_CONFIG,"environment",BASELINE["environment"])
 const COHORT_ROOT = get(ENV, "JULIACONSTRAINTS_COHORT_ROOT", dirname(pkgdir(ConstraintModels)))
 const CPU_ORDER = haskey(ENV, "JULIACONSTRAINTS_CPU_ORDER") ?
     parse.(Int, split(ENV["JULIACONSTRAINTS_CPU_ORDER"], ',')) : CAMPAIGN_CONFIG["cpu_order"]
@@ -175,7 +176,7 @@ function check_environment(threads)
     sort(allowed_cpus()) == sort(CPU_ORDER[1:threads]) || error("CPU affinity differs from the selected topology order")
     env = dirname(Base.active_project())
     for (file, key) in (("Project.toml", "project_sha256"), ("Manifest.toml", "manifest_sha256"))
-        digest(joinpath(env, file)) == BASELINE["environment"][key] || error("solver environment changed: $file")
+        digest(joinpath(env, file)) == SOLVER_ENVIRONMENT[key] || error("solver environment changed: $file")
     end
     dependencies = Dict(info.name=>info for info in values(Pkg.dependencies()))
     for (name, expected) in COHORT
@@ -254,7 +255,7 @@ function campaign_identity(opts, instances, methods, hexaly_executable, ortools_
         "cohort" => COHORT,
         "icn_bank_sha256" => digest(ICNScoring.BANK),
         "cpu_order" => CPU_ORDER,
-        "environment" => BASELINE["environment"],
+        "environment" => SOLVER_ENVIRONMENT,
         "official_archive_sha256" => BKS["archive_sha256"],
         "instance_sha256" => Dict(row.id => row.source_sha256 for row in instances),
         "instances" => [row.id for row in instances],
