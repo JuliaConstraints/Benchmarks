@@ -26,3 +26,38 @@ include(joinpath(@__DIR__,"..","scripts","colleague.jl"))
         end
     end
 end
+
+@testset "One-command Hexaly host preparation fails closed" begin
+    stages=String[]
+    prepare=opts->push!(stages,"setup")
+    function qualification(opts; require_hexaly=false)
+        @test opts["hexaly"]=="resolved-hexaly"
+        @test require_hexaly
+        push!(stages,"qualified")
+    end
+    unavailable=name->throw(NativeSolvers.UnavailableSolver("hexaly_native","license_unavailable"))
+    function broken_qualification(opts; require_hexaly=false)
+        push!(stages,"invalid-model")
+        error("invalid original solution")
+    end
+    mktemp() do path, output
+        redirect_stdout(output) do
+            @test_throws NativeSolvers.UnavailableSolver check(Dict{String,String}();
+                hexaly_resolver=unavailable,setup_runner=prepare,qualification_runner=qualification)
+            @test isempty(stages)
+            @test_throws ErrorException check(Dict{String,String}();hexaly_resolver=name->"resolved-hexaly",
+                setup_runner=prepare,qualification_runner=broken_qualification)
+            @test stages==["setup","invalid-model"]
+        end
+        flush(output)
+        @test !occursin("READY:",read(path,String))
+        empty!(stages)
+        redirect_stdout(output) do
+            check(Dict{String,String}();hexaly_resolver=name->"resolved-hexaly",
+                setup_runner=prepare,qualification_runner=qualification)
+        end
+        flush(output)
+        @test stages==["setup","qualified"]
+        @test occursin("READY:",read(path,String))
+    end
+end
