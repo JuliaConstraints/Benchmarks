@@ -8,6 +8,20 @@ julia --startup-file=no scripts/colleague.jl preflight
 
 It checks every kit solver. Hexaly is optional; absent solvers are skipped.
 The [repository guide](../README.md) lists prerequisites and coverage.
+OR-Tools functional checks also exercise independent Routing processes and
+generalized CP-SAT with up to two workers. A one-CPU allocation skips multicore
+qualification. The resulting execution profiles are listed in the preflight
+report; the sealed campaign below retains its existing `ortools_native` profile.
+
+Routing processes use distinct GLS coefficients and one native worker each;
+internal CP-SAT calls and numerical libraries are also capped at one thread.
+Generalized CP-SAT disables CP local search and has its own explicit worker
+budget. Linux pins the allocated CPUs; macOS/Windows apply worker limits.
+Independent processes incur startup and model-memory costs, and can compete
+for cache/memory bandwidth. Functional qualification does not establish speedup.
+CP-SAT exports only its final incumbent, so its target time is an upper bound.
+The small [qualification evidence](results/solver-preflight-20261007/ortools-profiles.toml)
+records native worker verification, CPU allocation and original-model checks.
 
 ## Compare
 

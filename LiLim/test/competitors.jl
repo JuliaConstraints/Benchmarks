@@ -93,11 +93,16 @@ include(joinpath(@__DIR__,"..","competitors","Adapters.jl"))
     end
     @test_throws ArgumentError CompetitorAdapters.audit_ortools_trial(p,initial,ortools;budget_seconds=-1)
     epoch_ns=epoch_ms*1_000_000
+    cpu=first(CompetitorAdapters.PlatformResources.allowed_cpus())
     command=CompetitorAdapters.ortools_command("python3","runner.py","in","out";
-        seconds=60,seed=41,trial_start_epoch_ns=epoch_ns,cpus=[8])
-    @test Sys.islinux() ? command.exec[1:3]==["taskset","--cpu-list","8"] :
+        seconds=60,seed=41,trial_start_epoch_ns=epoch_ns,cpus=[cpu])
+    @test Sys.islinux() ? command.exec[1:3]==["taskset","--cpu-list",string(cpu)] :
         command.exec[1:2]==["python3","runner.py"]
     @test "--trial-start-epoch-ns=$epoch_ns" in command.exec
     @test_throws ArgumentError CompetitorAdapters.ortools_command("python3","runner.py","in","out";
-        seconds=60,seed=41,trial_start_epoch_ns=epoch_ns,cpus=[8,10])
+        seconds=60,seed=41,trial_start_epoch_ns=epoch_ns,cpus=[cpu,cpu])
+    @test_throws ArgumentError CompetitorAdapters.ortools_command("python3","runner.py","in","out";
+        seconds=60,seed=41,trial_start_epoch_ns=epoch_ns,cpus=[cpu],engine="cpsat",workers=2)
+    @test_throws ArgumentError CompetitorAdapters.ortools_command("python3","runner.py","in","out";
+        seconds=60,seed=41,trial_start_epoch_ns=epoch_ns,cpus=[cpu],gls_lambda=NaN)
 end

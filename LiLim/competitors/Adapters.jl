@@ -3,7 +3,7 @@ include("../src/PlatformResources.jl")
 using TOML, SHA
 using ..Benchmarks, ..Pilot
 export export_common_start, audit_timefold, audit_hexaly, audit_hexaly_trial, hexaly_command,
-    audit_ortools_trial, ortools_command
+    audit_ortools_trial, ortools_command, ortools_portfolio
 
 "One-based node IDs, depot=1; complete native fleet and an independently validated start."
 function export_common_start(io,p,initial)
@@ -63,15 +63,27 @@ function audit_hexaly(p,output)
     validation
 end
 """Audit OR-Tools' result and each within-budget incumbent against Li-Lim."""
-function audit_ortools_trial(p, initial, output; budget_seconds, common_start_seconds=0.)
+function audit_ortools_trial(p, initial, output; budget_seconds, common_start_seconds=0.,
+        engine="routing", workers=1, gls_lambda=0.1)
     isfinite(budget_seconds) && budget_seconds >= 0 ||
         throw(ArgumentError("OR-Tools budget must be finite and nonnegative"))
     isfinite(common_start_seconds) && common_start_seconds >= 0 ||
         throw(ArgumentError("OR-Tools common start must be finite and nonnegative"))
-    output["schema"] == "li-lim-ortools-native/1" || error("wrong OR-Tools schema")
+    engine in ("routing","cpsat") || throw(ArgumentError("unknown OR-Tools engine"))
+    workers isa Integer && workers >= 1 || throw(ArgumentError("invalid OR-Tools worker count"))
+    schema = engine=="routing" ? "li-lim-ortools-native/1" : "li-lim-ortools-cpsat-native/1"
+    output["schema"] == schema || error("wrong OR-Tools schema")
     output["ortools_version"] == "9.14.6206" || error("OR-Tools version differs from the frozen baseline")
-    output["internal_search_threads"] == 1 || error("OR-Tools routing profile must use one internal search thread")
-    output["guided_local_search"] || error("OR-Tools profile is not Guided Local Search")
+    output["internal_search_threads"] == workers || error("OR-Tools worker allocation differs")
+    if engine=="routing"
+        workers==1 || error("Routing workers must be separate processes")
+        output["guided_local_search"] || error("OR-Tools profile is not Guided Local Search")
+        get(output,"gls_lambda",0.1)==gls_lambda || error("OR-Tools GLS coefficient differs")
+    else
+        !output["guided_local_search"] && !output["cp_local_search_enabled"] &&
+            output["generalized_cp_sat_enabled"] && output["seed_used_by_cp_sat"] ||
+            error("OR-Tools CP-SAT profile differs or CP local search is still enabled")
+    end
     output["distance_scale"] == 1_000_000 && output["time_scale"] == 10_000 ||
         error("OR-Tools integer scales differ from the frozen model")
     output["seed_used_by_routing_search"] === false || error("OR-Tools default seed policy changed")
@@ -119,7 +131,7 @@ function audit_ortools_trial(p, initial, output; budget_seconds, common_start_se
             best_routes = deepcopy(routes)
             best = checked.objective
             push!(trajectory, Dict("seconds"=>seconds,"vehicles"=>best.vehicles,
-                "distance"=>best.distance,"routes"=>deepcopy(best_routes),"source"=>"ortools_gls"))
+                "distance"=>best.distance,"routes"=>deepcopy(best_routes),"source"=>engine=="routing" ? "ortools_gls" : "ortools_cpsat"))
         end
     end
     if final_seconds > budget_seconds
@@ -137,16 +149,83 @@ function audit_ortools_trial(p, initial, output; budget_seconds, common_start_se
         "common_start_accepted"=>Bool(output["common_start_accepted"]))
 end
 
-"Launch the pinned Python RoutingModel adapter with single-core CPU affinity."
-function ortools_command(python, script, input, output; seconds, seed, trial_start_epoch_ns, cpus)
+"Launch OR-Tools with an explicit native worker budget and CPU allocation."
+function ortools_command(python, script, input, output; seconds, seed, trial_start_epoch_ns, cpus,
+        engine="routing", workers=1, gls_lambda=0.1, verify_cpsat=false)
     seconds isa Real && isfinite(seconds) && seconds >= 0 ||
         throw(ArgumentError("OR-Tools time limit must be finite and nonnegative"))
     seed isa Integer && seed > 0 || throw(ArgumentError("OR-Tools trial seed label must be positive"))
     trial_start_epoch_ns isa Integer && trial_start_epoch_ns > 0 ||
         throw(ArgumentError("OR-Tools needs a positive common-start epoch"))
-    length(cpus) == 1 && only(cpus) isa Integer && only(cpus) >= 0 ||
-        throw(ArgumentError("OR-Tools RoutingModel baseline is pinned to exactly one CPU"))
-    PlatformResources.pin(`$python $script --input=$input --output=$output --seconds=$seconds --seed=$seed --trial-start-epoch-ns=$trial_start_epoch_ns`,cpus)
+    engine in ("routing","cpsat") || throw(ArgumentError("unknown OR-Tools engine"))
+    workers isa Integer && workers >= 1 && length(cpus)==workers && allunique(cpus) &&
+        all(c->c isa Integer && c >= 0,cpus) || throw(ArgumentError("workers need distinct allocated CPUs"))
+    engine=="routing" && workers!=1 && throw(ArgumentError("Routing uses one CPU per process"))
+    gls_lambda isa Real && isfinite(gls_lambda) && gls_lambda>0 || throw(ArgumentError("invalid GLS coefficient"))
+    if Sys.islinux()
+        all(c->c in PlatformResources.allowed_cpus(),cpus) || throw(ArgumentError("CPU outside current allocation"))
+    end
+    arguments = verify_cpsat ? ["--verify-cpsat"] : String[]
+    command=PlatformResources.pin(`$python $script --input=$input --output=$output --seconds=$seconds --seed=$seed --trial-start-epoch-ns=$trial_start_epoch_ns --engine=$engine --workers=$workers --gls-lambda=$gls_lambda $arguments`,cpus)
+    addenv(command,"OPENBLAS_NUM_THREADS"=>"1","OMP_NUM_THREADS"=>"1","OMP_THREAD_LIMIT"=>"1",
+        "MKL_NUM_THREADS"=>"1","BLIS_NUM_THREADS"=>"1","VECLIB_MAXIMUM_THREADS"=>"1","NUMEXPR_NUM_THREADS"=>"1")
+end
+
+"Independent Routing searches with a common deadline and original-problem audit."
+function ortools_portfolio(p,initial,identity;seconds,seed,cpus,
+        script=normpath(joinpath(@__DIR__,"..","native","ortools","pdptw.py")),
+        coefficients=[isodd(i) ? 0.1/2^((i-1)÷2) : 0.2*2^((i-2)÷2) for i in eachindex(cpus)])
+    !isempty(cpus) && allunique(cpus) && length(coefficients)==length(cpus) ||
+        throw(ArgumentError("portfolio needs one coefficient and distinct CPU per worker"))
+    seconds isa Real && isfinite(seconds) && seconds>=0 || throw(ArgumentError("invalid portfolio budget"))
+    mktempdir() do directory
+        input=joinpath(directory,"input.txt")
+        epoch=round(Int,time()*1e9)
+        open(io->export_common_start(io,p,initial),input,"w")
+        commands=Cmd[];outputs=String[]
+        for i in eachindex(cpus)
+            output=joinpath(directory,"worker-$i.toml");push!(outputs,output)
+            command=ortools_command(identity["python"],script,input,output;seconds,seed,
+                trial_start_epoch_ns=epoch,cpus=[cpus[i]],gls_lambda=coefficients[i])
+            path=get(identity,"python_path","")
+            isempty(path) || (command=addenv(command,"PYTHONPATH"=>path,"PYTHONNOUSERSITE"=>"1"))
+            push!(commands,command)
+        end
+        processes=Base.Process[]
+        try
+            for command in commands
+                push!(processes,run(pipeline(ignorestatus(command);stdout=devnull,stderr=stderr);wait=false))
+            end
+            timedwait(()->all(process_exited,processes),seconds+15;pollint=0.02)==:ok ||
+                error("OR-Tools portfolio exceeded its supervisor deadline")
+            foreach(wait,processes)
+            all(success,processes) || error("an OR-Tools portfolio worker failed")
+        finally
+            for process in processes
+                process_exited(process) || kill(process)
+                wait(process)
+            end
+        end
+        workers=Any[];observations=Any[]
+        for i in eachindex(outputs)
+            native=TOML.parsefile(outputs[i])
+            audited=audit_ortools_trial(p,initial,native;budget_seconds=seconds,gls_lambda=coefficients[i])
+            push!(workers,Dict("worker"=>i,"cpu"=>cpus[i],"native"=>native,"audit"=>audited))
+            append!(observations,[merge(event,Dict("worker"=>i)) for event in audited["trajectory"]])
+        end
+        sort!(observations;by=e->e["seconds"])
+        best=validate_solution(p,initial).objective;routes=deepcopy(initial)
+        trajectory=Any[Dict("seconds"=>0.,"vehicles"=>best.vehicles,"distance"=>best.distance,
+            "routes"=>deepcopy(initial),"source"=>"common_start")]
+        for event in observations
+            if (event["vehicles"],event["distance"])<(best.vehicles,best.distance)
+                routes=deepcopy(event["routes"]);best=validate_solution(p,routes).objective;push!(trajectory,event)
+            end
+        end
+        Dict("workers"=>workers,"routes"=>routes,"vehicles"=>best.vehicles,"distance"=>best.distance,
+            "trajectory"=>trajectory,"original_validation"=>true,"budget_seconds"=>seconds,
+            "allocation"=>"one process per CPU; native numerical libraries capped at one thread")
+    end
 end
 """Audit Hexaly's final solution and every within-budget anytime observation."""
 function audit_hexaly_trial(p, initial, output, trace; budget_seconds, common_start_seconds=0.)
