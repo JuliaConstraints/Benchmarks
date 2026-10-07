@@ -172,6 +172,7 @@ function run_case(path, seconds, seed, policy; threads=1, id=nothing)
         "process_cpu_seconds"=>PlatformResources.cpu_seconds()-cpu_before,
         "mean_active_cpus"=>(PlatformResources.cpu_seconds()-cpu_before)/max(wall,eps()),
         "gc_seconds"=>gc.total_time/1e9,"gc_bytes"=>gc.allocd,
+        "gc_scope"=>"whole trial: parsing, common insertion, model construction, search and original validation",
         "reset_counters"=>"not exposed by native ABI", "tabu_counters"=>"not exposed by native ABI")
 end
 end
