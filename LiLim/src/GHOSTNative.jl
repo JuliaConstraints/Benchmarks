@@ -4,6 +4,11 @@ using GHOST, JuMP, TOML
 using ..Benchmarks, ..Pilot, ..MetaRepair, ..ICNScoring
 include("PlatformResources.jl")
 import MathOptInterface as MOI
+const _bank = Ref{Any}(nothing)
+function prepared_bank()
+    _bank[] === nothing && (_bank[] = ICNScoring.load_backend(:icn))
+    _bank[]
+end
 
 mutable struct RouteError{P,B}
     problem::P
@@ -82,7 +87,7 @@ function lane(p, initial, bank, origin, seconds, initial_seconds; native_seconds
     check = validate_solution(p, initial)
     evaluate = RouteError(p, ICNScoring.clone_backend(bank), distances, ones(Int,n-1))
     objective = RouteObjective(deepcopy(evaluate), origin, seconds,
-        n * maximum(distances) + 1., (check.objective.vehicles,check.objective.distance),
+        2n * maximum(distances) + 1., (check.objective.vehicles,check.objective.distance),
         deepcopy(initial), Dict{String,Any}[], 0)
     model = Model(GHOST.Optimizer)
     set_optimizer_attribute(model, "permutation_problem", true)
@@ -112,10 +117,13 @@ function warmup(path, policy;threads=1,id=nothing)
     p = read_benchmark(path,:li_lim;id=something(id,splitext(basename(path))[1]))
     initial = Pilot.insertion(p;starts=policy["insertion_starts"],seed=policy["insertion_seed"])
     initial === nothing && error("No common GHOST warmup start")
-    bank = ICNScoring.load_backend(:icn)
+    bank = prepared_bank()
     ledgers = fetch.([Threads.@spawn lane(p,initial,bank,time_ns(),Inf,0.;native_seconds_limit=0.02)
         for _ in 1:threads])
     all(l->l.calls>0,ledgers) || error("GHOST warmup did not invoke the actual objective callback")
+    # Compile the same driver/task entry points used by subsequent trials.
+    # Its short output is discarded and never treated as comparative evidence.
+    Base.invokelatest(run_case,path,3.,41,policy;threads,id)
     nothing
 end
 
@@ -132,7 +140,7 @@ function run_case(path, seconds, seed, policy; threads=1, id=nothing)
     checked.valid || error("Invalid common GHOST start")
     initial_seconds = (time_ns()-origin)/1e9
     initial_seconds <= seconds || error("Common insertion exceeded the GHOST trial budget")
-    bank = ICNScoring.load_backend(:icn)
+    bank = prepared_bank()
     jobs = [Threads.@spawn lane(p,initial,bank,origin,seconds,initial_seconds) for _ in 1:threads]
     ledgers = fetch.(jobs)
     trajectory = Dict{String,Any}[Dict("seconds"=>initial_seconds,

@@ -56,6 +56,18 @@ end
     @test_throws NativeSolvers.UnavailableSolver NativeSolvers.resolve_hexaly("__missing_solver__")
 end
 
+@testset "GHOST wrapper availability is explicit" begin
+    unavailable=()->throw(NativeSolvers.UnavailableSolver("ghost_icn","artifact_not_installed"))
+    result=NativeSolvers.resolve_requested(["cbls_icn","ghost_icn"];
+        ortools_resolver=()->nothing,hexaly_resolver=()->nothing,ghost_resolver=unavailable)
+    @test result.methods==["cbls_icn"]
+    @test only(result.skipped)["reason"]=="artifact_not_installed"
+    @test_throws NativeSolvers.UnavailableSolver NativeSolvers.resolve_requested(["ghost_icn"];
+        missing="error",ortools_resolver=()->nothing,hexaly_resolver=()->nothing,ghost_resolver=unavailable)
+    @test_throws ErrorException NativeSolvers.resolve_requested(["ghost_icn"];
+        ortools_resolver=()->nothing,hexaly_resolver=()->nothing,ghost_resolver=()->error("broken native model"))
+end
+
 @testset "Resource accounting and frozen artifact matrix" begin
     @test PlatformResources.cpu_seconds()>=0
     @test PlatformResources.cpu_seconds(3)>=0

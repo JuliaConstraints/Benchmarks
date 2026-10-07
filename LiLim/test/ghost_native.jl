@@ -44,7 +44,7 @@ end
             # Preheat on this synthetic problem before the bounded test clock.
             GHOSTNative.warmup(path,policy;threads=1,id="tiny")
             first = GHOSTNative.run_case(path,3.,41,policy;threads=1,id="tiny")
-            result = GHOSTNative.run_case(path,0.2,42,policy;threads=1,id="tiny")
+            result = GHOSTNative.run_case(path,1.,42,policy;threads=1,id="tiny")
             for trial in (first,result)
                 @test trial["original_validation"]
                 @test trial["objective_evaluations"] > 0

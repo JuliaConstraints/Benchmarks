@@ -556,7 +556,7 @@ function campaign_main()
     plans = Dict(method=>ResourceExperiment.prepare_portfolio(ResourceExperiment.allocation(method, opts.threads))
         for method in methods if method != "highs_native" && method in ResourceExperiment.METHODS)
     warmup_row = only(filter(row->row.id=="lc101", all_rows))
-    warmed = warmup(methods, warmup_row, THREAD_CONFIG["policy"], banks, plans,
+    warmed = Base.invokelatest(warmup,methods, warmup_row, THREAD_CONFIG["policy"], banks, plans,
         CAMPAIGN_CONFIG["warmup_seconds"], output, hexaly_executable, ortools_identity)
     manifest = TOML.parsefile(manifest_path)
     segments = get!(manifest, "warmup_segments", Any[])
@@ -596,8 +596,8 @@ function campaign_main()
             run_ortools_case(row, opts.budget, seed, THREAD_CONFIG["policy"], opts.threads,
                 ortools_identity, logpath)
         elseif method == "ghost_icn"
-            Base.invokelatest(GHOSTNative.run_case,row.path,opts.budget,seed,THREAD_CONFIG["policy"];
-                threads=opts.threads,id=row.id)
+            Base.invokelatest(() -> GHOSTNative.run_case(row.path,opts.budget,seed,THREAD_CONFIG["policy"];
+                threads=opts.threads,id=row.id))
         else
             native_log = method == "highs_native" ? joinpath(output, "logs", row.id * "__" * method * "__seed-" * string(seed) * ".log") : nothing
             native_log === nothing || mkpath(dirname(native_log))
