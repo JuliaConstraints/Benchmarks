@@ -1,6 +1,6 @@
 # JuLS pilot; the historical direct C++ GHOST path is no longer authorized.
 # Check before loading packages or creating an output directory.
-!isempty(ARGS) && first(ARGS)=="ghost" && error("GHOST must use the GHOST.jl wrapper. The Li-Lim wrapper adapter is pending source recovery and qualification; direct C++ execution is disabled.")
+!isempty(ARGS) && first(ARGS)=="ghost" && error("Direct C++ GHOST execution is disabled. Use the qualified GHOST.jl adapter through LiLim/scripts/colleague.jl.")
 using ConstraintModels, JuMP, TOML, SHA, Dates
 using ConstraintModels.Benchmarks
 include(joinpath(@__DIR__,"..","src","Pilot.jl"))
