@@ -7,7 +7,7 @@ cpu_order = [8, 10, 0, 2, 4, 6, 12, 14, 16, 17, 18, 19, 9, 11, 1, 3, 5, 7, 13, 1
 budgets_seconds = [10.0, 30.0, 60.0, 120.0, 300.0, 600.0]
 warmup_seconds = 2.0
 extra_methods = ["cbls_icn_fused_scalar", "cbls_icn_fused_all"]
-external_methods = ["ortools_native", "hexaly_native"]
+external_methods = ["ortools_native", "hexaly_native", "ghost_icn"]
 # Select OR-Tools explicitly with --methods=all,ortools_native. Its RoutingModel
 # search is single-threaded and is pinned to the first configured P-core.
 objective = "Original feasibility; minimize fleet, then total double-precision Euclidean distance; no rounding in the measured objective"

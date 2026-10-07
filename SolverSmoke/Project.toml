@@ -1,0 +1,47 @@
+name = "SolverSmoke"
+
+[deps]
+CBLS = "a3809bfe-37bb-4d48-a667-bac4c6be8d90"
+COPInstances = "96392092-68b9-4ed2-862b-1a4c40db6507"
+CodecZlib = "944b1d66-785c-5afd-91f1-9de20f533193"
+CompositionalNetworks = "4b67e4b5-442d-4ef5-b760-3f5df3a57537"
+ConstraintCommons = "e37357d9-0691-492f-a822-e5ea6a920954"
+ConstraintDomains = "5800fd60-8556-4464-8d61-84ebf7a0bedb"
+ConstraintProgrammingExtensions = "b65d079e-ed98-51d9-b0db-edee61a5c5f8"
+Constraints = "30f324ab-b02d-43f0-b619-e131c61659f7"
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+DrWatson = "634d3b9d-ee7a-5ddf-bec9-22491ea816e1"
+GHOST = "11b06263-fdad-4e56-a327-8fd38a91e0b8"
+GHOST_jll = "8d604a99-d805-502d-a593-62e3c19f5ba4"
+HiGHS = "87dc4568-4c63-4d18-b0c0-bb2238e4078b"
+JuLS = "490cb39b-a817-4b17-9139-c18f0e28f0c3"
+JuMP = "4076af6c-e467-56ae-b986-b466b2749572"
+LocalSearchSolvers = "2b10edaa-728d-4283-ac71-07e312d6ccf3"
+MathOptInterface = "b8f27783-ece8-5eb3-8dc8-9495eed66fee"
+Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+SHA = "ea8e919c-243c-51af-8825-aaa63cd721ce"
+TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
+Tar = "a4e569a6-e804-4fa4-b0f3-eef7a1d5b13e"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+UUIDs = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
+ZipArchives = "49080126-0e18-4c2a-b176-c102e4b3760c"
+
+[sources]
+CBLS = {path = "vendor/CBLS"}
+COPInstances = {path = "vendor/COPInstances"}
+CompositionalNetworks = {path = "vendor/CompositionalNetworks"}
+ConstraintCommons = {path = "vendor/ConstraintCommons"}
+ConstraintDomains = {path = "vendor/ConstraintDomains"}
+ConstraintProgrammingExtensions = {path = "vendor/ConstraintProgrammingExtensions"}
+Constraints = {path = "vendor/Constraints"}
+GHOST = {path = "vendor/GHOST"}
+GHOST_jll = {path = "vendor/GHOST_jll"}
+JuLS = {path = "vendor/JuLS"}
+LocalSearchSolvers = {path = "vendor/LocalSearchSolvers"}
+
+[compat]
+DrWatson = "=2.19.1"
+HiGHS = "=1.25.2"
+JuMP = "=1.31.2"
+julia = "1.13"

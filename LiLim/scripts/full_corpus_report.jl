@@ -206,14 +206,23 @@ function write_report(path, summary)
     mkpath(dirname(path))
     open(path, "w") do io
         println(io, "# SINTEF Li-Lim Benchmark Report\n")
+        skipped=get(IDENTITY,"skipped_methods",[])
+        if !isempty(skipped)
+            println(io,"## Unavailable optional solvers\n\nThese profiles were skipped before any solve. They are excluded from success, infeasibility and timing denominators.\n\n| Profile | Status | Reason |\n|---|---|---|")
+            for row in skipped
+                println(io,"| `",row["method"],"` | skipped | `",row["reason"],"` |")
+            end
+            println(io)
+        end
         println(io, "Campaign fingerprint: `", summary["run_fingerprint"], "`. The frozen scope contains ",
             summary["instance_count"], " instances, ", summary["method_count"], " solver profiles, ",
-            summary["seed_count"], " independent seeds, ", summary["threads"], " workers and a ",
+            summary["seed_count"], " repeat labels, ", summary["threads"], " workers and a ",
             summary["budget_seconds"], " second wall budget per trial.\n")
+        println(io,"Resource policy: `",get(IDENTITY,"affinity_mode","hard_cpu_affinity"),"`. Linux pins CPU IDs. macOS and Windows cap solver threads without claiming a hard CPU mask or P-core placement. Windows child CPU is sampled; macOS uses reaped-child CPU accounting. Cross-host results must identify this difference.\n")
         println(io, "The official SINTEF archive checksums and all ", summary["instance_count"],
             " extracted instance checksums were verified. Every stored incumbent and every trajectory point in the report was revalidated against the original Li-Lim instance. The fleet objective has priority; raw double-precision Euclidean distance is compared only after fleet count.\n")
         if "ortools_native" in summary["methods"]
-            println(io, "The OR-Tools profile is the pinned 9.14.6206 RoutingModel with Guided Local Search, run as one search thread on one P-core. Wider campaign settings do not increase OR-Tools' thread count; the OR-Tools CPU-use row reports measured process and Julia-controller CPU. Repetition seed values identify trials but are not applied, so the default GLS search parameters stay unchanged. These are repeated timings of the same configuration, not independent random-seed experiments. The model uses a dominating fixed vehicle cost to encode the Li-Lim fleet-then-distance ranking and a shared insertion start; this is a local comparison profile, not an exact reproduction of Hexaly's published OR-Tools model. Costs use integer-scaled distances, time windows are conservatively integer-scaled, capacities remain exact integers, and the original Julia validator remains authoritative.\n")
+            println(io, "The OR-Tools profile is the pinned 9.14.6206 RoutingModel with Guided Local Search, run as one search thread (pinned to one selected CPU on Linux). Wider campaign settings do not increase OR-Tools' thread count; the OR-Tools CPU-use row reports measured process and Julia-controller CPU. Repetition seed values identify trials but are not applied, so the default GLS search parameters stay unchanged. These are repeated timings of the same configuration, not independent random-seed experiments. The model uses a dominating fixed vehicle cost to encode the Li-Lim fleet-then-distance ranking and a shared insertion start; this is a local comparison profile, not an exact reproduction of Hexaly's published OR-Tools model. Costs use integer-scaled distances, time windows are conservatively integer-scaled, capacities remain exact integers, and the original Julia validator remains authoritative.\n")
         end
         println(io, "SINTEF publishes its distance targets to ", summary["bks_distance_digits"],
             " decimal places. BKS attainment rounds the candidate to that displayed precision; raw double-precision distances remain in the results and determine solver rankings.\n")
@@ -262,6 +271,7 @@ function write_report(path, summary)
             "mixed_balanced"=>"MetaStrategist executes a fixed balanced allocation of CBLS, specialized hybrid, bridged hybrid and serial HiGHS workers.",
             "mixed_ls_heavy"=>"MetaStrategist executes a fixed search-heavy allocation of CBLS, specialized hybrid, bridged hybrid and serial HiGHS workers.",
             "ortools_native"=>"Pinned Google OR-Tools 9.14.6206 RoutingModel with Guided Local Search, one internal search thread and one-core affinity; fleet priority is encoded by a dominating fixed vehicle cost. Every stored incumbent is checked against the original Li-Lim validator.",
+            "ghost_icn"=>"Native development GHOST through GHOST.jl/MOI, permutation neighborhood and the same qualified PDPTW ICN scorer. Each Julia lane owns one native worker, model and private buffers. Native RNG seed and tabu/reset counters are not exposed; repetition labels are not applied as seeds. Original-validator-approved incumbents are censored at the common wall deadline.",
             "hexaly_native"=>"Hexaly native Modeler profile at the configured target version, launched with the same validated insertion start, full trial wall-clock cap and explicit CPU affinity; every stored incumbent is checked against the original Li-Lim validator.")
         println(io, "\n## Score and solver provenance\n\nThe ICN variants below use the frozen learned-weight bank recorded in `manifest.toml`. `Fused all` is an aggregate-ICN ablation: its pairwise violation indicators are formed directly before learned aggregation, so it does not execute the individual pair decoders used by `CBLS learned ICN`. The differential tests establish score identity on their qualified synthetic domain; benchmark performance is reported separately.\n\n| Profile | Executed score or solver path |\n|---|---|")
         for method in METHODS
@@ -326,7 +336,7 @@ for row in instances, method in METHODS
     push!(cells, cell_summary(row, method, runs, length(SEEDS)))
 end
 expected = length(instances)*length(METHODS)*length(SEEDS)
-completed = sum(row["completed_runs"] for row in cells)
+completed = sum((row["completed_runs"] for row in cells);init=0)
 summary = Dict{String,Any}(
     "schema"=>"li-lim-full-corpus-summary/1", "run_fingerprint"=>MANIFEST["run_fingerprint"],
     "complete"=>(completed == expected && get(MANIFEST,"complete",false)),
@@ -334,6 +344,8 @@ summary = Dict{String,Any}(
     "bks_distance_digits"=>BKS_DISTANCE_DIGITS,
     "seed_count"=>length(SEEDS), "seeds"=>SEEDS, "instance_count"=>length(instances),
     "method_count"=>length(METHODS), "instances"=>INSTANCE_IDS, "methods"=>METHODS,
+    "requested_methods"=>get(IDENTITY,"requested_methods",METHODS),
+    "skipped_methods"=>get(IDENTITY,"skipped_methods",[]),
     "instance_results"=>cells,
     "method_summary"=>[method_summaries(cells,method) for method in METHODS],
     "size_summary"=>size_summaries(cells,METHODS))
