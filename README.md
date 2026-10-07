@@ -9,7 +9,7 @@ Requires Julia **1.13.1** and Git. Python **3.12** enables OR-Tools; Java **21**
 with its compiler module enables Timefold. Linux also requires `taskset` and `lscpu`.
 
 ```sh
-git clone --config core.autocrlf=false --single-branch --branch bench/lilim-etendu-20261007 https://github.com/JuliaConstraints/Benchmarks.git ~/Gits/JuliaConstraintsBenchmarks
+git clone --config core.autocrlf=false --single-branch --branch main https://github.com/JuliaConstraints/Benchmarks.git ~/Gits/JuliaConstraintsBenchmarks
 cd ~/Gits/JuliaConstraintsBenchmarks
 julia --startup-file=no scripts/colleague.jl preflight
 ```
@@ -50,3 +50,7 @@ julia --startup-file=no scripts/colleague.jl lilim --instances=lc101 --methods=c
 Raw data and trials stay outside Git. Source cohorts, instance hashes, original
 validators and sealed results identify every run. Existing study code and historical
 reports remain in their directories.
+
+Earlier package studies remain in [ConstraintCommons](archive/legacy/ConstraintCommons),
+[ConstraintDomains](archive/legacy/ConstraintDomains), [ConstraintLearning](archive/legacy/ConstraintLearning)
+and [PatternFolds](archive/legacy/PatternFolds).
