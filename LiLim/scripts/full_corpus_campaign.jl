@@ -8,6 +8,10 @@ for source in ("Pilot", "MetaRepair", "ICNScoring", "Hybrid", "ResourceExperimen
     include(joinpath(ROOT, "LiLim", "src", source * ".jl"))
 end
 include(joinpath(ROOT, "LiLim", "competitors", "Adapters.jl"))
+include(joinpath(ROOT, "LiLim", "src", "NativeSolvers.jl"))
+include(joinpath(ROOT, "LiLim", "src", "CampaignCatalog.jl"))
+using .CampaignCatalog: select_methods, available_methods
+const PlatformResources=ResourceExperiment.PlatformResources
 
 const THREAD_CONFIG = TOML.parsefile(joinpath(ROOT, "LiLim", "config", "icn-threads.toml"))
 const CAMPAIGN_CONFIG_PATH = joinpath(ROOT, "LiLim", "config", "full-corpus-campaign.toml")
@@ -20,7 +24,7 @@ const COHORT = COHORT_CONFIG["cohort"]
 const SOLVER_ENVIRONMENT = get(COHORT_CONFIG,"environment",BASELINE["environment"])
 const COHORT_ROOT = get(ENV, "JULIACONSTRAINTS_COHORT_ROOT", dirname(pkgdir(ConstraintModels)))
 const CPU_ORDER = haskey(ENV, "JULIACONSTRAINTS_CPU_ORDER") ?
-    parse.(Int, split(ENV["JULIACONSTRAINTS_CPU_ORDER"], ',')) : CAMPAIGN_CONFIG["cpu_order"]
+    parse.(Int, split(ENV["JULIACONSTRAINTS_CPU_ORDER"], ',')) : (Sys.islinux() ? CAMPAIGN_CONFIG["cpu_order"] : PlatformResources.allowed_cpus())
 const BKS_PATH = joinpath(ROOT, "LiLim", "config", "sintef-pdptw-bks-20261004.toml")
 const BKS = TOML.parsefile(BKS_PATH)
 const HEXALY_CONFIG_PATH = joinpath(ROOT, "LiLim", "config", "competitors.toml")
@@ -37,7 +41,7 @@ function cli(args)
         end
         startswith(arg, "--") && occursin('=', arg) || error("options must use --name=value")
         name, value = split(arg[3:end], '='; limit=2)
-        name in ("budget", "output", "threads", "instances", "methods", "seeds", "hexaly", "ortools") || error("unknown option --$name")
+        name in ("budget", "output", "threads", "instances", "methods", "seeds", "hexaly", "ortools", "missing-solvers") || error("unknown option --$name")
         haskey(values, name) && error("duplicate option --$name")
         values[name] = value
     end
@@ -45,12 +49,12 @@ function cli(args)
         error("usage: full_corpus_campaign.jl --budget=SECONDS --output=DIR --threads=N [--instances=all|ID,...] [--methods=all|strategies|NAME,...] [--seeds=41,42,43] [--hexaly=PATH] [--ortools=PYTHON] [--resume]")
     budget = parse(Float64, values["budget"])
     isfinite(budget) && budget > 0 || error("budget must be positive and finite")
-    local_ortools = joinpath(ROOT, "LiLim", "native", "ortools", ".venv", "bin", "python")
-    default_ortools = isfile(local_ortools) ? local_ortools : "python3"
+    default_ortools = NativeSolvers.default_python(ROOT)
     (; budget, output=abspath(values["output"]), threads=parse(Int, values["threads"]),
        instances=get(values, "instances", "all"), methods=get(values, "methods", "all"),
        hexaly=get(values, "hexaly", get(ENV, "HEXALY_EXECUTABLE", "hexaly")),
        ortools=get(values, "ortools", get(ENV, "ORTOOLS_PYTHON", default_ortools)),
+       missing_solvers=get(values, "missing-solvers", "skip"),
        seeds=parse.(Int, split(get(values, "seeds", join(THREAD_CONFIG["seeds"], ",")), ',')), resume)
 end
 
@@ -97,75 +101,14 @@ function select_instances(rows, selector)
     selected
 end
 
-function available_methods(threads)
-    methods = unique(vcat(THREAD_CONFIG["methods"], CAMPAIGN_CONFIG["extra_methods"], ["cbls_mix_strategy"],
-        threads >= 4 ? THREAD_CONFIG["portfolio_methods"] : String[]))
-    methods
+function resolve_hexaly(opts)
+    candidate = NativeSolvers.resolve_hexaly(opts.hexaly)
+    isinteger(opts.budget) || error("Hexaly requires a whole-second wall budget")
+    opts.threads in (1,2,4,8,16) || error("Unsupported Hexaly thread width")
+    candidate
 end
 
-function select_methods(threads, selector)
-    strategies = vcat(collect(Hybrid.SearchPolicies.METHODS),
-        sort!(collect(keys(Hybrid.SearchPolicies.PORTFOLIOS))))
-    allowed = unique(vcat(available_methods(threads), strategies, CAMPAIGN_CONFIG["external_methods"]))
-    wanted = String.(strip.(split(selector, ',')))
-    isempty(wanted) && error("empty method selection")
-    if "all" in wanted
-        wanted = unique(vcat(available_methods(threads), filter(!=("all"), wanted)))
-    end
-    if "strategies" in wanted
-        wanted = unique(vcat(filter(!=("strategies"),wanted),strategies))
-    end
-    unknown = setdiff(Set(wanted), Set(allowed))
-    isempty(unknown) || error("methods unavailable at $(threads) threads: " * join(sort!(collect(unknown)), ", "))
-    unique(wanted)
-end
-
-function resolve_hexaly(opts, methods)
-    "hexaly_native" in methods || return nothing
-    isinteger(opts.budget) || error("Hexaly's documented campaign profile requires a whole-second wall budget")
-    opts.threads in (1, 2, 4, 8, 16) || error("Hexaly comparison widths are 1, 2, 4, 8 and 16 threads")
-    candidate = isfile(opts.hexaly) ? abspath(opts.hexaly) : Sys.which(opts.hexaly)
-    (candidate === nothing || isempty(candidate)) &&
-        error("Hexaly executable not found; pass --hexaly=PATH or set HEXALY_EXECUTABLE")
-    isfile(candidate) || error("Hexaly executable is not a file: $candidate")
-    (stat(candidate).mode & 0o111) != 0 || error("Hexaly executable is not executable: $candidate")
-    realpath(candidate)
-end
-
-function resolve_ortools(opts, methods)
-    "ortools_native" in methods || return nothing
-    candidate = isfile(opts.ortools) ? abspath(opts.ortools) : Sys.which(opts.ortools)
-    (candidate === nothing || isempty(candidate)) &&
-        error("Python for OR-Tools not found; pass --ortools=PATH or set ORTOOLS_PYTHON")
-    probe = "import sys, ortools; from ortools.constraint_solver import _pywrapcp; print(ortools.__version__ + '|' + sys.version.split()[0] + '|' + _pywrapcp.__file__)"
-    details = try
-        strip(read(`$candidate -c $probe`, String))
-    catch error
-        throw(ErrorException("OR-Tools is unavailable in $candidate; install LiLim/native/ortools/requirements.txt in an isolated Python environment ($(sprint(showerror,error)))"))
-    end
-    parts = split(details, '|'; limit=3)
-    length(parts) == 3 || error("could not read OR-Tools/Python versions from $candidate")
-    parts[1] == "9.14.6206" || error("OR-Tools baseline requires 9.14.6206; found $(parts[1])")
-    # Preserve the venv entry point: resolving its interpreter symlink would
-    # launch the system Python without the qualified environment's packages.
-    Dict{String,Any}("python"=>abspath(candidate), "python_version"=>parts[2],
-        "python_executable_sha256"=>digest(realpath(candidate)),
-        "ortools_version"=>parts[1],
-        "native_module_sha256"=>digest(parts[3]),
-        "runner_sha256"=>digest(joinpath(ROOT, "LiLim", "native", "ortools", "pdptw.py")),
-        "requirements_sha256"=>digest(joinpath(ROOT, "LiLim", "native", "ortools", "requirements.txt")))
-end
-
-function allowed_cpus()
-    row = only(filter(line -> startswith(line, "Cpus_allowed_list:"), readlines("/proc/self/status")))
-    text = strip(split(row, ':')[2])
-    cpus = Int[]
-    for part in split(text, ',')
-        bounds = parse.(Int, split(part, '-'))
-        append!(cpus, length(bounds) == 1 ? bounds : first(bounds):last(bounds))
-    end
-    sort(cpus)
-end
+allowed_cpus()=PlatformResources.allowed_cpus()
 
 function check_environment(threads)
     string(VERSION) == THREAD_CONFIG["julia"] || error("Julia version differs from the qualified campaign")
@@ -173,7 +116,11 @@ function check_environment(threads)
     threads in CAMPAIGN_CONFIG["thread_counts"] || error("thread width is not in the frozen protocol")
     BLAS.get_num_threads() == 1 || error("BLAS must be single-threaded")
     length(CPU_ORDER) >= threads && allunique(CPU_ORDER) || error("invalid CPU order")
-    sort(allowed_cpus()) == sort(CPU_ORDER[1:threads]) || error("CPU affinity differs from the selected topology order")
+    if Sys.islinux()
+        sort(allowed_cpus()) == sort(CPU_ORDER[1:threads]) || error("CPU affinity differs from the selected topology order")
+    else
+        all(c->c in allowed_cpus(),CPU_ORDER[1:threads]) || error("CPU selection exceeds host capacity")
+    end
     env = dirname(Base.active_project())
     for (file, key) in (("Project.toml", "project_sha256"), ("Manifest.toml", "manifest_sha256"))
         digest(joinpath(env, file)) == SOLVER_ENVIRONMENT[key] || error("solver environment changed: $file")
@@ -187,7 +134,7 @@ function check_environment(threads)
     end
     digest(ICNScoring.BANK) in (THREAD_CONFIG["icn_bank_sha256"], COHORT_CONFIG["portable_icn_bank_sha256"]) || error("recovered ICN bank changed")
     measured = vcat(filter(path -> endswith(path, ".jl"), readdir(joinpath(ROOT, "LiLim", "src"); join=true)),
-        [CAMPAIGN_CONFIG_PATH, BKS_PATH, BASELINE_PATH, COHORT_PATH,
+        [joinpath(ROOT,"LiLim","Artifacts.toml"), CAMPAIGN_CONFIG_PATH, BKS_PATH, BASELINE_PATH, COHORT_PATH,
          joinpath(ROOT, "LiLim", "config", "icn-threads.toml"),
          Hybrid.SearchPolicies.CONFIG_PATH,
          joinpath(ROOT, "SolverSmoke", "src", "Profiles.jl"),
@@ -225,7 +172,7 @@ end
 
 function source_manifest()
     files = vcat(filter(path -> endswith(path, ".jl"), readdir(joinpath(ROOT, "LiLim", "src"); join=true)),
-        [RUNNER_PATH, CAMPAIGN_CONFIG_PATH, BKS_PATH, BASELINE_PATH, COHORT_PATH,
+        [joinpath(ROOT,"LiLim","Artifacts.toml"), RUNNER_PATH, CAMPAIGN_CONFIG_PATH, BKS_PATH, BASELINE_PATH, COHORT_PATH,
          joinpath(ROOT, "LiLim", "config", "icn-threads.toml"),
          Hybrid.SearchPolicies.CONFIG_PATH,
          joinpath(ROOT, "SolverSmoke", "src", "Profiles.jl"),
@@ -241,7 +188,7 @@ function source_manifest()
     Dict(relpath(abspath(path), ROOT) => digest(path) for path in files)
 end
 
-function campaign_identity(opts, instances, methods, hexaly_executable, ortools_identity)
+function campaign_identity(opts, instances, methods, hexaly_executable, ortools_identity; requested_methods=methods, skipped_methods=[])
     hexaly_identity = hexaly_executable === nothing ? Dict{String,Any}() : Dict{String,Any}(
         "path"=>hexaly_executable,
         "target_version"=>HEXALY_CONFIG["target_version"],
@@ -261,6 +208,8 @@ function campaign_identity(opts, instances, methods, hexaly_executable, ortools_
         "instances" => [row.id for row in instances],
         "targets" => Dict(row.id => Dict("vehicles"=>row.bks_vehicles,"distance"=>row.bks_distance) for row in instances),
         "methods" => methods,
+        "requested_methods" => requested_methods,
+        "skipped_methods" => skipped_methods,
         "strategy_variants" => Hybrid.SearchPolicies.CONFIG,
         "hexaly" => hexaly_identity,
         "ortools" => ortools_identity === nothing ? Dict{String,Any}() : ortools_identity,
@@ -269,7 +218,9 @@ function campaign_identity(opts, instances, methods, hexaly_executable, ortools_
         "threads" => opts.threads,
         "bks_distance_digits" => CAMPAIGN_CONFIG["bks_distance_digits"],
         "gc_threads" => Threads.ngcthreads(),
-        "affinity" => allowed_cpus(),
+        "affinity" => Sys.islinux() ? allowed_cpus() : Int[],
+        "affinity_mode" => PlatformResources.affinity_mode(),
+        "host_platform" => string(Sys.MACHINE),
         "policy" => THREAD_CONFIG["policy"],
         "objective" => CAMPAIGN_CONFIG["objective"],
         "trajectory_policy" => CAMPAIGN_CONFIG["trajectory_policy"])
@@ -320,21 +271,7 @@ function time_to_bks(record)
     nothing
 end
 
-function child_cpu_seconds(pid)
-    Sys.islinux() || error("external solver CPU accounting currently requires Linux /proc")
-    stat_path = "/proc/$(pid)/stat"
-    isfile(stat_path) || return nothing
-    contents = read(stat_path, String)
-    closing_paren = findlast(')', contents)
-    closing_paren === nothing && return nothing
-    fields = split(contents[nextind(contents, closing_paren):end])
-    length(fields) >= 13 || return nothing
-    user_ticks = parse(Int, fields[12])
-    system_ticks = parse(Int, fields[13])
-    ticks_per_second = ccall(:sysconf, Clong, (Cint,), 2) # Linux _SC_CLK_TCK
-    ticks_per_second > 0 || error("unable to read Linux process clock ticks")
-    (user_ticks + system_ticks) / ticks_per_second
-end
+child_cpu_seconds(pid)=PlatformResources.child_cpu_seconds(pid)
 
 "Run the official Python RoutingModel baseline under a one-core affinity mask."
 function run_ortools_case(row, seconds, seed, policy, threads, ortools_identity, logpath)
@@ -364,9 +301,12 @@ function run_ortools_case(row, seconds, seed, policy, threads, ortools_identity,
         command = CompetitorAdapters.ortools_command(ortools_identity["python"],
             joinpath(ROOT, "LiLim", "native", "ortools", "pdptw.py"), input_path, output_path;
             seconds, seed, trial_start_epoch_ns=origin_epoch_ns, cpus)
+        python_path = get(ortools_identity,"python_path","")
+        isempty(python_path) || (command=addenv(command,"PYTHONPATH"=>python_path,"PYTHONNOUSERSITE"=>"1"))
         mkpath(dirname(logpath))
         process_started_ns = time_ns()
         process_cpu = 0.0
+        children_cpu_start=PlatformResources.children_cpu_seconds()
         open(logpath, "w") do log
             process = run(pipeline(command, stdout=log, stderr=log); wait=false)
             pid = getpid(process)
@@ -378,6 +318,7 @@ function run_ortools_case(row, seconds, seed, policy, threads, ortools_identity,
             cpu = child_cpu_seconds(pid)
             cpu === nothing || (process_cpu = cpu)
             wait(process)
+            Sys.isapple() && (process_cpu=PlatformResources.children_cpu_seconds()-children_cpu_start)
             process.exitcode == 0 || error("OR-Tools exited with code $(process.exitcode); see $logpath")
         end
         process_wall_seconds = (time_ns() - process_started_ns) / 1e9
@@ -461,6 +402,7 @@ function run_hexaly_case(row, seconds, seed, policy, threads, executable, logpat
         mkpath(dirname(logpath))
         process_started_ns = time_ns()
         process_cpu = 0.0
+        children_cpu_start=PlatformResources.children_cpu_seconds()
         open(logpath, "w") do log
             process = run(pipeline(command, stdout=log, stderr=log); wait=false)
             pid = getpid(process)
@@ -472,6 +414,7 @@ function run_hexaly_case(row, seconds, seed, policy, threads, executable, logpat
             cpu = child_cpu_seconds(pid)
             cpu === nothing || (process_cpu = cpu)
             wait(process)
+            Sys.isapple() && (process_cpu=PlatformResources.children_cpu_seconds()-children_cpu_start)
             process.exitcode == 0 || error("Hexaly exited with code $(process.exitcode); see $logpath")
         end
         process_wall_seconds = (time_ns() - process_started_ns) / 1e9
@@ -557,11 +500,16 @@ function campaign_main()
     check_environment(opts.threads)
     all_rows = corpus()
     instances = select_instances(all_rows, opts.instances)
-    methods = select_methods(opts.threads, opts.methods)
-    hexaly_executable = resolve_hexaly(opts, methods)
-    ortools_identity = resolve_ortools(opts, methods)
+    requested_methods = select_methods(opts.threads, opts.methods)
+    availability = NativeSolvers.resolve_requested(requested_methods; missing=opts.missing_solvers,
+        ortools_resolver=()->NativeSolvers.resolve_ortools(opts.ortools; root=ROOT),
+        hexaly_resolver=()->resolve_hexaly(opts))
+    methods = availability.methods
+    hexaly_executable = availability.hexaly
+    ortools_identity = availability.ortools
     allunique(opts.seeds) && all(>(0), opts.seeds) || error("seeds must be distinct positive integers")
-    identity = campaign_identity(opts, instances, methods, hexaly_executable, ortools_identity)
+    identity = campaign_identity(opts, instances, methods, hexaly_executable, ortools_identity;
+        requested_methods, skipped_methods=availability.skipped)
     fingerprint = stable_sha(identity)
     output = opts.output
     manifest_path = joinpath(output, "manifest.toml")
@@ -580,6 +528,19 @@ function campaign_main()
     println(opts.resume ? "Resuming " : "Starting ", output, " (", length(instances), " instances × ",
         length(methods), " methods × ", length(opts.seeds), " seeds)")
     flush(stdout)
+
+    for row in availability.skipped
+        println("Skipped ",row["method"],": ",row["reason"])
+    end
+    if isempty(methods)
+        manifest = TOML.parsefile(manifest_path)
+        manifest["completed_trials"] = 0
+        manifest["finished_utc"] = string(now(UTC))
+        manifest["complete"] = true
+        atomic(manifest_path,io->TOML.print(io,manifest;sorted=true))
+        println("All requested methods were unavailable; no solve was launched.")
+        return
+    end
 
     banks = Dict(kind=>ICNScoring.load_backend(kind) for kind in (:naive,:icn,:direct))
     plans = Dict(method=>ResourceExperiment.prepare_portfolio(ResourceExperiment.allocation(method, opts.threads))
@@ -659,4 +620,4 @@ function campaign_main()
     println("Completed ", total, " qualified trials. Campaign fingerprint: ", fingerprint)
 end
 
-campaign_main()
+abspath(PROGRAM_FILE)==abspath(@__FILE__) && campaign_main()

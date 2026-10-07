@@ -1,0 +1,81 @@
+using Test, SHA, TOML, Pkg
+include(joinpath(@__DIR__,"..","src","NativeSolvers.jl"))
+include(joinpath(@__DIR__,"..","src","PlatformResources.jl"))
+const ROOT=normpath(joinpath(@__DIR__,"..",".."))
+const PYTHON=joinpath(Sys.BINDIR,Base.julia_exename()) # Real executable, fake probes below.
+
+@testset "Preserve existing installations; skip only availability failures" begin
+    calls=Ref(0)
+    installer=()->(calls[]+=1;error("installation must not be attempted"))
+    identity=Dict("python"=>PYTHON,"ortools_version"=>"9.14.6206")
+    resolver=(python;root)->identity
+    @test NativeSolvers.install_ortools(PYTHON;root=ROOT,resolver,installer)===identity
+    @test calls[]==0
+    for reason in ("unsupported_version_9.15","native_import_failed","python_not_found")
+        unavailable=(python;root)->throw(NativeSolvers.UnavailableSolver("ortools_native",reason))
+        @test_throws NativeSolvers.UnavailableSolver NativeSolvers.install_ortools(PYTHON;root=ROOT,resolver=unavailable,installer)
+        @test calls[]==0
+    end
+    missing_ortools=()->throw(NativeSolvers.UnavailableSolver("ortools_native","package_not_installed"))
+    missing_hexaly=()->throw(NativeSolvers.UnavailableSolver("hexaly_native","license_unavailable"))
+    result=NativeSolvers.resolve_requested(["cbls_icn","ortools_native","hexaly_native"];
+        ortools_resolver=missing_ortools,hexaly_resolver=missing_hexaly)
+    @test result.methods==["cbls_icn"]
+    @test getindex.(result.skipped,"status")==["skipped","skipped"]
+    @test getindex.(result.skipped,"reason")==["package_not_installed","license_unavailable"]
+    @test_throws NativeSolvers.UnavailableSolver NativeSolvers.resolve_requested(["ortools_native"];
+        missing="error",ortools_resolver=missing_ortools,hexaly_resolver=missing_hexaly)
+    @test_throws ErrorException NativeSolvers.resolve_requested(["hexaly_native"];
+        ortools_resolver=missing_ortools,hexaly_resolver=()->error("invalid adapter model"))
+    @test_throws ArgumentError NativeSolvers.resolve_requested(String[];
+        missing="silence",ortools_resolver=missing_ortools,hexaly_resolver=missing_hexaly)
+end
+
+@testset "Version, native library, timeout and license probes" begin
+    probe(output;code=0,timed_out=false)=command->(;output,code,timed_out)
+    mktemp() do native,io
+        write(io,"fixture");flush(io)
+        good=probe("PYTHON|3.12.3\nPRESENT\nORTOOLS|9.14.6206|$native\n")
+        identity=NativeSolvers.ortools_identity(PYTHON;probe=good)
+        @test identity["native_module_sha256"]==bytes2hex(sha256("fixture"))
+        @test identity["python_version"]=="3.12.3"
+        for p in (probe("PYTHON|3.12.3\nMISSING\n";code=1),
+            probe("PRESENT\n";code=1),probe("";timed_out=true),
+            probe("PYTHON|3.12.3\nORTOOLS|9.15|$native\n"))
+            @test_throws NativeSolvers.UnavailableSolver NativeSolvers.ortools_identity(PYTHON;probe=p)
+        end
+        @test_throws ErrorException NativeSolvers.ortools_identity(PYTHON;probe=probe("unknown response"))
+    end
+    @test NativeSolvers.resolve_hexaly(PYTHON;probe=probe("Hexaly Optimizer 15.0\nJULIACONSTRAINTS_HEXALY_READY"))==realpath(PYTHON)
+    for p in (probe("license unavailable";code=1),probe("";timed_out=true),
+        probe("Hexaly Optimizer 14.0\nJULIACONSTRAINTS_HEXALY_READY"))
+        @test_throws NativeSolvers.UnavailableSolver NativeSolvers.resolve_hexaly(PYTHON;probe=p)
+    end
+    @test_throws ErrorException NativeSolvers.resolve_hexaly(PYTHON;probe=probe("syntax error";code=1))
+    @test_throws ErrorException NativeSolvers.resolve_hexaly(PYTHON;probe=probe("missing callback"))
+    @test_throws NativeSolvers.UnavailableSolver NativeSolvers.resolve_hexaly("__missing_solver__")
+end
+
+@testset "Resource accounting and frozen artifact matrix" begin
+    @test PlatformResources.cpu_seconds()>=0
+    @test PlatformResources.cpu_seconds(3)>=0
+    @test PlatformResources.os_thread_id()>0
+    @test !isempty(PlatformResources.allowed_cpus())
+    @test_throws ArgumentError PlatformResources.pin(`echo fixture`,Int[])
+    bindings=NativeSolvers.SolverArtifacts.BINDINGS
+    for platform in (Pkg.BinaryPlatforms.Platform("x86_64","linux";libc="glibc"),
+        Pkg.BinaryPlatforms.Platform("aarch64","linux";libc="glibc"),
+        Pkg.BinaryPlatforms.Platform("x86_64","macos"),Pkg.BinaryPlatforms.Platform("aarch64","macos"),
+        Pkg.BinaryPlatforms.Platform("x86_64","windows")), package in NativeSolvers.SolverArtifacts.PACKAGES
+        @test Pkg.Artifacts.artifact_hash(package*"_python312",bindings;platform)!==nothing
+    end
+    # No download or solve: if the frozen local SDK exists, prove that setup
+    # returns it unchanged and never reaches the installer.
+    local_python=joinpath(ROOT,"LiLim/native/ortools/.venv/bin/python")
+    if isfile(local_python)
+        before=NativeSolvers.resolve_ortools(local_python;root=ROOT)
+        after=NativeSolvers.install_ortools(local_python;root=ROOT,installer=()->error("reinstallation"))
+        @test before==after
+        @test isempty(after["python_path"])
+    end
+end

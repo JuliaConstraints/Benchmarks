@@ -1,6 +1,6 @@
 schema = "li-lim-existing-strategy-variants/1"
 scope = "Additive strategy screening; all historical method names and defaults are retained"
-selection = "Opt in with --methods=strategies or --methods=all,strategies; all alone remains historical"
+selection = "--methods=panel includes historical profiles, strategy variants, portfolios and optional native solvers; all alone remains historical"
 
 [screening]
 instances = ["lc101", "lr101", "lrc101"]
@@ -115,6 +115,69 @@ restart = "random"
 probability = 0.01
 fraction = 0.05
 
+# Keep full resets separate from periodic-full and partial-reset ablations.
+[profiles.greedy_guided]
+[profiles.reset_best_full]
+restart = "random"
+probability = 0.01
+fraction = 1.0
+[profiles.reset_current_full]
+restart = "random"
+probability = 0.01
+fraction = 1.0
+source = "current"
+[profiles.universal_best_full]
+restart = "universal"
+fraction = 1.0
+universal_scale = 64
+[profiles.universal_current_full]
+restart = "universal"
+fraction = 1.0
+source = "current"
+universal_scale = 64
+[profiles.tabu_reset_full]
+tabu = "weak"
+local_tenure = 8
+selected_tenure = 2
+restart = "tabu"
+fraction = 1.0
+[profiles.tabu_random_partial]
+tabu = "event"
+local_tenure = 8
+selected_tenure = 2
+restart = "random"
+probability = 0.01
+fraction = 0.10
+source = "current"
+[profiles.tabu_random_full]
+tabu = "event"
+local_tenure = 8
+selected_tenure = 2
+restart = "random"
+probability = 0.01
+fraction = 1.0
+source = "current"
+[profiles.exhaustion_always_full]
+selector = "remaining"
+tabu = "event"
+local_tenure = 8
+clock = "accepted"
+restart = "exhaustion"
+source = "current"
+fraction = 1.0
+tabu_threshold = 8
+full_every = 1
+[profiles.late_full_reset]
+acceptance = "late"
+history = 400
+tabu = "event"
+local_tenure = 8
+selected_tenure = 1
+restart = "universal"
+universal_scale = 64
+fraction = 1.0
+source = "current"
+
 [[variants]]
 method = "cbls_icn_tabu_short"
 policy = "tabu_short"
@@ -190,3 +253,56 @@ bridged = true
 [portfolios]
 cbls_strategy_diverse = ["cbls_icn_tabu_short", "cbls_icn_exhaustion_partial", "cbls_icn_universal_best", "cbls_icn_late_400"]
 mixed_strategy_diverse = ["cbls_icn_late_400", "hybrid_specialized_icn_exhaustion", "hybrid_bridged_icn_late", "highs_serial"]
+cbls_restart_diverse = ["cbls_icn_reset_best_small", "cbls_icn_reset_current_full", "cbls_icn_universal_best_full", "cbls_icn_tabu_random_partial"]
+mixed_restart_diverse = ["cbls_icn_tabu_random_full", "hybrid_specialized_icn_full_reset", "hybrid_bridged_icn_tabu", "highs_serial"]
+
+[[variants]]
+method = "cbls_icn_greedy_guided"
+policy = "greedy_guided"
+[[variants]]
+method = "cbls_icn_reset_best_full"
+policy = "reset_best_full"
+[[variants]]
+method = "cbls_icn_reset_current_full"
+policy = "reset_current_full"
+[[variants]]
+method = "cbls_icn_universal_best_full"
+policy = "universal_best_full"
+[[variants]]
+method = "cbls_icn_universal_current_full"
+policy = "universal_current_full"
+[[variants]]
+method = "cbls_icn_tabu_reset_full"
+policy = "tabu_reset_full"
+[[variants]]
+method = "cbls_icn_tabu_random_partial"
+policy = "tabu_random_partial"
+[[variants]]
+method = "cbls_icn_tabu_random_full"
+policy = "tabu_random_full"
+[[variants]]
+method = "cbls_icn_exhaustion_always_full"
+policy = "exhaustion_always_full"
+[[variants]]
+method = "cbls_icn_late_full_reset"
+policy = "late_full_reset"
+[[variants]]
+method = "hybrid_specialized_icn_full_reset"
+policy = "exhaustion_always_full"
+hybrid = true
+bridged = false
+[[variants]]
+method = "hybrid_bridged_icn_full_reset"
+policy = "exhaustion_always_full"
+hybrid = true
+bridged = true
+[[variants]]
+method = "hybrid_specialized_icn_tabu"
+policy = "tabu_short"
+hybrid = true
+bridged = false
+[[variants]]
+method = "hybrid_bridged_icn_tabu"
+policy = "tabu_short"
+hybrid = true
+bridged = true

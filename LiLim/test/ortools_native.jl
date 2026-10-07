@@ -2,12 +2,23 @@ using Test, ConstraintModels, JuMP, TOML
 using ConstraintModels.Benchmarks
 include(joinpath(@__DIR__, "..", "src", "Pilot.jl"))
 include(joinpath(@__DIR__, "..", "competitors", "Adapters.jl"))
+include(joinpath(@__DIR__, "..", "src", "NativeSolvers.jl"))
 
-const PYTHON = get(ENV, "ORTOOLS_PYTHON", joinpath(@__DIR__, "..", "native", "ortools", ".venv", "bin", "python"))
+const PYTHON = NativeSolvers.default_python(normpath(joinpath(@__DIR__,"..","..")))
 const RUNNER = normpath(joinpath(@__DIR__, "..", "native", "ortools", "pdptw.py"))
-const CPU = parse(Int, get(ENV, "JULIACONSTRAINTS_TEST_CPU", "8"))
+const CPU = parse(Int, get(ENV, "JULIACONSTRAINTS_TEST_CPU", string(first(CompetitorAdapters.PlatformResources.allowed_cpus()))))
+const IDENTITY = try
+    NativeSolvers.resolve_ortools(PYTHON;root=normpath(joinpath(@__DIR__,"..","..")))
+catch e
+    e isa NativeSolvers.UnavailableSolver || rethrow()
+    println("Skipped ",e.method,": ",e.reason)
+    nothing
+end
 
 @testset "Actual OR-Tools 9.14 GLS and original PDPTW validation" begin
+    if IDENTITY===nothing
+        @test_skip false
+    else
     for (name, capacity, coordinates, ready, due, service) in (
         ("fractional depot service and padded empty vehicle", 2,
             [0. 0.;1 1;2 1;-1 1;-2 1], fill(0.25,5), fill(30.75,5), [0.5,0.1,0.1,0.1,0.1]),
@@ -23,8 +34,11 @@ const CPU = parse(Int, get(ENV, "JULIACONSTRAINTS_TEST_CPU", "8"))
                 input = joinpath(directory,"input.txt"); output = joinpath(directory,"output.toml")
                 epoch = round(Int,time()*1e9)
                 open(io->CompetitorAdapters.export_common_start(io,p,initial),input,"w")
-                run(CompetitorAdapters.ortools_command(PYTHON,RUNNER,input,output;
-                    seconds=3,seed=41,trial_start_epoch_ns=epoch,cpus=[CPU]))
+                command=CompetitorAdapters.ortools_command(IDENTITY["python"],RUNNER,input,output;
+                    seconds=3,seed=41,trial_start_epoch_ns=epoch,cpus=[CPU])
+                path=get(IDENTITY,"python_path","")
+                isempty(path) || (command=addenv(command,"PYTHONPATH"=>path,"PYTHONNOUSERSITE"=>"1"))
+                run(command)
                 native = TOML.parsefile(output)
                 @test native["solver_status"] == "solution"
                 @test native["common_start_accepted"]
@@ -42,5 +56,6 @@ const CPU = parse(Int, get(ENV, "JULIACONSTRAINTS_TEST_CPU", "8"))
                 @test_throws ErrorException CompetitorAdapters.audit_ortools_trial(p,initial,bad;budget_seconds=3)
             end
         end
+    end
     end
 end

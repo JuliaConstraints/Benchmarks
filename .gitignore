@@ -34,3 +34,10 @@ Manifest.toml
 /_research/
 /plots/
 /notebooks/
+
+# Local evidence remains on disk; publish only selected reports and figures.
+/LiLim/results/**/trials/
+/LiLim/results/**/logs/
+/LiLim/results/**/STOP_AFTER_TRIAL
+/LiLim/native/ortools/.venv/
+/LiLim/native/timefold/target/

@@ -1,0 +1,166 @@
+checked_date = "2026-10-07"
+entry_count = 20
+policy = "Li-Lim first. Missing optional solvers are skipped; missing original validators are explicit blockers, not successful tests."
+schema = "hexaly-benchmark-coverage/1"
+source = "https://www.hexaly.com/benchmarks"
+
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "CVRP"
+id = "cvrp"
+priority = 2
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-capacitated-vehicle-routing-problem-cvrp"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "CVRPTW"
+id = "cvrptw"
+priority = 2
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-gurobi-or-tools-capacitated-vehicle-routing-problem-with-time-windows-cvrptw"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "RCPSP"
+id = "rcpsp"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-or-tools-on-the-resource-constrained-project-scheduling-problem-rcpsp"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "FJSP"
+id = "fjsp"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-flexible-job-shop-scheduling-problem-fjsp"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "SALBP"
+id = "salbp"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-vs-cpo-simple-assembly-line-balancing-problem-salbp"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "Aircraft landing"
+id = "aircraft_landing"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-on-the-aircraft-landing-problem"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = "LiLim/scripts/full_corpus_campaign.jl"
+equivalence = "Local fleet-first comparison; common insertion start; not identical to the published Hexaly/OR-Tools models"
+family = "PDPTW / Li-Lim"
+id = "pdptw"
+priority = 1
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-google-or-tools-pickup-and-delivery-problem-with-time-windows-pdptw"
+status = "requalify_new_cohort"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "TSP"
+id = "tsp"
+priority = 2
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-traveling-salesman-problem-tsp"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "Team orienteering"
+id = "top"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-gurobi-or-tools-team-orienteering-problem-top"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "Large CVRP"
+id = "large_cvrp"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/large-scale-instances-capacitated-vehicle-routing-problem-cvrp"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "Large JSSP"
+id = "large_jssp"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-cp-optimizer-vs-or-tools-on-the-job-shop-scheduling-problem-jssp"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "Vector bin packing"
+id = "vbp"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-gurobi-or-tools-on-the-vector-bin-packing-problem-vbp"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "Bin packing with conflicts"
+id = "bppc"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-gurobi-or-tools-bin-packing-problem-with-conflicts-bppc"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "Inventory routing"
+id = "irp"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-establishes-new-records-for-the-inventory-routing-problem-irp"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "Bin packing"
+id = "bpp"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-bin-packing-problem"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "Minimum sum-of-squares clustering"
+id = "mssc"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-k-means-clustering-mssc"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "RCPSP records"
+id = "rcpsp_records"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-breaks-records-for-the-resource-constrained-project-scheduling-problem-rcpsp"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "Quadratic assignment"
+id = "qap"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-quadratic-assignment-problem"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "Car sequencing with paint-shop batching"
+id = "car_sequencing"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-on-the-car-sequencing-problem-with-paint-shop-batching-constraints"
+status = "adapter_and_original_validator_required"
+[[benchmarks]]
+adapter = ""
+equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+family = "Maintenance scheduling"
+id = "maintenance"
+priority = 3
+published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-maintenance-scheduling-problem"
+status = "adapter_and_original_validator_required"

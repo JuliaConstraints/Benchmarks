@@ -32,8 +32,10 @@ const MARKERS = [:circle, :rect, :utriangle, :diamond, :dtriangle, :cross,
 const STYLE_ORDER = vcat(["cbls_naive","cbls_icn","cbls_icn_fused_scalar","cbls_icn_fused_all",
     "cbls_direct","hybrid_specialized_icn","hybrid_bridged_icn","highs_native",
     "highs_portfolio","cbls_mix_strategy","mixed_balanced","mixed_ls_heavy","ortools_native"],
-    [v["method"] for v in STRATEGY_CONFIG["variants"]],
-    ["cbls_strategy_diverse","mixed_strategy_diverse"])
+    [v["method"] for v in STRATEGY_CONFIG["variants"][1:21]],
+    ["cbls_strategy_diverse","mixed_strategy_diverse"],
+    [v["method"] for v in STRATEGY_CONFIG["variants"][22:end]],
+    sort!(setdiff(collect(keys(STRATEGY_CONFIG["portfolios"])),["cbls_strategy_diverse","mixed_strategy_diverse"])))
 const PROFILE_STYLES = let
     profiles = filter(!=("hexaly_native"), METHODS)
     all(m->m in STYLE_ORDER,profiles) || error("unknown solver plot style")

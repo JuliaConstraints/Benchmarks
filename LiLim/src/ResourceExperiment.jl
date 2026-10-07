@@ -6,11 +6,8 @@ import MetaStrategist as MS
 
 export allocation, run_case, warmup, prepare_portfolio, cpu_seconds
 
-function cpu_seconds(id=2)
-    stamp = Ref{NTuple{2,Clong}}((0,0))
-    ccall(:clock_gettime,Cint,(Cint,Ref{NTuple{2,Clong}}),id,stamp) == 0 || error("CPU clock unavailable")
-    stamp[][1]+stamp[][2]/1e9
-end
+include("PlatformResources.jl")
+cpu_seconds(id=2)=PlatformResources.cpu_seconds(id)
 
 const METHODS = ("cbls_naive","cbls_icn","cbls_icn_fused_scalar","cbls_icn_fused_all","cbls_direct","hybrid_specialized_icn",
     "hybrid_bridged_icn","highs_native","highs_portfolio","mixed_balanced","mixed_ls_heavy","cbls_mix_strategy",
@@ -144,7 +141,7 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
     initial_seconds = elapsed()
     initial_seconds < seconds || error("initialization exceeded budget")
     function invoke(i,worker)
-        started = elapsed();tid = Threads.threadid();os_tid=Int(ccall(:gettid,Cint,()))
+        started = elapsed();tid = Threads.threadid();os_tid=PlatformResources.os_thread_id()
         cpu = cpu_seconds(3)
         # Lane 1 retains the repetition seed. Further lanes deterministically
         # diversify independently, identically in every homogeneous profile.

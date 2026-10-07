@@ -1,4 +1,5 @@
 module CompetitorAdapters
+include("../src/PlatformResources.jl")
 using TOML, SHA
 using ..Benchmarks, ..Pilot
 export export_common_start, audit_timefold, audit_hexaly, audit_hexaly_trial, hexaly_command,
@@ -145,7 +146,7 @@ function ortools_command(python, script, input, output; seconds, seed, trial_sta
         throw(ArgumentError("OR-Tools needs a positive common-start epoch"))
     length(cpus) == 1 && only(cpus) isa Integer && only(cpus) >= 0 ||
         throw(ArgumentError("OR-Tools RoutingModel baseline is pinned to exactly one CPU"))
-    `taskset --cpu-list $(join(cpus,',')) $python $script --input=$input --output=$output --seconds=$seconds --seed=$seed --trial-start-epoch-ns=$trial_start_epoch_ns`
+    PlatformResources.pin(`$python $script --input=$input --output=$output --seconds=$seconds --seed=$seed --trial-start-epoch-ns=$trial_start_epoch_ns`,cpus)
 end
 """Audit Hexaly's final solution and every within-budget anytime observation."""
 function audit_hexaly_trial(p, initial, output, trace; budget_seconds, common_start_seconds=0.)
@@ -253,6 +254,6 @@ function hexaly_command(executable,input,output;threads,seconds,seed,cpus,
     distance_seconds = seconds-fleet_seconds
     phase_limits = string(fleet_seconds, ",", distance_seconds)
     model=normpath(joinpath(@__DIR__,"..","native","hexaly","pdptw.hxm"))
-    `taskset --cpu-list $(join(cpus,',')) $executable $model inFileName=$input solFileName=$output trajectoryFileName=$trajectory trialStartEpochMilliseconds=$trial_start_epoch_ms totalWallBudgetSeconds=$seconds hxTimeLimit=$phase_limits hxNbThreads=$threads hxSeed=$seed hxTimeBetweenDisplays=$display_interval`
+    PlatformResources.pin(`$executable $model inFileName=$input solFileName=$output trajectoryFileName=$trajectory trialStartEpochMilliseconds=$trial_start_epoch_ms totalWallBudgetSeconds=$seconds hxTimeLimit=$phase_limits hxNbThreads=$threads hxSeed=$seed hxTimeBetweenDisplays=$display_interval`,cpus)
 end
 end

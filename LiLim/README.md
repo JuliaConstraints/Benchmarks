@@ -1,5 +1,90 @@
 # Small Li–Lim pilot
 
+## Current preparation (7 October 2026)
+
+Li-Lim is the first qualification target for the new Etendu-aligned cohort.
+The [Hexaly coverage catalog](config/hexaly-benchmark-catalog.toml) records all
+20 benchmark pages, with their exact source URLs. Other families still need
+their data/model adapters and original validators; an inventory entry is not
+a completed reproduction. The new public cohort has not been published yet.
+Existing public snapshots and historical trial evidence remain available.
+
+The strategy catalog now contains 27 policies, 35 ICN/hybrid variants and four
+MetaStrategist portfolios. It retains every historical configuration and adds
+random, universal and tabu-triggered full resets, tabu plus partial/full resets,
+an exhaustion policy that always resets fully, late acceptance with full resets,
+and complementary hybrid/portfolio combinations. Policy state remains local to
+each worker. No comparative performance claim follows from these settings.
+
+`--methods=panel` selects the historical methods supported at the requested width,
+all strategy variants and portfolios, OR-Tools and Hexaly. `all` retains its old
+internal-method meaning. `--missing-solvers=skip` is the default: absent SDKs,
+unsupported installed versions and unavailable licenses are recorded explicitly
+in the manifest/report and excluded from performance denominators. Use
+`--missing-solvers=error` to require every selected solver. Adapter/model defects
+and invalid solutions still fail qualification. Availability is frozen in the
+campaign identity: do not resume an old output with a different panel or SDK.
+
+### Optional solver installation and platforms
+
+Existing Python/OR-Tools installations are probed before any installation.
+An incompatible or broken existing SDK is preserved and reported; it is never
+upgraded, reinstalled or repaired automatically. `ORTOOLS_PYTHON` or
+`--ortools=/path/to/python` selects an existing environment. Otherwise the local
+venv is tried before Python on PATH. Running a campaign never downloads a solver.
+Only the explicitly requested `colleague.jl setup` may install a missing SDK.
+
+- OR-Tools 9.14.6206 and its frozen dependencies have lazy Julia Artifacts for
+  Linux x86_64/aarch64 with glibc, macOS Intel/Apple Silicon and Windows x86_64.
+  A missing SDK requires an existing Python 3.12 interpreter. The installer
+  extracts unchanged upstream PyPI wheels using Julia's bundled 7z, verifies
+  archive SHA-256 and extracted tree hashes, and retains license notices.
+  It loads the immutable cache through PYTHONPATH without pip or venv changes.
+  [Bindings](Artifacts.toml) and [provenance](config/solver-artifacts.toml) freeze
+  the bytes. Unsupported platforms/interpreters are reported as unavailable.
+- HiGHS already uses `HiGHS_jll` Artifacts in the Julia solver environment;
+  `Pkg.instantiate` reuses cached binaries and downloads only missing ones.
+- Hexaly is an external SDK with an independently installed license. No
+  proprietary binary or license is redistributed. Use `HEXALY_EXECUTABLE` or
+  `--hexaly=/path/to/hexaly`. Qualification performs a bounded license/version
+  probe, followed by original-validator checks; missing access is skipped.
+- Timefold currently uses the existing Maven/Java adapter, not these Artifacts.
+  CBLS/ICN/MetaStrategist remain Julia source dependencies. JuLS is installed
+  locally through its separate Julia environment, while GHOST uses the existing
+  native C++ checkout and compiled adapter. They are not currently auto-installed
+  by `colleague.jl setup`, nor included in this runner's `panel` selector; their
+  older separate adapters still need a portable handoff and cohort qualification.
+
+OR-Tools is distributed under [Apache 2.0](https://github.com/google/or-tools/blob/v9.14/LICENSE);
+HiGHS uses [MIT](https://github.com/ERGO-Code/HiGHS/blob/master/LICENSE.txt).
+Artifact wheels retain their upstream dependency and bundled-library notices.
+Hexaly installation follows the [vendor documentation](https://www.hexaly.com/docs/last/installation/index.html).
+
+Linux keeps hard CPU affinity. macOS and Windows use solver thread caps and
+explicitly record `solver_thread_caps_only`; CPU IDs do not imply P-core
+placement there. Darwin uses its native CPU clocks and reaped-child accounting;
+Windows uses process/thread times, with sampled child CPU. Mac/Windows launch
+paths and SDK bindings are prepared, but runtime qualification on those hosts
+is still required. Do not label cross-host measurements as identical hardware.
+
+The no-reinstallation/availability tests passed 85 assertions and the actual
+catalog/selector tests passed 47 assertions on Linux. The artifact SDK's native
+OR-Tools import also passed. These checks perform no RoutingModel search.
+Requalification of route policies, ICN resources, hybrids and actual native
+solvers on this new cohort remains pending until shared compute resources are free.
+
+```sh
+julia LiLim/scripts/colleague.jl setup
+julia LiLim/scripts/colleague.jl qualify
+julia LiLim/scripts/colleague.jl run --threads=1 --budget=8 --methods=panel --instances=lc101,lr101,lrc101 --seeds=41,42,43 --output=LiLim/results/new-cohort-screen
+```
+
+`setup` preserves existing development clones and refuses to clone the unpublished
+new cohort. It becomes a complete public handoff after publication and qualification.
+Keep new runs in new output directories; stopped historical runs are not resumed.
+Bulk trial/log evidence stays local. Selected validated summaries/reports/figures
+are the Git deliverables.
+
 ## Existing strategy screening (6 October 2026)
 
 Historical method names, allocations, acceptance and zero-fraction reset settings
@@ -7,7 +92,7 @@ remain available. `tabu()` meant **no tabu** in those CBLS lanes. The native
 stagnation trigger could still restore the best state, without perturbing it.
 Their old trial files, manifests and published results remain untouched.
 
-[strategy-variants.toml](config/strategy-variants.toml) adds 17 existing policy
+[strategy-variants.toml](config/strategy-variants.toml) initially added 17 existing policy
 combinations: short/long tabu, accepted/proposal tabu clocks, keen/weak tabu,
 random partial resets from best/current, scaled universal resets, tabu-triggered
 resets, selection-exhaustion resets with periodic full resets, assignment-only
@@ -21,7 +106,7 @@ These are fixed portfolios, not adaptive strategy selection.
 Use `--methods=cbls_icn,hybrid_specialized_icn,strategies` for the initial screen.
 `--methods=all,strategies` adds the variants to every historical internal method;
 `all` alone retains its previous meaning. Native OR-Tools/Hexaly remain separate
-opt-in profiles. The source manifest now freezes the strategy catalog and the
+opt-in profiles for those historical screens. The source manifest freezes the strategy catalog and the
 reused `SolverSmoke/src/Profiles.jl` acceptance implementation.
 
 The first screen uses LC101/LR101/LRC101, seeds 41/42/43, 8 seconds and one P-core.
@@ -69,15 +154,10 @@ Python 3.12.3. Dependency consistency, native RoutingModel/CP-SAT/linear-solver
 library loading and the adapter command-line entry point were checked on
 6 October 2026. No solver search was started during installation. The environment
 and bytecode caches are ignored by Git; exact runtime dependency versions are saved.
-To reproduce it from the repository root on a host with Python 3.12 and
-`venv`/`pip` available, use the [official pip installation approach](https://developers.google.com/optimization/install/python)
-with the frozen requirements:
-
-```sh
-python3.12 -m venv LiLim/native/ortools/.venv
-LiLim/native/ortools/.venv/bin/python -m pip install --only-binary=:all: -r LiLim/native/ortools/requirements.txt
-LiLim/native/ortools/.venv/bin/python -m pip check
-```
+For the new cohort, use `colleague.jl setup` with an existing Python 3.12
+interpreter. It detects an installed SDK first and uses the frozen Artifacts only
+when the SDK is absent. The old requirements file is retained as provenance;
+setup does not invoke pip or recreate an existing venv.
 
 The OR-Tools profile uses Guided Local Search on one configured P-core, the shared
 insertion start, and a dominating fixed vehicle cost for fleet-first ranking.

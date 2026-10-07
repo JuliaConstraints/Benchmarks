@@ -1,10 +1,12 @@
-# Public, pinned Linux handoff: setup, qualify, run, report, and export.
-using TOML, SHA, Downloads
+# Pinned handoff: setup, qualify, run, report, and export.
+using TOML, SHA, Downloads, Pkg
+include(joinpath(@__DIR__,"..","src","NativeSolvers.jl"))
+include(joinpath(@__DIR__,"..","src","PlatformResources.jl"))
 const ROOT = normpath(joinpath(@__DIR__, "..", ".."))
 const CONFIG = TOML.parsefile(joinpath(ROOT,"LiLim/config/workspace-cohort.toml"))
 const DEV = abspath(get(ENV,"JULIACONSTRAINTS_COHORT_ROOT",joinpath(homedir(),".julia/dev/JuliaConstraintsBench")))
 const SOLVER_ENV = joinpath(DEV,"ConstraintModels/perf/pdptw")
-const PYTHON = get(ENV,"ORTOOLS_PYTHON",joinpath(ROOT,"LiLim/native/ortools/.venv/bin/python"))
+const PYTHON=NativeSolvers.default_python(ROOT)
 digest(path) = bytes2hex(sha256(read(path)))
 
 function launch(command)
@@ -21,7 +23,7 @@ function options(args)
     for arg in args
         startswith(arg,"--") && occursin('=',arg) || error("use --name=value")
         key,value = split(arg[3:end],'=';limit=2)
-        key in ("threads","cpus","budget","methods","instances","seeds","hexaly","output","resume") || error("unknown option: $key")
+        key in ("threads","cpus","budget","methods","instances","seeds","hexaly","output","resume","ortools","missing-solvers") || error("unknown option: $key")
         haskey(result,key) && error("duplicate option: $key")
         result[key] = value
     end
@@ -29,7 +31,7 @@ function options(args)
 end
 
 function topology()
-    Sys.islinux() || error("This qualified handoff requires Linux (taskset and /proc CPU accounting).")
+    Sys.islinux() || return PlatformResources.allowed_cpus()
     allowed = Int[]
     line = only(filter(l->startswith(l,"Cpus_allowed_list:"),readlines("/proc/self/status")))
     for item in split(strip(split(line,':')[2]),',')
@@ -53,22 +55,23 @@ function launcher(options, script, arguments; plot=false, threads=parse(Int,get(
     allunique(order) && length(order)>=threads && all(>=(0),order) || error("not enough distinct CPU IDs")
     selected = order[1:threads]
     environment = plot ? joinpath(ROOT,"LiLim/plotting") : SOLVER_ENV
-    cmd = `taskset --cpu-list $(join(selected,',')) $(Base.julia_cmd()) --startup-file=no --threads=$threads --gcthreads=1 --project=$environment $script $arguments`
+    cmd = PlatformResources.pin(`$(Base.julia_cmd()) --startup-file=no --threads=$threads --gcthreads=1 --project=$environment $script $arguments`,selected)
     addenv(cmd,"OPENBLAS_NUM_THREADS"=>"1","OMP_NUM_THREADS"=>"1","MKL_NUM_THREADS"=>"1",
         "JULIA_NUM_PRECOMPILE_TASKS"=>"1","JULIACONSTRAINTS_COHORT_ROOT"=>DEV,
         "JULIACONSTRAINTS_CPU_ORDER"=>join(order,','),"JULIACONSTRAINTS_TEST_CPU"=>string(first(selected)),
-        "ORTOOLS_PYTHON"=>PYTHON)
+        "ORTOOLS_PYTHON"=>get(options,"ortools",PYTHON))
 end
 
-function setup()
+function setup(opts=Dict{String,String}())
     string(VERSION)=="1.13.1" || error("Install Julia 1.13.1 first; the solver manifest is frozen to that version.")
-    for program in ("git","taskset","lscpu","unzip","python3")
+    for program in (Sys.islinux() ? ("git","taskset","lscpu") : ("git",))
         Sys.which(program)===nothing && error("Missing prerequisite: $program")
     end
     mkpath(DEV)
     for (name,sha) in sort!(collect(CONFIG["cohort"]))
         path = joinpath(DEV,name)
         if !ispath(path)
+            get(CONFIG,"public_status","published")=="published" || error("This source cohort has not been published; existing development checkouts were preserved.")
             url = "https://github.com/JuliaConstraints/"*name*".jl.git"
             branch = CONFIG["public_branch"]
             run(`git clone --single-branch --branch $branch $url $path`)
@@ -84,15 +87,16 @@ function setup()
             "JULIA_PKG_PRECOMPILE_AUTO"=>"0","JULIA_NUM_PRECOMPILE_TASKS"=>"1","OPENBLAS_NUM_THREADS"=>"1"))
         digest(manifest)==before || error("Package setup changed the frozen manifest")
     end
-    if !isfile(PYTHON)
-        venv = dirname(dirname(PYTHON))
-        ispath(venv) && error("Incomplete existing Python environment preserved: $venv")
-        run(`python3 -m venv $venv`)
-        requirements = joinpath(ROOT,"LiLim/native/ortools/requirements.txt")
-        run(`$PYTHON -m pip install -r $requirements`)
+    python=get(opts,"ortools",PYTHON)
+    missing=get(opts,"missing-solvers","skip")
+    missing in ("skip","error") || error("missing-solvers must be skip or error")
+    try
+        identity=NativeSolvers.install_ortools(python;root=ROOT)
+        println("OR-Tools ready: ",identity["ortools_version"],"; existing installations are preserved.")
+    catch e
+        e isa NativeSolvers.UnavailableSolver && missing=="skip" || rethrow()
+        println("Skipped ",e.method,": ",e.reason)
     end
-    run(`$PYTHON -m pip check`)
-    run(`$PYTHON -c "import ortools; from ortools.constraint_solver import pywrapcp; assert ortools.__version__ == '9.14.6206'; print('OR-Tools', ortools.__version__)"`)
     data_setup()
     println("Pinned source, environments and official data ready. Next: julia LiLim/scripts/colleague.jl qualify")
 end
@@ -116,30 +120,31 @@ function data_setup()
             end
         end
         digest(archive)==bks["archive_sha256"][filename] || error("Archive checksum mismatch: $archive")
-        entries = split(chomp(read(`unzip -Z -1 $archive`,String)),'\n')
-        for id in keys(bks["instances"][size])
-            path = joinpath(ROOT,"LiLim/data/raw/pdp_"*size,id*".txt")
-            expected = bks["instance_sha256"][size*"."*id]
-            if !isfile(path)
-                entry = only(filter(e->lowercase(basename(e))==id*".txt",entries))
-                bytes = read(`unzip -p $archive $entry`)
-                bytes2hex(sha256(bytes))==expected || error("Official instance bytes differ: $id")
-                mkpath(dirname(path)); write(path,bytes)
+        mktempdir() do extracted
+            run(pipeline(`$(Pkg.PlatformEngines.exe7z()) x -y -o$extracted $archive`;stdout=devnull))
+            entries=[joinpath(d,f) for (d,_,files) in walkdir(extracted) for f in files]
+            for id in keys(bks["instances"][size])
+                path=joinpath(ROOT,"LiLim/data/raw/pdp_"*size,id*".txt")
+                expected=bks["instance_sha256"][size*"."*id]
+                if !isfile(path)
+                    entry=only(filter(e->lowercase(basename(e))==id*".txt",entries))
+                    digest(entry)==expected || error("Official instance bytes differ: $id")
+                    mkpath(dirname(path)); cp(entry,path)
+                end
+                digest(path)==expected || error("Existing instance checksum mismatch: $id")
             end
-            digest(path)==expected || error("Existing instance checksum mismatch: $id")
         end
     end
     println("All 354 official instances and six archives verified.")
 end
 
 function qualify(opts)
-    for test in ("competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl")
+    for test in ("native_solvers.jl","campaign_catalog.jl","competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl")
         launch(launcher(opts,joinpath(ROOT,"LiLim/test",test),String[];threads=1))
     end
     launch(launcher(opts,joinpath(ROOT,"LiLim/test/search_policies.jl"),["--routes"];threads=1))
-    if haskey(opts,"hexaly")
-        launch(addenv(launcher(opts,joinpath(ROOT,"LiLim/test/hexaly_native.jl"),String[];threads=1),"HEXALY_EXECUTABLE"=>opts["hexaly"]))
-    end
+    launch(addenv(launcher(opts,joinpath(ROOT,"LiLim/test/hexaly_native.jl"),String[];threads=1),
+        "HEXALY_EXECUTABLE"=>get(opts,"hexaly",get(ENV,"HEXALY_EXECUTABLE","hexaly"))))
 end
 
 function report(opts)
@@ -147,6 +152,7 @@ function report(opts)
     output = abspath(opts["output"])
     launch(launcher(opts,joinpath(ROOT,"LiLim/scripts/full_corpus_report.jl"),[output];threads=1))
     summary = joinpath(output,"summary.toml")
+    isempty(TOML.parsefile(summary)["methods"]) && return
     for style in ("exact","xkcd")
         launch(launcher(opts,joinpath(ROOT,"LiLim/scripts/full_corpus_plots.jl"),[summary,joinpath(output,"figures-"*style),style];plot=true,threads=1))
     end
@@ -155,11 +161,10 @@ end
 function campaign(opts)
     haskey(opts,"output") || error("run requires --output=NEW_DIR (existing campaigns need --resume=true)")
     width = parse(Int,get(opts,"threads","1"))
-    methods = "ortools_native,cbls_icn,hybrid_specialized_icn,hybrid_bridged_icn,highs_native"
-    width>=4 && (methods *= ",cbls_mix_strategy,mixed_balanced,mixed_ls_heavy")
+    methods = "panel"
     args = ["--threads=$width","--budget="*get(opts,"budget","60"),"--output="*abspath(opts["output"]),
         "--instances="*get(opts,"instances","lc101,lr101,lrc101"),"--methods="*get(opts,"methods",methods),
-        "--seeds="*get(opts,"seeds","41,42,43"),"--ortools="*PYTHON]
+        "--seeds="*get(opts,"seeds","41,42,43"),"--ortools="*get(opts,"ortools",PYTHON),"--missing-solvers="*get(opts,"missing-solvers","skip")]
     haskey(opts,"hexaly") && push!(args,"--hexaly="*opts["hexaly"])
     get(opts,"resume","false")=="true" && push!(args,"--resume")
     launch(launcher(opts,joinpath(ROOT,"LiLim/scripts/full_corpus_campaign.jl"),args))
@@ -179,12 +184,15 @@ function export_results(opts)
     println("Return this evidence archive: ",archive)
 end
 
-isempty(ARGS) && error("usage: colleague.jl setup|qualify|run|report|export [--name=value]")
-command = first(ARGS); opts = options(ARGS[2:end])
-if command=="setup"; setup()
-elseif command=="qualify"; qualify(opts)
-elseif command=="run"; campaign(opts)
-elseif command=="report"; report(opts)
-elseif command=="export"; export_results(opts)
-else; error("unknown command: $command")
+function main(args=ARGS)
+    isempty(args) && error("usage: colleague.jl setup|qualify|run|report|export [--name=value]")
+    command=first(args); opts=options(args[2:end])
+    if command=="setup"; setup(opts)
+    elseif command=="qualify"; qualify(opts)
+    elseif command=="run"; campaign(opts)
+    elseif command=="report"; report(opts)
+    elseif command=="export"; export_results(opts)
+    else; error("unknown command: "*command)
+    end
 end
+abspath(PROGRAM_FILE)==abspath(@__FILE__) && main()

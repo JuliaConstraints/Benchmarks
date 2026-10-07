@@ -21,9 +21,9 @@ function policy_fixture(id;seed=41)
 end
 
 @testset "Existing strategies are materialized and execute" begin
-    @test length(SearchPolicies.METHODS)==21
+    @test length(SearchPolicies.METHODS)==35
     @test allunique(SearchPolicies.METHODS)
-    @test length(SearchPolicies.CONFIG["profiles"])==17
+    @test length(SearchPolicies.CONFIG["profiles"])==27
     @test all(row->haskey(SearchPolicies.CONFIG["profiles"],row["policy"]),values(SearchPolicies.VARIANTS))
     @test all(worker->worker=="highs_serial" || worker in SearchPolicies.METHODS,
         Iterators.flatten(values(SearchPolicies.PORTFOLIOS)))
@@ -57,7 +57,7 @@ end
             @test a.solver.strategies.acceptance isa LS.BestImprovingAcceptance
         elseif startswith(id,"late_")
             acceptance=a.solver.strategies.acceptance
-            @test length(acceptance.history)==parse(Int,split(id,'_')[2])
+            @test length(acceptance.history)==a.policy.description["history"]
             @test acceptance.history!==b.solver.strategies.acceptance.history
             @test acceptance.index==1
         end
@@ -80,6 +80,14 @@ end
     @test LS.restart_fraction(exhaustion)==0.1
     exhaustion.resets=8
     @test LS.restart_fraction(exhaustion)==1
+    full=SearchPolicies.materialize(m,"exhaustion_always_full").strategy.restart
+    for count in (0,1,7,8,9)
+        full.resets=count
+        @test LS.restart_fraction(full)==1
+    end
+    for id in ("reset_best_full","reset_current_full","universal_best_full","universal_current_full","tabu_reset_full","tabu_random_full")
+        @test LS.restart_fraction(SearchPolicies.materialize(m,id).strategy.restart)==1
+    end
     a=SearchPolicies.Profiles.LateAcceptance(2)
     a.history.=[(0.,20.),(0.,20.)]
     @test LS.decide_move(a,(0.,15.),(0.,10.),Xoshiro(41))==:accepted
