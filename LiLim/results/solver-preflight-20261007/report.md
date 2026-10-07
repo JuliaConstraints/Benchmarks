@@ -4,7 +4,7 @@ Source: [Hexaly benchmark page](https://www.hexaly.com/benchmarks)
 
 Checked: 2026-10-07T17:33:19.683. Catalogue entries: 20. Overall status: **incomplete_solver_coverage**.
 
-Targeted requalification: 2026-10-07T17:41:22.677. Earlier failed check states are retained in the machine-readable evidence.
+Targeted requalification: 2026-10-07T21:02:00.640. Earlier failed check states are retained in the machine-readable evidence.
 
 Published-corpus reproduction: **incomplete_published_reproduction**; independent of solver readiness.
 
@@ -31,6 +31,16 @@ OS: Linux, architecture: x86_64, Julia: 1.13.1, available CPU IDs: 8, RAM: 31.1 
 | metastrategist | available | passed | PDPTW_functional_suite_passed |
 | ortools | available | passed | installation_probe_passed |
 | timefold | available | passed | installation_probe_passed |
+
+## OR-Tools execution profiles
+
+| Profile | Qualification | Allocation | Scope |
+|---|---|---|---|
+| cpsat | passed | 2 CP-SAT workers on CPUs 8, 9 | four_small_original_PDPTW_models |
+| routing_gls | passed | 1 process | small_original_PDPTW_models |
+| routing_portfolio | passed | 2 processes on CPUs 8, 9 | small_original_PDPTW_model |
+
+Parallel qualification uses at most two allocated CPUs. Routing lanes are independent processes; CP-SAT uses the official generalized RoutingModel translation with CP local search disabled. Native numerical library thread limits and Linux CPU affinity are explicit. On macOS/Windows the worker budgets apply without hard CPU affinity. These small functional checks do not establish speedup or full-corpus readiness. Integer costs/times retain the existing conservative scaling; every retained solution is audited in the original problem. CP-SAT exports its final incumbent only, so its observed target time is an upper bound.
 
 ## All benchmark entries
 
@@ -86,6 +96,7 @@ OS: Linux, architecture: x86_64, Julia: 1.13.1, available CPU IDs: 8, RAM: 31.1 
 - test:icn_resources.jl: passed (exit_code_0)
 - test:native_solvers.jl: passed (exit_code_0)
 - test:ortools_native.jl: passed (exit_code_0)
+- test:ortools_parallel.jl: passed (exit_code_0)
 - test:search_policies.jl: passed (exit_code_0)
 - test:timefold_native.jl: passed (exit_code_0)
 

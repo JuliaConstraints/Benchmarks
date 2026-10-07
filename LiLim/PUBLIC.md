@@ -8,6 +8,10 @@ julia --startup-file=no scripts/colleague.jl preflight
 
 It checks every kit solver. Hexaly is optional; absent solvers are skipped.
 The [repository guide](../README.md) lists prerequisites and coverage.
+OR-Tools functional checks also exercise independent Routing processes and
+generalized CP-SAT with up to two workers. A one-CPU allocation skips multicore
+qualification. The resulting execution profiles are listed in the preflight
+report; the sealed campaign below retains its existing `ortools_native` profile.
 
 ## Compare
 

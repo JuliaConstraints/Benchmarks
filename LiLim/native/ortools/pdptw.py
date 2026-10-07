@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-"""Single-process OR-Tools 9.14 RoutingModel baseline for Li-Lim PDPTW.
+"""OR-Tools 9.14 Routing GLS and generalized CP-SAT for Li-Lim PDPTW.
 
 This runner uses OR-Tools' official Python RoutingModel because that is the
 interface used by the public Hexaly comparison. Install the pinned dependency
 from requirements.txt in an isolated Python environment. Every exported route
 and every captured incumbent is rechecked by the original Julia validator.
 
-The RoutingModel search is single-threaded. This process is pinned to exactly
-one CPU by its Julia caller, which records that affinity in the trial.
-The requested campaign seed is retained as a trial label; RoutingModel has no
-general local-search seed parameter, so the default GLS profile is unchanged.
+The default Routing search remains single-threaded. Parallel Routing uses
+independent processes with distinct GLS coefficients. The CP-SAT profile uses
+the official generalized RoutingModel translator, with CP local search disabled.
+Its workers share one explicitly bounded CPU allocation. Both profiles use the
+same conservative integer model and original Julia solution validation.
 """
 
 from __future__ import annotations
@@ -17,6 +18,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import pathlib
 import sys
 import time
@@ -25,6 +27,7 @@ EXPECTED_VERSION = "9.14.6206"
 DISTANCE_SCALE = 1_000_000
 TIME_SCALE = 10_000
 SCHEMA = "li-lim-ortools-native/1"
+CPSAT_SCHEMA = "li-lim-ortools-cpsat-native/1"
 
 
 def parse_exchange(path: pathlib.Path):
@@ -118,9 +121,9 @@ def toml_value(value):
     raise TypeError(f"unsupported TOML value: {type(value).__name__}")
 
 
-def write_result(path, fields, events):
+def write_result(path, fields, events, schema=SCHEMA):
     with path.open("w", encoding="utf-8", newline="\n") as stream:
-        stream.write(f"schema = {quote(SCHEMA)}\n")
+        stream.write(f"schema = {quote(schema)}\n")
         for key, value in fields.items():
             stream.write(f"{key} = {toml_value(value)}\n")
         stream.write("\n")
@@ -224,6 +227,12 @@ def run(args):
     initial_quality = route_quality(start_routes, distances)
     best_quality = initial_quality
     events = []
+    max_sampled_threads = 0
+
+    def sample_threads():
+        nonlocal max_sampled_threads
+        if sys.platform.startswith("linux"):
+            max_sampled_threads = max(max_sampled_threads, len(os.listdir("/proc/self/task")))
 
     def elapsed():
         return max(0.0, (time.time_ns() - args.trial_start_epoch_ns) / 1e9)
@@ -233,6 +242,7 @@ def run(args):
         quality = route_quality(routes, distances)
         if quality >= best_quality:
             return
+        sample_threads()
         best_quality = quality
         events.append({
             "seconds": elapsed(),
@@ -244,9 +254,26 @@ def run(args):
     def at_solution():
         capture(routes_from_values(lambda variable: variable.Value()))
 
-    routing.AddAtSolutionCallback(at_solution)
+    # Routing's SWIG solution monitor is not a CP-SAT worker-thread callback.
+    # CP-SAT exports its final incumbent after returning to the Python caller.
+    if args.engine == "routing":
+        routing.AddAtSolutionCallback(at_solution)
     parameters = pywrapcp.DefaultRoutingSearchParameters()
     parameters.local_search_metaheuristic = routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
+    parameters.guided_local_search_lambda_coefficient = args.gls_lambda
+    # Routing can invoke CP-SAT for scheduling or fallback. Bound those calls
+    # as well; BLAS/OpenMP limits alone do not constrain CP-SAT's own pool.
+    parameters.sat_parameters.ClearField("num_search_workers")
+    parameters.sat_parameters.num_workers = args.workers
+    if args.engine == "cpsat":
+        parameters.use_cp = pywrapcp.BOOL_FALSE
+        parameters.use_cp_sat = pywrapcp.BOOL_FALSE
+        parameters.use_generalized_cp_sat = pywrapcp.BOOL_TRUE
+        parameters.fallback_to_cp_sat_size_threshold = 0
+        parameters.sat_parameters.random_seed = args.seed
+        parameters.sat_parameters.log_search_progress = args.verify_cpsat
+        parameters.sat_parameters.log_to_stdout = args.verify_cpsat
+        parameters.report_intermediate_cp_sat_solutions = False
     parameters.log_search = False
     parameters.time_limit.FromNanoseconds(max(0, int((args.seconds - elapsed()) * 1e9)))
     # Some search options are frozen when the model closes. Set GLS before
@@ -260,6 +287,8 @@ def run(args):
     search_nanoseconds = max(0, int(remaining * 1e9))
     parameters.time_limit.FromNanoseconds(search_nanoseconds)
     start_elapsed = elapsed()
+    sample_threads()
+    cpu_started = time.process_time()
     started_ns = time.perf_counter_ns()
     if search_nanoseconds == 0:
         solution = None
@@ -271,6 +300,8 @@ def run(args):
         solution = routing.SolveFromAssignmentWithParameters(initial_assignment, parameters)
         status = "solution" if solution is not None else "no_solution"
     solver_seconds = (time.perf_counter_ns() - started_ns) / 1e9
+    solver_cpu_seconds = time.process_time() - cpu_started
+    sample_threads()
     if solution is None:
         final_routes = start_routes
     else:
@@ -285,8 +316,23 @@ def run(args):
         "python_version": sys.version.split()[0],
         "seed_label": args.seed,
         "seed_used_by_routing_search": False,
-        "guided_local_search": True,
-        "internal_search_threads": 1,
+        "engine": args.engine,
+        "guided_local_search": args.engine == "routing",
+        "gls_lambda": args.gls_lambda,
+        "internal_search_threads": args.workers,
+        "seed_used_by_cp_sat": args.engine == "cpsat",
+        "cp_local_search_enabled": args.engine == "routing",
+        "generalized_cp_sat_enabled": args.engine == "cpsat",
+        "trajectory_observation": "routing callbacks" if args.engine == "routing" else "final incumbent only; target time is an upper bound",
+        "process_id": os.getpid(),
+        "affinity_supported": hasattr(os, "sched_getaffinity"),
+        "affinity_cpus": sorted(os.sched_getaffinity(0)) if hasattr(os, "sched_getaffinity") else [],
+        "max_sampled_native_threads": max_sampled_threads,
+        "native_thread_observation": "callback samples; not a continuous peak measurement" if args.engine == "routing" else "before/after search samples; not a peak measurement",
+        "native_thread_limits": [f"{key}={os.environ.get(key, 'unset')}" for key in (
+            "OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "OMP_THREAD_LIMIT", "MKL_NUM_THREADS",
+            "BLIS_NUM_THREADS", "VECLIB_MAXIMUM_THREADS", "NUMEXPR_NUM_THREADS")],
+        "solver_cpu_seconds": solver_cpu_seconds,
         "common_start_accepted": initial_assignment is not None,
         "solver_status": status,
         "seconds": final_seconds,
@@ -299,7 +345,7 @@ def run(args):
         "time_scale": TIME_SCALE,
         "objective_policy": "lexicographic vehicles then distance using a dominating fixed vehicle cost",
     }
-    write_result(args.output, fields, events)
+    write_result(args.output, fields, events, CPSAT_SCHEMA if args.engine == "cpsat" else SCHEMA)
 
 
 def main():
@@ -309,11 +355,19 @@ def main():
     parser.add_argument("--seconds", type=float, required=True)
     parser.add_argument("--seed", type=int, required=True)
     parser.add_argument("--trial-start-epoch-ns", type=int, required=True)
+    parser.add_argument("--engine", choices=("routing", "cpsat"), default="routing")
+    parser.add_argument("--workers", type=int, default=1)
+    parser.add_argument("--gls-lambda", type=float, default=0.1)
+    parser.add_argument("--verify-cpsat", action="store_true")
     args = parser.parse_args()
     if not math.isfinite(args.seconds) or args.seconds < 0:
         parser.error("--seconds must be finite and nonnegative")
     if args.seed <= 0 or args.trial_start_epoch_ns <= 0:
         parser.error("--seed and --trial-start-epoch-ns must be positive")
+    if args.workers < 1 or (args.engine == "routing" and args.workers != 1):
+        parser.error("Routing requires one internal worker; CP-SAT requires positive workers")
+    if not math.isfinite(args.gls_lambda) or args.gls_lambda <= 0:
+        parser.error("--gls-lambda must be finite and positive")
     run(args)
 
 

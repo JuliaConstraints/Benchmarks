@@ -177,6 +177,24 @@ function save_report(directory,report;refresh=false)
             status = get(state,"qualification",state["status"] in ("skipped","not_detected") ? "skipped" : "not_run")
             println(io,"| $name | $(state["status"]) | $status | $(get(state,"reason",get(state,"version",""))) |")
         end
+        profiles=get(get(report["solvers"],"ortools",Dict()),"profiles",Dict())
+        if !isempty(profiles)
+            println(io,"\n## OR-Tools execution profiles\n\n| Profile | Qualification | Allocation | Scope |\n|---|---|---|---|")
+            for (name,state) in sort!(collect(profiles);by=first)
+                allocation=haskey(state,"processes") ? string(state["processes"])*(state["processes"]==1 ? " process" : " processes") :
+                    haskey(state,"workers") ? string(state["workers"])*" CP-SAT workers" : "not allocated"
+                haskey(state,"cpus") && (allocation*=" on CPUs "*join(state["cpus"],", "))
+                get(state,"multicore_status","")=="skipped_one_CPU_allocated" && (allocation*="; multicore skipped")
+                println(io,"| $name | $(state["status"]) | $allocation | $(get(state,"scope",get(state,"reason",""))) |")
+            end
+            println(io,"\nParallel qualification uses at most two allocated CPUs. Routing lanes are independent processes; ",
+                "CP-SAT uses the official generalized RoutingModel translation with CP local search disabled. ",
+                "Native numerical library thread limits and Linux CPU affinity are explicit. ",
+                "On macOS/Windows the worker budgets apply without hard CPU affinity. ",
+                "These small functional checks do not establish speedup or full-corpus readiness. ",
+                "Integer costs/times retain the existing conservative scaling; every retained solution is audited in the original problem. ",
+                "CP-SAT exports its final incumbent only, so its observed target time is an upper bound.")
+        end
         println(io,"\n## All benchmark entries\n\n| Benchmark | Status | Checks still required |\n|---|---|---|")
         for row in report["benchmarks"]
             println(io,"| [$(row["family"])]($(row["published_benchmark_url"])) | $(row["status"]) | ",

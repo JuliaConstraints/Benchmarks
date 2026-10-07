@@ -20,6 +20,11 @@ installations are reused. Missing optional solvers are skipped. Installed solver
 without a qualified adapter are reported separately. Hexaly is optional.
 No comparison campaign starts during preflight.
 
+OR-Tools checks include single-process Routing GLS, a two-process Routing portfolio,
+and generalized CP-SAT with up to two workers on Li-Lim. Native thread budgets are
+explicit; Linux affinity prevents overlapping CPU allocations. A one-CPU allocation
+skips the multicore checks. Solutions and trajectories use the original validator.
+
 | Solver | Functional coverage |
 |---|---|
 | CBLS / LocalSearchSolvers / ICN | Li-Lim and 16 discrete model families; existing tabu/reset/acceptance policies |

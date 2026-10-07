@@ -221,10 +221,25 @@ function data_setup()
     println("All 354 official instances and six archives verified.")
 end
 
-const CORE_QUALIFICATION_TESTS = ("cohort_checkout.jl","hexaly_preflight.jl","ghost_frontend.jl","native_solvers.jl","campaign_catalog.jl","competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl")
+const CORE_QUALIFICATION_TESTS = ("cohort_checkout.jl","hexaly_preflight.jl","ghost_frontend.jl","native_solvers.jl","campaign_catalog.jl","competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl","ortools_parallel.jl")
+function qualification_width(opts,test)
+    test=="ortools_parallel.jl" || return 1
+    cpus=haskey(opts,"cpus") ? parse.(Int,split(opts["cpus"],',')) : topology()
+    min(2,length(cpus))
+end
+function qualify_ortools_parallel(opts)
+    mktempdir() do directory
+        output=joinpath(directory,"profiles.toml")
+        command=launcher(opts,joinpath(ROOT,"LiLim/test/ortools_parallel.jl"),["--output="*output];
+            threads=qualification_width(opts,"ortools_parallel.jl"))
+        result=NativeSolvers.capture(command;timeout=120)
+        evidence=isfile(output) ? TOML.parsefile(output) : Dict{String,Any}()
+        (;result,evidence)
+    end
+end
 function qualify(opts; require_hexaly=false)
     for test in CORE_QUALIFICATION_TESTS
-        launch(launcher(opts,joinpath(ROOT,"LiLim/test",test),String[];threads=1))
+        launch(launcher(opts,joinpath(ROOT,"LiLim/test",test),String[];threads=qualification_width(opts,test)))
     end
     launch(launcher(opts,joinpath(ROOT,"LiLim/test/search_policies.jl"),["--routes"];threads=1))
     launch(launcher(opts,joinpath(ROOT,"LiLim/test/ghost_native.jl"),String[];threads=1))
@@ -311,6 +326,8 @@ function preflight(opts)
     for name in ("cbls","local_search","icn","metastrategist","highs")
         solvers[name] = Dict("status"=>environment_ok ? "prepared" : "blocked","reason"=>"original_model_tests_required")
     end
+    solvers["ortools"]["profiles"]=Dict{String,Any}(name=>Dict{String,Any}("status"=>"not_run","reason"=>"functional_qualification_required")
+        for name in ("routing_gls","routing_portfolio","cpsat"))
     if qualify_models && environment_ok
         tests = [(test,String[]) for test in CORE_QUALIFICATION_TESTS]
         push!(tests,("search_policies.jl",["--routes"]))
@@ -318,11 +335,21 @@ function preflight(opts)
         solvers["timefold"]["status"]=="available" && push!(tests,("timefold_native.jl",String[]))
         core_ok = true
         for (test,args) in tests
-            result = NativeSolvers.capture(launcher(opts,joinpath(ROOT,"LiLim/test",test),args;threads=1);timeout=300)
+            if test=="ortools_parallel.jl"
+                parallel=qualify_ortools_parallel(opts);result=parallel.result
+                merge!(solvers["ortools"]["profiles"],parallel.evidence)
+            else
+                result = NativeSolvers.capture(launcher(opts,joinpath(ROOT,"LiLim/test",test),args;threads=1);timeout=300)
+            end
             ok = result.code==0 && !result.timed_out
             checks["test:"*test] = Dict("status"=>ok ? "passed" : "failed",
                 "reason"=>result.timed_out ? "qualification_timeout" : "exit_code_"*string(result.code))
-            test in ("ortools_native.jl","ghost_native.jl","timefold_native.jl") || (core_ok &= ok)
+            test in ("ortools_native.jl","ortools_parallel.jl","ghost_native.jl","timefold_native.jl") || (core_ok &= ok)
+            if test=="ortools_parallel.jl" && !ok
+                for name in ("routing_portfolio","cpsat")
+                    solvers["ortools"]["profiles"][name]=Dict("status"=>"failed","reason"=>"parallel_qualification_failed")
+                end
+            end
         end
         qualified["pdptw:core"] = core_ok ? "passed" : "failed"
         solvers["ortools"]["status"]=="available" &&
@@ -330,6 +357,8 @@ function preflight(opts)
         if solvers["ortools"]["status"]=="available"
             solvers["ortools"]["qualification"]=qualified["pdptw:ortools"]
             solvers["ortools"]["qualification_scope"]="original_PDPTW_functional_tests"
+            solvers["ortools"]["profiles"]["routing_gls"]=Dict("status"=>qualified["pdptw:ortools"],
+                "processes"=>1,"workers"=>1,"scope"=>"small_original_PDPTW_models")
         end
         for name in ("cbls","local_search","icn","metastrategist","highs")
             solvers[name]["status"] = core_ok ? "available" : "failed"
@@ -353,6 +382,11 @@ function preflight(opts)
             solvers["hexaly"]["qualification_scope"] = "original_PDPTW_functional_tests"
             checks["test:hexaly_native.jl"] = Dict("status"=>qualified["pdptw:hexaly"],
                 "reason"=>result.timed_out ? "qualification_timeout" : "exit_code_"*string(result.code))
+        end
+    end
+    if solvers["ortools"]["status"]=="skipped"
+        for name in keys(solvers["ortools"]["profiles"])
+            solvers["ortools"]["profiles"][name]=Dict("status"=>"skipped","reason"=>solvers["ortools"]["reason"])
         end
     end
     rows = HexalyPreflight.coverage(ROOT,DEV,c;solvers,qualification=qualified,environment_ok)
