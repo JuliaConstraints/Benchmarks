@@ -2,7 +2,20 @@ module ReproductionScoring
 using ..ReproductionProblems
 using TOML,SHA
 import CompositionalNetworks as CN
-export Backend,prepare_backend,error_value,objective_value,residuals!
+export Backend,prepare_backend,error_value,objective_value,residuals!,search_objective_value
+
+mutable struct ScoreWorkspace
+    problem::Problem
+    domains::Vector{UnitRange{Int}}
+    integers::Vector{Int}
+    labels::Vector{Int}
+    seen::Set{Int}
+end
+function ScoreWorkspace(p)
+    ds=UnitRange{Int}[Int(first(r)):Int(last(r)) for r in domains(p)]
+    labels=Int[];seen=Set{Int}();sizehint!(labels,length(ds));sizehint!(seen,length(ds))
+    ScoreWorkspace(p,ds,zeros(Int,length(ds)),labels,seen)
+end
 
 mutable struct Backend{F}
     kind::Symbol
@@ -12,6 +25,7 @@ mutable struct Backend{F}
     calls::Int
     evaluations::Int
     bank_sha256::String
+    workspace::Union{Nothing,ScoreWorkspace}
 end
 function prepare_backend(kind;bank=joinpath(@__DIR__,"../../LiLim/resources/icn-pdptw-witnesses.toml"))
     kind in (:naive,:direct,:icn,:icn_fused) || throw(ArgumentError("Unknown error backend"))
@@ -30,18 +44,53 @@ function prepare_backend(kind;bank=joinpath(@__DIR__,"../../LiLim/resources/icn-
         CN.check_weights_validity(network,weights) && CN.apply!(network,weights) || error("Invalid ICN weights")
         decoder=CN.composition(network);hash=bytes2hex(sha256(read(bank)))
     end
-    Backend(kind,decoder,Float64[],[0.],0,0,hash)
+    Backend(kind,decoder,Float64[],[0.],0,0,hash,nothing)
+end
+
+function workspace!(b,p)
+    if b.workspace===nothing || b.workspace.problem!==p;b.workspace=ScoreWorkspace(p);end
+    b.workspace::ScoreWorkspace
+end
+function integer_values!(w,values)
+    length(values)==length(w.domains) || return false
+    for i in eachindex(w.domains)
+        v=values[i]
+        v isa Real && isfinite(v) && isinteger(v) && v in w.domains[i] || return false
+        w.integers[i]=Int(v)
+    end
+    true
+end
+function distinct_labels!(w,values)
+    empty!(w.labels);empty!(w.seen)
+    for v in values
+        if !(v in w.seen);push!(w.seen,v);push!(w.labels,v);end
+    end
+    w.labels
+end
+function packing_terms!(terms,x,labels,weights,capacity,atol)
+    for label in labels,r in axes(weights,2)
+        load=0.0
+        for i in eachindex(x);x[i]==label && (load+=weights[i,r]);end
+        push!(terms,max(0.,load-capacity[r]-atol))
+    end
+end
+function station_terms!(terms,x,labels,duration,cycle)
+    for label in labels
+        load=0
+        for i in eachindex(x);x[i]==label && (load+=duration[i]);end
+        push!(terms,Float64(max(0,load-cycle)))
+    end
 end
 
 "Lane-owned error terms; independent original validator decides which solutions may be exported."
-function residuals!(terms,p::Problem,values;atol=p.family==:maintenance ? 1e-5 : 1e-8)
-    empty!(terms);ds=domains(p)
-    if length(values)!=length(ds) || !all(i->values[i] isa Real && isfinite(values[i]) && isinteger(values[i]) && values[i] in ds[i],eachindex(ds))
+function residuals!(terms,p::Problem,values;atol=p.family==:maintenance ? 1e-5 : 1e-8,workspace=ScoreWorkspace(p))
+    empty!(terms)
+    if !integer_values!(workspace,values)
         push!(terms,1.);return terms
     end
-    x=Int.(values);d=p.data;f=p.family
+    x=workspace.integers;d=p.data;f=p.family
     add(v)=push!(terms,Float64(max(0,v)))
-    perm(v)=add(length(v)-length(unique(v)))
+    perm(v)=add(length(v)-length(distinct_labels!(workspace,v)))
     f in (:tsp,:qap,:car_sequencing) && perm(x)
     if f in (:cvrp,:cvrptw,:top)
         n=length(x)÷2;order=view(x,1:n);labels=view(x,n+1:2n);perm(order)
@@ -64,19 +113,16 @@ function residuals!(terms,p::Problem,values;atol=p.family==:maintenance ? 1e-5 :
             f==:cvrptw && add(clock+d["service"][previous]+d["distance"][previous,1]-d["latest"][1]-atol)
         end
     elseif f in (:bpp,:bppc,:vbp,:salbp)
-        for label in unique(x)
-            if f==:salbp
-                add(sum(d["duration"][i] for i in eachindex(x) if x[i]==label)-d["cycle"])
-            else
-                for r in axes(d["weights"],2)
-                    add(sum(d["weights"][i,r] for i in eachindex(x) if x[i]==label)-d["capacity"][r]-atol)
-                end
-            end
+        labels=distinct_labels!(workspace,x)
+        if f==:salbp
+            station_terms!(terms,x,labels,d["duration"],d["cycle"])
+        else
+            packing_terms!(terms,x,labels,d["weights"],d["capacity"],atol)
         end
         if f==:bppc;for(a,b)in d["conflicts"];add(x[a]==x[b]);end
         elseif f==:salbp;for(a,b)in d["precedence"];add(x[a]-x[b]);end;end
     elseif f==:mssc
-        get(d,"require_nonempty",false) && add(d["clusters"]-length(unique(x)))
+        get(d,"require_nonempty",false) && add(d["clusters"]-length(distinct_labels!(workspace,x)))
     elseif f in (:rcpsp,:jssp,:fjsp)
         n=length(d["duration"]);s=view(x,1:n)
         duration=f==:fjsp ? [d["alternatives"][i][x[n+i]][2] for i in 1:n] : d["duration"]
@@ -121,7 +167,7 @@ function residuals!(terms,p::Problem,values;atol=p.family==:maintenance ? 1e-5 :
     terms
 end
 function error_value(b,p,x)
-    b.evaluations+=1;residuals!(b.residuals,p,x)
+    b.evaluations+=1;residuals!(b.residuals,p,x;workspace=workspace!(b,p))
     if b.kind==:naive;return Float64(count(>(0),b.residuals))
     elseif b.kind==:direct;return sum(b.residuals)
     elseif b.kind==:icn_fused
@@ -130,6 +176,39 @@ function error_value(b,p,x)
     total=0.
     for term in b.residuals
         b.input[1]=term;b.calls+=1;total+=b.decoder(b.input;op=(==),val=0)
+    end
+    total
+end
+
+"Search-only objective kernels; the independent original validator still audits every incumbent."
+function search_objective_value(b,p,values)
+    p.family in (:bpp,:bppc,:vbp,:salbp,:rcpsp,:jssp,:fjsp,:aircraft_landing) || return objective_value(p,values)
+    w=workspace!(b,p);integer_values!(w,values) || return Inf
+    x=w.integers;d=p.data
+    if p.family in (:bpp,:bppc,:vbp,:salbp)
+        return Float64(length(distinct_labels!(w,x)))
+    elseif p.family==:fjsp
+        return Float64(flexible_makespan(x,d["alternatives"]))
+    elseif p.family in (:rcpsp,:jssp)
+        return Float64(makespan(x,d["duration"]))
+    else
+        return aircraft_cost(x,d["target"],d["early_cost"],d["late_cost"])
+    end
+end
+function makespan(x,duration)
+    result=0
+    for i in eachindex(duration);result=max(result,x[i]+duration[i]);end
+    result
+end
+function flexible_makespan(x,alternatives)
+    n=length(alternatives);result=0
+    for i in 1:n;result=max(result,x[i]+alternatives[i][x[n+i]][2]);end
+    result
+end
+function aircraft_cost(x,target,early,late)
+    total=0.0
+    @inbounds @simd for i in eachindex(x)
+        total+=early[i]*max(0,target[i]-x[i])+late[i]*max(0,x[i]-target[i])
     end
     total
 end

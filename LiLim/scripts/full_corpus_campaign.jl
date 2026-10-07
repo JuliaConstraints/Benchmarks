@@ -137,8 +137,11 @@ function check_environment(threads)
         [joinpath(ROOT,"LiLim","Artifacts.toml"), CAMPAIGN_CONFIG_PATH, BKS_PATH, BASELINE_PATH, COHORT_PATH,
          joinpath(ROOT, "LiLim", "config", "icn-threads.toml"),
          Hybrid.SearchPolicies.CONFIG_PATH,
+         ResourceExperiment.StrategyPanel.CONFIG_PATH,
          joinpath(ROOT, "SolverSmoke", "src", "Profiles.jl"),
          joinpath(ROOT, "LiLim", "test", "search_policies.jl"),
+         joinpath(ROOT, "LiLim", "test", "strategy_panel.jl"),
+         joinpath(ROOT, "LiLim", "test", "ro_fragments.jl"),
          joinpath(ROOT, "LiLim", "test", "icn_resources.jl"),
          joinpath(ROOT, "LiLim", "test", "competitors.jl"),
          joinpath(ROOT, "LiLim", "competitors", "Adapters.jl"),
@@ -175,6 +178,7 @@ function source_manifest()
         [joinpath(ROOT,"LiLim","Artifacts.toml"), RUNNER_PATH, CAMPAIGN_CONFIG_PATH, BKS_PATH, BASELINE_PATH, COHORT_PATH,
          joinpath(ROOT, "LiLim", "config", "icn-threads.toml"),
          Hybrid.SearchPolicies.CONFIG_PATH,
+         ResourceExperiment.StrategyPanel.CONFIG_PATH,
          joinpath(ROOT, "SolverSmoke", "src", "Profiles.jl"),
          joinpath(ROOT, "LiLim", "test", "search_policies.jl"),
          joinpath(ROOT, "LiLim", "test", "icn_resources.jl"),
@@ -211,6 +215,10 @@ function campaign_identity(opts, instances, methods, hexaly_executable, ortools_
         "requested_methods" => requested_methods,
         "skipped_methods" => skipped_methods,
         "strategy_variants" => Hybrid.SearchPolicies.CONFIG,
+        "strategy_panel" => ResourceExperiment.StrategyPanel.CONFIG,
+        "qubo_guides" => Hybrid.QUBOGuidance.input_manifest([row.id for row in instances]),
+        "strategy_panel_configurations"=>Dict(m=>ResourceExperiment.StrategyPanel.metadata(m,opts.threads)
+            for m in methods if haskey(ResourceExperiment.StrategyPanel.CATALOG,m)),
         "hexaly" => hexaly_identity,
         "ortools" => ortools_identity === nothing ? Dict{String,Any}() : ortools_identity,
         "ghost" => ghost_identity === nothing ? Dict{String,Any}() : ghost_identity,
@@ -570,6 +578,8 @@ function campaign_main()
     completed = 0
     for (instance_index, row) in enumerate(instances), (repeat_index, seed) in enumerate(opts.seeds),
         method in circshift(methods, repeat_index + instance_index - 2)
+        Hybrid.QUBOGuidance.input_manifest([r.id for r in instances])==identity["qubo_guides"] ||
+            error("QUBO guide inputs changed; preserve sealed trials and use a new cohort")
         path = trial_path(output, row.id, method, seed)
         problem = get!(problems, row.id) do
             read_benchmark(row.path, :li_lim; id=row.id)

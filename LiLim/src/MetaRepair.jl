@@ -6,6 +6,7 @@ import XCSP3Bridges as XB
 import MathOptInterface as MOI
 using ..Benchmarks
 using ..Pilot
+include("ROFragments.jl")
 
 export RouteSnapshot, HighsRouteResolver, successors, routes_from_successors,
     SuccessorRouteWorkspace, routes_from_successors!, decode_successor_views!
@@ -136,9 +137,17 @@ struct HighsRouteResolver <: LS.AbstractMetaVariableResolver
     bridged::Bool
     max_visits::Int
     bridge_templates::Dict{Tuple{Int,Int},Tuple{XB.Program,Dict{String,Any}}}
-    function HighsRouteResolver(; bridged=true, max_visits=16)
+    repair_mode::String
+    lp_solver::String
+    mip_lp_solver::String
+    radius::Int
+    warm_start::Bool
+    function HighsRouteResolver(; bridged=true, max_visits=16,repair_mode="mip",
+            lp_solver="simplex",mip_lp_solver="choose",radius=4,warm_start=false)
         2 <= max_visits <= 20 || throw(ArgumentError("fragment cap must be between 2 and 20 visits"))
-        new(Bool(bridged), Int(max_visits),Dict{Tuple{Int,Int},Tuple{XB.Program,Dict{String,Any}}}())
+        repair_mode in ("mip","rins","local_branching") && radius>0 || throw(ArgumentError("invalid repair policy"))
+        new(Bool(bridged), Int(max_visits),Dict{Tuple{Int,Int},Tuple{XB.Program,Dict{String,Any}}}(),
+            String(repair_mode),String(lp_solver),String(mip_lp_solver),Int(radius),Bool(warm_start))
     end
 end
 
@@ -160,7 +169,8 @@ function LS.resolve_meta_variable(resolver::HighsRouteResolver, request::LS.Meta
     remaining() = max(0.0, budget-elapsed())
     trace = Dict{String,Any}("representation"=>"customer-successor/1",
         "fragment"=>"union of complete current routes", "bridged"=>resolver.bridged,
-        "threads"=>1, "budget_seconds"=>budget, "mip_start"=>false,
+        "threads"=>1, "budget_seconds"=>budget, "mip_start"=>resolver.warm_start,
+        "repair_mode"=>resolver.repair_mode,"lp_solver"=>resolver.lp_solver,"mip_lp_solver"=>resolver.mip_lp_solver,
         "semantics"=>SEMANTICS_VERSION)
     finish(status, move=nothing) = (; status, move, elapsed_seconds=elapsed(), trace)
     budget == 0 && return finish(:budget_exhausted)
@@ -216,8 +226,25 @@ function LS.resolve_meta_variable(resolver::HighsRouteResolver, request::LS.Meta
     trace["variables"] = num_variables(f.m)
     trace["constraints"] = num_constraints(f.m; count_variable_in_set_constraints=true)
     remaining() > 0 || return finish(:budget_exhausted)
+    if resolver.warm_start
+        local_routes=[[local_index[i] for i in snapshot.routes[r]] for r in group]
+        Pilot.warmstart!(f,local_routes)
+    end
+    if resolver.repair_mode!="mip" || resolver.mip_lp_solver!="choose"
+        assignment=Dict(v=>Float64(something(start_value(v),0.)) for v in values(f.x))
+        # The guide and restricted neighborhood are scoped to the same exact RO fragment.
+        # Fleet first, then distance uses a safe finite upper bound, not an arbitrary weight.
+        fleet_weight=2length(nodes)*maximum(f.D)+1.0
+        @objective(f.m,Min,fleet_weight*f.fleet+f.distance)
+        ok=ROFragments.optimize_fragment!(f.m;remaining,assignment,mode=resolver.repair_mode,
+            lp_solver=resolver.lp_solver,mip_lp_solver=resolver.mip_lp_solver,radius=resolver.radius,seed,trace)
+        ok || return finish(remaining()>0 ? :no_incumbent : :budget_exhausted)
+        routes=Pilot.decode(f);phases=[Dict("objective"=>"fleet_first_bounded_scalar",
+            "status"=>string(termination_status(f.m)))];seconds=get(trace,"mip_seconds",0.)+get(trace,"lp_seconds",0.)
+    else
     set_time_limit_sec(f.m, remaining())
     routes, phases, seconds = Pilot.solve!(f; seconds=remaining())
+    end
     trace["solve_seconds"] = seconds
     trace["phases"] = phases
     routes === nothing && return finish(:no_incumbent)

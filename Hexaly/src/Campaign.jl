@@ -7,7 +7,8 @@ export run_campaign,summarize,METHODS,MIP_FAMILIES
 const MIP_FAMILIES=(:bpp,:bppc,:vbp,:salbp,:rcpsp,:jssp,:fjsp,:aircraft_landing)
 const METHODS=vcat(["cbls_naive","cbls_direct","cbls_icn","cbls_icn_fused","strategies",
     "hybrid_highs","metastrategist","metastrategist_mixed","highs","ortools","ghost","ghost_icn","hexaly"],
-    ["strategy:"*p for p in POLICIES])
+    ["strategy:"*p for p in POLICIES],ReproductionSolvers.StrategyPanel.methods(),
+    ["cbls-panel","hybrid-panel","meta-panel","qubo-panel","extended-panel"])
 digest(path)=bytes2hex(sha256(read(path)))
 function code_hash(root)
     paths=sort!(vcat([joinpath(dir,file) for (dir,_,files)in walkdir(joinpath(root,"Hexaly"))
@@ -15,7 +16,9 @@ function code_hash(root)
         !("data" in splitpath(relpath(dir,joinpath(root,"Hexaly")))) && !("results" in splitpath(relpath(dir,joinpath(root,"Hexaly"))))],
         [joinpath(root,"LiLim",p) for p in ("config/strategy-variants.toml","resources/icn-pdptw-witnesses.toml",
             "config/workspace-cohort.toml","config/hexaly-benchmark-catalog.toml","src/NativeSolvers.jl",
-            "src/PlatformResources.jl","src/SearchPolicies.jl","src/SolverArtifacts.jl")]))
+            "src/PlatformResources.jl","src/SearchPolicies.jl","src/SolverArtifacts.jl",
+            "config/strategy-panel.toml","src/StrategyPanel.jl","src/QUBOGuidance.jl","src/ROFragments.jl",
+            "src/PanelPlotStyles.jl")]))
     bytes2hex(sha256(join([relpath(p,root)*":"*digest(p) for p in paths],"\n")))
 end
 function status_result(p,values,status;bound=NaN,seconds=NaN)
@@ -49,6 +52,20 @@ function solve(root,row,p,path,method;seconds,threads,seed,max_cells)
     elseif method in ("hybrid_highs","metastrategist_mixed")
         p.family in MIP_FAMILIES || return Dict("status"=>"unsupported_model")
     end
+    panel=haskey(ReproductionSolvers.StrategyPanel.CATALOG,method)
+    if panel
+        recipes=ReproductionSolvers.StrategyPanel.allocation(method,threads)
+        any(lane->lane.bridged,recipes) && return Dict("status"=>"unsupported_model","reason"=>"qualified_XCSP3_bridge_scope_is_LiLim_only")
+        any(lane->lane.hybrid,recipes) && !(p.family in MIP_FAMILIES) &&
+            return Dict("status"=>"unsupported_model","reason"=>"no_qualified_original_integer_fragment")
+        workers=[(;kind=l.backend==:icn_fused_all ? :icn_fused : l.backend,policy=l.policy,overrides=l.overrides,
+            hybrid=l.hybrid,max_cells,max_visits=l.max_visits,repair_every=l.repair_every,
+            fragment_seconds=l.fragment_seconds,repair_fraction=l.repair_fraction,repair_mode=l.repair_mode,
+            lp_solver=l.lp_solver,mip_lp_solver=l.mip_lp_solver,radius=l.radius,fragment_selection=l.fragment_selection,
+            guide_mode=l.guide_mode,guide_depth=l.guide_depth,guide_every=l.guide_every,
+            guide_exploration=l.guide_exploration,guide_fraction=l.guide_fraction,id=row["id"],
+            instance_sha256=row["sha256"],warm_start=true) for l in recipes]
+    else
     policy=startswith(method,"strategy:") ? method[10:end] : "greedy_guided"
     kind=method=="cbls_naive" ? :naive : method=="cbls_direct" ? :direct : method=="cbls_icn" ? :icn : :icn_fused
     phases=startswith(method,"metastrategist") ? ["late_400","tabu_short","exhaustion_partial","universal_best"] : [policy]
@@ -56,6 +73,7 @@ function solve(root,row,p,path,method;seconds,threads,seed,max_cells)
     phases=filter(p->p in POLICIES,phases);isempty(phases) && error("Missing portfolio profiles")
     workers=[(;kind=method=="metastrategist_mixed" && mod1(i,4)==3 ? :direct : kind,
         policy=phases[mod1(i,length(phases))],hybrid=method=="hybrid_highs" || (method=="metastrategist_mixed" && mod1(i,4)==2),max_cells) for i in 1:threads]
+    end
     prepared_at=time_ns()
     lanes=[prepare_cbls(p;w...,seed=seed+i-1) for (i,w)in enumerate(workers)]
     preparation=(time_ns()-prepared_at)/1e9
@@ -64,8 +82,8 @@ function solve(root,row,p,path,method;seconds,threads,seed,max_cells)
     warm_at=time_ns();lanes=[prepare_cbls(p;w...,seed=seed+i-1) for(i,w)in enumerate(workers)]
     preparation+=(time_ns()-warm_at)/1e9
     outcomes=Vector{Any}(undef,threads)
-    if startswith(method,"metastrategist")
-        outcomes=portfolio(p;workers,seconds,seed)
+    if startswith(method,"metastrategist") || (panel && ReproductionSolvers.StrategyPanel.CATALOG[method].category==:meta)
+        outcomes=portfolio(p;workers,seconds,seed,prepared_lanes=lanes)
     else
         Threads.@threads :static for i in eachindex(lanes)
             Random.seed!(lanes[i].seed)
@@ -84,6 +102,8 @@ function solve(root,row,p,path,method;seconds,threads,seed,max_cells)
     result["trajectory"]=trajectory;result["lanes"]=outcomes
     result["preparation_seconds"]=preparation;result["trajectory_status"]="original_validated_incumbents"
     result["threads"]=threads;result
+    panel && (result["strategy_panel"]=ReproductionSolvers.StrategyPanel.metadata(method,threads))
+    result
 end
 function save(path,value)
     temporary=path*".partial"
@@ -106,7 +126,7 @@ function run_campaign(root,manifest;ids,methods,seconds,threads,seeds,output,res
     seconds>0 && isfinite(seconds) || error("Positive finite budget required")
     all(id->id in getindex.(manifest["instances"],"id"),ids) || error("Unknown instance ID")
     all(m->m in METHODS,methods) || error("Unknown method")
-    expanded=vcat(filter(!=("strategies"),methods),"strategies" in methods ? ["strategy:"*p for p in POLICIES] : String[])
+    expanded=ReproductionSolvers.StrategyPanel.expand(vcat(filter(!=("strategies"),methods),"strategies" in methods ? ["strategy:"*p for p in POLICIES] : String[]))
     allunique(expanded) || error("Duplicate methods after strategy expansion")
     rows=filter(r->r["id"] in ids,manifest["instances"])
     # Fail before solving if an original instance has changed.
@@ -114,6 +134,9 @@ function run_campaign(root,manifest;ids,methods,seconds,threads,seeds,output,res
     identity=Dict("schema"=>"discrete-reproduction-campaign/1","instances"=>ids,"methods"=>expanded,
         "seconds"=>seconds,"threads"=>threads,"seeds"=>seeds,"max_cells"=>max_cells,
         "source_sha256"=>code_hash(root),"instance_sha256"=>Dict(r["id"]=>r["sha256"] for r in rows),
+        "qubo_guides"=>ReproductionSolvers.QUBOGuidance.input_manifest(ids),
+        "strategy_panel"=>Dict(m=>ReproductionSolvers.StrategyPanel.metadata(m,threads) for m in expanded
+            if haskey(ReproductionSolvers.StrategyPanel.CATALOG,m)),
         "environment_sha256"=>digest(joinpath(dirname(Base.active_project()),"Manifest.toml")),"selection_rows"=>rows,
         "host"=>Dict("julia"=>string(VERSION),"os"=>string(Sys.KERNEL),"architecture"=>string(Sys.ARCH),
             "logical_cpus"=>Sys.CPU_THREADS,"cpu_models"=>unique([c.model for c in Sys.cpu_info()]),
@@ -126,6 +149,8 @@ function run_campaign(root,manifest;ids,methods,seconds,threads,seeds,output,res
         mkpath(joinpath(output,"trials"));save(manifest_path,Dict("identity"=>identity,"complete"=>false))
     end
     for row in rows,method in expanded,seed in seeds
+        ReproductionSolvers.QUBOGuidance.input_manifest(ids)==identity["qubo_guides"] ||
+            error("QUBO guide inputs changed; preserve sealed trials and use a new cohort")
         key=row["id"]*"--"*replace(method,":"=>"-")*"--"*string(seed)
         all(c->isletter(c)||isdigit(c)||c in ('-','_','.'),key) || error("Unsafe trial ID")
         path=joinpath(output,"trials",key*".toml");seal=path*".sha256"

@@ -221,7 +221,7 @@ function data_setup()
     println("All 354 official instances and six archives verified.")
 end
 
-const CORE_QUALIFICATION_TESTS = ("cohort_checkout.jl","hexaly_preflight.jl","ghost_frontend.jl","native_solvers.jl","campaign_catalog.jl","competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl","ortools_parallel.jl")
+const CORE_QUALIFICATION_TESTS = ("cohort_checkout.jl","hexaly_preflight.jl","ghost_frontend.jl","native_solvers.jl","campaign_catalog.jl","competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl","ortools_parallel.jl","strategy_panel.jl","ro_fragments.jl")
 function qualification_width(opts,test)
     test=="ortools_parallel.jl" || return 1
     cpus=haskey(opts,"cpus") ? parse.(Int,split(opts["cpus"],',')) : topology()

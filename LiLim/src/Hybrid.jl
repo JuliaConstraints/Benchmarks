@@ -1,5 +1,6 @@
 "Minimal CBLS controller with bounded whole-route meta-variable repairs."
 module Hybrid
+include("QUBOGuidance.jl")
 using Random
 import LocalSearchSolvers as LS
 using ..Benchmarks
@@ -138,7 +139,7 @@ function pair_relocation(p, routes, distances, pair; deadline_ns=typemax(UInt64)
 end
 
 function prepare_parent(p, initial; seed=41, scorer=nothing, plateau_rejection=10,
-        search_policy="legacy")
+        search_policy="legacy",policy_overrides=(;))
     Random.seed!(seed)
     validate_solution(p, initial).valid || throw(ArgumentError("valid common start required"))
     d = p.data
@@ -155,7 +156,7 @@ function prepare_parent(p, initial; seed=41, scorer=nothing, plateau_rejection=1
         score = evaluate(v)
         fleet_weight*score.vehicles+score.distance
     end)
-    policy = SearchPolicies.materialize(model,search_policy;plateau_rejection)
+    policy = SearchPolicies.materialize(model,search_policy;plateau_rejection,overrides=policy_overrides)
     strategy = policy.strategy
     acceptance = strategy.acceptance
     options = LS.Options(dynamic=false, process_threads_map=Dict(1=>1),
@@ -173,7 +174,10 @@ end
 function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
         max_visits=16, repair_every=5, fragment_seconds=0.1, repair_fraction=0.35,
         structured=true, origin_ns=nothing, scorer=nothing, scorer_name="direct full-route scorer/1 (no ICN)",
-        pair_selection=:best, pair_every=1, plateau_rejection=10, search_policy="legacy")
+        pair_selection=:best, pair_every=1, plateau_rejection=10, search_policy="legacy",policy_overrides=(;),
+        repair_mode="mip",lp_solver="simplex",mip_lp_solver="choose",radius=4,fragment_selection="random",
+        guide_mode="none",guide_depth=4,guide_every=32,guide_exploration=0.1,guide_fraction=0.1,
+        guide=nothing,instance_sha256=nothing,warm_start=false)
     entered = time_ns()
     started = origin_ns === nothing ? entered : UInt64(origin_ns)
     started <= entered || throw(ArgumentError("clock origin is in the future"))
@@ -181,7 +185,9 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
     0 <= repair_fraction <= 1 && repair_every > 0 && isfinite(fragment_seconds) && fragment_seconds > 0 || throw(ArgumentError("invalid repair policy"))
     rng = Xoshiro(seed)
     pair_selection in (:best,:first) && pair_every>0 || throw(ArgumentError("invalid pair policy"))
-    prepared = prepare_parent(p, initial; seed, scorer, plateau_rejection, search_policy)
+    fragment_selection in ("random","bottleneck","qubo") || throw(ArgumentError("unknown fragment selector"))
+    guide_mode in ("none","absolute","conditional") && guide_every>0 && 0<=guide_fraction<=1 || throw(ArgumentError("invalid guide policy"))
+    prepared = prepare_parent(p, initial; seed, scorer, plateau_rejection, search_policy,policy_overrides)
     solver = prepared.solver
     initialization = (time_ns()-entered)/1e9
     best = deepcopy(initial)
@@ -215,7 +221,17 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
                 "distance"=>quality.distance,"routes"=>deepcopy(candidate)))
         end
     end
-    resolver = HighsRouteResolver(; bridged, max_visits)
+    resolver = HighsRouteResolver(; bridged, max_visits,repair_mode,lp_solver,mip_lp_solver,radius,warm_start)
+    guide_seconds=0.;guide_candidates=0;guide_moves=0
+    guide_started=time_ns()
+    if guide_mode!="none" && guide===nothing
+        n=length(p.data.demand)
+        guide=QUBOGuidance.configured_guide(fill(1:n,n-1),
+            ((a-1,b-1,1.) for (a,b) in p.data.pairs);id=p.id,instance_sha256)
+    end
+    gw=guide===nothing ? nothing : QUBOGuidance.Workspace(guide)
+    guide_mode=="none" || (guide_seconds+=(time_ns()-guide_started)/1e9)
+    candidate_buffer=copy(successors(p,initial))
     while remaining() > 0
         # Native resets may temporarily break successor topology or feasibility.
         # The native scorer repairs these states; feasible-route operators and
@@ -224,7 +240,18 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
             current_routes = routes_from_successors!(route_workspace,p,LS.get_values(solver))
             groups = route_groups!(group_workspace,current_routes,max_visits)
             if !isempty(groups)
-                group = rand(rng, groups)
+                group = if fragment_selection=="bottleneck"
+                    argmax(g->sum(Pilot.route_distance(current_routes[r],prepared.distances) for r in g),groups)
+                elseif fragment_selection=="qubo" && guide!==nothing && guide_seconds<guide_fraction*seconds
+                    select_started=time_ns()
+                    chosen=QUBOGuidance.scope!(gw,guide,LS.get_values(solver),guide_depth,rng;
+                        mode=guide_mode=="none" ? "absolute" : guide_mode,exploration=guide_exploration)
+                    group=argmax(g->sum(gw.selected[node-1] for r in g for node in current_routes[r]),groups)
+                    guide_seconds+=(time_ns()-select_started)/1e9
+                    group
+                else
+                    rand(rng,groups)
+                end
                 ids = sort!([node-1 for r in group for node in current_routes[r]])
                 variable = LS.MetaVariable(:route_repair, ids)
                 capture_started = time_ns()
@@ -245,6 +272,34 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
                     end
                 end
             end
+        end
+        remaining() > 0 || break
+        if guide!==nothing && iszero(LS.get_error(solver)) && steps%guide_every==0 && guide_seconds<guide_fraction*seconds
+            guide_started=time_ns();values=LS.get_values(solver)
+            proposal=QUBOGuidance.proposal!(gw,guide,values,guide_depth,rng;mode=guide_mode,exploration=guide_exploration)
+            guide_candidates+=proposal.examined
+            copyto!(candidate_buffer,values)
+            for (i,v) in zip(proposal.ids,proposal.values);candidate_buffer[i]=v;end
+            candidate=try routes_from_successors!(route_workspace,p,candidate_buffer) catch e
+                e isa ArgumentError || rethrow();nothing
+            end
+            if candidate!==nothing && remaining()>0
+                q=validate_solution(p,candidate)
+                # Surrogate ranking supplies proposals; truth and fleet-first quality decide.
+                if q.valid && iszero(LS.get_error(solver))
+                    current_quality=routing_score(p,prepared.distances,values)
+                    if (q.objective.vehicles,q.objective.distance)<(current_quality.vehicles,current_quality.distance)
+                        move=LS.MetaMove(LS.MetaVariable(:qubo_depth,proposal.ids),proposal.values;
+                            provenance=(source=:qubo_guidance,depth=guide_depth))
+                        iszero(LS._candidate_cost(solver,move)) || error("QUBO proposal failed ICN validation")
+                        if remaining()>0
+                            LS._commit!(solver.model,solver.state,move);LS._compute!(solver);SearchPolicies.synchronize!(solver)
+                            guide_moves+=1;consider!()
+                        end
+                    end
+                end
+            end
+            guide_seconds+=(time_ns()-guide_started)/1e9
         end
         remaining() > 0 || break
         if structured && iszero(LS.get_error(solver)) && steps % pair_every == 0
@@ -294,6 +349,9 @@ function run_cbls(p, initial; seconds=3., seed=41, hybrid=false, bridged=true,
             "structured"=>structured, "pair_policy"=>"random request, $(pair_selection) feasible improving reinsertion/2",
             "pair_every"=>pair_every,"plateau_rejection_percent"=>plateau_rejection,
             "repair_seconds"=>repair_seconds, "repair_fraction"=>repair_fraction,
+            "guide_seconds"=>guide_seconds,"guide_candidates"=>guide_candidates,"guide_moves"=>guide_moves,
+            "guide"=>guide===nothing ? Dict("authority"=>"disabled") : QUBOGuidance.metadata(guide),
+            "fragment_selection"=>fragment_selection,
             "repairs"=>repairs, "trajectory"=>trajectory, "threads"=>1,
             "scorer"=>scorer_name, "julia_thread_id"=>Threads.threadid(),
             "controller"=>"explicit native LS steps, paired reinsertion and atomic MetaMove commits/2",
