@@ -191,7 +191,7 @@ captures avoid boxed pickup/rank values. In-place insertion preserves pickup
 precedence; successful ejections copy back into caller-owned route storage.
 Unstable sorting may resolve equal-rank ties differently from older runs.
 
-### Qualification recorded on 2026-10-08
+### Workspace checkpoint recorded on 2026-10-08
 
 All **52 new configurations passed** the two-worker native PerfChecker
 CPU/allocation fixture oracles. The structured route tests passed 4,416 assertions, the ICN route
@@ -241,6 +241,37 @@ All source, environment, instance and frozen dependency hashes are saved in the
 qualification file. Other chats were allowed to remain active, so these are
 allocation and operational diagnostics rather than controlled scaling
 comparisons. No 60-second comparative matrix was launched by this qualification.
+
+### Incremental exchange qualification
+
+Original LC101 allocation stacks identified the complete validator called by
+random cross-route exchanges as a major allocation source. The owned controller
+now rejects an infeasible modified route using its original Euclidean distance
+matrix before constructing the full audit. Every surviving exchange still passes
+the complete original validator. The default public exchange call retains its
+previous behavior, including when a caller supplies a different distance matrix.
+
+The extended routing suite passed **5,381 assertions**, including differential
+exchange checks and a warmed rejected-exchange allocation regression. All **52
+native fixture CPU/allocation oracles passed again**. Five targeted original
+LC101 diagnostics passed with the same two physical cores and 30-second cap:
+
+| Configuration | Workspace checkpoint bytes | Exchange prefilter bytes | Search GC before, seconds | Search GC after, seconds |
+|---|---:|---:|---:|---:|
+| `rp_vnd_greedy` | 6,209,506,008 | 1,534,983,912 | 1.640 | 0.100 |
+| `rp_vnd_late` | 6,139,324,408 | 1,497,968,808 | 1.583 | 0.106 |
+| `rp_vnd_tabu` | 5,851,355,896 | 1,506,079,944 | 1.643 | 0.110 |
+| `rp_meta_fleet_distance_late` | 3,416,967,616 | 1,110,661,568 | 1.019 | 0.075 |
+| `rp_meta_adaptive_late` | 2,382,976,832 | 874,251,648 | 0.865 | 0.053 |
+
+These are cumulative whole-pipeline allocations; they do not describe peak
+memory. Time-capped runs completed different step counts, recorded in the
+versioned `night_exchange_prefilter` evidence. None recorded an accepted MetaMove.
+This incremental pass therefore establishes allocation/GC reduction under this
+budget, not a per-operation speedup, better search quality, or a new all-52
+original-instance qualification. Frozen solver dependencies and the learned ICN
+bank were unchanged. Subsequent package and workspace work uses separate source
+cohorts so these historical observations remain reproducible.
 
 ## Historical extended panel
 

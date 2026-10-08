@@ -135,6 +135,37 @@ end
     end
 end
 
+@testset "Original-distance exchange rejection preserves the full audit" begin
+    rng=Xoshiro(77)
+    for _ in 1:80
+        early=rand(rng,7).*3;late=early.+rand(rng,7).*25;early[1]=0.;late[1]=40.
+        d=PickupDeliveryProblem(3,rand(rng,1:3),DATA.coordinates,DATA.demand,early,late,rand(rng,7),DATA.pairs)
+        p=BenchmarkInstance("exchange prefilter oracle",d);dist=Pilot.distances(d)
+        w=R.RouteBuffer()
+        for a in 1:3,b in 1:3
+            a==b && continue
+            reference=R.exchange(p,INITIAL,dist,a,b)
+            filtered=R.exchange(p,INITIAL,dist,a,b;workspace=w,original_distance_prefilter=true)
+            @test filtered==reference
+            @test INITIAL==[[2,3],[4,5],[6,7]]
+        end
+    end
+    # The public default retains its original audit even if D is caller supplied.
+    @test R.exchange(P,INITIAL,fill(1000.,7,7),1,2)!==nothing
+    early=[0.,0.,0.,5.,5.,0.,0.,10.,10.];late=copy(early);late[1]=40.
+    d=PickupDeliveryProblem(2,1,zeros(9,2),[0,1,-1,1,-1,1,-1,1,-1],early,late,zeros(9),[(2,3),(4,5),(6,7),(8,9)])
+    p=BenchmarkInstance("infeasible exchange allocation oracle",d);dist=Pilot.distances(d)
+    routes=[[2,3,4,5],[6,7,8,9]];w=R.RouteBuffer()
+    @test validate_solution(p,routes).valid
+    @test R.exchange(p,routes,dist,1,4)===nothing
+    function rejected_exchange_bytes(p,routes,dist,w)
+        R.exchange(p,routes,dist,1,4;workspace=w,original_distance_prefilter=true)
+        @allocated R.exchange(p,routes,dist,1,4;workspace=w,original_distance_prefilter=true)
+    end
+    @test rejected_exchange_bytes(p,routes,dist,w)<=512
+    @test routes==[[2,3,4,5],[6,7,8,9]]
+end
+
 @testset "Request closure, bounded repair, ejections, diversity and ICN truth" begin
     for mode in (:random,:shaw,:worst,:route,:sisr),regret in (2,3)
         routes=deepcopy(INITIAL);rng=Xoshiro(41);trace=Dict{String,Any}()

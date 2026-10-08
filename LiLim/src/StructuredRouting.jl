@@ -340,13 +340,19 @@ function elimination!(routes,p,D,rng,deadline;depth=1,difficulty=ones(Int,length
 end
 
 "Exchange two complete requests between distinct routes; validate all original constraints."
-function exchange(p,routes,D,first_id,second_id;workspace=nothing)
+function exchange(p,routes,D,first_id,second_id;workspace=nothing,original_distance_prefilter=false)
     a,b=p.data.pairs[first_id];c,d=p.data.pairs[second_id]
     ra=findfirst(r->a in r,routes);rb=findfirst(r->c in r,routes)
     (ra===nothing || rb===nothing || ra==rb) && return nothing
     trial=workspace===nothing ? deepcopy(routes) : copy_routes!(workspace,routes)
     for i in eachindex(trial[ra]);v=trial[ra][i];trial[ra][i]=v==a ? c : v==b ? d : v;end
     for i in eachindex(trial[rb]);v=trial[rb][i];trial[rb][i]=v==c ? a : v==d ? b : v;end
+    # Only the owned controller opts in: its D is the original Euclidean matrix.
+    # Reject an infeasible modified route before allocating the full audit. Every
+    # surviving candidate still passes the independent original validator below.
+    if original_distance_prefilter
+        Pilot.feasible_route(trial[ra],p.data,D) && Pilot.feasible_route(trial[rb],p.data,D) || return nothing
+    end
     validate_solution(p,trial).valid ? trial : nothing
 end
 
@@ -694,7 +700,7 @@ function step!(lane,p,settings,deadline)
             trial=candidate.routes;counter!(lane.trace,"relocation_evaluations",candidate.examined)
         elseif which==2
             ids=randperm(lane.rng,length(pairs))[1:min(2,end)]
-            trial=length(ids)==2 ? exchange(p,trial,D,ids...;workspace=lane.exchange_workspace) : nothing;counter!(lane.trace,"exchange_calls")
+            trial=length(ids)==2 ? exchange(p,trial,D,ids...;workspace=lane.exchange_workspace,original_distance_prefilter=true) : nothing;counter!(lane.trace,"exchange_calls")
         else
             ids=randperm(lane.rng,length(pairs))[1:min(2,end)];remove_requests!(trial,p,ids;workspace=lane.repair_workspace)
             repair!(trial,ids,p,D,lane.rng,deadline;regret=3,max_routes=length(lane.current),trace=lane.trace,workspace=lane.repair_workspace) || (trial=nothing)
