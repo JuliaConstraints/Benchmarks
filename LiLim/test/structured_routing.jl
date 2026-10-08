@@ -17,6 +17,75 @@ const D=Pilot.distances(DATA)
 const BANKS=Dict(k=>ICNScoring.load_backend(k) for k in (:naive,:direct,:icn))
 LSvalues(lane)=collect(Hybrid.LS.get_values(lane.parent.solver))
 
+@testset "Guidance, compaction and pheromone buffers preserve historical work" begin
+    rng=Xoshiro(81)
+    for _ in 1:200
+        mask=rand(rng,Bool,7);nodes=rand(rng,1:7,rand(rng,0:30))
+        expected=filter(node->!mask[node],nodes)
+        actual=copy(nodes)
+        @test R.remove_nodes!(actual,mask)===actual
+        @test actual==expected
+    end
+    function compaction_bytes(nodes,mask)
+        R.remove_nodes!(nodes,mask)
+        @allocated for _ in 1:128;R.remove_nodes!(nodes,mask);end
+    end
+    @test compaction_bytes([2,3,4],falses(7))==0
+    for seed in 1:12,guidance in (:critical,:incompatibility,:qubo)
+        actual=R.Lane(P,INITIAL;seed,guidance)
+        reference=R.Lane(P,INITIAL;seed,guidance)
+        settings=merge(PANEL.DEFAULT,(;guidance))
+        expected=collect(eachindex(P.data.pairs))
+        if guidance==:critical
+            sort!(expected;by=i->let; a,b=P.data.pairs[i]
+                P.data.latest[b]-max(P.data.earliest[b],P.data.earliest[a]+P.data.service[a]+D[a,b])
+            end)
+        elseif guidance==:incompatibility
+            sort!(expected;by=i->-sum(@view reference.graph[i,:]))
+        else
+            values=MetaRepair._successors!(reference.successor_values,reference.current)
+            scope=Hybrid.QUBOGuidance.scope!(reference.guide_workspace,reference.guide,values,
+                min(8,length(values)),reference.rng;mode="conditional")
+            selected=Set(i+1 for i in scope)
+            sort!(expected;by=i->let; a,b=P.data.pairs[i];a in selected || b in selected ? 0 : 1;end)
+        end
+        ids=R.guidance_ids(actual,P,settings)
+        @test ids==expected
+        @test ids===actual.repair_workspace.guidance_requests
+        @test actual.repair_workspace.guidance_nodes!==reference.repair_workspace.guidance_nodes
+        @test rand(actual.rng,UInt64)==rand(reference.rng,UInt64)
+        partial=deepcopy(INITIAL);partial_reference=deepcopy(INITIAL)
+        trace_reference=copy(actual.trace)
+        rng_reference=copy(actual.rng)
+        bank=R.destroy_guided!(partial,actual,P,settings,D,:shaw,2,ids)
+        expected_bank=R.destroy!(partial_reference,P,D,rng_reference,:shaw,2;
+            trace=trace_reference,guide_ids=expected,string_requests=R.LIMITS.string_requests,
+            workspace=R.RepairWorkspace())
+        @test bank==expected_bank && partial==partial_reference
+        @test actual.trace==trace_reference
+        @test rand(actual.rng,UInt64)==rand(rng_reference,UInt64)
+    end
+    lane=R.Lane(P,INITIAL);other=R.Lane(P,INITIAL)
+    empty_ids=R.guidance_ids(lane,P,PANEL.DEFAULT)
+    @test isempty(empty_ids) && empty_ids===lane.repair_workspace.guidance_requests
+    @test empty_ids!==R.guidance_ids(other,P,PANEL.DEFAULT)
+    for priority in ([3,1,2],2:3)
+        lane.trace["master_priority_requests"]=priority
+        @test R.guidance_ids(lane,P,PANEL.DEFAULT)===priority
+    end
+    delete!(lane.trace,"master_priority_requests")
+    @test isempty(R.guidance_ids(lane,P,PANEL.DEFAULT))
+    arc_workspace=Set{Tuple{Int,Int}}()
+    actual=rand(rng,7,7).*110;expected=copy(actual)
+    for _ in 1:80
+        routes=[rand(rng,2:7,rand(rng,0:8)) for _ in 1:rand(rng,0:5)]
+        R.reinforce!(actual,routes;arc_workspace)
+        R.reinforce!(expected,routes)
+        @test actual==expected
+        @test arc_workspace==R.arcs(routes)
+    end
+end
+
 @testset "Uniform repair priorities preserve explicit fresh defaults and RNG" begin
     first=R.RepairWorkspace();second=R.RepairWorkspace()
     priorities=R.uniform_difficulty!(first,3)

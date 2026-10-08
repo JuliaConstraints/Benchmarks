@@ -119,9 +119,11 @@ struct RepairWorkspace
     selected_mask::BitVector
     savings::Vector{Float64}
     uniform_difficulty::Vector{Int}
+    guidance_requests::Vector{Int}
+    guidance_nodes::BitVector
 end
 RepairWorkspace()=RepairWorkspace(RangeCache[],InsertionOption[],RouteBuffer(),Int[],Int[],Int[],Int[],
-    NTuple{2,Int}[],Set{NTuple{3,Int}}(),BitVector(),Int[],Int[],BitVector(),Float64[],Int[])
+    NTuple{2,Int}[],Set{NTuple{3,Int}}(),BitVector(),Int[],Int[],BitVector(),Float64[],Int[],Int[],BitVector())
 "Reset private uniform priorities exactly as the historical fresh ones vector."
 uniform_difficulty!(workspace::RepairWorkspace,n)=fill!(resize!(workspace.uniform_difficulty,n),1)
 uniform_difficulty!(workspace,n)=ones(Int,n) # Retain the historical default for custom workspace-like objects.
@@ -168,6 +170,14 @@ end
 function counter!(trace,key,amount=1)
     trace[key]=get(trace,key,0)+amount
 end
+"Stable in-place compaction, preserving the historical filter order."
+function remove_nodes!(route,removed)
+    next=1
+    for node in route
+        if !removed[node];route[next]=node;next+=1;end
+    end
+    resize!(route,next-1)
+end
 function remove_requests!(routes,p,ids;workspace=nothing)
     removed=workspace===nothing ? falses(length(p.data.demand)) : workspace.removed
     resize!(removed,length(p.data.demand));fill!(removed,false)
@@ -175,7 +185,7 @@ function remove_requests!(routes,p,ids;workspace=nothing)
         i==0 && continue # fixed-width ejection tuples use zero for the absent second request
         a,b=p.data.pairs[i];removed[a]=true;removed[b]=true
     end
-    for route in routes;filter!(v->!removed[v],route);end
+    for route in routes;remove_nodes!(route,removed);end
     filter!(!isempty,routes)
     routes
 end
@@ -640,8 +650,16 @@ function admit!(lane,p,candidate,settings;source="structured",force=false)
     end
     true
 end
+"Borrowed private guidance IDs; consumed before the next guidance call in this lane."
 function guidance_ids(lane,p,settings)
-    ids=collect(eachindex(p.data.pairs));D=lane.parent.distances
+    workspace=lane.repair_workspace;ids=workspace.guidance_requests
+    if !(settings.guidance in (:critical,:incompatibility,:qubo))
+        empty!(ids)
+        return get(lane.trace,"master_priority_requests",ids)
+    end
+    resize!(ids,length(p.data.pairs))
+    for i in eachindex(ids);ids[i]=i;end
+    D=lane.parent.distances
     if settings.guidance==:critical
         # Direct slack explanation, not a newly trained ICN explanation network.
         sort!(ids;by=i->let; a,b=p.data.pairs[i]
@@ -652,11 +670,10 @@ function guidance_ids(lane,p,settings)
     elseif settings.guidance==:qubo
         values=MetaRepair._successors!(lane.successor_values,lane.current)
         scope=Hybrid.QUBOGuidance.scope!(lane.guide_workspace,lane.guide,values,min(8,length(values)),lane.rng;mode="conditional")
-        nodes=Set(i+1 for i in scope)
-        sort!(ids;by=i->let; a,b=p.data.pairs[i];(a in nodes || b in nodes) ? 0 : 1;end)
+        nodes=workspace.guidance_nodes;resize!(nodes,length(p.data.demand));fill!(nodes,false)
+        for i in scope;nodes[i+1]=true;end
+        sort!(ids;by=i->let; a,b=p.data.pairs[i];(nodes[a] || nodes[b]) ? 0 : 1;end)
         counter!(lane.trace,"qubo_scopes")
-    else
-        return get(lane.trace,"master_priority_requests",Int[])
     end
     ids
 end
@@ -665,11 +682,15 @@ function weighted_index(rng,weights)
     for i in eachindex(weights);s+=weights[i];t<s && return i;end
     lastindex(weights)
 end
-function reinforce!(pheromone,routes)
+function reinforce!(pheromone,routes;arc_workspace=nothing)
     # Independent cells permit SIMD; resource/time propagation deliberately does not.
     @inbounds @simd for i in eachindex(pheromone);pheromone[i]=max(1e-5,0.98pheromone[i]);end
-    for (a,b) in arcs(routes);pheromone[a,b]=min(100.,pheromone[a,b]+1.);end
+    selected=arc_workspace===nothing ? arcs(routes) : arcs!(arc_workspace,routes)
+    for (a,b) in selected;pheromone[a,b]=min(100.,pheromone[a,b]+1.);end
 end
+"Specialize keyword construction after the optional master trace's dynamic lookup."
+destroy_guided!(routes,lane,p,settings,D,mode,count,ids)=destroy!(routes,p,D,lane.rng,mode,count;
+    trace=lane.trace,guide_ids=ids,string_requests=LIMITS.string_requests,workspace=lane.repair_workspace)
 function inherited(lane,p,D,deadline,regret)
     parent=rand(lane.rng,lane.pool.solutions);trial=lane.trial_workspace.routes;empty!(trial)
     seen=lane.inherited_requests;resize!(seen,length(p.data.pairs));fill!(seen,false)
@@ -745,8 +766,7 @@ function step!(lane,p,settings,deadline)
         if mode==:adaptive;op=weighted_index(lane.rng,lane.weights);mode=modes[op];end
         count=max(1,ceil(Int,LIMITS.destroy_fraction*length(p.data.pairs)))
         ids=guidance_ids(lane,p,settings)
-        bank=destroy!(trial,p,D,lane.rng,mode,count;trace=lane.trace,guide_ids=ids,
-            string_requests=LIMITS.string_requests,workspace=lane.repair_workspace)
+        bank=destroy_guided!(trial,lane,p,settings,D,mode,count,ids)
         counter!(lane.trace,destroy_counter_key(mode))
         repair!(trial,bank,p,D,lane.rng,deadline;regret=settings.regret,blinks=settings.blinks,
             max_routes=length(lane.current),trace=lane.trace,difficulty=lane.difficulty,
@@ -757,7 +777,7 @@ function step!(lane,p,settings,deadline)
     improved=lane.best_q<before
     op>0 && (lane.weights[op]=0.9lane.weights[op]+0.1(improved ? 8. : accepted ? 2. : 0.5))
     improved && algorithm==:vnd && (lane.trace["vnd_neighborhood"]=1)
-    algorithm==:aco && (reinforce!(lane.pheromone,lane.best);counter!(lane.trace,"pheromone_updates"))
+    algorithm==:aco && (reinforce!(lane.pheromone,lane.best;arc_workspace=lane.new_arcs);counter!(lane.trace,"pheromone_updates"))
 end
 function episode!(lane,p,settings,deadline;max_steps=LIMITS.episode_steps)
     deadline=min(deadline,lane.deadline)

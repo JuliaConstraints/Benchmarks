@@ -26,6 +26,42 @@ const OWNED_PACKAGES=("CBLS","LocalSearchSolvers","MetaStrategist","ConstraintMo
     "CompositionalNetworks","Constraints","ConstraintCommons","ConstraintDomains",
     "PatternFolds","QUBOConstraints","ConstraintProgrammingExtensions","XCSP3Bridges","GHOST")
 
+"Canonical observation after measurement; elapsed telemetry never enters the work checksum."
+function work_fingerprint(value)
+    io=IOBuffer()
+    function write_value(value)
+        if value isa AbstractDict || value isa NamedTuple
+            print(io,'{')
+            for key in sort!(collect(keys(value));by=string)
+                string(key) in ("seconds","thread_cpu_seconds","master_seconds","wall_seconds") && continue
+                show(io,key);print(io,':');write_value(value[key]);print(io,';')
+            end
+            print(io,'}')
+        elseif value isa AbstractArray || value isa Tuple
+            print(io,'[')
+            for entry in value;write_value(entry);print(io,';');end
+            print(io,']')
+        else
+            show(io,value)
+        end
+    end
+    write_value(value)
+    bytes2hex(sha256(take!(io)))
+end
+
+function lane_observations(lanes)
+    counters=("steps","summary_evaluations","unchanged_proposals","completed_resets","tabu_hits",
+        "ejection_attempts","accepted_meta_moves","thread_cpu_seconds")
+    map(lanes) do lane
+        row=Dict{String,Any}(key=>get(lane.trace,key,0) for key in counters)
+        row["trace_work_sha256"]=work_fingerprint(lane.trace)
+        row["best_routes_sha256"]=work_fingerprint(lane.best)
+        row["current_routes_sha256"]=work_fingerprint(lane.current)
+        row["next_rng_uint64"]=string(rand(copy(lane.rng),UInt64))
+        row
+    end
+end
+
 function allocation_frames(events)
     groups=Dict{Tuple{String,Int,String,String},Tuple{Int,Int}}()
     root=dirname(@__DIR__)
@@ -106,11 +142,13 @@ function observation(case,rate;totals_only=false,native=false,warmup_case=case)
     result=timed.value
     workers=result isa NamedTuple && hasproperty(result,:workers) ? result.workers :
         result isa AbstractDict && haskey(result,"workers") ? result["workers"] : nothing
-    if workers!==nothing
+    if hasproperty(result,:lanes)
+        row["worker_diagnostics"]=lane_observations(result.lanes)
+    elseif hasproperty(timed_state,:lanes)
+        row["worker_diagnostics"]=lane_observations(timed_state.lanes)
+    elseif workers!==nothing
         counters=("steps","summary_evaluations","unchanged_proposals","completed_resets","tabu_hits","ejection_attempts","accepted_meta_moves","thread_cpu_seconds")
         row["worker_diagnostics"]=[Dict{String,Any}(key=>get(w["trace"],key,0) for key in counters) for w in workers]
-    elseif hasproperty(timed_state,:lanes)
-        row["worker_diagnostics"]=[Dict("steps"=>l.steps,"completed_resets"=>get(l.trace,"completed_resets",0)) for l in timed_state.lanes]
     end
     if result isa NamedTuple && hasproperty(result,:coordination)
         row["episodes"]=result.coordination["episodes"]
