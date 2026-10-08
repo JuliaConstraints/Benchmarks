@@ -73,6 +73,17 @@ end
         @test_throws ErrorException NativeSolvers.ortools_identity(PYTHON;probe=probe("unknown response"))
     end
     @test NativeSolvers.resolve_hexaly(PYTHON;probe=probe("Hexaly Optimizer 15.0\nJULIACONSTRAINTS_HEXALY_READY"))==realpath(PYTHON)
+    syntax_probe=command->begin
+        model=only(filter(a->endswith(a,".hxm"),collect(command)))
+        source=read(model,String)
+        @test occursin("x <- bool()",source) && !occursin("x = bool()",source)
+        probe("Hexaly Optimizer 15.0\nJULIACONSTRAINTS_HEXALY_READY")(command)
+    end
+    @test NativeSolvers.resolve_hexaly(PYTHON;probe=syntax_probe)==realpath(PYTHON)
+    source=read(joinpath(@__DIR__,"../native/hexaly/pdptw.hxm"),String)
+    @test occursin("1000.0",source) && !occursin(r"\b1000\.(?!\d)",source)
+    @test occursin("serviceStart[k] <-",source) && occursin("routeLength[k] <-",source)
+    @test !occursin(r"\b(start|length)\[",source)
     for p in (probe("license unavailable";code=1),probe("";timed_out=true),
         probe("Hexaly Optimizer 14.0\nJULIACONSTRAINTS_HEXALY_READY"))
         @test_throws NativeSolvers.UnavailableSolver NativeSolvers.resolve_hexaly(PYTHON;probe=p)

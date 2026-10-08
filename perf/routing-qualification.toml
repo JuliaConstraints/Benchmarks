@@ -1,0 +1,4100 @@
+Hexaly_qualification = "Source regression checks only; licensed execution not run"
+ICNScoring_sha256 = "99eea5cd63eccfb0576a8a8c213a654011dc6bd89559074968f33084918c30cc"
+ICN_route_assertions = 30258
+OR_Tools_original_validator_assertions = 39
+OR_Tools_version = "9.14.6206"
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+cohort_and_resource_assertions = 52
+collector = "PerfChecker SharedScenarioRuntime + direct sampled Julia Profile.Allocs"
+collector_scope = "Bounded top application frame aggregation; not the native full-stack profile_alloc collector"
+config_sha256 = "526e5283ce541dcf4b04424024fd6826418f2d63096f9614dfa10f188d00f2d1"
+configurations_added = 52
+date_utc = "2026-10-08T18:18:05.187"
+factory_sha256 = "9c6a44ace8eace5c59e193c63e761dc933da8bf3e59ac1f889532124b72fae03"
+fixture = "Three pickup-delivery requests; functional/allocation qualification, not search-quality evidence"
+historical_configurations_preserved = 496
+historical_hybrid_assertions = 1483
+instance_comparison_limit = "Separate time-capped diagnostic observations; slice filling changed completed work. Total allocations per budget do not measure allocations per useful operation or solver quality"
+julia = "1.13.1"
+operation_budget_cap_seconds = 30.0
+oracle = "Original Li-Lim validator and actual configured error backend"
+original_instance_progress_limit = "Neither final byte-count observation recorded an accepted original-variable MetaMove. CPU occupation alone does not prove useful search improvement"
+planned_campaign = "Prepared only: 60 seconds, widths 1/2/4, seeds 41/42; colleague cap 4 CPU slots, local cap 8 only when explicitly selected"
+qualification = "bounded functional and allocation diagnostics; no comparative campaign"
+remaining_allocation_sites = "Original-instance route/ejection copies, exchange and inheritance, candidate successors and snapshots, and restricted RO models; allocation/GC qualification is not zero-allocation qualification"
+resource_scope = "Two Julia workers on distinct physical P cores (Linux CPUs 8,10); one GC and BLAS thread; one native HiGHS thread"
+runtime_sha256 = "6f3e6aaa5dddb2be0b53361b7f354b608710224d51bb68d4dc3b541a2e8657eb"
+sample_scope = "Top frames contain raw sampled bytes/events, not exact allocation percentages"
+schema = "routing-sampled-perfcheck/1"
+solver_manifest_sha256 = "9b767180147d7dd41d5b34c1b1958a13ba5acf979a54ba316ec78ad287e5deaf"
+solver_project_sha256 = "2a48b5e578f38033a568c0d03697d31b86b1bed65b39086515c6648276cf457b"
+source_sha256 = "6f4d24c9206e6b9e55f6ffd831557d96e9b646a074a4dfc571e14bff450f68cf"
+structured_routing_assertions = 4206
+timing_qualification = "No timing/scaling conclusions; other chats may be active"
+workers = 2
+
+[before_fixed_work]
+bytes = 74568944
+fixture = "Same three-request fixture; 2 workers, 8 episodes x 8 steps; one observation before decoder/network and pool fixes"
+method = "rp_meta_adaptive_late"
+objects = 1373117
+source_scope = "Before the new route controller was committed; no qualified time/speedup comparison"
+
+[[before_instance_diagnostics]]
+allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+bytes = 12041878176
+category = "meta"
+correctness = "passed"
+gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+initial_seconds = 0.001055903
+method = "rp_meta_adaptive_late"
+objects = 589736611
+observed_gc_seconds = 1.035584033
+operational_mean_active_cpus = 1.2714074683740988
+process_cpu_seconds = 38.142542164999995
+sample_rate = 0.001
+sampled_events = 485498
+search_gc_seconds = 0.893864368
+search_wall_seconds = 30.000250206
+telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "counter!"
+    line = 109
+    sampled_bytes = 3475824
+    sampled_events = 434477
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#elimination!#40"
+    line = 247
+    sampled_bytes = 1388808
+    sampled_events = 21670
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 529
+    sampled_bytes = 171208
+    sampled_events = 2669
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "arcs"
+    line = 445
+    sampled_bytes = 157656
+    sampled_events = 309
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 155408
+    sampled_events = 2338
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 453
+    sampled_bytes = 145008
+    sampled_events = 2339
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#23"
+    line = 134
+    sampled_bytes = 111008
+    sampled_events = 6938
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 458
+    sampled_bytes = 61856
+    sampled_events = 69
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 113
+    sampled_bytes = 57408
+    sampled_events = 886
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "request_ids"
+    line = 103
+    sampled_bytes = 45432
+    sampled_events = 948
+[[before_instance_diagnostics]]
+allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+bytes = 10972665280
+category = "meta"
+correctness = "passed"
+gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+initial_seconds = 0.001130985
+method = "rp_meta_pool_ipx_late"
+objects = 544488520
+observed_gc_seconds = 0.756878451
+operational_mean_active_cpus = 1.1760430778969742
+process_cpu_seconds = 35.281474780000025
+sample_rate = 0.001
+sampled_events = 447246
+search_gc_seconds = 0.604889989
+search_wall_seconds = 30.000155133
+telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "counter!"
+    line = 109
+    sampled_bytes = 3302248
+    sampled_events = 412776
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#elimination!#40"
+    line = 247
+    sampled_bytes = 860624
+    sampled_events = 13619
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "arcs"
+    line = 445
+    sampled_bytes = 156624
+    sampled_events = 290
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 453
+    sampled_bytes = 136928
+    sampled_events = 2290
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 135632
+    sampled_events = 2187
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 529
+    sampled_bytes = 112784
+    sampled_events = 1772
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 458
+    sampled_bytes = 95776
+    sampled_events = 77
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 124
+    sampled_bytes = 79344
+    sampled_events = 264
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#repair!#36"
+    line = 203
+    sampled_bytes = 49440
+    sampled_events = 3314
+    [[before_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#insertion_options#31"
+    line = 174
+    sampled_bytes = 46568
+    sampled_events = 1047
+
+[final_instance]
+date_utc = "2026-10-08T18:11:41.311"
+name = "lc101.txt"
+search_cap_seconds = 30.0
+sha256 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+workers = 2
+
+[[final_instance_diagnostics]]
+allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+bytes = 8355187176
+category = "meta"
+correctness = "passed"
+gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+initial_seconds = 0.001215406
+method = "rp_meta_adaptive_late"
+objects = 147140510
+observed_gc_seconds = 1.211131219
+operational_mean_active_cpus = 1.9231079588264373
+process_cpu_seconds = 57.69434787499999
+sample_rate = 0.001
+sampled_events = 123528
+search_gc_seconds = 1.061121315
+search_wall_seconds = 30.000576728
+telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#elimination!#40"
+    line = 254
+    sampled_bytes = 2498384
+    sampled_events = 39396
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 1848648
+    sampled_events = 28738
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "exchange"
+    line = 274
+    sampled_bytes = 958368
+    sampled_events = 15036
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "exchange"
+    line = 271
+    sampled_bytes = 487016
+    sampled_events = 7705
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#23"
+    line = 134
+    sampled_bytes = 122096
+    sampled_events = 7631
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 113
+    sampled_bytes = 117232
+    sampled_events = 1800
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#insertion_options#31"
+    line = 177
+    sampled_bytes = 105208
+    sampled_events = 733
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "request_ids"
+    line = 103
+    sampled_bytes = 87920
+    sampled_events = 1836
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#elimination!#40"
+    line = 253
+    sampled_bytes = 80672
+    sampled_events = 2821
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 120
+    sampled_bytes = 76576
+    sampled_events = 577
+
+    [[final_instance_diagnostics.worker_diagnostics]]
+    accepted_meta_moves = 0
+    completed_resets = 0
+    ejection_attempts = 173850
+    steps = 221049
+    summary_evaluations = 476225297
+    tabu_hits = 0
+    thread_cpu_seconds = 28.934401016000027
+    unchanged_proposals = 81641
+    [[final_instance_diagnostics.worker_diagnostics]]
+    accepted_meta_moves = 0
+    completed_resets = 0
+    ejection_attempts = 318279
+    steps = 104669
+    summary_evaluations = 502628371
+    tabu_hits = 0
+    thread_cpu_seconds = 28.604696944999986
+    unchanged_proposals = 41382
+[[final_instance_diagnostics]]
+allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+bytes = 24827329192
+category = "meta"
+correctness = "passed"
+gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+initial_seconds = 0.001131066
+method = "rp_meta_pool_ipx_late"
+objects = 450810256
+observed_gc_seconds = 5.517317871
+operational_mean_active_cpus = 1.768304770214222
+process_cpu_seconds = 53.12331805399998
+sample_rate = 0.001
+sampled_events = 255120
+search_gc_seconds = 5.252296125
+search_wall_seconds = 30.041946925
+telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 3357800
+    sampled_events = 55797
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 3348592
+    sampled_events = 55448
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 2018048
+    sampled_events = 32087
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#elimination!#40"
+    line = 254
+    sampled_bytes = 1766200
+    sampled_events = 28129
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "inherited"
+    line = 547
+    sampled_bytes = 1509400
+    sampled_events = 13138
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "inherited"
+    line = 546
+    sampled_bytes = 1308752
+    sampled_events = 18511
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 88
+    sampled_bytes = 946712
+    sampled_events = 14768
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "inherited"
+    line = 550
+    sampled_bytes = 852640
+    sampled_events = 3434
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "request_ids"
+    line = 103
+    sampled_bytes = 762576
+    sampled_events = 15860
+    [[final_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 87
+    sampled_bytes = 358560
+    sampled_events = 779
+
+    [[final_instance_diagnostics.worker_diagnostics]]
+    accepted_meta_moves = 0
+    completed_resets = 0
+    ejection_attempts = 198480
+    steps = 202249
+    summary_evaluations = 327051992
+    tabu_hits = 0
+    thread_cpu_seconds = 28.694604159999926
+    unchanged_proposals = 193916
+    [[final_instance_diagnostics.worker_diagnostics]]
+    accepted_meta_moves = 0
+    completed_resets = 0
+    ejection_attempts = 131323
+    steps = 271164
+    summary_evaluations = 286175832
+    tabu_hits = 0
+    thread_cpu_seconds = 24.274369967000098
+    unchanged_proposals = 265628
+
+[final_source_hashes]
+"LiLim/config/routing-panel.toml" = "526e5283ce541dcf4b04424024fd6826418f2d63096f9614dfa10f188d00f2d1"
+"LiLim/src/ICNScoring.jl" = "99eea5cd63eccfb0576a8a8c213a654011dc6bd89559074968f33084918c30cc"
+"LiLim/src/RoutingPanel.jl" = "d5407cc4bd255e04edc6a8d69fd0f157ad110d5eb6daab8f26afc5b31e6eee3b"
+"LiLim/src/StructuredRouting.jl" = "6f4d24c9206e6b9e55f6ffd831557d96e9b646a074a4dfc571e14bff450f68cf"
+"perf/catalog.jl" = "ff5cf2ec883b576e4ae50387f2f6bdffc2cc58ce912120f8214a785b9503cc3b"
+"perf/routing_perfcheck.jl" = "ac6dd098618a773615387a554d4328c5c07b1479283b9ec62446004c3b2135ae"
+"perf/routing_scenarios.jl" = "9c6a44ace8eace5c59e193c63e761dc933da8bf3e59ac1f889532124b72fae03"
+
+[kernel_diagnostics]
+arc_reuse_1024_bytes = 800
+arc_reuse_1024_objects = 3
+duplicate_admission_1024_bytes = 432
+duplicate_admission_1024_objects = 0
+ejection_8_bytes = 30336
+ejection_8_objects = 567
+fresh_cache_128_bytes = 190896
+fresh_cache_128_objects = 512
+insertion_1024_bytes = 1504
+insertion_1024_objects = 0
+insertion_enumeration_128_bytes_after = 41744
+insertion_enumeration_128_bytes_before = 58176
+pool_reuse_128_bytes_after = 200112
+pool_reuse_128_bytes_before = 721488
+repair_8_bytes = 46032
+repair_8_objects = 863
+reused_cache_128_bytes = 432
+reused_cache_128_objects = 0
+scope = "SharedScenarioRuntime lifecycle plus direct totals; includes dispatch/observation overhead"
+
+[native_PerfChecker_reference]
+episodes = 4
+method = "rp_meta_pool_ipx_late"
+source_scope = "After pure decoder/network correction; before counter batching and slice/arc/admission changes; final-code coverage is the 52-profile sampled qualification"
+steps_per_episode = 8
+width = 2
+
+    [[native_PerfChecker_reference.native_collectors]]
+    collector = "profile"
+    correctness = "passed"
+    cpu_stack_count = 12
+    passed = true
+    status = "complete"
+    total_allocations = 0
+    total_bytes = 0
+    [[native_PerfChecker_reference.native_collectors]]
+    collector = "profile_alloc"
+    correctness = "passed"
+    cpu_stack_count = 0
+    passed = true
+    status = "complete"
+    total_allocations = 18789
+    total_bytes = 2772968
+
+[[slice_filling_instance_diagnostics]]
+allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+bytes = 12649225104
+category = "meta"
+correctness = "passed"
+gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+initial_seconds = 0.001063807
+method = "rp_meta_adaptive_late"
+objects = 191214183
+observed_gc_seconds = 2.252177833
+operational_mean_active_cpus = 1.8986384490328998
+process_cpu_seconds = 56.96089807100002
+sample_rate = 0.001
+sampled_events = 146830
+search_gc_seconds = 2.102744824
+search_wall_seconds = 30.000918869
+telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#elimination!#40"
+    line = 254
+    sampled_bytes = 2250272
+    sampled_events = 35791
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 536
+    sampled_bytes = 1499536
+    sampled_events = 23724
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "arcs"
+    line = 452
+    sampled_bytes = 1214488
+    sampled_events = 2103
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 998376
+    sampled_events = 16403
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 460
+    sampled_bytes = 984688
+    sampled_events = 16316
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "exchange"
+    line = 274
+    sampled_bytes = 730440
+    sampled_events = 11987
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 465
+    sampled_bytes = 485728
+    sampled_events = 551
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "exchange"
+    line = 271
+    sampled_bytes = 395296
+    sampled_events = 6157
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 88
+    sampled_bytes = 269656
+    sampled_events = 4195
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#23"
+    line = 134
+    sampled_bytes = 117600
+    sampled_events = 7350
+
+    [[slice_filling_instance_diagnostics.worker_diagnostics]]
+    accepted_meta_moves = 0
+    completed_resets = 0
+    ejection_attempts = 181355
+    steps = 191072
+    summary_evaluations = 433565880
+    tabu_hits = 0
+    thread_cpu_seconds = 28.730117958999976
+    [[slice_filling_instance_diagnostics.worker_diagnostics]]
+    accepted_meta_moves = 0
+    completed_resets = 0
+    ejection_attempts = 322391
+    steps = 94710
+    summary_evaluations = 468245759
+    tabu_hits = 0
+    thread_cpu_seconds = 28.07071708199998
+[[slice_filling_instance_diagnostics]]
+allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+bytes = 28446721504
+category = "meta"
+correctness = "passed"
+gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+initial_seconds = 0.001112847
+method = "rp_meta_pool_ipx_late"
+objects = 382525252
+observed_gc_seconds = 4.828506614
+operational_mean_active_cpus = 1.7994871242757686
+process_cpu_seconds = 53.99167403400003
+sample_rate = 0.001
+sampled_events = 237329
+search_gc_seconds = 4.655298843
+search_wall_seconds = 30.00392351
+telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "arcs"
+    line = 452
+    sampled_bytes = 3746768
+    sampled_events = 6244
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 460
+    sampled_bytes = 3094592
+    sampled_events = 50253
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 3073744
+    sampled_events = 50028
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 536
+    sampled_bytes = 1776736
+    sampled_events = 28196
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#elimination!#40"
+    line = 254
+    sampled_bytes = 1634008
+    sampled_events = 26159
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 465
+    sampled_bytes = 1566784
+    sampled_events = 1657
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "inherited"
+    line = 528
+    sampled_bytes = 1360344
+    sampled_events = 11357
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "inherited"
+    line = 527
+    sampled_bytes = 1115728
+    sampled_events = 15976
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 88
+    sampled_bytes = 854568
+    sampled_events = 13120
+    [[slice_filling_instance_diagnostics.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "inherited"
+    line = 531
+    sampled_bytes = 693064
+    sampled_events = 2779
+
+    [[slice_filling_instance_diagnostics.worker_diagnostics]]
+    accepted_meta_moves = 0
+    completed_resets = 0
+    ejection_attempts = 203409
+    steps = 196173
+    summary_evaluations = 315623836
+    tabu_hits = 0
+    thread_cpu_seconds = 27.437076017000066
+    [[slice_filling_instance_diagnostics.worker_diagnostics]]
+    accepted_meta_moves = 0
+    completed_resets = 0
+    ejection_attempts = 158375
+    steps = 208334
+    summary_evaluations = 316548040
+    tabu_hits = 0
+    thread_cpu_seconds = 26.342686437999873
+
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 412384
+category = "search"
+correctness = "passed"
+method = "rp_aco_regret2"
+objects = 7956
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 8
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 609
+    sampled_bytes = 104
+    sampled_events = 4
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/pool.jl"
+    function = "pool"
+    line = 19
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 139
+    sampled_bytes = 24
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "arcs!"
+    line = 456
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 411840
+category = "search"
+correctness = "passed"
+method = "rp_aco_regret3"
+objects = 7956
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 8
+
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/pool.jl"
+    function = "pool"
+    line = 19
+    sampled_bytes = 144
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 48
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "request_ids"
+    line = 103
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 324
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#23"
+    line = 134
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 461040
+category = "search"
+correctness = "passed"
+method = "rp_alns_adaptive_regret2"
+objects = 9788
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 11
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 336
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 112
+    sampled_bytes = 80
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 606
+    sampled_bytes = 48
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 120
+    sampled_bytes = 48
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#insertion_options#31"
+    line = 156
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 460928
+category = "search"
+correctness = "passed"
+method = "rp_alns_adaptive_regret3"
+objects = 9788
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 7
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "insert_pair"
+    line = 95
+    sampled_bytes = 64
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/strategies/meta_variable.jl"
+    function = "#MetaMove#58"
+    line = 131
+    sampled_bytes = 48
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#repair!#36"
+    line = 220
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#insertion_options#31"
+    line = 156
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 606
+    sampled_bytes = 24
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#23"
+    line = 134
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 368176
+category = "search"
+correctness = "passed"
+method = "rp_alns_critical"
+objects = 7038
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 13
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 124
+    sampled_bytes = 384
+    sampled_events = 7
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 148
+    sampled_bytes = 96
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "insert_pair"
+    line = 95
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 495
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 609
+    sampled_bytes = 16
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 16
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 113
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 461392
+category = "search"
+correctness = "passed"
+method = "rp_alns_direct"
+objects = 9788
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 10
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 606
+    sampled_bytes = 192
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 129
+    sampled_bytes = 176
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 609
+    sampled_bytes = 144
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 112
+    sampled_bytes = 80
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 80
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#range_cache#4"
+    line = 61
+    sampled_bytes = 48
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 120
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 368416
+category = "search"
+correctness = "passed"
+method = "rp_alns_incompatibility"
+objects = 7038
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 10
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 124
+    sampled_bytes = 208
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 112
+    sampled_bytes = 80
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 114
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "request_ids"
+    line = 103
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 609
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 460736
+category = "search"
+correctness = "passed"
+method = "rp_alns_naive"
+objects = 9788
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 7
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 113
+    sampled_bytes = 144
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "route_valid"
+    line = 312
+    sampled_bytes = 144
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 104
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "request_ids"
+    line = 103
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 120
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "counter!"
+    line = 109
+    sampled_bytes = 8
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 533056
+category = "search"
+correctness = "passed"
+method = "rp_alns_qubo"
+objects = 10818
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 7
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 136
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 124
+    sampled_bytes = 64
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "guidance_ids"
+    line = 513
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 114
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 358304
+category = "search"
+correctness = "passed"
+method = "rp_alns_random_regret2"
+objects = 7241
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 3
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "guidance_ids"
+    line = 513
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 505
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 358128
+category = "search"
+correctness = "passed"
+method = "rp_alns_random_regret3"
+objects = 7241
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 6
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 120
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 87
+    sampled_bytes = 64
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 64
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "insert_pair"
+    line = 95
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 113
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 439920
+category = "search"
+correctness = "passed"
+method = "rp_alns_route_regret2"
+objects = 8541
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 11
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#insertion_options#31"
+    line = 177
+    sampled_bytes = 136
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 112
+    sampled_bytes = 80
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 120
+    sampled_bytes = 48
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 48
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "request_ids"
+    line = 103
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 507
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#repair!#36"
+    line = 203
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 606
+    sampled_bytes = 24
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 439904
+category = "search"
+correctness = "passed"
+method = "rp_alns_route_regret3"
+objects = 8541
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 8
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 288
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#repair!#36"
+    line = 205
+    sampled_bytes = 136
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#insertion_options#31"
+    line = 177
+    sampled_bytes = 136
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 609
+    sampled_bytes = 96
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "insert_pair"
+    line = 95
+    sampled_bytes = 48
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#repair!#36"
+    line = 203
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 606
+    sampled_bytes = 24
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 410880
+category = "search"
+correctness = "passed"
+method = "rp_alns_shaw_regret2"
+objects = 10833
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 15
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 96
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 606
+    sampled_bytes = 96
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 80
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 64
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#23"
+    line = 134
+    sampled_bytes = 48
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#range_cache!#5"
+    line = 69
+    sampled_bytes = 48
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/pool.jl"
+    function = "pool"
+    line = 19
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 609
+    sampled_bytes = 24
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 120
+    sampled_bytes = 16
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 507
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 410848
+category = "search"
+correctness = "passed"
+method = "rp_alns_shaw_regret3"
+objects = 10833
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 11
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#23"
+    line = 134
+    sampled_bytes = 96
+    sampled_events = 6
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 112
+    sampled_bytes = 80
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 505
+    sampled_bytes = 48
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/pool.jl"
+    function = "pool"
+    line = 19
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 609
+    sampled_bytes = 8
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 639352
+category = "search"
+correctness = "passed"
+method = "rp_alns_sisr_regret2"
+objects = 13652
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 7
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 130
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#range_cache#4"
+    line = 61
+    sampled_bytes = 48
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 129
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 609
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 639336
+category = "search"
+correctness = "passed"
+method = "rp_alns_sisr_regret3"
+objects = 13652
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 9
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 505
+    sampled_bytes = 288
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/solver.jl"
+    function = "_candidate_cost"
+    line = 254
+    sampled_bytes = 48
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "request_ids"
+    line = 103
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 130
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#insertion_options#31"
+    line = 156
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 393264
+category = "search"
+correctness = "passed"
+method = "rp_alns_worst_regret2"
+objects = 7380
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 7
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 148
+    sampled_bytes = 96
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 507
+    sampled_bytes = 48
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "guidance_ids"
+    line = 513
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "request_ids"
+    line = 103
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 332
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 139
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 505
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 393232
+category = "search"
+correctness = "passed"
+method = "rp_alns_worst_regret3"
+objects = 7380
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 12
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 113
+    sampled_bytes = 144
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 120
+    sampled_bytes = 72
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 609
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "insert_pair"
+    line = 95
+    sampled_bytes = 64
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 114
+    sampled_bytes = 48
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/strategies/meta_variable.jl"
+    function = "#MetaVariable#53"
+    line = 77
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 139
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 328
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 165952
+category = "search"
+correctness = "passed"
+method = "rp_ges1_greedy"
+objects = 3095
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 2
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 304
+    sampled_events = 2
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 165808
+category = "search"
+correctness = "passed"
+method = "rp_ges1_late"
+objects = 3095
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 3
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "RangeCache"
+    line = 56
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 165744
+category = "search"
+correctness = "passed"
+method = "rp_ges2_greedy"
+objects = 3095
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 3
+
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/pool.jl"
+    function = "pool"
+    line = 19
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#episode!#128"
+    line = 627
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 507
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 165760
+category = "search"
+correctness = "passed"
+method = "rp_ges2_late"
+objects = 3095
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 4
+
+    [[strategies.allocation_frames]]
+    file = "perf/routing_scenarios.jl"
+    function = "#routing_solver_case##12"
+    line = 88
+    sampled_bytes = 72
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#insertion_options#31"
+    line = 156
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 564608
+category = "search"
+correctness = "passed"
+method = "rp_memetic_regret2"
+objects = 12380
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 11
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "inherited"
+    line = 550
+    sampled_bytes = 72
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "inherited"
+    line = 547
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 489
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 88
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 564608
+category = "search"
+correctness = "passed"
+method = "rp_memetic_regret3"
+objects = 12380
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 11
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "inherited"
+    line = 546
+    sampled_bytes = 160
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 104
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "request_ids"
+    line = 103
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "inherited"
+    line = 550
+    sampled_bytes = 48
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "inherited"
+    line = 547
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 1103784
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 0
+method = "rp_meta_adaptive_late"
+objects = 19460
+observed_gc_seconds = 0.0
+role_episode_counts = [3, 6, 3, 4]
+sample_rate = 0.001
+sampled_events = 8
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 507
+    sampled_bytes = 144
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 148
+    sampled_bytes = 96
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#run_portfolio#129"
+    line = 669
+    sampled_bytes = 48
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 489
+    sampled_bytes = 24
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 16
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "perf/routing_scenarios.jl"
+    function = "#routing_meta_case##4"
+    line = 103
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 17
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 915
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 25
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 10
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 816
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 32
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 991000
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 0
+method = "rp_meta_adaptive_tabu"
+objects = 17184
+observed_gc_seconds = 0.0
+role_episode_counts = [3, 6, 3, 4]
+sample_rate = 0.001
+sampled_events = 14
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 104
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 96
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 80
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/QUBOGuidance.jl"
+    function = "#Guide#1"
+    line = 42
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "guidance_ids"
+    line = 528
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#repair!#36"
+    line = 203
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 495
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/Hybrid.jl"
+    function = "#prepare_parent#11"
+    line = 146
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/solvers/main.jl"
+    function = "#266"
+    line = 45
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 5
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 915
+    tabu_hits = 10
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 27
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 5
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 840
+    tabu_hits = 9
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 28
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 1048856
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 0
+method = "rp_meta_diversity_late"
+objects = 18264
+observed_gc_seconds = 0.0
+role_episode_counts = [5, 6, 5]
+sample_rate = 0.001
+sampled_events = 21
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 288
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "inherited"
+    line = 547
+    sampled_bytes = 240
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 609
+    sampled_bytes = 112
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#run_portfolio#129"
+    line = 691
+    sampled_bytes = 96
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 112
+    sampled_bytes = 80
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "insert_pair"
+    line = 95
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "RangeCache"
+    line = 56
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/logger/config.jl"
+    function = "default_log_file_path"
+    line = 18
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 4
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 717
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 60
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 7
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 768
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 58
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 1045184
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 0
+method = "rp_meta_diversity_tabu"
+objects = 18200
+observed_gc_seconds = 0.0
+role_episode_counts = [5, 6, 5]
+sample_rate = 0.001
+sampled_events = 16
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 72
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 72
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "insert_pair"
+    line = 95
+    sampled_bytes = 64
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/logger/config.jl"
+    function = "default_log_file_path"
+    line = 18
+    sampled_bytes = 64
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 139
+    sampled_bytes = 48
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/QUBOGuidance.jl"
+    function = "#Guide#1"
+    line = 41
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "request_ids"
+    line = 103
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "inherited"
+    line = 543
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "perf/routing_scenarios.jl"
+    function = "#routing_meta_case##4"
+    line = 103
+    sampled_bytes = 32
+    sampled_events = 2
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 4
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 717
+    tabu_hits = 4
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 56
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 3
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 720
+    tabu_hits = 5
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 57
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 781624
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 0
+method = "rp_meta_fleet_distance_late"
+objects = 12679
+observed_gc_seconds = 0.0
+role_episode_counts = [8, 8]
+sample_rate = 0.001
+sampled_events = 15
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/ICNScoring.jl"
+    function = "metadata"
+    line = 91
+    sampled_bytes = 80
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "insert_pair"
+    line = 95
+    sampled_bytes = 64
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 64
+    sampled_events = 4
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/solvers/main.jl"
+    function = "#solver#260"
+    line = 45
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 88
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/strategies/meta_variable.jl"
+    function = "#MetaMove#58"
+    line = 131
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/solvers/main.jl"
+    function = "#solver#260"
+    line = 57
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/solvers/main.jl"
+    function = "#solver#260"
+    line = 46
+    sampled_bytes = 24
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 5
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 309
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 7
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 7
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 270
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 4
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 768904
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 0
+method = "rp_meta_fleet_distance_tabu"
+objects = 12372
+observed_gc_seconds = 0.0
+role_episode_counts = [8, 8]
+sample_rate = 0.001
+sampled_events = 9
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 104
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/logger/config.jl"
+    function = "default_log_file_path"
+    line = 18
+    sampled_bytes = 72
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/QUBOGuidance.jl"
+    function = "#Guide#1"
+    line = 38
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 556
+    sampled_bytes = 12
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 5
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 309
+    tabu_hits = 1
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 6
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 4
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 270
+    tabu_hits = 4
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 3
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 1056800
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 0
+method = "rp_meta_guided_late"
+objects = 17950
+observed_gc_seconds = 0.0
+role_episode_counts = [4, 4, 4, 4]
+sample_rate = 0.001
+sampled_events = 15
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#run_portfolio#129"
+    line = 670
+    sampled_bytes = 504
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 160
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 72
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/ICNScoring.jl"
+    function = "metadata"
+    line = 91
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/utils.jl"
+    function = "_to_union"
+    line = 5
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/QUBOGuidance.jl"
+    function = "#Guide#1"
+    line = 38
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#insertion_options#31"
+    line = 156
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/model.jl"
+    function = "specialize"
+    line = 414
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 606
+    sampled_bytes = 24
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 6
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 567
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 32
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 6
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 618
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 32
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 1038352
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 0
+method = "rp_meta_guided_tabu"
+objects = 17484
+observed_gc_seconds = 0.0
+role_episode_counts = [4, 4, 4, 4]
+sample_rate = 0.001
+sampled_events = 13
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 96
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 96
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 124
+    sampled_bytes = 80
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 507
+    sampled_bytes = 80
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 72
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 606
+    sampled_bytes = 48
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "guidance_ids"
+    line = 513
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "request_ids"
+    line = 103
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#insertion_options#31"
+    line = 156
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 4
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 567
+    tabu_hits = 2
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 32
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 3
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 618
+    tabu_hits = 3
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 32
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 1154808
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 2
+method = "rp_meta_pool_hipo_late"
+objects = 23117
+observed_gc_seconds = 0.0
+role_episode_counts = [5, 6, 5]
+sample_rate = 0.001
+sampled_events = 23
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 288
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 124
+    sampled_bytes = 144
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#recombine#84"
+    line = 345
+    sampled_bytes = 144
+    sampled_events = 8
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 609
+    sampled_bytes = 96
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 64
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#recombine#84"
+    line = 348
+    sampled_bytes = 48
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/model.jl"
+    function = "model"
+    line = 100
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#run_portfolio#129"
+    line = 698
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 6
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 582
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 25
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 7
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 582
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 25
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 1107736
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 2
+method = "rp_meta_pool_hipo_tabu"
+objects = 22183
+observed_gc_seconds = 0.0
+role_episode_counts = [5, 6, 5]
+sample_rate = 0.001
+sampled_events = 18
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/solvers/main.jl"
+    function = "MainSolver"
+    line = 13
+    sampled_bytes = 176
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 96
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 606
+    sampled_bytes = 96
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#recombine#84"
+    line = 358
+    sampled_bytes = 96
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "insert_pair"
+    line = 95
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/logger/config.jl"
+    function = "default_log_file_path"
+    line = 18
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 88
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 124
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#insertion_options#31"
+    line = 156
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 4
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 582
+    tabu_hits = 1
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 26
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 4
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 594
+    tabu_hits = 4
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 24
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 1174040
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 2
+method = "rp_meta_pool_ipx_late"
+objects = 23494
+observed_gc_seconds = 0.0
+role_episode_counts = [5, 6, 5]
+sample_rate = 0.001
+sampled_events = 23
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 216
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#recombine#84"
+    line = 345
+    sampled_bytes = 96
+    sampled_events = 5
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/ResourceExperiment.jl"
+    function = "ParallelPhase"
+    line = 87
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 124
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 495
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#recombine#84"
+    line = 371
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#run_portfolio#129"
+    line = 698
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 6
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 447
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 36
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 5
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 390
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 43
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 1154480
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 2
+method = "rp_meta_pool_ipx_tabu"
+objects = 23035
+observed_gc_seconds = 0.0
+role_episode_counts = [5, 6, 5]
+sample_rate = 0.001
+sampled_events = 25
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 224
+    sampled_events = 6
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#recombine#84"
+    line = 345
+    sampled_bytes = 144
+    sampled_events = 8
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/SearchPolicies.jl"
+    function = "#materialize#14"
+    line = 37
+    sampled_bytes = 80
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/variable.jl"
+    function = "Variable"
+    line = 12
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#run_portfolio#129"
+    line = 687
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/pool.jl"
+    function = "pool"
+    line = 19
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#run_portfolio#129"
+    line = 698
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 32
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#23"
+    line = 134
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 4
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 447
+    tabu_hits = 9
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 29
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 4
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 402
+    tabu_hits = 5
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 39
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 1183336
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 2
+method = "rp_meta_pool_mip_late"
+objects = 23838
+observed_gc_seconds = 0.0
+role_episode_counts = [5, 6, 5]
+sample_rate = 0.001
+sampled_events = 21
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 609
+    sampled_bytes = 208
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 136
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 96
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 72
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#recombine#84"
+    line = 345
+    sampled_bytes = 64
+    sampled_events = 4
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 48
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 495
+    sampled_bytes = 24
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#recombine#84"
+    line = 366
+    sampled_bytes = 16
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "perf/routing_scenarios.jl"
+    function = "#routing_meta_case##4"
+    line = 103
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 8
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 582
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 23
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 16
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 693
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 16
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 1117696
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 2
+method = "rp_meta_pool_mip_tabu"
+objects = 22236
+observed_gc_seconds = 0.0
+role_episode_counts = [5, 6, 5]
+sample_rate = 0.001
+sampled_events = 19
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 152
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#recombine#84"
+    line = 345
+    sampled_bytes = 64
+    sampled_events = 4
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/QUBOGuidance.jl"
+    function = "#Guide#1"
+    line = 23
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/Hybrid.jl"
+    function = "#pair_relocation#1"
+    line = 97
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 130
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#recombine#84"
+    line = 358
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 606
+    sampled_bytes = 24
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#run_portfolio#129"
+    line = 703
+    sampled_bytes = 16
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 4
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 582
+    tabu_hits = 2
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 25
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 6
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 693
+    tabu_hits = 9
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 17
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 1102256
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 0
+method = "rp_meta_ruin_repair_late"
+objects = 19938
+observed_gc_seconds = 0.0
+role_episode_counts = [5, 6, 5]
+sample_rate = 0.001
+sampled_events = 17
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 192
+    sampled_events = 5
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 96
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#Lane#110"
+    line = 447
+    sampled_bytes = 48
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 495
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 139
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#run_portfolio#129"
+    line = 733
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/QUBOGuidance.jl"
+    function = "#Guide#1"
+    line = 38
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#23"
+    line = 134
+    sampled_bytes = 16
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 609
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 14
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 969
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 34
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 19
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 861
+    tabu_hits = 0
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 21
+[[strategies]]
+allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+bytes = 1003960
+category = "meta"
+correctness = "passed"
+episodes = 8
+master_resolver_calls = 0
+method = "rp_meta_ruin_repair_tabu"
+objects = 17572
+observed_gc_seconds = 0.0
+role_episode_counts = [5, 6, 5]
+sample_rate = 0.001
+sampled_events = 7
+steps_per_worker = [64, 64]
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 288
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/logger/config.jl"
+    function = "create_logger_from_options"
+    line = 383
+    sampled_bytes = 56
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 130
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#repair!#36"
+    line = 224
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#insertion_options#31"
+    line = 156
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#23"
+    line = 134
+    sampled_bytes = 16
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 120
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 5
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 969
+    tabu_hits = 12
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 31
+    [[strategies.worker_diagnostics]]
+    accepted_meta_moves = 5
+    completed_resets = 0
+    ejection_attempts = 0
+    steps = 64
+    summary_evaluations = 861
+    tabu_hits = 12
+    thread_cpu_seconds = 0.0
+    unchanged_proposals = 23
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 630592
+category = "search"
+correctness = "passed"
+method = "rp_sisr_b0_regret2"
+objects = 13423
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 12
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 152
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 104
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 112
+    sampled_bytes = 80
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 491
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "build_caches!"
+    line = 187
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#repair!#36"
+    line = 203
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 495
+    sampled_bytes = 16
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 489
+    sampled_bytes = 16
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 630528
+category = "search"
+correctness = "passed"
+method = "rp_sisr_b0_regret3"
+objects = 13423
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 15
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 136
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#repair!#36"
+    line = 205
+    sampled_bytes = 136
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 96
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 495
+    sampled_bytes = 48
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 489
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 129
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 324
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 824248
+category = "search"
+correctness = "passed"
+method = "rp_sisr_b15_regret2"
+objects = 17907
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 25
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 328
+    sampled_bytes = 288
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 128
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 96
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 96
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 609
+    sampled_bytes = 80
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 64
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 491
+    sampled_bytes = 48
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 489
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "insert_pair"
+    line = 95
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "RangeCache"
+    line = 56
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 824136
+category = "search"
+correctness = "passed"
+method = "rp_sisr_b15_regret3"
+objects = 17907
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 18
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 129
+    sampled_bytes = 144
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 606
+    sampled_bytes = 120
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 96
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 96
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#repair!#36"
+    line = 217
+    sampled_bytes = 40
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 332
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 505
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 324
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 1029456
+category = "search"
+correctness = "passed"
+method = "rp_sisr_b30_regret2"
+objects = 22592
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 17
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 200
+    sampled_events = 5
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 176
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "route_valid"
+    line = 312
+    sampled_bytes = 144
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#destroy!#9"
+    line = 148
+    sampled_bytes = 96
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 609
+    sampled_bytes = 96
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 489
+    sampled_bytes = 48
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "../../.julia/dev/JuliaConstraintsHandoff/LocalSearchSolvers/src/strategies/meta_variable.jl"
+    function = "#MetaVariable#53"
+    line = 77
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#repair!#36"
+    line = 220
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 1029440
+category = "search"
+correctness = "passed"
+method = "rp_sisr_b30_regret3"
+objects = 22592
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 34
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#range_cache!#5"
+    line = 69
+    sampled_bytes = 1296
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 584
+    sampled_events = 13
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "route_valid"
+    line = 312
+    sampled_bytes = 144
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#insertion_options#31"
+    line = 177
+    sampled_bytes = 136
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 104
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 96
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 64
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 495
+    sampled_bytes = 64
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "RangeCache"
+    line = 56
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "remove_requests!"
+    line = 113
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 229392
+category = "search"
+correctness = "passed"
+method = "rp_vnd_greedy"
+objects = 4333
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 3
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 288
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 48
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/Hybrid.jl"
+    function = "#pair_relocation#1"
+    line = 133
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 364744
+category = "search"
+correctness = "passed"
+method = "rp_vnd_late"
+objects = 7523
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 5
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 48
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/MetaRepair.jl"
+    function = "successors"
+    line = 86
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/Hybrid.jl"
+    function = "#pair_relocation#1"
+    line = 133
+    sampled_bytes = 32
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 491
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 357624
+category = "search"
+correctness = "passed"
+method = "rp_vnd_reset_full"
+objects = 7325
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 9
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 80
+    sampled_events = 3
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 321
+    sampled_bytes = 64
+    sampled_events = 2
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "collect!"
+    line = 332
+    sampled_bytes = 48
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "perf/routing_scenarios.jl"
+    function = "#routing_solver_case##12"
+    line = 88
+    sampled_bytes = 40
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 1
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 1
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 354056
+category = "search"
+correctness = "passed"
+method = "rp_vnd_reset_partial"
+objects = 7271
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 3
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 96
+    sampled_events = 3
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 1
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 1
+    steps = 40
+[[strategies]]
+allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+bytes = 289208
+category = "search"
+correctness = "passed"
+method = "rp_vnd_tabu"
+objects = 5714
+observed_gc_seconds = 0.0
+sample_rate = 0.001
+sampled_events = 3
+
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "step!"
+    line = 555
+    sampled_bytes = 288
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "#admit!#114"
+    line = 473
+    sampled_bytes = 64
+    sampled_events = 1
+    [[strategies.allocation_frames]]
+    file = "LiLim/src/StructuredRouting.jl"
+    function = "quality"
+    line = 104
+    sampled_bytes = 32
+    sampled_events = 1
+
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40
+    [[strategies.worker_diagnostics]]
+    completed_resets = 0
+    steps = 40

@@ -54,10 +54,12 @@ clone_backend(b::ErrorBackend) = ErrorBackend(b.kind,b.scalar,b.equal,b.ordered,
 clone_backend(b::ErrorBackend, kind::Symbol) = ErrorBackend(kind,b.scalar,b.equal,b.ordered,0,0,
     b.bank_sha256,copy(b.witnesses),RouteScoreWorkspace())
 
-function load_backend(kind::Symbol; bank=BANK)
-    kind in (:naive,:icn,:icn_fused_scalar,:icn_fused_all,:direct) || throw(ArgumentError("unknown error backend"))
-    kind in (:icn,:icn_fused_scalar,:icn_fused_all) || return ErrorBackend(kind,nothing,nothing,nothing,0,0,"",Int[],RouteScoreWorkspace())
-    saved = TOML.parsefile(bank)["witnesses"]
+const DECODER_LOCK=ReentrantLock()
+const DECODERS=Dict{String,Tuple}()
+
+"Compile pure decoder functions once per exact bank; retain no mutable learning network in a solver closure."
+function decode_bank(bytes)
+    saved = TOML.parse(String(copy(bytes)))["witnesses"]
     indices = [4,2,52]
     signatures = ((;op=(==),val=2), (;), (;))
     expected = (("sum","scalar condition"),("all_equal","numeric list"),
@@ -71,9 +73,19 @@ function load_backend(kind::Symbol; bank=BANK)
         weights = BitVector(w["weights"])
         CN.check_weights_validity(network,weights) || error("invalid recovered weights")
         CN.apply!(network,weights) || error("weights could not be applied")
-        CN.composition(network)
+        first(CN.compose(network))
     end
-    ErrorBackend(kind,decoded...,0,0,bytes2hex(sha256(read(bank))),indices,RouteScoreWorkspace())
+    Tuple(decoded)
+end
+
+function load_backend(kind::Symbol; bank=BANK)
+    kind in (:naive,:icn,:icn_fused_scalar,:icn_fused_all,:direct) || throw(ArgumentError("unknown error backend"))
+    kind in (:icn,:icn_fused_scalar,:icn_fused_all) || return ErrorBackend(kind,nothing,nothing,nothing,0,0,"",Int[],RouteScoreWorkspace())
+    bytes=read(bank);hash=bytes2hex(sha256(bytes))
+    decoded=lock(DECODER_LOCK) do
+        get!(DECODERS,hash) do;decode_bank(bytes);end
+    end
+    ErrorBackend(kind,decoded...,0,0,hash,[4,2,52],RouteScoreWorkspace())
 end
 
 metadata(b::ErrorBackend) = Dict("backend"=>string(b.kind),"score_evaluations"=>b.evaluations,

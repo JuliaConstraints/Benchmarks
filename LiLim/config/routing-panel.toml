@@ -1,0 +1,44 @@
+schema = "li-lim-structured-routing-panel/1"
+scope = "Bounded original-model adaptations; not exact reproductions of published algorithms"
+selectors = ["routing-panel", "routing-search-panel", "routing-meta-panel"]
+acceptance = ["greedy", "late", "tabu"]
+regret = [2, 3]
+destroy = ["random", "shaw", "worst", "route", "sisr", "adaptive"]
+blinks = [0.0, 0.15, 0.30]
+ejection_depth = [1, 2]
+
+[bounds]
+episode_seconds = 0.25
+episode_steps = 64
+max_steps = 10000000
+destroy_fraction = 0.20
+string_requests = 4
+insertion_candidates = 200000
+ejection_candidates = 24
+ejection_attempts = 64
+summary_cells = 262144
+late_history = 64
+tabu_tenure = 12
+reset_every = 32
+pool_routes = 256
+pool_solutions = 8
+master_every = 4
+master_seconds = 0.25
+master_fraction = 0.15
+incompatibility_requests = 32
+
+[planned_campaign]
+status = "prepared_only_not_launched"
+source = "https://www.sintef.no/projectweb/top/pdptw/li-lim-benchmark/"
+instances = "all_354_original_instances"
+budget_seconds = 60
+worker_widths = [1, 2, 4]
+seeds = [41, 42]
+trials_per_configuration_and_instance = 6
+max_concurrent_cpu_slots = 4
+possible_wave = [1, 2]
+exclusive_wave = [4]
+local_max_concurrent_cpu_slots = 8
+local_possible_wave = [1, 2, 4]
+affinity = "Disjoint allocated CPU sets; one GC, BLAS and native subsolver thread per process"
+qualification = "Run only after implementation review and successful host preflight"

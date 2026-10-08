@@ -2,11 +2,44 @@ using Test
 include(joinpath(@__DIR__,"..","scripts","colleague.jl"))
 
 @testset "Qualification worker caps respect the allocated CPUs" begin
-    for test in ("ortools_parallel.jl","icn_resources.jl","classical_strategy_panel")
+    for test in ("ortools_parallel.jl","icn_resources.jl","classical_strategy_panel","structured_routing.jl")
         @test qualification_width(Dict("cpus"=>"8"),test)==1
         @test qualification_width(Dict("cpus"=>"8,9,10,11"),test)==2
     end
     @test qualification_width(Dict("cpus"=>"8,9"),"strategy_panel.jl")==1
+end
+
+@testset "Colleague matrix defaults to four CPU slots; local eight-slot scheduling is explicit" begin
+    for cpus in (collect(0:3),collect(0:6),[8,10,0,2,4,6,12,14])
+        waves=matrix_waves(cpus)
+        @test [job.width for wave in waves for job in wave]==[1,2,4]
+        for wave in waves
+            used=reduce(vcat,(j.cpus for j in wave))
+            @test allunique(used) && length(used)<=4
+            @test all(j->length(j.cpus)==j.width,wave)
+        end
+    end
+    @test length(matrix_waves(collect(0:7)))==2
+    @test [[job.width for job in wave] for wave in matrix_waves(collect(0:7))]==[[1,2],[4]]
+    @test length(matrix_waves(collect(0:7);slots=8))==1
+    @test_throws ArgumentError matrix_waves([0,1])
+    @test_throws ArgumentError matrix_waves([0,0,1,2])
+    @test_throws ArgumentError matrix_waves(collect(0:7),[1,8])
+    @test_throws ArgumentError matrix_waves(collect(0:8);slots=9)
+    nested=Dict("waves"=>[[Dict("width"=>j.width,"cpus"=>j.cpus) for j in w] for w in matrix_waves(collect(0:7))])
+    io=IOBuffer();TOML.print(io,nested)
+    @test TOML.parse(String(take!(io)))==nested
+end
+
+@testset "Available native preflight records accept structured profile evidence" begin
+    row=available_solver_record("ortools",Dict("ortools_version"=>"9.14.6206"))
+    row["profiles"]=Dict("routing_gls"=>Dict("status"=>"passed"))
+    @test row isa Dict{String,Any}
+    @test row["version"]=="9.14.6206" && row["profiles"]["routing_gls"]["status"]=="passed"
+    @test available_solver_record("timefold",Dict("version"=>"1.21.0"))["version"]=="1.21.0"
+    @test available_solver_record("hexaly","unused";fingerprint=_ ->"fixture")["executable_sha256"]=="fixture"
+    io=IOBuffer();TOML.print(io,row)
+    @test TOML.parse(String(take!(io)))==row
 end
 
 @testset "Frozen checkout bytes survive a global CRLF policy" begin

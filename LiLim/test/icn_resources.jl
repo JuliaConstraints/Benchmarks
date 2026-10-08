@@ -71,6 +71,13 @@ function qualify()
         @test cloned.workspace.scalar_real !== b.workspace.scalar_real
         @test cloned.workspace.error_terms !== b.workspace.error_terms
         @test fused_scalar.calls > 0 && fused_all.calls > 0
+        # Repeated preparation shares executable code, never counters or mutable inputs.
+        repeated=[ICNScoring.load_backend(:icn) for _ in 1:64]
+        @test all(c->c.scalar isa Function && c.equal isa Function && c.ordered isa Function,repeated)
+        @test all(c->c.scalar===b.scalar && c.equal===b.equal && c.ordered===b.ordered,repeated)
+        @test all(c->c.workspace!==b.workspace && c.calls==0 && c.evaluations==0,repeated)
+        @test repeated[1].workspace!==repeated[2].workspace
+        @test repeated[1].workspace.scalar_real!==repeated[2].workspace.scalar_real
         mktemp() do path,io
             payload = TOML.parsefile(ICNScoring.BANK)
             payload["witnesses"][4]["schema_sha256"] = "bad"

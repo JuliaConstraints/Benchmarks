@@ -8,16 +8,18 @@ export allocation, run_case, warmup, prepare_portfolio, cpu_seconds
 
 include("PlatformResources.jl")
 include("StrategyPanel.jl")
+include("StructuredRouting.jl")
+const RoutingPanel=StructuredRouting.RoutingPanel
 cpu_seconds(id=2)=PlatformResources.cpu_seconds(id)
 
 const METHODS = ("cbls_naive","cbls_icn","cbls_icn_fused_scalar","cbls_icn_fused_all","cbls_direct","hybrid_specialized_icn",
     "hybrid_bridged_icn","highs_native","highs_portfolio","mixed_balanced","mixed_ls_heavy","cbls_mix_strategy",
-    Hybrid.SearchPolicies.METHODS...,sort!(collect(keys(Hybrid.SearchPolicies.PORTFOLIOS)))...,StrategyPanel.methods()...)
+    Hybrid.SearchPolicies.METHODS...,sort!(collect(keys(Hybrid.SearchPolicies.PORTFOLIOS)))...,StrategyPanel.methods()...,RoutingPanel.methods()...)
 
 "Each entry is one serial search worker, including a serial HiGHS worker."
 function allocation(method,threads)
     method in METHODS && threads > 0 || throw(ArgumentError("invalid configuration"))
-    if haskey(StrategyPanel.CATALOG,method)
+    if haskey(StrategyPanel.CATALOG,method) || haskey(RoutingPanel.CATALOG,method)
         return [method*"@"*string(threads)*":"*string(i) for i in 1:threads]
     end
     if haskey(Hybrid.SearchPolicies.PORTFOLIOS,method)
@@ -141,7 +143,7 @@ function highs_worker(p,initial,seconds,seed,origin,threads;logpath=nothing)
 end
 
 "Initialization and model construction are charged once on a shared monotonic clock."
-function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads(),id=splitext(basename(path))[1],logpath=nothing,portfolio=nothing)
+function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads(),id=splitext(basename(path))[1],logpath=nothing,portfolio=nothing,max_episodes=typemax(Int))
     workers = allocation(method,threads)
     portfolio===nothing || portfolio.workers==Tuple(workers) || throw(ArgumentError("prepared portfolio allocation differs"))
     threads <= Threads.nthreads() || throw(ArgumentError("Julia thread pool too small"))
@@ -190,8 +192,15 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
             "error_backend"=>ICNScoring.metadata(backend))
     end
     records = Vector{Any}(undef,length(workers))
-    strategy = nothing
-    if method == "highs_native"
+    strategy = nothing; structured = nothing
+    if haskey(RoutingPanel.CATALOG,method)
+        strategy = portfolio===nothing ? prepare_portfolio(workers) : portfolio
+        executor=(;clone_backend=ICNScoring.clone_backend,metadata=ICNScoring.metadata,
+            run=(plan,call,rows)->MS.execute!(plan.prepared.kernel,ExecutionContext(call,rows)))
+        structured=StructuredRouting.run_portfolio(p,initial,method,seconds,seed,banks,strategy,executor;
+            origin,initial_seconds,max_episodes,cpu_clock=()->cpu_seconds(3),instance_sha256=bytes2hex(sha256(read(path))))
+        records=structured.workers
+    elseif method == "highs_native"
         records[1] = invoke(1,only(workers))
     else
         strategy = portfolio===nothing ? prepare_portfolio(workers) : portfolio
@@ -221,7 +230,7 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
     end
     return Dict{String,Any}("schema"=>"li-lim-resource-trial/1","instance"=>id,"method"=>method,
         "threads_requested"=>threads,"julia_threads_available"=>Threads.nthreads(),
-        "threads_mode"=>method=="highs_native" ? "native HiGHS pool" : "independent serial search trajectories; best incumbent merge",
+        "threads_mode"=>structured!==nothing ? "cooperative serial lanes with typed episode barriers" : method=="highs_native" ? "native HiGHS pool" : "independent serial search trajectories; best incumbent merge",
         "workers"=>records,"allocation"=>workers,"seed"=>seed,"budget_seconds"=>seconds,
         "wall_seconds"=>measured_wall,"audit_merge_seconds"=>elapsed()-measured_wall,
         "process_cpu_seconds"=>consumed_cpu,"mean_active_cpus"=>consumed_cpu/measured_wall,
@@ -235,7 +244,10 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
         "metastrategist_plan_reused"=>portfolio!==nothing,
         "metastrategist_plan_key"=>strategy===nothing ? "" : strategy.key,
         "strategy_panel"=>haskey(StrategyPanel.CATALOG,method) ? StrategyPanel.metadata(method,threads) : Dict{String,Any}(),
-        "coordination"=>"static allocation, independently seeded workers, final best merge; no adaptive allocation or inter-worker incumbent exchange")
+        "routing_panel"=>haskey(RoutingPanel.CATALOG,method) ? RoutingPanel.metadata(method,threads) : Dict{String,Any}(),
+        "routing_coordination"=>structured===nothing ? Dict{String,Any}() : structured.coordination,
+        "coordination"=>structured===nothing ? "static allocation, independently seeded workers, final best merge; no adaptive allocation or inter-worker incumbent exchange" :
+            "typed episode barriers; validated solution/route pools; rotating or reward-adaptive roles; periodic bounded HiGHS master where configured")
 end
 
 function warmup(path,policy,banks;threads=Threads.nthreads())

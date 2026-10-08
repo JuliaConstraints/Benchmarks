@@ -138,6 +138,8 @@ function check_environment(threads)
          joinpath(ROOT, "LiLim", "config", "icn-threads.toml"),
          Hybrid.SearchPolicies.CONFIG_PATH,
          ResourceExperiment.StrategyPanel.CONFIG_PATH,
+         ResourceExperiment.RoutingPanel.CONFIG_PATH,
+         joinpath(ROOT, "LiLim", "test", "structured_routing.jl"),
          joinpath(ROOT, "SolverSmoke", "src", "Profiles.jl"),
          joinpath(ROOT, "LiLim", "test", "search_policies.jl"),
          joinpath(ROOT, "LiLim", "test", "strategy_panel.jl"),
@@ -179,6 +181,8 @@ function source_manifest()
          joinpath(ROOT, "LiLim", "config", "icn-threads.toml"),
          Hybrid.SearchPolicies.CONFIG_PATH,
          ResourceExperiment.StrategyPanel.CONFIG_PATH,
+         ResourceExperiment.RoutingPanel.CONFIG_PATH,
+         joinpath(ROOT, "LiLim", "test", "structured_routing.jl"),
          joinpath(ROOT, "SolverSmoke", "src", "Profiles.jl"),
          joinpath(ROOT, "LiLim", "test", "search_policies.jl"),
          joinpath(ROOT, "LiLim", "test", "icn_resources.jl"),
@@ -218,6 +222,9 @@ function campaign_identity(opts, instances, methods, hexaly_executable, ortools_
         "skipped_methods" => skipped_methods,
         "strategy_variants" => Hybrid.SearchPolicies.CONFIG,
         "strategy_panel" => ResourceExperiment.StrategyPanel.CONFIG,
+        "routing_panel" => ResourceExperiment.RoutingPanel.CONFIG,
+        "routing_panel_configurations"=>Dict(m=>ResourceExperiment.RoutingPanel.metadata(m,opts.threads)
+            for m in methods if haskey(ResourceExperiment.RoutingPanel.CATALOG,m)),
         "qubo_guides" => Hybrid.QUBOGuidance.input_manifest([row.id for row in instances]),
         "strategy_panel_configurations"=>Dict(m=>ResourceExperiment.StrategyPanel.metadata(m,opts.threads)
             for m in methods if haskey(ResourceExperiment.StrategyPanel.CATALOG,m)),

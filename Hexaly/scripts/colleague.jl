@@ -28,7 +28,7 @@ function options(args)
         startswith(arg,"--") && occursin('=',arg) || error("Use --name=value")
         k,v=split(arg[3:end],'=';limit=2)
         k in ("threads","cpus","budget","methods","instances","seeds","hexaly","output","resume","ortools",
-            "missing-solvers","prepare","qualify","gurobi","cplex","cpoptimizer","selection","sources","max-cells","java") || error("Unknown option $k")
+            "missing-solvers","prepare","qualify","gurobi","cplex","cpoptimizer","selection","sources","max-cells","java","widths","cpu-slots") || error("Unknown option $k")
         haskey(opts,k) && error("Duplicate option $k");opts[k]=v
     end
     opts
@@ -108,6 +108,9 @@ function main(args=ARGS)
     elseif cmd=="lilim"
         verify_environment()
         LiLimKit.campaign(opts)
+    elseif cmd=="lilim-matrix"
+        verify_environment()
+        LiLimKit.campaign_matrix(opts)
     elseif cmd=="report"
         haskey(opts,"output") || error("--output required")
         LiLimKit.launch(LiLimKit.launcher(opts,joinpath(ROOT,"Hexaly/scripts/report.jl"),[abspath(opts["output"])];threads=1))

@@ -1,0 +1,242 @@
+using Test, Random, TOML, ConstraintModels, JuMP, LinearAlgebra
+using ConstraintModels.Benchmarks
+include("../src/Pilot.jl")
+include("../src/MetaRepair.jl")
+include("../src/ICNScoring.jl")
+include("../src/Hybrid.jl")
+include("../src/ResourceExperiment.jl")
+include("../src/CampaignCatalog.jl")
+include("../src/PanelPlotStyles.jl")
+const R=ResourceExperiment.StructuredRouting
+const PANEL=ResourceExperiment.RoutingPanel
+const DATA=PickupDeliveryProblem(4,2,[0. 0.;1 0;2 0;-1 0;-2 0;0 1;0 2],
+    [0,1,-1,1,-1,1,-1],zeros(7),fill(40.,7),zeros(7),[(2,3),(4,5),(6,7)])
+const P=BenchmarkInstance("routing-functional",DATA)
+const INITIAL=[[2,3],[4,5],[6,7]]
+const D=Pilot.distances(DATA)
+const BANKS=Dict(k=>ICNScoring.load_backend(k) for k in (:naive,:direct,:icn))
+LSvalues(lane)=collect(Hybrid.LS.get_values(lane.parent.solver))
+
+@testset "Additive configurations and colleague resource matrix" begin
+    @test length(ResourceExperiment.StrategyPanel.CATALOG)==496
+    @test allunique(collect(values(PANEL.CATALOG)))
+    @test length(PANEL.methods(:meta))==16
+    @test CampaignCatalog.select_methods(1,"routing-panel")==PANEL.methods()
+    @test isempty(intersect(CampaignCatalog.select_methods(1,"panel"),PANEL.methods()))
+    plan=PANEL.CONFIG["planned_campaign"]
+    @test plan["worker_widths"]==[1,2,4] && plan["seeds"]==[41,42]
+    @test plan["trials_per_configuration_and_instance"]==6
+    @test sum(plan["possible_wave"])<=plan["max_concurrent_cpu_slots"]==4
+    @test plan["exclusive_wave"]==[4]
+    @test sum(plan["local_possible_wave"])<=plan["local_max_concurrent_cpu_slots"]==8
+    for id in PANEL.methods(),width in (1,2,4)
+        @test length(ResourceExperiment.allocation(id,width))==width
+        @test length(PANEL.allocation(id,width))==width
+    end
+    allmethods=vcat(ResourceExperiment.StrategyPanel.methods(),PANEL.methods())
+    styles=PanelPlotStyles.styles(allmethods,allmethods)
+    @test allunique([(s.color,s.marker,s.linestyle) for s in values(styles)])
+end
+
+@testset "Exact sequence monoid versus independent original time/load scans" begin
+    rng=Xoshiro(22)
+    for _ in 1:80
+        early=rand(rng,7).*3;late=early.+rand(rng,7).*15;early[1]=0.;late[1]=40.
+        d=PickupDeliveryProblem(4,2,DATA.coordinates,DATA.demand,early,late,rand(rng,7),DATA.pairs)
+        route=shuffle(rng,[2,3,4,5]);c=R.range_cache(d,D,route)
+        scan=R.range_cache(d,D,route;max_cells=0)
+        for a in 0:4,b in a:4
+            sequence=R.insert_pair(route,(6,7),a,b)
+            s=R.insertion_summary(c,d,D,(6,7),a,b)
+            @test s==R.insertion_summary(scan,d,D,(6,7),a,b)
+            @test R.distance(s,D)≈Pilot.route_distance(sequence,D) atol=1e-10
+            @test R.sequence_feasible(d,D,s)==Pilot.feasible_route(sequence,d,D)
+        end
+    end
+    @test R.sequence_feasible(DATA,D,R.Segment())
+    c=R.range_cache(DATA,D,Int[])
+    @test R.sequence_feasible(DATA,D,R.insertion_summary(c,DATA,D,(2,3),0,0))
+    # The upper-triangle cache is reusable: scoring an insertion allocates no route.
+    function bytes(c)
+        R.insertion_summary(c,DATA,D,(6,7),1,2)
+        @allocated R.insertion_summary(c,DATA,D,(6,7),1,2)
+    end
+    @test bytes(R.range_cache(DATA,D,[2,3,4,5]))==0
+    cache=R.range_cache(DATA,D,[2,3,4,5]);buffer=cache.cells
+    R.range_cache!(cache,DATA,D,[4,5]);@test cache.cells===buffer
+    R.range_cache!(cache,DATA,D,[2,3,4,5]);@test cache.cells===buffer
+    @test R.sequence_feasible(DATA,D,R.segment(cache,DATA,D,1,4))
+    trace=Dict{String,Any}();rng=Xoshiro(41)
+    options=R.insertion_options(P,D,[cache.route],3,[cache],typemax(UInt64),rng,trace)
+    @test trace["summary_evaluations"]==15
+    @test !isempty(options) && isconcretetype(eltype(options))
+    @test all(o->Pilot.feasible_route(R.insert_pair(cache.route,DATA.pairs[3],o.a,o.b),DATA,D),options)
+    limited=Dict{String,Any}("summary_evaluations"=>1000)
+    R.insertion_options(P,D,[cache.route],3,[cache],typemax(UInt64),rng,limited;max_candidates=3)
+    @test limited["summary_evaluations"]==1003 && limited["insertion_cap_hits"]==1
+    blinked=Dict{String,Any}()
+    @test isempty(R.insertion_options(P,D,[cache.route],3,[cache],typemax(UInt64),rng,blinked;blinks=1.))
+    @test blinked["summary_evaluations"]==blinked["blinked_insertions"]==15
+end
+
+@testset "Request closure, bounded repair, ejections, diversity and ICN truth" begin
+    for mode in (:random,:shaw,:worst,:route,:sisr),regret in (2,3)
+        routes=deepcopy(INITIAL);rng=Xoshiro(41);trace=Dict{String,Any}()
+        bank=R.destroy!(routes,P,D,rng,mode,2;trace)
+        @test all(i->all(v->all(r->!(v in r),routes),DATA.pairs[i]),bank)
+        @test R.repair!(routes,bank,P,D,rng,typemax(UInt64);regret,max_routes=3,trace)
+        @test isempty(bank) && validate_solution(P,routes).valid
+        @test trace["reinserted_requests"]==trace["destroyed_requests"]
+    end
+    routes=deepcopy(INITIAL);bank=R.destroy!(routes,P,D,Xoshiro(1),:random,1)
+    @test !R.repair!(routes,bank,P,D,Xoshiro(1),UInt64(0);max_routes=3)
+    @test !isempty(bank) # an incomplete bank is not an original-model solution
+    for depth in (1,2)
+        routes=deepcopy(INITIAL);trace=Dict{String,Any}()
+        @test R.elimination!(routes,P,D,Xoshiro(41),typemax(UInt64);depth,trace)
+        @test validate_solution(P,routes).valid && length(routes)==2
+    end
+    # Two overlapping units must be ejected to fit the blocked two-unit request.
+    # The distant route can absorb both ejections but cannot serve that blocked request.
+    coords=zeros(11,2);coords[10:11,1].=1.
+    early=[0.,0.,2.,0.,2.,0.,2.,1.,1.5,1.,1.5]
+    late=[40.,0.,3.,0.,3.,0.,3.,1.,1.5,1.,1.5]
+    d=PickupDeliveryProblem(3,3,coords,[0,1,-1,1,-1,1,-1,2,-2,1,-1],early,late,zeros(11),
+        [(2,3),(4,5),(6,7),(8,9),(10,11)])
+    p=BenchmarkInstance("two-request ejection oracle",d);D2=Pilot.distances(d)
+    start=[[8,9],[2,4,6,3,5,7],[10,11]]
+    @test validate_solution(p,start).valid
+    order=sortperm(start;by=r->(length(r),Pilot.route_distance(r,D2)))
+    seed=first(s for s in 1:100 if rand(Xoshiro(s),order[1:3])==1)
+    difficulty=[1,1,1,2,100]
+    @test !R.elimination!(deepcopy(start),p,D2,Xoshiro(seed),typemax(UInt64);depth=1,candidate_limit=3,difficulty=copy(difficulty))
+    trial=deepcopy(start);trace=Dict{String,Any}()
+    @test R.elimination!(trial,p,D2,Xoshiro(seed),typemax(UInt64);depth=2,candidate_limit=3,difficulty=copy(difficulty),trace)
+    @test trace["ejected_requests"]==2
+    @test validate_solution(p,trial).valid && length(trial)==2
+    @test validate_solution(P,R.exchange(P,INITIAL,D,1,2)).valid
+    for id in PANEL.methods(:search)
+        settings=only(PANEL.CATALOG[id].lanes);kind=settings.backend==:icn_fused_all ? :icn : settings.backend
+        backend=ICNScoring.clone_backend(BANKS[kind],settings.backend)
+        lane=Base.invokelatest(R.Lane,P,INITIAL;scorer=backend,guidance=settings.guidance)
+        Base.invokelatest(R.episode!,lane,P,settings,typemax(UInt64);max_steps=4)
+        @test validate_solution(P,lane.best).valid
+        @test all(v->v["vehicles"]==validate_solution(P,v["routes"]).objective.vehicles,lane.trace["trajectory"])
+        @test R.quality(P,lane.best)<=R.quality(P,INITIAL)
+        @test LSvalues(lane)==MetaRepair.successors(P,lane.current)
+        settings.algorithm==:sisr && @test get(lane.trace,"sisr_fleet_attempts",0)>0
+    end
+    for fraction in (0.25,1.)
+        settings=merge(PANEL.DEFAULT,(;algorithm=:vnd,reset_fraction=fraction))
+        lane=R.Lane(P,INITIAL);lane.steps=32
+        R.episode!(lane,P,settings,typemax(UInt64);max_steps=1)
+        @test get(lane.trace,"completed_resets",0)==1
+        @test get(lane.trace,"destroyed_requests",0)==ceil(Int,fraction*3)
+        @test validate_solution(P,lane.current).valid
+    end
+    # An original-feasible but incorrect error-backend candidate cannot bypass its score.
+    scorer=(p,D,values)->begin
+        s=Hybrid.routing_score(p,D,values)
+        merge(s,(;error=s.vehicles<3 ? 1. : s.error))
+    end
+    lane=R.Lane(P,INITIAL;scorer)
+    @test_throws ErrorException R.admit!(lane,P,[[2,3,4,5,6,7]],PANEL.DEFAULT;force=true)
+    @test lane.current==INITIAL
+    lane=R.Lane(P,INITIAL);tabu=merge(PANEL.DEFAULT,(;acceptance=:tabu))
+    @test R.admit!(lane,P,[[2,3,4,5,6,7]],tabu)
+    @test !R.admit!(lane,P,INITIAL,tabu)
+    @test lane.trace["tabu_hits"]==1
+    before=copy(lane.history);steps=lane.steps
+    @test !R.admit!(lane,P,deepcopy(lane.current),tabu)
+    @test lane.steps==steps && lane.history==before
+    @test validate_solution(P,lane.current).valid
+end
+
+@testset "Certified incompatibilities, protected pools and native LP/MIP algorithms" begin
+    evidence=R.incompatibilities(P,D)
+    @test evidence.tested==3 && !any(evidence.graph)
+    @test R.clique_bound(evidence.graph).bound==1
+    nonmetric=copy(D);nonmetric[2,4]+=1
+    @test R.incompatibilities(P,nonmetric).scope=="disabled_non_euclidean_input"
+    g=trues(4,4);g[diagind(g)].=false
+    @test R.clique_bound(g).bound==4
+    tight=PickupDeliveryProblem(4,1,DATA.coordinates,DATA.demand,zeros(7),[40.,1.,2.,1.,2.,1.,2.],zeros(7),DATA.pairs)
+    q=BenchmarkInstance("certified separate fleet",tight);cert=R.incompatibilities(q,D)
+    @test all(cert.graph[i,j] for i in 1:3 for j in i+1:3)
+    @test R.clique_bound(cert.graph).bound==3
+    pool=R.RoutePool(;max_routes=8,max_solutions=4)
+    R.collect!(pool,P,D,INITIAL);R.collect!(pool,P,D,[[2,3,4,5,6,7]])
+    columns=pool.routes;solutions=pool.solutions;retained=deepcopy(solutions)
+    R.collect!(pool,P,D,[[2,3,4,5,6,7]])
+    @test pool.routes===columns && pool.solutions===solutions
+    @test pool.solutions==retained
+    input=[[2,3,4,5,6,7]];R.collect!(pool,P,D,input);empty!(input[1])
+    @test pool.solutions==retained && all(r->R.route_valid(P,D,r),pool.routes)
+    @test_throws ArgumentError R.collect!(pool,P,D,[[2],[3,4,5,6,7]])
+    for mode in ("simplex","ipx","hipo")
+        trace=Dict{String,Any}();deadline=time_ns()+UInt64(20_000_000_000)
+        candidate=R.recombine(pool,P,D,deadline;lp_solver=mode,trace)
+        @test candidate!==nothing && validate_solution(P,candidate).valid
+        @test length(candidate)==1
+        @test trace["master_native_threads"]==1
+        @test trace["master_lp_calls"]==trace["master_mip_calls"]==1
+        @test haskey(trace,"master_last_dual_prices")
+        @test trace["master_bound_scope"]=="restricted_route_pool_not_global_original_bound"
+    end
+    @test R.recombine(pool,P,D,UInt64(0))===nothing
+    snapshot=(;instance=P,pool=deepcopy(pool),routes=deepcopy(INITIAL),distances=D,values=MetaRepair.successors(P,INITIAL))
+    request=Hybrid.LS.MetaVariableRequest(Hybrid.LS.MetaVariable(:route_pool,1:6),snapshot,20.,Xoshiro(41))
+    outcome=Hybrid.LS.resolve_meta_variable(R.RoutePoolResolver("ipx"),request)
+    @test outcome.status==:improved && outcome.move!==nothing
+    values=copy(snapshot.values);values[outcome.move.variables]=outcome.move.replacements
+    @test validate_solution(P,MetaRepair.routes_from_successors(P,values)).valid
+    narrow=Hybrid.LS.MetaVariableRequest(Hybrid.LS.MetaVariable(:invalid_partial_pool,1:2),snapshot,20.,Xoshiro(41))
+    @test Hybrid.LS.resolve_meta_variable(R.RoutePoolResolver("ipx"),narrow).status==:invalid_fragment
+end
+
+@testset "Real typed MetaStrategist cooperative phases and owned CBLS states" begin
+    # Fixed episode count on a tiny original model; no comparative timing result.
+    width=min(2,Threads.nthreads());method="rp_meta_adaptive_late"
+    strategy=ResourceExperiment.prepare_portfolio(ResourceExperiment.allocation(method,width))
+    executor=(;clone_backend=ICNScoring.clone_backend,
+        run=(plan,call,rows)->ResourceExperiment.MS.execute!(plan.prepared.kernel,ResourceExperiment.ExecutionContext(call,rows)))
+    result=Base.invokelatest(R.run_portfolio,P,INITIAL,method,120.,41,BANKS,strategy,executor;
+        max_episodes=8,cpu_clock=()->ResourceExperiment.cpu_seconds(3))
+    @test result.coordination["episodes"]==8
+    @test sum(result.coordination["role_episode_counts"])==8width
+    @test all(>(0),result.coordination["role_episode_counts"])
+    @test all(w->validate_solution(P,w["routes"]).valid,result.workers)
+    @test all(l->validate_solution(P,l.current).valid,result.lanes)
+    @test INITIAL==[[2,3],[4,5],[6,7]]
+    @test result.coordination["fill_episode"]
+    @test all(l->l.steps>8R.LIMITS.episode_steps,result.lanes)
+    capped=Base.invokelatest(R.run_portfolio,P,INITIAL,method,30.,41,BANKS,strategy,executor;
+        max_episodes=2,episode_steps=1,episode_seconds=30.,fill_episode=false)
+    @test [l.steps for l in capped.lanes]==fill(2,width)
+    filled=Base.invokelatest(R.run_portfolio,P,INITIAL,method,30.,41,BANKS,strategy,executor;
+        max_episodes=2,episode_steps=1,episode_seconds=0.25)
+    @test minimum(l.steps for l in filled.lanes)>2
+    if width==2
+        @test result.lanes[1].parent.solver!==result.lanes[2].parent.solver
+        @test result.lanes[1].guide_workspace!==result.lanes[2].guide_workspace
+        @test result.lanes[1].history!==result.lanes[2].history
+        @test result.lanes[1].repair_workspace!==result.lanes[2].repair_workspace
+        @test result.lanes[1].new_arcs!==result.lanes[2].new_arcs
+        @test result.lanes[1].old_arcs!==result.lanes[2].old_arcs
+    end
+    mktemp() do path,io
+        write(io,"3 2 1\n0 0 0 0 0 40 0 0 0\n1 1 0 1 0 40 0 0 2\n2 2 0 -1 0 40 0 1 0\n3 -1 0 1 0 40 0 0 4\n4 -2 0 -1 0 40 0 3 0\n5 0 1 1 0 40 0 0 6\n6 0 2 -1 0 40 0 5 0\n");close(io)
+        policy=Dict("insertion_starts"=>1,"insertion_seed"=>41)
+        record=Base.invokelatest(ResourceExperiment.run_case,path,"rp_meta_pool_ipx_late",20.,41,policy,BANKS;
+            threads=width,max_episodes=4)
+        @test record["original_validation"] && record["metastrategist_executed"]
+        @test record["routing_coordination"]["episodes"]==4
+        @test record["routing_coordination"]["master_resolver_calls"]==1
+        @test record["routing_coordination"]["master_lp_calls"]==1
+        @test all(w->haskey(w["trace"],"master_priority_requests"),record["workers"])
+        @test all(e->e["seconds"]<=20. && validate_solution(read_benchmark(path,:li_lim),e["routes"]).valid,record["trajectory"])
+        buffer=IOBuffer();TOML.print(buffer,record)
+        parsed=TOML.parse(String(take!(buffer)))
+        @test parsed["routes"]==record["routes"] && parsed["routing_panel"]["id"]=="rp_meta_pool_ipx_late"
+    end
+end

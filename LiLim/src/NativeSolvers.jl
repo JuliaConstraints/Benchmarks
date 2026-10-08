@@ -117,7 +117,7 @@ function resolve_hexaly(name; probe=capture)
     # Vendor-documented license test, with a tiny original model and a one-second cap.
     result = mktempdir() do directory
         model = joinpath(directory,"availability.hxm")
-        write(model, "function model() { x = bool(); minimize(x); }\nfunction output() { println(\"JULIACONSTRAINTS_HEXALY_READY\"); }\n")
+        write(model, "function model() { x <- bool(); minimize(x); }\nfunction output() { println(\"JULIACONSTRAINTS_HEXALY_READY\"); }\n")
         probe(`$candidate $model hxTimeLimit=1 hxNbThreads=1`)
     end
     result.timed_out && throw(UnavailableSolver("hexaly_native", "license_probe_timed_out"))
