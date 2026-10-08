@@ -135,6 +135,50 @@ end
     end
 end
 
+@testset "Original validator workspace and RNG-identical request selection" begin
+    workspace=R.original_workspace()
+    retained=R.original_check(P,[[3,2],[4]],workspace);saved=deepcopy(retained)
+    for routes in (INITIAL,reverse(INITIAL),[[2,3,4,5,6,7]],[[2],[3,4,5,6,7]],
+            [[2,2,3],[4,5],[6,7]],Vector{Int}[],[[NaN,3],[4,5]],[[2.0,3.0],[4,5],[6,7]])
+        @test R.original_check(P,routes,workspace)==validate_solution(P,routes)
+    end
+    @test retained==saved
+    @test R.quality(P,INITIAL;validation_workspace=workspace)==R.quality(P,INITIAL)
+    if workspace!==nothing
+        first_lane=R.Lane(P,INITIAL);second_lane=R.Lane(P,INITIAL)
+        @test first_lane.validation_workspace!==second_lane.validation_workspace
+        @test first_lane.validation_workspace.counts!==second_lane.validation_workspace.counts
+        function audit_bytes(workspace)
+            R.original_check(P,INITIAL,workspace)
+            @allocated R.original_check(P,INITIAL,workspace)
+        end
+        @test audit_bytes(workspace)<=128
+        @test R.exchange(P,INITIAL,D,1,2;validation_workspace=workspace)==R.exchange(P,INITIAL,D,1,2)
+        pool=R.RoutePool();R.collect!(pool,P,D,INITIAL;validation_workspace=workspace)
+        snapshots=deepcopy(pool.solutions)
+        R.original_check(P,[[2],[3,4,5,6,7]],workspace)
+        @test pool.solutions==snapshots
+        @test_throws ArgumentError R.collect!(pool,P,D,[[2],[3,4,5,6,7]];validation_workspace=workspace)
+    end
+    for n in (0,1,2,3,50,256),count in (0,1,2,8),seed in (41,42,43)
+        before=Xoshiro(seed);after=Xoshiro(seed);selection=R.RepairWorkspace()
+        for _ in 1:8
+            expected=randperm(before,n)[1:min(count,n)]
+            actual=R.random_requests!(selection,n,after;count)
+            @test actual==expected && allunique(actual)
+            @test rand(before,UInt64)==rand(after,UInt64)
+            @test actual===selection.selected
+        end
+    end
+    function request_selection_bytes(workspace,rng)
+        R.random_requests!(workspace,50,rng)
+        @allocated for _ in 1:1024;R.random_requests!(workspace,50,rng);end
+    end
+    @test request_selection_bytes(R.RepairWorkspace(),Xoshiro(41))==0
+    @test_throws ArgumentError R.random_requests!(R.RepairWorkspace(),3,Xoshiro(41);count=-1)
+    @test INITIAL==[[2,3],[4,5],[6,7]]
+end
+
 @testset "Original-distance exchange rejection preserves the full audit" begin
     rng=Xoshiro(77)
     for _ in 1:80

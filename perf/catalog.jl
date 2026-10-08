@@ -3,7 +3,7 @@ include("../LiLim/src/StrategyPanel.jl")
 include("../LiLim/src/RoutingPanel.jl")
 
 "Explicit PerfChecker scenarios; the full 496-method grid is opt-in."
-function build_catalog(;scope=:kernels,methods=String[],width=1,collectors=[:profile,:profile_alloc])
+function build_catalog(;scope=:kernels,methods=String[],families=Symbol[],backends=[:direct],width=1,collectors=[:profile,:profile_alloc])
     width in (1,2,4,8,16) || throw(ArgumentError("qualified resource widths are 1/2/4/8/16"))
     source=joinpath(@__DIR__,"scenarios.jl")
     fixtures=[joinpath(@__DIR__,"../LiLim/src",f) for f in ("QUBOGuidance.jl","StrategyPanel.jl","ROFragments.jl","SearchPolicies.jl")]
@@ -18,6 +18,18 @@ function build_catalog(;scope=:kernels,methods=String[],width=1,collectors=[:pro
             push!(scenarios,ScenarioSpec("qubo_$(operation)_n$(size)_d$(depth)";source,factory="kernel_case",
                 implementation="sparse-owned-buffers-v1",parameters=Dict("operation"=>operation,"variables"=>size,
                     "depth"=>depth,"repetitions"=>1024),fixtures,collectors,repeatable=true))
+        end
+    elseif scope==:classical_scoring
+        isempty(families) && throw(ArgumentError("select explicit classical problem families"))
+        isempty(backends) && throw(ArgumentError("select explicit scoring backends"))
+        all(k->k in (:naive,:direct,:icn,:icn_fused),backends) || throw(ArgumentError("unknown scoring backend"))
+        append!(fixtures,[joinpath(dir,file) for (dir,_,files) in walkdir(joinpath(@__DIR__,"../Hexaly/src"))
+            for file in files if endswith(file,".jl")])
+        push!(fixtures,joinpath(@__DIR__,"../Hexaly/test/fixtures.jl"))
+        for family in families,backend in backends
+            push!(scenarios,ScenarioSpec("classical_$(family)_$(backend)";source,factory="classical_scoring_case",
+                implementation="prepared-original-zero-set-callbacks-v1",parameters=Dict("family"=>string(family),
+                    "backend"=>string(backend),"repetitions"=>128),fixtures,collectors,repeatable=true))
         end
     elseif scope==:strategies
         isempty(methods) && throw(ArgumentError("select explicit strategy IDs or opt-in aliases"))
@@ -39,10 +51,11 @@ function build_catalog(;scope=:kernels,methods=String[],width=1,collectors=[:pro
             ("StructuredRouting.jl","RoutingPanel.jl","Pilot.jl","MetaRepair.jl","Hybrid.jl","ICNScoring.jl","ResourceExperiment.jl","PlatformResources.jl")])
         push!(fixtures,RoutingPanel.CONFIG_PATH)
         if scope==:routing_kernels
-            for operation in ("insertion","insertion_options","cache","cache_reuse","repair","ejection","pool_reuse","duplicate_admission","arc_reuse","route_copy","successor_fill")
+            for operation in ("insertion","insertion_options","cache","cache_reuse","repair","ejection","pool_reuse","duplicate_admission","arc_reuse","route_copy","successor_fill","request_selection","exchange_rejection","original_validation")
                 push!(scenarios,ScenarioSpec("routing_"*operation;source,factory="routing_kernel_case",
-                    implementation="paired-original-sequences-v1",parameters=Dict("operation"=>operation,
-                        "repetitions"=>operation in ("insertion","duplicate_admission","arc_reuse","route_copy","successor_fill") ? 1024 :
+                    implementation=operation=="insertion_options" ? "paired-insertion-prepared-views-v2" :
+                        operation in ("request_selection","exchange_rejection","original_validation","pool_reuse") ? "paired-original-owned-workspaces-v2" : "paired-original-sequences-v1",parameters=Dict("operation"=>operation,
+                        "repetitions"=>operation in ("insertion","duplicate_admission","arc_reuse","route_copy","successor_fill","request_selection","exchange_rejection","original_validation") ? 1024 :
                             operation in ("insertion_options","cache","cache_reuse","pool_reuse") ? 128 : 8),
                     fixtures,collectors,repeatable=true))
             end
@@ -58,7 +71,7 @@ function build_catalog(;scope=:kernels,methods=String[],width=1,collectors=[:pro
             end
         end
     else
-        throw(ArgumentError("scope must be kernels, strategies, routing_kernels or routing_strategies"))
+        throw(ArgumentError("scope must be kernels, classical_scoring, strategies, routing_kernels or routing_strategies"))
     end
     ScenarioCatalog(normpath(joinpath(@__DIR__,"..")),scenarios)
 end

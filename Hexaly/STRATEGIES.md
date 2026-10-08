@@ -95,6 +95,56 @@ checks do not replace execution on a licensed Hexaly Optimizer 15.0 host.
 
 ## Structured routing profiling
 
+### Overnight owned-workspace checkpoint, 2026-10-08
+
+The clean `perf/routing-owned-oracles-20261008` branch integrates published CBLS,
+LocalSearchSolvers, MetaStrategist and original PDPTW-validator improvements.
+Each routing lane owns a validation workspace and reusable random-request
+selection buffers. Complete original validation remains mandatory; returned
+diagnostics, incumbents and pool entries retain independent ownership. The fused
+ICN error-term buffer also preserves capacity across infeasible fleet layouts.
+
+All 52 fixed-work configurations and 14 numerical/workflow kernels passed their
+original-model oracles, together with 7,128 routing, 30,322 ICN/resource and 1,483
+hybrid assertions. Additional fixed-work allocated bytes fell by **7.4–55.8%**
+against the previous prefilter checkpoint. The insertion-enumeration fixture now
+prepares its wrapper views outside measurement; that scope correction is excluded
+from production improvement claims.
+
+Five new 30-second LC101 diagnostics used two dedicated physical cores. Their
+cumulative Julia allocations fell by **18–37%** against the previous checkpoint,
+with lower search GC time in every observation. These time-capped runs executed
+different numbers of steps and establish no controlled speedup. All solutions
+and trajectories passed original validation. LC101 recorded no accepted
+MetaMoves; three additional LR101 and three LRC101 observations exercise the
+accepted-move paths and also passed. These are diagnostics, not a solver ranking.
+
+Classical scheduling/resource callbacks use owned event, alternative-assignment,
+machine-task and maintenance-load buffers with concrete numerical function
+barriers. Across 384 fixed callbacks, native allocation totals changed from
+870,400 to 30,720 bytes for RCPSP, 380,928 to 215,040 for JSSP, 620,544 to 215,040
+for FJSP, and 571,392 to 49,152 for maintenance. Both direct and fused ICN
+observations passed. The classical tests passed 10,459 assertions, including
+6,514 new checks of ordered quantitative terms, ownership, mutable data and
+wide-integer fallbacks. These totals exclude preparation, decoder compilation
+and independent verification; allocations remaining in the machine maps and
+dynamic dispatch are being investigated.
+
+English [exact and XKCD figures](../perf/figures/owned-workspaces-20261008) and
+the complete source/dependency hashes are published with
+[the qualification record](../perf/routing-qualification.toml). Regenerate them
+with the existing plotting environment:
+
+```sh
+julia --startup-file=no --project=LiLim/plotting perf/plots.jl perf/routing-qualification.toml perf/figures/owned-workspaces-20261008 exact
+julia --startup-file=no --project=LiLim/plotting perf/plots.jl perf/routing-qualification.toml perf/figures/owned-workspaces-20261008 xkcd
+```
+
+The integrated dependency pins are distinct from the historical Handoff cohort;
+its saved environment is preserved. Concurrent chats used disjoint CPU masks,
+so operational timings are retained as observations and are not advertised as
+controlled speedups. The 60-second colleague matrix remains unlaunched.
+
 `build_catalog(scope=:routing_kernels)` provides insertion, insertion enumeration,
 fresh/reused cache, repair, ejection, repeated pool/duplicate admission,
 route-copy and successor-fill allocation profiles. `scope=:routing_strategies` accepts

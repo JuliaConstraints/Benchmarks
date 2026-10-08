@@ -10,11 +10,16 @@ mutable struct ScoreWorkspace
     integers::Vector{Int}
     labels::Vector{Int}
     seen::Set{Int}
+    events::Vector{Int}
+    durations::Vector{Int}
+    machines::Vector{Int}
+    task_buffers::Vector{Vector{Int}}
+    resource_load::Matrix{Float64}
 end
 function ScoreWorkspace(p)
     ds=UnitRange{Int}[Int(first(r)):Int(last(r)) for r in domains(p)]
     labels=Int[];seen=Set{Int}();sizehint!(labels,length(ds));sizehint!(seen,length(ds))
-    ScoreWorkspace(p,ds,zeros(Int,length(ds)),labels,seen)
+    ScoreWorkspace(p,ds,zeros(Int,length(ds)),labels,seen,Int[],Int[],Int[],Vector{Int}[],zeros(0,0))
 end
 
 mutable struct Backend{F}
@@ -92,6 +97,91 @@ function station_terms!(terms,x,labels,duration,cycle)
     end
 end
 
+function schedule_events!(events,starts,duration::AbstractVector{Int})
+    n=length(duration);resize!(events,2n)
+    for i in 1:n;events[i]=starts[i];events[n+i]=starts[i]+duration[i];end
+    sort!(events;alg=QuickSort)
+    count=0
+    for i in eachindex(events)
+        value=events[i]
+        if count==0 || value!=events[count];count+=1;events[count]=value;end
+    end
+    resize!(events,count)
+end
+# Wider or custom integer durations retain the original promoted event arithmetic.
+schedule_events!(events,starts,duration)=sort!(unique(vcat(starts,starts.+duration)))
+
+function renewable_terms!(terms,starts,duration,precedence,horizon,use,capacity,events)
+    for i in eachindex(duration);push!(terms,Float64(max(0,starts[i]+duration[i]-horizon)));end
+    for(a,b)in precedence;push!(terms,Float64(max(0,starts[a]+duration[a]-starts[b])));end
+    for t in events,r in axes(use,2)
+        load=sum((use[i,r] for i in eachindex(duration) if starts[i]<=t<starts[i]+duration[i]);init=0.)
+        push!(terms,Float64(max(0,load-capacity[r])))
+    end
+end
+
+function machine_terms!(terms,starts,duration,machine,precedence,horizon,buffers)
+    for i in eachindex(duration);push!(terms,Float64(max(0,starts[i]+duration[i]-horizon)));end
+    for(a,b)in precedence;push!(terms,Float64(max(0,starts[a]+duration[a]-starts[b])));end
+    # A fresh map preserves the original Dict iteration order. Only its task
+    # vectors are borrowed; retained results never refer to these scratch buffers.
+    groups=Dict{Int,Vector{Int}}();used=0
+    for i in eachindex(duration)
+        duration[i]>0 || continue
+        key=Int(machine[i]);tasks=get(groups,key,nothing)
+        if tasks===nothing
+            used+=1
+            used>length(buffers) && push!(buffers,Int[])
+            tasks=buffers[used];empty!(tasks);groups[key]=tasks
+        end
+        push!(tasks,i)
+    end
+    for tasks in Base.values(groups)
+        # Original insertion order is increasing job index; this tie breaker
+        # preserves stable sorting while allowing allocation-free QuickSort.
+        sort!(tasks;by=i->(starts[i],i),alg=QuickSort);finish=-1
+        for i in tasks
+            push!(terms,Float64(max(0,finish-starts[i])))
+            finish=max(finish,starts[i]+duration[i])
+        end
+    end
+end
+
+function flexible_assignments!(workspace,x,alternatives::Vector{Vector{Vector{Int}}})
+    n=length(alternatives);resize!(workspace.durations,n);resize!(workspace.machines,n)
+    for i in 1:n
+        choice=alternatives[i][x[n+i]]
+        workspace.machines[i]=choice[1];workspace.durations[i]=choice[2]
+    end
+    workspace.durations,workspace.machines
+end
+flexible_assignments!(workspace,x,alternatives)=
+    ([alternatives[i][x[length(alternatives)+i]][2] for i in eachindex(alternatives)],
+     [alternatives[i][x[length(alternatives)+i]][1] for i in eachindex(alternatives)])
+
+function maintenance_terms!(terms,x,duration,horizon,use,lower,upper,exclusions,workspace,atol)
+    resources=length(upper[1])
+    if size(workspace.resource_load)!=(horizon,resources)
+        workspace.resource_load=zeros(horizon,resources)
+    end
+    used=workspace.resource_load;fill!(used,0.)
+    for i in eachindex(x)
+        start=x[i];len=duration[i][start]
+        push!(terms,Float64(max(0,start+len-1-horizon)))
+        for t in start:min(horizon,start+len-1)
+            row=use[i][start][t-start+1]
+            for r in 1:resources;used[t,r]+=row[r];end
+        end
+    end
+    for t in 1:horizon,r in 1:resources
+        push!(terms,Float64(max(0,lower[t][r]-used[t,r]-atol)))
+        push!(terms,Float64(max(0,used[t,r]-upper[t][r]-atol)))
+    end
+    for(a,b,season)in exclusions
+        push!(terms,Float64(max(0,count(t->x[a]<=t<x[a]+duration[a][x[a]] && x[b]<=t<x[b]+duration[b][x[b]],season))))
+    end
+end
+
 "Lane-owned error terms; independent original validator decides which solutions may be exported."
 function residuals!(terms,p::Problem,values;atol=p.family==:maintenance ? 1e-5 : 1e-8,workspace=ScoreWorkspace(p))
     empty!(terms)
@@ -135,22 +225,12 @@ function residuals!(terms,p::Problem,values;atol=p.family==:maintenance ? 1e-5 :
         get(d,"require_nonempty",false) && add(d["clusters"]-length(distinct_labels!(workspace,x)))
     elseif f in (:rcpsp,:jssp,:fjsp)
         jobs=length(d["duration"]);starts=view(x,1:jobs)
-        duration=f==:fjsp ? [d["alternatives"][i][x[jobs+i]][2] for i in 1:jobs] : d["duration"]
-        for i in 1:jobs;add(starts[i]+duration[i]-d["horizon"]);end
-        for(a,b)in d["precedence"];add(starts[a]+duration[a]-starts[b]);end
         if f==:rcpsp
-            events=sort!(unique(vcat(starts,starts.+duration)))
-            for t in events,r in axes(d["resource_use"],2)
-                add(sum((d["resource_use"][i,r] for i in 1:jobs if starts[i]<=t<starts[i]+duration[i]);init=0.)-d["capacity"][r])
-            end
+            duration=d["duration"];events=schedule_events!(workspace.events,starts,duration)
+            renewable_terms!(terms,starts,duration,d["precedence"],d["horizon"],d["resource_use"],d["capacity"],events)
         else
-            machine=f==:fjsp ? [d["alternatives"][i][x[jobs+i]][1] for i in 1:jobs] : d["machine"]
-            groups=Dict{Int,Vector{Int}}()
-            for i in 1:jobs;duration[i]>0 && push!(get!(groups,machine[i],Int[]),i);end
-            for tasks in Base.values(groups)
-                sort!(tasks;by=i->starts[i]);finish=-1
-                for i in tasks;add(finish-starts[i]);finish=max(finish,starts[i]+duration[i]);end
-            end
+            duration,machine=f==:fjsp ? flexible_assignments!(workspace,x,d["alternatives"]) : (d["duration"],d["machine"])
+            machine_terms!(terms,starts,duration,machine,d["precedence"],d["horizon"],workspace.task_buffers)
         end
     elseif f==:aircraft_landing
         for i in eachindex(x),j in i+1:length(x)
@@ -162,17 +242,8 @@ function residuals!(terms,p::Problem,values;atol=p.family==:maintenance ? 1e-5 :
             color=d["colors"][i];run=color==previous ? run+1 : 1;add(run-d["max_paint_batch"]);previous=color
         end
     elseif f==:maintenance
-        H=d["horizon"];R=length(d["capacity_upper"][1]);used=zeros(H,R)
-        for i in eachindex(x)
-            start_time=x[i];len=d["duration"][i][start_time];add(start_time+len-1-H)
-            for t in start_time:min(H,start_time+len-1);used[t,:].+=d["resource_use_by_start"][i][start_time][t-start_time+1];end
-        end
-        for t in 1:H,r in 1:R
-            add(d["capacity_lower"][t][r]-used[t,r]-atol);add(used[t,r]-d["capacity_upper"][t][r]-atol)
-        end
-        for(a,b,season)in d["exclusions"]
-            add(count(t->x[a]<=t<x[a]+d["duration"][a][x[a]] && x[b]<=t<x[b]+d["duration"][b][x[b]],season))
-        end
+        maintenance_terms!(terms,x,d["duration"],d["horizon"],d["resource_use_by_start"],
+            d["capacity_lower"],d["capacity_upper"],d["exclusions"],workspace,atol)
     end
     terms
 end

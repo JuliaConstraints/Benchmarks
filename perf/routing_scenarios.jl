@@ -15,13 +15,24 @@ end
 function routing_kernel_case(parameters)
     operation=parameters["operation"];repetitions=parameters["repetitions"]
     prepare=()->begin
-        p=routing_fixture();D=Pilot.distances(p.data)
-        routes=[[2,3],[4,5],[6,7]];pool=StructuredRouting.RoutePool()
+        p=operation=="exchange_rejection" ? BenchmarkInstance("rejected-exchange-profile",
+            PickupDeliveryProblem(2,1,zeros(9,2),[0,1,-1,1,-1,1,-1,1,-1],
+                [0.,0,0,5,5,0,0,10,10],[40.,0,0,5,5,0,0,10,10],zeros(9),[(2,3),(4,5),(6,7),(8,9)])) : routing_fixture()
+        D=Pilot.distances(p.data)
+        routes=operation=="exchange_rejection" ? [[2,3,4,5],[6,7,8,9]] : [[2,3],[4,5],[6,7]]
+        pool=StructuredRouting.RoutePool()
         StructuredRouting.collect!(pool,p,D,routes)
         lane=operation=="duplicate_admission" ? StructuredRouting.Lane(p,routes) : nothing
         route_buffer=StructuredRouting.RouteBuffer();StructuredRouting.copy_routes!(route_buffer,routes)
-        (;p,D,routes,pool,lane,arc_buffer=Set{Tuple{Int,Int}}(),route_buffer,values=ones(Int,6),expected_values=MetaRepair.successors(p,routes),
-            cache=StructuredRouting.range_cache(p.data,D,[2,3,4,5]),workspace=StructuredRouting.RepairWorkspace())
+        validation_workspace=StructuredRouting.original_workspace()
+        StructuredRouting.original_check(p,routes,validation_workspace).valid || error("invalid route fixture")
+        operation=="exchange_rejection" && StructuredRouting.exchange(p,routes,D,1,4)!==nothing && error("reference exchange must be rejected")
+        cache=StructuredRouting.range_cache(p.data,D,[2,3,4,5])
+        workspace=StructuredRouting.RepairWorkspace()
+        operation=="request_selection" && StructuredRouting.random_requests!(workspace,50,Xoshiro(0))
+        (;p,D,routes,pool,lane,arc_buffer=Set{Tuple{Int,Int}}(),route_buffer,values=ones(Int,length(p.data.demand)-1),
+            expected_values=MetaRepair.successors(p,routes),validation_workspace,selection_rng=Xoshiro(41),selection_checksum=Ref(0),
+            cache,insertion_routes=[cache.route],insertion_caches=[cache],workspace)
     end
     work=s->begin
         last=true
@@ -40,15 +51,29 @@ function routing_kernel_case(parameters)
         elseif operation=="successor_fill"
             for _ in 1:repetitions;MetaRepair._successors!(s.values,s.routes);end
             last=s.values==s.expected_values
+        elseif operation=="request_selection"
+            checksum=0
+            for _ in 1:repetitions
+                ids=StructuredRouting.random_requests!(s.workspace,50,s.selection_rng)
+                checksum+=ids[1]+ids[2]
+            end
+            s.selection_checksum[]=checksum
+        elseif operation=="exchange_rejection"
+            for _ in 1:repetitions
+                last &= StructuredRouting.exchange(s.p,s.routes,s.D,1,4;workspace=s.route_buffer,
+                    original_distance_prefilter=true,validation_workspace=s.validation_workspace)===nothing
+            end
+        elseif operation=="original_validation"
+            for _ in 1:repetitions;last &= StructuredRouting.original_check(s.p,s.routes,s.validation_workspace).valid;end
         elseif operation=="insertion_options"
             rng=Xoshiro(41);trace=Dict{String,Any}()
             for _ in 1:repetitions
-                opts=StructuredRouting.insertion_options(s.p,s.D,[s.cache.route],3,[s.cache],typemax(UInt64),rng,trace;
+                opts=StructuredRouting.insertion_options(s.p,s.D,s.insertion_routes,3,s.insertion_caches,typemax(UInt64),rng,trace;
                     options=s.workspace.options)
                 last &= !isempty(opts)
             end
         elseif operation=="pool_reuse"
-            for _ in 1:repetitions;StructuredRouting.collect!(s.pool,s.p,s.D,s.routes);end
+            for _ in 1:repetitions;StructuredRouting.collect!(s.pool,s.p,s.D,s.routes;validation_workspace=s.validation_workspace);end
             last=all(r->r in s.pool.routes,s.routes) && length(s.pool.solutions)==1
         elseif operation=="duplicate_admission"
             for _ in 1:repetitions
@@ -71,7 +96,14 @@ function routing_kernel_case(parameters)
         else;throw(ArgumentError("unknown route kernel"));end
         last
     end
-    (;prepare,operation=work,verify=(state,result)->result)
+    verify=(state,result)->begin
+        result && validate_solution(state.p,state.routes).valid || return false
+        operation=="request_selection" || return true
+        oracle_rng=Xoshiro(41);checksum=0
+        for _ in 1:repetitions;ids=randperm(oracle_rng,50)[1:2];checksum+=ids[1]+ids[2];end
+        checksum==state.selection_checksum[] && rand(oracle_rng,UInt64)==rand(state.selection_rng,UInt64)
+    end
+    (;prepare,operation=work,verify)
 end
 
 function routing_solver_case(parameters)

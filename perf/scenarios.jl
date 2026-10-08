@@ -55,6 +55,50 @@ function kernel_case(parameters)
     (;prepare,operation=work,verify)
 end
 
+"Owned classical scoring callbacks; original validators check every prepared input."
+function classical_scoring_case(parameters)
+    isdefined(@__MODULE__,:HexalyReproduction) || Base.include(@__MODULE__,joinpath(@__DIR__,"../Hexaly/src/Reproduction.jl"))
+    if !isdefined(@__MODULE__,:ClassicalScoringFixtures)
+        fixtures_module=Module(:ClassicalScoringFixtures)
+        reproduction=Base.invokelatest(getfield,@__MODULE__,:HexalyReproduction)
+        problems=Base.invokelatest(getfield,reproduction,:ReproductionProblems)
+        Core.eval(fixtures_module,:(const ReproductionProblems=$problems))
+        Base.include(fixtures_module,joinpath(@__DIR__,"../Hexaly/test/fixtures.jl"))
+        Core.eval(@__MODULE__,:(const ClassicalScoringFixtures=$fixtures_module))
+    end
+    Base.invokelatest(_classical_scoring_case,parameters)
+end
+function _classical_scoring_case(parameters)
+    S=HexalyReproduction.ReproductionScoring;P=HexalyReproduction.ReproductionProblems
+    family=Symbol(parameters["family"]);kind=Symbol(parameters["backend"])
+    repetitions=parameters["repetitions"]
+    # The bank may define new Julia methods. Create it before the runtime enters
+    # the lifecycle; each prepare still creates private scoring buffers.
+    Base.invokelatest(S.prepare_backend,kind)
+    prepare=()->begin
+        p=ClassicalScoringFixtures.fixtures()[family];ds=P.domains(p)
+        inputs=(P.initial(p),[first(d) for d in ds],[last(d) for d in ds])
+        backend=S.prepare_backend(kind)
+        expected=Tuple(begin
+            e=Base.invokelatest(S.error_value,backend,p,x)
+            iszero(e)==P.validate(p,x).valid || error("scoring zero set differs from original problem")
+            e
+        end for x in inputs)
+        (;p,backend,inputs,expected)
+    end
+    work=s->_classical_scoring_operation(s,repetitions)
+    verify=(s,result)->isapprox(result,repetitions*sum(s.expected);atol=1e-8) &&
+        all(i->iszero(s.expected[i])==P.validate(s.p,s.inputs[i]).valid,eachindex(s.inputs))
+    (;prepare,operation=work,verify)
+end
+function _classical_scoring_operation(state,repetitions)
+    checksum=0.
+    for _ in 1:repetitions,x in state.inputs
+        checksum+=HexalyReproduction.ReproductionScoring.error_value(state.backend,state.p,x)
+    end
+    checksum
+end
+
 "Real CBLS or typed MetaStrategist execution; fixed steps and fresh owned state per observation."
 function solver_case(parameters)
     isdefined(@__MODULE__,:HexalyReproduction) || Base.include(@__MODULE__,joinpath(@__DIR__,"../Hexaly/src/Reproduction.jl"))

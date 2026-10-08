@@ -19,7 +19,46 @@ const STALE_WORLD_RUNNER = Task(() -> begin
 end)
 const BANKS = Dict(kind=>ICNScoring.load_backend(kind) for kind in (:naive,:icn,:direct))
 
+function qualify_fused_buffers()
+    @testset "Fused buffers retain capacity for fleet-violating layouts" begin
+        requests = 64
+        n = 2requests + 1
+        pairs = [(2i, 2i + 1) for i in 1:requests]
+        demand = [0; repeat([1, -1], requests)]
+        data = PickupDeliveryProblem(1, 1, zeros(n, 2), demand,
+            zeros(n), fill(100., n), zeros(n), pairs)
+        instance = BenchmarkInstance("fused-buffer-growth", data)
+        distances = zeros(n, n)
+        singleton_values = ones(Int, n - 1)
+        paired_values = copy(singleton_values)
+        for (pickup, delivery) in pairs
+            paired_values[pickup - 1] = delivery
+        end
+        function allocations(backend, values)
+            ICNScoring.score(backend, instance, distances, values)
+            return @allocated ICNScoring.score(backend, instance, distances, values)
+        end
+        for kind in (:icn_fused_scalar, :icn_fused_all)
+            backend = ICNScoring.clone_backend(BANKS[:icn], kind)
+            for values in (singleton_values, paired_values, singleton_values)
+                expected = ICNScoring.score(BANKS[:direct], instance, distances, values)
+                @test expected.error > 0
+                @test ICNScoring.score(backend, instance, distances, values) == expected
+                allocations(backend, values)
+                for _ in 1:4
+                    @test allocations(backend, values) == 0
+                    @test ICNScoring.score(backend, instance, distances, values) == expected
+                end
+            end
+            clone = ICNScoring.clone_backend(backend)
+            @test clone.scalar === backend.scalar
+            @test clone.workspace.error_terms !== backend.workspace.error_terms
+        end
+    end
+end
+
 function qualify()
+    qualify_fused_buffers()
     @testset "Recovered ICN route zero sets and magnitude" begin
         b = BANKS[:icn]
         fused_scalar = ICNScoring.clone_backend(b,:icn_fused_scalar)

@@ -17,7 +17,7 @@ historical_hybrid_assertions = 1483
 historical_test_scope = "ICN/hybrid checks passed after workspace changes; final comparator-only changes are covered by the 4416 final routing assertions"
 instance_comparison_limit = "Independent time-capped observations can complete different work; cumulative byte reductions per budget are not per-operation speedups"
 julia = "1.13.1"
-latest_source_sha256 = "aa9bd1ff6de09cc8f45a454e456d214b5a7a9290f60aa1828eee61a780d4ba2b"
+latest_source_sha256 = "2e4f914c9b06d8ec49bce5878b6249f8e1a1f4a2c02527b629b7ec1a9bd9b5f6"
 operation_budget_cap_seconds = 30.0
 original_instance_progress_limit = "LC101 observations alone do not qualify useful improvement, BKS or solver ranking; accepted original-variable MetaMoves are recorded explicitly"
 owned_workspace_assertions = 206
@@ -5336,6 +5336,1283 @@ timing_scope = "Operational fixed-work measurements with concurrent chats on dis
         realloc = 0
         recompile_time = 0.0
 
+[night_classical_resource_workspace]
+assertions = 10459
+limitations = ["384 callback calls per case; setup, bank generation and independent original verification excluded.", "Timings are operational with concurrent chats on disjoint cores; no controlled speedup claim.", "Fresh machine maps preserve historical Dict order; only task vectors are currently reused.", "Native HiGHS/JuMP allocation and licensed external solver performance are not measured by these callbacks.", "SnoopCompile lifecycle diagnostics exclude decoder generation during the scenario factory; factory inference requires its own observation."]
+new_assertions = 6514
+qualification = "10459 classical assertions including 6514 new ordered-score/ownership/wide-integer/mutable-data regressions; 18 native fixed-work callback oracles passed"
+scope = "Lane-owned event, alternative-assignment, machine-task and maintenance resource buffers with concrete numerical function barriers; original ordered quantitative scores preserved"
+source_sha256 = "bb585cbf898c28e8da32997b41498e2699f40aaee6613ed2d148cc5f080fc8c4"
+test_sha256 = "94cef64137f3a08f1d220ade7f854403cd1acacbeae96f5edeec2547d7498e36"
+
+    [night_classical_resource_workspace.after]
+    date_utc = "2026-10-08T20:53:05.265"
+    manifest_sha256 = "4c8afd2e7e8a411e7df7d232d030d58d6d5eb2381fb1c50c05db4bf5b5961d27"
+    resource_scope = "CPUs 8,10; Julia=2,GC=1,BLAS=1"
+    scenario_sha256 = "a93cdc8b9190e1cef0075f19e49ffcd843945256cce6820af6a2aea532e6c4f3"
+    schema = "classical-scoring-diagnostics/1"
+    scope = "384 calls on three fixed domain-respecting inputs through a static callback wrapper; bank/backend/workspace preparation and original verification excluded; generated decoder compiled during scenario factory"
+    source_sha256 = "bb585cbf898c28e8da32997b41498e2699f40aaee6613ed2d148cc5f080fc8c4"
+
+        [[night_classical_resource_workspace.after.records]]
+        backend = "direct"
+        bytes = 30736
+        correctness = "passed"
+        family = "rcpsp"
+        gc_seconds = 0.0
+        native_total_allocations = 768
+        native_total_bytes = 30720
+        objects = 769
+        seconds = 6.9017e-5
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 227
+            sampled_bytes = 30720
+            sampled_events = 768
+        [[night_classical_resource_workspace.after.records]]
+        backend = "icn_fused"
+        bytes = 30736
+        correctness = "passed"
+        family = "rcpsp"
+        gc_seconds = 0.0
+        native_total_allocations = 768
+        native_total_bytes = 30720
+        objects = 769
+        seconds = 6.0207e-5
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 227
+            sampled_bytes = 30720
+            sampled_events = 768
+        [[night_classical_resource_workspace.after.records]]
+        backend = "direct"
+        bytes = 215056
+        correctness = "passed"
+        family = "jssp"
+        gc_seconds = 0.0
+        native_total_allocations = 2688
+        native_total_bytes = 215040
+        objects = 2689
+        seconds = 9.7754e-5
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "machine_terms!"
+            line = 135
+            sampled_bytes = 122880
+            sampled_events = 1152
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "machine_terms!"
+            line = 128
+            sampled_bytes = 30720
+            sampled_events = 384
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 227
+            sampled_bytes = 30720
+            sampled_events = 768
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 232
+            sampled_bytes = 6144
+            sampled_events = 384
+        [[night_classical_resource_workspace.after.records]]
+        backend = "icn_fused"
+        bytes = 215056
+        correctness = "passed"
+        family = "jssp"
+        gc_seconds = 0.0
+        native_total_allocations = 2688
+        native_total_bytes = 215040
+        objects = 2689
+        seconds = 7.9176e-5
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "machine_terms!"
+            line = 135
+            sampled_bytes = 122880
+            sampled_events = 1152
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "machine_terms!"
+            line = 128
+            sampled_bytes = 30720
+            sampled_events = 384
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 227
+            sampled_bytes = 30720
+            sampled_events = 768
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 232
+            sampled_bytes = 6144
+            sampled_events = 384
+        [[night_classical_resource_workspace.after.records]]
+        backend = "direct"
+        bytes = 215056
+        correctness = "passed"
+        family = "fjsp"
+        gc_seconds = 0.0
+        native_total_allocations = 2688
+        native_total_bytes = 215040
+        objects = 2689
+        seconds = 8.2659e-5
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "machine_terms!"
+            line = 135
+            sampled_bytes = 122880
+            sampled_events = 1152
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "machine_terms!"
+            line = 128
+            sampled_bytes = 30720
+            sampled_events = 384
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 227
+            sampled_bytes = 30720
+            sampled_events = 768
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 208
+            sampled_bytes = 12288
+            sampled_events = 384
+        [[night_classical_resource_workspace.after.records]]
+        backend = "icn_fused"
+        bytes = 215056
+        correctness = "passed"
+        family = "fjsp"
+        gc_seconds = 0.0
+        native_total_allocations = 2688
+        native_total_bytes = 215040
+        objects = 2689
+        seconds = 7.5001e-5
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "machine_terms!"
+            line = 135
+            sampled_bytes = 122880
+            sampled_events = 1152
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "machine_terms!"
+            line = 128
+            sampled_bytes = 30720
+            sampled_events = 384
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 227
+            sampled_bytes = 30720
+            sampled_events = 768
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 208
+            sampled_bytes = 12288
+            sampled_events = 384
+        [[night_classical_resource_workspace.after.records]]
+        backend = "direct"
+        bytes = 49168
+        correctness = "passed"
+        family = "maintenance"
+        gc_seconds = 0.0
+        native_total_allocations = 1536
+        native_total_bytes = 49152
+        objects = 1537
+        seconds = 0.000234529
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "maintenance_terms!"
+            line = 181
+            sampled_bytes = 30720
+            sampled_events = 1152
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 245
+            sampled_bytes = 6144
+            sampled_events = 384
+        [[night_classical_resource_workspace.after.records]]
+        backend = "icn_fused"
+        bytes = 49168
+        correctness = "passed"
+        family = "maintenance"
+        gc_seconds = 0.0
+        native_total_allocations = 1536
+        native_total_bytes = 49152
+        objects = 1537
+        seconds = 0.000237537
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "maintenance_terms!"
+            line = 181
+            sampled_bytes = 30720
+            sampled_events = 1152
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 245
+            sampled_bytes = 6144
+            sampled_events = 384
+        [[night_classical_resource_workspace.after.records]]
+        backend = "direct"
+        bytes = 122896
+        correctness = "passed"
+        family = "cvrp"
+        gc_seconds = 0.0
+        native_total_allocations = 6528
+        native_total_bytes = 122880
+        objects = 6529
+        seconds = 0.000152191
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "residuals!"
+            line = 186
+            sampled_bytes = 32768
+            sampled_events = 2048
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 201
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 197
+            sampled_bytes = 24576
+            sampled_events = 768
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 210
+            sampled_bytes = 16384
+            sampled_events = 1024
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 202
+            sampled_bytes = 12288
+            sampled_events = 768
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 214
+            sampled_bytes = 12288
+            sampled_events = 384
+        [[night_classical_resource_workspace.after.records]]
+        backend = "icn_fused"
+        bytes = 122896
+        correctness = "passed"
+        family = "cvrp"
+        gc_seconds = 0.0
+        native_total_allocations = 6528
+        native_total_bytes = 122880
+        objects = 6529
+        seconds = 0.000153436
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "residuals!"
+            line = 186
+            sampled_bytes = 32768
+            sampled_events = 2048
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 201
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 197
+            sampled_bytes = 24576
+            sampled_events = 768
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 210
+            sampled_bytes = 16384
+            sampled_events = 1024
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 202
+            sampled_bytes = 12288
+            sampled_events = 768
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 214
+            sampled_bytes = 12288
+            sampled_events = 384
+        [[night_classical_resource_workspace.after.records]]
+        backend = "direct"
+        bytes = 221200
+        correctness = "passed"
+        family = "cvrptw"
+        gc_seconds = 0.0
+        native_total_allocations = 12672
+        native_total_bytes = 221184
+        objects = 12673
+        seconds = 0.000312073
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 205
+            sampled_bytes = 49152
+            sampled_events = 3072
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 213
+            sampled_bytes = 36864
+            sampled_events = 2304
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 201
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 204
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "residuals!"
+            line = 186
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 197
+            sampled_bytes = 24576
+            sampled_events = 768
+        [[night_classical_resource_workspace.after.records]]
+        backend = "icn_fused"
+        bytes = 221200
+        correctness = "passed"
+        family = "cvrptw"
+        gc_seconds = 0.0
+        native_total_allocations = 12672
+        native_total_bytes = 221184
+        objects = 12673
+        seconds = 0.00029148
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 205
+            sampled_bytes = 49152
+            sampled_events = 3072
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 213
+            sampled_bytes = 36864
+            sampled_events = 2304
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 201
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 204
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "residuals!"
+            line = 186
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 197
+            sampled_bytes = 24576
+            sampled_events = 768
+        [[night_classical_resource_workspace.after.records]]
+        backend = "direct"
+        bytes = 6160
+        correctness = "passed"
+        family = "bpp"
+        gc_seconds = 0.0
+        native_total_allocations = 384
+        native_total_bytes = 6144
+        objects = 385
+        seconds = 2.4004e-5
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 220
+            sampled_bytes = 6144
+            sampled_events = 384
+        [[night_classical_resource_workspace.after.records]]
+        backend = "icn_fused"
+        bytes = 6160
+        correctness = "passed"
+        family = "bpp"
+        gc_seconds = 0.0
+        native_total_allocations = 384
+        native_total_bytes = 6144
+        objects = 385
+        seconds = 2.4421e-5
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 220
+            sampled_bytes = 6144
+            sampled_events = 384
+        [[night_classical_resource_workspace.after.records]]
+        backend = "direct"
+        bytes = 43024
+        correctness = "passed"
+        family = "salbp"
+        gc_seconds = 0.0
+        native_total_allocations = 1536
+        native_total_bytes = 43008
+        objects = 1537
+        seconds = 7.2558e-5
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 223
+            sampled_bytes = 43008
+            sampled_events = 1536
+        [[night_classical_resource_workspace.after.records]]
+        backend = "icn_fused"
+        bytes = 43024
+        correctness = "passed"
+        family = "salbp"
+        gc_seconds = 0.0
+        native_total_allocations = 1536
+        native_total_bytes = 43008
+        objects = 1537
+        seconds = 7.2934e-5
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 223
+            sampled_bytes = 43008
+            sampled_events = 1536
+        [[night_classical_resource_workspace.after.records]]
+        backend = "direct"
+        bytes = 6160
+        correctness = "passed"
+        family = "aircraft_landing"
+        gc_seconds = 0.0
+        native_total_allocations = 384
+        native_total_bytes = 6144
+        objects = 385
+        seconds = 4.3596e-5
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 237
+            sampled_bytes = 6144
+            sampled_events = 384
+        [[night_classical_resource_workspace.after.records]]
+        backend = "icn_fused"
+        bytes = 6160
+        correctness = "passed"
+        family = "aircraft_landing"
+        gc_seconds = 0.0
+        native_total_allocations = 384
+        native_total_bytes = 6144
+        objects = 385
+        seconds = 4.4673e-5
+
+            [[night_classical_resource_workspace.after.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#12"
+            line = 237
+            sampled_bytes = 6144
+            sampled_events = 384
+
+    [night_classical_resource_workspace.before]
+    date_utc = "2026-10-08T20:43:14.528"
+    manifest_sha256 = "4c8afd2e7e8a411e7df7d232d030d58d6d5eb2381fb1c50c05db4bf5b5961d27"
+    resource_scope = "CPUs 8,10; Julia=2,GC=1,BLAS=1"
+    scenario_sha256 = "a93cdc8b9190e1cef0075f19e49ffcd843945256cce6820af6a2aea532e6c4f3"
+    schema = "classical-scoring-diagnostics/1"
+    scope = "384 calls on three fixed domain-respecting inputs through a static callback wrapper; bank/backend/workspace preparation and original verification excluded; generated decoder compiled during scenario factory"
+    source_sha256 = "24476c549b0b6560d1d5f761776c25a701811f234f5b5b9481f8a24d82b257b0"
+
+        [[night_classical_resource_workspace.before.records]]
+        backend = "direct"
+        bytes = 872576
+        correctness = "passed"
+        family = "rcpsp"
+        gc_seconds = 0.0
+        native_total_allocations = 20608
+        native_total_bytes = 870400
+        objects = 20654
+        seconds = 0.000920884
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 144
+            sampled_bytes = 394240
+            sampled_events = 10240
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 142
+            sampled_bytes = 276480
+            sampled_events = 5376
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 139
+            sampled_bytes = 49152
+            sampled_events = 1920
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 137
+            sampled_bytes = 30720
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 143
+            sampled_bytes = 30720
+            sampled_events = 1536
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 145
+            sampled_bytes = 24576
+            sampled_events = 768
+        [[night_classical_resource_workspace.before.records]]
+        backend = "icn_fused"
+        bytes = 870848
+        correctness = "passed"
+        family = "rcpsp"
+        gc_seconds = 0.0
+        native_total_allocations = 20608
+        native_total_bytes = 870400
+        objects = 20617
+        seconds = 0.000953009
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 144
+            sampled_bytes = 394240
+            sampled_events = 10240
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 142
+            sampled_bytes = 276480
+            sampled_events = 5376
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 139
+            sampled_bytes = 49152
+            sampled_events = 1920
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 137
+            sampled_bytes = 30720
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 143
+            sampled_bytes = 30720
+            sampled_events = 1536
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 145
+            sampled_bytes = 24576
+            sampled_events = 768
+        [[night_classical_resource_workspace.before.records]]
+        backend = "direct"
+        bytes = 381376
+        correctness = "passed"
+        family = "jssp"
+        gc_seconds = 0.0
+        native_total_allocations = 8064
+        native_total_bytes = 380928
+        objects = 8073
+        seconds = 0.000393505
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 149
+            sampled_bytes = 199680
+            sampled_events = 3456
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 139
+            sampled_bytes = 49152
+            sampled_events = 1920
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 151
+            sampled_bytes = 33792
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 137
+            sampled_bytes = 30720
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 148
+            sampled_bytes = 30720
+            sampled_events = 384
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 152
+            sampled_bytes = 12288
+            sampled_events = 768
+        [[night_classical_resource_workspace.before.records]]
+        backend = "icn_fused"
+        bytes = 381376
+        correctness = "passed"
+        family = "jssp"
+        gc_seconds = 0.0
+        native_total_allocations = 8064
+        native_total_bytes = 380928
+        objects = 8073
+        seconds = 0.000441066
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 149
+            sampled_bytes = 199680
+            sampled_events = 3456
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 139
+            sampled_bytes = 49152
+            sampled_events = 1920
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 151
+            sampled_bytes = 33792
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 137
+            sampled_bytes = 30720
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 148
+            sampled_bytes = 30720
+            sampled_events = 384
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 152
+            sampled_bytes = 12288
+            sampled_events = 768
+        [[night_classical_resource_workspace.before.records]]
+        backend = "direct"
+        bytes = 620992
+        correctness = "passed"
+        family = "fjsp"
+        gc_seconds = 0.0
+        native_total_allocations = 14976
+        native_total_bytes = 620544
+        objects = 14985
+        seconds = 0.000930044
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 149
+            sampled_bytes = 199680
+            sampled_events = 3456
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 138
+            sampled_bytes = 89088
+            sampled_events = 2688
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 147
+            sampled_bytes = 89088
+            sampled_events = 2688
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 139
+            sampled_bytes = 49152
+            sampled_events = 1920
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 140
+            sampled_bytes = 43008
+            sampled_events = 1536
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 151
+            sampled_bytes = 33792
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 137
+            sampled_bytes = 30720
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 148
+            sampled_bytes = 30720
+            sampled_events = 384
+        [[night_classical_resource_workspace.before.records]]
+        backend = "icn_fused"
+        bytes = 620992
+        correctness = "passed"
+        family = "fjsp"
+        gc_seconds = 0.0
+        native_total_allocations = 14976
+        native_total_bytes = 620544
+        objects = 14985
+        seconds = 0.000850537
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 149
+            sampled_bytes = 199680
+            sampled_events = 3456
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 138
+            sampled_bytes = 89088
+            sampled_events = 2688
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 147
+            sampled_bytes = 89088
+            sampled_events = 2688
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 139
+            sampled_bytes = 49152
+            sampled_events = 1920
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 140
+            sampled_bytes = 43008
+            sampled_events = 1536
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 151
+            sampled_bytes = 33792
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 137
+            sampled_bytes = 30720
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 148
+            sampled_bytes = 30720
+            sampled_events = 384
+        [[night_classical_resource_workspace.before.records]]
+        backend = "direct"
+        bytes = 571840
+        correctness = "passed"
+        family = "maintenance"
+        gc_seconds = 0.0
+        native_total_allocations = 22272
+        native_total_bytes = 571392
+        objects = 22281
+        seconds = 0.001057308
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 168
+            sampled_bytes = 172032
+            sampled_events = 6144
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 171
+            sampled_bytes = 147456
+            sampled_events = 9216
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 170
+            sampled_bytes = 73728
+            sampled_events = 2304
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 174
+            sampled_bytes = 30720
+            sampled_events = 1152
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 173
+            sampled_bytes = 30720
+            sampled_events = 1536
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 165
+            sampled_bytes = 30720
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 167
+            sampled_bytes = 12288
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 172
+            sampled_bytes = 12288
+            sampled_events = 384
+        [[night_classical_resource_workspace.before.records]]
+        backend = "icn_fused"
+        bytes = 571840
+        correctness = "passed"
+        family = "maintenance"
+        gc_seconds = 0.0
+        native_total_allocations = 22272
+        native_total_bytes = 571392
+        objects = 22281
+        seconds = 0.000997357
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 168
+            sampled_bytes = 172032
+            sampled_events = 6144
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 171
+            sampled_bytes = 147456
+            sampled_events = 9216
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 170
+            sampled_bytes = 73728
+            sampled_events = 2304
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 174
+            sampled_bytes = 30720
+            sampled_events = 1152
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 173
+            sampled_bytes = 30720
+            sampled_events = 1536
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 165
+            sampled_bytes = 30720
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 167
+            sampled_bytes = 12288
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 172
+            sampled_bytes = 12288
+            sampled_events = 384
+        [[night_classical_resource_workspace.before.records]]
+        backend = "direct"
+        bytes = 123328
+        correctness = "passed"
+        family = "cvrp"
+        gc_seconds = 0.0
+        native_total_allocations = 6528
+        native_total_bytes = 122880
+        objects = 6537
+        seconds = 0.00018492
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "residuals!"
+            line = 96
+            sampled_bytes = 32768
+            sampled_events = 2048
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 111
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 107
+            sampled_bytes = 24576
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 120
+            sampled_bytes = 16384
+            sampled_events = 1024
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 112
+            sampled_bytes = 12288
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 124
+            sampled_bytes = 12288
+            sampled_events = 384
+        [[night_classical_resource_workspace.before.records]]
+        backend = "icn_fused"
+        bytes = 123328
+        correctness = "passed"
+        family = "cvrp"
+        gc_seconds = 0.0
+        native_total_allocations = 6528
+        native_total_bytes = 122880
+        objects = 6537
+        seconds = 0.000182312
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "residuals!"
+            line = 96
+            sampled_bytes = 32768
+            sampled_events = 2048
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 111
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 107
+            sampled_bytes = 24576
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 120
+            sampled_bytes = 16384
+            sampled_events = 1024
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 112
+            sampled_bytes = 12288
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 124
+            sampled_bytes = 12288
+            sampled_events = 384
+        [[night_classical_resource_workspace.before.records]]
+        backend = "direct"
+        bytes = 221632
+        correctness = "passed"
+        family = "cvrptw"
+        gc_seconds = 0.0
+        native_total_allocations = 12672
+        native_total_bytes = 221184
+        objects = 12681
+        seconds = 0.000357913
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 115
+            sampled_bytes = 49152
+            sampled_events = 3072
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 123
+            sampled_bytes = 36864
+            sampled_events = 2304
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 111
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 107
+            sampled_bytes = 24576
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 114
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "residuals!"
+            line = 96
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 120
+            sampled_bytes = 12288
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 124
+            sampled_bytes = 12288
+            sampled_events = 384
+        [[night_classical_resource_workspace.before.records]]
+        backend = "icn_fused"
+        bytes = 221632
+        correctness = "passed"
+        family = "cvrptw"
+        gc_seconds = 0.0
+        native_total_allocations = 12672
+        native_total_bytes = 221184
+        objects = 12681
+        seconds = 0.000308419
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 115
+            sampled_bytes = 49152
+            sampled_events = 3072
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 123
+            sampled_bytes = 36864
+            sampled_events = 2304
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 111
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 107
+            sampled_bytes = 24576
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 114
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "residuals!"
+            line = 96
+            sampled_bytes = 24576
+            sampled_events = 1536
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 120
+            sampled_bytes = 12288
+            sampled_events = 768
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 124
+            sampled_bytes = 12288
+            sampled_events = 384
+        [[night_classical_resource_workspace.before.records]]
+        backend = "direct"
+        bytes = 6592
+        correctness = "passed"
+        family = "bpp"
+        gc_seconds = 0.0
+        native_total_allocations = 384
+        native_total_bytes = 6144
+        objects = 393
+        seconds = 2.7508e-5
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 130
+            sampled_bytes = 6144
+            sampled_events = 384
+        [[night_classical_resource_workspace.before.records]]
+        backend = "icn_fused"
+        bytes = 6592
+        correctness = "passed"
+        family = "bpp"
+        gc_seconds = 0.0
+        native_total_allocations = 384
+        native_total_bytes = 6144
+        objects = 393
+        seconds = 3.1933e-5
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 130
+            sampled_bytes = 6144
+            sampled_events = 384
+        [[night_classical_resource_workspace.before.records]]
+        backend = "direct"
+        bytes = 43456
+        correctness = "passed"
+        family = "salbp"
+        gc_seconds = 0.0
+        native_total_allocations = 1536
+        native_total_bytes = 43008
+        objects = 1545
+        seconds = 7.7686e-5
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 133
+            sampled_bytes = 43008
+            sampled_events = 1536
+        [[night_classical_resource_workspace.before.records]]
+        backend = "icn_fused"
+        bytes = 43456
+        correctness = "passed"
+        family = "salbp"
+        gc_seconds = 0.0
+        native_total_allocations = 1536
+        native_total_bytes = 43008
+        objects = 1545
+        seconds = 7.6892e-5
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 133
+            sampled_bytes = 43008
+            sampled_events = 1536
+        [[night_classical_resource_workspace.before.records]]
+        backend = "direct"
+        bytes = 6592
+        correctness = "passed"
+        family = "aircraft_landing"
+        gc_seconds = 0.0
+        native_total_allocations = 384
+        native_total_bytes = 6144
+        objects = 393
+        seconds = 5.0667e-5
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 157
+            sampled_bytes = 6144
+            sampled_events = 384
+        [[night_classical_resource_workspace.before.records]]
+        backend = "icn_fused"
+        bytes = 6592
+        correctness = "passed"
+        family = "aircraft_landing"
+        gc_seconds = 0.0
+        native_total_allocations = 384
+        native_total_bytes = 6144
+        objects = 393
+        seconds = 5.1114e-5
+
+            [[night_classical_resource_workspace.before.records.allocation_frames]]
+            file = "Hexaly/src/Scoring.jl"
+            function = "#residuals!#6"
+            line = 157
+            sampled_bytes = 6144
+            sampled_events = 384
+
 [night_exchange_prefilter]
 before_source_sha256 = "0309ae2d48013c6326bededcb891a6214dc231ab718b8ce4feb59d448bf44a7c"
 factory_sha256 = "cb310cd109539d0f1043267d642614c37aae9143e70870cefe4f6865a0263da8"
@@ -6141,6 +7418,2424 @@ structured_routing_assertions = 5381
             tabu_hits = 0
             thread_cpu_seconds = 29.52237368900012
             unchanged_proposals = 64978
+
+[night_integrated_owned_oracles]
+hybrid_assertions = 1483
+icn_resource_assertions = 30322
+limitations = ["Each production validation still runs all original checks and preserves independent returned diagnostics.", "Request selection preserves full randperm values and the subsequent RNG state; only temporary storage is reused.", "Insertion-options kernel now prepares wrapper views outside measurement. This diagnostic scope correction is not a production improvement.", "Classical scoring diagnostic scenarios are being added separately; no optimized classical scoring source is included in this stage."]
+qualification = "All 52 fixed-work native original-model oracles, 14 kernel oracles, 7128 routing assertions, 30322 ICN/resource assertions and 1483 hybrid assertions passed"
+resource_scope = "CPUs 8,10; Julia=2,GC=1,BLAS=1,native HiGHS=1"
+scope = "Published core and original-validator package increments integrated with lane-owned validation/request workspaces and the fused error-term capacity fix"
+structured_routing_assertions = 7128
+timing_scope = "Operational measurements on disjoint cores with concurrent chats; not controlled speedup or solver-quality evidence"
+
+    [[night_integrated_owned_oracles.additional_original_instance_diagnostics]]
+    ICNScoring_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+    MetaRepair_sha256 = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    collector = "PerfChecker SharedScenarioRuntime + direct @timed allocation/GC totals"
+    collector_scope = "Same-observation process byte/object/GC totals; no native allocation stacks"
+    config_sha256 = "526e5283ce541dcf4b04424024fd6826418f2d63096f9614dfa10f188d00f2d1"
+    date_utc = "2026-10-08T20:37:08.075"
+    factory_sha256 = "30f5e0b0aea9524dc8cfcc361409a0e4559fcbd3604c7e0b54cfa82456d894d1"
+    fixture = "Original Li-Lim instance; bounded pipeline diagnostics, not a comparative campaign"
+    instance_name = "lr101.txt"
+    instance_sha256 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    julia = "1.13.1"
+    operation_budget_cap_seconds = 30.0
+    oracle = "Original Li-Lim validator and actual configured error backend"
+    runtime_sha256 = "6f3e6aaa5dddb2be0b53361b7f354b608710224d51bb68d4dc3b541a2e8657eb"
+    sample_scope = "Top frames contain raw sampled bytes/events, not exact allocation percentages"
+    schema = "routing-sampled-perfcheck/1"
+    solver_manifest_sha256 = "4c8afd2e7e8a411e7df7d232d030d58d6d5eb2381fb1c50c05db4bf5b5961d27"
+    solver_project_sha256 = "0c6862332b9043a2476844b05a17d2f884714d6261aa50b892940395c05dccb2"
+    source_sha256 = "2e4f914c9b06d8ec49bce5878b6249f8e1a1f4a2c02527b629b7ec1a9bd9b5f6"
+    timing_qualification = "No timing/scaling conclusions; other chats may be active"
+    workers = 2
+
+        [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 1218004808
+        category = "search"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.000720895
+        method = "rp_vnd_greedy"
+        objects = 20645824
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.228694243
+        operational_mean_active_cpus = 1.9653967017725704
+        process_cpu_seconds = 58.969481261999995
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.078164176
+        search_wall_seconds = 30.003856834
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 27
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 986491
+            summary_evaluations = 460498264
+            tabu_hits = 0
+            thread_cpu_seconds = 29.235498439000004
+            unchanged_proposals = 328712
+            [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 23
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 987815
+            summary_evaluations = 461020106
+            tabu_hits = 0
+            thread_cpu_seconds = 29.249166639
+            unchanged_proposals = 329150
+        [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 837179280
+        category = "meta"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.000748014
+        method = "rp_meta_adaptive_late"
+        objects = 14330195
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.226808347
+        operational_mean_active_cpus = 1.9736320414209514
+        process_cpu_seconds = 59.215209288
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.059590607
+        search_wall_seconds = 30.00316576
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 29
+            completed_resets = 0
+            ejection_attempts = 333332
+            steps = 499830
+            summary_evaluations = 500459245
+            tabu_hits = 0
+            thread_cpu_seconds = 29.364433206
+            unchanged_proposals = 176734
+            [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 56
+            completed_resets = 0
+            ejection_attempts = 505891
+            steps = 196469
+            summary_evaluations = 530577837
+            tabu_hits = 0
+            thread_cpu_seconds = 29.353060470999978
+            unchanged_proposals = 76905
+        [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 477633232
+        category = "meta"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.000771219
+        method = "rp_meta_pool_ipx_late"
+        objects = 12030327
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.218493389
+        operational_mean_active_cpus = 1.937569093577374
+        process_cpu_seconds = 58.133781774
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.044596532
+        search_wall_seconds = 30.003462569
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 29
+            completed_resets = 0
+            ejection_attempts = 351664
+            steps = 838458
+            summary_evaluations = 375592070
+            tabu_hits = 0
+            thread_cpu_seconds = 28.782360808999933
+            unchanged_proposals = 823867
+            [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 56
+            completed_resets = 0
+            ejection_attempts = 333664
+            steps = 862219
+            summary_evaluations = 366792909
+            tabu_hits = 0
+            thread_cpu_seconds = 28.746705599000066
+            unchanged_proposals = 848087
+    [[night_integrated_owned_oracles.additional_original_instance_diagnostics]]
+    ICNScoring_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+    MetaRepair_sha256 = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    collector = "PerfChecker SharedScenarioRuntime + direct @timed allocation/GC totals"
+    collector_scope = "Same-observation process byte/object/GC totals; no native allocation stacks"
+    config_sha256 = "526e5283ce541dcf4b04424024fd6826418f2d63096f9614dfa10f188d00f2d1"
+    date_utc = "2026-10-08T20:49:36.003"
+    factory_sha256 = "30f5e0b0aea9524dc8cfcc361409a0e4559fcbd3604c7e0b54cfa82456d894d1"
+    fixture = "Original Li-Lim instance; bounded pipeline diagnostics, not a comparative campaign"
+    instance_name = "lrc101.txt"
+    instance_sha256 = "46770739f28b0cba6aa8fee8fc347b9f5923d6257df9b0e2348ac2232b21b97c"
+    julia = "1.13.1"
+    operation_budget_cap_seconds = 30.0
+    oracle = "Original Li-Lim validator and actual configured error backend"
+    runtime_sha256 = "6f3e6aaa5dddb2be0b53361b7f354b608710224d51bb68d4dc3b541a2e8657eb"
+    sample_scope = "Top frames contain raw sampled bytes/events, not exact allocation percentages"
+    schema = "routing-sampled-perfcheck/1"
+    solver_manifest_sha256 = "4c8afd2e7e8a411e7df7d232d030d58d6d5eb2381fb1c50c05db4bf5b5961d27"
+    solver_project_sha256 = "0c6862332b9043a2476844b05a17d2f884714d6261aa50b892940395c05dccb2"
+    source_sha256 = "2e4f914c9b06d8ec49bce5878b6249f8e1a1f4a2c02527b629b7ec1a9bd9b5f6"
+    timing_qualification = "No timing/scaling conclusions; other chats may be active"
+    workers = 2
+
+        [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 1210498912
+        category = "search"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.000876619
+        method = "rp_vnd_greedy"
+        objects = 22310135
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.258389695
+        operational_mean_active_cpus = 1.973707013358501
+        process_cpu_seconds = 59.21763670000001
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.083072733
+        search_wall_seconds = 30.003255954
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 18
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 895438
+            summary_evaluations = 465828093
+            tabu_hits = 0
+            thread_cpu_seconds = 29.37920299399999
+            unchanged_proposals = 296649
+            [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 20
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 897848
+            summary_evaluations = 466993821
+            tabu_hits = 0
+            thread_cpu_seconds = 29.354089860999995
+            unchanged_proposals = 297439
+        [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 820508888
+        category = "meta"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.0014667
+        method = "rp_meta_adaptive_late"
+        objects = 14714505
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.269094422
+        operational_mean_active_cpus = 1.9659999310710705
+        process_cpu_seconds = 58.98616168400001
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.061882324
+        search_wall_seconds = 30.003135174
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 92
+            completed_resets = 0
+            ejection_attempts = 273614
+            steps = 355859
+            summary_evaluations = 537243263
+            tabu_hits = 0
+            thread_cpu_seconds = 29.23178652900004
+            unchanged_proposals = 123341
+            [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 108
+            completed_resets = 0
+            ejection_attempts = 484165
+            steps = 196562
+            summary_evaluations = 551032733
+            tabu_hits = 0
+            thread_cpu_seconds = 29.27060195699997
+            unchanged_proposals = 71837
+        [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 540961000
+        category = "meta"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.000805122
+        method = "rp_meta_pool_ipx_late"
+        objects = 13449657
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.261163202
+        operational_mean_active_cpus = 1.9572795641649856
+        process_cpu_seconds = 58.72524012600002
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.050243439
+        search_wall_seconds = 30.003501391
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 55
+            completed_resets = 0
+            ejection_attempts = 292530
+            steps = 1010933
+            summary_evaluations = 382092521
+            tabu_hits = 0
+            thread_cpu_seconds = 28.986190767000075
+            unchanged_proposals = 998582
+            [[night_integrated_owned_oracles.additional_original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 130
+            completed_resets = 0
+            ejection_attempts = 305673
+            steps = 1004121
+            summary_evaluations = 383721282
+            tabu_hits = 0
+            thread_cpu_seconds = 28.97014628099987
+            unchanged_proposals = 991051
+
+    [night_integrated_owned_oracles.dependency_revisions]
+    CBLS = "fd381659ad6c8051d914df3a31645019afc51447"
+    CompositionalNetworks = "169d8f77840d498d6628ea9b1feb007d40a7dc60"
+    ConstraintCommons = "3fb67945eac691003b3efe8a120afe17c8a89d24"
+    ConstraintDomains = "5e7aecd196b86e1ab49d7085d5678b47bdb6c4f4"
+    ConstraintModels = "900676c7b23238a018d454656ee883eb1745edf7"
+    ConstraintProgrammingExtensions = "8c74772899742ebc007a717872c508420d2a423e"
+    Constraints = "9c9adabfe84f395aa3dd58eec6405c8e41020ffa"
+    LocalSearchSolvers = "a6d1c608dfb5bdec73425da5596c15b94fade7e8"
+    MetaStrategist = "3d891e069e0e9993c7239e3b7091833b6756529c"
+    PatternFolds = "1293e55bd8db802ba169ec142610d83213cd9cf6"
+    QUBOConstraints = "3e5612ce5c20af3f115c4dd9afa146878c57b0ca"
+    XCSP3Bridges = "ad6cc7c25799eecebad95bb02f57392361db0c5c"
+
+    [night_integrated_owned_oracles.kernel_diagnostics]
+    date_utc = "2026-10-08T20:25:44.159"
+    factory_sha256 = "30f5e0b0aea9524dc8cfcc361409a0e4559fcbd3604c7e0b54cfa82456d894d1"
+    manifest_sha256 = "4c8afd2e7e8a411e7df7d232d030d58d6d5eb2381fb1c50c05db4bf5b5961d27"
+    resource_scope = "CPUs 8,10; Julia=2,GC=1,BLAS=1,native=1"
+    schema = "routing-integrated-kernels/1"
+    source_sha256 = "2e4f914c9b06d8ec49bce5878b6249f8e1a1f4a2c02527b629b7ec1a9bd9b5f6"
+
+        [[night_integrated_owned_oracles.kernel_diagnostics.records]]
+        allocation_frames = []
+        bytes = 0
+        correctness = "passed"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 0
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        operation = "insertion"
+        original_validation_workspace = true
+        repetitions = 1024
+        sample_rate = 1.0
+        sampled_events = 0
+        scope = "Fixed repeated operation; prepare and original verification excluded"
+
+            [night_integrated_owned_oracles.kernel_diagnostics.records.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "The independent operation measurements allocated zero Julia bytes and objects; no allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 0
+            retained_sampled_bytes = 0
+            sample_rate = 1.0
+            sampled_allocations = 0
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 0
+            status = "zero_allocations"
+            total_allocations = 0
+            total_bytes = 0
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+        [[night_integrated_owned_oracles.kernel_diagnostics.records]]
+        bytes = 2544
+        correctness = "passed"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 108
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        operation = "insertion_options"
+        original_validation_workspace = true
+        repetitions = 128
+        sample_rate = 1.0
+        sampled_events = 108
+        scope = "Prepared route/cache wrapper views; distinct v2 scope, not a production allocation improvement"
+
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "counter!"
+            line = 154
+            sampled_bytes = 1072
+            sampled_events = 97
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "perf/routing_scenarios.jl"
+            function = "#routing_kernel_case##2"
+            line = 69
+            sampled_bytes = 512
+            sampled_events = 10
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#insertion_options#25"
+            line = 249
+            sampled_bytes = 136
+            sampled_events = 1
+
+            [night_integrated_owned_oracles.kernel_diagnostics.records.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "Allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 108
+            retained_sampled_bytes = 1720
+            sample_rate = 1.0
+            sampled_allocations = 108
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 108
+            status = "complete"
+            total_allocations = 108
+            total_bytes = 2544
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+        [[night_integrated_owned_oracles.kernel_diagnostics.records]]
+        bytes = 190464
+        correctness = "passed"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 512
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        operation = "cache"
+        original_validation_workspace = true
+        repetitions = 128
+        sample_rate = 1.0
+        sampled_events = 512
+        scope = "Fixed repeated operation; prepare and original verification excluded"
+
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#range_cache!#5"
+            line = 69
+            sampled_bytes = 172032
+            sampled_events = 256
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#range_cache#4"
+            line = 61
+            sampled_bytes = 6144
+            sampled_events = 128
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "RangeCache"
+            line = 56
+            sampled_bytes = 4096
+            sampled_events = 128
+
+            [night_integrated_owned_oracles.kernel_diagnostics.records.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "Allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 512
+            retained_sampled_bytes = 182272
+            sample_rate = 1.0
+            sampled_allocations = 512
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 512
+            status = "complete"
+            total_allocations = 512
+            total_bytes = 190464
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+        [[night_integrated_owned_oracles.kernel_diagnostics.records]]
+        allocation_frames = []
+        bytes = 0
+        correctness = "passed"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 0
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        operation = "cache_reuse"
+        original_validation_workspace = true
+        repetitions = 128
+        sample_rate = 1.0
+        sampled_events = 0
+        scope = "Fixed repeated operation; prepare and original verification excluded"
+
+            [night_integrated_owned_oracles.kernel_diagnostics.records.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "The independent operation measurements allocated zero Julia bytes and objects; no allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 0
+            retained_sampled_bytes = 0
+            sample_rate = 1.0
+            sampled_allocations = 0
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 0
+            status = "zero_allocations"
+            total_allocations = 0
+            total_bytes = 0
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+        [[night_integrated_owned_oracles.kernel_diagnostics.records]]
+        bytes = 32096
+        correctness = "passed"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 552
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        operation = "repair"
+        original_validation_workspace = true
+        repetitions = 8
+        sample_rate = 1.0
+        sampled_events = 552
+        scope = "Fixed repeated operation; prepare and original verification excluded"
+
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "perf/routing_scenarios.jl"
+            function = "#routing_kernel_case##2"
+            line = 94
+            sampled_bytes = 6144
+            sampled_events = 136
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "perf/routing_scenarios.jl"
+            function = "#routing_kernel_case##2"
+            line = 87
+            sampled_bytes = 6016
+            sampled_events = 136
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "counter!"
+            line = 154
+            sampled_bytes = 5120
+            sampled_events = 48
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "RepairWorkspace"
+            line = 111
+            sampled_bytes = 4224
+            sampled_events = 120
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#range_cache!#5"
+            line = 69
+            sampled_bytes = 3456
+            sampled_events = 8
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "repair!"
+            line = 266
+            sampled_bytes = 1216
+            sampled_events = 24
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "destroy!"
+            line = 168
+            sampled_bytes = 896
+            sampled_events = 16
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#30"
+            line = 295
+            sampled_bytes = 640
+            sampled_events = 8
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "RouteBuffer"
+            line = 84
+            sampled_bytes = 512
+            sampled_events = 16
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#destroy!#15"
+            line = 189
+            sampled_bytes = 320
+            sampled_events = 8
+
+            [night_integrated_owned_oracles.kernel_diagnostics.records.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "Allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 552
+            retained_sampled_bytes = 29840
+            sample_rate = 1.0
+            sampled_allocations = 552
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 552
+            status = "complete"
+            total_allocations = 552
+            total_bytes = 32096
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+        [[night_integrated_owned_oracles.kernel_diagnostics.records]]
+        bytes = 22928
+        correctness = "passed"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 369
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        operation = "ejection"
+        original_validation_workspace = true
+        repetitions = 8
+        sample_rate = 1.0
+        sampled_events = 369
+        scope = "Fixed repeated operation; prepare and original verification excluded"
+
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "perf/routing_scenarios.jl"
+            function = "#routing_kernel_case##2"
+            line = 94
+            sampled_bytes = 6144
+            sampled_events = 136
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "perf/routing_scenarios.jl"
+            function = "#routing_kernel_case##2"
+            line = 87
+            sampled_bytes = 6016
+            sampled_events = 136
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#range_cache!#5"
+            line = 69
+            sampled_bytes = 3456
+            sampled_events = 8
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#elimination!#34"
+            line = 313
+            sampled_bytes = 2560
+            sampled_events = 24
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "elimination!"
+            line = 303
+            sampled_bytes = 1216
+            sampled_events = 24
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#30"
+            line = 295
+            sampled_bytes = 640
+            sampled_events = 8
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#elimination!#34"
+            line = 312
+            sampled_bytes = 448
+            sampled_events = 16
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#request_ids!#8"
+            line = 136
+            sampled_bytes = 320
+            sampled_events = 8
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "build_caches!"
+            line = 259
+            sampled_bytes = 200
+            sampled_events = 5
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#insertion_options#25"
+            line = 249
+            sampled_bytes = 136
+            sampled_events = 1
+
+            [night_integrated_owned_oracles.kernel_diagnostics.records.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "Allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 369
+            retained_sampled_bytes = 21240
+            sample_rate = 1.0
+            sampled_allocations = 369
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 369
+            status = "complete"
+            total_allocations = 369
+            total_bytes = 22928
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+        [[night_integrated_owned_oracles.kernel_diagnostics.records]]
+        bytes = 4096
+        correctness = "passed"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 128
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        operation = "pool_reuse"
+        original_validation_workspace = true
+        repetitions = 128
+        sample_rate = 1.0
+        sampled_events = 128
+        scope = "Fixed repeated operation; prepare and original verification excluded"
+
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "original_check"
+            line = 148
+            sampled_bytes = 4096
+            sampled_events = 128
+
+            [night_integrated_owned_oracles.kernel_diagnostics.records.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "Allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 128
+            retained_sampled_bytes = 4096
+            sample_rate = 1.0
+            sampled_allocations = 128
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 128
+            status = "complete"
+            total_allocations = 128
+            total_bytes = 4096
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+        [[night_integrated_owned_oracles.kernel_diagnostics.records]]
+        bytes = 48
+        correctness = "passed"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 1
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        operation = "duplicate_admission"
+        original_validation_workspace = true
+        repetitions = 1024
+        sample_rate = 1.0
+        sampled_events = 1
+        scope = "Fixed repeated operation; prepare and original verification excluded"
+
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "same_routes!"
+            line = 568
+            sampled_bytes = 40
+            sampled_events = 1
+
+            [night_integrated_owned_oracles.kernel_diagnostics.records.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "Allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 1
+            retained_sampled_bytes = 40
+            sample_rate = 1.0
+            sampled_allocations = 1
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 1
+            status = "complete"
+            total_allocations = 1
+            total_bytes = 48
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+        [[night_integrated_owned_oracles.kernel_diagnostics.records]]
+        bytes = 368
+        correctness = "passed"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 3
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        operation = "arc_reuse"
+        original_validation_workspace = true
+        repetitions = 1024
+        sample_rate = 1.0
+        sampled_events = 3
+        scope = "Fixed repeated operation; prepare and original verification excluded"
+
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "arcs!"
+            line = 559
+            sampled_bytes = 320
+            sampled_events = 3
+
+            [night_integrated_owned_oracles.kernel_diagnostics.records.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "Allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 3
+            retained_sampled_bytes = 320
+            sample_rate = 1.0
+            sampled_allocations = 3
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 3
+            status = "complete"
+            total_allocations = 3
+            total_bytes = 368
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+        [[night_integrated_owned_oracles.kernel_diagnostics.records]]
+        allocation_frames = []
+        bytes = 0
+        correctness = "passed"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 0
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        operation = "route_copy"
+        original_validation_workspace = true
+        repetitions = 1024
+        sample_rate = 1.0
+        sampled_events = 0
+        scope = "Fixed repeated operation; prepare and original verification excluded"
+
+            [night_integrated_owned_oracles.kernel_diagnostics.records.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "The independent operation measurements allocated zero Julia bytes and objects; no allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 0
+            retained_sampled_bytes = 0
+            sample_rate = 1.0
+            sampled_allocations = 0
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 0
+            status = "zero_allocations"
+            total_allocations = 0
+            total_bytes = 0
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+        [[night_integrated_owned_oracles.kernel_diagnostics.records]]
+        allocation_frames = []
+        bytes = 0
+        correctness = "passed"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 0
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        operation = "successor_fill"
+        original_validation_workspace = true
+        repetitions = 1024
+        sample_rate = 1.0
+        sampled_events = 0
+        scope = "Fixed repeated operation; prepare and original verification excluded"
+
+            [night_integrated_owned_oracles.kernel_diagnostics.records.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "The independent operation measurements allocated zero Julia bytes and objects; no allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 0
+            retained_sampled_bytes = 0
+            sample_rate = 1.0
+            sampled_allocations = 0
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 0
+            status = "zero_allocations"
+            total_allocations = 0
+            total_bytes = 0
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+        [[night_integrated_owned_oracles.kernel_diagnostics.records]]
+        allocation_frames = []
+        bytes = 0
+        correctness = "passed"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 0
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        operation = "request_selection"
+        original_validation_workspace = true
+        repetitions = 1024
+        sample_rate = 1.0
+        sampled_events = 0
+        scope = "Fixed repeated operation; prepare and original verification excluded"
+
+            [night_integrated_owned_oracles.kernel_diagnostics.records.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "The independent operation measurements allocated zero Julia bytes and objects; no allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 0
+            retained_sampled_bytes = 0
+            sample_rate = 1.0
+            sampled_allocations = 0
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 0
+            status = "zero_allocations"
+            total_allocations = 0
+            total_bytes = 0
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+        [[night_integrated_owned_oracles.kernel_diagnostics.records]]
+        allocation_frames = []
+        bytes = 0
+        correctness = "passed"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 0
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        operation = "exchange_rejection"
+        original_validation_workspace = true
+        repetitions = 1024
+        sample_rate = 1.0
+        sampled_events = 0
+        scope = "Fixed repeated operation; prepare and original verification excluded"
+
+            [night_integrated_owned_oracles.kernel_diagnostics.records.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "The independent operation measurements allocated zero Julia bytes and objects; no allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 0
+            retained_sampled_bytes = 0
+            sample_rate = 1.0
+            sampled_allocations = 0
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 0
+            status = "zero_allocations"
+            total_allocations = 0
+            total_bytes = 0
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+        [[night_integrated_owned_oracles.kernel_diagnostics.records]]
+        bytes = 32768
+        correctness = "passed"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 1024
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        operation = "original_validation"
+        original_validation_workspace = true
+        repetitions = 1024
+        sample_rate = 1.0
+        sampled_events = 1024
+        scope = "Prepared full original validator; only validity consumed, diagnostics do not escape"
+
+            [[night_integrated_owned_oracles.kernel_diagnostics.records.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "original_check"
+            line = 148
+            sampled_bytes = 32768
+            sampled_events = 1024
+
+            [night_integrated_owned_oracles.kernel_diagnostics.records.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "Allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 1024
+            retained_sampled_bytes = 32768
+            sample_rate = 1.0
+            sampled_allocations = 1024
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 1024
+            status = "complete"
+            total_allocations = 1024
+            total_bytes = 32768
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+
+    [night_integrated_owned_oracles.native_fixed_work]
+    ICNScoring_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+    MetaRepair_sha256 = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    collector = "Native PerfChecker SharedScenarioRuntime profile/profile_alloc APIs"
+    collector_scope = "Native full-stack collection at rate 1.0; in-process fresh scenario state, no run_scenarios process orchestration"
+    config_sha256 = "526e5283ce541dcf4b04424024fd6826418f2d63096f9614dfa10f188d00f2d1"
+    date_utc = "2026-10-08T20:26:29.089"
+    factory_sha256 = "30f5e0b0aea9524dc8cfcc361409a0e4559fcbd3604c7e0b54cfa82456d894d1"
+    fixture = "Three pickup-delivery requests; functional/allocation qualification, not search-quality evidence"
+    julia = "1.13.1"
+    operation_budget_cap_seconds = 30.0
+    oracle = "Original Li-Lim validator and actual configured error backend"
+    runtime_sha256 = "6f3e6aaa5dddb2be0b53361b7f354b608710224d51bb68d4dc3b541a2e8657eb"
+    sample_scope = "Top frames contain raw sampled bytes/events, not exact allocation percentages"
+    schema = "routing-sampled-perfcheck/1"
+    solver_manifest_sha256 = "4c8afd2e7e8a411e7df7d232d030d58d6d5eb2381fb1c50c05db4bf5b5961d27"
+    solver_project_sha256 = "0c6862332b9043a2476844b05a17d2f884714d6261aa50b892940395c05dccb2"
+    source_sha256 = "2e4f914c9b06d8ec49bce5878b6249f8e1a1f4a2c02527b629b7ec1a9bd9b5f6"
+    timing_qualification = "No timing/scaling conclusions; other chats may be active"
+    workers = 2
+
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 203600
+        category = "search"
+        correctness = "passed"
+        method = "rp_aco_regret2"
+        native_bytes = 203600
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 2585
+        objects = 2585
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 203600
+        category = "search"
+        correctness = "passed"
+        method = "rp_aco_regret3"
+        native_bytes = 203600
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 2585
+        objects = 2585
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 192496
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_adaptive_regret2"
+        native_bytes = 192496
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 2738
+        objects = 2738
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 192496
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_adaptive_regret3"
+        native_bytes = 192496
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 2738
+        objects = 2738
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 113680
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_critical"
+        native_bytes = 113680
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 1446
+        objects = 1446
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 192496
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_direct"
+        native_bytes = 192496
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 2738
+        objects = 2738
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 113680
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_incompatibility"
+        native_bytes = 113680
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 1446
+        objects = 1446
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 192496
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_naive"
+        native_bytes = 192496
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 2738
+        objects = 2738
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 139568
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_qubo"
+        native_bytes = 139568
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 1770
+        objects = 1770
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 166416
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_random_regret2"
+        native_bytes = 166416
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 2153
+        objects = 2153
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 166416
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_random_regret3"
+        native_bytes = 166416
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 2153
+        objects = 2153
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 211024
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_route_regret2"
+        native_bytes = 211024
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 3307
+        objects = 3307
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 211024
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_route_regret3"
+        native_bytes = 211024
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 3307
+        objects = 3307
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 164704
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_shaw_regret2"
+        native_bytes = 164704
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 2114
+        objects = 2114
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 164704
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_shaw_regret3"
+        native_bytes = 164704
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 2114
+        objects = 2114
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 234640
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_sisr_regret2"
+        native_bytes = 234640
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 3652
+        objects = 3652
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 234640
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_sisr_regret3"
+        native_bytes = 234640
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 3652
+        objects = 3652
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 151552
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_worst_regret2"
+        native_bytes = 151552
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 1880
+        objects = 1880
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 151552
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_worst_regret3"
+        native_bytes = 151552
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 1880
+        objects = 1880
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 65264
+        category = "search"
+        correctness = "passed"
+        method = "rp_ges1_greedy"
+        native_bytes = 65264
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 946
+        objects = 946
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 65264
+        category = "search"
+        correctness = "passed"
+        method = "rp_ges1_late"
+        native_bytes = 65264
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 946
+        objects = 946
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 65264
+        category = "search"
+        correctness = "passed"
+        method = "rp_ges2_greedy"
+        native_bytes = 65264
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 946
+        objects = 946
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 65264
+        category = "search"
+        correctness = "passed"
+        method = "rp_ges2_late"
+        native_bytes = 65264
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 946
+        objects = 946
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 10288
+        category = "search"
+        correctness = "passed"
+        method = "rp_memetic_regret2"
+        native_bytes = 10288
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 196
+        objects = 196
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 10288
+        category = "search"
+        correctness = "passed"
+        method = "rp_memetic_regret3"
+        native_bytes = 10288
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 196
+        objects = 196
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 572912
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_adaptive_late"
+        native_bytes = 572912
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 3
+        native_objects = 6722
+        objects = 6722
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 17
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 915
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 25
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 10
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 816
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 32
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 547328
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_adaptive_tabu"
+        native_bytes = 547328
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 3
+        native_objects = 6242
+        objects = 6242
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 5
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 915
+            tabu_hits = 10
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 27
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 5
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 840
+            tabu_hits = 9
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 28
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 518352
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_diversity_late"
+        native_bytes = 518352
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 2
+        native_objects = 5577
+        objects = 5577
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 741
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 62
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 1
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 756
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 64
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 521008
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_diversity_tabu"
+        native_bytes = 521008
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 2
+        native_objects = 5604
+        objects = 5604
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 741
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 62
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 1
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 756
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 64
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 449136
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_fleet_distance_late"
+        native_bytes = 449136
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 2
+        native_objects = 5091
+        objects = 5091
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 5
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 309
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 7
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 7
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 270
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 4
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 448736
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_fleet_distance_tabu"
+        native_bytes = 448736
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 2
+        native_objects = 5065
+        objects = 5065
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 5
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 309
+            tabu_hits = 1
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 6
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 4
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 270
+            tabu_hits = 4
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 3
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 533056
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_guided_late"
+        native_bytes = 533056
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 3
+        native_objects = 5842
+        objects = 5842
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 567
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 32
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 618
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 32
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 529376
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_guided_tabu"
+        native_bytes = 529376
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 2
+        native_objects = 5751
+        objects = 5751
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 4
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 567
+            tabu_hits = 2
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 32
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 3
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 618
+            tabu_hits = 3
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 32
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 708192
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 2
+        method = "rp_meta_pool_hipo_late"
+        native_bytes = 708192
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 4
+        native_objects = 12645
+        objects = 12645
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 582
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 25
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 7
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 582
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 25
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 696400
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 2
+        method = "rp_meta_pool_hipo_tabu"
+        native_bytes = 698576
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 6
+        native_objects = 12462
+        objects = 12462
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 4
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 582
+            tabu_hits = 1
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 26
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 4
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 594
+            tabu_hits = 4
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 24
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 689904
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 2
+        method = "rp_meta_pool_ipx_late"
+        native_bytes = 689904
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 5
+        native_objects = 12311
+        objects = 12311
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 447
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 36
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 3
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 354
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 45
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 680928
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 2
+        method = "rp_meta_pool_ipx_tabu"
+        native_bytes = 683104
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 3
+        native_objects = 12201
+        objects = 12201
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 4
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 447
+            tabu_hits = 9
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 29
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 366
+            tabu_hits = 1
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 45
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 716736
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 2
+        method = "rp_meta_pool_mip_late"
+        native_bytes = 718912
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 4
+        native_objects = 12903
+        objects = 12903
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 8
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 582
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 23
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 16
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 693
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 16
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 700800
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 2
+        method = "rp_meta_pool_mip_tabu"
+        native_bytes = 702976
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 3
+        native_objects = 12575
+        objects = 12575
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 4
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 582
+            tabu_hits = 2
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 25
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 693
+            tabu_hits = 9
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 17
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 579840
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_ruin_repair_late"
+        native_bytes = 579840
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 2
+        native_objects = 6894
+        objects = 6894
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 14
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 969
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 34
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 19
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 861
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 21
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        bytes = 551648
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_ruin_repair_tabu"
+        native_bytes = 551648
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 3
+        native_objects = 6331
+        objects = 6331
+        observed_gc_seconds = 0.0
+        steps_per_worker = [64, 64]
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 5
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 969
+            tabu_hits = 12
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 31
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 5
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 64
+            summary_evaluations = 861
+            tabu_hits = 12
+            thread_cpu_seconds = 0.0
+            unchanged_proposals = 23
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 232976
+        category = "search"
+        correctness = "passed"
+        method = "rp_sisr_b0_regret2"
+        native_bytes = 232976
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 3629
+        objects = 3629
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 232976
+        category = "search"
+        correctness = "passed"
+        method = "rp_sisr_b0_regret3"
+        native_bytes = 232976
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 3629
+        objects = 3629
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 279120
+        category = "search"
+        correctness = "passed"
+        method = "rp_sisr_b15_regret2"
+        native_bytes = 279120
+        native_cpu_profile_scope = "Native CPU stacks captured; no scaling conclusion"
+        native_cpu_stack_count = 2
+        native_objects = 4496
+        objects = 4496
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 279120
+        category = "search"
+        correctness = "passed"
+        method = "rp_sisr_b15_regret3"
+        native_bytes = 279120
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 4496
+        objects = 4496
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 330352
+        category = "search"
+        correctness = "passed"
+        method = "rp_sisr_b30_regret2"
+        native_bytes = 330352
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 5342
+        objects = 5342
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 330352
+        category = "search"
+        correctness = "passed"
+        method = "rp_sisr_b30_regret3"
+        native_bytes = 330352
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 5342
+        objects = 5342
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 89824
+        category = "search"
+        correctness = "passed"
+        method = "rp_vnd_greedy"
+        native_bytes = 89824
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 1394
+        objects = 1394
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 128112
+        category = "search"
+        correctness = "passed"
+        method = "rp_vnd_late"
+        native_bytes = 128112
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 2107
+        objects = 2107
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 127056
+        category = "search"
+        correctness = "passed"
+        method = "rp_vnd_reset_full"
+        native_bytes = 127056
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 2088
+        objects = 2088
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 1
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 1
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 125520
+        category = "search"
+        correctness = "passed"
+        method = "rp_vnd_reset_partial"
+        native_bytes = 125520
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 2052
+        objects = 2052
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 1
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 1
+            steps = 40
+        [[night_integrated_owned_oracles.native_fixed_work.strategies]]
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        bytes = 109456
+        category = "search"
+        correctness = "passed"
+        method = "rp_vnd_tabu"
+        native_bytes = 109456
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        native_objects = 1756
+        objects = 1756
+        observed_gc_seconds = 0.0
+
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_integrated_owned_oracles.native_fixed_work.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+
+    [night_integrated_owned_oracles.original_instance_diagnostics]
+    ICNScoring_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+    MetaRepair_sha256 = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    collector = "PerfChecker SharedScenarioRuntime + direct @timed allocation/GC totals"
+    collector_scope = "Same-observation process byte/object/GC totals; no native allocation stacks"
+    config_sha256 = "526e5283ce541dcf4b04424024fd6826418f2d63096f9614dfa10f188d00f2d1"
+    date_utc = "2026-10-08T20:27:46.989"
+    factory_sha256 = "30f5e0b0aea9524dc8cfcc361409a0e4559fcbd3604c7e0b54cfa82456d894d1"
+    fixture = "Original Li-Lim instance; bounded pipeline diagnostics, not a comparative campaign"
+    instance_name = "lc101.txt"
+    instance_sha256 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    julia = "1.13.1"
+    operation_budget_cap_seconds = 30.0
+    oracle = "Original Li-Lim validator and actual configured error backend"
+    runtime_sha256 = "6f3e6aaa5dddb2be0b53361b7f354b608710224d51bb68d4dc3b541a2e8657eb"
+    sample_scope = "Top frames contain raw sampled bytes/events, not exact allocation percentages"
+    schema = "routing-sampled-perfcheck/1"
+    solver_manifest_sha256 = "4c8afd2e7e8a411e7df7d232d030d58d6d5eb2381fb1c50c05db4bf5b5961d27"
+    solver_project_sha256 = "0c6862332b9043a2476844b05a17d2f884714d6261aa50b892940395c05dccb2"
+    source_sha256 = "2e4f914c9b06d8ec49bce5878b6249f8e1a1f4a2c02527b629b7ec1a9bd9b5f6"
+    timing_qualification = "No timing/scaling conclusions; other chats may be active"
+    workers = 2
+
+        [[night_integrated_owned_oracles.original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 972930504
+        category = "search"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.001391553
+        method = "rp_vnd_greedy"
+        objects = 14603002
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.278365012
+        operational_mean_active_cpus = 1.8074937563497593
+        process_cpu_seconds = 54.230562827
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.073372228
+        search_wall_seconds = 30.003181276
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_integrated_owned_oracles.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 580897
+            summary_evaluations = 411858764
+            tabu_hits = 0
+            thread_cpu_seconds = 27.007749873999998
+            unchanged_proposals = 193536
+            [[night_integrated_owned_oracles.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 583396
+            summary_evaluations = 413628096
+            tabu_hits = 0
+            thread_cpu_seconds = 27.011178784
+            unchanged_proposals = 194371
+        [[night_integrated_owned_oracles.original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 1060104584
+        category = "search"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.00108613
+        method = "rp_vnd_late"
+        objects = 15601245
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.241198589
+        operational_mean_active_cpus = 1.9331643813407164
+        process_cpu_seconds = 58.002374386000014
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.07684215
+        search_wall_seconds = 30.003850136
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_integrated_owned_oracles.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 640438
+            summary_evaluations = 454078972
+            tabu_hits = 0
+            thread_cpu_seconds = 28.92780124999998
+            unchanged_proposals = 213397
+            [[night_integrated_owned_oracles.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 637848
+            summary_evaluations = 452246211
+            tabu_hits = 0
+            thread_cpu_seconds = 28.920588133000027
+            unchanged_proposals = 212530
+        [[night_integrated_owned_oracles.original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 1052801288
+        category = "search"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.001053451
+        method = "rp_vnd_tabu"
+        objects = 15493246
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.243431853
+        operational_mean_active_cpus = 1.929095635415052
+        process_cpu_seconds = 57.873210169000004
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.081313598
+        search_wall_seconds = 30.000176822
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_integrated_owned_oracles.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 626760
+            summary_evaluations = 444374241
+            tabu_hits = 0
+            thread_cpu_seconds = 28.50588774700004
+            unchanged_proposals = 208833
+            [[night_integrated_owned_oracles.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 642649
+            summary_evaluations = 455626614
+            tabu_hits = 0
+            thread_cpu_seconds = 29.248729325999975
+            unchanged_proposals = 214121
+        [[night_integrated_owned_oracles.original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 880680816
+        category = "meta"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.001115425
+        method = "rp_meta_fleet_distance_late"
+        objects = 12548854
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.219778851
+        operational_mean_active_cpus = 1.952842302362016
+        process_cpu_seconds = 58.59161979799998
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.060510446
+        search_wall_seconds = 30.003252043
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_integrated_owned_oracles.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 349865
+            steps = 340664
+            summary_evaluations = 509705483
+            tabu_hits = 0
+            thread_cpu_seconds = 29.154766239000026
+            unchanged_proposals = 108642
+            [[night_integrated_owned_oracles.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 359153
+            steps = 330082
+            summary_evaluations = 509325609
+            tabu_hits = 0
+            thread_cpu_seconds = 29.12180135399997
+            unchanged_proposals = 104981
+        [[night_integrated_owned_oracles.original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 717045920
+        category = "meta"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.001080777
+        method = "rp_meta_adaptive_late"
+        objects = 10959640
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.244132535
+        operational_mean_active_cpus = 1.916398038057157
+        process_cpu_seconds = 57.492572843999994
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.052032085
+        search_wall_seconds = 30.00032963
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_integrated_owned_oracles.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 181671
+            steps = 317844
+            summary_evaluations = 519196321
+            tabu_hits = 0
+            thread_cpu_seconds = 28.6508718029999
+            unchanged_proposals = 113754
+            [[night_integrated_owned_oracles.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 316133
+            steps = 168661
+            summary_evaluations = 549284967
+            tabu_hits = 0
+            thread_cpu_seconds = 28.641542014000052
+            unchanged_proposals = 63211
 
 [original_instance]
 collector = "PerfChecker SharedScenarioRuntime + direct @timed allocation/GC totals"

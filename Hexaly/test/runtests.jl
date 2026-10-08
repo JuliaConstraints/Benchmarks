@@ -6,6 +6,112 @@ include("../src/Solvers.jl")
 include("fixtures.jl")
 using .ReproductionProblems,.ReproductionReaders,.ReproductionScoring,.ReproductionSolvers
 const CASES=fixtures()
+
+# Preserve the allocating scheduling/resource algorithm as a differential oracle.
+# This checks quantitative term order as well as the independent validity zero set.
+function reference_resource_terms!(terms,p,x;atol=p.family==:maintenance ? 1e-5 : 1e-8)
+    empty!(terms);d=p.data;f=p.family
+    add(v)=push!(terms,Float64(max(0,v)))
+    if f in (:rcpsp,:jssp,:fjsp)
+        jobs=length(d["duration"]);starts=view(x,1:jobs)
+        duration=f==:fjsp ? [d["alternatives"][i][x[jobs+i]][2] for i in 1:jobs] : d["duration"]
+        for i in 1:jobs;add(starts[i]+duration[i]-d["horizon"]);end
+        for(a,b)in d["precedence"];add(starts[a]+duration[a]-starts[b]);end
+        if f==:rcpsp
+            events=sort!(unique(vcat(starts,starts.+duration)))
+            for t in events,r in axes(d["resource_use"],2)
+                add(sum((d["resource_use"][i,r] for i in 1:jobs if starts[i]<=t<starts[i]+duration[i]);init=0.)-d["capacity"][r])
+            end
+        else
+            machine=f==:fjsp ? [d["alternatives"][i][x[jobs+i]][1] for i in 1:jobs] : d["machine"]
+            groups=Dict{Int,Vector{Int}}()
+            for i in 1:jobs;duration[i]>0 && push!(get!(groups,machine[i],Int[]),i);end
+            for tasks in Base.values(groups)
+                sort!(tasks;by=i->starts[i]);finish=-1
+                for i in tasks;add(finish-starts[i]);finish=max(finish,starts[i]+duration[i]);end
+            end
+        end
+    elseif f==:maintenance
+        H=d["horizon"];R=length(d["capacity_upper"][1]);used=zeros(H,R)
+        for i in eachindex(x)
+            start=x[i];len=d["duration"][i][start];add(start+len-1-H)
+            for t in start:min(H,start+len-1);used[t,:].+=d["resource_use_by_start"][i][start][t-start+1];end
+        end
+        for t in 1:H,r in 1:R
+            add(d["capacity_lower"][t][r]-used[t,r]-atol);add(used[t,r]-d["capacity_upper"][t][r]-atol)
+        end
+        for(a,b,season)in d["exclusions"]
+            add(count(t->x[a]<=t<x[a]+d["duration"][a][x[a]] && x[b]<=t<x[b]+d["duration"][b][x[b]],season))
+        end
+    else
+        error("Reference covers scheduling and maintenance resource terms")
+    end
+    terms
+end
+
+@testset "Owned scheduling/resource workspaces preserve ordered quantitative terms" begin
+    rng=Xoshiro(731);models=Problem[deepcopy(CASES[f]) for f in (:rcpsp,:jssp,:fjsp,:maintenance)]
+    n=64;duration=rand(rng,0:5,n);precedence=[[i,i+1] for i in 1:n-1]
+    for f in (:rcpsp,:jssp,:fjsp)
+        d=Dict{String,Any}("duration"=>duration,"precedence"=>precedence,"horizon"=>sum(duration))
+        if f==:rcpsp;d["resource_use"]=rand(rng,n,3);d["capacity"]=[2.,3.,4.]
+        elseif f==:jssp;d["machine"]=[mod1(i,7) for i in 1:n]
+        else;d["alternatives"]=[[[mod1(i,7),duration[i]],[mod1(i+1,7),duration[i]+1]] for i in 1:n];end
+        push!(models,problem(f,d))
+    end
+    for f in (:rcpsp,:jssp,:fjsp)
+        p=deepcopy(CASES[f]);p.data["duration"]=BigInt.(p.data["duration"])
+        f==:jssp && (p.data["machine"]=BigInt.(p.data["machine"]))
+        f==:fjsp && (p.data["alternatives"]=[[BigInt.(choice) for choice in choices] for choices in p.data["alternatives"]])
+        push!(models,p)
+    end
+    for p in models
+        a=prepare_backend(:direct);b=prepare_backend(:direct);ds=domains(p);original=Float64[]
+        for repetition in 1:128
+            x=rand.(Ref(rng),ds)
+            expected=copy(reference_resource_terms!(original,p,x))
+            @test error_value(a,p,x)==sum(expected)
+            @test isequal(a.residuals,expected)
+            @test iszero(sum(expected))==validate(p,x).valid
+            retained=copy(a.residuals)
+            @test error_value(b,p,x)==error_value(a,p,x)
+            @test isequal(retained,expected)
+        end
+        @test a.workspace!==b.workspace
+        @test a.workspace.events!==b.workspace.events
+        @test a.workspace.durations!==b.workspace.durations
+        @test a.workspace.machines!==b.workspace.machines
+        @test a.workspace.task_buffers!==b.workspace.task_buffers
+        @test a.workspace.resource_load!==b.workspace.resource_load
+        @test allunique(objectid(v) for v in a.workspace.task_buffers)
+        # Same problem object with edited data must not reuse stale derived values.
+        if p.family==:fjsp
+            p.data["alternatives"][1][1][2]+=1
+        elseif p.family==:maintenance
+            p.data["resource_use_by_start"][1][1][1][1]+=.25
+        else
+            p.data["duration"][1]+=1
+            p.family==:jssp && (p.data["machine"][1]=11)
+        end
+        x=first.(ds);expected=copy(reference_resource_terms!(original,p,x))
+        @test error_value(a,p,x)==sum(expected)
+        @test isequal(a.residuals,expected)
+        @test error_value(a,p,fill(NaN,length(ds)))==1.
+        @test error_value(a,p,x)==sum(expected)
+    end
+    for f in (:rcpsp,:jssp,:fjsp,:maintenance)
+        p=CASES[f];x=first.(domains(p));b=prepare_backend(:direct);original=Float64[]
+        function allocated_resource_terms(backend,p,x,original)
+            error_value(backend,p,x);reference_resource_terms!(original,p,x)
+            optimized=@allocated for _ in 1:1024;error_value(backend,p,x);end
+            reference=@allocated for _ in 1:1024;reference_resource_terms!(original,p,x);sum(original);end
+            (;optimized,reference)
+        end
+        allocated_resource_terms(b,p,x,original)
+        bytes=allocated_resource_terms(b,p,x,original)
+        @test bytes.optimized<bytes.reference
+    end
+end
 @testset "Original validators and quantitative/ICN zero sets" begin
     @test Set(keys(CASES))==Set(FAMILY_IDS)
     backends=[prepare_backend(k) for k in (:naive,:direct,:icn,:icn_fused)]
