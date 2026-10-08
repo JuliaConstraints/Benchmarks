@@ -136,7 +136,17 @@ function request_ids!(out,p,route;append=false)
     for (i,(a,_)) in enumerate(p.data.pairs);a in route && push!(out,i);end
     out
 end
-quality(p,routes) = let q=validate_solution(p,routes)
+"Borrowed request selection; preserve the allocating randperm path's exact RNG consumption."
+function random_requests!(workspace::RepairWorkspace,n,rng;count=2)
+    count>=0 || throw(ArgumentError("nonnegative request count required"))
+    resize!(workspace.choices,n);randperm!(rng,workspace.choices)
+    selected=workspace.selected;resize!(selected,min(count,n))
+    copyto!(selected,1,workspace.choices,1,length(selected))
+    selected
+end
+original_workspace()=isdefined(Benchmarks,:PDPTWValidationWorkspace) ? Benchmarks.PDPTWValidationWorkspace() : nothing
+original_check(p,routes,workspace)=workspace===nothing ? validate_solution(p,routes) : validate_solution(p,routes,workspace)
+quality(p,routes;validation_workspace=nothing) = let q=original_check(p,routes,validation_workspace)
     q.valid || throw(ArgumentError("invalid full original solution"))
     (q.objective.vehicles,q.objective.distance)
 end
@@ -340,7 +350,7 @@ function elimination!(routes,p,D,rng,deadline;depth=1,difficulty=ones(Int,length
 end
 
 "Exchange two complete requests between distinct routes; validate all original constraints."
-function exchange(p,routes,D,first_id,second_id;workspace=nothing,original_distance_prefilter=false)
+function exchange(p,routes,D,first_id,second_id;workspace=nothing,original_distance_prefilter=false,validation_workspace=nothing)
     a,b=p.data.pairs[first_id];c,d=p.data.pairs[second_id]
     ra=findfirst(r->a in r,routes);rb=findfirst(r->c in r,routes)
     (ra===nothing || rb===nothing || ra==rb) && return nothing
@@ -353,7 +363,7 @@ function exchange(p,routes,D,first_id,second_id;workspace=nothing,original_dista
     if original_distance_prefilter
         Pilot.feasible_route(trial[ra],p.data,D) && Pilot.feasible_route(trial[rb],p.data,D) || return nothing
     end
-    validate_solution(p,trial).valid ? trial : nothing
+    original_check(p,trial,validation_workspace).valid ? trial : nothing
 end
 
 "A graph edge is certified only after checking all six paired interleavings."
@@ -399,13 +409,13 @@ function route_valid(p,D,route)
     !isempty(route) && Pilot.feasible_route(route,p.data,D)
 end
 "Keep incumbent cover protected even when the route pool cap is smaller than its fleet."
-function collect!(pool,p,D,routes)
-    validate_solution(p,routes).valid || throw(ArgumentError("only original-feasible solutions may enter the pool"))
+function collect!(pool,p,D,routes;validation_workspace=nothing)
+    original_check(p,routes,validation_workspace).valid || throw(ArgumentError("only original-feasible solutions may enter the pool"))
     # Already owned, validated snapshots need no duplicate copy or column rebuild.
     routes in pool.solutions && all(r->r in pool.routes,routes) && return pool
     candidate=deepcopy(routes)
     candidate in pool.solutions || push!(pool.solutions,candidate)
-    sort!(pool.solutions;by=r->quality(p,r));resize!(pool.solutions,min(length(pool.solutions),pool.max_solutions))
+    sort!(pool.solutions;by=r->quality(p,r;validation_workspace));resize!(pool.solutions,min(length(pool.solutions),pool.max_solutions))
     protected=first(pool.solutions)
     columns=deepcopy(protected)
     for route in vcat(routes,pool.routes)
@@ -418,7 +428,7 @@ function collect!(pool,p,D,routes)
 end
 
 "Periodic restricted set partitioning: expose LP prices; MIP exports integral original tours."
-function recombine(pool,p,D,deadline;lp_solver="simplex",trace=Dict{String,Any}())
+function recombine(pool,p,D,deadline;lp_solver="simplex",trace=Dict{String,Any}(),validation_workspace=original_workspace())
     isempty(pool.solutions) && return nothing
     lp_solver in ("simplex","ipx","hipo") || throw(ArgumentError("unknown master LP solver"))
     time_ns()>=deadline && return nothing
@@ -450,7 +460,7 @@ function recombine(pool,p,D,deadline;lp_solver="simplex",trace=Dict{String,Any}(
     has_values(m) || return nothing
     vals=value.(x);all(v->abs(v-round(v))<=1e-6,vals) || error("fractional master solution cannot be exported")
     candidate=[copy(columns[j]) for j in 1:n if vals[j]>0.5]
-    validate_solution(p,candidate).valid || error("restricted master failed original validator")
+    original_check(p,candidate,validation_workspace).valid || error("restricted master failed original validator")
     time_ns()>=deadline ? nothing : candidate
 end
 
@@ -470,16 +480,17 @@ function LS.resolve_meta_variable(resolver::RoutePoolResolver,request::LS.MetaVa
     ids=LS.scope(request.variable)
     sort(ids)==collect(eachindex(current)) || return finish(:invalid_fragment)
     deadline=started+UInt64(round(Int,budget*1e9))
-    candidate=recombine(snapshot.pool,p,snapshot.distances,deadline;lp_solver=resolver.lp_solver,trace)
+    validation_workspace=original_workspace()
+    candidate=recombine(snapshot.pool,p,snapshot.distances,deadline;lp_solver=resolver.lp_solver,trace,validation_workspace)
     candidate===nothing && return finish(time_ns()>=deadline ? :budget_exhausted : :no_improvement)
-    quality(p,candidate)<quality(p,snapshot.routes) || return finish(:no_improvement)
+    quality(p,candidate;validation_workspace)<quality(p,snapshot.routes;validation_workspace) || return finish(:no_improvement)
     next=MetaRepair.successors(p,candidate)
     time_ns()>=deadline && return finish(:budget_exhausted)
     move=LS.MetaMove(request.variable,next[ids];provenance=(source=:highs_route_pool,lp_solver=resolver.lp_solver))
     finish(:improved,move)
 end
 
-mutable struct Lane{P,G,W}
+mutable struct Lane{P,G,W,V}
     parent::P
     guide::G
     guide_workspace::W
@@ -504,6 +515,7 @@ mutable struct Lane{P,G,W}
     matched_routes::BitVector
     inherited_requests::BitVector
     inheritance_order::Vector{Int}
+    validation_workspace::V
     pair_workspace::Hybrid.PairRelocationWorkspace
     pool::RoutePool
     steps::Int
@@ -519,7 +531,8 @@ function Lane(p,initial;seed=41,scorer=nothing,origin=time_ns(),deadline=typemax
     g=Hybrid.QUBOGuidance.configured_guide(fill(1:n,n-1),relations;id=p.id,instance_sha256)
     # Structural fallback is explicitly unlearned; externally configured learned matrices retain their provenance.
     workspace=Hybrid.QUBOGuidance.Workspace(g)
-    q=quality(p,initial);trace=Dict{String,Any}("trajectory"=>Any[],"controller"=>"structured original-route CBLS MetaMove controller/1",
+    validation_workspace=original_workspace()
+    q=quality(p,initial;validation_workspace);trace=Dict{String,Any}("trajectory"=>Any[],"controller"=>"structured original-route CBLS MetaMove controller/1",
         "guidance_authority"=>"guidance_only","guide_provenance"=>g.provenance,
         "reset_counter_scope"=>"actual paired-request ruin/recreate resets",
         "incremental_scope"=>"fixed-sequence feasibility summaries; full ICN score remains acceptance authority")
@@ -532,12 +545,12 @@ function Lane(p,initial;seed=41,scorer=nothing,origin=time_ns(),deadline=typemax
         trace["incompatibility_pairs_tested"]=evidence.tested;trace["clique_fleet_lower_bound"]=c.bound
         trace["clique_scope"]=c.scope
     end
-    pool=RoutePool();collect!(pool,p,D,initial)
+    pool=RoutePool();collect!(pool,p,D,initial;validation_workspace)
     Lane(parent,g,workspace,Xoshiro(seed),deepcopy(initial),deepcopy(initial),q,q,
         ones(Int,length(p.data.pairs)),ones(5),ones(size(D)),fill(parent.fleet_weight*q[1]+q[2],LIMITS.late_history),
         Dict{Tuple{Int,Int},Int}(),Set{Tuple{Int,Int}}(),Set{Tuple{Int,Int}}(),graph,
         RepairWorkspace(),RouteBuffer(),RouteBuffer(),ones(Int,n-1),Int[],BitVector(),BitVector(),Int[],
-        Hybrid.PairRelocationWorkspace(),pool,0,0,origin,deadline,trace)
+        validation_workspace,Hybrid.PairRelocationWorkspace(),pool,0,0,origin,deadline,trace)
 end
 function arcs!(out,routes)
     empty!(out)
@@ -571,7 +584,7 @@ function admit!(lane,p,candidate,settings;source="structured",force=false)
         !force && settings.acceptance==:greedy && counter!(lane.trace,"rejected_moves")
         return false
     end
-    checked=validate_solution(p,candidate);checked.valid || error("structured candidate failed original validator")
+    checked=original_check(p,candidate,lane.validation_workspace);checked.valid || error("structured candidate failed original validator")
     q=(checked.objective.vehicles,checked.objective.distance)
     time_ns()>=lane.deadline && return false
     w=lane.parent.fleet_weight;cost=w*q[1]+q[2];old=w*lane.q[1]+lane.q[2]
@@ -602,7 +615,7 @@ function admit!(lane,p,candidate,settings;source="structured",force=false)
     end
     filter!(kv->last(kv)>lane.steps,lane.tabu)
     lane.trace["max_tabu_entries"]=max(get(lane.trace,"max_tabu_entries",0),length(lane.tabu))
-    collect!(lane.pool,p,lane.parent.distances,candidate)
+    collect!(lane.pool,p,lane.parent.distances,candidate;validation_workspace=lane.validation_workspace)
     if q<lane.best_q && time_ns()<lane.deadline
         lane.best=deepcopy(candidate);lane.best_q=q
         t=(time_ns()-lane.origin)/1e9
@@ -699,10 +712,11 @@ function step!(lane,p,settings,deadline)
             candidate=Hybrid.pair_relocation(p,trial,D,rand(lane.rng,pairs);deadline_ns=deadline,selection=:best,workspace=lane.pair_workspace)
             trial=candidate.routes;counter!(lane.trace,"relocation_evaluations",candidate.examined)
         elseif which==2
-            ids=randperm(lane.rng,length(pairs))[1:min(2,end)]
-            trial=length(ids)==2 ? exchange(p,trial,D,ids...;workspace=lane.exchange_workspace,original_distance_prefilter=true) : nothing;counter!(lane.trace,"exchange_calls")
+            ids=random_requests!(lane.repair_workspace,length(pairs),lane.rng)
+            trial=length(ids)==2 ? exchange(p,trial,D,ids...;workspace=lane.exchange_workspace,original_distance_prefilter=true,
+                validation_workspace=lane.validation_workspace) : nothing;counter!(lane.trace,"exchange_calls")
         else
-            ids=randperm(lane.rng,length(pairs))[1:min(2,end)];remove_requests!(trial,p,ids;workspace=lane.repair_workspace)
+            ids=random_requests!(lane.repair_workspace,length(pairs),lane.rng);remove_requests!(trial,p,ids;workspace=lane.repair_workspace)
             repair!(trial,ids,p,D,lane.rng,deadline;regret=3,max_routes=length(lane.current),trace=lane.trace,workspace=lane.repair_workspace) || (trial=nothing)
             counter!(lane.trace,"two_request_chains")
         end
@@ -741,9 +755,9 @@ function episode!(lane,p,settings,deadline;max_steps=LIMITS.episode_steps)
 end
 function share!(lane,p,pool,settings)
     isempty(pool.solutions) && return
-    for routes in pool.solutions;collect!(lane.pool,p,lane.parent.distances,routes);end
+    for routes in pool.solutions;collect!(lane.pool,p,lane.parent.distances,routes;validation_workspace=lane.validation_workspace);end
     candidate=first(pool.solutions)
-    if quality(p,candidate)<lane.q
+    if quality(p,candidate;validation_workspace=lane.validation_workspace)<lane.q
         admit!(lane,p,candidate,settings;source="episode_exchange",force=true) && counter!(lane.trace,"received_incumbents")
     end
 end
@@ -765,7 +779,8 @@ function run_portfolio(p,initial,id,seconds,seed,banks,strategy,execute;
         evidence=incompatibilities(p,first(lanes).parent.distances;deadline)
         for lane in lanes;lane.graph=copy(evidence.graph);end
     end
-    pool=RoutePool();D=first(lanes).parent.distances;collect!(pool,p,D,initial)
+    validation_workspace=original_workspace() # Coordinator-owned; used only after all lanes join.
+    pool=RoutePool();D=first(lanes).parent.distances;collect!(pool,p,D,initial;validation_workspace)
     records=Vector{Any}(undef,width);episodes=0;role_scores=ones(length(roles));role_counts=zeros(Int,length(roles))
     chosen=[mod1(i,length(roles)) for i in 1:width];master_seconds=0.;coord=Dict{String,Any}()
     while time_ns()<deadline && episodes<max_episodes
@@ -798,9 +813,9 @@ function run_portfolio(p,initial,id,seconds,seed,banks,strategy,execute;
             role_counts[chosen[i]]+=1
             reward=lanes[i].best_q<before[i] ? 8. : 1.
             role_scores[chosen[i]]=0.9role_scores[chosen[i]]+0.1reward
-            Base.invokelatest(collect!,pool,p,D,lanes[i].best)
+            Base.invokelatest(collect!,pool,p,D,lanes[i].best;validation_workspace)
             # Accepted diverse solutions also supply alternative route columns.
-            Base.invokelatest(collect!,pool,p,D,lanes[i].current)
+            Base.invokelatest(collect!,pool,p,D,lanes[i].current;validation_workspace)
         end
         if any(r->r.master,roles) && episodes%LIMITS.master_every==0 && time_ns()<deadline &&
                 master_seconds<LIMITS.master_fraction*seconds
@@ -833,7 +848,7 @@ function run_portfolio(p,initial,id,seconds,seed,banks,strategy,execute;
             if candidate!==nothing
                 # No column-only result bypasses the original validator / actual error backend.
                 Base.invokelatest(admit!,lanes[1],p,candidate,roles[chosen[1]];source="highs_route_pool",force=true)
-                Base.invokelatest(collect!,pool,p,D,candidate)
+                Base.invokelatest(collect!,pool,p,D,candidate;validation_workspace)
             end
             master_seconds+=(time_ns()-start)/1e9
         end

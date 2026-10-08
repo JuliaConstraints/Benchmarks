@@ -138,7 +138,9 @@ function score(b::ErrorBackend,p,D,values)
     fused_all = b.kind == :icn_fused_all
     if fused_scalar
         empty!(w.error_terms)
-        sizehint!(w.error_terms,1+3*(n-1)+2d.vehicles+2length(d.pairs))
+        # Structurally valid neighbors can exceed the allowed fleet. Retain a
+        # previously larger capacity instead of shrinking it below their terms.
+        sizehint!(w.error_terms,1+3*(n-1)+2d.vehicles+2length(d.pairs);shrink=false)
     end
     # Invalid neighbors are ordinary search outcomes, without exception/backtrace
     # construction. Validate the full structure before calling any ICN decoder.
