@@ -578,3 +578,12 @@ LP/MIP lifecycle totals vary across fresh processes and remain reported as paire
 observations. The original validator, search decisions, retained snapshots and
 master semantics are preserved. The English exact and XKCD figures include every
 configuration and a fixed previous-source reference.
+
+The complete nine-family, two-backend classical pass now contains 144 qualified
+fresh-worker executions through all eight analyzers. Every original complete
+checksum and zero-set oracle passed. The general callback retains 195 JET and
+111 AllocCheck findings per specialization. Invalid selector attempts and one
+source-fingerprint retry are recorded separately and excluded from the qualified
+counts. All 18 redacted heap captures were verified and removed. Timing remains
+diagnostic under concurrent work; these passes do not establish a clean static
+verdict or a controlled speedup.
