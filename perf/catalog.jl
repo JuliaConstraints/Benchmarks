@@ -39,10 +39,10 @@ function build_catalog(;scope=:kernels,methods=String[],width=1,collectors=[:pro
             ("StructuredRouting.jl","RoutingPanel.jl","Pilot.jl","MetaRepair.jl","Hybrid.jl","ICNScoring.jl","ResourceExperiment.jl","PlatformResources.jl")])
         push!(fixtures,RoutingPanel.CONFIG_PATH)
         if scope==:routing_kernels
-            for operation in ("insertion","insertion_options","cache","cache_reuse","repair","ejection","pool_reuse","duplicate_admission","arc_reuse")
+            for operation in ("insertion","insertion_options","cache","cache_reuse","repair","ejection","pool_reuse","duplicate_admission","arc_reuse","route_copy","successor_fill")
                 push!(scenarios,ScenarioSpec("routing_"*operation;source,factory="routing_kernel_case",
                     implementation="paired-original-sequences-v1",parameters=Dict("operation"=>operation,
-                        "repetitions"=>operation in ("insertion","duplicate_admission","arc_reuse") ? 1024 :
+                        "repetitions"=>operation in ("insertion","duplicate_admission","arc_reuse","route_copy","successor_fill") ? 1024 :
                             operation in ("insertion_options","cache","cache_reuse","pool_reuse") ? 128 : 8),
                     fixtures,collectors,repeatable=true))
             end
