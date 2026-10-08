@@ -3596,6 +3596,525 @@ short_cpu_limit = "All 16 cooperative fixtures captured CPU stacks; only 5/36 sh
         completed_resets = 0
         steps = 40
 
+[night_actual_cold_bank_v3]
+interpretation = "The normal CN.composition(network).f path infers expression-printer methods. Stored CodeInstance inference/LLVM counters and overlapping inclusive trees are diagnostic aggregates; they are not elapsed time or speedup estimates."
+published_evidence_commit = "00b31933ff00a33c911b5a142623cd62ab36a618"
+qualification = "Actual sparse-guide cold bank recovery, separate from factory-warmed PerfChecker SnoopCompile. Read-only V3 cohort. All witness and private-buffer checks passed."
+recorded_utc = "2026-10-08T22:44:09.842"
+
+    [night_actual_cold_bank_v3.inference_process]
+    blas_threads = 1
+    cc_commit = "1707636e0145e00c6b3098f25e3e41c61de38136"
+    cn_commit = "46192ea8ecde5ad8029c61f05c737984f370c52d"
+    cpu_affinity = [4, 6]
+    decoder_checks = "Exact bank; equality target zero on positive, negative, zero and mixed-sign inputs; one immutable zero-field pure decoder shared; distinct input/residual buffers; problem workspaces remain lazily uninitialized."
+    gc_threads = 1
+    julia_threads = 2
+    limitations = "Inference timing includes Ref assignment and invokelatest bookkeeping. Inference/LLVM aggregates sum unique code instances and may not cover all lifecycle work; inclusive tree sums overlap and are not elapsed time. Compiler counters use Float16 storage. Memory/GC are measured in a separate fresh process without Snoop instrumentation. Operational measurements with other night jobs active."
+    mode = "inference"
+    project = "/tmp/hdr-routing-integrated-v3-env-20261008"
+    recorded_utc = "2026-10-08T22:40:28.263"
+    runtime = "1.13.1"
+    scope = "First actual prepare_backend(:icn_fused) after loading SnoopCompile and Reproduction.jl in a fresh process; warm retrieval follows immediately. No scenario factory precedes the cold call. No training or native solver execution."
+
+        [night_actual_cold_bank_v3.inference_process.fingerprints]
+        bank = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+        manifest = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+        project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+        reproduction = "fedcedc41733536fb07e8d1bd05f1d5a5021b36e4ee972397c61f8ae1352f332"
+        scoring = "42238a307fa43a06f3837e844e46fb158dbc64ee6705e7ce18f1651441b8f434"
+
+        [night_actual_cold_bank_v3.inference_process.measurements]
+        cold_instrumented_seconds = 2.710433071
+        warm_instrumented_seconds = 6.9952e-5
+
+            [night_actual_cold_bank_v3.inference_process.measurements.cold]
+            flattened_frames = 2476
+            method_groups = 794
+            remaining_source_groups = 67
+            source_groups = 83
+            summed_exclusive_inference_seconds = 1.3546868562698364
+            summed_llvm_seconds = 1.5497550964355469
+            tree_inclusive_seconds_with_overlap = 30.472953021526337
+            unique_code_instances = 2476
+            unique_specializations = 2456
+
+                [night_actual_cold_bank_v3.inference_process.measurements.cold.remaining_sources_aggregate]
+                code_instances = 922
+                inference_seconds = 0.16011971235275269
+                llvm_seconds = 0.14563941955566406
+                specializations = 919
+
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.scorer_methods]]
+                code_instances = 1
+                inference_seconds = 0.032012939453125
+                line = 51
+                llvm_seconds = 0.028411865234375
+                method = "#bank_decoder##2"
+                module = "Main.HexalyReproduction.ReproductionScoring"
+                source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+                specializations = 1
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.scorer_methods]]
+                code_instances = 1
+                inference_seconds = 0.001216888427734375
+                line = 67
+                llvm_seconds = 0.00656890869140625
+                method = "#prepare_backend#5"
+                module = "Main.HexalyReproduction.ReproductionScoring"
+                source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+                specializations = 1
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.scorer_methods]]
+                code_instances = 1
+                inference_seconds = 0.0003910064697265625
+                line = 67
+                llvm_seconds = 0.002185821533203125
+                method = "prepare_backend"
+                module = "Main.HexalyReproduction.ReproductionScoring"
+                source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+                specializations = 1
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.scorer_methods]]
+                code_instances = 1
+                inference_seconds = 0.00045680999755859375
+                line = 50
+                llvm_seconds = 0.0
+                method = "#bank_decoder##0"
+                module = "Main.HexalyReproduction.ReproductionScoring"
+                source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+                specializations = 1
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.scorer_methods]]
+                code_instances = 1
+                inference_seconds = 0.0004200935363769531
+                line = 47
+                llvm_seconds = 0.0
+                method = "bank_decoder"
+                module = "Main.HexalyReproduction.ReproductionScoring"
+                source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+                specializations = 1
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.scorer_methods]]
+                code_instances = 2
+                inference_seconds = 7.2479248046875e-5
+                line = 34
+                llvm_seconds = 0.0
+                method = "Backend"
+                module = "Main.HexalyReproduction.ReproductionScoring"
+                source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+                specializations = 2
+
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 2
+                inference_seconds = 0.2607574462890625
+                line = 31
+                llvm_seconds = 0.0
+                method = "Printer"
+                module = "ExproniconLite"
+                source = "/home/azzaare/.julia/packages/ExproniconLite/4LrQ4/src/print/multi.jl"
+                specializations = 2
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 5
+                inference_seconds = 0.24489498138427734
+                line = 329
+                llvm_seconds = 0.0
+                method = "print_expr"
+                module = "ExproniconLite"
+                source = "/home/azzaare/.julia/packages/ExproniconLite/4LrQ4/src/print/inline.jl"
+                specializations = 5
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 1
+                inference_seconds = 0.006351470947265625
+                line = 172
+                llvm_seconds = 0.11328125
+                method = "#_compose_inplace#804"
+                module = "CompositionalNetworks"
+                source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/compose.jl"
+                specializations = 1
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 1
+                inference_seconds = 0.020721435546875
+                line = 1038
+                llvm_seconds = 0.07958984375
+                method = "_"
+                module = "CompositionalNetworks"
+                source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/icn.jl"
+                specializations = 1
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 1
+                inference_seconds = 0.010162353515625
+                line = 79
+                llvm_seconds = 0.08746337890625
+                method = "_index_relation_kernel"
+                module = "CompositionalNetworks"
+                source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/compose.jl"
+                specializations = 1
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 1
+                inference_seconds = 0.01142120361328125
+                line = 1241
+                llvm_seconds = 0.0821533203125
+                method = "_specialized_compilation_plan"
+                module = "CompositionalNetworks"
+                source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/compose.jl"
+                specializations = 1
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 14
+                inference_seconds = 0.006378531455993652
+                line = 14
+                llvm_seconds = 0.06693267822265625
+                method = "_selected_layer_names"
+                module = "CompositionalNetworks"
+                source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/icn.jl"
+                specializations = 14
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 1
+                inference_seconds = 0.01568603515625
+                line = 107
+                llvm_seconds = 0.04949951171875
+                method = "generate_new_valid_weights"
+                module = "CompositionalNetworks"
+                source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/icn.jl"
+                specializations = 1
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 8
+                inference_seconds = 0.031766414642333984
+                line = 906
+                llvm_seconds = 0.031982421875
+                method = "materialize!"
+                module = "Base.Broadcast"
+                source = "broadcast.jl"
+                specializations = 8
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 1
+                inference_seconds = 0.032012939453125
+                line = 51
+                llvm_seconds = 0.028411865234375
+                method = "#bank_decoder##2"
+                module = "Main.HexalyReproduction.ReproductionScoring"
+                source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+                specializations = 1
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 1
+                inference_seconds = 0.0584716796875
+                line = 1515
+                llvm_seconds = 0.0
+                method = "#print_expr#165"
+                module = "ExproniconLite"
+                source = "/home/azzaare/.julia/packages/ExproniconLite/4LrQ4/src/print/multi.jl"
+                specializations = 1
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 3
+                inference_seconds = 0.00818634033203125
+                line = 44
+                llvm_seconds = 0.0458221435546875
+                method = "_pipeline_shape_valid"
+                module = "CompositionalNetworks"
+                source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/icn.jl"
+                specializations = 3
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 1
+                inference_seconds = 0.009613037109375
+                line = 1320
+                llvm_seconds = 0.04095458984375
+                method = "#_compose_specialized#835"
+                module = "CompositionalNetworks"
+                source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/compose.jl"
+                specializations = 1
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 7
+                inference_seconds = 0.003232717514038086
+                line = 921
+                llvm_seconds = 0.04517364501953125
+                method = "grow_to!"
+                module = "Base"
+                source = "array.jl"
+                specializations = 7
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 26
+                inference_seconds = 0.017306923866271973
+                line = 201
+                llvm_seconds = 0.025028228759765625
+                method = "iterate"
+                module = "Base.Iterators"
+                source = "iterators.jl"
+                specializations = 26
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 7
+                inference_seconds = 0.002676725387573242
+                line = 137
+                llvm_seconds = 0.036956787109375
+                method = "deepcopy_internal"
+                module = "Base"
+                source = "deepcopy.jl"
+                specializations = 7
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 7
+                inference_seconds = 0.006409645080566406
+                line = 128
+                llvm_seconds = 0.0325164794921875
+                method = "deepcopy_internal"
+                module = "Base"
+                source = "deepcopy.jl"
+                specializations = 7
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 1
+                inference_seconds = 0.0125274658203125
+                line = 9
+                llvm_seconds = 0.0262603759765625
+                method = "#compose#792"
+                module = "CompositionalNetworks"
+                source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/compose.jl"
+                specializations = 1
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 1
+                inference_seconds = 0.0093841552734375
+                line = 772
+                llvm_seconds = 0.0290374755859375
+                method = "_ordered_layers"
+                module = "CompositionalNetworks"
+                source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/icn.jl"
+                specializations = 1
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_methods]]
+                code_instances = 4
+                inference_seconds = 0.0024170875549316406
+                line = 1158
+                llvm_seconds = 0.03568267822265625
+                method = "_growend_internal!"
+                module = "Base"
+                source = "array.jl"
+                specializations = 4
+
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 18
+                inference_seconds = 0.06899261474609375
+                llvm_seconds = 0.37568092346191406
+                module = "CompositionalNetworks"
+                source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/compose.jl"
+                specializations = 18
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 55
+                inference_seconds = 0.08619856834411621
+                llvm_seconds = 0.35398292541503906
+                module = "CompositionalNetworks"
+                source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/icn.jl"
+                specializations = 55
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 38
+                inference_seconds = 0.33251482248306274
+                llvm_seconds = 0.0
+                module = "ExproniconLite"
+                source = "/home/azzaare/.julia/packages/ExproniconLite/4LrQ4/src/print/multi.jl"
+                specializations = 38
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 97
+                inference_seconds = 0.2950553894042969
+                llvm_seconds = 0.0
+                module = "ExproniconLite"
+                source = "/home/azzaare/.julia/packages/ExproniconLite/4LrQ4/src/print/inline.jl"
+                specializations = 97
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 144
+                inference_seconds = 0.05757880210876465
+                llvm_seconds = 0.21602249145507812
+                module = "Base"
+                source = "array.jl"
+                specializations = 143
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 395
+                inference_seconds = 0.12705230712890625
+                llvm_seconds = 0.03647613525390625
+                module = "Base.Broadcast"
+                source = "broadcast.jl"
+                specializations = 394
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 46
+                inference_seconds = 0.027232050895690918
+                llvm_seconds = 0.10859203338623047
+                module = "Base"
+                source = "deepcopy.jl"
+                specializations = 46
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 182
+                inference_seconds = 0.05787944793701172
+                llvm_seconds = 0.06926918029785156
+                module = "Base.Iterators"
+                source = "iterators.jl"
+                specializations = 182
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 30
+                inference_seconds = 0.013011932373046875
+                llvm_seconds = 0.06332206726074219
+                module = "Base.Sort"
+                source = "sort.jl"
+                specializations = 30
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 7
+                inference_seconds = 0.03457021713256836
+                llvm_seconds = 0.037166595458984375
+                module = "Main.HexalyReproduction.ReproductionScoring"
+                source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+                specializations = 7
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 185
+                inference_seconds = 0.02896326780319214
+                llvm_seconds = 0.042102813720703125
+                module = "Base"
+                source = "abstractarray.jl"
+                specializations = 170
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 11
+                inference_seconds = 0.006307840347290039
+                llvm_seconds = 0.03982734680175781
+                module = "CompositionalNetworks"
+                source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/composition_ir.jl"
+                specializations = 11
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 31
+                inference_seconds = 0.036137402057647705
+                llvm_seconds = 0.0023651123046875
+                module = "Base"
+                source = "subarray.jl"
+                specializations = 31
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 69
+                inference_seconds = 0.01127547025680542
+                llvm_seconds = 0.01826953887939453
+                module = "Base"
+                source = "generator.jl"
+                specializations = 69
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 134
+                inference_seconds = 0.007076680660247803
+                llvm_seconds = 0.020097732543945312
+                module = "Base"
+                source = "Base_compiler.jl"
+                specializations = 134
+                [[night_actual_cold_bank_v3.inference_process.measurements.cold.top_sources]]
+                code_instances = 112
+                inference_seconds = 0.004720330238342285
+                llvm_seconds = 0.020940780639648438
+                module = "Base"
+                source = "essentials.jl"
+                specializations = 112
+
+            [night_actual_cold_bank_v3.inference_process.measurements.warm]
+            flattened_frames = 1
+            method_groups = 1
+            remaining_source_groups = 0
+            scorer_methods = []
+            source_groups = 1
+            summed_exclusive_inference_seconds = 1.4185905456542969e-5
+            summed_llvm_seconds = 0.0
+            tree_inclusive_seconds_with_overlap = 1.537799835205078e-5
+            unique_code_instances = 1
+            unique_specializations = 1
+
+                [night_actual_cold_bank_v3.inference_process.measurements.warm.remaining_sources_aggregate]
+                code_instances = 0
+                inference_seconds = 0
+                llvm_seconds = 0
+                specializations = 0
+
+                [[night_actual_cold_bank_v3.inference_process.measurements.warm.top_methods]]
+                code_instances = 1
+                inference_seconds = 1.4185905456542969e-5
+                line = 66
+                llvm_seconds = 0.0
+                method = "ROOT"
+                module = "Base.Compiler.Timings"
+                source = "../usr/share/julia/Compiler/src/typeinfer.jl"
+                specializations = 1
+
+                [[night_actual_cold_bank_v3.inference_process.measurements.warm.top_sources]]
+                code_instances = 1
+                inference_seconds = 1.4185905456542969e-5
+                llvm_seconds = 0.0
+                module = "Base.Compiler.Timings"
+                source = "../usr/share/julia/Compiler/src/typeinfer.jl"
+                specializations = 1
+
+    [night_actual_cold_bank_v3.separate_memory_process]
+    blas_threads = 1
+    cc_commit = "1707636e0145e00c6b3098f25e3e41c61de38136"
+    cn_commit = "46192ea8ecde5ad8029c61f05c737984f370c52d"
+    cpu_affinity = [4, 6]
+    decoder_checks = "Exact bank; equality target zero on positive, negative, zero and mixed-sign inputs; one immutable zero-field pure decoder shared; distinct input/residual buffers; problem workspaces remain lazily uninitialized."
+    gc_threads = 1
+    julia_threads = 2
+    limitations = "Inference timing includes Ref assignment and invokelatest bookkeeping. Inference/LLVM aggregates sum unique code instances and may not cover all lifecycle work; inclusive tree sums overlap and are not elapsed time. Compiler counters use Float16 storage. Memory/GC are measured in a separate fresh process without Snoop instrumentation. Operational measurements with other night jobs active."
+    mode = "memory"
+    project = "/tmp/hdr-routing-integrated-v3-env-20261008"
+    recorded_utc = "2026-10-08T22:41:45.109"
+    runtime = "1.13.1"
+    scope = "First actual prepare_backend(:icn_fused) after loading SnoopCompile and Reproduction.jl in a fresh process; warm retrieval follows immediately. No scenario factory precedes the cold call. No training or native solver execution."
+
+        [night_actual_cold_bank_v3.separate_memory_process.fingerprints]
+        bank = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+        manifest = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+        project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+        reproduction = "fedcedc41733536fb07e8d1bd05f1d5a5021b36e4ee972397c61f8ae1352f332"
+        scoring = "42238a307fa43a06f3837e844e46fb158dbc64ee6705e7ce18f1651441b8f434"
+
+        [night_actual_cold_bank_v3.separate_memory_process.measurements.cold_memory]
+        allocated_bytes = 672133600
+        compile_seconds = 2.637114554
+        gc_seconds = 0.2249754
+        recompile_seconds = 0.0
+        uninstrumented_lifecycle_seconds = 2.641928768
+
+            [night_actual_cold_bank_v3.separate_memory_process.measurements.cold_memory.gc_counters]
+            allocd = 672133600
+            bigalloc = 92
+            freecall = 14203
+            full_sweep = 1
+            malloc = 17574
+            pause = 5
+            poolalloc = 10229240
+            realloc = 0
+            total_time = 224975400
+
+        [night_actual_cold_bank_v3.separate_memory_process.measurements.warm_memory]
+        allocated_bytes = 7664
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        recompile_seconds = 0.0
+        uninstrumented_lifecycle_seconds = 5.1057e-5
+
+            [night_actual_cold_bank_v3.separate_memory_process.measurements.warm_memory.gc_counters]
+            allocd = 7664
+            bigalloc = 1
+            freecall = 0
+            full_sweep = 0
+            malloc = 0
+            pause = 0
+            poolalloc = 35
+            realloc = 0
+            total_time = 0
+
+[night_actual_ghost_adapter_v3]
+actual_run_checks = 44
+assertions = 855
+blas_threads = 1
+cpu_affinity = [0, 2]
+evidence_sha256 = "646d33b3c8b5eb0172de3cc94b38ee0f687cddd6d6b34713ed6f09b8536886c9"
+gc_threads = 1
+input_sha256 = "0aa9c1cf876260da221aa8d6c9c2224045b0162145102d1c82b79e9faede8a4a"
+integrity_checks = 1
+julia_threads = 2
+lane_widths = [1, 1, 2, 2]
+limitations = ["Direct actual adapter loading; the optional runner qualification gate is unchanged", "No improved native incumbent observed; this qualifies functional behavior and private buffers, not quality or scaling", "The native ABI does not apply the recorded seed label; outer wall includes final audit beyond the search cap"]
+manifest_sha256 = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+native_library_sha256 = "50bbe8af9cd061c6dfeb2eb9b80b2c3f0c74110c3e91429543b3173f5165545d"
+native_objective_evaluations = [403251, 134792, 794830, 267118]
+native_workers_per_model = 1
+original_permutation_checks = 770
+outer_wall_seconds = [3.053950332, 1.050750143, 3.085047678, 1.066977619]
+ownership_checks = 40
+project_sha256 = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+published_evidence_commit = "e94b411346761f4547858324fbc54f78ce4bf1ad"
+qualification = "passed"
+returned_distance = 8.650281539872886
+returned_vehicles = 1
+search_budgets_seconds = [3, 1, 3, 1]
+wrapper_commit = "3b9e3e26e218f1e29e0a6fa7cc9cd52a1c969fef"
+
 [night_backend_coverage]
 aqua_scope = "Package Aqua qualification is run in dedicated package chats; this routing application is not an importable package and has no package-quality Aqua verdict."
 date_utc = "2026-10-08T19:55:53.169"
@@ -20729,6 +21248,1143 @@ timing_scope = "Operational measurements on disjoint cores with concurrent chats
             tabu_hits = 0
             thread_cpu_seconds = 28.641542014000052
             unchanged_proposals = 63211
+
+[night_owned_repair_defaults]
+after_source_sha256 = "8570845e07ebf5ef5f99c819f79806b11abab90ee80f97c969f8a9612f2dc511"
+attribution_boundary_assertions = 5
+before_source_sha256 = "2e4f914c9b06d8ec49bce5878b6249f8e1a1f4a2c02527b629b7ec1a9bd9b5f6"
+changes = ["Reuse immutable algorithm and counter names for known roles, preserving custom-name fallback", "Default uniform repair priorities reset a private scratch vector to one, preserving historical fresh-default semantics and RNG"]
+diagnostic_sha256 = "ceeef852f5438f43c17a3561b5f15cc6e9b0b0b0eab0e739e689913c2847ec52"
+limitations = ["Fixed-work allocation qualification, not an original-instance quality comparison or a controlled timing result", "LP/MIP allocation totals can vary across fresh processes; retain all results and observable-work checks", "First-use private uniform vector and independent retained solution copies are included; no claim of a zero-allocation solver"]
+manifest_sha256 = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+new_differential_assertions = 2706
+recorded_utc = "2026-10-08T22:53:43.550"
+schema = "routing-owned-defaults-qualification/1"
+scope = "Same V3 frozen dependencies, all 52 historical routing profiles, two workers, forty search steps per prepared lane or eight real MetaStrategist episodes on the original three-request model; original model and configured error callbacks retained"
+test_assertions = 9834
+
+    [night_owned_repair_defaults.original_instance_hotspot_baseline]
+    ICNScoring_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+    MetaRepair_sha256 = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    collector = "PerfChecker SharedScenarioRuntime + direct sampled Julia Profile.Allocs"
+    collector_scope = "Bounded top application frame aggregation; not the native full-stack profile_alloc collector"
+    config_sha256 = "526e5283ce541dcf4b04424024fd6826418f2d63096f9614dfa10f188d00f2d1"
+    date_utc = "2026-10-08T22:42:05.189"
+    diagnostic_sha256 = "ceeef852f5438f43c17a3561b5f15cc6e9b0b0b0eab0e739e689913c2847ec52"
+    factory_sha256 = "30f5e0b0aea9524dc8cfcc361409a0e4559fcbd3604c7e0b54cfa82456d894d1"
+    fixture = "Original Li-Lim instance; bounded pipeline diagnostics, not a comparative campaign"
+    instance_name = "lr101.txt"
+    instance_sha256 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    julia = "1.13.1"
+    operation_budget_cap_seconds = 8.0
+    oracle = "Original Li-Lim validator and actual configured error backend"
+    runtime_sha256 = "6f3e6aaa5dddb2be0b53361b7f354b608710224d51bb68d4dc3b541a2e8657eb"
+    sample_scope = "Top frames contain raw sampled bytes/events, not exact allocation percentages"
+    schema = "routing-sampled-perfcheck/1"
+    solver_manifest_sha256 = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+    solver_project_sha256 = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    source_sha256 = "2e4f914c9b06d8ec49bce5878b6249f8e1a1f4a2c02527b629b7ec1a9bd9b5f6"
+    timing_qualification = "No timing/scaling conclusions; other chats may be active"
+    workers = 2
+
+        [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        bytes = 227708456
+        category = "search"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.000717015
+        method = "rp_vnd_late"
+        objects = 3536217
+        observation_scope = "Independent fresh-state byte, object and sampled-stack observations"
+        observed_gc_seconds = 0.177414448
+        operational_mean_active_cpus = 1.3039554048766053
+        process_cpu_seconds = 10.432877069
+        retained_attribution_events = 321
+        sample_rate = 0.0001
+        sampled_events = 323
+        search_gc_seconds = 0.012753995
+        search_wall_seconds = 8.000946221
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/QUBOGuidance.jl"
+            function = "#structural_guide#38"
+            line = 100
+            package = "Benchmarks"
+            sampled_bytes = 156744
+            sampled_events = 1
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "repair!"
+            line = 266
+            package = "Benchmarks"
+            sampled_bytes = 6416
+            sampled_events = 22
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 716
+            package = "Benchmarks"
+            sampled_bytes = 3104
+            sampled_events = 38
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#30"
+            line = 295
+            package = "Benchmarks"
+            sampled_bytes = 2496
+            sampled_events = 18
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/Hybrid.jl"
+            function = "#pair_relocation#1"
+            line = 101
+            package = "Benchmarks"
+            sampled_bytes = 1904
+            sampled_events = 14
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#remove_requests!#11"
+            line = 163
+            package = "Benchmarks"
+            sampled_bytes = 1616
+            sampled_events = 34
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "counter!"
+            line = 154
+            package = "Benchmarks"
+            sampled_bytes = 800
+            sampled_events = 100
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/Hybrid.jl"
+            function = "#pair_relocation#1"
+            line = 103
+            package = "Benchmarks"
+            sampled_bytes = 448
+            sampled_events = 10
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#random_requests!#9"
+            line = 143
+            package = "Benchmarks"
+            sampled_bytes = 360
+            sampled_events = 9
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 681
+            package = "Benchmarks"
+            sampled_bytes = 312
+            sampled_events = 26
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "route_valid"
+            line = 404
+            package = "Benchmarks"
+            sampled_bytes = 288
+            sampled_events = 4
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#30"
+            line = 297
+            package = "Benchmarks"
+            sampled_bytes = 216
+            sampled_events = 9
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/Hybrid.jl"
+            function = "#pair_relocation#1"
+            line = 138
+            package = "Benchmarks"
+            sampled_bytes = 192
+            sampled_events = 24
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/ResourceExperiment.jl"
+            function = "#run_case#23"
+            line = 218
+            package = "Benchmarks"
+            sampled_bytes = 96
+            sampled_events = 1
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#105"
+            line = 622
+            package = "Benchmarks"
+            sampled_bytes = 80
+            sampled_events = 3
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#30"
+            line = 275
+            package = "Benchmarks"
+            sampled_bytes = 64
+            sampled_events = 2
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#episode!#117"
+            line = 753
+            package = "Benchmarks"
+            sampled_bytes = 56
+            sampled_events = 1
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "src/variable.jl"
+            function = "variable"
+            line = 78
+            package = "LocalSearchSolvers"
+            sampled_bytes = 32
+            sampled_events = 1
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#105"
+            line = 610
+            package = "Benchmarks"
+            sampled_bytes = 32
+            sampled_events = 1
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#136"
+            line = 805
+            package = "Benchmarks"
+            sampled_bytes = 24
+            sampled_events = 3
+
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/ResourceExperiment.jl"
+            sampled_bytes = 175296
+            sampled_events = 323
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./Base_compiler.jl"
+            sampled_bytes = 175288
+            sampled_events = 322
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/StructuredRouting.jl"
+            sampled_bytes = 175200
+            sampled_events = 322
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./boot.jl"
+            sampled_bytes = 170768
+            sampled_events = 139
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./array.jl"
+            sampled_bytes = 170352
+            sampled_events = 121
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_perfcheck.jl"
+            sampled_bytes = 157056
+            sampled_events = 6
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./Base.jl"
+            sampled_bytes = 157056
+            sampled_events = 6
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./client.jl"
+            sampled_bytes = 157056
+            sampled_events = 6
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_scenarios.jl"
+            sampled_bytes = 157056
+            sampled_events = 6
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./loading.jl"
+            sampled_bytes = 157056
+            sampled_events = 6
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/packages/PerfChecker/5ahOE/src/scenario_runtime.jl"
+            sampled_bytes = 157056
+            sampled_events = 6
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "/cache/build/builder-amdci4-8/julialang/julia-ci/usr/share/julia/stdlib/v1.13/Profile/src/Allocs.jl"
+            sampled_bytes = 157056
+            sampled_events = 6
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/QUBOGuidance.jl"
+            sampled_bytes = 156744
+            sampled_events = 1
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./threadingconstructs.jl"
+            sampled_bytes = 18240
+            sampled_events = 317
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/Hybrid.jl"
+            sampled_bytes = 2576
+            sampled_events = 49
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./strings/string.jl"
+            sampled_bytes = 312
+            sampled_events = 26
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./strings/io.jl"
+            sampled_bytes = 312
+            sampled_events = 26
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./set.jl"
+            sampled_bytes = 288
+            sampled_events = 4
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./dict.jl"
+            sampled_bytes = 288
+            sampled_events = 4
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./abstractset.jl"
+            sampled_bytes = 208
+            sampled_events = 3
+
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.worker_diagnostics]]
+            accepted_meta_moves = 31
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 163650
+            summary_evaluations = 76363978
+            tabu_hits = 0
+            thread_cpu_seconds = 4.752362146000001
+            unchanged_proposals = 54500
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.worker_diagnostics]]
+            accepted_meta_moves = 28
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 192010
+            summary_evaluations = 89561824
+            tabu_hits = 0
+            thread_cpu_seconds = 5.608560785
+            unchanged_proposals = 63957
+        [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        bytes = 164323272
+        category = "meta"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.000662738
+        method = "rp_meta_adaptive_late"
+        objects = 2405724
+        observation_scope = "Independent fresh-state byte, object and sampled-stack observations"
+        observed_gc_seconds = 0.15511929
+        operational_mean_active_cpus = 1.3212490317502912
+        process_cpu_seconds = 10.57475780899999
+        retained_attribution_events = 213
+        sample_rate = 0.0001
+        sampled_events = 233
+        search_gc_seconds = 0.011064647
+        search_wall_seconds = 8.003606856
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "copy_routes!"
+            line = 90
+            package = "Benchmarks"
+            sampled_bytes = 2248
+            sampled_events = 16
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#remove_requests!#11"
+            line = 163
+            package = "Benchmarks"
+            sampled_bytes = 1392
+            sampled_events = 29
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "route_valid"
+            line = 404
+            package = "Benchmarks"
+            sampled_bytes = 1136
+            sampled_events = 13
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#30"
+            line = 295
+            package = "Benchmarks"
+            sampled_bytes = 1024
+            sampled_events = 9
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "repair!"
+            line = 266
+            package = "Benchmarks"
+            sampled_bytes = 912
+            sampled_events = 3
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "guidance_ids"
+            line = 628
+            package = "Benchmarks"
+            sampled_bytes = 912
+            sampled_events = 3
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 732
+            package = "Benchmarks"
+            sampled_bytes = 832
+            sampled_events = 7
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "counter!"
+            line = 154
+            package = "Benchmarks"
+            sampled_bytes = 616
+            sampled_events = 77
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 716
+            package = "Benchmarks"
+            sampled_bytes = 416
+            sampled_events = 5
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/Hybrid.jl"
+            function = "#pair_relocation#1"
+            line = 101
+            package = "Benchmarks"
+            sampled_bytes = 288
+            sampled_events = 2
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#30"
+            line = 297
+            package = "Benchmarks"
+            sampled_bytes = 240
+            sampled_events = 7
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#30"
+            line = 275
+            package = "Benchmarks"
+            sampled_bytes = 224
+            sampled_events = 7
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#67"
+            line = 424
+            package = "Benchmarks"
+            sampled_bytes = 176
+            sampled_events = 4
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#remove_requests!#11"
+            line = 164
+            package = "Benchmarks"
+            sampled_bytes = 160
+            sampled_events = 1
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 681
+            package = "Benchmarks"
+            sampled_bytes = 147
+            sampled_events = 12
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#67"
+            line = 416
+            package = "Benchmarks"
+            sampled_bytes = 144
+            sampled_events = 4
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#67"
+            line = 420
+            package = "Benchmarks"
+            sampled_bytes = 144
+            sampled_events = 7
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#range_cache#4"
+            line = 61
+            package = "Benchmarks"
+            sampled_bytes = 144
+            sampled_events = 3
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/Pilot.jl"
+            function = "#insertion#2"
+            line = 38
+            package = "Benchmarks"
+            sampled_bytes = 96
+            sampled_events = 3
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#136"
+            line = 804
+            package = "Benchmarks"
+            sampled_bytes = 96
+            sampled_events = 1
+
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/ResourceExperiment.jl"
+            sampled_bytes = 11907
+            sampled_events = 233
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./Base_compiler.jl"
+            sampled_bytes = 11899
+            sampled_events = 232
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/StructuredRouting.jl"
+            sampled_bytes = 11811
+            sampled_events = 230
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./threadingconstructs.jl"
+            sampled_bytes = 10187
+            sampled_events = 205
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./boot.jl"
+            sampled_bytes = 10000
+            sampled_events = 124
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./array.jl"
+            sampled_bytes = 7128
+            sampled_events = 90
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_perfcheck.jl"
+            sampled_bytes = 1720
+            sampled_events = 28
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./Base.jl"
+            sampled_bytes = 1720
+            sampled_events = 28
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./client.jl"
+            sampled_bytes = 1720
+            sampled_events = 28
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_scenarios.jl"
+            sampled_bytes = 1720
+            sampled_events = 28
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./loading.jl"
+            sampled_bytes = 1720
+            sampled_events = 28
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/packages/PerfChecker/5ahOE/src/scenario_runtime.jl"
+            sampled_bytes = 1720
+            sampled_events = 28
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "/cache/build/builder-amdci4-8/julialang/julia-ci/usr/share/julia/stdlib/v1.13/Profile/src/Allocs.jl"
+            sampled_bytes = 1720
+            sampled_events = 28
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./set.jl"
+            sampled_bytes = 1136
+            sampled_events = 13
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./dict.jl"
+            sampled_bytes = 1136
+            sampled_events = 13
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./abstractset.jl"
+            sampled_bytes = 976
+            sampled_events = 11
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./range.jl"
+            sampled_bytes = 912
+            sampled_events = 3
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/Hybrid.jl"
+            sampled_bytes = 400
+            sampled_events = 8
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./deepcopy.jl"
+            sampled_bytes = 336
+            sampled_events = 13
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.allocation_source_files]]
+            file = "./strings/string.jl"
+            sampled_bytes = 147
+            sampled_events = 12
+
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.worker_diagnostics]]
+            accepted_meta_moves = 50
+            completed_resets = 0
+            ejection_attempts = 72695
+            steps = 74165
+            summary_evaluations = 94742482
+            tabu_hits = 0
+            thread_cpu_seconds = 5.275297525999992
+            unchanged_proposals = 26602
+            [[night_owned_repair_defaults.original_instance_hotspot_baseline.strategies.worker_diagnostics]]
+            accepted_meta_moves = 53
+            completed_resets = 0
+            ejection_attempts = 102354
+            steps = 31221
+            summary_evaluations = 97876915
+            tabu_hits = 0
+            thread_cpu_seconds = 5.2019312549999945
+            unchanged_proposals = 12373
+
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 199760
+    after_objects = 2425
+    before_bytes = 203600
+    before_objects = 2585
+    byte_reduction_percent = 1.8860510805500996
+    category = "search"
+    correctness = "passed"
+    method = "rp_aco_regret2"
+    object_reduction_percent = 6.189555125725343
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 199760
+    after_objects = 2425
+    before_bytes = 203600
+    before_objects = 2585
+    byte_reduction_percent = 1.8860510805500996
+    category = "search"
+    correctness = "passed"
+    method = "rp_aco_regret3"
+    object_reduction_percent = 6.189555125725343
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 188656
+    after_objects = 2578
+    before_bytes = 192496
+    before_objects = 2738
+    byte_reduction_percent = 1.9948466461640724
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_adaptive_regret2"
+    object_reduction_percent = 5.843681519357191
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 188656
+    after_objects = 2578
+    before_bytes = 192496
+    before_objects = 2738
+    byte_reduction_percent = 1.9948466461640724
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_adaptive_regret3"
+    object_reduction_percent = 5.843681519357191
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 109840
+    after_objects = 1286
+    before_bytes = 113680
+    before_objects = 1446
+    byte_reduction_percent = 3.37790288529205
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_critical"
+    object_reduction_percent = 11.065006915629327
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 188656
+    after_objects = 2578
+    before_bytes = 192496
+    before_objects = 2738
+    byte_reduction_percent = 1.9948466461640724
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_direct"
+    object_reduction_percent = 5.843681519357191
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 109840
+    after_objects = 1286
+    before_bytes = 113680
+    before_objects = 1446
+    byte_reduction_percent = 3.37790288529205
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_incompatibility"
+    object_reduction_percent = 11.065006915629327
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 188656
+    after_objects = 2578
+    before_bytes = 192496
+    before_objects = 2738
+    byte_reduction_percent = 1.9948466461640724
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_naive"
+    object_reduction_percent = 5.843681519357191
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 135440
+    after_objects = 1606
+    before_bytes = 139280
+    before_objects = 1766
+    byte_reduction_percent = 2.757036186099937
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_qubo"
+    object_reduction_percent = 9.06002265005662
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 162576
+    after_objects = 1993
+    before_bytes = 166416
+    before_objects = 2153
+    byte_reduction_percent = 2.3074704355350417
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_random_regret2"
+    object_reduction_percent = 7.431490942870411
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 162576
+    after_objects = 1993
+    before_bytes = 166416
+    before_objects = 2153
+    byte_reduction_percent = 2.3074704355350417
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_random_regret3"
+    object_reduction_percent = 7.431490942870411
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 207184
+    after_objects = 3147
+    before_bytes = 211024
+    before_objects = 3307
+    byte_reduction_percent = 1.819698233376299
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_route_regret2"
+    object_reduction_percent = 4.838221953432109
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 207184
+    after_objects = 3147
+    before_bytes = 211024
+    before_objects = 3307
+    byte_reduction_percent = 1.819698233376299
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_route_regret3"
+    object_reduction_percent = 4.838221953432109
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 160864
+    after_objects = 1954
+    before_bytes = 164704
+    before_objects = 2114
+    byte_reduction_percent = 2.331455216631051
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_shaw_regret2"
+    object_reduction_percent = 7.5685903500473
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 160864
+    after_objects = 1954
+    before_bytes = 164704
+    before_objects = 2114
+    byte_reduction_percent = 2.331455216631051
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_shaw_regret3"
+    object_reduction_percent = 7.5685903500473
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 230800
+    after_objects = 3492
+    before_bytes = 234640
+    before_objects = 3652
+    byte_reduction_percent = 1.6365496079099873
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_sisr_regret2"
+    object_reduction_percent = 4.381161007667034
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 230800
+    after_objects = 3492
+    before_bytes = 234640
+    before_objects = 3652
+    byte_reduction_percent = 1.6365496079099873
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_sisr_regret3"
+    object_reduction_percent = 4.381161007667034
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 147712
+    after_objects = 1720
+    before_bytes = 151552
+    before_objects = 1880
+    byte_reduction_percent = 2.533783783783783
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_worst_regret2"
+    object_reduction_percent = 8.510638297872342
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 147712
+    after_objects = 1720
+    before_bytes = 151552
+    before_objects = 1880
+    byte_reduction_percent = 2.533783783783783
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_worst_regret3"
+    object_reduction_percent = 8.510638297872342
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 62704
+    after_objects = 866
+    before_bytes = 65264
+    before_objects = 946
+    byte_reduction_percent = 3.9225300318705525
+    category = "search"
+    correctness = "passed"
+    method = "rp_ges1_greedy"
+    object_reduction_percent = 8.456659619450313
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 62704
+    after_objects = 866
+    before_bytes = 65264
+    before_objects = 946
+    byte_reduction_percent = 3.9225300318705525
+    category = "search"
+    correctness = "passed"
+    method = "rp_ges1_late"
+    object_reduction_percent = 8.456659619450313
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 62704
+    after_objects = 866
+    before_bytes = 65264
+    before_objects = 946
+    byte_reduction_percent = 3.9225300318705525
+    category = "search"
+    correctness = "passed"
+    method = "rp_ges2_greedy"
+    object_reduction_percent = 8.456659619450313
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 62704
+    after_objects = 866
+    before_bytes = 65264
+    before_objects = 946
+    byte_reduction_percent = 3.9225300318705525
+    category = "search"
+    correctness = "passed"
+    method = "rp_ges2_late"
+    object_reduction_percent = 8.456659619450313
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 7728
+    after_objects = 116
+    before_bytes = 10288
+    before_objects = 196
+    byte_reduction_percent = 24.883359253499226
+    category = "search"
+    correctness = "passed"
+    method = "rp_memetic_regret2"
+    object_reduction_percent = 40.816326530612244
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 7728
+    after_objects = 116
+    before_bytes = 10288
+    before_objects = 196
+    byte_reduction_percent = 24.883359253499226
+    category = "search"
+    correctness = "passed"
+    method = "rp_memetic_regret3"
+    object_reduction_percent = 40.816326530612244
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 572912
+    after_objects = 6502
+    before_bytes = 579504
+    before_objects = 6734
+    byte_reduction_percent = 1.1375245037135162
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_adaptive_late"
+    object_reduction_percent = 3.4452034452034486
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 547328
+    after_objects = 6022
+    before_bytes = 553920
+    before_objects = 6254
+    byte_reduction_percent = 1.1900635470826093
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_adaptive_tabu"
+    object_reduction_percent = 3.709625839462749
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 518928
+    after_objects = 5367
+    before_bytes = 524944
+    before_objects = 5589
+    byte_reduction_percent = 1.1460270047852772
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_diversity_late"
+    object_reduction_percent = 3.97208803005904
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 521584
+    after_objects = 5394
+    before_bytes = 527600
+    before_objects = 5616
+    byte_reduction_percent = 1.1402577710386663
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_diversity_tabu"
+    object_reduction_percent = 3.95299145299145
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 449488
+    after_objects = 4923
+    before_bytes = 455728
+    before_objects = 5103
+    byte_reduction_percent = 1.3692377909630293
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_fleet_distance_late"
+    object_reduction_percent = 3.527336860670194
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 449088
+    after_objects = 4897
+    before_bytes = 455328
+    before_objects = 5077
+    byte_reduction_percent = 1.3704406493780352
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_fleet_distance_tabu"
+    object_reduction_percent = 3.5454008272601922
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 532912
+    after_objects = 5627
+    before_bytes = 539376
+    before_objects = 5851
+    byte_reduction_percent = 1.198421880098488
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_guided_late"
+    object_reduction_percent = 3.8284054007861945
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 529344
+    after_objects = 5543
+    before_bytes = 535808
+    before_objects = 5767
+    byte_reduction_percent = 1.2064022933588103
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_guided_tabu"
+    object_reduction_percent = 3.8841685451707963
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 708464
+    after_objects = 12451
+    before_bytes = 712736
+    before_objects = 12663
+    byte_reduction_percent = 0.599380415750006
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_pool_hipo_late"
+    object_reduction_percent = 1.6741688383479447
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 698848
+    after_objects = 12270
+    before_bytes = 705296
+    before_objects = 12484
+    byte_reduction_percent = 0.9142260838002736
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_pool_hipo_tabu"
+    object_reduction_percent = 1.714194168535721
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 688944
+    after_objects = 12141
+    before_bytes = 694448
+    before_objects = 12331
+    byte_reduction_percent = 0.7925719420316613
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_pool_ipx_late"
+    object_reduction_percent = 1.5408320493066285
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 684320
+    after_objects = 12031
+    before_bytes = 687712
+    before_objects = 12219
+    byte_reduction_percent = 0.493229724070543
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_pool_ipx_tabu"
+    object_reduction_percent = 1.5385874457811588
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 717104
+    after_objects = 12708
+    before_bytes = 723632
+    before_objects = 12921
+    byte_reduction_percent = 0.902115992659247
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_pool_mip_late"
+    object_reduction_percent = 1.6484792198746212
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 938992
+    after_objects = 17101
+    before_bytes = 943280
+    before_objects = 17312
+    byte_reduction_percent = 0.454584004749381
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_pool_mip_tabu"
+    object_reduction_percent = 1.2188077634011085
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 580544
+    after_objects = 6685
+    before_bytes = 586720
+    before_objects = 6914
+    byte_reduction_percent = 1.0526315789473717
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_ruin_repair_late"
+    object_reduction_percent = 3.312120335551061
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 552256
+    after_objects = 6122
+    before_bytes = 558400
+    before_objects = 6351
+    byte_reduction_percent = 1.100286532951289
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_ruin_repair_tabu"
+    object_reduction_percent = 3.6057313808849023
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 229168
+    after_objects = 3471
+    before_bytes = 232976
+    before_objects = 3629
+    byte_reduction_percent = 1.6345031247853803
+    category = "search"
+    correctness = "passed"
+    method = "rp_sisr_b0_regret2"
+    object_reduction_percent = 4.3538164783686994
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 229168
+    after_objects = 3471
+    before_bytes = 232976
+    before_objects = 3629
+    byte_reduction_percent = 1.6345031247853803
+    category = "search"
+    correctness = "passed"
+    method = "rp_sisr_b0_regret3"
+    object_reduction_percent = 4.3538164783686994
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 275312
+    after_objects = 4338
+    before_bytes = 279120
+    before_objects = 4496
+    byte_reduction_percent = 1.3642877615362536
+    category = "search"
+    correctness = "passed"
+    method = "rp_sisr_b15_regret2"
+    object_reduction_percent = 3.514234875444844
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 275312
+    after_objects = 4338
+    before_bytes = 279120
+    before_objects = 4496
+    byte_reduction_percent = 1.3642877615362536
+    category = "search"
+    correctness = "passed"
+    method = "rp_sisr_b15_regret3"
+    object_reduction_percent = 3.514234875444844
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 326544
+    after_objects = 5184
+    before_bytes = 330352
+    before_objects = 5342
+    byte_reduction_percent = 1.1527098367801636
+    category = "search"
+    correctness = "passed"
+    method = "rp_sisr_b30_regret2"
+    object_reduction_percent = 2.9576937476600507
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 326544
+    after_objects = 5184
+    before_bytes = 330352
+    before_objects = 5342
+    byte_reduction_percent = 1.1527098367801636
+    category = "search"
+    correctness = "passed"
+    method = "rp_sisr_b30_regret3"
+    object_reduction_percent = 2.9576937476600507
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 85280
+    after_objects = 1264
+    before_bytes = 89824
+    before_objects = 1394
+    byte_reduction_percent = 5.058781617385111
+    category = "search"
+    correctness = "passed"
+    method = "rp_vnd_greedy"
+    object_reduction_percent = 9.32568149210904
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 123568
+    after_objects = 1977
+    before_bytes = 128112
+    before_objects = 2107
+    byte_reduction_percent = 3.5468964655926083
+    category = "search"
+    correctness = "passed"
+    method = "rp_vnd_late"
+    object_reduction_percent = 6.16990982439487
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 122512
+    after_objects = 1958
+    before_bytes = 127056
+    before_objects = 2088
+    byte_reduction_percent = 3.5763757713134336
+    category = "search"
+    correctness = "passed"
+    method = "rp_vnd_reset_full"
+    object_reduction_percent = 6.22605363984674
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 120976
+    after_objects = 1922
+    before_bytes = 125520
+    before_objects = 2052
+    byte_reduction_percent = 3.620140216698531
+    category = "search"
+    correctness = "passed"
+    method = "rp_vnd_reset_partial"
+    object_reduction_percent = 6.335282651072127
+    observable_work_matches = true
+    [[night_owned_repair_defaults.records]]
+    after_bytes = 104912
+    after_objects = 1626
+    before_bytes = 109456
+    before_objects = 1756
+    byte_reduction_percent = 4.151439847975446
+    category = "search"
+    correctness = "passed"
+    method = "rp_vnd_tabu"
+    object_reduction_percent = 7.403189066059223
+    observable_work_matches = true
 
 [original_instance]
 collector = "PerfChecker SharedScenarioRuntime + direct @timed allocation/GC totals"

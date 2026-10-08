@@ -22,19 +22,46 @@ function runtime_source(opts)
     joinpath(dirname(path),"scenario_runtime.jl")
 end
 
+const OWNED_PACKAGES=("CBLS","LocalSearchSolvers","MetaStrategist","ConstraintModels",
+    "CompositionalNetworks","Constraints","ConstraintCommons","ConstraintDomains",
+    "PatternFolds","QUBOConstraints","ConstraintProgrammingExtensions","XCSP3Bridges","GHOST")
+
 function allocation_frames(events)
-    groups=Dict{Tuple{String,Int,String},Tuple{Int,Int}}()
-    root=normpath(joinpath(@__DIR__,".."))
+    groups=Dict{Tuple{String,Int,String,String},Tuple{Int,Int}}()
+    root=dirname(@__DIR__)
+    # Resolve the measured environment, rather than attributing every matching
+    # package name to an unrelated checkout or losing inlined package frames.
+    sources=Pair{String,String}["Benchmarks"=>root]
+    for name in OWNED_PACKAGES
+        path=Base.find_package(name)
+        path===nothing || push!(sources,name=>dirname(dirname(path)))
+    end
+    separator=Sys.iswindows() ? "\\" : "/"
+    owner(file)=findfirst(p->startswith(file,last(p)*separator),sources)
     for a in events
-        i=findfirst(f->!f.from_c && f.line>0 &&
-            (startswith(string(f.file),root) || occursin("LocalSearchSolvers/src/",string(f.file))),a.stacktrace)
+        i=findfirst(f->!f.from_c && f.line>0 && owner(normpath(string(f.file)))!==nothing,a.stacktrace)
         i===nothing && continue
-        f=a.stacktrace[i];key=(string(f.file),f.line,string(f.func));old=get(groups,key,(0,0))
+        f=a.stacktrace[i];file=normpath(string(f.file));package=first(sources[owner(file)])
+        key=(file,f.line,string(f.func),package);old=get(groups,key,(0,0))
         groups[key]=(old[1]+a.size,old[2]+1)
     end
     rows=sort!(collect(groups);by=x->last(x)[1],rev=true)
-    [Dict("file"=>relpath(k[1],root),"line"=>k[2],"function"=>k[3],
-        "sampled_bytes"=>v[1],"sampled_events"=>v[2]) for (k,v) in rows[1:min(10,end)]]
+    [Dict("file"=>relpath(k[1],last(sources[findfirst(p->first(p)==k[4],sources)])),
+        "package"=>k[4],"line"=>k[2],"function"=>k[3],
+        "sampled_bytes"=>v[1],"sampled_events"=>v[2]) for (k,v) in rows[1:min(20,end)]]
+end
+
+"Diagnose missing attribution without treating excluded samples as zero."
+function allocation_source_files(events)
+    groups=Dict{String,Tuple{Int,Int}}()
+    for a in events
+        files=unique(string(f.file) for f in a.stacktrace if !f.from_c && f.line>0)
+        for file in files
+            old=get(groups,file,(0,0));groups[file]=(old[1]+a.size,old[2]+1)
+        end
+    end
+    rows=sort!(collect(groups);by=x->last(x)[1],rev=true)
+    [Dict("file"=>file,"sampled_bytes"=>v[1],"sampled_events"=>v[2]) for (file,v) in rows[1:min(20,end)]]
 end
 
 function observation(case,rate;totals_only=false,native=false,warmup_case=case)
@@ -61,11 +88,16 @@ function observation(case,rate;totals_only=false,native=false,warmup_case=case)
         Base.invokelatest(RT.verify!,e)
         events=Profile.Allocs.fetch().allocs
     end
+    frames=allocation_frames(events)
     row=Dict{String,Any}("bytes"=>timed.bytes,"objects"=>objects,"observed_gc_seconds"=>timed.gctime,
         "correctness"=>"passed","sample_rate"=>native ? 1. : totals_only ? 0. : rate,"sampled_events"=>length(events),
         "observation_scope"=>native ? "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated" : totals_only ? "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling" :
             "Independent fresh-state byte, object and sampled-stack observations",
-        "allocation_frames"=>allocation_frames(events))
+        "allocation_frames"=>frames,
+        "retained_attribution_events"=>sum(f["sampled_events"] for f in frames;init=0),
+        "allocation_source_files"=>allocation_source_files(events),
+        "allocation_source_file_scope"=>"Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations",
+        "allocation_frame_scope"=>"First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages")
     if native
         row["native_allocation_profile"]=native_allocations
         row["native_cpu_stack_count"]=length(native_cpu["cpu_stacks"])
@@ -132,6 +164,7 @@ function measure(opts,runtime,width,seconds,rate)
         "timing_qualification"=>"No timing/scaling conclusions; other chats may be active",
         "sample_scope"=>"Top frames contain raw sampled bytes/events, not exact allocation percentages",
         "runtime_sha256"=>bytes2hex(sha256(read(runtime))),
+        "diagnostic_sha256"=>bytes2hex(sha256(read(@__FILE__))),
         "factory_sha256"=>bytes2hex(sha256(read(joinpath(@__DIR__,"routing_scenarios.jl")))),
         "source_sha256"=>bytes2hex(sha256(read(joinpath(@__DIR__,"../LiLim/src/StructuredRouting.jl")))),
         "ICNScoring_sha256"=>bytes2hex(sha256(read(joinpath(@__DIR__,"../LiLim/src/ICNScoring.jl")))),
