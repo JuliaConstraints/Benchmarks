@@ -567,3 +567,14 @@ calls with one and two independent lanes. All calls retained the valid insertion
 incumbent; no improved solution was observed. The native ABI does not apply the
 seed label. This functional qualification leaves the optional runner gate
 unchanged and establishes no search-quality or scaling result.
+
+A further measured routing stage reuses private guidance IDs and QUBO node
+membership, specializes the destruction call after the dynamic master lookup,
+compacts removed visits in place, and reuses ACO's private arc set. All 52 paired
+observations preserve full trace work checksums, original routes and next RNG
+values; 46 allocate less and six are unchanged. The original routing suite passes
+10,652 assertions, including 818 new buffer and differential checks. Native
+LP/MIP lifecycle totals vary across fresh processes and remain reported as paired
+observations. The original validator, search decisions, retained snapshots and
+master semantics are preserved. The English exact and XKCD figures include every
+configuration and a fixed previous-source reference.

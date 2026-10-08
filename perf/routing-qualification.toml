@@ -21249,6 +21249,3729 @@ timing_scope = "Operational measurements on disjoint cores with concurrent chats
             thread_cpu_seconds = 28.641542014000052
             unchanged_proposals = 63211
 
+[night_owned_guidance]
+after_source_sha256 = "54bd0c9355774bbcdea0cbe17ce0caa02b9d5e7257f8fd91f15daa4ba299a263"
+before_qualification_commit = "96efe7f30b3ded058318d61dd41b2359210cfa28"
+before_source_sha256 = "8570845e07ebf5ef5f99c819f79806b11abab90ee80f97c969f8a9612f2dc511"
+diagnostic_sha256 = "c04ebb63428b4e140210402582f2b899a7ee9b910319fd0f08f45349f9e2bad9"
+limitations = ["Original-model allocation qualification, not solution-quality comparison or controlled timing", "Six unchanged profiles are retained; native LP/MIP lifecycle totals vary between fresh processes, so only these paired observations are reported", "Retained route snapshots remain independent; no whole-solver zero-allocation claim"]
+manifest_sha256 = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+matched_work = "Equal per-lane original routes, trace checksums excluding elapsed telemetry, next RNG values, steps, acceptance and reset counters, plus cooperative episode and master-call counts"
+new_differential_assertions = 818
+project_sha256 = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+recorded_utc = "2026-10-08T23:15:24.725"
+schema = "routing-owned-guidance-qualification/1"
+scope = "Same frozen V3 sources, all 52 historical routing profiles, two workers, original tiny problem and configured error callbacks"
+test_assertions = 10652
+
+    [night_owned_guidance.native_hotspot_after]
+    ICNScoring_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+    MetaRepair_sha256 = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    collector = "Native PerfChecker SharedScenarioRuntime profile/profile_alloc APIs"
+    collector_scope = "Native full-stack collection at rate 1.0; in-process fresh scenario state, no run_scenarios process orchestration"
+    config_sha256 = "526e5283ce541dcf4b04424024fd6826418f2d63096f9614dfa10f188d00f2d1"
+    date_utc = "2026-10-08T23:05:32.692"
+    diagnostic_sha256 = "ceeef852f5438f43c17a3561b5f15cc6e9b0b0b0eab0e739e689913c2847ec52"
+    factory_sha256 = "30f5e0b0aea9524dc8cfcc361409a0e4559fcbd3604c7e0b54cfa82456d894d1"
+    fixture = "Three pickup-delivery requests; functional/allocation qualification, not search-quality evidence"
+    julia = "1.13.1"
+    operation_budget_cap_seconds = 30.0
+    oracle = "Original Li-Lim validator and actual configured error backend"
+    runtime_sha256 = "6f3e6aaa5dddb2be0b53361b7f354b608710224d51bb68d4dc3b541a2e8657eb"
+    sample_scope = "Top frames contain raw sampled bytes/events, not exact allocation percentages"
+    schema = "routing-sampled-perfcheck/1"
+    solver_manifest_sha256 = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+    solver_project_sha256 = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    source_note = "Functional bodies match final source; a documentation line was added during this capture. Full paired observations use final byte-stable sources."
+    source_sha256 = "973ca4935b32b87159d2dcb99704e02f2e3ceda4d237ae0e20378170763a33ab"
+    timing_qualification = "No timing/scaling conclusions; other chats may be active"
+    workers = 2
+
+        [[night_owned_guidance.native_hotspot_after.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        bytes = 101936
+        category = "search"
+        correctness = "passed"
+        method = "rp_aco_regret2"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 1501
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 1230
+        sample_rate = 1.0
+        sampled_events = 1501
+
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 768
+            package = "Benchmarks"
+            sampled_bytes = 16640
+            sampled_events = 160
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#range_cache!#5"
+            line = 80
+            package = "Benchmarks"
+            sampled_bytes = 12816
+            sampled_events = 22
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#102"
+            line = 648
+            package = "Benchmarks"
+            sampled_bytes = 10368
+            sampled_events = 160
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#27"
+            line = 321
+            package = "Benchmarks"
+            sampled_bytes = 6432
+            sampled_events = 70
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "route_valid"
+            line = 430
+            package = "Benchmarks"
+            sampled_bytes = 5440
+            sampled_events = 80
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "src/pool.jl"
+            function = "pool"
+            line = 19
+            package = "LocalSearchSolvers"
+            sampled_bytes = 5344
+            sampled_events = 104
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#range_cache#4"
+            line = 72
+            package = "Benchmarks"
+            sampled_bytes = 3168
+            sampled_events = 66
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#64"
+            line = 442
+            package = "Benchmarks"
+            sampled_bytes = 2768
+            sampled_events = 58
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#102"
+            line = 646
+            package = "Benchmarks"
+            sampled_bytes = 2768
+            sampled_events = 58
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#64"
+            line = 446
+            package = "Benchmarks"
+            sampled_bytes = 2768
+            sampled_events = 58
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#102"
+            line = 636
+            package = "Benchmarks"
+            sampled_bytes = 2768
+            sampled_events = 58
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "RangeCache"
+            line = 67
+            package = "Benchmarks"
+            sampled_bytes = 2240
+            sampled_events = 70
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#27"
+            line = 301
+            package = "Benchmarks"
+            sampled_bytes = 2112
+            sampled_events = 66
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#27"
+            line = 315
+            package = "Benchmarks"
+            sampled_bytes = 1584
+            sampled_events = 44
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#64"
+            line = 450
+            package = "Benchmarks"
+            sampled_bytes = 1344
+            sampled_events = 30
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#27"
+            line = 323
+            package = "Benchmarks"
+            sampled_bytes = 1328
+            sampled_events = 48
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "perf/routing_scenarios.jl"
+            function = "#routing_solver_case##6"
+            line = 125
+            package = "Benchmarks"
+            sampled_bytes = 960
+            sampled_events = 12
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#request_ids!#8"
+            line = 153
+            package = "Benchmarks"
+            sampled_bytes = 880
+            sampled_events = 22
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#destroy!#12"
+            line = 240
+            package = "Benchmarks"
+            sampled_bytes = 800
+            sampled_events = 20
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "src/benchmarks/Benchmarks.jl"
+            function = "#validate_solution#21"
+            line = 207
+            package = "ConstraintModels"
+            sampled_bytes = 768
+            sampled_events = 24
+
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_scenarios.jl"
+            sampled_bytes = 93384
+            sampled_events = 1501
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./Base_compiler.jl"
+            sampled_bytes = 93384
+            sampled_events = 1501
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./threadingconstructs.jl"
+            sampled_bytes = 91944
+            sampled_events = 1471
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/StructuredRouting.jl"
+            sampled_bytes = 90520
+            sampled_events = 1451
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./boot.jl"
+            sampled_bytes = 61680
+            sampled_events = 894
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./array.jl"
+            sampled_bytes = 24656
+            sampled_events = 542
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./deepcopy.jl"
+            sampled_bytes = 18928
+            sampled_events = 386
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./dict.jl"
+            sampled_bytes = 13760
+            sampled_events = 188
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./iddict.jl"
+            sampled_bytes = 9920
+            sampled_events = 118
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./abstractdict.jl"
+            sampled_bytes = 9504
+            sampled_events = 162
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./set.jl"
+            sampled_bytes = 6304
+            sampled_events = 90
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/LocalSearchSolvers/src/solver.jl"
+            sampled_bytes = 5984
+            sampled_events = 120
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./lock.jl"
+            sampled_bytes = 5536
+            sampled_events = 108
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/LocalSearchSolvers/src/pool.jl"
+            sampled_bytes = 5536
+            sampled_events = 108
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./abstractset.jl"
+            sampled_bytes = 3840
+            sampled_events = 60
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/packages/Dictionaries/P05gc/src/Dictionary.jl"
+            sampled_bytes = 3456
+            sampled_events = 72
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./genericmemory.jl"
+            sampled_bytes = 2720
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/ConstraintModels/src/benchmarks/Benchmarks.jl"
+            sampled_bytes = 2560
+            sampled_events = 58
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_perfcheck.jl"
+            sampled_bytes = 2400
+            sampled_events = 42
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/cache/build/builder-amdci4-8/julialang/julia-ci/usr/share/julia/stdlib/v1.13/Profile/src/Allocs.jl"
+            sampled_bytes = 2400
+            sampled_events = 42
+
+            [night_owned_guidance.native_hotspot_after.strategies.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "Allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 1501
+            retained_sampled_bytes = 93384
+            sample_rate = 1.0
+            sampled_allocations = 1501
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 1501
+            status = "complete"
+            total_allocations = 1501
+            total_bytes = 101936
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+
+            [[night_owned_guidance.native_hotspot_after.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_owned_guidance.native_hotspot_after.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_owned_guidance.native_hotspot_after.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        bytes = 52528
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_critical"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 730
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 652
+        sample_rate = 1.0
+        sampled_events = 730
+
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 768
+            package = "Benchmarks"
+            sampled_bytes = 16640
+            sampled_events = 160
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#102"
+            line = 648
+            package = "Benchmarks"
+            sampled_bytes = 5360
+            sampled_events = 86
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#range_cache!#5"
+            line = 80
+            package = "Benchmarks"
+            sampled_bytes = 4224
+            sampled_events = 12
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#destroy!#12"
+            line = 202
+            package = "Benchmarks"
+            sampled_bytes = 3200
+            sampled_events = 80
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "route_valid"
+            line = 430
+            package = "Benchmarks"
+            sampled_bytes = 2720
+            sampled_events = 40
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "src/pool.jl"
+            function = "pool"
+            line = 19
+            package = "LocalSearchSolvers"
+            sampled_bytes = 2672
+            sampled_events = 52
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#64"
+            line = 442
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#102"
+            line = 646
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#64"
+            line = 446
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#102"
+            line = 636
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "perf/routing_scenarios.jl"
+            function = "#routing_solver_case##6"
+            line = 125
+            package = "Benchmarks"
+            sampled_bytes = 960
+            sampled_events = 12
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "perf/routing_scenarios.jl"
+            function = "macro expansion"
+            line = 126
+            package = "Benchmarks"
+            sampled_bytes = 464
+            sampled_events = 8
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "copy_routes!"
+            line = 101
+            package = "Benchmarks"
+            sampled_bytes = 416
+            sampled_events = 8
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#64"
+            line = 450
+            package = "Benchmarks"
+            sampled_bytes = 416
+            sampled_events = 10
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "build_caches!"
+            line = 284
+            package = "Benchmarks"
+            sampled_bytes = 400
+            sampled_events = 10
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "src/benchmarks/Benchmarks.jl"
+            function = "#validate_solution#17"
+            line = 72
+            package = "ConstraintModels"
+            sampled_bytes = 368
+            sampled_events = 10
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "src/strategies/meta_variable.jl"
+            function = "#MetaMove#58"
+            line = 131
+            package = "LocalSearchSolvers"
+            sampled_bytes = 304
+            sampled_events = 10
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#insertion_options#22"
+            line = 274
+            package = "Benchmarks"
+            sampled_bytes = 272
+            sampled_events = 2
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "copy_routes!"
+            line = 98
+            package = "Benchmarks"
+            sampled_bytes = 272
+            sampled_events = 8
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "src/benchmarks/Benchmarks.jl"
+            function = "#validate_solution#21"
+            line = 207
+            package = "ConstraintModels"
+            sampled_bytes = 256
+            sampled_events = 8
+
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_scenarios.jl"
+            sampled_bytes = 48320
+            sampled_events = 730
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./Base_compiler.jl"
+            sampled_bytes = 48320
+            sampled_events = 730
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./threadingconstructs.jl"
+            sampled_bytes = 46784
+            sampled_events = 696
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/StructuredRouting.jl"
+            sampled_bytes = 45360
+            sampled_events = 676
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./boot.jl"
+            sampled_bytes = 24912
+            sampled_events = 384
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./deepcopy.jl"
+            sampled_bytes = 10144
+            sampled_events = 218
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./array.jl"
+            sampled_bytes = 9280
+            sampled_events = 218
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./dict.jl"
+            sampled_bytes = 6640
+            sampled_events = 92
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./iddict.jl"
+            sampled_bytes = 5120
+            sampled_events = 64
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./abstractdict.jl"
+            sampled_bytes = 4912
+            sampled_events = 86
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/LocalSearchSolvers/src/solver.jl"
+            sampled_bytes = 2992
+            sampled_events = 60
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./set.jl"
+            sampled_bytes = 2944
+            sampled_events = 44
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./lock.jl"
+            sampled_bytes = 2768
+            sampled_events = 54
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/LocalSearchSolvers/src/pool.jl"
+            sampled_bytes = 2768
+            sampled_events = 54
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_perfcheck.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/cache/build/builder-amdci4-8/julialang/julia-ci/usr/share/julia/stdlib/v1.13/Profile/src/Allocs.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./Base.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./client.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/packages/PerfChecker/5ahOE/src/scenario_runtime.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./loading.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+
+            [night_owned_guidance.native_hotspot_after.strategies.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "Allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 730
+            retained_sampled_bytes = 48320
+            sample_rate = 1.0
+            sampled_allocations = 730
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 730
+            status = "complete"
+            total_allocations = 730
+            total_bytes = 52528
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+
+            [[night_owned_guidance.native_hotspot_after.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_owned_guidance.native_hotspot_after.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_owned_guidance.native_hotspot_after.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        bytes = 52624
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_qubo"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 732
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 652
+        sample_rate = 1.0
+        sampled_events = 732
+
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 768
+            package = "Benchmarks"
+            sampled_bytes = 16640
+            sampled_events = 160
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#102"
+            line = 648
+            package = "Benchmarks"
+            sampled_bytes = 5360
+            sampled_events = 86
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#range_cache!#5"
+            line = 80
+            package = "Benchmarks"
+            sampled_bytes = 4224
+            sampled_events = 12
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#destroy!#12"
+            line = 202
+            package = "Benchmarks"
+            sampled_bytes = 3200
+            sampled_events = 80
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "route_valid"
+            line = 430
+            package = "Benchmarks"
+            sampled_bytes = 2720
+            sampled_events = 40
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "src/pool.jl"
+            function = "pool"
+            line = 19
+            package = "LocalSearchSolvers"
+            sampled_bytes = 2672
+            sampled_events = 52
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#64"
+            line = 442
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#102"
+            line = 646
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#64"
+            line = 446
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#102"
+            line = 636
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "perf/routing_scenarios.jl"
+            function = "#routing_solver_case##6"
+            line = 125
+            package = "Benchmarks"
+            sampled_bytes = 960
+            sampled_events = 12
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "perf/routing_scenarios.jl"
+            function = "macro expansion"
+            line = 126
+            package = "Benchmarks"
+            sampled_bytes = 464
+            sampled_events = 8
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "copy_routes!"
+            line = 101
+            package = "Benchmarks"
+            sampled_bytes = 416
+            sampled_events = 8
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#64"
+            line = 450
+            package = "Benchmarks"
+            sampled_bytes = 416
+            sampled_events = 10
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "build_caches!"
+            line = 284
+            package = "Benchmarks"
+            sampled_bytes = 400
+            sampled_events = 10
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "src/benchmarks/Benchmarks.jl"
+            function = "#validate_solution#17"
+            line = 72
+            package = "ConstraintModels"
+            sampled_bytes = 368
+            sampled_events = 10
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "src/strategies/meta_variable.jl"
+            function = "#MetaMove#58"
+            line = 131
+            package = "LocalSearchSolvers"
+            sampled_bytes = 304
+            sampled_events = 10
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#insertion_options#22"
+            line = 274
+            package = "Benchmarks"
+            sampled_bytes = 272
+            sampled_events = 2
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "copy_routes!"
+            line = 98
+            package = "Benchmarks"
+            sampled_bytes = 272
+            sampled_events = 8
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_frames]]
+            file = "src/benchmarks/Benchmarks.jl"
+            function = "#validate_solution#21"
+            line = 207
+            package = "ConstraintModels"
+            sampled_bytes = 256
+            sampled_events = 8
+
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_scenarios.jl"
+            sampled_bytes = 48400
+            sampled_events = 732
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./Base_compiler.jl"
+            sampled_bytes = 48400
+            sampled_events = 732
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./threadingconstructs.jl"
+            sampled_bytes = 46864
+            sampled_events = 698
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/StructuredRouting.jl"
+            sampled_bytes = 45440
+            sampled_events = 678
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./boot.jl"
+            sampled_bytes = 24992
+            sampled_events = 386
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./deepcopy.jl"
+            sampled_bytes = 10144
+            sampled_events = 218
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./array.jl"
+            sampled_bytes = 9360
+            sampled_events = 220
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./dict.jl"
+            sampled_bytes = 6640
+            sampled_events = 92
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./iddict.jl"
+            sampled_bytes = 5120
+            sampled_events = 64
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./abstractdict.jl"
+            sampled_bytes = 4912
+            sampled_events = 86
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/LocalSearchSolvers/src/solver.jl"
+            sampled_bytes = 2992
+            sampled_events = 60
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./set.jl"
+            sampled_bytes = 2944
+            sampled_events = 44
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./lock.jl"
+            sampled_bytes = 2768
+            sampled_events = 54
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/LocalSearchSolvers/src/pool.jl"
+            sampled_bytes = 2768
+            sampled_events = 54
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_perfcheck.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/cache/build/builder-amdci4-8/julialang/julia-ci/usr/share/julia/stdlib/v1.13/Profile/src/Allocs.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./Base.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./client.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/packages/PerfChecker/5ahOE/src/scenario_runtime.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_after.strategies.allocation_source_files]]
+            file = "./loading.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+
+            [night_owned_guidance.native_hotspot_after.strategies.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "Allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 732
+            retained_sampled_bytes = 48400
+            sample_rate = 1.0
+            sampled_allocations = 732
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 732
+            status = "complete"
+            total_allocations = 732
+            total_bytes = 52624
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+
+            [[night_owned_guidance.native_hotspot_after.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_owned_guidance.native_hotspot_after.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+
+    [night_owned_guidance.native_hotspot_before]
+    ICNScoring_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+    MetaRepair_sha256 = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    collector = "Native PerfChecker SharedScenarioRuntime profile/profile_alloc APIs"
+    collector_scope = "Native full-stack collection at rate 1.0; in-process fresh scenario state, no run_scenarios process orchestration"
+    config_sha256 = "526e5283ce541dcf4b04424024fd6826418f2d63096f9614dfa10f188d00f2d1"
+    date_utc = "2026-10-08T23:02:39.906"
+    diagnostic_sha256 = "ceeef852f5438f43c17a3561b5f15cc6e9b0b0b0eab0e739e689913c2847ec52"
+    factory_sha256 = "30f5e0b0aea9524dc8cfcc361409a0e4559fcbd3604c7e0b54cfa82456d894d1"
+    fixture = "Three pickup-delivery requests; functional/allocation qualification, not search-quality evidence"
+    julia = "1.13.1"
+    operation_budget_cap_seconds = 30.0
+    oracle = "Original Li-Lim validator and actual configured error backend"
+    runtime_sha256 = "6f3e6aaa5dddb2be0b53361b7f354b608710224d51bb68d4dc3b541a2e8657eb"
+    sample_scope = "Top frames contain raw sampled bytes/events, not exact allocation percentages"
+    schema = "routing-sampled-perfcheck/1"
+    solver_manifest_sha256 = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+    solver_project_sha256 = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    source_sha256 = "8570845e07ebf5ef5f99c819f79806b11abab90ee80f97c969f8a9612f2dc511"
+    timing_qualification = "No timing/scaling conclusions; other chats may be active"
+    workers = 2
+
+        [[night_owned_guidance.native_hotspot_before.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        bytes = 199760
+        category = "search"
+        correctness = "passed"
+        method = "rp_aco_regret2"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 2425
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 2014
+        sample_rate = 1.0
+        sampled_events = 2425
+
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 748
+            package = "Benchmarks"
+            sampled_bytes = 55040
+            sampled_events = 400
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "arcs!"
+            line = 575
+            package = "Benchmarks"
+            sampled_bytes = 25600
+            sampled_events = 240
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#30"
+            line = 311
+            package = "Benchmarks"
+            sampled_bytes = 13952
+            sampled_events = 124
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#range_cache!#5"
+            line = 80
+            package = "Benchmarks"
+            sampled_bytes = 12816
+            sampled_events = 22
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#105"
+            line = 638
+            package = "Benchmarks"
+            sampled_bytes = 10480
+            sampled_events = 160
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "arcs"
+            line = 580
+            package = "Benchmarks"
+            sampled_bytes = 6400
+            sampled_events = 80
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "guidance_ids"
+            line = 644
+            package = "Benchmarks"
+            sampled_bytes = 5760
+            sampled_events = 160
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "route_valid"
+            line = 420
+            package = "Benchmarks"
+            sampled_bytes = 5440
+            sampled_events = 80
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "src/pool.jl"
+            function = "pool"
+            line = 19
+            package = "LocalSearchSolvers"
+            sampled_bytes = 5344
+            sampled_events = 104
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#range_cache#4"
+            line = 72
+            package = "Benchmarks"
+            sampled_bytes = 3168
+            sampled_events = 66
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#105"
+            line = 626
+            package = "Benchmarks"
+            sampled_bytes = 2880
+            sampled_events = 58
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#67"
+            line = 432
+            package = "Benchmarks"
+            sampled_bytes = 2880
+            sampled_events = 58
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#67"
+            line = 436
+            package = "Benchmarks"
+            sampled_bytes = 2880
+            sampled_events = 58
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#105"
+            line = 636
+            package = "Benchmarks"
+            sampled_bytes = 2880
+            sampled_events = 58
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "guidance_ids"
+            line = 659
+            package = "Benchmarks"
+            sampled_bytes = 2560
+            sampled_events = 80
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#remove_requests!#11"
+            line = 178
+            package = "Benchmarks"
+            sampled_bytes = 2528
+            sampled_events = 54
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "RangeCache"
+            line = 67
+            package = "Benchmarks"
+            sampled_bytes = 2240
+            sampled_events = 70
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#30"
+            line = 291
+            package = "Benchmarks"
+            sampled_bytes = 2112
+            sampled_events = 66
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "copy_routes!"
+            line = 101
+            package = "Benchmarks"
+            sampled_bytes = 1872
+            sampled_events = 32
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#30"
+            line = 305
+            package = "Benchmarks"
+            sampled_bytes = 1584
+            sampled_events = 44
+
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_scenarios.jl"
+            sampled_bytes = 183352
+            sampled_events = 2425
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./Base_compiler.jl"
+            sampled_bytes = 183352
+            sampled_events = 2425
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./threadingconstructs.jl"
+            sampled_bytes = 181912
+            sampled_events = 2395
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/StructuredRouting.jl"
+            sampled_bytes = 180488
+            sampled_events = 2375
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./boot.jl"
+            sampled_bytes = 130528
+            sampled_events = 1658
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./dict.jl"
+            sampled_bytes = 45120
+            sampled_events = 502
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./array.jl"
+            sampled_bytes = 38544
+            sampled_events = 752
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./set.jl"
+            sampled_bytes = 37664
+            sampled_events = 404
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./deepcopy.jl"
+            sampled_bytes = 19488
+            sampled_events = 386
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./iddict.jl"
+            sampled_bytes = 9920
+            sampled_events = 118
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./abstractdict.jl"
+            sampled_bytes = 9504
+            sampled_events = 162
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/LocalSearchSolvers/src/solver.jl"
+            sampled_bytes = 5984
+            sampled_events = 120
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./range.jl"
+            sampled_bytes = 5760
+            sampled_events = 160
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./lock.jl"
+            sampled_bytes = 5536
+            sampled_events = 108
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/LocalSearchSolvers/src/pool.jl"
+            sampled_bytes = 5536
+            sampled_events = 108
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./abstractset.jl"
+            sampled_bytes = 3840
+            sampled_events = 60
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/packages/Dictionaries/P05gc/src/Dictionary.jl"
+            sampled_bytes = 3456
+            sampled_events = 72
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./genericmemory.jl"
+            sampled_bytes = 3280
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/ConstraintModels/src/benchmarks/Benchmarks.jl"
+            sampled_bytes = 2560
+            sampled_events = 58
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_perfcheck.jl"
+            sampled_bytes = 2400
+            sampled_events = 42
+
+            [night_owned_guidance.native_hotspot_before.strategies.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "Allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 2425
+            retained_sampled_bytes = 183352
+            sample_rate = 1.0
+            sampled_allocations = 2425
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 2425
+            status = "complete"
+            total_allocations = 2425
+            total_bytes = 199760
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+
+            [[night_owned_guidance.native_hotspot_before.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_owned_guidance.native_hotspot_before.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_owned_guidance.native_hotspot_before.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        bytes = 109840
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_critical"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 1286
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 1194
+        sample_rate = 1.0
+        sampled_events = 1286
+
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 748
+            package = "Benchmarks"
+            sampled_bytes = 55040
+            sampled_events = 400
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#30"
+            line = 311
+            package = "Benchmarks"
+            sampled_bytes = 6400
+            sampled_events = 80
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "guidance_ids"
+            line = 644
+            package = "Benchmarks"
+            sampled_bytes = 5760
+            sampled_events = 160
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#105"
+            line = 638
+            package = "Benchmarks"
+            sampled_bytes = 5360
+            sampled_events = 86
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#range_cache!#5"
+            line = 80
+            package = "Benchmarks"
+            sampled_bytes = 4224
+            sampled_events = 12
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#destroy!#15"
+            line = 192
+            package = "Benchmarks"
+            sampled_bytes = 3200
+            sampled_events = 80
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "route_valid"
+            line = 420
+            package = "Benchmarks"
+            sampled_bytes = 2720
+            sampled_events = 40
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "src/pool.jl"
+            function = "pool"
+            line = 19
+            package = "LocalSearchSolvers"
+            sampled_bytes = 2672
+            sampled_events = 52
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#remove_requests!#11"
+            line = 178
+            package = "Benchmarks"
+            sampled_bytes = 2496
+            sampled_events = 78
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#105"
+            line = 626
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#67"
+            line = 432
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#67"
+            line = 436
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#105"
+            line = 636
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "perf/routing_scenarios.jl"
+            function = "#routing_solver_case##6"
+            line = 125
+            package = "Benchmarks"
+            sampled_bytes = 960
+            sampled_events = 12
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "copy_routes!"
+            line = 101
+            package = "Benchmarks"
+            sampled_bytes = 496
+            sampled_events = 10
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "perf/routing_scenarios.jl"
+            function = "macro expansion"
+            line = 126
+            package = "Benchmarks"
+            sampled_bytes = 464
+            sampled_events = 8
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#67"
+            line = 440
+            package = "Benchmarks"
+            sampled_bytes = 416
+            sampled_events = 10
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "build_caches!"
+            line = 274
+            package = "Benchmarks"
+            sampled_bytes = 400
+            sampled_events = 10
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "src/benchmarks/Benchmarks.jl"
+            function = "#validate_solution#17"
+            line = 72
+            package = "ConstraintModels"
+            sampled_bytes = 368
+            sampled_events = 10
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "src/strategies/meta_variable.jl"
+            function = "#MetaMove#58"
+            line = 131
+            package = "LocalSearchSolvers"
+            sampled_bytes = 304
+            sampled_events = 10
+
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_scenarios.jl"
+            sampled_bytes = 101216
+            sampled_events = 1286
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./Base_compiler.jl"
+            sampled_bytes = 101216
+            sampled_events = 1286
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./threadingconstructs.jl"
+            sampled_bytes = 99680
+            sampled_events = 1252
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/StructuredRouting.jl"
+            sampled_bytes = 98256
+            sampled_events = 1232
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./boot.jl"
+            sampled_bytes = 63088
+            sampled_events = 860
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./array.jl"
+            sampled_bytes = 18016
+            sampled_events = 374
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./deepcopy.jl"
+            sampled_bytes = 10144
+            sampled_events = 218
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./dict.jl"
+            sampled_bytes = 6640
+            sampled_events = 92
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./range.jl"
+            sampled_bytes = 5760
+            sampled_events = 160
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./iddict.jl"
+            sampled_bytes = 5120
+            sampled_events = 64
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./abstractdict.jl"
+            sampled_bytes = 4912
+            sampled_events = 86
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/LocalSearchSolvers/src/solver.jl"
+            sampled_bytes = 2992
+            sampled_events = 60
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./set.jl"
+            sampled_bytes = 2944
+            sampled_events = 44
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./lock.jl"
+            sampled_bytes = 2768
+            sampled_events = 54
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/LocalSearchSolvers/src/pool.jl"
+            sampled_bytes = 2768
+            sampled_events = 54
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_perfcheck.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/cache/build/builder-amdci4-8/julialang/julia-ci/usr/share/julia/stdlib/v1.13/Profile/src/Allocs.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./Base.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./client.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/packages/PerfChecker/5ahOE/src/scenario_runtime.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+
+            [night_owned_guidance.native_hotspot_before.strategies.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "Allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 1286
+            retained_sampled_bytes = 101216
+            sample_rate = 1.0
+            sampled_allocations = 1286
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 1286
+            status = "complete"
+            total_allocations = 1286
+            total_bytes = 109840
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+
+            [[night_owned_guidance.native_hotspot_before.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_owned_guidance.native_hotspot_before.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+        [[night_owned_guidance.native_hotspot_before.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        bytes = 135440
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_qubo"
+        native_cpu_profile_scope = "No CPU samples: fixed-work operation too short; functional oracle passed"
+        native_cpu_stack_count = 0
+        objects = 1606
+        observation_scope = "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 1504
+        sample_rate = 1.0
+        sampled_events = 1606
+
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 748
+            package = "Benchmarks"
+            sampled_bytes = 55040
+            sampled_events = 400
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "guidance_ids"
+            line = 655
+            package = "Benchmarks"
+            sampled_bytes = 21760
+            sampled_events = 320
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#30"
+            line = 311
+            package = "Benchmarks"
+            sampled_bytes = 6400
+            sampled_events = 80
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "guidance_ids"
+            line = 644
+            package = "Benchmarks"
+            sampled_bytes = 5760
+            sampled_events = 160
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#105"
+            line = 638
+            package = "Benchmarks"
+            sampled_bytes = 5360
+            sampled_events = 86
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#range_cache!#5"
+            line = 80
+            package = "Benchmarks"
+            sampled_bytes = 4224
+            sampled_events = 12
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#destroy!#15"
+            line = 192
+            package = "Benchmarks"
+            sampled_bytes = 3200
+            sampled_events = 80
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "route_valid"
+            line = 420
+            package = "Benchmarks"
+            sampled_bytes = 2720
+            sampled_events = 40
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "src/pool.jl"
+            function = "pool"
+            line = 19
+            package = "LocalSearchSolvers"
+            sampled_bytes = 2672
+            sampled_events = 52
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#remove_requests!#11"
+            line = 178
+            package = "Benchmarks"
+            sampled_bytes = 2496
+            sampled_events = 78
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#105"
+            line = 626
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#67"
+            line = 432
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#67"
+            line = 436
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#admit!#105"
+            line = 636
+            package = "Benchmarks"
+            sampled_bytes = 1520
+            sampled_events = 34
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "perf/routing_scenarios.jl"
+            function = "#routing_solver_case##6"
+            line = 125
+            package = "Benchmarks"
+            sampled_bytes = 960
+            sampled_events = 12
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "copy_routes!"
+            line = 101
+            package = "Benchmarks"
+            sampled_bytes = 496
+            sampled_events = 10
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "perf/routing_scenarios.jl"
+            function = "macro expansion"
+            line = 126
+            package = "Benchmarks"
+            sampled_bytes = 464
+            sampled_events = 8
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#collect!#67"
+            line = 440
+            package = "Benchmarks"
+            sampled_bytes = 416
+            sampled_events = 10
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "build_caches!"
+            line = 274
+            package = "Benchmarks"
+            sampled_bytes = 400
+            sampled_events = 10
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_frames]]
+            file = "src/benchmarks/Benchmarks.jl"
+            function = "#validate_solution#17"
+            line = 72
+            package = "ConstraintModels"
+            sampled_bytes = 368
+            sampled_events = 10
+
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_scenarios.jl"
+            sampled_bytes = 122976
+            sampled_events = 1606
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./Base_compiler.jl"
+            sampled_bytes = 122976
+            sampled_events = 1606
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./threadingconstructs.jl"
+            sampled_bytes = 121440
+            sampled_events = 1572
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/StructuredRouting.jl"
+            sampled_bytes = 120016
+            sampled_events = 1552
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./boot.jl"
+            sampled_bytes = 78448
+            sampled_events = 1100
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./dict.jl"
+            sampled_bytes = 28400
+            sampled_events = 412
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./set.jl"
+            sampled_bytes = 24704
+            sampled_events = 364
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./array.jl"
+            sampled_bytes = 18016
+            sampled_events = 374
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./abstractset.jl"
+            sampled_bytes = 17280
+            sampled_events = 270
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./deepcopy.jl"
+            sampled_bytes = 10144
+            sampled_events = 218
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./range.jl"
+            sampled_bytes = 5760
+            sampled_events = 160
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./iddict.jl"
+            sampled_bytes = 5120
+            sampled_events = 64
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./abstractdict.jl"
+            sampled_bytes = 4912
+            sampled_events = 86
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/LocalSearchSolvers/src/solver.jl"
+            sampled_bytes = 2992
+            sampled_events = 60
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./lock.jl"
+            sampled_bytes = 2768
+            sampled_events = 54
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/LocalSearchSolvers/src/pool.jl"
+            sampled_bytes = 2768
+            sampled_events = 54
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/perf/routing_perfcheck.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "/cache/build/builder-amdci4-8/julialang/julia-ci/usr/share/julia/stdlib/v1.13/Profile/src/Allocs.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./Base.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+            [[night_owned_guidance.native_hotspot_before.strategies.allocation_source_files]]
+            file = "./client.jl"
+            sampled_bytes = 2496
+            sampled_events = 46
+
+            [night_owned_guidance.native_hotspot_before.strategies.native_allocation_profile]
+            bytes_measurement_evaluations = 1
+            count_measurement_evaluations = 1
+            message = "Allocation stacks were captured."
+            profile_evaluations = 1
+            retained_allocations = 1606
+            retained_sampled_bytes = 122976
+            sample_rate = 1.0
+            sampled_allocations = 1606
+            schema_version = "perfchecker-allocation-profile/1"
+            source_allocations = 1606
+            status = "complete"
+            total_allocations = 1606
+            total_bytes = 135440
+            total_measurement_evaluations = 2
+            total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+            weight_semantics = "raw sampled bytes and events across all profile evaluations"
+
+            [[night_owned_guidance.native_hotspot_before.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+            [[night_owned_guidance.native_hotspot_before.strategies.worker_diagnostics]]
+            completed_resets = 0
+            steps = 40
+
+    [[night_owned_guidance.records]]
+    after_bytes = 101936
+    after_objects = 1501
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 199760
+    before_objects = 2425
+    byte_reduction_percent = 48.97076491790148
+    category = "search"
+    correctness = "passed"
+    method = "rp_aco_regret2"
+    native_master_variability = false
+    object_reduction_percent = 38.103092783505154
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "16313308241146808020"
+        steps = 40
+        summary_evaluations = 777
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "dff2933af5ab6fedc1afa432c9e481712e2031afdc64e5cc918e544f8d624a57"
+        unchanged_proposals = 38
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "4913919668143570781"
+        steps = 40
+        summary_evaluations = 729
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "e5670caa2fcab75f744f744be020fbff66400ef8fd5e92eb59bbc9518398efe3"
+        unchanged_proposals = 38
+    [[night_owned_guidance.records]]
+    after_bytes = 101936
+    after_objects = 1501
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 199760
+    before_objects = 2425
+    byte_reduction_percent = 48.97076491790148
+    category = "search"
+    correctness = "passed"
+    method = "rp_aco_regret3"
+    native_master_variability = false
+    object_reduction_percent = 38.103092783505154
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "16313308241146808020"
+        steps = 40
+        summary_evaluations = 777
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "dff2933af5ab6fedc1afa432c9e481712e2031afdc64e5cc918e544f8d624a57"
+        unchanged_proposals = 38
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "4913919668143570781"
+        steps = 40
+        summary_evaluations = 729
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "e5670caa2fcab75f744f744be020fbff66400ef8fd5e92eb59bbc9518398efe3"
+        unchanged_proposals = 38
+    [[night_owned_guidance.records]]
+    after_bytes = 125536
+    after_objects = 1967
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 188656
+    before_objects = 2578
+    byte_reduction_percent = 33.45772199134933
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_adaptive_regret2"
+    native_master_variability = false
+    object_reduction_percent = 23.70054305663305
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 6
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "6250898130959331507"
+        steps = 40
+        summary_evaluations = 801
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "705855895dfc1573f194bbd594659a5f388bf74f82ef2b9c905720d911a56810"
+        unchanged_proposals = 34
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 6
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "10825241788032769985"
+        steps = 40
+        summary_evaluations = 765
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "b687645e4ea28cb029b6f9b94167141f313710b8f31efac78be879b582fca674"
+        unchanged_proposals = 34
+    [[night_owned_guidance.records]]
+    after_bytes = 125536
+    after_objects = 1967
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 188656
+    before_objects = 2578
+    byte_reduction_percent = 33.45772199134933
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_adaptive_regret3"
+    native_master_variability = false
+    object_reduction_percent = 23.70054305663305
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 6
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "6250898130959331507"
+        steps = 40
+        summary_evaluations = 801
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "705855895dfc1573f194bbd594659a5f388bf74f82ef2b9c905720d911a56810"
+        unchanged_proposals = 34
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 6
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "10825241788032769985"
+        steps = 40
+        summary_evaluations = 765
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "b687645e4ea28cb029b6f9b94167141f313710b8f31efac78be879b582fca674"
+        unchanged_proposals = 34
+    [[night_owned_guidance.records]]
+    after_bytes = 52528
+    after_objects = 730
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 109840
+    before_objects = 1286
+    byte_reduction_percent = 52.17771303714493
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_critical"
+    native_master_variability = false
+    object_reduction_percent = 43.2348367029549
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 1
+        best_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+        completed_resets = 0
+        current_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+        ejection_attempts = 0
+        next_rng_uint64 = "8605097178634629814"
+        steps = 40
+        summary_evaluations = 480
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "5b1e7674a579d15e562c1c2f07335f8d94c1f2c1f028b57e4fc68b5730fa15d0"
+        unchanged_proposals = 39
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 1
+        best_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+        completed_resets = 0
+        current_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+        ejection_attempts = 0
+        next_rng_uint64 = "5273820420773140275"
+        steps = 40
+        summary_evaluations = 480
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "1b4cc4d59ea40e02d968a904c1fc647643d67204ee897f183a9c22819267b4a0"
+        unchanged_proposals = 39
+    [[night_owned_guidance.records]]
+    after_bytes = 125536
+    after_objects = 1967
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 188656
+    before_objects = 2578
+    byte_reduction_percent = 33.45772199134933
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_direct"
+    native_master_variability = false
+    object_reduction_percent = 23.70054305663305
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 6
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "6250898130959331507"
+        steps = 40
+        summary_evaluations = 801
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "705855895dfc1573f194bbd594659a5f388bf74f82ef2b9c905720d911a56810"
+        unchanged_proposals = 34
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 6
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "10825241788032769985"
+        steps = 40
+        summary_evaluations = 765
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "b687645e4ea28cb029b6f9b94167141f313710b8f31efac78be879b582fca674"
+        unchanged_proposals = 34
+    [[night_owned_guidance.records]]
+    after_bytes = 52528
+    after_objects = 730
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 109840
+    before_objects = 1286
+    byte_reduction_percent = 52.17771303714493
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_incompatibility"
+    native_master_variability = false
+    object_reduction_percent = 43.2348367029549
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 1
+        best_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+        completed_resets = 0
+        current_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+        ejection_attempts = 0
+        next_rng_uint64 = "8605097178634629814"
+        steps = 40
+        summary_evaluations = 480
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "0e1438eec600018fbd12dc79a7cbae99377b8de9b92140df1bcf71e5e2566cbb"
+        unchanged_proposals = 39
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 1
+        best_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+        completed_resets = 0
+        current_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+        ejection_attempts = 0
+        next_rng_uint64 = "5273820420773140275"
+        steps = 40
+        summary_evaluations = 480
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "b73f2104c0eaa36743151a36648f54db6ddae6a194e5ff132ba7e7def1afb49a"
+        unchanged_proposals = 39
+    [[night_owned_guidance.records]]
+    after_bytes = 125536
+    after_objects = 1967
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 188656
+    before_objects = 2578
+    byte_reduction_percent = 33.45772199134933
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_naive"
+    native_master_variability = false
+    object_reduction_percent = 23.70054305663305
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 6
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "6250898130959331507"
+        steps = 40
+        summary_evaluations = 801
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "705855895dfc1573f194bbd594659a5f388bf74f82ef2b9c905720d911a56810"
+        unchanged_proposals = 34
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 6
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "10825241788032769985"
+        steps = 40
+        summary_evaluations = 765
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "b687645e4ea28cb029b6f9b94167141f313710b8f31efac78be879b582fca674"
+        unchanged_proposals = 34
+    [[night_owned_guidance.records]]
+    after_bytes = 52624
+    after_objects = 732
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 135440
+    before_objects = 1606
+    byte_reduction_percent = 61.14589486119315
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_qubo"
+    native_master_variability = false
+    object_reduction_percent = 54.42092154420921
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 1
+        best_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+        completed_resets = 0
+        current_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+        ejection_attempts = 0
+        next_rng_uint64 = "9928438158672382405"
+        steps = 40
+        summary_evaluations = 480
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "00f53729e24fe1b1dd78a99a8810a2f859ed0ef7b898c900d518e105df977593"
+        unchanged_proposals = 39
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 1
+        best_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+        completed_resets = 0
+        current_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+        ejection_attempts = 0
+        next_rng_uint64 = "1949332390351000335"
+        steps = 40
+        summary_evaluations = 480
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "cac8634ff8c27a44fc7790a45b9babeb6ac2b8412eb74fb757d61a7fee642311"
+        unchanged_proposals = 39
+    [[night_owned_guidance.records]]
+    after_bytes = 97728
+    after_objects = 1362
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 162576
+    before_objects = 1993
+    byte_reduction_percent = 39.887806318275764
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_random_regret2"
+    native_master_variability = false
+    object_reduction_percent = 31.660812844957352
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 5
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "10953658465918405216"
+        steps = 40
+        summary_evaluations = 585
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "208b5157e9e7020d48c1b44b4375de4ec420c06e91b681dfbf913e7f899b659d"
+        unchanged_proposals = 35
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "1899229159569082199"
+        steps = 40
+        summary_evaluations = 597
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "07f49123a1008770528c25998fb2473a49aa422907f52b1bd47f6ef2c2cad805"
+        unchanged_proposals = 38
+    [[night_owned_guidance.records]]
+    after_bytes = 97728
+    after_objects = 1362
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 162576
+    before_objects = 1993
+    byte_reduction_percent = 39.887806318275764
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_random_regret3"
+    native_master_variability = false
+    object_reduction_percent = 31.660812844957352
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 5
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "10953658465918405216"
+        steps = 40
+        summary_evaluations = 585
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "208b5157e9e7020d48c1b44b4375de4ec420c06e91b681dfbf913e7f899b659d"
+        unchanged_proposals = 35
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "1899229159569082199"
+        steps = 40
+        summary_evaluations = 597
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "07f49123a1008770528c25998fb2473a49aa422907f52b1bd47f6ef2c2cad805"
+        unchanged_proposals = 38
+    [[night_owned_guidance.records]]
+    after_bytes = 152576
+    after_objects = 2592
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 207184
+    before_objects = 3147
+    byte_reduction_percent = 26.357247663912275
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_route_regret2"
+    native_master_variability = false
+    object_reduction_percent = 17.63584366062917
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "17958725757938226942"
+        steps = 40
+        summary_evaluations = 1065
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "e1b0b0637c90bacbbceff6192fdb69470ba2fabe4c5346c976f095b7424d30d2"
+        unchanged_proposals = 38
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 3
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "14599825881988619341"
+        steps = 40
+        summary_evaluations = 1065
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "5bf8f5d69470a0b153d02867b023d9bbded2c6526fe9b9dbccd85d654f47b2fb"
+        unchanged_proposals = 37
+    [[night_owned_guidance.records]]
+    after_bytes = 152576
+    after_objects = 2592
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 207184
+    before_objects = 3147
+    byte_reduction_percent = 26.357247663912275
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_route_regret3"
+    native_master_variability = false
+    object_reduction_percent = 17.63584366062917
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "17958725757938226942"
+        steps = 40
+        summary_evaluations = 1065
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "e1b0b0637c90bacbbceff6192fdb69470ba2fabe4c5346c976f095b7424d30d2"
+        unchanged_proposals = 38
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 3
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "14599825881988619341"
+        steps = 40
+        summary_evaluations = 1065
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "5bf8f5d69470a0b153d02867b023d9bbded2c6526fe9b9dbccd85d654f47b2fb"
+        unchanged_proposals = 37
+    [[night_owned_guidance.records]]
+    after_bytes = 95888
+    after_objects = 1323
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 160864
+    before_objects = 1954
+    byte_reduction_percent = 40.39188382733241
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_shaw_regret2"
+    native_master_variability = false
+    object_reduction_percent = 32.29273285568065
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 3
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "9725966287134974197"
+        steps = 40
+        summary_evaluations = 588
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "5f02bef3a567353069604bff75f45316a06bb115fa22b57f76b21f471a6a5008"
+        unchanged_proposals = 37
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 3
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "15646006503162411831"
+        steps = 40
+        summary_evaluations = 582
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "44d80f6667f7f9fc8b118e8d8086abbac15cb707b0e12232723836766432b4fb"
+        unchanged_proposals = 37
+    [[night_owned_guidance.records]]
+    after_bytes = 95888
+    after_objects = 1323
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 160864
+    before_objects = 1954
+    byte_reduction_percent = 40.39188382733241
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_shaw_regret3"
+    native_master_variability = false
+    object_reduction_percent = 32.29273285568065
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 3
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "9725966287134974197"
+        steps = 40
+        summary_evaluations = 588
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "5f02bef3a567353069604bff75f45316a06bb115fa22b57f76b21f471a6a5008"
+        unchanged_proposals = 37
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 3
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "15646006503162411831"
+        steps = 40
+        summary_evaluations = 582
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "44d80f6667f7f9fc8b118e8d8086abbac15cb707b0e12232723836766432b4fb"
+        unchanged_proposals = 37
+    [[night_owned_guidance.records]]
+    after_bytes = 165424
+    after_objects = 2848
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 230800
+    before_objects = 3492
+    byte_reduction_percent = 28.32582322357019
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_sisr_regret2"
+    native_master_variability = false
+    object_reduction_percent = 18.442153493699887
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 24
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "10953658465918405216"
+        steps = 40
+        summary_evaluations = 921
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "e33a4d089b1563f5ddebb61cc60a5d2b3635c300dc7107befe513db68e065ca8"
+        unchanged_proposals = 16
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 19
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "1899229159569082199"
+        steps = 40
+        summary_evaluations = 885
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "f060d01495f337833612eba64c808edfbdeb5b493aa68aca4aeb1afe8a4b7d91"
+        unchanged_proposals = 21
+    [[night_owned_guidance.records]]
+    after_bytes = 165424
+    after_objects = 2848
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 230800
+    before_objects = 3492
+    byte_reduction_percent = 28.32582322357019
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_sisr_regret3"
+    native_master_variability = false
+    object_reduction_percent = 18.442153493699887
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 24
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "10953658465918405216"
+        steps = 40
+        summary_evaluations = 921
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "e33a4d089b1563f5ddebb61cc60a5d2b3635c300dc7107befe513db68e065ca8"
+        unchanged_proposals = 16
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 19
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "1899229159569082199"
+        steps = 40
+        summary_evaluations = 885
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "f060d01495f337833612eba64c808edfbdeb5b493aa68aca4aeb1afe8a4b7d91"
+        unchanged_proposals = 21
+    [[night_owned_guidance.records]]
+    after_bytes = 82304
+    after_objects = 1088
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 147712
+    before_objects = 1720
+    byte_reduction_percent = 44.280762564991335
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_worst_regret2"
+    native_master_variability = false
+    object_reduction_percent = 36.74418604651163
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "9725966287134974197"
+        steps = 40
+        summary_evaluations = 597
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "90077557b0e82488aa3b6e5c9c087e8a13ac38c73c8a6075a2daa41249852a7a"
+        unchanged_proposals = 38
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "15646006503162411831"
+        steps = 40
+        summary_evaluations = 597
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "90077557b0e82488aa3b6e5c9c087e8a13ac38c73c8a6075a2daa41249852a7a"
+        unchanged_proposals = 38
+    [[night_owned_guidance.records]]
+    after_bytes = 82304
+    after_objects = 1088
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 147712
+    before_objects = 1720
+    byte_reduction_percent = 44.280762564991335
+    category = "search"
+    correctness = "passed"
+    method = "rp_alns_worst_regret3"
+    native_master_variability = false
+    object_reduction_percent = 36.74418604651163
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "9725966287134974197"
+        steps = 40
+        summary_evaluations = 597
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "90077557b0e82488aa3b6e5c9c087e8a13ac38c73c8a6075a2daa41249852a7a"
+        unchanged_proposals = 38
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "15646006503162411831"
+        steps = 40
+        summary_evaluations = 597
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "90077557b0e82488aa3b6e5c9c087e8a13ac38c73c8a6075a2daa41249852a7a"
+        unchanged_proposals = 38
+    [[night_owned_guidance.records]]
+    after_bytes = 62704
+    after_objects = 866
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 62704
+    before_objects = 866
+    byte_reduction_percent = 0.0
+    category = "search"
+    correctness = "passed"
+    method = "rp_ges1_greedy"
+    native_master_variability = false
+    object_reduction_percent = 0.0
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "8806607393865937907"
+        steps = 40
+        summary_evaluations = 27
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "697f7d27e128d54549c7756d0f00b7c71802b19fb17159274a19af069f71eaf5"
+        unchanged_proposals = 0
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "7060645976784721086"
+        steps = 40
+        summary_evaluations = 39
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "5185aa26e6e618b876490a4f1fbe1dfb5f22eba506020551dc2faca2fea0162d"
+        unchanged_proposals = 0
+    [[night_owned_guidance.records]]
+    after_bytes = 62704
+    after_objects = 866
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 62704
+    before_objects = 866
+    byte_reduction_percent = 0.0
+    category = "search"
+    correctness = "passed"
+    method = "rp_ges1_late"
+    native_master_variability = false
+    object_reduction_percent = 0.0
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "8806607393865937907"
+        steps = 40
+        summary_evaluations = 27
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "697f7d27e128d54549c7756d0f00b7c71802b19fb17159274a19af069f71eaf5"
+        unchanged_proposals = 0
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "7060645976784721086"
+        steps = 40
+        summary_evaluations = 39
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "5185aa26e6e618b876490a4f1fbe1dfb5f22eba506020551dc2faca2fea0162d"
+        unchanged_proposals = 0
+    [[night_owned_guidance.records]]
+    after_bytes = 62704
+    after_objects = 866
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 62704
+    before_objects = 866
+    byte_reduction_percent = 0.0
+    category = "search"
+    correctness = "passed"
+    method = "rp_ges2_greedy"
+    native_master_variability = false
+    object_reduction_percent = 0.0
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "8806607393865937907"
+        steps = 40
+        summary_evaluations = 27
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "697f7d27e128d54549c7756d0f00b7c71802b19fb17159274a19af069f71eaf5"
+        unchanged_proposals = 0
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "7060645976784721086"
+        steps = 40
+        summary_evaluations = 39
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "5185aa26e6e618b876490a4f1fbe1dfb5f22eba506020551dc2faca2fea0162d"
+        unchanged_proposals = 0
+    [[night_owned_guidance.records]]
+    after_bytes = 62704
+    after_objects = 866
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 62704
+    before_objects = 866
+    byte_reduction_percent = 0.0
+    category = "search"
+    correctness = "passed"
+    method = "rp_ges2_late"
+    native_master_variability = false
+    object_reduction_percent = 0.0
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "8806607393865937907"
+        steps = 40
+        summary_evaluations = 27
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "697f7d27e128d54549c7756d0f00b7c71802b19fb17159274a19af069f71eaf5"
+        unchanged_proposals = 0
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "7060645976784721086"
+        steps = 40
+        summary_evaluations = 39
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "5185aa26e6e618b876490a4f1fbe1dfb5f22eba506020551dc2faca2fea0162d"
+        unchanged_proposals = 0
+    [[night_owned_guidance.records]]
+    after_bytes = 7728
+    after_objects = 116
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 7728
+    before_objects = 116
+    byte_reduction_percent = 0.0
+    category = "search"
+    correctness = "passed"
+    method = "rp_memetic_regret2"
+    native_master_variability = false
+    object_reduction_percent = 0.0
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 0
+        best_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+        completed_resets = 0
+        current_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+        ejection_attempts = 0
+        next_rng_uint64 = "13989731486764984091"
+        steps = 40
+        summary_evaluations = 0
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "372a9303dae4bf46ad8ae377cff101cc11b9c9a78227ba02262e92bb114f6c17"
+        unchanged_proposals = 40
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 0
+        best_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+        completed_resets = 0
+        current_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+        ejection_attempts = 0
+        next_rng_uint64 = "15422517531228822840"
+        steps = 40
+        summary_evaluations = 0
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "372a9303dae4bf46ad8ae377cff101cc11b9c9a78227ba02262e92bb114f6c17"
+        unchanged_proposals = 40
+    [[night_owned_guidance.records]]
+    after_bytes = 7728
+    after_objects = 116
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 7728
+    before_objects = 116
+    byte_reduction_percent = 0.0
+    category = "search"
+    correctness = "passed"
+    method = "rp_memetic_regret3"
+    native_master_variability = false
+    object_reduction_percent = 0.0
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 0
+        best_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+        completed_resets = 0
+        current_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+        ejection_attempts = 0
+        next_rng_uint64 = "13989731486764984091"
+        steps = 40
+        summary_evaluations = 0
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "372a9303dae4bf46ad8ae377cff101cc11b9c9a78227ba02262e92bb114f6c17"
+        unchanged_proposals = 40
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 0
+        best_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+        completed_resets = 0
+        current_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+        ejection_attempts = 0
+        next_rng_uint64 = "15422517531228822840"
+        steps = 40
+        summary_evaluations = 0
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "372a9303dae4bf46ad8ae377cff101cc11b9c9a78227ba02262e92bb114f6c17"
+        unchanged_proposals = 40
+    [[night_owned_guidance.records]]
+    after_bytes = 513024
+    after_objects = 5915
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 572912
+    before_objects = 6502
+    byte_reduction_percent = 10.453263328399476
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_adaptive_late"
+    native_master_variability = false
+    object_reduction_percent = 9.027991387265455
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 17
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "2264336642638917112"
+        steps = 64
+        summary_evaluations = 915
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "68e9d3033f072fecc7eb376fccd7854016da9eb1414a0fe777eec160077610d3"
+        unchanged_proposals = 25
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 10
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "12894952201144458039"
+        steps = 64
+        summary_evaluations = 816
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "72e4beec23508341e9cc71cb69f1343f33e0bffc4b3e56c18d64b6360b0af63c"
+        unchanged_proposals = 32
+    [[night_owned_guidance.records]]
+    after_bytes = 487712
+    after_objects = 5437
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 547328
+    before_objects = 6022
+    byte_reduction_percent = 10.892188961646399
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_adaptive_tabu"
+    native_master_variability = false
+    object_reduction_percent = 9.714380604450346
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 5
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "15136894406200254138"
+        steps = 64
+        summary_evaluations = 915
+        tabu_hits = 10
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "e7598f225862a2b7c0571490217f86523abe3d93e33bd347bc7b0db1539afb8d"
+        unchanged_proposals = 27
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 5
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "12894952201144458039"
+        steps = 64
+        summary_evaluations = 840
+        tabu_hits = 9
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "963a5f7a3863ac635569ec459335d27b7302ff2e24887e6dd57fd1451bfa3781"
+        unchanged_proposals = 28
+    [[night_owned_guidance.records]]
+    after_bytes = 438848
+    after_objects = 4606
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 518928
+    before_objects = 5367
+    byte_reduction_percent = 15.431813276600991
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_diversity_late"
+    native_master_variability = false
+    object_reduction_percent = 14.179243525246877
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "9396154482987463998"
+        steps = 64
+        summary_evaluations = 741
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "6c62a6f96e3e8a356833f518eda17da29477aefa36863646ab60c8a7f0d2df5b"
+        unchanged_proposals = 62
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 1
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "3356399088243082068"
+        steps = 64
+        summary_evaluations = 756
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "b09a5c87b737265bc91830ecd6d1501ff62e306a7ba6a0ef938429cc1829bc7a"
+        unchanged_proposals = 64
+    [[night_owned_guidance.records]]
+    after_bytes = 440768
+    after_objects = 4627
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 521584
+    before_objects = 5394
+    byte_reduction_percent = 15.49434031718765
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_diversity_tabu"
+    native_master_variability = false
+    object_reduction_percent = 14.219503151649981
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "9396154482987463998"
+        steps = 64
+        summary_evaluations = 741
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "fc5bde9d81176563384e47f12fa8544670a6ada25c1ab7d5e228777da92cf4a1"
+        unchanged_proposals = 62
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 1
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "3356399088243082068"
+        steps = 64
+        summary_evaluations = 756
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "a6f3e62a73535a38dde4ffb3af50a5649c5eb774a9977bee91cbfaf8a1891d52"
+        unchanged_proposals = 64
+    [[night_owned_guidance.records]]
+    after_bytes = 445632
+    after_objects = 4879
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 449488
+    before_objects = 4923
+    byte_reduction_percent = 0.8578649485637024
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_fleet_distance_late"
+    native_master_variability = false
+    object_reduction_percent = 0.8937639650619555
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 5
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "14376643803329388301"
+        steps = 64
+        summary_evaluations = 309
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "74498ed94cef0f3eab8f661b1f833be097cb246dd2018c00f6a84dae34ad33cd"
+        unchanged_proposals = 7
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 7
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "6911059651351236327"
+        steps = 64
+        summary_evaluations = 270
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "61c044617a7f35477083f0ea5ba36723124fb203cac959f7405b03c573161b5c"
+        unchanged_proposals = 4
+    [[night_owned_guidance.records]]
+    after_bytes = 444848
+    after_objects = 4853
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 449088
+    before_objects = 4897
+    byte_reduction_percent = 0.9441356705144677
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_fleet_distance_tabu"
+    native_master_variability = false
+    object_reduction_percent = 0.8985092914029047
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 5
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "14376643803329388301"
+        steps = 64
+        summary_evaluations = 309
+        tabu_hits = 1
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "2a9339401b156b611606c6481059405318c8030f8cd22a660fc9ad31be907652"
+        unchanged_proposals = 6
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 4
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "6911059651351236327"
+        steps = 64
+        summary_evaluations = 270
+        tabu_hits = 4
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "88b9e30f304eabde23c43c5be624079f64b5cf6d98071f2ac243f946cb3e7ebf"
+        unchanged_proposals = 3
+    [[night_owned_guidance.records]]
+    after_bytes = 471664
+    after_objects = 5037
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 532912
+    before_objects = 5627
+    byte_reduction_percent = 11.49307953283094
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_guided_late"
+    native_master_variability = false
+    object_reduction_percent = 10.485160831704288
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 6
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "6288014017068173167"
+        steps = 64
+        summary_evaluations = 567
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "072e0fdafa4527cbf969473da8575df9d8a3e9cc841c5130d029c16797e566da"
+        unchanged_proposals = 32
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 6
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "16495597195043645790"
+        steps = 64
+        summary_evaluations = 618
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "3745d54bd8e32e46ec8e7a5161b25e16c94d028453bcce2d8a4f43b025b4de03"
+        unchanged_proposals = 32
+    [[night_owned_guidance.records]]
+    after_bytes = 467904
+    after_objects = 4953
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 529344
+    before_objects = 5543
+    byte_reduction_percent = 11.606819006166125
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_guided_tabu"
+    native_master_variability = false
+    object_reduction_percent = 10.644055565578203
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 4
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "6288014017068173167"
+        steps = 64
+        summary_evaluations = 567
+        tabu_hits = 2
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "a5cbf8ed286ca94368c8765f6dd6b1e412f91232d9b1a87b161194d2a94442c8"
+        unchanged_proposals = 32
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 3
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "16495597195043645790"
+        steps = 64
+        summary_evaluations = 618
+        tabu_hits = 3
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "61a97816e47b89ae831cfa9876afe7a0f4cc33c44071748cb2c34f09fd6f70f7"
+        unchanged_proposals = 32
+    [[night_owned_guidance.records]]
+    after_bytes = 2436928
+    after_objects = 43622
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 2478432
+    before_objects = 44028
+    byte_reduction_percent = 1.6746071709855315
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_pool_hipo_late"
+    native_master_variability = true
+    object_reduction_percent = 0.9221404560734059
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 6
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "7671478599947040548"
+        steps = 64
+        summary_evaluations = 582
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "8a41ee7b581bcbba7588d7c4e3788688352fdc675d3514092c0a0d2e81e4b7a8"
+        unchanged_proposals = 25
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 7
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "11733117085417232765"
+        steps = 64
+        summary_evaluations = 582
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "4d9a6e7deb614d495742ca5e36c2eeda3c0f75277ab57bcb7445dfbf2334c4ba"
+        unchanged_proposals = 25
+    [[night_owned_guidance.records]]
+    after_bytes = 657024
+    after_objects = 11863
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 698848
+    before_objects = 12270
+    byte_reduction_percent = 5.984706259444117
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_pool_hipo_tabu"
+    native_master_variability = true
+    object_reduction_percent = 3.317033414832926
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 4
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "7671478599947040548"
+        steps = 64
+        summary_evaluations = 582
+        tabu_hits = 1
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "68e212f0bcf7f41e9931cfd91ae52691ba8d8a6afed791d42989da2c82c5bad6"
+        unchanged_proposals = 26
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 4
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "9185972908161239232"
+        steps = 64
+        summary_evaluations = 594
+        tabu_hits = 4
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "ddb0cbd01af7d29f8cd0c6ffbb0f024b42172aa229741a398bd2cd7e998d2511"
+        unchanged_proposals = 24
+    [[night_owned_guidance.records]]
+    after_bytes = 650160
+    after_objects = 11767
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 691120
+    before_objects = 12143
+    byte_reduction_percent = 5.926611876374577
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_pool_ipx_late"
+    native_master_variability = true
+    object_reduction_percent = 3.096434159598127
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 6
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "18084893028637670272"
+        steps = 64
+        summary_evaluations = 447
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "f31805bcf72974e8bbff6b77913c3a3a365c1df06baed34073f64fbd8a001c3c"
+        unchanged_proposals = 36
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 3
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "13002191079153253623"
+        steps = 64
+        summary_evaluations = 354
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "35c4e733ec8fef794387ff4c735e0bcc5ca71fddef3f3e04b64441d18086cb46"
+        unchanged_proposals = 45
+    [[night_owned_guidance.records]]
+    after_bytes = 643328
+    after_objects = 11655
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 684320
+    before_objects = 12031
+    byte_reduction_percent = 5.990180032733228
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_pool_ipx_tabu"
+    native_master_variability = true
+    object_reduction_percent = 3.1252597456570497
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 4
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "18084893028637670272"
+        steps = 64
+        summary_evaluations = 447
+        tabu_hits = 9
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "9f70f2ebf083c9f66b950754be7c016ece1fdf56e747faf9b2d1a16854cb5625"
+        unchanged_proposals = 29
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "7889925693697042000"
+        steps = 64
+        summary_evaluations = 366
+        tabu_hits = 1
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "efcca28360090e3492005914766ab3f663e2ebe17df2d1403bf05d851ef18a3d"
+        unchanged_proposals = 45
+    [[night_owned_guidance.records]]
+    after_bytes = 676624
+    after_objects = 12299
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 719328
+    before_objects = 12710
+    byte_reduction_percent = 5.936651986298324
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_pool_mip_late"
+    native_master_variability = true
+    object_reduction_percent = 3.2336742722265943
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 8
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "2959032764201698904"
+        steps = 64
+        summary_evaluations = 582
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "5505f8b39d6dc1712e6c5cb0be4c783cbf4f6f410c5f9c4d9dd6f98e73edf7b1"
+        unchanged_proposals = 23
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 16
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "12752360015855889595"
+        steps = 64
+        summary_evaluations = 693
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "642f75f10190d8c0680ec433edb39dce27dadf8b2366d04e7b2203a905703551"
+        unchanged_proposals = 16
+    [[night_owned_guidance.records]]
+    after_bytes = 896864
+    after_objects = 16690
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 939184
+    before_objects = 17105
+    byte_reduction_percent = 4.506039285166697
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_pool_mip_tabu"
+    native_master_variability = true
+    object_reduction_percent = 2.4261911721718765
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 4
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "2959032764201698904"
+        steps = 64
+        summary_evaluations = 582
+        tabu_hits = 2
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "dcbf0e44c4f78d594bcd97eee08708a106be95ff666ecc533b8c3c5dccc6b137"
+        unchanged_proposals = 25
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 6
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "12752360015855889595"
+        steps = 64
+        summary_evaluations = 693
+        tabu_hits = 9
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "8db8458678e1d5709c9963ea3c048529b8dd9776618e98a712fe538bab686715"
+        unchanged_proposals = 17
+    [[night_owned_guidance.records]]
+    after_bytes = 509200
+    after_objects = 6000
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 580816
+    before_objects = 6685
+    byte_reduction_percent = 12.33023883639569
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_ruin_repair_late"
+    native_master_variability = false
+    object_reduction_percent = 10.246821241585636
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 14
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "12769413376510429537"
+        steps = 64
+        summary_evaluations = 969
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "457c45b43d5df9f1fe6d2ecb8bcd05070ece07c5a16677dc216d879378b0a2c9"
+        unchanged_proposals = 34
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 19
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "13002191079153253623"
+        steps = 64
+        summary_evaluations = 861
+        tabu_hits = 0
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "0b2eeb173e9b604c4fa86297333e6530d1fa8e71211a552bed9a4b0f17e25b50"
+        unchanged_proposals = 21
+    [[night_owned_guidance.records]]
+    after_bytes = 482160
+    after_objects = 5438
+    allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+    before_bytes = 552576
+    before_objects = 6122
+    byte_reduction_percent = 12.743224461431545
+    category = "meta"
+    correctness = "passed"
+    method = "rp_meta_ruin_repair_tabu"
+    native_master_variability = false
+    object_reduction_percent = 11.172819340084938
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 5
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "12769413376510429537"
+        steps = 64
+        summary_evaluations = 969
+        tabu_hits = 12
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "b9015a9c2b22c31c11f26a09dcb33fd6136db4762a8f0f6b70d963e51cbee0b5"
+        unchanged_proposals = 31
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 5
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "13002191079153253623"
+        steps = 64
+        summary_evaluations = 861
+        tabu_hits = 12
+        thread_cpu_seconds = 0.0
+        trace_work_sha256 = "7d727960e2a5d943703215e63ef69bea5f8e4280a7cf291ceafd69d80dd7d53c"
+        unchanged_proposals = 23
+    [[night_owned_guidance.records]]
+    after_bytes = 163472
+    after_objects = 2843
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 229168
+    before_objects = 3471
+    byte_reduction_percent = 28.667178663687775
+    category = "search"
+    correctness = "passed"
+    method = "rp_sisr_b0_regret2"
+    native_master_variability = false
+    object_reduction_percent = 18.092768654566406
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 21
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "5310682492468389255"
+        steps = 40
+        summary_evaluations = 885
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "16a99a9d0146f19c2c8b73c49a634ec9396cb96dd1cdfad4c12909be377d1d80"
+        unchanged_proposals = 19
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 21
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "4913919668143570781"
+        steps = 40
+        summary_evaluations = 885
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "795ac6b9b13583ae9c7a4c76d84ffd52cf14d0c1b69af9f7e19a867715b8caf8"
+        unchanged_proposals = 19
+    [[night_owned_guidance.records]]
+    after_bytes = 163472
+    after_objects = 2843
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 229168
+    before_objects = 3471
+    byte_reduction_percent = 28.667178663687775
+    category = "search"
+    correctness = "passed"
+    method = "rp_sisr_b0_regret3"
+    native_master_variability = false
+    object_reduction_percent = 18.092768654566406
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 21
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "5310682492468389255"
+        steps = 40
+        summary_evaluations = 885
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "16a99a9d0146f19c2c8b73c49a634ec9396cb96dd1cdfad4c12909be377d1d80"
+        unchanged_proposals = 19
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 21
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "4913919668143570781"
+        steps = 40
+        summary_evaluations = 885
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "795ac6b9b13583ae9c7a4c76d84ffd52cf14d0c1b69af9f7e19a867715b8caf8"
+        unchanged_proposals = 19
+    [[night_owned_guidance.records]]
+    after_bytes = 213472
+    after_objects = 3727
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 275312
+    before_objects = 4338
+    byte_reduction_percent = 22.46178880688092
+    category = "search"
+    correctness = "passed"
+    method = "rp_sisr_b15_regret2"
+    native_master_variability = false
+    object_reduction_percent = 14.084831719686496
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 28
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "16059291658873580215"
+        steps = 40
+        summary_evaluations = 861
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "7560ff9b3265476c000847123c59e0e82d32f0eff74a06871b43cc6091819e4c"
+        unchanged_proposals = 12
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 23
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "2584229808594754815"
+        steps = 40
+        summary_evaluations = 897
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "26f6ee7dd228a94a6fcb277ad33d85f384c7694ab773c241e90d6efe868591d1"
+        unchanged_proposals = 17
+    [[night_owned_guidance.records]]
+    after_bytes = 213472
+    after_objects = 3727
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 275312
+    before_objects = 4338
+    byte_reduction_percent = 22.46178880688092
+    category = "search"
+    correctness = "passed"
+    method = "rp_sisr_b15_regret3"
+    native_master_variability = false
+    object_reduction_percent = 14.084831719686496
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 28
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "16059291658873580215"
+        steps = 40
+        summary_evaluations = 861
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "7560ff9b3265476c000847123c59e0e82d32f0eff74a06871b43cc6091819e4c"
+        unchanged_proposals = 12
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 23
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "2584229808594754815"
+        steps = 40
+        summary_evaluations = 897
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "26f6ee7dd228a94a6fcb277ad33d85f384c7694ab773c241e90d6efe868591d1"
+        unchanged_proposals = 17
+    [[night_owned_guidance.records]]
+    after_bytes = 265856
+    after_objects = 4578
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 326544
+    before_objects = 5184
+    byte_reduction_percent = 18.584938017541287
+    category = "search"
+    correctness = "passed"
+    method = "rp_sisr_b30_regret2"
+    native_master_variability = false
+    object_reduction_percent = 11.689814814814813
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 26
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "16059291658873580215"
+        steps = 40
+        summary_evaluations = 861
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "2a1032dc1c8985dcb837935c6dfe42570f4c303734e631498f1474e4a1a1b3df"
+        unchanged_proposals = 14
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 28
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "2584229808594754815"
+        steps = 40
+        summary_evaluations = 897
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "034c64cb0be5633022ca2e9cabe62aa108cba9e0263d333f5557373387cb300f"
+        unchanged_proposals = 12
+    [[night_owned_guidance.records]]
+    after_bytes = 265856
+    after_objects = 4578
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 326544
+    before_objects = 5184
+    byte_reduction_percent = 18.584938017541287
+    category = "search"
+    correctness = "passed"
+    method = "rp_sisr_b30_regret3"
+    native_master_variability = false
+    object_reduction_percent = 11.689814814814813
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 26
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "16059291658873580215"
+        steps = 40
+        summary_evaluations = 861
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "2a1032dc1c8985dcb837935c6dfe42570f4c303734e631498f1474e4a1a1b3df"
+        unchanged_proposals = 14
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 28
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "2584229808594754815"
+        steps = 40
+        summary_evaluations = 897
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "034c64cb0be5633022ca2e9cabe62aa108cba9e0263d333f5557373387cb300f"
+        unchanged_proposals = 12
+    [[night_owned_guidance.records]]
+    after_bytes = 79104
+    after_objects = 1199
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 85280
+    before_objects = 1264
+    byte_reduction_percent = 7.242026266416513
+    category = "search"
+    correctness = "passed"
+    method = "rp_vnd_greedy"
+    native_master_variability = false
+    object_reduction_percent = 5.142405063291145
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "6519017998402919525"
+        steps = 40
+        summary_evaluations = 351
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "fb7e4720374c84be7ab913e43749cbf94ba89d95d15ccec0b9b634100018c050"
+        unchanged_proposals = 7
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 2
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "735569066567100057"
+        steps = 40
+        summary_evaluations = 351
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "10771ef794f95b90d5921d0bede5f203f9d4e876393e5089b9a0b5c749515ff3"
+        unchanged_proposals = 5
+    [[night_owned_guidance.records]]
+    after_bytes = 116176
+    after_objects = 1908
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 123568
+    before_objects = 1977
+    byte_reduction_percent = 5.982131296128445
+    category = "search"
+    correctness = "passed"
+    method = "rp_vnd_late"
+    native_master_variability = false
+    object_reduction_percent = 3.490136570561453
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 10
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "6519017998402919525"
+        steps = 40
+        summary_evaluations = 351
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "2e5eafe8630a595238559bd7d3a53c2b2f217e2c2ccc05704d21074535247cf8"
+        unchanged_proposals = 5
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 7
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "735569066567100057"
+        steps = 40
+        summary_evaluations = 351
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "4b0e49128db3616d554a49e6890ae47589c5f82cd2f6b60c253a6ddde98b1e92"
+        unchanged_proposals = 8
+    [[night_owned_guidance.records]]
+    after_bytes = 115408
+    after_objects = 1892
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 122512
+    before_objects = 1958
+    byte_reduction_percent = 5.798615645814287
+    category = "search"
+    correctness = "passed"
+    method = "rp_vnd_reset_full"
+    native_master_variability = false
+    object_reduction_percent = 3.3707865168539297
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 9
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 1
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "1218757769393632307"
+        steps = 40
+        summary_evaluations = 351
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "94bea16e4d5d4c69ff8914dd372f518a229e59512358cee767950d6640664147"
+        unchanged_proposals = 6
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 6
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 1
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "10142840947950075341"
+        steps = 40
+        summary_evaluations = 351
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "1816b9624ae17682771c1230b9dd63f85256055d26735b8a28997f90ce0f2952"
+        unchanged_proposals = 9
+    [[night_owned_guidance.records]]
+    after_bytes = 113584
+    after_objects = 1854
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 120976
+    before_objects = 1922
+    byte_reduction_percent = 6.110302869990747
+    category = "search"
+    correctness = "passed"
+    method = "rp_vnd_reset_partial"
+    native_master_variability = false
+    object_reduction_percent = 3.537981269510926
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 9
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 1
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "1218757769393632307"
+        steps = 40
+        summary_evaluations = 339
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "e21d9e9975996ffc283ce2c3c021a5fe23881f962b4854d57a62ae79fe226147"
+        unchanged_proposals = 6
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 6
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 1
+        current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        ejection_attempts = 0
+        next_rng_uint64 = "10142840947950075341"
+        steps = 40
+        summary_evaluations = 339
+        tabu_hits = 0
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "fe57f6845b2785813a394552bad3748bea4d7170c9996851c4abf2957f5a12ea"
+        unchanged_proposals = 9
+    [[night_owned_guidance.records]]
+    after_bytes = 98928
+    after_objects = 1561
+    allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+    before_bytes = 104912
+    before_objects = 1626
+    byte_reduction_percent = 5.703827970108277
+    category = "search"
+    correctness = "passed"
+    method = "rp_vnd_tabu"
+    native_master_variability = false
+    object_reduction_percent = 3.9975399753997554
+    observable_work_matches = true
+
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 5
+        best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "6519017998402919525"
+        steps = 40
+        summary_evaluations = 351
+        tabu_hits = 5
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "1594c9a6342c083e4f84ac60c34d40d9b8a0635c8c1cfc5472f0f71f2c447b31"
+        unchanged_proposals = 5
+        [[night_owned_guidance.records.worker_diagnostics]]
+        accepted_meta_moves = 4
+        best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        completed_resets = 0
+        current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+        ejection_attempts = 0
+        next_rng_uint64 = "735569066567100057"
+        steps = 40
+        summary_evaluations = 351
+        tabu_hits = 5
+        thread_cpu_seconds = 0
+        trace_work_sha256 = "a62bcdf6654db8e5637c904f9711990cfa5e1cc54480e49d226696dc6a97aef0"
+        unchanged_proposals = 6
+
 [night_owned_repair_defaults]
 after_source_sha256 = "8570845e07ebf5ef5f99c819f79806b11abab90ee80f97c969f8a9612f2dc511"
 attribution_boundary_assertions = 5
