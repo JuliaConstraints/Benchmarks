@@ -505,3 +505,35 @@ clean results. Lifecycle SnoopCompile excludes the bank generation performed
 by the scenario factory. All eight redacted heap artifacts were verified and
 removed. Source/environment hashes, exact finding counts, diagnostic scopes
 and compact measurements are in the same routing qualification file.
+
+The next workspace stage removes transient scheduling views and scalar tolerance
+boxing, specializes routing and resource arithmetic, and retains at most eight
+fresh-layout machine maps per private worker. Maps are reused only for the same
+ordered active machine keys; data edits still enter every score calculation.
+Wider/custom arithmetic retains its original fallback. Prepared direct and
+fused-ICN callbacks on nine fixed fixture families each measured zero warm
+allocations with the native PerfChecker allocation collector. This excludes
+preparation, first bank compilation, cache misses and original validation.
+Ordered term comparisons, changing machine patterns and explicit zero-allocation
+regressions qualify these paths; this is not a whole-solver zero-allocation claim.
+
+The Li-Lim guidance adapter now delegates its numerical kernels to the qualified
+`QUBOConstraints.ValuePairGuidance` API. It retains matrix conventions, explicit
+component bindings, provenance and original-model authority. A narrow move visits
+the sparse pair frontier; wide frontiers retain the qualified full-scan fallback.
+Each workspace belongs to its guide. The exact dependency cohort and portable
+environment are pinned in `LiLim/config/workspace-cohort.toml`; package branches
+may advance without changing these source commits. Earlier cohorts remain
+recorded and existing installations are preserved.
+
+The combined cohort passed **65,086 original-model, ownership and integration
+assertions**, all 52 two-worker routing profile oracles, and an offline portable
+environment check that preserved the frozen Project/Manifest bytes. Repeating
+both scoring sources on that same dependency cohort confirmed the warm allocation
+reduction on all 18 callback cases. All 72 fresh-worker collector checks passed;
+BenchmarkTools retains a 16-byte result-boundary discrepancy, also visible in
+instrumented stack samples despite zero independent native totals. Several
+MetaStrategist fixed-work rows allocate approximately 1–1.5% more than the preceding
+package cohort; these regressions are retained, with no package attribution or
+speed/quality claim. Cold-bank inference and the remaining profiling passes
+continue separately.

@@ -14,13 +14,21 @@ mutable struct ScoreWorkspace
     durations::Vector{Int}
     machines::Vector{Int}
     task_buffers::Vector{Vector{Int}}
+    machine_groups::Dict{Int,Vector{Int}}
+    machine_keys::Vector{Int}
+    machine_cache::Vector{Tuple{Vector{Int},Dict{Int,Vector{Int}}}}
+    machine_cache_next::Int
     resource_load::Matrix{Float64}
+    tolerance::Float64
 end
 function ScoreWorkspace(p)
     ds=UnitRange{Int}[Int(first(r)):Int(last(r)) for r in domains(p)]
     labels=Int[];seen=Set{Int}();sizehint!(labels,length(ds));sizehint!(seen,length(ds))
-    ScoreWorkspace(p,ds,zeros(Int,length(ds)),labels,seen,Int[],Int[],Int[],Vector{Int}[],zeros(0,0))
+    ScoreWorkspace(p,ds,zeros(Int,length(ds)),labels,seen,Int[],Int[],Int[],Vector{Int}[],
+        Dict{Int,Vector{Int}}(),Int[],Tuple{Vector{Int},Dict{Int,Vector{Int}}}[],1,zeros(0,0),0.)
 end
+packing_terms!(terms,x,labels,weights,capacity,w::ScoreWorkspace)=
+    packing_terms!(terms,x,labels,weights,capacity,w.tolerance)
 
 mutable struct Backend{F}
     kind::Symbol
@@ -96,6 +104,45 @@ function station_terms!(terms,x,labels,duration,cycle)
         push!(terms,Float64(max(0,load-cycle)))
     end
 end
+function precedence_terms!(terms,x,precedence)
+    for(a,b)in precedence;push!(terms,Float64(max(0,x[a]-x[b])));end
+end
+function aircraft_terms!(terms,x,separation)
+    for i in eachindex(x),j in i+1:length(x)
+        push!(terms,Float64(max(0,min(x[i]+separation[i,j]-x[j],x[j]+separation[j,i]-x[i]))))
+    end
+end
+function routing_permutation_term!(terms,x,workspace)
+    n=length(x)÷2
+    push!(terms,Float64(max(0,n-length(distinct_labels!(workspace,view(x,1:n))))))
+end
+function routing_terms!(terms,x,vehicles,distance,demand,capacity,earliest,latest,service,
+        max_distance,::Val{F},atol) where F
+    n=length(x)÷2
+    for r in 1:vehicles
+        previous=1;load=0.;clock=F==:cvrptw ? earliest[1] : 0.;travel=0.;used=false
+        for position in 1:n
+            i=x[position];x[n+i]==r || continue
+            used=true;j=i+1;edge=distance[previous,j];travel+=edge
+            F!=:top && (load+=demand[j])
+            if F==:cvrptw
+                clock=max(earliest[j],clock+service[previous]+edge)
+                push!(terms,Float64(max(0,clock-latest[j]-atol)))
+            end
+            previous=j
+        end
+        used || continue
+        travel+=distance[previous,F==:top ? n+2 : 1]
+        if F==:top
+            push!(terms,Float64(max(0,travel-max_distance-atol)))
+        else
+            push!(terms,Float64(max(0,load-capacity-atol)))
+        end
+        F==:cvrptw && push!(terms,Float64(max(0,clock+service[previous]+distance[previous,1]-latest[1]-atol)))
+    end
+end
+routing_terms!(terms,x,vehicles,distance,demand,capacity,earliest,latest,service,max_distance,f::Val{F},w::ScoreWorkspace) where F =
+    routing_terms!(terms,x,vehicles,distance,demand,capacity,earliest,latest,service,max_distance,f,w.tolerance)
 
 function schedule_events!(events,starts,duration::AbstractVector{Int})
     n=length(duration);resize!(events,2n)
@@ -120,21 +167,45 @@ function renewable_terms!(terms,starts,duration,precedence,horizon,use,capacity,
     end
 end
 
-function machine_terms!(terms,starts,duration,machine,precedence,horizon,buffers)
+function machine_map!(workspace,keys)
+    for (order,groups) in workspace.machine_cache
+        order==keys && return groups
+    end
+    groups=Dict{Int,Vector{Int}}();buffers=workspace.task_buffers
+    for (i,key) in enumerate(keys)
+        i>length(buffers) && push!(buffers,Int[])
+        groups[key]=buffers[i]
+    end
+    entry=(copy(keys),groups)
+    # A bounded cache covers recurring assignment patterns. Every map has the
+    # original fresh-map layout, and all borrowed task vectors are private.
+    if length(workspace.machine_cache)<8
+        push!(workspace.machine_cache,entry)
+    else
+        workspace.machine_cache[workspace.machine_cache_next]=entry
+        workspace.machine_cache_next=mod1(workspace.machine_cache_next+1,8)
+    end
+    groups
+end
+function machine_terms!(terms,starts,duration,machine,precedence,horizon,workspace)
     for i in eachindex(duration);push!(terms,Float64(max(0,starts[i]+duration[i]-horizon)));end
     for(a,b)in precedence;push!(terms,Float64(max(0,starts[a]+duration[a]-starts[b])));end
-    # A fresh map preserves the original Dict iteration order. Only its task
-    # vectors are borrowed; retained results never refer to these scratch buffers.
-    groups=Dict{Int,Vector{Int}}();used=0
+    # Reuse the map only when its original insertion sequence is unchanged.
+    # Rebuilding after a key change preserves the historical Dict term order.
+    keys=workspace.labels;seen=workspace.seen;empty!(keys);empty!(seen)
     for i in eachindex(duration)
         duration[i]>0 || continue
-        key=Int(machine[i]);tasks=get(groups,key,nothing)
-        if tasks===nothing
-            used+=1
-            used>length(buffers) && push!(buffers,Int[])
-            tasks=buffers[used];empty!(tasks);groups[key]=tasks
-        end
-        push!(tasks,i)
+        key=Int(machine[i])
+        if !(key in seen);push!(seen,key);push!(keys,key);end
+    end
+    if keys!=workspace.machine_keys
+        workspace.machine_groups=machine_map!(workspace,keys)
+        empty!(workspace.machine_keys);append!(workspace.machine_keys,keys)
+    end
+    groups=workspace.machine_groups
+    for tasks in Base.values(groups);empty!(tasks);end
+    for i in eachindex(duration)
+        duration[i]>0 && push!(groups[Int(machine[i])],i)
     end
     for tasks in Base.values(groups)
         # Original insertion order is increasing job index; this tie breaker
@@ -158,7 +229,15 @@ end
 flexible_assignments!(workspace,x,alternatives)=
     ([alternatives[i][x[length(alternatives)+i]][2] for i in eachindex(alternatives)],
      [alternatives[i][x[length(alternatives)+i]][1] for i in eachindex(alternatives)])
+function flexible_machine_terms!(terms,x,alternatives,precedence,horizon,workspace)
+    duration,machine=flexible_assignments!(workspace,x,alternatives)
+    machine_terms!(terms,x,duration,machine,precedence,horizon,workspace)
+end
 
+function maintenance_exclusion!(terms,x,duration,a,b,season)
+    overlap=count(t->x[a]<=t<x[a]+duration[a][x[a]] && x[b]<=t<x[b]+duration[b][x[b]],season)
+    push!(terms,Float64(max(0,overlap)))
+end
 function maintenance_terms!(terms,x,duration,horizon,use,lower,upper,exclusions,workspace,atol)
     resources=length(upper[1])
     if size(workspace.resource_load)!=(horizon,resources)
@@ -178,9 +257,11 @@ function maintenance_terms!(terms,x,duration,horizon,use,lower,upper,exclusions,
         push!(terms,Float64(max(0,used[t,r]-upper[t][r]-atol)))
     end
     for(a,b,season)in exclusions
-        push!(terms,Float64(max(0,count(t->x[a]<=t<x[a]+duration[a][x[a]] && x[b]<=t<x[b]+duration[b][x[b]],season))))
+        maintenance_exclusion!(terms,x,duration,a,b,season)
     end
 end
+maintenance_terms!(terms,x,duration,horizon,use,lower,upper,exclusions,w::ScoreWorkspace)=
+    maintenance_terms!(terms,x,duration,horizon,use,lower,upper,exclusions,w,w.tolerance)
 
 "Lane-owned error terms; independent original validator decides which solutions may be exported."
 function residuals!(terms,p::Problem,values;atol=p.family==:maintenance ? 1e-5 : 1e-8,workspace=ScoreWorkspace(p))
@@ -189,61 +270,61 @@ function residuals!(terms,p::Problem,values;atol=p.family==:maintenance ? 1e-5 :
         push!(terms,1.);return terms
     end
     x=workspace.integers;d=p.data;f=p.family
+    atol isa Float64 && (workspace.tolerance=atol)
     add(v)=push!(terms,Float64(max(0,v)))
     perm(v)=add(length(v)-length(distinct_labels!(workspace,v)))
     f in (:tsp,:qap,:car_sequencing) && perm(x)
     if f in (:cvrp,:cvrptw,:top)
-        n=length(x)÷2;order=view(x,1:n);labels=view(x,n+1:2n);perm(order)
-        for r in 1:d["vehicles"]
-            previous=1;load=0.;clock=f==:cvrptw ? d["earliest"][1] : 0.;travel=0.;used=false
-            for i in order
-                labels[i]==r || continue
-                used=true;j=i+1;distance=d["distance"][previous,j];travel+=distance
-                f!=:top && (load+=d["demand"][j])
-                if f==:cvrptw
-                    clock=max(d["earliest"][j],clock+d["service"][previous]+distance)
-                    add(clock-d["latest"][j]-atol)
-                end
-                previous=j
-            end
-            used || continue
-            travel+=d["distance"][previous,f==:top ? n+2 : 1]
-            if f==:top;add(travel-d["max_distance"]-atol)
-            else;add(load-d["capacity"]-atol);end
-            f==:cvrptw && add(clock+d["service"][previous]+d["distance"][previous,1]-d["latest"][1]-atol)
+        routing_permutation_term!(terms,x,workspace)
+        tolerance=atol isa Float64 ? workspace : atol
+        if f==:cvrptw
+            routing_terms!(terms,x,d["vehicles"],d["distance"],d["demand"],d["capacity"],
+                d["earliest"],d["latest"],d["service"],nothing,Val(:cvrptw),tolerance)
+        elseif f==:cvrp
+            routing_terms!(terms,x,d["vehicles"],d["distance"],d["demand"],d["capacity"],
+                nothing,nothing,nothing,nothing,Val(:cvrp),tolerance)
+        else
+            routing_terms!(terms,x,d["vehicles"],d["distance"],nothing,nothing,
+                nothing,nothing,nothing,d["max_distance"],Val(:top),tolerance)
         end
     elseif f in (:bpp,:bppc,:vbp,:salbp)
         labels=distinct_labels!(workspace,x)
         if f==:salbp
             station_terms!(terms,x,labels,d["duration"],d["cycle"])
         else
-            packing_terms!(terms,x,labels,d["weights"],d["capacity"],atol)
+            packing_terms!(terms,x,labels,d["weights"],d["capacity"],atol isa Float64 ? workspace : atol)
         end
         if f==:bppc;for(a,b)in d["conflicts"];add(x[a]==x[b]);end
-        elseif f==:salbp;for(a,b)in d["precedence"];add(x[a]-x[b]);end;end
+        elseif f==:salbp;precedence_terms!(terms,x,d["precedence"]);end
     elseif f==:mssc
         get(d,"require_nonempty",false) && add(d["clusters"]-length(distinct_labels!(workspace,x)))
     elseif f in (:rcpsp,:jssp,:fjsp)
-        jobs=length(d["duration"]);starts=view(x,1:jobs)
+        # Typed helpers limit their traversal to the job durations. FJSP's
+        # trailing assignment variables never enter scheduling arithmetic.
+        starts=x
         if f==:rcpsp
             duration=d["duration"];events=schedule_events!(workspace.events,starts,duration)
             renewable_terms!(terms,starts,duration,d["precedence"],d["horizon"],d["resource_use"],d["capacity"],events)
+        elseif f==:fjsp
+            flexible_machine_terms!(terms,x,d["alternatives"],d["precedence"],d["horizon"],workspace)
         else
-            duration,machine=f==:fjsp ? flexible_assignments!(workspace,x,d["alternatives"]) : (d["duration"],d["machine"])
-            machine_terms!(terms,starts,duration,machine,d["precedence"],d["horizon"],workspace.task_buffers)
+            machine_terms!(terms,starts,d["duration"],d["machine"],d["precedence"],d["horizon"],workspace)
         end
     elseif f==:aircraft_landing
-        for i in eachindex(x),j in i+1:length(x)
-            add(min(x[i]+d["separation"][i,j]-x[j],x[j]+d["separation"][j,i]-x[i]))
-        end
+        aircraft_terms!(terms,x,d["separation"])
     elseif f==:car_sequencing
         run=0;previous=-1
         for i in x
             color=d["colors"][i];run=color==previous ? run+1 : 1;add(run-d["max_paint_batch"]);previous=color
         end
     elseif f==:maintenance
-        maintenance_terms!(terms,x,d["duration"],d["horizon"],d["resource_use_by_start"],
-            d["capacity_lower"],d["capacity_upper"],d["exclusions"],workspace,atol)
+        if atol isa Float64
+            maintenance_terms!(terms,x,d["duration"],d["horizon"],d["resource_use_by_start"],
+                d["capacity_lower"],d["capacity_upper"],d["exclusions"],workspace)
+        else
+            maintenance_terms!(terms,x,d["duration"],d["horizon"],d["resource_use_by_start"],
+                d["capacity_lower"],d["capacity_upper"],d["exclusions"],workspace,atol)
+        end
     end
     terms
 end

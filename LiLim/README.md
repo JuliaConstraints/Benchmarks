@@ -1,13 +1,14 @@
 # Small Li–Lim pilot
 
-## Current preparation (7 October 2026)
+## Current preparation (9 October 2026)
 
 Li-Lim is the first qualification target for the new Etendu-aligned cohort.
 The [Hexaly coverage catalog](config/hexaly-benchmark-catalog.toml) records all
 20 benchmark pages, with their exact source URLs. Other families still need
 their data/model adapters and original validators; an inventory entry is not
-a completed reproduction. The public Etendu-aligned source cohort is pinned in
-`workspace-cohort.toml`; see [the colleague instructions](PUBLIC.md).
+a completed reproduction. The current performance branch pins each package's
+qualified source commit in `workspace-cohort.toml`, alongside the earlier
+Etendu-aligned cohort; see [the colleague instructions](PUBLIC.md).
 Existing public snapshots and historical trial evidence remain available.
 
 The strategy catalog now contains 27 policies, 35 ICN/hybrid variants and four
