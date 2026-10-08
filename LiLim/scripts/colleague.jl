@@ -10,10 +10,27 @@ const SOLVER_ENV = joinpath(DEV,"ConstraintModels/perf/pdptw")
 const PYTHON=NativeSolvers.default_python(ROOT)
 digest(path) = bytes2hex(sha256(read(path)))
 
-function clone_cohort(url, branch, path)
+function clone_cohort(url, branch, path;commit=nothing)
     # A Windows global autocrlf setting must not change the frozen source bytes.
     # This setting belongs only to a newly created checkout.
     run(`git clone --config core.autocrlf=false --single-branch --branch $branch $url $path`)
+    # A development branch may advance after this cohort was qualified. Only
+    # a newly created checkout is moved to its exact published source snapshot.
+    commit===nothing || run(`git -C $path checkout --detach $commit`)
+end
+
+cohort_branch(name,config=CONFIG)=get(get(config,"cohort_branches",Dict{String,String}()),name,config["public_branch"])
+
+"Accept regular clones and linked worktrees, never a directory inside another checkout."
+function development_checkout(path)
+    isdir(path) && ispath(joinpath(path,".git")) || return false
+    try
+        root=strip(read(pipeline(`git -C $path rev-parse --show-toplevel`;stderr=devnull),String))
+        realpath(root)==realpath(path)
+    catch e
+        e isa ProcessFailedException || rethrow()
+        false
+    end
 end
 
 function launch(command)
@@ -81,10 +98,10 @@ function setup(opts=Dict{String,String}())
         if !ispath(path)
             get(CONFIG,"public_status","published")=="published" || error("This source cohort has not been published; existing development checkouts were preserved.")
             url = "https://github.com/JuliaConstraints/"*name*".jl.git"
-            branch = CONFIG["public_branch"]
-            clone_cohort(url, branch, path)
+            branch = cohort_branch(name)
+            clone_cohort(url, branch, path;commit=sha)
         end
-        isdir(joinpath(path,".git")) || error("Not a development clone: $path")
+        development_checkout(path) || error("Not a development checkout: $path")
         strip(read(`git -C $path rev-parse HEAD`,String))==sha || error("Cohort mismatch at $path; existing files were preserved.")
         isempty(strip(read(`git -C $path status --porcelain --untracked-files=no`,String))) || error("Dirty dependency: $path")
     end
@@ -287,7 +304,7 @@ function preflight(opts)
     environment_ok = host_ok
     for (name,expected) in CONFIG["cohort"]
         path = joinpath(DEV,name)
-        ok = isdir(joinpath(path,".git")) &&
+        ok = development_checkout(path) &&
             strip(read(`git -C $path rev-parse HEAD`,String))==expected &&
             isempty(strip(read(`git -C $path status --porcelain --untracked-files=no`,String)))
         checks["source:"*name] = Dict("status"=>ok ? "passed" : "failed","expected_commit"=>expected)

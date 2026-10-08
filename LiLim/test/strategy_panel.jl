@@ -34,6 +34,8 @@ end
 
 @testset "Sparse value-pair guide conventions and owned buffers" begin
     G=QUBOGuidance
+    @test G.Guide===QC.ValuePairGuidance.Guide
+    @test G.Workspace===QC.ValuePairGuidance.Workspace
     atoms=[(i,v) for i in 1:5 for v in 1:3]
     rng=Xoshiro(73);Q=randn(rng,15,15);g=G.from_matrix(Q,atoms)
     w=G.Workspace(g);other=G.Workspace(g)
@@ -58,6 +60,10 @@ end
         end
     end
     @test_throws ArgumentError G.delta!(w,g,[1,1],[1,2])
+    distinct=G.from_matrix(Q,atoms)
+    @test_throws ArgumentError G.refresh!(w,distinct,ones(Int,5))
+    @test_throws ArgumentError G.energy(distinct,w)
+    @test_throws ArgumentError G.delta!(w,distinct,(1,),(2,))
     @test_throws ArgumentError G.Guide([(1,1)],[NaN],[])
     @test_throws ArgumentError G.Guide([(1,1),(1,1)],[0.,0.],[])
     @test_throws ArgumentError G.Guide([(1,1),(2,1)],[0.,0.],[(1,2,1.),(2,1,2.)])
@@ -110,4 +116,15 @@ end
     end
     allocations(g,w,ones(Int,5),rng)
     @test allocations(g,w,ones(Int,5),rng)==(;energy=0,delta=0,proposal=0)
+    # The adapter uses the library's sparse frontier instead of rescanning all
+    # pair terms for a narrow move. Its delta remains a full polynomial delta.
+    sparse_atoms=[(i,v) for i in 1:64 for v in 1:2]
+    sparse_terms=[(2i-2+a,2mod1(i+1,64)-2+b,Float64(a-2b)) for i in 1:64 for a in 1:2 for b in 1:2]
+    sparse_model=G.Guide(sparse_atoms,zeros(128),sparse_terms)
+    sparse_work=G.Workspace(sparse_model);reference=G.Workspace(sparse_model)
+    values=ones(Int,64);G.refresh!(sparse_work,sparse_model,values)
+    old=G.energy(sparse_model,sparse_work);delta=G.delta!(sparse_work,sparse_model,(1,),(2,))
+    values[1]=2;G.refresh!(reference,sparse_model,values)
+    @test old+delta≈G.energy(sparse_model,reference) atol=1e-10
+    @test sparse_work.pair_visits<length(sparse_model.coefficient)÷8
 end

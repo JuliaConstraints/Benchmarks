@@ -6,6 +6,7 @@ include("../src/Solvers.jl")
 include("fixtures.jl")
 using .ReproductionProblems,.ReproductionReaders,.ReproductionScoring,.ReproductionSolvers
 const CASES=fixtures()
+@test isempty(Test.detect_ambiguities(ReproductionScoring;recursive=false))
 
 # Preserve the allocating scheduling/resource algorithm as a differential oracle.
 # This checks quantitative term order as well as the independent validity zero set.
@@ -48,6 +49,49 @@ function reference_resource_terms!(terms,p,x;atol=p.family==:maintenance ? 1e-5 
     end
     terms
 end
+function reference_routing_terms!(terms,p,x;atol=1e-8)
+    empty!(terms);d=p.data;f=p.family;n=length(x)÷2
+    order=view(x,1:n);labels=view(x,n+1:2n)
+    add(v)=push!(terms,Float64(max(0,v)))
+    add(length(order)-length(unique(order)))
+    for r in 1:d["vehicles"]
+        previous=1;load=0.;clock=f==:cvrptw ? d["earliest"][1] : 0.;travel=0.;used=false
+        for i in order
+            labels[i]==r || continue
+            used=true;j=i+1;distance=d["distance"][previous,j];travel+=distance
+            f!=:top && (load+=d["demand"][j])
+            if f==:cvrptw
+                clock=max(d["earliest"][j],clock+d["service"][previous]+distance)
+                add(clock-d["latest"][j]-atol)
+            end
+            previous=j
+        end
+        used || continue
+        travel+=d["distance"][previous,f==:top ? n+2 : 1]
+        if f==:top;add(travel-d["max_distance"]-atol)
+        else;add(load-d["capacity"]-atol);end
+        f==:cvrptw && add(clock+d["service"][previous]+d["distance"][previous,1]-d["latest"][1]-atol)
+    end
+    terms
+end
+
+@testset "Concrete routing callbacks retain original term order and mutable data" begin
+    rng=Xoshiro(721);reference=Float64[];terms=Float64[]
+    for f in (:cvrp,:cvrptw,:top),wide in (false,true)
+        p=deepcopy(CASES[f]);wide && (p.data["distance"]=BigFloat.(p.data["distance"]))
+        ds=domains(p);workspace=ReproductionScoring.ScoreWorkspace(p)
+        for _ in 1:128
+            x=rand.(Ref(rng),ds)
+            for atol in (0.,1e-8,big"0.125",1//8)
+                expected=copy(reference_routing_terms!(reference,p,x;atol))
+                @test isequal(residuals!(terms,p,x;atol,workspace),expected)
+            end
+        end
+        p.data["distance"]=p.data["distance"].+0.25
+        x=first.(ds);expected=copy(reference_routing_terms!(reference,p,x))
+        @test isequal(residuals!(terms,p,x;workspace),expected)
+    end
+end
 
 @testset "Owned scheduling/resource workspaces preserve ordered quantitative terms" begin
     rng=Xoshiro(731);models=Problem[deepcopy(CASES[f]) for f in (:rcpsp,:jssp,:fjsp,:maintenance)]
@@ -82,6 +126,9 @@ end
         @test a.workspace.durations!==b.workspace.durations
         @test a.workspace.machines!==b.workspace.machines
         @test a.workspace.task_buffers!==b.workspace.task_buffers
+        @test a.workspace.machine_groups!==b.workspace.machine_groups
+        @test a.workspace.machine_keys!==b.workspace.machine_keys
+        @test a.workspace.machine_cache!==b.workspace.machine_cache
         @test a.workspace.resource_load!==b.workspace.resource_load
         @test allunique(objectid(v) for v in a.workspace.task_buffers)
         # Same problem object with edited data must not reuse stale derived values.
@@ -110,6 +157,61 @@ end
         allocated_resource_terms(b,p,x,original)
         bytes=allocated_resource_terms(b,p,x,original)
         @test bytes.optimized<bytes.reference
+    end
+end
+@testset "Machine map reuse preserves fresh-map term order after data changes" begin
+    n=48;rng=Xoshiro(911)
+    p=problem(:jssp,Dict{String,Any}("duration"=>ones(Int,n),
+        "precedence"=>Vector{Int}[],"horizon"=>3n,"machine"=>[mod1(i,12) for i in 1:n]))
+    backend=prepare_backend(:direct);original=Float64[];x=rand(rng,0:8,n)
+    error_value(backend,p,x);first_map=backend.workspace.machine_groups
+    for _ in 1:16
+        rand!(rng,x,0:8)
+        expected=copy(reference_resource_terms!(original,p,x))
+        @test error_value(backend,p,x)==sum(expected)
+        @test isequal(backend.residuals,expected)
+        @test backend.workspace.machine_groups===first_map
+    end
+    for group_count in (24,1,7,0,12,48,2,12)
+        for i in 1:n
+            p.data["duration"][i]=group_count==0 || i%5==0 ? 0 : 1+i%3
+            p.data["machine"][i]=group_count==0 ? 1 : mod1(n+1-i,group_count)
+        end
+        expected=copy(reference_resource_terms!(original,p,x))
+        @test error_value(backend,p,x)==sum(expected)
+        @test isequal(backend.residuals,expected)
+        @test allunique(objectid(v) for v in values(backend.workspace.machine_groups))
+        @test length(backend.workspace.machine_cache)<=8
+        @test allunique(first(entry) for entry in backend.workspace.machine_cache)
+        retained_map=backend.workspace.machine_groups
+        @test error_value(backend,p,x)==sum(expected)
+        @test backend.workspace.machine_groups===retained_map
+    end
+    p=CASES[:fjsp];backend=prepare_backend(:direct);inputs=([0,2,1,1],[1,1,2,2],[2,0,1,2])
+    for x in inputs;error_value(backend,p,x);end
+    for _ in 1:32,x in inputs
+        expected=copy(reference_resource_terms!(original,p,x))
+        @test error_value(backend,p,x)==sum(expected)
+        @test isequal(backend.residuals,expected)
+    end
+    @test length(backend.workspace.machine_cache)<=8
+end
+@testset "Owned tolerance storage retains custom arithmetic and consecutive calls" begin
+    p=deepcopy(CASES[:bpp]);p.data["weights"]=Float64.(p.data["weights"]);p.data["weights"][1,1]=4.125
+    x=[1,2,3];workspace=ReproductionScoring.ScoreWorkspace(p);terms=Float64[]
+    for atol in (0.,1e-8,.125,big"0.125",1//8,0.)
+        expected=Float64[]
+        for label in unique(x),r in axes(p.data["weights"],2)
+            load=0.0
+            for i in eachindex(x);x[i]==label && (load+=p.data["weights"][i,r]);end
+            push!(expected,max(0.,load-p.data["capacity"][r]-atol))
+        end
+        @test isequal(residuals!(terms,p,x;atol,workspace),expected)
+    end
+    p=CASES[:maintenance];x=[1,1];workspace=ReproductionScoring.ScoreWorkspace(p);reference=Float64[]
+    for atol in (0.,1e-5,.125,big"0.125",1//8,0.)
+        expected=copy(reference_resource_terms!(reference,p,x;atol))
+        @test isequal(residuals!(terms,p,x;atol,workspace),expected)
     end
 end
 @testset "Original validators and quantitative/ICN zero sets" begin
@@ -143,6 +245,17 @@ end
     @test !validate(CASES[:maintenance],[1,1]).valid
     @test_throws ArgumentError problem(:jssp,Dict("duration"=>[1,1],"machine"=>[1,2],"precedence"=>[[1,2],[2,1]],"horizon"=>2))
     @test_throws ArgumentError problem(:qap,Dict("flow"=>[[1]],"distance"=>[[0,1],[1,0]]))
+end
+@testset "Prepared classical callback paths retain zero warm allocations" begin
+    function callback_allocations(backend,p,x)
+        error_value(backend,p,x)
+        @allocated for _ in 1:1024;error_value(backend,p,x);end
+    end
+    for f in (:rcpsp,:jssp,:fjsp,:maintenance,:cvrp,:cvrptw,:bpp,:salbp,:aircraft_landing),kind in (:direct,:icn_fused)
+        p=CASES[f];x=first.(domains(p));backend=prepare_backend(kind)
+        Base.invokelatest(callback_allocations,backend,p,x)
+        @test Base.invokelatest(callback_allocations,backend,p,x)==0
+    end
 end
 @testset "Packing callback buffers reduce allocation pressure" begin
     p=CASES[:bpp];a=prepare_backend(:direct);b=prepare_backend(:direct);x=[1,2,3]

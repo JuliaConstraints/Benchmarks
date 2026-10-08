@@ -1,7 +1,8 @@
 using TOML,CairoMakie,Random
 
-length(ARGS)==3 || error("Usage: plots.jl QUALIFICATION.toml OUTPUT_DIRECTORY exact|xkcd")
+length(ARGS) in (3,4) || error("Usage: plots.jl QUALIFICATION.toml OUTPUT_DIRECTORY exact|xkcd [FIGURE_NAMES]")
 proof=TOML.parsefile(abspath(ARGS[1]));out=abspath(ARGS[2]);style=ARGS[3]
+requested=length(ARGS)==4 ? Set(split(ARGS[4],',')) : nothing
 style in ("exact","xkcd") || error("Unknown figure style")
 if style=="xkcd"
     @eval using XKCDMakie
@@ -9,9 +10,11 @@ if style=="xkcd"
 else
     set_theme!(Theme(font="DejaVu Sans",fontsize=16))
 end
+
 mkpath(out)
 suffix=style=="xkcd" ? "-xkcd" : ""
 function export_figure(figure,name)
+    requested===nothing || name in requested || return nothing
     for extension in ("png","pdf");save(joinpath(out,name*suffix*"."*extension),figure);end
 end
 function qualified_rows(rows)
@@ -77,4 +80,29 @@ if haskey(proof,"night_classical_resource_workspace")
     axislegend(axis;position=:rt)
     Label(figure[2,1],"Native PerfChecker totals; 3 fixed inputs × 128 repetitions; direct backend shown; markers offset within each family for visibility.\nFused ICN checks also passed. Preparation, bank compilation and original verification excluded; no controlled speedup claim.",fontsize=13)
     export_figure(figure,"classical-scoring-allocations")
+end
+
+if haskey(proof,"night_classical_zero_allocations")
+    stage=proof["night_classical_zero_allocations"]
+    before=Dict(r["family"]=>r for r in stage["before"]["records"] if r["backend"]=="direct")
+    after=Dict(r["family"]=>r for r in stage["after"]["records"] if r["backend"]=="direct")
+    families=["rcpsp","jssp","fjsp","maintenance","cvrp","cvrptw","bpp","salbp","aircraft_landing"]
+    all(f->before[f]["correctness"]==after[f]["correctness"]=="passed",families) || error("Unqualified scoring case")
+    n=length(families);figure=Figure(size=(1500,720))
+    axis=Axis(figure[1,1],title="Prepared classical callbacks: further allocation reduction",
+        xlabel="Remaining allocation (% of first workspace cohort)",ylabel="Original problem family",
+        yticks=(1:n,replace.(uppercase.(families),"_"=>" ")))
+    bytes=[100after[f]["native_total_bytes"]/before[f]["native_total_bytes"] for f in families]
+    objects=[100after[f]["native_total_allocations"]/before[f]["native_total_allocations"] for f in families]
+    vlines!(axis,[100];color=:black,linestyle=:dash,linewidth=2,label="Fixed first-workspace reference")
+    scatter!(axis,bytes,(1:n).-.12;color=:dodgerblue3,marker=:circle,markersize=12,label="Allocated Julia bytes")
+    scatter!(axis,objects,(1:n).+.12;color=:purple3,marker=:utriangle,markersize=12,label="Allocated Julia objects")
+    for (i,f) in enumerate(families)
+        text!(axis,12,i;text="$(before[f]["native_total_bytes"]) → $(after[f]["native_total_bytes"]) bytes",
+            align=(:left,:center),fontsize=14)
+    end
+    xlims!(axis,-4,110)
+    Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
+    Label(figure[3,1],"Native PerfChecker totals; 3 fixed inputs × 128 repetitions; direct backend shown; fused ICN also qualified.\nPrepared workspaces and bank excluded. Cold calls, cache misses and wider/custom arithmetic may allocate. No speed or solution-quality claim.",fontsize=13)
+    export_figure(figure,"classical-scoring-warm-allocation-reduction")
 end

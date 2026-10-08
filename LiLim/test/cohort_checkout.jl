@@ -1,6 +1,13 @@
 using Test
 include(joinpath(@__DIR__,"..","scripts","colleague.jl"))
 
+@testset "Package-specific development branches preserve legacy cohort selection" begin
+    config=Dict("public_branch"=>"historical","cohort_branches"=>Dict("CBLS"=>"qualified"))
+    @test cohort_branch("CBLS",config)=="qualified"
+    @test cohort_branch("Constraints",config)=="historical"
+    @test cohort_branch("CBLS",Dict("public_branch"=>"historical"))=="historical"
+end
+
 @testset "Qualification worker caps respect the allocated CPUs" begin
     for test in ("ortools_parallel.jl","icn_resources.jl","classical_strategy_panel","structured_routing.jl")
         @test qualification_width(Dict("cpus"=>"8"),test)==1
@@ -59,6 +66,22 @@ end
             @test read(joinpath(checkout,"Project.toml"),String)==bytes
             @test strip(read(`git -C $checkout config --local core.autocrlf`,String))=="false"
             @test strip(read(`git -C $checkout rev-parse HEAD`,String))==strip(read(`git -C $source rev-parse HEAD`,String))
+            @test development_checkout(checkout)
+            pinned=strip(read(`git -C $source rev-parse HEAD`,String))
+            write(joinpath(source,"Project.toml"),bytes*"# branch advanced\n")
+            run(`git -C $source add Project.toml`)
+            run(`git -C $source commit --quiet -m advance`)
+            pinned_checkout=joinpath(directory,"pinned-checkout")
+            clone_cohort(source,"fixture",pinned_checkout;commit=pinned)
+            @test strip(read(`git -C $pinned_checkout rev-parse HEAD`,String))==pinned
+            @test read(joinpath(pinned_checkout,"Project.toml"),String)==bytes
+            linked=joinpath(directory,"linked-worktree")
+            run(`git -C $source worktree add --quiet --detach $linked $pinned`)
+            @test isfile(joinpath(linked,".git")) && development_checkout(linked)
+            nested=joinpath(checkout,"nested");mkpath(nested)
+            @test !development_checkout(nested)
+            mkpath(joinpath(nested,".git"))
+            @test !development_checkout(nested)
             @test read(global_config,String)==global_bytes
             existing = joinpath(checkout,"user-file.txt")
             write(existing,"preserve this existing file")

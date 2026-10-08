@@ -8,6 +8,12 @@ julia --startup-file=no scripts/colleague.jl preflight
 
 It checks every kit solver. Hexaly is optional; absent solvers are skipped.
 The [repository guide](../README.md) lists prerequisites and coverage.
+On `perf/routing-sparse-guide-20261008`, the [source cohort](config/workspace-cohort.toml)
+pins the qualified performance branches separately for each Julia package.
+New clones use the exact commit even when a branch advances. Existing checkouts
+with different commits are preserved and fail the cohort check; use a separate
+`JULIACONSTRAINTS_COHORT_ROOT` under `~/.julia/dev` for this cohort. Julia's cached
+Artifacts and compatible existing solver installations are reused.
 OR-Tools functional checks also exercise independent Routing processes and
 generalized CP-SAT with up to two workers. A one-CPU allocation skips multicore
 qualification. The resulting execution profiles are listed in the preflight
