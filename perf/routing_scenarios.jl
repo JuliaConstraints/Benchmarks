@@ -19,7 +19,8 @@ function routing_kernel_case(parameters)
         routes=[[2,3],[4,5],[6,7]];pool=StructuredRouting.RoutePool()
         StructuredRouting.collect!(pool,p,D,routes)
         lane=operation=="duplicate_admission" ? StructuredRouting.Lane(p,routes) : nothing
-        (;p,D,routes,pool,lane,arc_buffer=Set{Tuple{Int,Int}}(),
+        route_buffer=StructuredRouting.RouteBuffer();StructuredRouting.copy_routes!(route_buffer,routes)
+        (;p,D,routes,pool,lane,arc_buffer=Set{Tuple{Int,Int}}(),route_buffer,values=ones(Int,6),expected_values=MetaRepair.successors(p,routes),
             cache=StructuredRouting.range_cache(p.data,D,[2,3,4,5]),workspace=StructuredRouting.RepairWorkspace())
     end
     work=s->begin
@@ -33,10 +34,17 @@ function routing_kernel_case(parameters)
             for _ in 1:repetitions;StructuredRouting.range_cache(s.p.data,s.D,s.cache.route);end
         elseif operation=="cache_reuse"
             for _ in 1:repetitions;StructuredRouting.range_cache!(s.cache,s.p.data,s.D,s.cache.route);end
+        elseif operation=="route_copy"
+            for _ in 1:repetitions;StructuredRouting.copy_routes!(s.route_buffer,s.routes);end
+            last=s.route_buffer.routes==s.routes && s.route_buffer.routes!==s.routes
+        elseif operation=="successor_fill"
+            for _ in 1:repetitions;MetaRepair._successors!(s.values,s.routes);end
+            last=s.values==s.expected_values
         elseif operation=="insertion_options"
             rng=Xoshiro(41);trace=Dict{String,Any}()
             for _ in 1:repetitions
-                opts=StructuredRouting.insertion_options(s.p,s.D,[s.cache.route],3,[s.cache],typemax(UInt64),rng,trace)
+                opts=StructuredRouting.insertion_options(s.p,s.D,[s.cache.route],3,[s.cache],typemax(UInt64),rng,trace;
+                    options=s.workspace.options)
                 last &= !isempty(opts)
             end
         elseif operation=="pool_reuse"

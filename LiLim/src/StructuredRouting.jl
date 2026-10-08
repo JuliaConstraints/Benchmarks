@@ -76,10 +76,40 @@ function range_cache!(c,d,D,route;max_cells=LIMITS.summary_cells)
     end
     c
 end
+"Borrowed route storage; its next copy invalidates only this workspace's previous view."
+struct RouteBuffer
+    buffers::Vector{Vector{Int}}
+    routes::Vector{Vector{Int}}
+end
+RouteBuffer()=RouteBuffer(Vector{Int}[],Vector{Int}[])
+function copy_routes!(w::RouteBuffer,source)
+    source===w.routes && return w.routes
+    while length(w.buffers)<length(source);push!(w.buffers,Int[]);end
+    resize!(w.routes,length(source))
+    for i in eachindex(source)
+        buffer=w.buffers[i];resize!(buffer,length(source[i]));copyto!(buffer,source[i]);w.routes[i]=buffer
+    end
+    w.routes
+end
+const InsertionOption=NamedTuple{(:route,:a,:b,:delta,:rank),Tuple{Int,Int,Int,Float64,Float64}}
 struct RepairWorkspace
     caches::Vector{RangeCache}
+    options::Vector{InsertionOption}
+    ejection::RouteBuffer
+    bank::Vector{Int}
+    pending::Vector{Int}
+    candidates::Vector{Int}
+    choices::Vector{Int}
+    ejections::Vector{NTuple{2,Int}}
+    seen::Set{NTuple{3,Int}}
+    removed::BitVector
+    all_ids::Vector{Int}
+    selected::Vector{Int}
+    selected_mask::BitVector
+    savings::Vector{Float64}
 end
-RepairWorkspace()=RepairWorkspace(RangeCache[])
+RepairWorkspace()=RepairWorkspace(RangeCache[],InsertionOption[],RouteBuffer(),Int[],Int[],Int[],Int[],
+    NTuple{2,Int}[],Set{NTuple{3,Int}}(),BitVector(),Int[],Int[],BitVector(),Float64[])
 @inline function segment(c::RangeCache,d,D,a,b)
     a>b && return Segment()
     isempty(c.cells) ? summarize(d,D,c.route,a,b) : c.cells[a,b]
@@ -101,6 +131,11 @@ function insert_pair(route,pair,a,b)
     v
 end
 request_ids(p,route)=[i for (i,(a,_)) in enumerate(p.data.pairs) if a in route]
+function request_ids!(out,p,route;append=false)
+    append || empty!(out)
+    for (i,(a,_)) in enumerate(p.data.pairs);a in route && push!(out,i);end
+    out
+end
 quality(p,routes) = let q=validate_solution(p,routes)
     q.valid || throw(ArgumentError("invalid full original solution"))
     (q.objective.vehicles,q.objective.distance)
@@ -108,52 +143,79 @@ end
 function counter!(trace,key,amount=1)
     trace[key]=get(trace,key,0)+amount
 end
-function remove_requests!(routes,p,ids)
-    removed=Set{Int}()
-    for i in ids;union!(removed,p.data.pairs[i]);end
-    for route in routes;filter!(v->!(v in removed),route);end
+function remove_requests!(routes,p,ids;workspace=nothing)
+    removed=workspace===nothing ? falses(length(p.data.demand)) : workspace.removed
+    resize!(removed,length(p.data.demand));fill!(removed,false)
+    for i in ids
+        i==0 && continue # fixed-width ejection tuples use zero for the absent second request
+        a,b=p.data.pairs[i];removed[a]=true;removed[b]=true
+    end
+    for route in routes;filter!(v->!removed[v],route);end
     filter!(!isempty,routes)
     routes
 end
 "Destroy always removes complete requests, including partners outside a SISR string."
-function destroy!(routes,p,D,rng,mode,count;string_requests=4,trace=Dict{String,Any}(),guide_ids=Int[])
-    allids=reduce(vcat,(request_ids(p,r) for r in routes);init=Int[])
-    isempty(allids) && return Int[]
+function destroy!(routes,p,D,rng,mode,count;string_requests=4,trace=Dict{String,Any}(),guide_ids=Int[],workspace=RepairWorkspace())
+    allids=workspace.all_ids;empty!(allids)
+    for r in routes;request_ids!(allids,p,r;append=true);end
+    selected=workspace.selected;empty!(selected)
+    isempty(allids) && return selected
     count=clamp(count,1,length(allids));pivot=rand(rng,allids)
-    selected=if !isempty(guide_ids)
-        unique(vcat(intersect(guide_ids,allids),shuffle(rng,allids)))[1:count]
+    if !isempty(guide_ids)
+        mask=workspace.selected_mask;resize!(mask,length(p.data.pairs));fill!(mask,false)
+        for i in guide_ids
+            i in allids && !mask[i] && (push!(selected,i);mask[i]=true)
+            length(selected)>=count && break
+        end
+        shuffle!(rng,allids)
+        for i in allids
+            length(selected)>=count && break
+            !mask[i] && (push!(selected,i);mask[i]=true)
+        end
     elseif mode==:route
-        request_ids(p,rand(rng,routes))
+        request_ids!(selected,p,rand(rng,routes))
     elseif mode==:sisr
         route=rand(rng,routes);a=rand(rng,eachindex(route));len=min(length(route),2string_requests)
-        nodes=Set(route[a:min(length(route),a+len-1)])
-        [i for (i,(u,v)) in enumerate(p.data.pairs) if u in nodes || v in nodes]
+        nodes=workspace.removed;resize!(nodes,length(p.data.demand));fill!(nodes,false)
+        for j in a:min(length(route),a+len-1);nodes[route[j]]=true;end
+        for (i,(u,v)) in enumerate(p.data.pairs);(nodes[u] || nodes[v]) && push!(selected,i);end
     elseif mode==:shaw
         a,b=p.data.pairs[pivot]
-        sort(allids;by=i->let; u,v=p.data.pairs[i]
-            D[a,u]+D[b,v]+0.2abs(p.data.earliest[a]-p.data.earliest[u])
-        end)[1:count]
-    elseif mode==:worst
-        savings=Dict{Int,Float64}()
+        scores=workspace.savings;resize!(scores,length(p.data.pairs))
         for i in allids
-            a,b=p.data.pairs[i];r=only(filter(r->a in r,routes));kept=filter(v->v!=a && v!=b,r)
-            savings[i]=Pilot.route_distance(r,D)-(isempty(kept) ? 0. : Pilot.route_distance(kept,D))
+            u,v=p.data.pairs[i]
+            scores[i]=D[a,u]+D[b,v]+0.2abs(p.data.earliest[a]-p.data.earliest[u])
         end
-        sort(allids;by=i->(-savings[i],i))[1:count]
+        # Capture one immutable binding; a/b are reassigned in other destruction
+        # branches and capturing them directly boxes every comparator evaluation.
+        sort!(allids;alg=QuickSort,by=let rank=scores; i->rank[i];end)
+        append!(selected,@view allids[1:count])
+    elseif mode==:worst
+        savings=workspace.savings;resize!(savings,length(p.data.pairs))
+        for i in allids
+            a,b=p.data.pairs[i]
+            r=routes[findfirst(let pickup=a; r->pickup in r;end,routes)];kept_distance=0.;prev=1
+            for v in r
+                (v==a || v==b) && continue
+                kept_distance+=D[prev,v];prev=v
+            end
+            kept_distance+=D[prev,1]
+            savings[i]=Pilot.route_distance(r,D)-kept_distance
+        end
+        sort!(allids;by=i->(-savings[i],i),alg=QuickSort);append!(selected,@view allids[1:count])
     elseif mode==:random
-        shuffle(rng,allids)[1:count]
+        shuffle!(rng,allids);append!(selected,@view allids[1:count])
     else
         throw(ArgumentError("unknown destruction $mode"))
     end
-    remove_requests!(routes,p,selected);counter!(trace,"destroyed_requests",length(selected))
+    remove_requests!(routes,p,selected;workspace);counter!(trace,"destroyed_requests",length(selected))
     selected
 end
 
 "Best insertion in each route is a distinct regret alternative; all cuts preserve precedence."
-const InsertionOption=NamedTuple{(:route,:a,:b,:delta,:rank),Tuple{Int,Int,Int,Float64,Float64}}
 function insertion_options(p,D,routes,request,caches,deadline,rng,trace;
-        blinks=0.,max_candidates=LIMITS.insertion_candidates,pheromone=nothing)
-    opts=InsertionOption[];pair=p.data.pairs[request];examined=0;blinked=0
+        blinks=0.,max_candidates=LIMITS.insertion_candidates,pheromone=nothing,options=InsertionOption[])
+    opts=options;empty!(opts);pair=p.data.pairs[request];examined=0;blinked=0
     # Keep high-frequency counters as machine integers; publish once on every exit.
     try
     for (r,cache) in enumerate(caches)
@@ -176,7 +238,7 @@ function insertion_options(p,D,routes,request,caches,deadline,rng,trace;
         end
         best===nothing || push!(opts,best)
     end
-    sort!(opts;by=x->(x.rank,x.route,x.a,x.b))
+    sort!(opts;by=x->(x.rank,x.route,x.a,x.b),alg=QuickSort)
     finally
         examined>0 && counter!(trace,"summary_evaluations",examined)
         blinked>0 && counter!(trace,"blinked_insertions",blinked)
@@ -198,7 +260,7 @@ function repair!(routes,bank,p,D,rng,deadline;regret=2,blinks=0.,max_routes=leng
     while !isempty(bank) && time_ns()<deadline
         chosen=nothing;priority=(-Inf,-Inf)
         for request in bank
-            opts=insertion_options(p,D,routes,request,caches,deadline,rng,trace;blinks,pheromone)
+            opts=insertion_options(p,D,routes,request,caches,deadline,rng,trace;blinks,pheromone,options=workspace.options)
             if isempty(opts) && length(routes)<max_routes
                 c=range_cache(p.data,D,Int[])
                 s=insertion_summary(c,p.data,D,p.data.pairs[request],0,0)
@@ -219,7 +281,8 @@ function repair!(routes,bank,p,D,rng,deadline;regret=2,blinks=0.,max_routes=leng
             caches=@view workspace.caches[1:length(routes)]
             range_cache!(caches[r],p.data,D,Int[])
         end
-        routes[r]=insert_pair(routes[r],p.data.pairs[chosen.request],o.a,o.b)
+        pair=p.data.pairs[chosen.request]
+        insert!(routes[r],o.b+1,pair[2]);insert!(routes[r],o.a+1,pair[1])
         range_cache!(caches[r],p.data,D,routes[r]);counter!(trace,"cache_builds")
         filter!(!=(chosen.request),bank);counter!(trace,"reinserted_requests")
     end
@@ -232,30 +295,43 @@ function elimination!(routes,p,D,rng,deadline;depth=1,difficulty=ones(Int,length
     depth in (1,2) || throw(ArgumentError("ejection depth must be 1 or 2"))
     candidate_limit>0 || throw(ArgumentError("positive ejection candidate limit required"))
     length(routes)<=1 && return false
-    choices=sortperm(routes;by=r->(length(r),Pilot.route_distance(r,D)))
-    chosen=rand(rng,choices[1:min(3,end)]);bank=request_ids(p,routes[chosen]);deleteat!(routes,chosen)
-    max_routes=length(routes);attempts=0;seen=Set{Tuple}()
+    choices=workspace.choices;resize!(choices,length(routes));choices.=eachindex(routes)
+    sort!(choices;by=i->(length(routes[i]),Pilot.route_distance(routes[i],D),i),alg=QuickSort)
+    chosen=rand(rng,@view choices[1:min(3,end)]);bank=request_ids!(workspace.bank,p,routes[chosen]);deleteat!(routes,chosen)
+    max_routes=length(routes);attempts=0;seen=workspace.seen;empty!(seen)
     effort=clamp(8maximum(difficulty[bank]),8,LIMITS.ejection_attempts)
     trace["last_ejection_effort_budget"]=effort
     while !isempty(bank) && time_ns()<deadline && attempts<effort
         repair!(routes,bank,p,D,rng,deadline;regret,max_routes,trace,difficulty,workspace) && return true
         time_ns()>=deadline && break
-        blocked=first(sort(bank;by=i->(-difficulty[i],i)));difficulty[blocked]+=1
-        candidates=sort(reduce(vcat,(request_ids(p,r) for r in routes);init=Int[]);by=i->(difficulty[i],i))
+        blocked=first(bank)
+        for i in bank;(-difficulty[i],i)<(-difficulty[blocked],blocked) && (blocked=i);end
+        difficulty[blocked]+=1
+        candidates=workspace.candidates;empty!(candidates)
+        for r in routes;request_ids!(candidates,p,r;append=true);end
+        sort!(candidates;by=i->(difficulty[i],i),alg=QuickSort)
         resize!(candidates,min(length(candidates),candidate_limit))
-        sets=Tuple[(i,) for i in candidates]
-        depth==2 && append!(sets,[(candidates[a],candidates[b]) for a in eachindex(candidates) for b in a+1:length(candidates)])
+        sets=workspace.ejections;empty!(sets)
+        for i in candidates;push!(sets,(i,0));end
+        if depth==2
+            for a in eachindex(candidates),b in a+1:length(candidates);push!(sets,(candidates[a],candidates[b]));end
+        end
         progressed=false
         for ejected in sets
             time_ns()>=deadline && break
             attempts+=1;counter!(trace,"ejection_attempts")
             attempts>effort && break
-            key=(blocked,ejected...);key in seen && continue;push!(seen,key)
-            trial=deepcopy(routes);remove_requests!(trial,p,ejected)
-            pending=[blocked]
+            key=(blocked,ejected[1],ejected[2]);key in seen && continue;push!(seen,key)
+            trial=copy_routes!(workspace.ejection,routes);remove_requests!(trial,p,ejected;workspace)
+            pending=workspace.pending;empty!(pending);push!(pending,blocked)
             if repair!(trial,pending,p,D,rng,deadline;regret,max_routes,trace,difficulty,workspace)
-                empty!(routes);append!(routes,trial);filter!(!=(blocked),bank);append!(bank,ejected)
-                counter!(trace,"ejected_requests",length(ejected));progressed=true;break
+                # Retain caller-owned routes: the next ejection must not overwrite an admitted repair state.
+                for i in eachindex(trial)
+                    if i>length(routes);push!(routes,copy(trial[i]));else;resize!(routes[i],length(trial[i]));copyto!(routes[i],trial[i]);end
+                end
+                resize!(routes,length(trial));filter!(!=(blocked),bank)
+                push!(bank,ejected[1]);ejected[2]!=0 && push!(bank,ejected[2])
+                counter!(trace,"ejected_requests",ejected[2]==0 ? 1 : 2);progressed=true;break
             end
         end
         progressed || break
@@ -264,13 +340,13 @@ function elimination!(routes,p,D,rng,deadline;depth=1,difficulty=ones(Int,length
 end
 
 "Exchange two complete requests between distinct routes; validate all original constraints."
-function exchange(p,routes,D,first_id,second_id)
+function exchange(p,routes,D,first_id,second_id;workspace=nothing)
     a,b=p.data.pairs[first_id];c,d=p.data.pairs[second_id]
     ra=findfirst(r->a in r,routes);rb=findfirst(r->c in r,routes)
     (ra===nothing || rb===nothing || ra==rb) && return nothing
-    trial=deepcopy(routes)
-    trial[ra]=[v==a ? c : v==b ? d : v for v in trial[ra]]
-    trial[rb]=[v==c ? a : v==d ? b : v for v in trial[rb]]
+    trial=workspace===nothing ? deepcopy(routes) : copy_routes!(workspace,routes)
+    for i in eachindex(trial[ra]);v=trial[ra][i];trial[ra][i]=v==a ? c : v==b ? d : v;end
+    for i in eachindex(trial[rb]);v=trial[rb][i];trial[rb][i]=v==c ? a : v==d ? b : v;end
     validate_solution(p,trial).valid ? trial : nothing
 end
 
@@ -415,6 +491,13 @@ mutable struct Lane{P,G,W}
     old_arcs::Set{Tuple{Int,Int}}
     graph::BitMatrix
     repair_workspace::RepairWorkspace
+    trial_workspace::RouteBuffer
+    exchange_workspace::RouteBuffer
+    successor_values::Vector{Int}
+    changed_variables::Vector{Int}
+    matched_routes::BitVector
+    inherited_requests::BitVector
+    inheritance_order::Vector{Int}
     pair_workspace::Hybrid.PairRelocationWorkspace
     pool::RoutePool
     steps::Int
@@ -447,7 +530,8 @@ function Lane(p,initial;seed=41,scorer=nothing,origin=time_ns(),deadline=typemax
     Lane(parent,g,workspace,Xoshiro(seed),deepcopy(initial),deepcopy(initial),q,q,
         ones(Int,length(p.data.pairs)),ones(5),ones(size(D)),fill(parent.fleet_weight*q[1]+q[2],LIMITS.late_history),
         Dict{Tuple{Int,Int},Int}(),Set{Tuple{Int,Int}}(),Set{Tuple{Int,Int}}(),graph,
-        RepairWorkspace(),Hybrid.PairRelocationWorkspace(),pool,0,0,origin,deadline,trace)
+        RepairWorkspace(),RouteBuffer(),RouteBuffer(),ones(Int,n-1),Int[],BitVector(),BitVector(),Int[],
+        Hybrid.PairRelocationWorkspace(),pool,0,0,origin,deadline,trace)
 end
 function arcs!(out,routes)
     empty!(out)
@@ -459,10 +543,21 @@ function arcs!(out,routes)
     out
 end
 arcs(routes)=arcs!(Set{Tuple{Int,Int}}(),routes)
+"Exact multiset equality, including duplicate protection; route ordering is not a decision."
+function same_routes!(matched,candidate,current)
+    length(candidate)==length(current) || return false
+    resize!(matched,length(current));fill!(matched,false)
+    for route in candidate
+        i=findfirst(j->!matched[j] && route==current[j],eachindex(current))
+        i===nothing && return false
+        matched[i]=true
+    end
+    true
+end
 "Original validation, actual error backend and atomic original-variable replacement are all required."
 function admit!(lane,p,candidate,settings;source="structured",force=false)
     candidate===nothing && return false
-    if candidate==lane.current
+    if same_routes!(lane.matched_routes,candidate,lane.current)
         time_ns()>=lane.deadline && return false
         # The incumbent was already audited; an identical proposal changes no variable.
         lane.history[mod1(lane.steps+1,length(lane.history))]=lane.parent.fleet_weight*lane.q[1]+lane.q[2]
@@ -484,9 +579,10 @@ function admit!(lane,p,candidate,settings;source="structured",force=false)
     lane.history[index]=old
     forbidden && counter!(lane.trace,"tabu_hits")
     accept || (counter!(lane.trace,"rejected_moves");return false)
-    values=MetaRepair.successors(p,candidate);solver=lane.parent.solver
+    values=MetaRepair._successors!(lane.successor_values,candidate);solver=lane.parent.solver
     old_values=LS.get_values(solver)
-    ids=findall(i->values[i]!=old_values[i],eachindex(values))
+    ids=lane.changed_variables;empty!(ids)
+    for i in eachindex(values);values[i]!=old_values[i] && push!(ids,i);end
     isempty(ids) && (lane.unchanged_proposals+=1;return false)
     move=LS.MetaMove(LS.MetaVariable(:structured_routes,ids),values[ids];provenance=(;source=Symbol(source)))
     iszero(LS._candidate_cost(solver,move)) || error("structured MetaMove rejected by actual error backend")
@@ -519,7 +615,7 @@ function guidance_ids(lane,p,settings)
     elseif settings.guidance==:incompatibility
         sort!(ids;by=i->-sum(@view lane.graph[i,:]))
     elseif settings.guidance==:qubo
-        values=MetaRepair.successors(p,lane.current)
+        values=MetaRepair._successors!(lane.successor_values,lane.current)
         scope=Hybrid.QUBOGuidance.scope!(lane.guide_workspace,lane.guide,values,min(8,length(values)),lane.rng;mode="conditional")
         nodes=Set(i+1 for i in scope)
         sort!(ids;by=i->let; a,b=p.data.pairs[i];(a in nodes || b in nodes) ? 0 : 1;end)
@@ -540,25 +636,35 @@ function reinforce!(pheromone,routes)
     for (a,b) in arcs(routes);pheromone[a,b]=min(100.,pheromone[a,b]+1.);end
 end
 function inherited(lane,p,D,deadline,regret)
-    parent=rand(lane.rng,lane.pool.solutions);trial=Vector{Int}[];seen=Set{Int}()
-    for source in (lane.best,parent),r in shuffle(lane.rng,source)
+    parent=rand(lane.rng,lane.pool.solutions);trial=lane.trial_workspace.routes;empty!(trial)
+    seen=lane.inherited_requests;resize!(seen,length(p.data.pairs));fill!(seen,false)
+    for source in (lane.best,parent)
+    order=lane.inheritance_order;resize!(order,length(source));order.=eachindex(source);shuffle!(lane.rng,order)
+    for index in order
+        r=source[index]
         length(trial)>=length(lane.best) && continue
-        ids=request_ids(p,r);isempty(intersect(Set(ids),seen)) || continue
-        push!(trial,copy(r));union!(seen,ids)
+        any(i->seen[i] && first(p.data.pairs[i]) in r,eachindex(seen)) && continue
+        slot=length(trial)+1
+        while length(lane.trial_workspace.buffers)<slot;push!(lane.trial_workspace.buffers,Int[]);end
+        buffer=lane.trial_workspace.buffers[slot];resize!(buffer,length(r));copyto!(buffer,r)
+        push!(trial,buffer)
+        for (i,(a,_)) in enumerate(p.data.pairs);a in r && (seen[i]=true);end
         length(trial)>=length(lane.best) && break
     end
-    missing=setdiff(collect(eachindex(p.data.pairs)),collect(seen))
+    end
+    missing=lane.repair_workspace.bank;empty!(missing)
+    for i in eachindex(seen);!seen[i] && push!(missing,i);end
     repair!(trial,missing,p,D,lane.rng,deadline;regret,max_routes=length(lane.best),trace=lane.trace,difficulty=lane.difficulty,
         workspace=lane.repair_workspace) ? trial : nothing
 end
 function step!(lane,p,settings,deadline)
-    D=lane.parent.distances;trial=deepcopy(lane.current);before=lane.best_q
+    D=lane.parent.distances;trial=copy_routes!(lane.trial_workspace,lane.current);before=lane.best_q
     algorithm=settings.algorithm;source=string(algorithm)
     # Reset topology by paired requests rather than corrupting raw successor assignments.
     reset=settings.reset_fraction>0 && lane.steps>0 && lane.steps%LIMITS.reset_every==0
     if reset
         count=max(1,ceil(Int,settings.reset_fraction*length(p.data.pairs)))
-        bank=destroy!(trial,p,D,lane.rng,:random,count;trace=lane.trace)
+        bank=destroy!(trial,p,D,lane.rng,:random,count;trace=lane.trace,workspace=lane.repair_workspace)
         ok=repair!(trial,bank,p,D,lane.rng,deadline;regret=3,max_routes=length(lane.best),trace=lane.trace,workspace=lane.repair_workspace)
         if ok
             counter!(lane.trace,"completed_resets");admit!(lane,p,trial,settings;source="paired_reset",force=true)
@@ -573,7 +679,7 @@ function step!(lane,p,settings,deadline)
             admit!(lane,p,trial,settings;source="sisr_fleet_reduction")
             return
         end
-        trial=deepcopy(lane.current)
+        trial=copy_routes!(lane.trial_workspace,lane.current)
     end
     if algorithm==:ges
         ok=elimination!(trial,p,D,lane.rng,deadline;depth=settings.ejection_depth,difficulty=lane.difficulty,
@@ -588,9 +694,9 @@ function step!(lane,p,settings,deadline)
             trial=candidate.routes;counter!(lane.trace,"relocation_evaluations",candidate.examined)
         elseif which==2
             ids=randperm(lane.rng,length(pairs))[1:min(2,end)]
-            trial=length(ids)==2 ? exchange(p,trial,D,ids...) : nothing;counter!(lane.trace,"exchange_calls")
+            trial=length(ids)==2 ? exchange(p,trial,D,ids...;workspace=lane.exchange_workspace) : nothing;counter!(lane.trace,"exchange_calls")
         else
-            ids=randperm(lane.rng,length(pairs))[1:min(2,end)];remove_requests!(trial,p,ids)
+            ids=randperm(lane.rng,length(pairs))[1:min(2,end)];remove_requests!(trial,p,ids;workspace=lane.repair_workspace)
             repair!(trial,ids,p,D,lane.rng,deadline;regret=3,max_routes=length(lane.current),trace=lane.trace,workspace=lane.repair_workspace) || (trial=nothing)
             counter!(lane.trace,"two_request_chains")
         end
@@ -604,7 +710,7 @@ function step!(lane,p,settings,deadline)
         count=max(1,ceil(Int,LIMITS.destroy_fraction*length(p.data.pairs)))
         ids=guidance_ids(lane,p,settings)
         bank=destroy!(trial,p,D,lane.rng,mode,count;trace=lane.trace,guide_ids=ids,
-            string_requests=LIMITS.string_requests)
+            string_requests=LIMITS.string_requests,workspace=lane.repair_workspace)
         counter!(lane.trace,"destroy_$(mode)_calls")
         repair!(trial,bank,p,D,lane.rng,deadline;regret=settings.regret,blinks=settings.blinks,
             max_routes=length(lane.current),trace=lane.trace,difficulty=lane.difficulty,

@@ -8,7 +8,7 @@ using ..Benchmarks
 using ..Pilot
 include("ROFragments.jl")
 
-export RouteSnapshot, HighsRouteResolver, successors, routes_from_successors,
+export RouteSnapshot, HighsRouteResolver, successors, successors!, routes_from_successors,
     SuccessorRouteWorkspace, routes_from_successors!, decode_successor_views!
 
 struct SuccessorViews
@@ -83,10 +83,19 @@ end
 
 "Each parent variable is one customer's successor; value 1 denotes the depot."
 function successors(instance, routes)
+    successors!(Vector{Int}(undef,length(instance.data.demand)-1),instance,routes)
+end
+"Write into caller-owned storage, after checking the original problem."
+function successors!(values,instance,routes)
+    length(values)==length(instance.data.demand)-1 || throw(DimensionMismatch("successor assignment"))
     validate_solution(instance, routes).valid || throw(ArgumentError("invalid parent routes"))
-    values = ones(Int, length(instance.data.demand)-1)
-    for route in routes, (node, next) in zip(route, [route[2:end]; 1])
-        values[node-1] = next
+    _successors!(values,routes)
+end
+"Internal fill for an already original-validated complete solution; never an admission oracle."
+function _successors!(values,routes)
+    fill!(values,1)
+    for route in routes,i in eachindex(route)
+        values[route[i]-1]=i==lastindex(route) ? 1 : route[i+1]
     end
     values
 end

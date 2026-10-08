@@ -79,6 +79,62 @@ end
     @test blinked["summary_evaluations"]==blinked["blinked_insertions"]==15
 end
 
+@testset "Owned route, request and successor workspaces" begin
+    scratch=R.RouteBuffer();copied=R.copy_routes!(scratch,INITIAL)
+    @test copied==INITIAL && copied!==INITIAL && all(copied[i]!==INITIAL[i] for i in eachindex(INITIAL))
+    retained=scratch.buffers[1];R.copy_routes!(scratch,[[2,3]])
+    R.copy_routes!(scratch,INITIAL);@test scratch.buffers[1]===retained
+    @test R.copy_routes!(scratch,scratch.routes)===scratch.routes
+    values=zeros(Int,6);@test MetaRepair.successors!(values,P,INITIAL)===values
+    @test values==MetaRepair.successors(P,INITIAL)
+    @test_throws DimensionMismatch MetaRepair.successors!(zeros(Int,5),P,INITIAL)
+    @test_throws ArgumentError MetaRepair.successors!(values,P,[[2],[3,4,5,6,7]])
+    matched=BitVector()
+    @test R.same_routes!(matched,reverse(INITIAL),INITIAL)
+    @test !R.same_routes!(matched,[INITIAL[1],INITIAL[1],INITIAL[2]],INITIAL)
+    function warm_bytes(scratch,values)
+        R.copy_routes!(scratch,INITIAL);MetaRepair._successors!(values,INITIAL)
+        copies=@allocated R.copy_routes!(scratch,INITIAL)
+        successors=@allocated MetaRepair._successors!(values,INITIAL)
+        (copies,successors)
+    end
+    @test warm_bytes(scratch,values)==(0,0)
+    # Many distinct rank values expose boxed comparator arguments that a
+    # three-request fixture can hide. Setup and route storage are outside the probe.
+    many_pairs=[(2i,2i+1) for i in 1:50]
+    many_coords=hcat(Float64.(0:100),zeros(101))
+    many_data=PickupDeliveryProblem(50,1,many_coords,vcat(0,repeat([1,-1],50)),zeros(101),fill(1000.,101),zeros(101),many_pairs)
+    many_p=BenchmarkInstance("Shaw comparator allocation oracle",many_data);many_D=Pilot.distances(many_data)
+    many_routes=[collect(pair) for pair in many_pairs]
+    function shaw_bytes(p,D,routes)
+        w=R.RepairWorkspace();buffer=R.RouteBuffer();trace=Dict{String,Any}();rng=Xoshiro(41)
+        trial=R.copy_routes!(buffer,routes)
+        R.destroy!(trial,p,D,rng,:shaw,10;workspace=w,trace)
+        trial=R.copy_routes!(buffer,routes)
+        @allocated R.destroy!(trial,p,D,rng,:shaw,10;workspace=w,trace)
+    end
+    @test shaw_bytes(many_p,many_D,many_routes)<=1024
+    lane=R.Lane(P,INITIAL);kept=deepcopy(lane.pool.solutions)
+    @test !R.admit!(lane,P,reverse(INITIAL),PANEL.DEFAULT)
+    @test lane.unchanged_proposals==1 && lane.current==INITIAL
+    @test_throws ErrorException R.admit!(lane,P,[INITIAL[1],INITIAL[1],INITIAL[2]],PANEL.DEFAULT)
+    for mode in (:random,:shaw,:worst,:route,:sisr),i in 1:8
+        routes=R.copy_routes!(lane.trial_workspace,INITIAL)
+        bank=R.destroy!(routes,P,D,Xoshiro(i),mode,2;workspace=lane.repair_workspace)
+        @test bank===lane.repair_workspace.selected
+        @test R.repair!(routes,bank,P,D,Xoshiro(i),typemax(UInt64);max_routes=3,workspace=lane.repair_workspace)
+        @test validate_solution(P,routes).valid && lane.current==INITIAL
+        @test lane.pool.solutions==kept
+    end
+    for i in 1:16
+        routes=R.copy_routes!(lane.trial_workspace,INITIAL)
+        @test R.elimination!(routes,P,D,Xoshiro(i),typemax(UInt64);depth=2,workspace=lane.repair_workspace)
+        saved=deepcopy(routes);empty!(lane.repair_workspace.ejection.routes)
+        for r in lane.repair_workspace.ejection.buffers;fill!(r,-1);end
+        @test routes==saved && validate_solution(P,routes).valid && lane.current==INITIAL
+    end
+end
+
 @testset "Request closure, bounded repair, ejections, diversity and ICN truth" begin
     for mode in (:random,:shaw,:worst,:route,:sisr),regret in (2,3)
         routes=deepcopy(INITIAL);rng=Xoshiro(41);trace=Dict{String,Any}()
@@ -223,6 +279,10 @@ end
         @test result.lanes[1].repair_workspace!==result.lanes[2].repair_workspace
         @test result.lanes[1].new_arcs!==result.lanes[2].new_arcs
         @test result.lanes[1].old_arcs!==result.lanes[2].old_arcs
+        @test result.lanes[1].trial_workspace.buffers!==result.lanes[2].trial_workspace.buffers
+        @test result.lanes[1].repair_workspace.options!==result.lanes[2].repair_workspace.options
+        @test result.lanes[1].repair_workspace.ejection.buffers!==result.lanes[2].repair_workspace.ejection.buffers
+        @test result.lanes[1].successor_values!==result.lanes[2].successor_values
     end
     mktemp() do path,io
         write(io,"3 2 1\n0 0 0 0 0 40 0 0 0\n1 1 0 1 0 40 0 0 2\n2 2 0 -1 0 40 0 1 0\n3 -1 0 1 0 40 0 0 4\n4 -2 0 -1 0 40 0 3 0\n5 0 1 1 0 40 0 0 6\n6 0 2 -1 0 40 0 5 0\n");close(io)

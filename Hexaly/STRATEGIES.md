@@ -38,9 +38,12 @@ Sequence summaries cache fixed-order time propagation, load extrema and travel
 distance. Insertion feasibility uses concatenation without constructing a route
 per candidate. Accepted route changes rebuild affected caches using owned
 buffers; large routes use an explicit scan fallback beyond the cache cell cap.
-This is not a completely incremental ICN scorer: the original error backend and
-full validator still run at admission. Repair candidates, snapshots, pool
-maintenance and HiGHS model builds still allocate.
+Each lane owns reusable route-copy, ejection, insertion-option, request-bank,
+successor, changed-variable and inheritance buffers. Neither another worker nor
+a retained incumbent/pool snapshot aliases these mutable buffers. This is not a
+completely incremental ICN scorer: the original error backend and full validator
+still run at admission. Retained snapshots, pool maintenance and HiGHS model
+builds still allocate.
 
 At widths 1/2, roles rotate between episodes so a four-role recipe does not
 silently drop two or three algorithms for the entire trial. The adaptive recipe
@@ -92,8 +95,9 @@ checks do not replace execution on a licensed Hexaly Optimizer 15.0 host.
 
 ## Structured routing profiling
 
-`build_catalog(scope=:routing_kernels)` provides insertion, insertion enumeration, fresh/reused cache,
-repair, ejection and repeated route-pool admission allocation profiles. `scope=:routing_strategies` accepts
+`build_catalog(scope=:routing_kernels)` provides insertion, insertion enumeration,
+fresh/reused cache, repair, ejection, repeated pool/duplicate admission,
+route-copy and successor-fill allocation profiles. `scope=:routing_strategies` accepts
 explicit `rp_` IDs and profiles the actual configured error backend. Search
 profiles use eight steps on a tiny original model; MetaStrategist profiles use
 four real cooperative episodes of at most four search steps each, including the semantic route-pool resolver
@@ -109,6 +113,7 @@ the frozen solver environment with two workers:
 OPENBLAS_NUM_THREADS=1 julia --startup-file=no --threads=2 --gcthreads=1 \
   --project="$HOME/.julia/dev/JuliaConstraintsHandoff/ConstraintModels/perf/pdptw" \
   perf/routing_perfcheck.jl --width=2 --seconds=30 --methods=routing-panel \
+  --observations=native \
   --output=/tmp/routing-perfcheck.toml
 ```
 
@@ -122,28 +127,45 @@ steps, covering reset thresholds, role rotation, adaptive allocation and the
 periodic HiGHS resolver. The 30-second operation cap is a maximum, not a promise
 that every small fixture runs for 30 seconds. Warmup is separate.
 
-The installed PerfChecker 1.0 native `profile_alloc` scenario collector captures
-every allocation stack. On this workload its postprocessing exhausted the
-diagnostic resource budget before the ICN decoder correction. The same native
-API subsequently completed a targeted two-worker HiGHS/IPX portfolio CPU and
-allocation qualification. For broad screening, the bounded command uses PerfChecker's
-actual dependency-free scenario lifecycle with direct Julia allocation sampling
-at 0.001 and aggregates only the top application frames. It reports exact total
-allocated bytes/object counts from separate observations and observed GC time;
-sampled frame weights are not exact allocation percentages. This fallback does
-not substitute for a native full-stack collector result. Full MetaStrategist
-observations include lane construction; prepared search observations do not.
-Timing, search quality, long-run GC and multicore scaling require later evidence.
+`--observations=native` invokes the installed PerfChecker 1.0 CPU and allocation
+runtime APIs. Allocation collection records every stack at sample rate 1.0;
+only aggregates and the top application frames are saved. This runs the native
+collectors in process with fresh scenario state, not the `run_scenarios` process
+orchestrator. Short fixtures can yield no CPU samples; their allocation and
+functional checks still apply, but they provide no CPU hotspot evidence.
+Byte counts, object counts and stack samples are separate native observations.
+Full MetaStrategist observations include lane construction; prepared search
+observations do not. Timing, search quality, long-run GC and multicore scaling
+require later evidence.
+
+The default `--observations=sampled` uses the same scenario lifecycle with direct
+Julia allocation sampling at 0.001. It saves bounded frame aggregates and
+independent byte/object totals; frame weights are not exact allocation
+percentages. Native full-stack collection on a busy original instance can
+consume excessive collector memory, so it is restricted to fixed-work fixtures.
+Use `--observations=totals` for a single original-instance observation:
+
+```sh
+OPENBLAS_NUM_THREADS=1 julia --startup-file=no --threads=2 --gcthreads=1 \
+  --project="$HOME/.julia/dev/JuliaConstraintsHandoff/ConstraintModels/perf/pdptw" \
+  perf/routing_perfcheck.jl --width=2 --seconds=30 --methods=routing-panel \
+  --observations=totals --instance=/path/to/lc101.txt \
+  --output=/tmp/routing-lc101-perfcheck.toml
+```
 
 An explicit `--instance=/path/to/lc101.txt` profiles the complete original-instance
 pipeline, including import, insertion, solver construction, search and final
-audit. Its independent byte and object-count observations have separate search
-trajectories under the same cap. Total GC includes the pipeline's forced
+audit. In totals mode, bytes, object counts and GC come from the same
+uninstrumented operation. An independent one-second warmup follows compilation
+on the small fixture. Total GC includes the pipeline's forced
 precollection; `search_gc_seconds` excludes it and the final audit. This mode is
 an allocation diagnostic, not a comparative campaign. ICN banks are verified by
 content hash on every preparation, while only pure compiled decoder functions
 are shared. Mutable learning networks are absent from score closures; counters
-and input/error buffers remain owned by each lane.
+and input/error buffers remain owned by each lane. Completed observations are
+checkpointed atomically; existing output files are never silently overwritten.
+Allocated bytes mean cumulative Julia-managed allocations, not peak resident
+memory or native HiGHS heap usage.
 
 Candidate enumeration keeps exact evaluation/blink counts in machine integers
 and publishes them on every exit, including deadline and candidate-cap exits.
@@ -159,41 +181,66 @@ proposal counts use a lane-owned integer and are published at episode boundaries
 so repeated no-op attempts cannot be mistaken for useful search progress. Tabu
 arc sets are owned and reused per lane; profiles without tabu skip those sets.
 
+The workspace route copier expects an independently owned source (or its exact
+own active view). Arbitrary overlapping/reordered views into its backing buffers
+are not supported. `MetaRepair.successors!` checks the original solution before
+writing into caller storage; its internal unchecked fill is reserved for already
+validated complete solutions. Neither helper replaces the admission oracle.
+Destruction ranks are computed once per request, and immutable comparator
+captures avoid boxed pickup/rank values. In-place insertion preserves pickup
+precedence; successful ejections copy back into caller-owned route storage.
+Unstable sorting may resolve equal-rank ties differently from older runs.
+
 ### Qualification recorded on 2026-10-08
 
-All **52 new configurations passed** the two-worker original-model allocation
-diagnostic. The structured route tests passed 4,206 assertions, the ICN route
+All **52 new configurations passed** the two-worker native PerfChecker
+CPU/allocation fixture oracles. The structured route tests passed 4,416 assertions, the ICN route
 checks passed 30,258, and the historical hybrid checks passed 1,483. Existing
 OR-Tools 9.14.6206 also passed 39 original-validator assertions. Hexaly execution
 still requires the colleague's licensed host.
 
 For the same small fixed-work adaptive portfolio fixture (two workers, eight
 episodes of eight steps), one allocation observation fell from **74,568,944 to
-1,103,784 bytes**, and from 1,373,117 to 19,460 objects. Corrections removed
-retained ICN learning networks, batched hot counter updates, reused route
-summaries and tabu sets, and rejected unchanged proposals before snapshot
-construction. These observations establish neither a speedup nor solution
-quality on an original instance.
+839,800 bytes**. Independent object-count observations fell from 1,373,117 to
+13,101. Corrections removed retained ICN learning networks, batched hot counter
+updates, reused route summaries, request/route/successor buffers and tabu sets,
+and rejected unchanged proposals before snapshot construction. These
+observations establish neither a speedup nor solution quality on an original
+instance. The native collector's independent byte observation recorded 827,256
+bytes for this configuration; the two totals need not match exactly.
 
-The final original LC101 diagnostics used two physical cores, a 30-second search
-cap, and one GC, BLAS and native HiGHS thread:
+All **11 native kernel allocation oracles passed**. After buffer setup, insertion
+summary evaluation (1,024 repetitions), cache reuse (128), owned route copying
+(1,024) and successor filling (1,024) each recorded **zero allocated bytes and
+objects**. Repair/ejection and repeated pool admission still allocate. The
+50-request Shaw regression also checks its ranking/destruction path independently
+of the small three-request profiling fixture.
 
-| Configuration | Allocated bytes, whole pipeline | Search GC, seconds | Mean active CPUs, operational observation |
-|---|---:|---:|---:|
-| `rp_meta_adaptive_late` | 8,355,187,176 | 1.061 | 1.923 of 2 |
-| `rp_meta_pool_ipx_late` | 24,827,329,192 | 5.252 | 1.768 of 2 |
+All **52 original LC101 pipeline diagnostics passed** with two physical cores,
+a 30-second search cap, and one GC, BLAS and native HiGHS thread. Bytes and object
+counts in this pass come from the same uninstrumented operation:
 
-Both passed the original validator. Neither byte-count observation recorded an
-accepted original-variable MetaMove; high CPU occupation therefore cannot be
-read as useful improvement. Many unchanged proposals were counted explicitly.
-Allocation sampling still identifies ejection/route-copy work, exchange and
-inheritance, and candidate successor construction. Those sites remain
-optimization work; **the original-instance allocation/GC problem is not solved**.
-Byte and object totals come from independent fresh observations, with all
-source, environment and instance hashes saved in the qualification file. Other
-chats were allowed to remain active, so these are allocation and operational
-diagnostics rather than controlled scaling comparisons. No 60-second comparative
-matrix was launched by this qualification.
+| Configuration | Previous published bytes | Current bytes, whole pipeline | Current search GC, seconds | Current mean active CPUs |
+|---|---:|---:|---:|---:|
+| `rp_meta_adaptive_late` | 8,355,187,176 | 2,382,976,832 | 0.865 | 1.945 of 2 |
+| `rp_meta_pool_ipx_late` | 24,827,329,192 | 512,569,992 | 0.042 | 1.967 of 2 |
+| `rp_vnd_greedy` | Not measured | 6,209,506,008 | 1.640 | 1.900 of 2 |
+
+None of these 52 observations recorded an accepted original-variable MetaMove;
+high CPU occupation therefore cannot be read as useful improvement. Many
+unchanged proposals were counted explicitly. The original-instance allocation
+range is 251,086,504–6,209,506,008 bytes per observation; search GC is
+0.011–1.643 seconds. VND does not call HiGHS and remains a priority for targeted
+original-instance stack analysis. Fixed-work native profiles still identify
+validation, candidate/request guidance, pool snapshots and RO model builds.
+**The complete pipeline is not allocation-free.**
+
+Independent time-capped runs can complete different work, so these allocation
+reductions per budget establish neither per-operation speedups nor search quality.
+All source, environment, instance and frozen dependency hashes are saved in the
+qualification file. Other chats were allowed to remain active, so these are
+allocation and operational diagnostics rather than controlled scaling
+comparisons. No 60-second comparative matrix was launched by this qualification.
 
 ## Historical extended panel
 

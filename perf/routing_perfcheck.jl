@@ -37,24 +37,40 @@ function allocation_frames(events)
         "sampled_bytes"=>v[1],"sampled_events"=>v[2]) for (k,v) in rows[1:min(10,end)]]
 end
 
-function observation(case,rate)
+function observation(case,rate;totals_only=false,native=false,warmup_case=case)
     RT=SharedScenarioRuntime
-    Base.invokelatest(RT.once,case) # Warm this strategy, including its actual error backend and master.
+    Base.invokelatest(RT.once,warmup_case) # Warm this strategy, including its actual error backend and master.
     e=Base.invokelatest(RT.prepare,case)
     timed=@timed Base.invokelatest(RT.operation!,e)
     Base.invokelatest(RT.verify!,e)
     timed_state=e.state
-    e=Base.invokelatest(RT.prepare,case)
-    objects=@allocations Base.invokelatest(RT.operation!,e)
-    Base.invokelatest(RT.verify!,e)
-    e=Base.invokelatest(RT.prepare,case)
-    Profile.Allocs.clear()
-    Profile.Allocs.@profile sample_rate=rate Base.invokelatest(RT.operation!,e)
-    Base.invokelatest(RT.verify!,e)
-    events=Profile.Allocs.fetch().allocs
+    objects=Base.gc_alloc_count(timed.gcstats);events=Any[];native_allocations=nothing;native_cpu=nothing
+    if native
+        native_result=Base.invokelatest(RT.profile_case,case,1,true)
+        native_allocations=native_result["allocation_profile"]
+        objects=native_allocations["total_allocations"]
+        events=Profile.Allocs.fetch().allocs
+        native_cpu=Base.invokelatest(RT.profile_case,case,1,false)
+    elseif !totals_only
+        e=Base.invokelatest(RT.prepare,case)
+        objects=@allocations Base.invokelatest(RT.operation!,e)
+        Base.invokelatest(RT.verify!,e)
+        e=Base.invokelatest(RT.prepare,case)
+        Profile.Allocs.clear()
+        Profile.Allocs.@profile sample_rate=rate Base.invokelatest(RT.operation!,e)
+        Base.invokelatest(RT.verify!,e)
+        events=Profile.Allocs.fetch().allocs
+    end
     row=Dict{String,Any}("bytes"=>timed.bytes,"objects"=>objects,"observed_gc_seconds"=>timed.gctime,
-        "correctness"=>"passed","sample_rate"=>rate,"sampled_events"=>length(events),
+        "correctness"=>"passed","sample_rate"=>native ? 1. : totals_only ? 0. : rate,"sampled_events"=>length(events),
+        "observation_scope"=>native ? "Native PerfChecker profile/profile_alloc runtime APIs with independent fresh observations; full allocation stacks aggregated" : totals_only ? "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling" :
+            "Independent fresh-state byte, object and sampled-stack observations",
         "allocation_frames"=>allocation_frames(events))
+    if native
+        row["native_allocation_profile"]=native_allocations
+        row["native_cpu_stack_count"]=length(native_cpu["cpu_stacks"])
+        row["native_cpu_profile_scope"]=isempty(native_cpu["cpu_stacks"]) ? "No CPU samples: fixed-work operation too short; functional oracle passed" : "Native CPU stacks captured; no scaling conclusion"
+    end
     result=timed.value
     workers=result isa NamedTuple && hasproperty(result,:workers) ? result.workers :
         result isa AbstractDict && haskey(result,"workers") ? result["workers"] : nothing
@@ -98,13 +114,18 @@ end
 function measure(opts,runtime,width,seconds,rate)
     panel=StructuredRouting.RoutingPanel
     instance=get(opts,"instance",nothing)
+    mode=get(opts,"observations","sampled")
+    mode in ("sampled","totals","native") || error("--observations must be sampled, totals or native")
+    totals_only=mode=="totals"
+    native=mode=="native"
+    native && instance!==nothing && error("native full-stack capture is for fixed-work fixtures; use sampled or totals for original instances")
     instance===nothing || isfile(instance) || error("missing original instance")
     methods=Base.invokelatest(panel.expand,split(get(opts,"methods","routing-panel"),','))
     all(id->haskey(panel.CATALOG,id),methods) || error("unknown routing configuration")
     report=Dict{String,Any}("schema"=>"routing-sampled-perfcheck/1","date_utc"=>string(now(UTC)),
         "julia"=>string(VERSION),"workers"=>width,"operation_budget_cap_seconds"=>seconds,
-        "collector"=>"PerfChecker SharedScenarioRuntime + direct sampled Julia Profile.Allocs",
-        "collector_scope"=>"Bounded top application frame aggregation; not the native full-stack profile_alloc collector",
+        "collector"=>native ? "Native PerfChecker SharedScenarioRuntime profile/profile_alloc APIs" : totals_only ? "PerfChecker SharedScenarioRuntime + direct @timed allocation/GC totals" : "PerfChecker SharedScenarioRuntime + direct sampled Julia Profile.Allocs",
+        "collector_scope"=>native ? "Native full-stack collection at rate 1.0; in-process fresh scenario state, no run_scenarios process orchestration" : totals_only ? "Same-observation process byte/object/GC totals; no native allocation stacks" : "Bounded top application frame aggregation; not the native full-stack profile_alloc collector",
         "oracle"=>"Original Li-Lim validator and actual configured error backend",
         "fixture"=>instance===nothing ? "Three pickup-delivery requests; functional/allocation qualification, not search-quality evidence" :
             "Original Li-Lim instance; bounded pipeline diagnostics, not a comparative campaign",
@@ -114,6 +135,7 @@ function measure(opts,runtime,width,seconds,rate)
         "factory_sha256"=>bytes2hex(sha256(read(joinpath(@__DIR__,"routing_scenarios.jl")))),
         "source_sha256"=>bytes2hex(sha256(read(joinpath(@__DIR__,"../LiLim/src/StructuredRouting.jl")))),
         "ICNScoring_sha256"=>bytes2hex(sha256(read(joinpath(@__DIR__,"../LiLim/src/ICNScoring.jl")))),
+        "MetaRepair_sha256"=>bytes2hex(sha256(read(joinpath(@__DIR__,"../LiLim/src/MetaRepair.jl")))),
         "bank_sha256"=>bytes2hex(sha256(read(ICNScoring.BANK))),
         "solver_project_sha256"=>bytes2hex(sha256(read(Base.active_project()))),
         "solver_manifest_sha256"=>bytes2hex(sha256(read(joinpath(dirname(Base.active_project()),"Manifest.toml")))),
@@ -132,19 +154,29 @@ function measure(opts,runtime,width,seconds,rate)
             parameters["instance"]=abspath(instance)
         end
         case=Base.invokelatest(factory,parameters)
-        row=Base.invokelatest(observation,case,rate)
+        warmup_case=if totals_only && instance!==nothing
+            warm_parameters=copy(parameters);warm_parameters["seconds"]=min(1.,seconds)
+            Base.invokelatest(factory,warm_parameters)
+        else;case;end
+        row=Base.invokelatest(observation,case,rate;totals_only,native,warmup_case)
         row["method"]=id;row["category"]=meta ? "meta" : "search"
         row["allocation_scope"]=instance!==nothing ? "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded" :
             meta ? "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded" :
             "Forty steps per prepared private lane; prepare/verify excluded"
         push!(report["strategies"],row)
+        if haskey(opts,"output")
+            output=abspath(opts["output"]);temp,io=mktemp(dirname(output))
+            try
+                TOML.print(io,report;sorted=true);close(io);mv(temp,output;force=true)
+            finally
+                isopen(io) && close(io)
+                isfile(temp) && rm(temp)
+            end
+        end
         println(id,": correctness passed; ",row["bytes"]," bytes; ",row["objects"]," objects")
         flush(stdout)
     end
-    if haskey(opts,"output")
-        output=abspath(opts["output"]);isfile(output) && error("refusing to overwrite an existing diagnostic")
-        open(io->TOML.print(io,report;sorted=true),output,"w")
-    else
+    if !haskey(opts,"output")
         TOML.print(stdout,report;sorted=true)
     end
     report
