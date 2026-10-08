@@ -8,6 +8,17 @@ include("RoutingPanel.jl")
 const BOUNDS = RoutingPanel.CONFIG["bounds"]
 const LIMITS = (; (Symbol(k)=>v for (k,v) in BOUNDS)...)
 const TOL = 1e-8
+const ALGORITHM_NAMES=(alns="alns",vnd="vnd",ges="ges",sisr="sisr",aco="aco",memetic="memetic")
+const DESTROY_COUNTER_KEYS=(random="destroy_random_calls",shaw="destroy_shaw_calls",worst="destroy_worst_calls",
+    route="destroy_route_calls",sisr="destroy_sisr_calls")
+const ROLE_COUNTER_KEYS=(alns="role_alns_episodes",vnd="role_vnd_episodes",ges="role_ges_episodes",
+    sisr="role_sisr_episodes",aco="role_aco_episodes",memetic="role_memetic_episodes")
+algorithm_name(algorithm)=algorithm isa Symbol && hasproperty(ALGORITHM_NAMES,algorithm) ?
+    getproperty(ALGORITHM_NAMES,algorithm) : string(algorithm)
+destroy_counter_key(mode)=mode isa Symbol && hasproperty(DESTROY_COUNTER_KEYS,mode) ?
+    getproperty(DESTROY_COUNTER_KEYS,mode) : "destroy_$(mode)_calls"
+role_counter_key(algorithm)=algorithm isa Symbol && hasproperty(ROLE_COUNTER_KEYS,algorithm) ?
+    getproperty(ROLE_COUNTER_KEYS,algorithm) : "role_$(algorithm)_episodes"
 export Segment, concatenate, range_cache, insertion_summary, sequence_feasible,
     repair!, destroy!, elimination!, exchange, Lane, episode!, share!, admit!, RoutePool,
     collect!, recombine, incompatibilities, clique_bound, run_portfolio, RepairWorkspace, range_cache!, RoutePoolResolver
@@ -107,9 +118,13 @@ struct RepairWorkspace
     selected::Vector{Int}
     selected_mask::BitVector
     savings::Vector{Float64}
+    uniform_difficulty::Vector{Int}
 end
 RepairWorkspace()=RepairWorkspace(RangeCache[],InsertionOption[],RouteBuffer(),Int[],Int[],Int[],Int[],
-    NTuple{2,Int}[],Set{NTuple{3,Int}}(),BitVector(),Int[],Int[],BitVector(),Float64[])
+    NTuple{2,Int}[],Set{NTuple{3,Int}}(),BitVector(),Int[],Int[],BitVector(),Float64[],Int[])
+"Reset private uniform priorities exactly as the historical fresh ones vector."
+uniform_difficulty!(workspace::RepairWorkspace,n)=fill!(resize!(workspace.uniform_difficulty,n),1)
+uniform_difficulty!(workspace,n)=ones(Int,n) # Retain the historical default for custom workspace-like objects.
 @inline function segment(c::RangeCache,d,D,a,b)
     a>b && return Segment()
     isempty(c.cells) ? summarize(d,D,c.route,a,b) : c.cells[a,b]
@@ -264,7 +279,8 @@ function build_caches!(workspace,p,D,routes,trace)
 end
 "Repair an owned partial state. A nonempty bank is never admitted to the original CBLS model."
 function repair!(routes,bank,p,D,rng,deadline;regret=2,blinks=0.,max_routes=length(routes),
-        trace=Dict{String,Any}(),difficulty=ones(Int,length(p.data.pairs)),pheromone=nothing,workspace=RepairWorkspace())
+        trace=Dict{String,Any}(),workspace=RepairWorkspace(),
+        difficulty=uniform_difficulty!(workspace,length(p.data.pairs)),pheromone=nothing)
     regret in (1,2,3) || throw(ArgumentError("repair regret must be 1/2/3"))
     caches=build_caches!(workspace,p,D,routes,trace)
     while !isempty(bank) && time_ns()<deadline
@@ -678,7 +694,7 @@ function inherited(lane,p,D,deadline,regret)
 end
 function step!(lane,p,settings,deadline)
     D=lane.parent.distances;trial=copy_routes!(lane.trial_workspace,lane.current);before=lane.best_q
-    algorithm=settings.algorithm;source=string(algorithm)
+    algorithm=settings.algorithm;source=algorithm_name(algorithm)
     # Reset topology by paired requests rather than corrupting raw successor assignments.
     reset=settings.reset_fraction>0 && lane.steps>0 && lane.steps%LIMITS.reset_every==0
     if reset
@@ -731,7 +747,7 @@ function step!(lane,p,settings,deadline)
         ids=guidance_ids(lane,p,settings)
         bank=destroy!(trial,p,D,lane.rng,mode,count;trace=lane.trace,guide_ids=ids,
             string_requests=LIMITS.string_requests,workspace=lane.repair_workspace)
-        counter!(lane.trace,"destroy_$(mode)_calls")
+        counter!(lane.trace,destroy_counter_key(mode))
         repair!(trial,bank,p,D,lane.rng,deadline;regret=settings.regret,blinks=settings.blinks,
             max_routes=length(lane.current),trace=lane.trace,difficulty=lane.difficulty,
             pheromone=algorithm==:aco ? lane.pheromone : nothing,workspace=lane.repair_workspace) || return
@@ -804,7 +820,7 @@ function run_portfolio(p,initial,id,seconds,seed,banks,strategy,execute;
                 Base.invokelatest(episode!,lanes[i],p,settings,stop;max_steps=episode_steps)
                 (!fill_episode || lanes[i].steps==previous_steps || lanes[i].steps>=LIMITS.max_steps) && break
             end
-            counter!(lanes[i].trace,"episodes");counter!(lanes[i].trace,"role_$(settings.algorithm)_episodes")
+            counter!(lanes[i].trace,"episodes");counter!(lanes[i].trace,role_counter_key(settings.algorithm))
             counter!(lanes[i].trace,"thread_cpu_seconds",cpu_clock()-cpu)
             nothing
         end

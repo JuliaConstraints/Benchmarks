@@ -17,6 +17,40 @@ const D=Pilot.distances(DATA)
 const BANKS=Dict(k=>ICNScoring.load_backend(k) for k in (:naive,:direct,:icn))
 LSvalues(lane)=collect(Hybrid.LS.get_values(lane.parent.solver))
 
+@testset "Uniform repair priorities preserve explicit fresh defaults and RNG" begin
+    first=R.RepairWorkspace();second=R.RepairWorkspace()
+    priorities=R.uniform_difficulty!(first,3)
+    @test priorities==ones(Int,3)
+    @test priorities!==R.uniform_difficulty!(second,3)
+    priorities[2]=100
+    @test R.uniform_difficulty!(first,3)===priorities
+    @test priorities==ones(Int,3)
+    @test R.uniform_difficulty!((;),3)==ones(Int,3)
+    function warmed_priorities_bytes(workspace)
+        R.uniform_difficulty!(workspace,3)
+        @allocated for _ in 1:128;R.uniform_difficulty!(workspace,3);end
+    end
+    warmed_priorities_bytes(first)
+    @test warmed_priorities_bytes(first)==0
+    for seed in 1:12,mode in (:random,:shaw,:worst,:route,:sisr),regret in (1,2,3),blinks in (0.,.15,.30)
+        left=deepcopy(INITIAL);right=deepcopy(INITIAL)
+        rng_left=Xoshiro(seed);rng_right=Xoshiro(seed)
+        ws_left=R.RepairWorkspace();ws_right=R.RepairWorkspace()
+        trace_left=Dict{String,Any}();trace_right=Dict{String,Any}()
+        bank_left=R.destroy!(left,P,D,rng_left,mode,2;workspace=ws_left,trace=trace_left)
+        bank_right=R.destroy!(right,P,D,rng_right,mode,2;workspace=ws_right,trace=trace_right)
+        deadline=typemax(UInt64)
+        actual=R.repair!(left,bank_left,P,D,rng_left,deadline;regret,blinks,max_routes=3,workspace=ws_left,trace=trace_left)
+        reference=R.repair!(right,bank_right,P,D,rng_right,deadline;regret,blinks,max_routes=3,
+            workspace=ws_right,trace=trace_right,difficulty=ones(Int,length(P.data.pairs)))
+        @test actual==reference
+        @test left==right && bank_left==bank_right
+        @test trace_left==trace_right
+        @test rand(rng_left,UInt64)==rand(rng_right,UInt64)
+        actual && @test validate_solution(P,left).valid
+    end
+end
+
 @testset "Additive configurations and colleague resource matrix" begin
     @test length(ResourceExperiment.StrategyPanel.CATALOG)==496
     @test allunique(collect(values(PANEL.CATALOG)))

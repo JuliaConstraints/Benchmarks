@@ -106,3 +106,26 @@ if haskey(proof,"night_classical_zero_allocations")
     Label(figure[3,1],"Native PerfChecker totals; 3 fixed inputs × 128 repetitions; direct backend shown; fused ICN also qualified.\nPrepared workspaces and bank excluded. Cold calls, cache misses and wider/custom arithmetic may allocate. No speed or solution-quality claim.",fontsize=13)
     export_figure(figure,"classical-scoring-warm-allocation-reduction")
 end
+
+if haskey(proof,"night_owned_repair_defaults")
+    rows=proof["night_owned_repair_defaults"]["records"]
+    all(r->r["correctness"]=="passed" && r["observable_work_matches"],rows) ||
+        error("Repair-default figure requires qualified matching observable work")
+    for category in ("search","meta")
+        local methods,n,figure,axis,bytes,objects
+        selected=sort!([r for r in rows if r["category"]==category];by=r->r["method"])
+        n=length(selected);figure=Figure(size=(1450,max(650,28n+180)))
+        axis=Axis(figure[1,1],title="Routing $category profiles: private repair defaults and cached names",
+            xlabel="Remaining allocation (% of same-cohort previous source)",ylabel="Configuration",
+            yticks=(1:n,[replace(r["method"],"rp_"=>"","_"=>" ") for r in selected]))
+        bytes=[100r["after_bytes"]/r["before_bytes"] for r in selected]
+        objects=[100r["after_objects"]/r["before_objects"] for r in selected]
+        vlines!(axis,[100];color=:black,linestyle=:dash,linewidth=2,label="Fixed previous-source reference")
+        scatter!(axis,bytes,(1:n).-.12;color=:dodgerblue3,marker=:circle,markersize=11,label="Allocated Julia bytes")
+        scatter!(axis,objects,(1:n).+.12;color=:purple3,marker=:utriangle,markersize=11,label="Allocated Julia objects")
+        xlims!(axis,50,103)
+        Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
+        Label(figure[3,1],"52 historical profiles; same frozen package cohort; 2 workers; matching steps, accepted moves and observed search counters.\nPrivate buffer initialization is included. All original-model oracles passed. Allocation evidence; no speed or quality claim.",fontsize=13)
+        export_figure(figure,"routing-private-defaults-"*category)
+    end
+end

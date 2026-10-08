@@ -535,5 +535,35 @@ BenchmarkTools retains a 16-byte result-boundary discrepancy, also visible in
 instrumented stack samples despite zero independent native totals. Several
 MetaStrategist fixed-work rows allocate approximately 1–1.5% more than the preceding
 package cohort; these regressions are retained, with no package attribution or
-speed/quality claim. Cold-bank inference and the remaining profiling passes
-continue separately.
+speed/quality claim.
+
+Private repair defaults now reuse their uniform-priority buffer, resetting every
+entry before each call. Known algorithm and counter names also use immutable
+strings. The historical explicit-priority path, custom-name fallback, acceptance
+and RNG behavior remain intact. All 52 profiles executed the same observable
+fixed work and allocated fewer bytes (0.5–24.9%) and objects (1.2–40.8%). The
+routing suite passed 9,834 assertions, including 540 differential repairs that
+compare routes, traces and the next RNG value. Initialization is included in
+these allocation totals; they establish neither a speedup nor search quality.
+English exact and XKCD figures are in
+[the figure directory](../perf/figures/owned-workspaces-20261008/).
+
+Corrected sampled-stack attribution resolves the actual application and package
+checkouts. The original LR101 diagnostic retained 321/323 VND events and 213/233
+MetaStrategist events in its top groups. These sampled weights identify source
+locations; they are not percentages of total allocated memory.
+
+Separate fresh-process capture now includes the actual first ICN bank recovery,
+before any scenario factory. It allocated 672,133,600 bytes; immediate cached
+recovery allocated 7,664 bytes with no observed compilation or GC. SnoopCompile
+recorded 2,456 unique cold specializations, including expression printing.
+Overlapping compiler aggregates are not elapsed time. Decoder truth, exact bank
+hash and private buffers passed; this establishes the remaining cold cost,
+without claiming an improvement or a controlled startup time.
+
+The actual GHOST Li-Lim adapter also passed 855 original-model and ownership
+assertions, including exhaustive tiny-instance permutations and bounded native
+calls with one and two independent lanes. All calls retained the valid insertion
+incumbent; no improved solution was observed. The native ABI does not apply the
+seed label. This functional qualification leaves the optional runner gate
+unchanged and establishes no search-quality or scaling result.
