@@ -17,11 +17,12 @@ historical_hybrid_assertions = 1483
 historical_test_scope = "ICN/hybrid checks passed after workspace changes; final comparator-only changes are covered by the 4416 final routing assertions"
 instance_comparison_limit = "Independent time-capped observations can complete different work; cumulative byte reductions per budget are not per-operation speedups"
 julia = "1.13.1"
+latest_source_sha256 = "aa9bd1ff6de09cc8f45a454e456d214b5a7a9290f60aa1828eee61a780d4ba2b"
 operation_budget_cap_seconds = 30.0
 original_instance_progress_limit = "LC101 observations alone do not qualify useful improvement, BKS or solver ranking; accepted original-variable MetaMoves are recorded explicitly"
 owned_workspace_assertions = 206
 planned_campaign = "No comparative 60-second matrix launched; requested 1/2/4 widths and two seeds remain prepared"
-qualification = "52 native fixed-work allocation/CPU fixture oracles plus 52 original LC101 bounded pipeline observations and 11 native kernel allocation oracles"
+qualification = "Historical all-52 workspace checkpoint plus incremental all-52 native fixture oracles and five original LC101 exchange-prefilter diagnostics, with versioned source hashes"
 remaining_allocation_sites = "Original validation, request guidance/candidate banks, route-pool snapshots and model builds; VND pair relocation and costly cooperative portfolios require targeted original-instance stacks"
 resource_scope = "Linux CPUs 8,10: two distinct physical P cores; Julia workers=2, GC=1, BLAS=1, native HiGHS=1; no SMT siblings"
 runner_sha256 = "0adacca6a770362c6d24bd697f30b7bb4d237fc3815a6d9cda40dcfa82a0b56b"
@@ -3594,6 +3595,812 @@ short_cpu_limit = "All 16 cooperative fixtures captured CPU stacks; only 5/36 sh
         [[native_fixed_work.strategies.worker_diagnostics]]
         completed_resets = 0
         steps = 40
+
+[night_exchange_prefilter]
+before_source_sha256 = "0309ae2d48013c6326bededcb891a6214dc231ab718b8ce4feb59d448bf44a7c"
+factory_sha256 = "cb310cd109539d0f1043267d642614c37aae9143e70870cefe4f6865a0263da8"
+limits = "Five new original time-capped diagnostics, not a new full-corpus or all-52 original pass. No controlled speedup, quality, useful-CPU or scaling claim; short native CPU cases may have no samples."
+native_observation_date_utc = "2026-10-08T19:53:07.548"
+runner_sha256 = "0adacca6a770362c6d24bd697f30b7bb4d237fc3815a6d9cda40dcfa82a0b56b"
+runtime_sha256 = "6f3e6aaa5dddb2be0b53361b7f354b608710224d51bb68d4dc3b541a2e8657eb"
+scope = "Modified-route rejection uses the original Euclidean matrix only in the owned controller; every surviving exchange still passes the complete original validator. Default public exchange semantics are unchanged."
+solver_manifest_sha256 = "9b767180147d7dd41d5b34c1b1958a13ba5acf979a54ba316ec78ad287e5deaf"
+solver_project_sha256 = "2a48b5e578f38033a568c0d03697d31b86b1bed65b39086515c6648276cf457b"
+source_sha256 = "aa9bd1ff6de09cc8f45a454e456d214b5a7a9290f60aa1828eee61a780d4ba2b"
+structured_routing_assertions = 5381
+
+    [night_exchange_prefilter.before_original_sampled_stacks]
+    Hybrid_sha256 = "2a3b112634718977d237690b690a8e392125e304fba4adcf28cf91b63b411961"
+    MetaRepair_sha256 = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    affinity = [8, 10]
+    date_utc = "2026-10-08T19:40:21.432"
+    instance_sha256 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    sample_rate = 1.0e-5
+    schema = "routing-original-sampled-stacks/1"
+    scope = "One sampled 30-second original pipeline observation per method; raw frame weights only, not exact percentages or allocation totals"
+    source_sha256 = "0309ae2d48013c6326bededcb891a6214dc231ab718b8ce4feb59d448bf44a7c"
+    workers = 2
+
+        [[night_exchange_prefilter.before_original_sampled_stacks.methods]]
+        correctness = "passed"
+        method = "rp_vnd_greedy"
+        sampled_events = 621
+
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#exchange#39"
+            line = 350
+            sampled_bytes = 30272
+            sampled_events = 480
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#28"
+            line = 285
+            sampled_bytes = 3272
+            sampled_events = 13
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 696
+            sampled_bytes = 2080
+            sampled_events = 14
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/Hybrid.jl"
+            function = "#pair_relocation#1"
+            line = 101
+            sampled_bytes = 1904
+            sampled_events = 7
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 699
+            sampled_bytes = 1608
+            sampled_events = 12
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "repair!"
+            line = 256
+            sampled_bytes = 1384
+            sampled_events = 5
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#remove_requests!#9"
+            line = 153
+            sampled_bytes = 960
+            sampled_events = 11
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 697
+            sampled_bytes = 576
+            sampled_events = 9
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "counter!"
+            line = 144
+            sampled_bytes = 344
+            sampled_events = 43
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/Hybrid.jl"
+            function = "#pair_relocation#1"
+            line = 103
+            sampled_bytes = 144
+            sampled_events = 2
+
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.first_owner_groups]]
+            owner = "ConstraintModels"
+            sampled_bytes = 30272
+            sampled_events = 480
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.first_owner_groups]]
+            owner = "Benchmark routing/RO adapter"
+            sampled_bytes = 12552
+            sampled_events = 141
+        [[night_exchange_prefilter.before_original_sampled_stacks.methods]]
+        correctness = "passed"
+        method = "rp_meta_fleet_distance_late"
+        sampled_events = 342
+
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#exchange#39"
+            line = 350
+            sampled_bytes = 12248
+            sampled_events = 236
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#repair!#28"
+            line = 285
+            sampled_bytes = 1592
+            sampled_events = 5
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 699
+            sampled_bytes = 1480
+            sampled_events = 8
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "repair!"
+            line = 256
+            sampled_bytes = 1320
+            sampled_events = 3
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "copy_routes!"
+            line = 90
+            sampled_bytes = 1184
+            sampled_events = 4
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "#remove_requests!#9"
+            line = 153
+            sampled_bytes = 656
+            sampled_events = 7
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "step!"
+            line = 697
+            sampled_bytes = 512
+            sampled_events = 7
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/Hybrid.jl"
+            function = "#pair_relocation#1"
+            line = 101
+            sampled_bytes = 440
+            sampled_events = 2
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/Pilot.jl"
+            function = "#insertion#2"
+            line = 38
+            sampled_bytes = 392
+            sampled_events = 2
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.allocation_frames]]
+            file = "LiLim/src/StructuredRouting.jl"
+            function = "counter!"
+            line = 144
+            sampled_bytes = 344
+            sampled_events = 43
+
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.first_owner_groups]]
+            owner = "ConstraintModels"
+            sampled_bytes = 12280
+            sampled_events = 237
+            [[night_exchange_prefilter.before_original_sampled_stacks.methods.first_owner_groups]]
+            owner = "Benchmark routing/RO adapter"
+            sampled_bytes = 8480
+            sampled_events = 105
+
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 236496
+    correctness = "passed"
+    method = "rp_aco_regret2"
+    native_bytes = 235888
+    native_cpu_stack_count = 0
+    native_objects = 3373
+    objects = 3373
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 235024
+    correctness = "passed"
+    method = "rp_aco_regret3"
+    native_bytes = 234480
+    native_cpu_stack_count = 0
+    native_objects = 3373
+    objects = 3373
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 266848
+    correctness = "passed"
+    method = "rp_alns_adaptive_regret2"
+    native_bytes = 266672
+    native_cpu_stack_count = 0
+    native_objects = 4598
+    objects = 4598
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 266816
+    correctness = "passed"
+    method = "rp_alns_adaptive_regret3"
+    native_bytes = 266480
+    native_cpu_stack_count = 0
+    native_objects = 4598
+    objects = 4598
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 125072
+    correctness = "passed"
+    method = "rp_alns_critical"
+    native_bytes = 124896
+    native_cpu_stack_count = 0
+    native_objects = 1742
+    objects = 1742
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 267504
+    correctness = "passed"
+    method = "rp_alns_direct"
+    native_bytes = 266688
+    native_cpu_stack_count = 0
+    native_objects = 4598
+    objects = 4598
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 125056
+    correctness = "passed"
+    method = "rp_alns_incompatibility"
+    native_bytes = 124896
+    native_cpu_stack_count = 0
+    native_objects = 1742
+    objects = 1742
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 266288
+    correctness = "passed"
+    method = "rp_alns_naive"
+    native_bytes = 267120
+    native_cpu_stack_count = 0
+    native_objects = 4598
+    objects = 4598
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 150784
+    correctness = "passed"
+    method = "rp_alns_qubo"
+    native_bytes = 150832
+    native_cpu_stack_count = 0
+    native_objects = 2066
+    objects = 2066
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 233408
+    correctness = "passed"
+    method = "rp_alns_random_regret2"
+    native_bytes = 233200
+    native_cpu_stack_count = 0
+    native_objects = 3848
+    objects = 3848
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 233632
+    correctness = "passed"
+    method = "rp_alns_random_regret3"
+    native_bytes = 232656
+    native_cpu_stack_count = 0
+    native_objects = 3848
+    objects = 3848
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 256392
+    correctness = "passed"
+    method = "rp_alns_route_regret2"
+    native_bytes = 256888
+    native_cpu_stack_count = 0
+    native_objects = 4461
+    objects = 4461
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 256488
+    correctness = "passed"
+    method = "rp_alns_route_regret3"
+    native_bytes = 256616
+    native_cpu_stack_count = 0
+    native_objects = 4461
+    objects = 4461
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 226176
+    correctness = "passed"
+    method = "rp_alns_shaw_regret2"
+    native_bytes = 226160
+    native_cpu_stack_count = 0
+    native_objects = 3680
+    objects = 3680
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 226288
+    correctness = "passed"
+    method = "rp_alns_shaw_regret3"
+    native_bytes = 226176
+    native_cpu_stack_count = 0
+    native_objects = 3680
+    objects = 3680
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 380240
+    correctness = "passed"
+    method = "rp_alns_sisr_regret2"
+    native_bytes = 380368
+    native_cpu_stack_count = 0
+    native_objects = 7280
+    objects = 7280
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 383328
+    correctness = "passed"
+    method = "rp_alns_sisr_regret3"
+    native_bytes = 380544
+    native_cpu_stack_count = 0
+    native_objects = 7280
+    objects = 7280
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 182896
+    correctness = "passed"
+    method = "rp_alns_worst_regret2"
+    native_bytes = 182416
+    native_cpu_stack_count = 0
+    native_objects = 2668
+    objects = 2668
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 182720
+    correctness = "passed"
+    method = "rp_alns_worst_regret3"
+    native_bytes = 182384
+    native_cpu_stack_count = 0
+    native_objects = 2668
+    objects = 2668
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 96608
+    correctness = "passed"
+    method = "rp_ges1_greedy"
+    native_bytes = 95824
+    native_cpu_stack_count = 0
+    native_objects = 1734
+    objects = 1734
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 96816
+    correctness = "passed"
+    method = "rp_ges1_late"
+    native_bytes = 96048
+    native_cpu_stack_count = 0
+    native_objects = 1734
+    objects = 1734
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 96224
+    correctness = "passed"
+    method = "rp_ges2_greedy"
+    native_bytes = 96176
+    native_cpu_stack_count = 0
+    native_objects = 1734
+    objects = 1734
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 96592
+    correctness = "passed"
+    method = "rp_ges2_late"
+    native_bytes = 95840
+    native_cpu_stack_count = 0
+    native_objects = 1734
+    objects = 1734
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 11296
+    correctness = "passed"
+    method = "rp_memetic_regret2"
+    native_bytes = 11296
+    native_cpu_stack_count = 0
+    native_objects = 232
+    objects = 232
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 11584
+    correctness = "passed"
+    method = "rp_memetic_regret3"
+    native_bytes = 11584
+    native_cpu_stack_count = 0
+    native_objects = 232
+    objects = 232
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 843064
+    correctness = "passed"
+    method = "rp_meta_adaptive_late"
+    native_bytes = 827320
+    native_cpu_stack_count = 2
+    native_objects = 13101
+    objects = 13101
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 781272
+    correctness = "passed"
+    method = "rp_meta_adaptive_tabu"
+    native_bytes = 781336
+    native_cpu_stack_count = 2
+    native_objects = 11732
+    objects = 11732
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 652336
+    correctness = "passed"
+    method = "rp_meta_diversity_late"
+    native_bytes = 652128
+    native_cpu_stack_count = 2
+    native_objects = 8680
+    objects = 8680
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 653648
+    correctness = "passed"
+    method = "rp_meta_diversity_tabu"
+    native_bytes = 655168
+    native_cpu_stack_count = 2
+    native_objects = 8707
+    objects = 8707
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 667240
+    correctness = "passed"
+    method = "rp_meta_fleet_distance_late"
+    native_bytes = 667128
+    native_cpu_stack_count = 2
+    native_objects = 10228
+    objects = 10228
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 660224
+    correctness = "passed"
+    method = "rp_meta_fleet_distance_tabu"
+    native_bytes = 661248
+    native_cpu_stack_count = 2
+    native_objects = 10059
+    objects = 10059
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 772760
+    correctness = "passed"
+    method = "rp_meta_guided_late"
+    native_bytes = 773736
+    native_cpu_stack_count = 2
+    native_objects = 11481
+    objects = 11481
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 764528
+    correctness = "passed"
+    method = "rp_meta_guided_tabu"
+    native_bytes = 764592
+    native_cpu_stack_count = 2
+    native_objects = 11245
+    objects = 11245
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 941448
+    correctness = "passed"
+    method = "rp_meta_pool_hipo_late"
+    native_bytes = 953688
+    native_cpu_stack_count = 5
+    native_objects = 18445
+    objects = 18445
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 917832
+    correctness = "passed"
+    method = "rp_meta_pool_hipo_tabu"
+    native_bytes = 920408
+    native_cpu_stack_count = 4
+    native_objects = 17667
+    objects = 17667
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 923832
+    correctness = "passed"
+    method = "rp_meta_pool_ipx_late"
+    native_bytes = 922168
+    native_cpu_stack_count = 4
+    native_objects = 17795
+    objects = 17795
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 901728
+    correctness = "passed"
+    method = "rp_meta_pool_ipx_tabu"
+    native_bytes = 900912
+    native_cpu_stack_count = 4
+    native_objects = 17340
+    objects = 17340
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 970808
+    correctness = "passed"
+    method = "rp_meta_pool_mip_late"
+    native_bytes = 970856
+    native_cpu_stack_count = 4
+    native_objects = 18875
+    objects = 18875
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 930752
+    correctness = "passed"
+    method = "rp_meta_pool_mip_tabu"
+    native_bytes = 929904
+    native_cpu_stack_count = 4
+    native_objects = 18001
+    objects = 18001
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 841768
+    correctness = "passed"
+    method = "rp_meta_ruin_repair_late"
+    native_bytes = 840200
+    native_cpu_stack_count = 2
+    native_objects = 13086
+    objects = 13086
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 784776
+    correctness = "passed"
+    method = "rp_meta_ruin_repair_tabu"
+    native_bytes = 785960
+    native_cpu_stack_count = 2
+    native_objects = 11828
+    objects = 11828
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 377904
+    correctness = "passed"
+    method = "rp_sisr_b0_regret2"
+    native_bytes = 376368
+    native_cpu_stack_count = 0
+    native_objects = 7199
+    objects = 7199
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 379120
+    correctness = "passed"
+    method = "rp_sisr_b0_regret3"
+    native_bytes = 376416
+    native_cpu_stack_count = 0
+    native_objects = 7199
+    objects = 7199
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 549376
+    correctness = "passed"
+    method = "rp_sisr_b15_regret2"
+    native_bytes = 548944
+    native_cpu_stack_count = 0
+    native_objects = 11211
+    objects = 11211
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 549280
+    correctness = "passed"
+    method = "rp_sisr_b15_regret3"
+    native_bytes = 549168
+    native_cpu_stack_count = 0
+    native_objects = 11211
+    objects = 11211
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 748224
+    correctness = "passed"
+    method = "rp_sisr_b30_regret2"
+    native_bytes = 748864
+    native_cpu_stack_count = 0
+    native_objects = 15750
+    objects = 15750
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 748064
+    correctness = "passed"
+    method = "rp_sisr_b30_regret3"
+    native_bytes = 749360
+    native_cpu_stack_count = 0
+    native_objects = 15750
+    objects = 15750
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 146544
+    correctness = "passed"
+    method = "rp_vnd_greedy"
+    native_bytes = 146544
+    native_cpu_stack_count = 0
+    native_objects = 2826
+    objects = 2826
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 258032
+    correctness = "passed"
+    method = "rp_vnd_late"
+    native_bytes = 257920
+    native_cpu_stack_count = 0
+    native_objects = 5408
+    objects = 5408
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 252064
+    correctness = "passed"
+    method = "rp_vnd_reset_full"
+    native_bytes = 251856
+    native_cpu_stack_count = 0
+    native_objects = 5267
+    objects = 5267
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 250288
+    correctness = "passed"
+    method = "rp_vnd_reset_partial"
+    native_bytes = 250400
+    native_cpu_stack_count = 0
+    native_objects = 5231
+    objects = 5231
+    [[night_exchange_prefilter.native_fixture_oracles]]
+    bytes = 196480
+    correctness = "passed"
+    method = "rp_vnd_tabu"
+    native_bytes = 196064
+    native_cpu_stack_count = 0
+    native_objects = 3977
+    objects = 3977
+
+    [night_exchange_prefilter.original_instance_diagnostics]
+    ICNScoring_sha256 = "99eea5cd63eccfb0576a8a8c213a654011dc6bd89559074968f33084918c30cc"
+    MetaRepair_sha256 = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    collector = "PerfChecker SharedScenarioRuntime + direct @timed allocation/GC totals"
+    collector_scope = "Same-observation process byte/object/GC totals; no native allocation stacks"
+    config_sha256 = "526e5283ce541dcf4b04424024fd6826418f2d63096f9614dfa10f188d00f2d1"
+    date_utc = "2026-10-08T19:49:52.836"
+    factory_sha256 = "cb310cd109539d0f1043267d642614c37aae9143e70870cefe4f6865a0263da8"
+    fixture = "Original Li-Lim instance; bounded pipeline diagnostics, not a comparative campaign"
+    instance_name = "lc101.txt"
+    instance_sha256 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+    julia = "1.13.1"
+    operation_budget_cap_seconds = 30.0
+    oracle = "Original Li-Lim validator and actual configured error backend"
+    runtime_sha256 = "6f3e6aaa5dddb2be0b53361b7f354b608710224d51bb68d4dc3b541a2e8657eb"
+    sample_scope = "Top frames contain raw sampled bytes/events, not exact allocation percentages"
+    schema = "routing-sampled-perfcheck/1"
+    solver_manifest_sha256 = "9b767180147d7dd41d5b34c1b1958a13ba5acf979a54ba316ec78ad287e5deaf"
+    solver_project_sha256 = "2a48b5e578f38033a568c0d03697d31b86b1bed65b39086515c6648276cf457b"
+    source_sha256 = "aa9bd1ff6de09cc8f45a454e456d214b5a7a9290f60aa1828eee61a780d4ba2b"
+    timing_qualification = "No timing/scaling conclusions; other chats may be active"
+    workers = 2
+
+        [[night_exchange_prefilter.original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 1534983912
+        category = "search"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.001094844
+        method = "rp_vnd_greedy"
+        objects = 19540353
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.26322649
+        operational_mean_active_cpus = 1.9751087265192222
+        process_cpu_seconds = 59.259831895999994
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.099951181
+        search_wall_seconds = 30.00332645
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_exchange_prefilter.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 647673
+            summary_evaluations = 459208896
+            tabu_hits = 0
+            thread_cpu_seconds = 29.39558498800001
+            unchanged_proposals = 215799
+            [[night_exchange_prefilter.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 647346
+            summary_evaluations = 458970361
+            tabu_hits = 0
+            thread_cpu_seconds = 29.435788014000003
+            unchanged_proposals = 215695
+        [[night_exchange_prefilter.original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 1497968808
+        category = "search"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.001013842
+        method = "rp_vnd_late"
+        objects = 18733751
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.243576709
+        operational_mean_active_cpus = 1.9747447018975117
+        process_cpu_seconds = 59.2511217
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.10584492
+        search_wall_seconds = 30.00444647
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_exchange_prefilter.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 634626
+            summary_evaluations = 449950193
+            tabu_hits = 0
+            thread_cpu_seconds = 29.410768586999964
+            unchanged_proposals = 211451
+            [[night_exchange_prefilter.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 634431
+            summary_evaluations = 449800072
+            tabu_hits = 0
+            thread_cpu_seconds = 29.405834673000015
+            unchanged_proposals = 211385
+        [[night_exchange_prefilter.original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 1506079944
+        category = "search"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.001062532
+        method = "rp_vnd_tabu"
+        objects = 18835105
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.259578117
+        operational_mean_active_cpus = 1.9830509810662513
+        process_cpu_seconds = 59.497751773999994
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.109592699
+        search_wall_seconds = 30.003137762
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_exchange_prefilter.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 636072
+            summary_evaluations = 450972966
+            tabu_hits = 0
+            thread_cpu_seconds = 29.540268006000062
+            unchanged_proposals = 211935
+            [[night_exchange_prefilter.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 0
+            steps = 639984
+            summary_evaluations = 453747331
+            tabu_hits = 0
+            thread_cpu_seconds = 29.52577412499997
+            unchanged_proposals = 213243
+        [[night_exchange_prefilter.original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 1110661568
+        category = "meta"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.001156371
+        method = "rp_meta_fleet_distance_late"
+        objects = 14306872
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.243293165
+        operational_mean_active_cpus = 1.9752561338551413
+        process_cpu_seconds = 59.265592639000005
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.07475603
+        search_wall_seconds = 30.004003847
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_exchange_prefilter.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 350560
+            steps = 339076
+            summary_evaluations = 509126242
+            tabu_hits = 0
+            thread_cpu_seconds = 29.406167802999974
+            unchanged_proposals = 108097
+            [[night_exchange_prefilter.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 351264
+            steps = 333121
+            summary_evaluations = 505429844
+            tabu_hits = 0
+            thread_cpu_seconds = 29.406994606999902
+            unchanged_proposals = 106107
+        [[night_exchange_prefilter.original_instance_diagnostics.strategies]]
+        allocation_frames = []
+        allocation_scope = "Complete instance import, insertion, original CBLS/MetaStrategist search and final audit; prepared banks/plan excluded"
+        bytes = 874251648
+        category = "meta"
+        correctness = "passed"
+        gc_scope = "Whole-operation GC includes explicit precollection; search_gc_seconds excludes precollection and final audit"
+        initial_seconds = 0.001066178
+        method = "rp_meta_adaptive_late"
+        objects = 12331368
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.207330128
+        operational_mean_active_cpus = 1.9840671495718436
+        process_cpu_seconds = 59.53026154400004
+        sample_rate = 0.0
+        sampled_events = 0
+        search_gc_seconds = 0.053309214
+        search_wall_seconds = 30.004156642
+        telemetry_scope = "Diagnostic observation only; not a controlled scaling/throughput comparison"
+
+            [[night_exchange_prefilter.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 199536
+            steps = 285341
+            summary_evaluations = 551870798
+            tabu_hits = 0
+            thread_cpu_seconds = 29.547479048000014
+            unchanged_proposals = 104566
+            [[night_exchange_prefilter.original_instance_diagnostics.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            completed_resets = 0
+            ejection_attempts = 334847
+            steps = 176726
+            summary_evaluations = 566094823
+            tabu_hits = 0
+            thread_cpu_seconds = 29.52237368900012
+            unchanged_proposals = 64978
 
 [original_instance]
 collector = "PerfChecker SharedScenarioRuntime + direct @timed allocation/GC totals"
