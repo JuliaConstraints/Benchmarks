@@ -495,3 +495,13 @@ package. Compact observations, source/environment hashes and scope limitations
 are recorded in [routing qualification](../perf/routing-qualification.toml).
 Whole-worker redacted heap snapshots were verified and removed after preserving
 their sizes and hashes; native HiGHS memory is outside those snapshots.
+
+The first classical workspace stage also completed 64 fresh-worker analyzer
+runs: RCPSP, JSSP, FJSP and maintenance, each with direct and fused ICN scoring,
+through all eight applicable analyzers. Every original-model callback oracle
+passed. The general family/data callback still has 247 JET findings and 164
+AllocCheck findings per specialization; these are recorded, not treated as
+clean results. Lifecycle SnoopCompile excludes the bank generation performed
+by the scenario factory. All eight redacted heap artifacts were verified and
+removed. Source/environment hashes, exact finding counts, diagnostic scopes
+and compact measurements are in the same routing qualification file.

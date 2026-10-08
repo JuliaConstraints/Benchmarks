@@ -5336,6 +5336,2186 @@ timing_scope = "Operational fixed-work measurements with concurrent chats on dis
         realloc = 0
         recompile_time = 0.0
 
+[night_classical_backend_coverage]
+aqua = "Not applicable to the non-importable benchmark application; actual package Aqua qualification is in package branches"
+date_utc = "2026-10-08T21:02:54.278"
+environment_manifest_sha256 = "4c8afd2e7e8a411e7df7d232d030d58d6d5eb2381fb1c50c05db4bf5b5961d27"
+limitations = ["JET has 247 findings and AllocCheck 164 on each general callback specialization; the dynamic family/data branches remain in their static scope.", "Only the first three finding messages per record are retained; total finding counts are exact.", "SnoopCompile observes the prepared lifecycle after factory bank generation; it does not cover first bank method generation.", "Fresh-worker cold/warm timings are diagnostic observations, not controlled cross-version speedups.", "GC counters are process-wide; native solver heaps and independent tasks are outside Julia reachable-state guarantees.", "The source hash refers to the published first classical workspace stage, before subsequent source experiments."]
+qualification = "64 distinct fresh-worker analyzer/scenario runs completed; all original-model callback oracles passed. Findings are not a clean verdict."
+scenario_sha256 = "a93cdc8b9190e1cef0075f19e49ffcd843945256cce6820af6a2aea532e6c4f3"
+schema = "classical-diagnostic-backends/1"
+scope = "Fresh diagnostic worker per scenario/analyzer; CPUs 8,10; Julia=2,GC=1,BLAS=1; 384 callback calls; compilation, allocation and timing are separate observations"
+source_sha256 = "bb585cbf898c28e8da32997b41498e2699f40aaee6613ed2d148cc5f080fc8c4"
+
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    finding_count = 247
+    scenario = "classical_rcpsp_direct"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+    tool_version = "0.12.3"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: promote_type(%1::Type, %2::Type)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, b::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, %269::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    finding_count = 164
+    scenario = "classical_rcpsp_direct"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+    tool_version = "0.2.6"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function Colon() in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function iterate in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Allocating runtime call to \"jl_get_nth_field_checked\" in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing"""
+        rule_id = "allocation.potential"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "first complete scenario lifecycle in diagnostic process"
+    correctness = "passed"
+    finding_count = 1
+    scenario = "classical_rcpsp_direct"
+    status = "complete"
+    summary = ""
+    tool = "snoopcompile"
+    tool_version = "3.2.9"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "InferenceTimingNode: 0.000014/4.358870 on Base.Compiler.Timings.ROOT() with 102 direct children"
+        rule_id = "compilation.inference"
+
+        [night_classical_backend_coverage.records.measurements]
+        inference_seconds = 4.358869910240173
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    measurement_scope = "fresh process; source loading; full lifecycle including preparation and verification"
+    scenario = "classical_rcpsp_direct"
+    status = "complete"
+    summary = ""
+    tool = "latency"
+
+        [night_classical_backend_coverage.records.measurements]
+        first_case_seconds = 4.013793072
+        load_seconds = 9.630735238
+        warm_case_seconds = 0.000546841
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    scenario = "classical_rcpsp_direct"
+    status = "complete"
+    summary = "3 operations: 0.0 ms in GC, 92208 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 30736
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 6.0078e-5
+        pause = 0
+        poolalloc = 769
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 30736
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 5.9322e-5
+        pause = 0
+        poolalloc = 769
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 30736
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 5.7827e-5
+        pause = 0
+        poolalloc = 769
+        realloc = 0
+        recompile_time = 0.0
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    scenario = "classical_rcpsp_direct"
+    status = "complete"
+    summary = "3 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 2003
+        state_and_result_bytes = 2011
+        state_before_bytes = 2003
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x38cfd000
+            pid = 154393
+            private_bytes = 0x2bb6f000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x388b9000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12199d560f6c
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x38cfd000
+            pid = 154393
+            private_bytes = 0x2bb6e000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x38848000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12199a92a132
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 2003
+        state_and_result_bytes = 2011
+        state_before_bytes = 2003
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x38cfd000
+            pid = 154393
+            private_bytes = 0x2bb6f000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x388b9000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12199fc6de97
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x38cfd000
+            pid = 154393
+            private_bytes = 0x2bb6f000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x388b9000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12199f53b8a2
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 2003
+        state_and_result_bytes = 2011
+        state_before_bytes = 2003
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x38cfd000
+            pid = 154393
+            private_bytes = 0x2bb6f000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x388b9000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x1219a0b39864
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x38cfd000
+            pid = 154393
+            private_bytes = 0x2bb6f000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x388b9000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x1219a04137c5
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Snapshot covers the entire diagnostic process, not just the scenario.", "Only GC-managed memory is represented; native and device memory are excluded.", "Snapshot capture is intrusive and its duration is not baseline performance evidence."]
+    scenario = "classical_rcpsp_direct"
+    status = "complete"
+    summary = "Redacted heap snapshot captured after verification. Covers GC-managed objects in the whole worker; native and device memory are excluded."
+    tool = "heap"
+
+        [[night_classical_backend_coverage.records.artifacts]]
+        bytes = 652023222
+        kind = "heap_snapshot"
+        redacted = true
+        removed_after_verification = true
+        sha256 = "30c3b09cbed222568c473530bd9167a4bd9a016efbc9b8834e8ccd5828ad866b"
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Counts do not measure blocked duration or prove a scalability bottleneck.", "Only runtime-reported lock conflicts are covered; native locks and device barriers are not."]
+    scenario = "classical_rcpsp_direct"
+    status = "complete"
+    summary = "3 operations: 0 observed lock conflicts. Counts do not measure waiting duration."
+    tool = "locks"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 30736
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 8.8085e-5
+        pause = 0
+        poolalloc = 769
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 30736
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 6.3267e-5
+        pause = 0
+        poolalloc = 769
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 30736
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 5.8409e-5
+        pause = 0
+        poolalloc = 769
+        realloc = 0
+        recompile_time = 0.0
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    finding_count = 247
+    scenario = "classical_rcpsp_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+    tool_version = "0.12.3"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: promote_type(%1::Type, %2::Type)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, b::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, %269::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    finding_count = 164
+    scenario = "classical_rcpsp_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+    tool_version = "0.2.6"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function Colon() in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function iterate in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Allocating runtime call to \"jl_get_nth_field_checked\" in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing"""
+        rule_id = "allocation.potential"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "first complete scenario lifecycle in diagnostic process"
+    correctness = "passed"
+    finding_count = 1
+    scenario = "classical_rcpsp_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "snoopcompile"
+    tool_version = "3.2.9"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "InferenceTimingNode: 0.000014/4.644998 on Base.Compiler.Timings.ROOT() with 102 direct children"
+        rule_id = "compilation.inference"
+
+        [night_classical_backend_coverage.records.measurements]
+        inference_seconds = 4.644997835159302
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    measurement_scope = "fresh process; source loading; full lifecycle including preparation and verification"
+    scenario = "classical_rcpsp_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "latency"
+
+        [night_classical_backend_coverage.records.measurements]
+        first_case_seconds = 3.983906745
+        load_seconds = 10.55628546
+        warm_case_seconds = 0.000586116
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    scenario = "classical_rcpsp_icn_fused"
+    status = "complete"
+    summary = "3 operations: 0.0 ms in GC, 92208 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 30736
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 6.0696e-5
+        pause = 0
+        poolalloc = 769
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 30736
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 5.9396e-5
+        pause = 0
+        poolalloc = 769
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 30736
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 5.948e-5
+        pause = 0
+        poolalloc = 769
+        realloc = 0
+        recompile_time = 0.0
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    scenario = "classical_rcpsp_icn_fused"
+    status = "complete"
+    summary = "3 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 2067
+        state_and_result_bytes = 2075
+        state_before_bytes = 2067
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x39340000
+            pid = 155526
+            private_bytes = 0x2d26b000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x39340000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x123f02aa1126
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x392cf000
+            pid = 155526
+            private_bytes = 0x2d26a000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x392cf000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x123eff9f1028
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 2067
+        state_and_result_bytes = 2075
+        state_before_bytes = 2067
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x39341000
+            pid = 155526
+            private_bytes = 0x2d26c000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x39341000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x123f053c946f
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x39341000
+            pid = 155526
+            private_bytes = 0x2d26c000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x39341000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x123f04bf9dfe
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 2067
+        state_and_result_bytes = 2075
+        state_before_bytes = 2067
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x39341000
+            pid = 155526
+            private_bytes = 0x2d26c000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x39341000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x123f063a229b
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x39341000
+            pid = 155526
+            private_bytes = 0x2d26c000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x39341000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x123f05c14d9e
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Snapshot covers the entire diagnostic process, not just the scenario.", "Only GC-managed memory is represented; native and device memory are excluded.", "Snapshot capture is intrusive and its duration is not baseline performance evidence."]
+    scenario = "classical_rcpsp_icn_fused"
+    status = "complete"
+    summary = "Redacted heap snapshot captured after verification. Covers GC-managed objects in the whole worker; native and device memory are excluded."
+    tool = "heap"
+
+        [[night_classical_backend_coverage.records.artifacts]]
+        bytes = 654250579
+        kind = "heap_snapshot"
+        redacted = true
+        removed_after_verification = true
+        sha256 = "1d65a82e93090194e7836031357252a9fe707f417805714f1d036a88d0ffd661"
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Counts do not measure blocked duration or prove a scalability bottleneck.", "Only runtime-reported lock conflicts are covered; native locks and device barriers are not."]
+    scenario = "classical_rcpsp_icn_fused"
+    status = "complete"
+    summary = "3 operations: 0 observed lock conflicts. Counts do not measure waiting duration."
+    tool = "locks"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 30736
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 6.2762e-5
+        pause = 0
+        poolalloc = 769
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 30736
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 6.2876e-5
+        pause = 0
+        poolalloc = 769
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 30736
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 5.8638e-5
+        pause = 0
+        poolalloc = 769
+        realloc = 0
+        recompile_time = 0.0
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    finding_count = 247
+    scenario = "classical_jssp_direct"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+    tool_version = "0.12.3"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: promote_type(%1::Type, %2::Type)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, b::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, %269::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    finding_count = 164
+    scenario = "classical_jssp_direct"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+    tool_version = "0.2.6"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function Colon() in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function iterate in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Allocating runtime call to \"jl_get_nth_field_checked\" in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing"""
+        rule_id = "allocation.potential"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "first complete scenario lifecycle in diagnostic process"
+    correctness = "passed"
+    finding_count = 1
+    scenario = "classical_jssp_direct"
+    status = "complete"
+    summary = ""
+    tool = "snoopcompile"
+    tool_version = "3.2.9"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "InferenceTimingNode: 0.000014/4.177866 on Base.Compiler.Timings.ROOT() with 99 direct children"
+        rule_id = "compilation.inference"
+
+        [night_classical_backend_coverage.records.measurements]
+        inference_seconds = 4.177865743637085
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    measurement_scope = "fresh process; source loading; full lifecycle including preparation and verification"
+    scenario = "classical_jssp_direct"
+    status = "complete"
+    summary = ""
+    tool = "latency"
+
+        [night_classical_backend_coverage.records.measurements]
+        first_case_seconds = 4.102403853
+        load_seconds = 9.784251792
+        warm_case_seconds = 0.000510395
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    scenario = "classical_jssp_direct"
+    status = "complete"
+    summary = "3 operations: 0.0 ms in GC, 645168 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 9.2056e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 7.9073e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 7.7814e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    scenario = "classical_jssp_direct"
+    status = "complete"
+    summary = "3 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 1981
+        state_and_result_bytes = 1989
+        state_before_bytes = 1981
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3cfae000
+            pid = 157555
+            private_bytes = 0x2f57f000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3cfae000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12651431d2a7
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3cd42000
+            pid = 157555
+            private_bytes = 0x2f383000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3cd42000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x1265111ed45f
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 1981
+        state_and_result_bytes = 1989
+        state_before_bytes = 1981
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3d1c6000
+            pid = 157555
+            private_bytes = 0x2cc98000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a6cb000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x126519555e3a
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3d1c6000
+            pid = 157555
+            private_bytes = 0x2cc98000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a6cb000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x126518e1309e
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 1981
+        state_and_result_bytes = 1989
+        state_before_bytes = 1981
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3d1c6000
+            pid = 157555
+            private_bytes = 0x2cc98000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a6cb000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12651a4418d9
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3d1c6000
+            pid = 157555
+            private_bytes = 0x2cc98000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a6cb000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x126519d1239b
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Snapshot covers the entire diagnostic process, not just the scenario.", "Only GC-managed memory is represented; native and device memory are excluded.", "Snapshot capture is intrusive and its duration is not baseline performance evidence."]
+    scenario = "classical_jssp_direct"
+    status = "complete"
+    summary = "Redacted heap snapshot captured after verification. Covers GC-managed objects in the whole worker; native and device memory are excluded."
+    tool = "heap"
+
+        [[night_classical_backend_coverage.records.artifacts]]
+        bytes = 651794773
+        kind = "heap_snapshot"
+        redacted = true
+        removed_after_verification = true
+        sha256 = "8be0021c0ca82e7d79070130a62d398cc756c33708caadaede7295644ca96c47"
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Counts do not measure blocked duration or prove a scalability bottleneck.", "Only runtime-reported lock conflicts are covered; native locks and device barriers are not."]
+    scenario = "classical_jssp_direct"
+    status = "complete"
+    summary = "3 operations: 0 observed lock conflicts. Counts do not measure waiting duration."
+    tool = "locks"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 9.0899e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 0.000114197
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 9.0e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    finding_count = 247
+    scenario = "classical_jssp_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+    tool_version = "0.12.3"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: promote_type(%1::Type, %2::Type)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, b::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, %269::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    finding_count = 164
+    scenario = "classical_jssp_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+    tool_version = "0.2.6"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function Colon() in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function iterate in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Allocating runtime call to \"jl_get_nth_field_checked\" in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing"""
+        rule_id = "allocation.potential"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "first complete scenario lifecycle in diagnostic process"
+    correctness = "passed"
+    finding_count = 1
+    scenario = "classical_jssp_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "snoopcompile"
+    tool_version = "3.2.9"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "InferenceTimingNode: 0.000014/4.360323 on Base.Compiler.Timings.ROOT() with 99 direct children"
+        rule_id = "compilation.inference"
+
+        [night_classical_backend_coverage.records.measurements]
+        inference_seconds = 4.360322654247284
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    measurement_scope = "fresh process; source loading; full lifecycle including preparation and verification"
+    scenario = "classical_jssp_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "latency"
+
+        [night_classical_backend_coverage.records.measurements]
+        first_case_seconds = 4.144426676
+        load_seconds = 11.233893124
+        warm_case_seconds = 0.000613109
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    scenario = "classical_jssp_icn_fused"
+    status = "complete"
+    summary = "3 operations: 0.0 ms in GC, 645168 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 9.5236e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 8.1329e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 7.8726e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    scenario = "classical_jssp_icn_fused"
+    status = "complete"
+    summary = "3 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 2045
+        state_and_result_bytes = 2053
+        state_before_bytes = 2045
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3b71a000
+            pid = 159341
+            private_bytes = 0x2b582000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b71a000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x128c960df093
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3b6a9000
+            pid = 159341
+            private_bytes = 0x2b581000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b6a9000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x128c930231ea
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 2045
+        state_and_result_bytes = 2053
+        state_before_bytes = 2045
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3b71b000
+            pid = 159341
+            private_bytes = 0x2b583000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b71b000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x128c98c0e4ea
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3b71b000
+            pid = 159341
+            private_bytes = 0x2b583000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b71b000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x128c98340560
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 2045
+        state_and_result_bytes = 2053
+        state_before_bytes = 2045
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3b71b000
+            pid = 159341
+            private_bytes = 0x2b583000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b71b000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x128c99befb83
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3b71b000
+            pid = 159341
+            private_bytes = 0x2b583000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b71b000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x128c99444a82
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Snapshot covers the entire diagnostic process, not just the scenario.", "Only GC-managed memory is represented; native and device memory are excluded.", "Snapshot capture is intrusive and its duration is not baseline performance evidence."]
+    scenario = "classical_jssp_icn_fused"
+    status = "complete"
+    summary = "Redacted heap snapshot captured after verification. Covers GC-managed objects in the whole worker; native and device memory are excluded."
+    tool = "heap"
+
+        [[night_classical_backend_coverage.records.artifacts]]
+        bytes = 653778785
+        kind = "heap_snapshot"
+        redacted = true
+        removed_after_verification = true
+        sha256 = "c1de50a7c75f4c3273a607990fce3752080df3ebd7c34e9da1afa8856c4c61b0"
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Counts do not measure blocked duration or prove a scalability bottleneck.", "Only runtime-reported lock conflicts are covered; native locks and device barriers are not."]
+    scenario = "classical_jssp_icn_fused"
+    status = "complete"
+    summary = "3 operations: 0 observed lock conflicts. Counts do not measure waiting duration."
+    tool = "locks"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 8.1634e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 7.5972e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 7.5808e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    finding_count = 247
+    scenario = "classical_fjsp_direct"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+    tool_version = "0.12.3"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: promote_type(%1::Type, %2::Type)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, b::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, %269::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    finding_count = 164
+    scenario = "classical_fjsp_direct"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+    tool_version = "0.2.6"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function Colon() in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function iterate in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Allocating runtime call to \"jl_get_nth_field_checked\" in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing"""
+        rule_id = "allocation.potential"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "first complete scenario lifecycle in diagnostic process"
+    correctness = "passed"
+    finding_count = 1
+    scenario = "classical_fjsp_direct"
+    status = "complete"
+    summary = ""
+    tool = "snoopcompile"
+    tool_version = "3.2.9"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "InferenceTimingNode: 0.000014/4.023005 on Base.Compiler.Timings.ROOT() with 105 direct children"
+        rule_id = "compilation.inference"
+
+        [night_classical_backend_coverage.records.measurements]
+        inference_seconds = 4.023004591464996
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    measurement_scope = "fresh process; source loading; full lifecycle including preparation and verification"
+    scenario = "classical_fjsp_direct"
+    status = "complete"
+    summary = ""
+    tool = "latency"
+
+        [night_classical_backend_coverage.records.measurements]
+        first_case_seconds = 3.982819389
+        load_seconds = 8.820530299
+        warm_case_seconds = 0.000550703
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    scenario = "classical_fjsp_direct"
+    status = "complete"
+    summary = "3 operations: 0.0 ms in GC, 645168 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 7.1331e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 6.9707e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 7.3706e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    scenario = "classical_fjsp_direct"
+    status = "complete"
+    summary = "3 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 2586
+        state_and_result_bytes = 2594
+        state_before_bytes = 2586
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3b27d000
+            pid = 160498
+            private_bytes = 0x2edae000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b27d000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12b238169307
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3b20c000
+            pid = 160498
+            private_bytes = 0x2edad000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b20c000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12b23532c746
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 2586
+        state_and_result_bytes = 2594
+        state_before_bytes = 2586
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3b27d000
+            pid = 160498
+            private_bytes = 0x2edae000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b27d000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12b23aa2060b
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3b27d000
+            pid = 160498
+            private_bytes = 0x2edae000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b27d000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12b23a2af68e
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 2586
+        state_and_result_bytes = 2594
+        state_before_bytes = 2586
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3b27d000
+            pid = 160498
+            private_bytes = 0x2edae000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b27d000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12b23b93276a
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3b27d000
+            pid = 160498
+            private_bytes = 0x2edae000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b27d000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12b23b207a77
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Snapshot covers the entire diagnostic process, not just the scenario.", "Only GC-managed memory is represented; native and device memory are excluded.", "Snapshot capture is intrusive and its duration is not baseline performance evidence."]
+    scenario = "classical_fjsp_direct"
+    status = "complete"
+    summary = "Redacted heap snapshot captured after verification. Covers GC-managed objects in the whole worker; native and device memory are excluded."
+    tool = "heap"
+
+        [[night_classical_backend_coverage.records.artifacts]]
+        bytes = 651803918
+        kind = "heap_snapshot"
+        redacted = true
+        removed_after_verification = true
+        sha256 = "7ff621423c9905bdc864c22c1b228e184168c093ce32534f5155952a0797e5f4"
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Counts do not measure blocked duration or prove a scalability bottleneck.", "Only runtime-reported lock conflicts are covered; native locks and device barriers are not."]
+    scenario = "classical_fjsp_direct"
+    status = "complete"
+    summary = "3 operations: 0 observed lock conflicts. Counts do not measure waiting duration."
+    tool = "locks"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 7.671e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 7.4083e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 7.1237e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    finding_count = 247
+    scenario = "classical_fjsp_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+    tool_version = "0.12.3"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: promote_type(%1::Type, %2::Type)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, b::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, %269::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    finding_count = 164
+    scenario = "classical_fjsp_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+    tool_version = "0.2.6"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function Colon() in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function iterate in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Allocating runtime call to \"jl_get_nth_field_checked\" in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing"""
+        rule_id = "allocation.potential"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "first complete scenario lifecycle in diagnostic process"
+    correctness = "passed"
+    finding_count = 1
+    scenario = "classical_fjsp_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "snoopcompile"
+    tool_version = "3.2.9"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "InferenceTimingNode: 0.000014/3.934291 on Base.Compiler.Timings.ROOT() with 105 direct children"
+        rule_id = "compilation.inference"
+
+        [night_classical_backend_coverage.records.measurements]
+        inference_seconds = 3.9342909455299377
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    measurement_scope = "fresh process; source loading; full lifecycle including preparation and verification"
+    scenario = "classical_fjsp_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "latency"
+
+        [night_classical_backend_coverage.records.measurements]
+        first_case_seconds = 4.108233475
+        load_seconds = 10.832959214
+        warm_case_seconds = 0.000586461
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    scenario = "classical_fjsp_icn_fused"
+    status = "complete"
+    summary = "3 operations: 0.0 ms in GC, 645168 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 7.1177e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 6.9086e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 6.8407e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    scenario = "classical_fjsp_icn_fused"
+    status = "complete"
+    summary = "3 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 2650
+        state_and_result_bytes = 2658
+        state_before_bytes = 2650
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3b57f000
+            pid = 161347
+            private_bytes = 0x2efd8000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b57f000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12d866c63b70
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3b50e000
+            pid = 161347
+            private_bytes = 0x2efd7000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b50e000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12d863ea5f6c
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 2650
+        state_and_result_bytes = 2658
+        state_before_bytes = 2650
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3b580000
+            pid = 161347
+            private_bytes = 0x2efd9000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b580000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12d86944f5fd
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3b580000
+            pid = 161347
+            private_bytes = 0x2efd9000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b580000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12d868cbff88
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 2650
+        state_and_result_bytes = 2658
+        state_before_bytes = 2650
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3b580000
+            pid = 161347
+            private_bytes = 0x2efd9000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b580000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12d86a3c3786
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3b580000
+            pid = 161347
+            private_bytes = 0x2efd9000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3b580000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12d869c33e28
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Snapshot covers the entire diagnostic process, not just the scenario.", "Only GC-managed memory is represented; native and device memory are excluded.", "Snapshot capture is intrusive and its duration is not baseline performance evidence."]
+    scenario = "classical_fjsp_icn_fused"
+    status = "complete"
+    summary = "Redacted heap snapshot captured after verification. Covers GC-managed objects in the whole worker; native and device memory are excluded."
+    tool = "heap"
+
+        [[night_classical_backend_coverage.records.artifacts]]
+        bytes = 653799207
+        kind = "heap_snapshot"
+        redacted = true
+        removed_after_verification = true
+        sha256 = "d8bec3917a52851734a8ed5bbf943e92c255a4e5a3d5870725b498a06a9bb74b"
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Counts do not measure blocked duration or prove a scalability bottleneck.", "Only runtime-reported lock conflicts are covered; native locks and device barriers are not."]
+    scenario = "classical_fjsp_icn_fused"
+    status = "complete"
+    summary = "3 operations: 0 observed lock conflicts. Counts do not measure waiting duration."
+    tool = "locks"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 7.3272e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 8.0168e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 215056
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 8.4577e-5
+        pause = 0
+        poolalloc = 2689
+        realloc = 0
+        recompile_time = 0.0
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    finding_count = 247
+    scenario = "classical_maintenance_direct"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+    tool_version = "0.12.3"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: promote_type(%1::Type, %2::Type)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, b::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, %269::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    finding_count = 164
+    scenario = "classical_maintenance_direct"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+    tool_version = "0.2.6"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function Colon() in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function iterate in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Allocating runtime call to \"jl_get_nth_field_checked\" in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing"""
+        rule_id = "allocation.potential"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "first complete scenario lifecycle in diagnostic process"
+    correctness = "passed"
+    finding_count = 1
+    scenario = "classical_maintenance_direct"
+    status = "complete"
+    summary = ""
+    tool = "snoopcompile"
+    tool_version = "3.2.9"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "InferenceTimingNode: 0.000014/6.059705 on Base.Compiler.Timings.ROOT() with 113 direct children"
+        rule_id = "compilation.inference"
+
+        [night_classical_backend_coverage.records.measurements]
+        inference_seconds = 6.059705018997192
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    measurement_scope = "fresh process; source loading; full lifecycle including preparation and verification"
+    scenario = "classical_maintenance_direct"
+    status = "complete"
+    summary = ""
+    tool = "latency"
+
+        [night_classical_backend_coverage.records.measurements]
+        first_case_seconds = 4.572686125
+        load_seconds = 9.805933691
+        warm_case_seconds = 0.000671801
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    scenario = "classical_maintenance_direct"
+    status = "complete"
+    summary = "3 operations: 0.0 ms in GC, 147504 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 49168
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 0.00018814
+        pause = 0
+        poolalloc = 1537
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 49168
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 0.000186898
+        pause = 0
+        poolalloc = 1537
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 49168
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 0.000192641
+        pause = 0
+        poolalloc = 1537
+        realloc = 0
+        recompile_time = 0.0
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    scenario = "classical_maintenance_direct"
+    status = "complete"
+    summary = "3 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 4561
+        state_and_result_bytes = 4569
+        state_before_bytes = 4561
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3ca0a000
+            pid = 162337
+            private_bytes = 0x2ddbb000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a6d0000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12fdcdf2eff0
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3ca0a000
+            pid = 162337
+            private_bytes = 0x2dd71000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a616000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12fdcb34f290
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 4561
+        state_and_result_bytes = 4569
+        state_before_bytes = 4561
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3ca0a000
+            pid = 162337
+            private_bytes = 0x2ddc3000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a6d8000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12fdd06e4df1
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3ca0a000
+            pid = 162337
+            private_bytes = 0x2ddc3000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a6d8000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12fdcff72f18
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 4561
+        state_and_result_bytes = 4569
+        state_before_bytes = 4561
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3ca0a000
+            pid = 162337
+            private_bytes = 0x2ddc3000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a6d8000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12fdd168202f
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3ca0a000
+            pid = 162337
+            private_bytes = 0x2ddc3000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a6d8000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x12fdd0f17038
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Snapshot covers the entire diagnostic process, not just the scenario.", "Only GC-managed memory is represented; native and device memory are excluded.", "Snapshot capture is intrusive and its duration is not baseline performance evidence."]
+    scenario = "classical_maintenance_direct"
+    status = "complete"
+    summary = "Redacted heap snapshot captured after verification. Covers GC-managed objects in the whole worker; native and device memory are excluded."
+    tool = "heap"
+
+        [[night_classical_backend_coverage.records.artifacts]]
+        bytes = 652401126
+        kind = "heap_snapshot"
+        redacted = true
+        removed_after_verification = true
+        sha256 = "f4b44c003f593860fb867db93e066354735bdfaf7a6c63b016b3fff764ae5eae"
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Counts do not measure blocked duration or prove a scalability bottleneck.", "Only runtime-reported lock conflicts are covered; native locks and device barriers are not."]
+    scenario = "classical_maintenance_direct"
+    status = "complete"
+    summary = "3 operations: 0 observed lock conflicts. Counts do not measure waiting duration."
+    tool = "locks"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 49168
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 0.000184844
+        pause = 0
+        poolalloc = 1537
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 49168
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 0.000187915
+        pause = 0
+        poolalloc = 1537
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 49168
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 0.000187804
+        pause = 0
+        poolalloc = 1537
+        realloc = 0
+        recompile_time = 0.0
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    finding_count = 247
+    scenario = "classical_maintenance_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+    tool_version = "0.12.3"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: promote_type(%1::Type, %2::Type)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, b::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+        [[night_classical_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: show(io::IOContext{IOBuffer}, %269::Any)::Any)"
+        rule_id = "inference.runtime_dispatch"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    finding_count = 164
+    scenario = "classical_maintenance_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+    tool_version = "0.2.6"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function Colon() in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Dynamic dispatch to function iterate in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing/Hexaly/src/Scori"""
+        rule_id = "allocation.potential"
+        [[night_classical_backend_coverage.records.findings]]
+        message = """Allocating runtime call to \"jl_get_nth_field_checked\" in /home/azzaare/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n  | for r in 1:d[\"vehicles\"]\n\nStacktrace:\n [1] residuals!(terms::Vector{Float64}, p::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionProblems.Problem, values::Vector{Int64}; atol::Float64, workspace::Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring.ScoreWorkspace)\n   @ Main.var\"##SharedCase#142\".HexalyReproduction.ReproductionScoring ~/Gits/Benchmarks-night-routing/Hexaly/src/Scoring.jl:197\n [2] residuals!\n   @ ~/Gits/Benchmarks-night-routing"""
+        rule_id = "allocation.potential"
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "first complete scenario lifecycle in diagnostic process"
+    correctness = "passed"
+    finding_count = 1
+    scenario = "classical_maintenance_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "snoopcompile"
+    tool_version = "3.2.9"
+
+        [[night_classical_backend_coverage.records.findings]]
+        message = "InferenceTimingNode: 0.000014/5.447904 on Base.Compiler.Timings.ROOT() with 113 direct children"
+        rule_id = "compilation.inference"
+
+        [night_classical_backend_coverage.records.measurements]
+        inference_seconds = 5.447904348373413
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    measurement_scope = "fresh process; source loading; full lifecycle including preparation and verification"
+    scenario = "classical_maintenance_icn_fused"
+    status = "complete"
+    summary = ""
+    tool = "latency"
+
+        [night_classical_backend_coverage.records.measurements]
+        first_case_seconds = 4.304261522
+        load_seconds = 10.216125858
+        warm_case_seconds = 0.000694424
+    [[night_classical_backend_coverage.records]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    scenario = "classical_maintenance_icn_fused"
+    status = "complete"
+    summary = "3 operations: 0.0 ms in GC, 147504 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 49168
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 0.000188994
+        pause = 0
+        poolalloc = 1537
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 49168
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 0.000189534
+        pause = 0
+        poolalloc = 1537
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 49168
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 0.00019137
+        pause = 0
+        poolalloc = 1537
+        realloc = 0
+        recompile_time = 0.0
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    scenario = "classical_maintenance_icn_fused"
+    status = "complete"
+    summary = "3 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 4625
+        state_and_result_bytes = 4633
+        state_before_bytes = 4625
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3852c000
+            pid = 163438
+            private_bytes = 0x2cc3b000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3852c000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x1322bf6eb94e
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x384bb000
+            pid = 163438
+            private_bytes = 0x2cc3a000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x384bb000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x1322bcb70674
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 4625
+        state_and_result_bytes = 4633
+        state_before_bytes = 4625
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3852c000
+            pid = 163438
+            private_bytes = 0x2cc3b000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3852c000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x1322c1d177a7
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3852c000
+            pid = 163438
+            private_bytes = 0x2cc3b000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3852c000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x1322c15bd783
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 4625
+        state_and_result_bytes = 4633
+        state_before_bytes = 4625
+
+            [night_classical_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3852c000
+            pid = 163438
+            private_bytes = 0x2cc3b000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3852c000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x1322c2d34110
+
+            [night_classical_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3852c000
+            pid = 163438
+            private_bytes = 0x2cc3b000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3852c000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x1322c251e1d8
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Snapshot covers the entire diagnostic process, not just the scenario.", "Only GC-managed memory is represented; native and device memory are excluded.", "Snapshot capture is intrusive and its duration is not baseline performance evidence."]
+    scenario = "classical_maintenance_icn_fused"
+    status = "complete"
+    summary = "Redacted heap snapshot captured after verification. Covers GC-managed objects in the whole worker; native and device memory are excluded."
+    tool = "heap"
+
+        [[night_classical_backend_coverage.records.artifacts]]
+        bytes = 654454651
+        kind = "heap_snapshot"
+        redacted = true
+        removed_after_verification = true
+        sha256 = "2818272973707a21217d0962e2548abcd7b2d20eb28584abc7cac6168c8de1d0"
+    [[night_classical_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    limitations = ["Counts do not measure blocked duration or prove a scalability bottleneck.", "Only runtime-reported lock conflicts are covered; native locks and device barriers are not."]
+    scenario = "classical_maintenance_icn_fused"
+    status = "complete"
+    summary = "3 operations: 0 observed lock conflicts. Counts do not measure waiting duration."
+    tool = "locks"
+
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 49168
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 0.000219023
+        pause = 0
+        poolalloc = 1537
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 49168
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 0.000187267
+        pause = 0
+        poolalloc = 1537
+        realloc = 0
+        recompile_time = 0.0
+        [[night_classical_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 49168
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 0.000199098
+        pause = 0
+        poolalloc = 1537
+        realloc = 0
+        recompile_time = 0.0
+
 [night_classical_resource_workspace]
 assertions = 10459
 limitations = ["384 callback calls per case; setup, bank generation and independent original verification excluded.", "Timings are operational with concurrent chats on disjoint cores; no controlled speedup claim.", "Fresh machine maps preserve historical Dict order; only task vectors are currently reused.", "Native HiGHS/JuMP allocation and licensed external solver performance are not measured by these callbacks.", "SnoopCompile lifecycle diagnostics exclude decoder generation during the scenario factory; factory inference requires its own observation."]
