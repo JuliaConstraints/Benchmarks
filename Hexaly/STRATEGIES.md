@@ -1,5 +1,202 @@
 # Experimental strategy panel
 
+## Additive Li-Lim route strategies
+
+The structured route panel adds **52 configurations (36 search profiles and 16
+cooperative MetaStrategist portfolios)** to the historical 496. It is specific
+to Li-Lim; it does not claim support for every classical family. Select it with
+`routing-panel`, `routing-search-panel` or `routing-meta-panel`. The bounds and
+future campaign settings are in
+[routing-panel.toml](../LiLim/config/routing-panel.toml).
+
+| Profiles | Implemented behavior |
+|---|---|
+| GES adaptations | Remove a short route; repair a complete-request bank; bounded one/two-request ejections; difficulty memory increases bounded ejection effort |
+| ALNS | Random, Shaw-related, worst-contribution, entire-route and paired-string destruction; regret-2/3 insertion; reward-adaptive destruction selection |
+| SISR adaptations | Adjacent strings closed over pickup/delivery partners; insertion blinks; separate periodic fleet-elimination attempts |
+| Route VND | Pair relocation, cross-route pair exchange and two-request repair chains; greedy, late or arc-attribute tabu acceptance; genuine partial/full request resets |
+| Diversity | Directed arc pheromone guidance/reinforcement; disjoint route inheritance from retained solutions followed by repair |
+| Guided neighborhoods | Existing sparse value-pair QUBO scopes, direct time-window slack explanations, bounded certified pair incompatibilities and a greedy clique fleet lower bound |
+| Cooperative portfolios | Actual typed MetaStrategist phases; independent owned CBLS states; validated solution and route pools; incumbent exchange at episode barriers; rotating or reward-adaptive roles |
+| RO recombination | HiGHS restricted route set partitioning through the public semantic meta-variable resolver; simplex/IPX/HiPO LPs, integral MIP reconstruction, restricted LP dual request priorities |
+
+These are bounded adaptations, **not exact implementations of the published
+GES/AGES, ALNS, SISR, ECACO or memetic protocols**. In particular, the short
+repair chain is not a general variable-depth search, and the pheromone variant
+is not a full ant-colony system. The direct slack explanation is not a newly
+trained ICN explanation network. QUBO input retains its provenance; the default
+bounded structural proxy is explicitly unlearned.
+
+Every admitted route solution passes the original validator and the actual
+configured error backend. Structured candidates enter the existing CBLS model
+as atomic original-successor MetaMoves. Incomplete request banks remain private
+repair states. The HiGHS master only optimizes collected feasible route columns;
+its bounds and duals do not certify the original complete problem. Pool columns
+retain pickup/delivery closure and exact original distances and resource limits.
+
+Sequence summaries cache fixed-order time propagation, load extrema and travel
+distance. Insertion feasibility uses concatenation without constructing a route
+per candidate. Accepted route changes rebuild affected caches using owned
+buffers; large routes use an explicit scan fallback beyond the cache cell cap.
+This is not a completely incremental ICN scorer: the original error backend and
+full validator still run at admission. Repair candidates, snapshots, pool
+maintenance and HiGHS model builds still allocate.
+
+At widths 1/2, roles rotate between episodes so a four-role recipe does not
+silently drop two or three algorithms for the entire trial. The adaptive recipe
+uses observed episode improvements with mandatory exploration. Workers never
+mutate each other's live solver state; pool sharing and the serial master happen
+after all lanes join. The master consumes the same wall deadline and receives a
+bounded slice and cumulative share; uninterruptible build/audit overhead can
+overrun a slice, and late candidates are discarded. No asynchronous exchange or
+thread migration is claimed.
+
+## Prepared 1/2/4 colleague matrix
+
+The current requested comparison is **60 seconds, widths 1/2/4, two seeds per
+width**: six trials per configuration and original instance. Implementation
+qualification has not launched that comparison. The future explicit command is:
+
+```sh
+julia --startup-file=no scripts/colleague.jl lilim-matrix --instances=lc101,lr101,lrc101 --methods=cbls_icn,rp_ges2_late,rp_alns_adaptive_regret3,rp_sisr_b15_regret3,rp_vnd_tabu,rp_meta_pool_ipx_late,ortools_native,hexaly_native --budget=60 --widths=1,2,4 --seeds=41,42 --cpu-slots=4 --output=LiLim/results/route-matrix-60s
+```
+
+Preflight must succeed first. Existing installations are reused and unavailable
+optional solvers are skipped. The existing `ortools_native` Li-Lim baseline is
+RoutingModel GLS with one internal search thread; its allocated width does not
+turn it into a multicore search. OR-Tools portfolio and CP-SAT functional checks
+remain in preflight, with their existing original-data restrictions.
+
+The matrix assigns **disjoint CPU masks**. The colleague's host defaults to
+**four CPU slots**: widths 1+2 can overlap, then width 4 runs alone, with two
+seeds at each width. Only the local machine may opt into `--cpu-slots=8`;
+with at least seven allocated CPUs, 1+2+4 runs can overlap there. Smaller hosts
+use successive waves or reject an impossible width. Linux selects one CPU per
+physical core before considering SMT siblings. Rendering waits for every
+solve to finish. Resume verifies the matrix plan and preserves sealed child
+trials. Concurrent processes share cache and memory bandwidth, so these results
+must be labelled as concurrent local comparisons; they are not interchangeable
+with exclusive vendor timings. For exclusive measurements, use `lilim` at each
+width sequentially.
+
+The complete new panel across all 354 originals schedules **110,448 trials**.
+Ideal scheduling needs about **51.1 days** on the four-slot colleague host,
+or **25.6 days** with local 1+2+4 overlap, at 60 seconds before warmup,
+initialization, reports and interruptions. Start
+with an explicit small selection; keep the larger grid prepared for later.
+
+The colleague's fixes are covered by regression checks: native solver report
+rows accept structured values; the Hexaly availability decision uses `<-`;
+the PDPTW model uses `1000.0`, `serviceStart` and `routeLength`. These source
+checks do not replace execution on a licensed Hexaly Optimizer 15.0 host.
+
+## Structured routing profiling
+
+`build_catalog(scope=:routing_kernels)` provides insertion, insertion enumeration, fresh/reused cache,
+repair, ejection and repeated route-pool admission allocation profiles. `scope=:routing_strategies` accepts
+explicit `rp_` IDs and profiles the actual configured error backend. Search
+profiles use eight steps on a tiny original model; MetaStrategist profiles use
+four real cooperative episodes of at most four search steps each, including the semantic route-pool resolver
+where selected. These are bounded functional/allocation diagnostics, not
+Li-Lim performance or scaling results. See
+[routing-qualification.toml](../perf/routing-qualification.toml) for verified
+checks and limits.
+
+Before promoting a new routing configuration, run the bounded qualification in
+the frozen solver environment with two workers:
+
+```sh
+OPENBLAS_NUM_THREADS=1 julia --startup-file=no --threads=2 --gcthreads=1 \
+  --project="$HOME/.julia/dev/JuliaConstraintsHandoff/ConstraintModels/perf/pdptw" \
+  perf/routing_perfcheck.jl --width=2 --seconds=30 --methods=routing-panel \
+  --output=/tmp/routing-perfcheck.toml
+```
+
+Select explicit IDs for an incremental change. Restrict CPU affinity to two
+physical cores when the operating system supports it. No package is installed
+by this command. It locates an existing PerfChecker scenario runtime; an
+explicit `--runtime=/path/to/PerfChecker/src/scenario_runtime.jl` is also accepted.
+Each observation uses fresh owned state and the original validator. The search
+cap is 40 steps per worker; the cooperative cap is eight episodes of eight
+steps, covering reset thresholds, role rotation, adaptive allocation and the
+periodic HiGHS resolver. The 30-second operation cap is a maximum, not a promise
+that every small fixture runs for 30 seconds. Warmup is separate.
+
+The installed PerfChecker 1.0 native `profile_alloc` scenario collector captures
+every allocation stack. On this workload its postprocessing exhausted the
+diagnostic resource budget before the ICN decoder correction. The same native
+API subsequently completed a targeted two-worker HiGHS/IPX portfolio CPU and
+allocation qualification. For broad screening, the bounded command uses PerfChecker's
+actual dependency-free scenario lifecycle with direct Julia allocation sampling
+at 0.001 and aggregates only the top application frames. It reports exact total
+allocated bytes/object counts from separate observations and observed GC time;
+sampled frame weights are not exact allocation percentages. This fallback does
+not substitute for a native full-stack collector result. Full MetaStrategist
+observations include lane construction; prepared search observations do not.
+Timing, search quality, long-run GC and multicore scaling require later evidence.
+
+An explicit `--instance=/path/to/lc101.txt` profiles the complete original-instance
+pipeline, including import, insertion, solver construction, search and final
+audit. Its independent byte and object-count observations have separate search
+trajectories under the same cap. Total GC includes the pipeline's forced
+precollection; `search_gc_seconds` excludes it and the final audit. This mode is
+an allocation diagnostic, not a comparative campaign. ICN banks are verified by
+content hash on every preparation, while only pure compiled decoder functions
+are shared. Mutable learning networks are absent from score closures; counters
+and input/error buffers remain owned by each lane.
+
+Candidate enumeration keeps exact evaluation/blink counts in machine integers
+and publishes them on every exit, including deadline and candidate-cap exits.
+Insertion alternatives use a concrete tuple layout. Cooperative workers repeat
+bounded search chunks until their common episode deadline, then join at the
+existing sharing barrier. Fixed-step diagnostics explicitly disable this slice
+filling so before/after allocation observations retain the same work cap. These
+changes do not establish 100% useful CPU utilization: sharing, validation, GC and
+serial restricted masters still consume time and require separate measurement.
+Identical incumbent proposals are rejected before allocating route-validation
+and successor snapshots; their late-history update is preserved. Exact unchanged
+proposal counts use a lane-owned integer and are published at episode boundaries,
+so repeated no-op attempts cannot be mistaken for useful search progress. Tabu
+arc sets are owned and reused per lane; profiles without tabu skip those sets.
+
+### Qualification recorded on 2026-10-08
+
+All **52 new configurations passed** the two-worker original-model allocation
+diagnostic. The structured route tests passed 4,206 assertions, the ICN route
+checks passed 30,258, and the historical hybrid checks passed 1,483. Existing
+OR-Tools 9.14.6206 also passed 39 original-validator assertions. Hexaly execution
+still requires the colleague's licensed host.
+
+For the same small fixed-work adaptive portfolio fixture (two workers, eight
+episodes of eight steps), one allocation observation fell from **74,568,944 to
+1,103,784 bytes**, and from 1,373,117 to 19,460 objects. Corrections removed
+retained ICN learning networks, batched hot counter updates, reused route
+summaries and tabu sets, and rejected unchanged proposals before snapshot
+construction. These observations establish neither a speedup nor solution
+quality on an original instance.
+
+The final original LC101 diagnostics used two physical cores, a 30-second search
+cap, and one GC, BLAS and native HiGHS thread:
+
+| Configuration | Allocated bytes, whole pipeline | Search GC, seconds | Mean active CPUs, operational observation |
+|---|---:|---:|---:|
+| `rp_meta_adaptive_late` | 8,355,187,176 | 1.061 | 1.923 of 2 |
+| `rp_meta_pool_ipx_late` | 24,827,329,192 | 5.252 | 1.768 of 2 |
+
+Both passed the original validator. Neither byte-count observation recorded an
+accepted original-variable MetaMove; high CPU occupation therefore cannot be
+read as useful improvement. Many unchanged proposals were counted explicitly.
+Allocation sampling still identifies ejection/route-copy work, exchange and
+inheritance, and candidate successor construction. Those sites remain
+optimization work; **the original-instance allocation/GC problem is not solved**.
+Byte and object totals come from independent fresh observations, with all
+source, environment and instance hashes saved in the qualification file. Other
+chats were allowed to remain active, so these are allocation and operational
+diagnostics rather than controlled scaling comparisons. No 60-second comparative
+matrix was launched by this qualification.
+
+## Historical extended panel
+
 The kit provides **496 distinct opt-in configurations** in addition to the
 historical methods. It shares the catalogue between Li-Lim and the discrete
 classical runner. Historical defaults and selectors remain unchanged.

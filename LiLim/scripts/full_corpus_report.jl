@@ -139,6 +139,11 @@ function method_summaries(cells, method)
     infeasible_fraction = Float64[]
     tabu_entries = Int[]
     reset_counts = Int[]
+    paired_resets = Int[]
+    paired_moves = Int[]
+    ejected_requests = Int[]
+    tabu_hits = Int[]
+    unchanged_proposals = Int[]
     for id in INSTANCE_IDS, seed in SEEDS
         path = joinpath(CAMPAIGN, "trials", id * "__" * method * "__seed-" * string(seed) * ".toml")
         isfile(path) || continue
@@ -154,6 +159,11 @@ function method_summaries(cells, method)
             haskey(trace,"max_tabu_entries") && push!(tabu_entries,trace["max_tabu_entries"])
             get(trace,"sequence_or_exhaustion_resets",-1)>=0 &&
                 push!(reset_counts,trace["sequence_or_exhaustion_resets"])
+            haskey(trace,"completed_resets") && push!(paired_resets,trace["completed_resets"])
+            haskey(trace,"accepted_meta_moves") && push!(paired_moves,trace["accepted_meta_moves"])
+            haskey(trace,"ejected_requests") && push!(ejected_requests,trace["ejected_requests"])
+            haskey(trace,"tabu_hits") && push!(tabu_hits,trace["tabu_hits"])
+            haskey(trace,"unchanged_proposals") && push!(unchanged_proposals,trace["unchanged_proposals"])
         end
     end
     Dict{String,Any}(
@@ -174,7 +184,12 @@ function method_summaries(cells, method)
         "mean_whole_trial_gc_seconds"=>(isempty(whole_trial_gc_seconds) ? -1.0 : mean(whole_trial_gc_seconds)),
         "mean_infeasible_step_fraction"=>(isempty(infeasible_fraction) ? -1.0 : mean(infeasible_fraction)),
         "max_observed_tabu_entries"=>maximum(tabu_entries;init=-1),
-        "mean_sequence_or_exhaustion_resets"=>(isempty(reset_counts) ? -1.0 : mean(reset_counts)))
+        "mean_sequence_or_exhaustion_resets"=>(isempty(reset_counts) ? -1.0 : mean(reset_counts)),
+        "mean_completed_paired_resets"=>(isempty(paired_resets) ? -1.0 : mean(paired_resets)),
+        "mean_accepted_route_meta_moves"=>(isempty(paired_moves) ? -1.0 : mean(paired_moves)),
+        "mean_ejected_requests"=>(isempty(ejected_requests) ? -1.0 : mean(ejected_requests)),
+        "mean_tabu_hits"=>(isempty(tabu_hits) ? -1.0 : mean(tabu_hits)),
+        "mean_unchanged_proposals"=>(isempty(unchanged_proposals) ? -1.0 : mean(unchanged_proposals)))
 end
 
 function size_summaries(cells, methods)
@@ -282,6 +297,10 @@ function write_report(path, summary)
             config=get(IDENTITY,"strategy_variants",Dict())
             variant=findfirst(row->row["method"]==method,get(config,"variants",Any[]))
             description=get(descriptions, method, "Profile description unavailable; inspect the frozen source manifest.")
+            if startswith(method,"rp_")
+                description="Original-feasible paired-route CBLS MetaMoves with the actual configured error scorer. " *
+                    (startswith(method,"rp_meta_") ? "Typed MetaStrategist cooperative episode barriers, rotating/adaptive roles and validated pools; bounded semantic HiGHS set partitioning where configured." : "Bounded route strategy; inspect the frozen routing panel and lane counters.")
+            end
             if variant!==nothing
                 row=config["variants"][variant]
                 description="Recovered learned ICN scorer with existing policy `$(row["policy"])`; " *
@@ -298,7 +317,7 @@ function write_report(path, summary)
                 showvalue(key;percent=false)=row[key]<0 ? "—" : @sprintf("%.3f%s",row[key]*(percent ? 100 : 1),percent ? "%" : "")
                 println(io,"| `",row["method"],"` | ",showvalue("mean_search_gc_seconds")," | ",showvalue("mean_whole_trial_gc_seconds")," | ",showvalue("mean_infeasible_step_fraction";percent=true)," | ",row["max_observed_tabu_entries"]<0 ? "—" : row["max_observed_tabu_entries"]," | ",showvalue("mean_sequence_or_exhaustion_resets")," |")
             end
-            println(io,"\nNative universal-sequence and exhaustion reset counts are observable. Random/tabu-triggered counts are unavailable and shown as a dash; they are never inferred. GC counters cover all Julia lanes in the process: search-phase and whole-trial measurements are reported separately. GHOST's whole-trial measurement includes parsing, common insertion, model construction, search and original validation; it is not a search-only measurement. Infeasible-step share is a lane average. Exact policy settings, allocations and source hashes are frozen in the manifest and lane traces.\n")
+            println(io,"\nNative universal-sequence and exhaustion reset counts are observable. Native random/tabu-triggered counts are unavailable and shown as a dash; they are never inferred. Structured route controllers record actual completed paired-request resets, accepted route MetaMoves, ejected requests and tabu hits in the machine-readable summary. Their incomplete repair banks are isolated and are never original-model incumbents. GC counters cover all Julia lanes in the process: search-phase and whole-trial measurements are reported separately. GHOST's whole-trial measurement includes parsing, common insertion, model construction, search and original validation; it is not a search-only measurement. Infeasible-step share is a lane average. Exact policy settings, allocations and source hashes are frozen in the manifest and lane traces.\n")
         end
         println(io, "\nA fleet gap of zero means the fleet matches the SINTEF reference; a negative gap is better. Best, mean-run and median-run fleet gaps are averaged per instance so large instances do not dominate. Per-instance output includes the best run, one actual median-ranked run, mean, standard deviation and full min/max spread across feasible seeds. The distance gap is shown only for instance cells whose median-ranked run uses the BKS fleet; distance remains a secondary objective. BKS time is conditional on hits, and misses are censored at the campaign budget in the attainment plot.\n")
         println(io, "## Results by problem size\n\n| Requests | Profile | BKS hits / planned | Mean best fleet gap | Mean run fleet gap | Mean median-run fleet gap | Median-run distance gap at BKS fleet |")

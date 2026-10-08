@@ -1,5 +1,6 @@
 using TOML, Statistics, CairoMakie, Random
 include("../src/StrategyPanel.jl")
+include("../src/RoutingPanel.jl")
 include("../src/PanelPlotStyles.jl")
 
 length(ARGS) in (2, 3) || error("usage: full_corpus_plots.jl SUMMARY.toml OUTPUT_DIR [exact|xkcd]")
@@ -37,7 +38,7 @@ const STYLE_ORDER = vcat(["cbls_naive","cbls_icn","cbls_icn_fused_scalar","cbls_
     [v["method"] for v in STRATEGY_CONFIG["variants"][1:21]],
     ["cbls_strategy_diverse","mixed_strategy_diverse"],
     [v["method"] for v in STRATEGY_CONFIG["variants"][22:end]],
-    sort!(setdiff(collect(keys(STRATEGY_CONFIG["portfolios"])),["cbls_strategy_diverse","mixed_strategy_diverse"])),["ghost_icn"],StrategyPanel.methods())
+    sort!(setdiff(collect(keys(STRATEGY_CONFIG["portfolios"])),["cbls_strategy_diverse","mixed_strategy_diverse"])),["ghost_icn"],StrategyPanel.methods(),RoutingPanel.methods())
 const PROFILE_STYLES = let
     profiles = filter(!=("hexaly_native"), METHODS)
     all(m->m in STYLE_ORDER,profiles) || error("unknown solver plot style")
@@ -77,7 +78,8 @@ json(value::Tuple) = json(collect(value))
 json(value::AbstractDict) = "{" * join((json(string(key)) * ":" * json(item) for (key, item) in value), ",") * "}"
 json(value) = error("unsupported dashboard value: $(typeof(value))")
 
-solver_family(method) = startswith(method,"xp_meta_") ? "MetaStrategist" :
+solver_family(method) = startswith(method,"xp_meta_") || startswith(method,"rp_meta_") ? "MetaStrategist" :
+    startswith(method,"rp_") ? "Structured CBLS" :
     startswith(method,"xp_hybrid_") ? "Hybrid" : startswith(method,"xp_qubo_") ? "QUBO-guided CBLS" :
     startswith(method, "hybrid_") ? "Hybrid" :
     startswith(method, "highs_") ? "HiGHS" : startswith(method, "mixed_") ? "MetaStrategist" :

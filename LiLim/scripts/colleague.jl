@@ -30,7 +30,7 @@ function options(args)
     for arg in args
         startswith(arg,"--") && occursin('=',arg) || error("use --name=value")
         key,value = split(arg[3:end],'=';limit=2)
-        key in ("threads","cpus","budget","methods","instances","seeds","hexaly","output","resume","ortools","missing-solvers","prepare","qualify","gurobi","cplex","cpoptimizer","java") || error("unknown option: $key")
+        key in ("threads","cpus","budget","methods","instances","seeds","hexaly","output","resume","ortools","missing-solvers","prepare","qualify","gurobi","cplex","cpoptimizer","java","widths","cpu-slots") || error("unknown option: $key")
         haskey(result,key) && error("duplicate option: $key")
         result[key] = value
     end
@@ -221,9 +221,9 @@ function data_setup()
     println("All 354 official instances and six archives verified.")
 end
 
-const CORE_QUALIFICATION_TESTS = ("cohort_checkout.jl","hexaly_preflight.jl","ghost_frontend.jl","native_solvers.jl","campaign_catalog.jl","competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl","ortools_parallel.jl","strategy_panel.jl","ro_fragments.jl")
+const CORE_QUALIFICATION_TESTS = ("cohort_checkout.jl","hexaly_preflight.jl","ghost_frontend.jl","native_solvers.jl","campaign_catalog.jl","competitors.jl","hybrid.jl","icn_resources.jl","ortools_native.jl","ortools_parallel.jl","strategy_panel.jl","ro_fragments.jl","structured_routing.jl")
 function qualification_width(opts,test)
-    test in ("ortools_parallel.jl","icn_resources.jl","classical_strategy_panel") || return 1
+    test in ("ortools_parallel.jl","icn_resources.jl","classical_strategy_panel","structured_routing.jl") || return 1
     cpus=haskey(opts,"cpus") ? parse.(Int,split(opts["cpus"],',')) : topology()
     min(2,length(cpus))
 end
@@ -247,6 +247,15 @@ function qualify(opts; require_hexaly=false)
     launch(addenv(launcher(opts,joinpath(ROOT,"LiLim/test/hexaly_native.jl"),String[];threads=1),
         "HEXALY_EXECUTABLE"=>get(opts,"hexaly",get(ENV,"HEXALY_EXECUTABLE","hexaly")),
         "JULIACONSTRAINTS_REQUIRE_HEXALY"=>(require_hexaly ? "1" : "0")))
+end
+
+"Native report rows accept structured evidence, not only strings."
+function available_solver_record(name,identity;fingerprint=digest)
+    row=Dict{String,Any}("status"=>"available","reason"=>"installation_probe_passed")
+    name=="hexaly" && (row["version"]="15.0";row["executable_sha256"]=fingerprint(identity))
+    name=="ortools" && (row["version"]=identity["ortools_version"])
+    name=="timefold" && (row["version"]=identity["version"])
+    row
 end
 
 "Inspect every published benchmark and save a complete report even when a solver is absent."
@@ -300,31 +309,28 @@ function preflight(opts)
             ("ghost",()->NativeSolvers.resolve_ghost(;root=ROOT)))
         if name=="hexaly" && !qualify_models
             path=NativeSolvers.executable(get(opts,"hexaly",get(ENV,"HEXALY_EXECUTABLE","hexaly")))
-            solvers[name]=Dict("status"=>path===nothing ? "skipped" : "detected_unqualified",
+            solvers[name]=Dict{String,Any}("status"=>path===nothing ? "skipped" : "detected_unqualified",
                 "reason"=>path===nothing ? "executable_not_found" : "license_probe_not_run")
             continue
         end
         try
             identity = resolver()
-            solvers[name] = Dict("status"=>"available","reason"=>"installation_probe_passed")
-            name=="hexaly" && (solvers[name]["version"]="15.0"; solvers[name]["executable_sha256"]=digest(identity))
-            name=="ortools" && (solvers[name]["version"]=identity["ortools_version"])
-            name=="timefold" && (solvers[name]["version"]=identity["version"])
+            solvers[name] = available_solver_record(name,identity)
         catch e
-            solvers[name] = Dict("status"=>e isa NativeSolvers.UnavailableSolver ? "skipped" : "failed",
+            solvers[name] = Dict{String,Any}("status"=>e isa NativeSolvers.UnavailableSolver ? "skipped" : "failed",
                 "reason"=>e isa NativeSolvers.UnavailableSolver ? e.reason : "installation_probe_failed")
         end
     end
     juls_path = joinpath(homedir(),".julia/dev/JuLS/Project.toml")
-    solvers["juls"] = Dict("status"=>isfile(juls_path) ? "detected_unqualified" : "skipped",
+    solvers["juls"] = Dict{String,Any}("status"=>isfile(juls_path) ? "detected_unqualified" : "skipped",
         "reason"=>isfile(juls_path) ? "historical_adapter_not_in_frozen_public_cohort" : "package_not_detected")
     for (name,default) in (("gurobi","gurobi_cl"),("cplex","cplex"),("cpoptimizer","cpoptimizer"))
         path = NativeSolvers.executable(get(opts,name,default))
-        solvers[name] = Dict("status"=>path===nothing ? "not_detected" : "detected_unqualified",
+        solvers[name] = Dict{String,Any}("status"=>path===nothing ? "not_detected" : "detected_unqualified",
             "reason"=>path===nothing ? "CLI_not_found_API_installation_not_ruled_out" : "license_and_original_models_not_qualified")
     end
     for name in ("cbls","local_search","icn","metastrategist","highs")
-        solvers[name] = Dict("status"=>environment_ok ? "prepared" : "blocked","reason"=>"original_model_tests_required")
+        solvers[name] = Dict{String,Any}("status"=>environment_ok ? "prepared" : "blocked","reason"=>"original_model_tests_required")
     end
     solvers["ortools"]["profiles"]=Dict{String,Any}(name=>Dict{String,Any}("status"=>"not_run","reason"=>"functional_qualification_required")
         for name in ("routing_gls","routing_portfolio","cpsat"))
@@ -438,7 +444,7 @@ function report(opts)
     end
 end
 
-function campaign(opts)
+function campaign_arguments(opts)
     haskey(opts,"output") || error("run requires --output=NEW_DIR (existing campaigns need --resume=true)")
     width = parse(Int,get(opts,"threads","1"))
     methods = "panel"
@@ -447,8 +453,65 @@ function campaign(opts)
         "--seeds="*get(opts,"seeds","41,42,43"),"--ortools="*get(opts,"ortools",PYTHON),"--missing-solvers="*get(opts,"missing-solvers","skip")]
     haskey(opts,"hexaly") && push!(args,"--hexaly="*opts["hexaly"])
     get(opts,"resume","false")=="true" && push!(args,"--resume")
+    args
+end
+function campaign(opts)
+    args=campaign_arguments(opts)
     launch(launcher(opts,joinpath(ROOT,"LiLim/scripts/full_corpus_campaign.jl"),args))
     report(opts)
+end
+
+"Disjoint CPU masks and a hard total slot cap; small hosts get successive waves."
+function matrix_waves(cpus,widths=[1,2,4];slots=4)
+    allunique(cpus) && !isempty(cpus) && all(>=(0),cpus) || throw(ArgumentError("distinct allocated CPU IDs required"))
+    allunique(widths) && !isempty(widths) && all(w->w in (1,2,4),widths) || throw(ArgumentError("matrix widths are 1/2/4"))
+    1<=slots<=8 || throw(ArgumentError("CPU slot cap must be between 1 and 8"))
+    capacity=min(slots,length(cpus));maximum(widths)<=capacity || throw(ArgumentError("insufficient allocated CPUs"))
+    waves=Vector{NamedTuple}[];wave=NamedTuple[];used=0
+    for width in widths
+        if used+width>capacity;push!(waves,wave);wave=NamedTuple[];used=0;end
+        push!(wave,(;width,cpus=cpus[used+1:used+width]));used+=width
+    end
+    isempty(wave) || push!(waves,wave)
+    waves
+end
+
+"Explicit future campaign command; reports/rendering run only after every solve has joined."
+function campaign_matrix(opts)
+    all(k->haskey(opts,k),("output","instances","methods")) || error("matrix requires explicit --output, --instances and --methods")
+    widths=parse.(Int,split(get(opts,"widths","1,2,4"),','));slots=parse(Int,get(opts,"cpu-slots","4"))
+    cpus=haskey(opts,"cpus") ? parse.(Int,split(opts["cpus"],',')) : topology()
+    waves=matrix_waves(cpus,widths;slots)
+    output=abspath(opts["output"]);resume=get(opts,"resume","false")=="true"
+    ispath(output) && !resume && error("Existing matrix preserved; use --resume=true")
+    plan=Dict("schema"=>"li-lim-worker-matrix/1","widths"=>widths,"seeds"=>parse.(Int,split(get(opts,"seeds","41,42"),',')),
+        "budget_seconds"=>parse(Float64,get(opts,"budget","60")),"instances"=>opts["instances"],"methods"=>opts["methods"],
+        "cpu_slot_cap"=>slots,"waves"=>[[Dict("width"=>job.width,"cpus"=>job.cpus) for job in wave] for wave in waves],
+        "comparison_scope"=>"concurrent disjoint masks; shared cache and memory bandwidth can still affect timings")
+    path=joinpath(output,"matrix-plan.toml")
+    isfile(path) && TOML.parsefile(path)!=plan && error("Matrix identity changed; sealed trials are preserved")
+    mkpath(output);isfile(path) || open(io->TOML.print(io,plan;sorted=true),path,"w")
+    children=Dict{String,String}[]
+    for wave in waves
+        running=Pair{Dict{String,String},Any}[]
+        for job in wave
+            child=Dict(k=>v for (k,v) in opts if !(k in ("widths","cpu-slots")))
+            child["threads"]=string(job.width);child["cpus"]=join(job.cpus,',')
+            child["seeds"]=get(opts,"seeds","41,42");child["budget"]=get(opts,"budget","60")
+            child["output"]=joinpath(output,"workers-"*string(job.width))
+            push!(children,child)
+            manifest=joinpath(child["output"],"manifest.toml")
+            isfile(manifest) && get(TOML.parsefile(manifest),"complete",false) && continue
+            child["resume"]=isdir(child["output"]) ? "true" : "false"
+            command=launcher(child,joinpath(ROOT,"LiLim/scripts/full_corpus_campaign.jl"),campaign_arguments(child))
+            println("Starting ",job.width," workers on CPU IDs ",join(job.cpus,','),"; two default repetition seeds.")
+            push!(running,child=>run(command;wait=false))
+        end
+        # Join the entire wave even on failure, preserving every child's sealed trials.
+        for (_,process) in running;wait(process);end
+        all(pair->success(last(pair)),running) || error("A matrix child failed; sealed trials preserved, later waves deferred")
+    end
+    for child in children;report(child);end
 end
 
 function export_results(opts)

@@ -1,5 +1,6 @@
 using PerfChecker
 include("../LiLim/src/StrategyPanel.jl")
+include("../LiLim/src/RoutingPanel.jl")
 
 "Explicit PerfChecker scenarios; the full 496-method grid is opt-in."
 function build_catalog(;scope=:kernels,methods=String[],width=1,collectors=[:profile,:profile_alloc])
@@ -32,8 +33,32 @@ function build_catalog(;scope=:kernels,methods=String[],width=1,collectors=[:pro
                 parameters=Dict("method"=>id,"width"=>width,"steps"=>256,"seed"=>41),
                 fixtures,collectors,repeatable=true))
         end
+    elseif scope in (:routing_kernels,:routing_strategies)
+        source=joinpath(@__DIR__,"routing_scenarios.jl")
+        append!(fixtures,[joinpath(@__DIR__,"../LiLim/src",f) for f in
+            ("StructuredRouting.jl","RoutingPanel.jl","Pilot.jl","MetaRepair.jl","Hybrid.jl","ICNScoring.jl","ResourceExperiment.jl","PlatformResources.jl")])
+        push!(fixtures,RoutingPanel.CONFIG_PATH)
+        if scope==:routing_kernels
+            for operation in ("insertion","insertion_options","cache","cache_reuse","repair","ejection","pool_reuse","duplicate_admission","arc_reuse")
+                push!(scenarios,ScenarioSpec("routing_"*operation;source,factory="routing_kernel_case",
+                    implementation="paired-original-sequences-v1",parameters=Dict("operation"=>operation,
+                        "repetitions"=>operation in ("insertion","duplicate_admission","arc_reuse") ? 1024 :
+                            operation in ("insertion_options","cache","cache_reuse","pool_reuse") ? 128 : 8),
+                    fixtures,collectors,repeatable=true))
+            end
+        else
+            isempty(methods) && throw(ArgumentError("explicit routing methods required"))
+            for id in RoutingPanel.expand(methods)
+                haskey(RoutingPanel.CATALOG,id) || throw(ArgumentError("unknown routing strategy"))
+                meta=RoutingPanel.CATALOG[id].category==:meta
+                push!(scenarios,ScenarioSpec(id*"_w$width";source,factory=meta ? "routing_meta_case" : "routing_solver_case",
+                    implementation=meta ? "typed-cooperative-routing-four-episodes-v1" : "configured-error-routing-fixed-steps-v1",
+                    parameters=Dict("method"=>id,"width"=>width,"steps"=>meta ? 4 : 8),
+                    fixtures,collectors,repeatable=true))
+            end
+        end
     else
-        throw(ArgumentError("scope must be kernels or strategies"))
+        throw(ArgumentError("scope must be kernels, strategies, routing_kernels or routing_strategies"))
     end
     ScenarioCatalog(normpath(joinpath(@__DIR__,"..")),scenarios)
 end
