@@ -6,6 +6,7 @@ include("../src/Solvers.jl")
 include("fixtures.jl")
 using .ReproductionProblems,.ReproductionReaders,.ReproductionScoring,.ReproductionSolvers
 const CASES=fixtures()
+include("objective_workspaces.jl")
 @test isempty(Test.detect_ambiguities(ReproductionScoring;recursive=false))
 
 # Preserve the allocating scheduling/resource algorithm as a differential oracle.

@@ -2,6 +2,7 @@ module ReproductionScoring
 using ..ReproductionProblems
 using TOML,SHA
 import CompositionalNetworks as CN
+include("ObjectiveKernels.jl")
 export Backend,prepare_backend,error_value,objective_value,residuals!,search_objective_value
 
 mutable struct ScoreWorkspace
@@ -20,12 +21,13 @@ mutable struct ScoreWorkspace
     machine_cache_next::Int
     resource_load::Matrix{Float64}
     tolerance::Float64
+    objective_workspace::Union{Nothing,ReproductionObjectives.Workspace}
 end
 function ScoreWorkspace(p)
     ds=UnitRange{Int}[Int(first(r)):Int(last(r)) for r in domains(p)]
     labels=Int[];seen=Set{Int}();sizehint!(labels,length(ds));sizehint!(seen,length(ds))
     ScoreWorkspace(p,ds,zeros(Int,length(ds)),labels,seen,Int[],Int[],Int[],Vector{Int}[],
-        Dict{Int,Vector{Int}}(),Int[],Tuple{Vector{Int},Dict{Int,Vector{Int}}}[],1,zeros(0,0),0.)
+        Dict{Int,Vector{Int}}(),Int[],Tuple{Vector{Int},Dict{Int,Vector{Int}}}[],1,zeros(0,0),0.,nothing)
 end
 packing_terms!(terms,x,labels,weights,capacity,w::ScoreWorkspace)=
     packing_terms!(terms,x,labels,weights,capacity,w.tolerance)
@@ -344,6 +346,26 @@ end
 
 "Search-only objective kernels; the independent original validator still audits every incumbent."
 function search_objective_value(b,p,values)::Float64
+    if p.family in (:tsp,:qap,:cvrp,:cvrptw,:top,:mssc,:car_sequencing,:maintenance)
+        w=workspace!(b,p)
+        objective_domains_current(w,p) && integer_values!(w,values) || return objective_value(p,values)
+        d=p.data;x=w.integers;f=p.family;state=objective_workspace!(w)
+        stored=if f==:tsp
+            ReproductionObjectives.tsp!(state,x,d["distance"])
+        elseif f==:qap
+            ReproductionObjectives.qap!(state,x,d["flow"],d["distance"])
+        elseif f in (:cvrp,:cvrptw,:top)
+            ReproductionObjectives.route_value!(state,f,x,d["distance"],d["vehicles"],get(d,"prize",nothing))
+        elseif f==:mssc
+            ReproductionObjectives.cluster_value!(state,x,d["coordinates"],d["clusters"])
+        elseif f==:car_sequencing
+            ReproductionObjectives.cars!(state,x,d["history"],d["colors"],d["options"],d["window"],d["limit"],d["priority"],d["objective_order"])
+        else
+            ReproductionObjectives.maintenance_value!(state,x,d["duration"],d["risk_by_start"],
+                d["scenario_count"],d["horizon"],d["quantile"],d["alpha"])
+        end
+        return stored ? state.value : objective_value(p,values)
+    end
     p.family in (:bpp,:bppc,:vbp,:salbp,:rcpsp,:jssp,:fjsp,:aircraft_landing) || return objective_value(p,values)
     w=workspace!(b,p);integer_values!(w,values) || return Inf
     x=w.integers;d=p.data
@@ -355,6 +377,44 @@ function search_objective_value(b,p,values)::Float64
         return Float64(makespan(x,d["duration"]))
     else
         return aircraft_cost(x,d["target"],d["early_cost"],d["late_cost"])
+    end
+end
+
+function objective_workspace!(workspace)
+    workspace.objective_workspace===nothing && (workspace.objective_workspace=ReproductionObjectives.Workspace())
+    workspace.objective_workspace::ReproductionObjectives.Workspace
+end
+
+maintenance_domains_current(domains,latest)=length(domains)==length(latest) &&
+    all(i->domains[i]==(1:latest[i]),eachindex(latest))
+
+function matrix_domains_current(domains,matrix)
+    n=size(matrix,1)
+    n>0 && length(domains)==n && domains[1]==(1:n)
+end
+function route_domains_current(domains,matrix,vehicles,top)
+    n=size(matrix,1)-(top ? 2 : 1)
+    n>0 && length(domains)==2n && domains[1]==(1:n) && domains[n+1]==((top ? 0 : 1):vehicles)
+end
+function cluster_domains_current(domains,coordinates,clusters)
+    n=size(coordinates,1)
+    n>0 && length(domains)==n && domains[1]==(1:clusters)
+end
+count_domains_current(domains,n)=n>0 && length(domains)==n && domains[1]==(1:n)
+
+"Data edits that change domains retain the original validator's dimension/domain behavior."
+function objective_domains_current(workspace,p)
+    f=p.family;d=p.data;ds=workspace.domains
+    if f in (:tsp,:qap)
+        return matrix_domains_current(ds,d["distance"])
+    elseif f in (:cvrp,:cvrptw,:top)
+        return route_domains_current(ds,d["distance"],d["vehicles"],f==:top)
+    elseif f==:mssc
+        return cluster_domains_current(ds,d["coordinates"],d["clusters"])
+    elseif f==:car_sequencing
+        return count_domains_current(ds,d["today_count"])
+    else
+        return maintenance_domains_current(ds,d["latest_start"])
     end
 end
 function makespan(x,duration)

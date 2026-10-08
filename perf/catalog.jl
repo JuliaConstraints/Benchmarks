@@ -19,7 +19,7 @@ function build_catalog(;scope=:kernels,methods=String[],families=Symbol[],backen
                 implementation="sparse-owned-buffers-v1",parameters=Dict("operation"=>operation,"variables"=>size,
                     "depth"=>depth,"repetitions"=>1024),fixtures,collectors,repeatable=true))
         end
-    elseif scope==:classical_scoring
+    elseif scope in (:classical_scoring,:classical_objectives)
         isempty(families) && throw(ArgumentError("select explicit classical problem families"))
         isempty(backends) && throw(ArgumentError("select explicit scoring backends"))
         all(k->k in (:naive,:direct,:icn,:icn_fused),backends) || throw(ArgumentError("unknown scoring backend"))
@@ -27,8 +27,10 @@ function build_catalog(;scope=:kernels,methods=String[],families=Symbol[],backen
             for file in files if endswith(file,".jl")])
         push!(fixtures,joinpath(@__DIR__,"../Hexaly/test/fixtures.jl"))
         for family in families,backend in backends
-            push!(scenarios,ScenarioSpec("classical_$(family)_$(backend)";source,factory="classical_scoring_case",
-                implementation="prepared-original-zero-set-callbacks-v1",parameters=Dict("family"=>string(family),
+            objective=scope==:classical_objectives
+            push!(scenarios,ScenarioSpec("classical_$(objective ? "objective_" : "")$(family)_$(backend)";source,
+                factory=objective ? "classical_objective_case" : "classical_scoring_case",
+                implementation=objective ? "owned-original-objective-callbacks-v1" : "prepared-original-zero-set-callbacks-v1",parameters=Dict("family"=>string(family),
                     "backend"=>string(backend),"repetitions"=>128),fixtures,collectors,repeatable=true))
         end
     elseif scope==:strategies
@@ -71,7 +73,7 @@ function build_catalog(;scope=:kernels,methods=String[],families=Symbol[],backen
             end
         end
     else
-        throw(ArgumentError("scope must be kernels, classical_scoring, strategies, routing_kernels or routing_strategies"))
+        throw(ArgumentError("scope must be kernels, classical_scoring, classical_objectives, strategies, routing_kernels or routing_strategies"))
     end
     ScenarioCatalog(normpath(joinpath(@__DIR__,"..")),scenarios)
 end
