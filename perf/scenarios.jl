@@ -56,7 +56,7 @@ function kernel_case(parameters)
 end
 
 "Owned classical scoring callbacks; original validators check every prepared input."
-function classical_scoring_case(parameters)
+function load_classical_modules!()
     isdefined(@__MODULE__,:HexalyReproduction) || Base.include(@__MODULE__,joinpath(@__DIR__,"../Hexaly/src/Reproduction.jl"))
     if !isdefined(@__MODULE__,:ClassicalScoringFixtures)
         fixtures_module=Module(:ClassicalScoringFixtures)
@@ -66,6 +66,10 @@ function classical_scoring_case(parameters)
         Base.include(fixtures_module,joinpath(@__DIR__,"../Hexaly/test/fixtures.jl"))
         Core.eval(@__MODULE__,:(const ClassicalScoringFixtures=$fixtures_module))
     end
+    nothing
+end
+function classical_scoring_case(parameters)
+    load_classical_modules!()
     Base.invokelatest(_classical_scoring_case,parameters)
 end
 function _classical_scoring_case(parameters)
@@ -96,6 +100,44 @@ function _classical_scoring_operation(state,repetitions)
     for _ in 1:repetitions,x in state.inputs
         checksum+=HexalyReproduction.ReproductionScoring.error_value(state.backend,state.p,x)
     end
+    checksum
+end
+
+"Actual CBLS objective adapters; original objectives audit the complete callback checksum."
+function classical_objective_case(parameters)
+    load_classical_modules!()
+    Base.invokelatest(_classical_objective_case,parameters)
+end
+function _classical_objective_case(parameters)
+    S=HexalyReproduction.ReproductionScoring;P=HexalyReproduction.ReproductionProblems
+    Sol=HexalyReproduction.ReproductionSolvers
+    family=Symbol(parameters["family"]);kind=Symbol(parameters["backend"])
+    repetitions=parameters["repetitions"]
+    Base.invokelatest(S.prepare_backend,kind)
+    prepare=()->begin
+        p=ClassicalScoringFixtures.fixtures()[family];ds=P.domains(p)
+        inputs=(P.initial(p),first.(ds),last.(ds))
+        lane=Sol.prepare_cbls(p;kind)
+        callback=Sol.LS.get_objective(lane.solver,1).f
+        expected=Tuple(S.objective_value(p,x) for x in inputs)
+        original=Tuple(P.validate(p,x) for x in inputs)
+        # Enter every cache shape before measuring the prepared callback.
+        for (x,value) in zip(inputs,expected)
+            isequal(callback(x),value) || error("Objective adapter differs from original objective")
+        end
+        checksum=0.
+        for _ in 1:repetitions,value in expected;checksum+=value;end
+        (;p,lane,callback,inputs,expected,original,checksum)
+    end
+    work=s->_classical_objective_operation(s,repetitions)
+    verify=(s,result)->isequal(result,s.checksum) &&
+        all(i->isequal(S.objective_value(s.p,s.inputs[i]),s.expected[i]) &&
+            isequal(P.validate(s.p,s.inputs[i]),s.original[i]),eachindex(s.inputs))
+    (;prepare,operation=work,verify)
+end
+function _classical_objective_operation(state,repetitions)
+    checksum=0.
+    for _ in 1:repetitions,x in state.inputs;checksum+=state.callback(x);end
     checksum
 end
 

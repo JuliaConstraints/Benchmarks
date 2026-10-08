@@ -587,3 +587,23 @@ source-fingerprint retry are recorded separately and excluded from the qualified
 counts. All 18 redacted heap captures were verified and removed. Timing remains
 diagnostic under concurrent work; these passes do not establish a clean static
 verdict or a controlled speedup.
+
+The actual CBLS objective callbacks now use private scratch for TSP, QAP, CVRP,
+CVRPTW, TOP, MSSC, car sequencing and maintenance. Across 24 fixed original-model
+inputs, both the prepared callback and its actual CBLS wrapper fall from
+816–3,360 allocated bytes per call to zero. Sixteen native PerfChecker checks
+cover both direct and fused ICN backends with complete original-objective
+checksums. Instrumented profiles retain a 16-byte boundary event despite zero
+independent uninstrumented totals; the evidence keeps that distinction.
+
+All 17,192 application checks pass, including 3,297 additional objective checks
+for infeasible assignments, data and domain edits, private ownership, exact
+MSSC floating-point reductions, checked QAP overflow and maintenance quantiles.
+Independent risk additions produce four-lane Float64 SIMD instructions. Means
+retain their original reduction order; partial sorting selects the same clamped
+quantile while reusing private scratch, including larger scenario arrays.
+Cold preparation, cache misses, unsupported arithmetic and final original
+validation can still allocate. The MSSC dense matrix cache retains at most
+eight shapes. This qualification establishes allocation reductions on the
+reported workloads; concurrent observations do not establish a controlled
+speedup or improved solution quality.

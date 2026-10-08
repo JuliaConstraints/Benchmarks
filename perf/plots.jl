@@ -17,6 +17,39 @@ function export_figure(figure,name)
     requested===nothing || name in requested || return nothing
     for extension in ("png","pdf");save(joinpath(out,name*suffix*"."*extension),figure);end
 end
+
+if haskey(proof,"night_owned_objectives_v3")
+    let
+    rows=proof["night_owned_objectives_v3"]["measurement"]["measurements"]
+    families=["tsp","qap","cvrp","cvrptw","top","mssc","car_sequencing","maintenance"]
+    all(r->r["oracle"]=="passed",rows) || error("Unqualified objective figure")
+    for adapter in ("callback","adapter")
+        figure=Figure(size=(1650,750))
+        for (column,input) in enumerate(("initial","minimum","maximum"))
+            selected=[only(filter(r->r["family"]==family&&r["input"]==input,rows)) for family in families]
+            before=[r["before_"*adapter]["bytes"] for r in selected]
+            after=[r[adapter]["bytes"] for r in selected]
+            axis=Axis(figure[1,column],title=uppercasefirst(input)*" domain input",
+                xlabel="Allocated Julia bytes per warm call",ylabel=column==1 ? "Original problem family" : "",
+                yticks=(1:length(families),replace.(uppercase.(families),"_"=>" ")),
+                yticklabelsvisible=column==1)
+            for i in eachindex(families)
+                lines!(axis,[before[i],after[i]],[i,i];color=:gray65,linestyle=:dash,linewidth=1.5)
+            end
+            scatter!(axis,before,1:length(families);color=:gray35,marker=:rect,markersize=13,label="Previous source reference")
+            scatter!(axis,after,1:length(families);color=:dodgerblue3,marker=:circle,markersize=13,label="Owned objective scratch")
+            xlims!(axis,-120,3800)
+            ylims!(axis,.4,length(families)+.6)
+            column==2 && Legend(figure[2,1:3],axis;orientation=:horizontal,framevisible=false)
+        end
+        Label(figure[0,1:3],adapter=="callback" ? "Actual prepared CBLS objective callbacks" : "Actual CBLS objective wrappers";
+            fontsize=23)
+        Label(figure[3,1:3],"Three fixed inputs per family; five batches of 64 warmed calls; complete original-objective checksums, including infeasible inputs.\nPrevious-source reference marks remain visible. Preparation, cache misses and unsupported arithmetic excluded; no controlled speedup claim.",fontsize=13)
+        export_figure(figure,"classical-owned-objective-"*adapter*"s")
+    end
+    end
+end
+
 function qualified_rows(rows)
     all(r->r["correctness"]=="passed",rows) || error("Figure includes an unqualified observation")
     Dict(r["method"]=>r for r in rows)

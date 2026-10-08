@@ -33718,6 +33718,1176 @@ test_assertions = 10652
         trace_work_sha256 = "a62bcdf6654db8e5637c904f9711990cfa5e1cc54480e49d226696dc6a97aef0"
         unchanged_proposals = 6
 
+[night_owned_objectives_v3]
+limitations = ["Warm tiny-fixture callbacks and wrappers, not solver-wide zero allocation", "Native uninstrumented totals are zero; instrumented profile retains one 16-byte boundary event per operation", "Prepared domains and data retain original fallback behavior; cache initialization, cache misses, wide/custom arithmetic and original audits may allocate", "MSSC selected-row dense matrix cache is bounded at eight shapes; additional shapes can replace and allocate", "Maintenance partial sorting returns the same clamped order statistic; means are calculated before partitioning", "Operational timings under concurrent chats are not controlled speedup evidence", "First attempts used an unsupported JuMP objective getter, an incorrect signed-zero checksum, and unsupported TOML tuple serialization; those attempts are unqualified and excluded. The final 24 cases use the actual MOI getter and ordered complete checksum", "Default full sorting with scratch retained radix histogram allocations on large maintenance inputs; that prototype was rejected in favor of qualified partial sorting"]
+recorded_utc = "2026-10-08T23:39:47.122"
+schema = "original-equivalent-owned-objectives/1"
+
+    [night_owned_objectives_v3.measurement]
+    baseline_sha256 = "a0bad886f643aaec52e7501b9e5fa13d82c693e56051fbcdc2a4411873630718"
+    cpu_affinity = [8, 10]
+    gc_threads = 1
+    julia_threads = 2
+    measurement = "Five warmed batches of 64 calls; whole-batch checksum equals ordered accumulation of 64 original objectives; per-call median bytes and allocation objects. Time is operational under concurrent chats, not controlled speedup."
+    recorded_utc = "2026-10-08T23:35:20.415"
+    schema = "owned-objective-callbacks/1"
+    scope = "Actual prepare_cbls objective closure and actual CBLS solver wrapper, 24 independently validated in-domain cases including infeasible assignments; preparation and cache warmup excluded"
+    source_fingerprints_unchanged = true
+
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 6.0
+        family = "cvrp"
+        feasible = true
+        input = "initial"
+        oracle = "passed"
+        original_objective = ["6.0"]
+        values = [1, 2, 1, 2]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 384.0
+            seconds = 7.678125e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 74.0
+            bytes = 2304.0
+            checksum = 384.0
+            time = 2.482828125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 73.0
+            bytes = 2272.0
+            checksum = 384.0
+            time = 2.29353125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 384.0
+            seconds = 7.2625e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 2.0
+        family = "cvrp"
+        feasible = false
+        input = "minimum"
+        oracle = "passed"
+        original_objective = ["2.0"]
+        values = [1, 1, 1, 1]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 128.0
+            seconds = 7.8125e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 69.0
+            bytes = 2368.0
+            checksum = 128.0
+            time = 2.41071875e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 68.0
+            bytes = 2336.0
+            checksum = 128.0
+            time = 2.4470625e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 128.0
+            seconds = 7.6984375e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 4.0
+        family = "cvrp"
+        feasible = false
+        input = "maximum"
+        oracle = "passed"
+        original_objective = ["4.0"]
+        values = [2, 2, 2, 2]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 256.0
+            seconds = 7.71875e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 69.0
+            bytes = 2368.0
+            checksum = 256.0
+            time = 2.54265625e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 68.0
+            bytes = 2336.0
+            checksum = 256.0
+            time = 2.320328125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 256.0
+            seconds = 7.696875e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 13.0
+        family = "cvrptw"
+        feasible = true
+        input = "initial"
+        oracle = "passed"
+        original_objective = ["1", "4.0"]
+        values = [1, 2, 1, 1]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 832.0
+            seconds = 8.0859375e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 82.0
+            bytes = 2384.0
+            checksum = 832.0
+            time = 2.79309375e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 81.0
+            bytes = 2352.0
+            checksum = 832.0
+            time = 2.724125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 832.0
+            seconds = 1.0234375e-7
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 11.0
+        family = "cvrptw"
+        feasible = false
+        input = "minimum"
+        oracle = "passed"
+        original_objective = ["1", "2.0"]
+        values = [1, 1, 1, 1]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 704.0
+            seconds = 1.0709375e-7
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 87.0
+            bytes = 2720.0
+            checksum = 704.0
+            time = 2.946328125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 86.0
+            bytes = 2688.0
+            checksum = 704.0
+            time = 2.87715625e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 704.0
+            seconds = 1.009375e-7
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 13.0
+        family = "cvrptw"
+        feasible = false
+        input = "maximum"
+        oracle = "passed"
+        original_objective = ["1", "4.0"]
+        values = [2, 2, 2, 2]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 832.0
+            seconds = 8.4890625e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 87.0
+            bytes = 2720.0
+            checksum = 832.0
+            time = 2.93075e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 86.0
+            bytes = 2688.0
+            checksum = 832.0
+            time = 2.782953125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 832.0
+            seconds = 7.9859375e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = -0.0
+        family = "top"
+        feasible = true
+        input = "initial"
+        oracle = "passed"
+        original_objective = ["-0.0"]
+        values = [1, 2, 0, 0]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 0.0
+            seconds = 8.6828125e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 44.0
+            bytes = 1520.0
+            checksum = 0.0
+            time = 1.55403125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 43.0
+            bytes = 1488.0
+            checksum = 0.0
+            time = 1.464375e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 0.0
+            seconds = 7.9265625e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = -0.0
+        family = "top"
+        feasible = false
+        input = "minimum"
+        oracle = "passed"
+        original_objective = ["-0.0"]
+        values = [1, 1, 0, 0]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 0.0
+            seconds = 8.8546875e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 49.0
+            bytes = 1856.0
+            checksum = 0.0
+            time = 1.637890625e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 48.0
+            bytes = 1824.0
+            checksum = 0.0
+            time = 2.997234375e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 0.0
+            seconds = 8.0796875e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = -10.0
+        family = "top"
+        feasible = false
+        input = "maximum"
+        oracle = "passed"
+        original_objective = ["-10.0"]
+        values = [2, 2, 1, 1]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = -640.0
+            seconds = 8.8e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 65.0
+            bytes = 2224.0
+            checksum = -640.0
+            time = 3.8831875e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 64.0
+            bytes = 2192.0
+            checksum = -640.0
+            time = 3.70065625e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = -640.0
+            seconds = 8.1140625e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 4.0
+        family = "tsp"
+        feasible = true
+        input = "initial"
+        oracle = "passed"
+        original_objective = ["4.0"]
+        values = [1, 2, 3]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 256.0
+            seconds = 4.303125e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 29.0
+            bytes = 848.0
+            checksum = 256.0
+            time = 9.54828125e-7
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 28.0
+            bytes = 816.0
+            checksum = 256.0
+            time = 8.835e-7
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 256.0
+            seconds = 4.20625e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 0.0
+        family = "tsp"
+        feasible = false
+        input = "minimum"
+        oracle = "passed"
+        original_objective = ["0.0"]
+        values = [1, 1, 1]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 0.0
+            seconds = 4.2828125e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 34.0
+            bytes = 1184.0
+            checksum = 0.0
+            time = 1.12290625e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 33.0
+            bytes = 1152.0
+            checksum = 0.0
+            time = 1.17928125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 0.0
+            seconds = 4.2125e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 0.0
+        family = "tsp"
+        feasible = false
+        input = "maximum"
+        oracle = "passed"
+        original_objective = ["0.0"]
+        values = [3, 3, 3]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 0.0
+            seconds = 4.2546875e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 34.0
+            bytes = 1184.0
+            checksum = 0.0
+            time = 1.031015625e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 33.0
+            bytes = 1152.0
+            checksum = 0.0
+            time = 1.840609375e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 0.0
+            seconds = 4.228125e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 14.0
+        family = "qap"
+        feasible = true
+        input = "initial"
+        oracle = "passed"
+        original_objective = ["14"]
+        values = [1, 2]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 896.0
+            seconds = 7.978125e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 53.0
+            bytes = 1554.0
+            checksum = 896.0
+            time = 2.088859375e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 52.0
+            bytes = 1577.75
+            checksum = 896.0
+            time = 2.04553125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 896.0
+            seconds = 7.9015625e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 0.0
+        family = "qap"
+        feasible = false
+        input = "minimum"
+        oracle = "passed"
+        original_objective = ["0"]
+        values = [1, 1]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 0.0
+            seconds = 7.4421875e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 56.0
+            bytes = 1850.5
+            checksum = 0.0
+            time = 2.226171875e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 55.0
+            bytes = 1820.5
+            checksum = 0.0
+            time = 3.7053125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 0.0
+            seconds = 7.090625e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 0.0
+        family = "qap"
+        feasible = false
+        input = "maximum"
+        oracle = "passed"
+        original_objective = ["0"]
+        values = [2, 2]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 0.0
+            seconds = 7.0921875e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 56.0
+            bytes = 1850.25
+            checksum = 0.0
+            time = 2.096390625e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 55.0
+            bytes = 1818.25
+            checksum = 0.0
+            time = 2.059984375e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 0.0
+            seconds = 6.9328125e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 50.0
+        family = "mssc"
+        feasible = true
+        input = "initial"
+        oracle = "passed"
+        original_objective = ["50.0"]
+        values = [1, 2, 1]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 3200.0
+            seconds = 9.4546875e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 77.0
+            bytes = 2256.0
+            checksum = 3200.0
+            time = 2.970265625e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 76.0
+            bytes = 2224.0
+            checksum = 3200.0
+            time = 2.815390625e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 3200.0
+            seconds = 9.36875e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 56.0
+        family = "mssc"
+        feasible = true
+        input = "minimum"
+        oracle = "passed"
+        original_objective = ["56.0"]
+        values = [1, 1, 1]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 3584.0
+            seconds = 8.3390625e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 63.0
+            bytes = 1776.0
+            checksum = 3584.0
+            time = 2.153875e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 62.0
+            bytes = 1744.0
+            checksum = 3584.0
+            time = 2.081078125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 3584.0
+            seconds = 8.409375e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 56.0
+        family = "mssc"
+        feasible = true
+        input = "maximum"
+        oracle = "passed"
+        original_objective = ["56.0"]
+        values = [2, 2, 2]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 3584.0
+            seconds = 8.3859375e-8
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 63.0
+            bytes = 1776.0
+            checksum = 3584.0
+            time = 3.40671875e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 62.0
+            bytes = 1744.0
+            checksum = 3584.0
+            time = 2.42103125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 3584.0
+            seconds = 8.340625e-8
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 56.0
+        family = "car_sequencing"
+        feasible = true
+        input = "initial"
+        oracle = "passed"
+        original_objective = ["1", "1", "0"]
+        values = [1, 2]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 3584.0
+            seconds = 1.11578125e-7
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 53.0
+            bytes = 1760.0
+            checksum = 3584.0
+            time = 3.46678125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 52.0
+            bytes = 1728.0
+            checksum = 3584.0
+            time = 3.371015625e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 3584.0
+            seconds = 1.11328125e-7
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 98.0
+        family = "car_sequencing"
+        feasible = false
+        input = "minimum"
+        oracle = "passed"
+        original_objective = ["2", "0", "0"]
+        values = [1, 1]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 6272.0
+            seconds = 1.1396875e-7
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 58.0
+            bytes = 2096.0
+            checksum = 6272.0
+            time = 3.627234375e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 57.0
+            bytes = 2064.0
+            checksum = 6272.0
+            time = 3.594890625e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 6272.0
+            seconds = 1.121875e-7
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 7.0
+        family = "car_sequencing"
+        feasible = false
+        input = "maximum"
+        oracle = "passed"
+        original_objective = ["0", "1", "0"]
+        values = [2, 2]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 448.0
+            seconds = 1.14375e-7
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 58.0
+            bytes = 2096.0
+            checksum = 448.0
+            time = 3.6810625e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 57.0
+            bytes = 2064.0
+            checksum = 448.0
+            time = 5.32484375e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 448.0
+            seconds = 1.1153125e-7
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 1.0
+        family = "maintenance"
+        feasible = false
+        input = "initial"
+        oracle = "passed"
+        original_objective = ["1.0"]
+        values = [1, 1]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 64.0
+            seconds = 1.24796875e-7
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 115.0
+            bytes = 3360.0
+            checksum = 64.0
+            time = 5.2023125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 114.0
+            bytes = 3328.0
+            checksum = 64.0
+            time = 5.06259375e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 64.0
+            seconds = 1.256875e-7
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 1.0
+        family = "maintenance"
+        feasible = false
+        input = "minimum"
+        oracle = "passed"
+        original_objective = ["1.0"]
+        values = [1, 1]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 64.0
+            seconds = 1.24953125e-7
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 115.0
+            bytes = 3360.0
+            checksum = 64.0
+            time = 5.3565625e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 114.0
+            bytes = 3328.0
+            checksum = 64.0
+            time = 5.30078125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 64.0
+            seconds = 1.2784375e-7
+        [[night_owned_objectives_v3.measurement.measurements]]
+        expected_scalar = 1.5
+        family = "maintenance"
+        feasible = false
+        input = "maximum"
+        oracle = "passed"
+        original_objective = ["1.5"]
+        values = [2, 2]
+
+            [night_owned_objectives_v3.measurement.measurements.adapter]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 96.0
+            seconds = 1.2565625e-7
+
+            [night_owned_objectives_v3.measurement.measurements.before_adapter]
+            allocs = 115.0
+            bytes = 3360.0
+            checksum = 96.0
+            time = 5.428203125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.before_callback]
+            allocs = 114.0
+            bytes = 3328.0
+            checksum = 96.0
+            time = 5.32978125e-6
+
+            [night_owned_objectives_v3.measurement.measurements.callback]
+            allocs = 0.0
+            bytes = 0.0
+            checksum = 96.0
+            seconds = 1.3009375e-7
+
+        [night_owned_objectives_v3.measurement.source_fingerprints]
+        "Hexaly/src/ObjectiveKernels.jl" = "ccf9ac8de0e84c7f976ca32c46aa5c4ca66d14c5a07dae63cecf9460f274d8b0"
+        "Hexaly/src/Problems.jl" = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+        "Hexaly/src/Scoring.jl" = "ca9142ef5776c134edf71b4ad4ec5eb87d8153718e36307f23e5e372b167f053"
+        "Hexaly/src/Solvers.jl" = "ce14f35c754a6285c1c7631b20758cc249d3fea47771c0839fd227774aaa9c37"
+
+    [[night_owned_objectives_v3.native.records]]
+    backend = "direct"
+    cpu_stacks = 0
+    family = "cvrp"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+    [[night_owned_objectives_v3.native.records]]
+    backend = "icn_fused"
+    cpu_stacks = 0
+    family = "cvrp"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+    [[night_owned_objectives_v3.native.records]]
+    backend = "direct"
+    cpu_stacks = 0
+    family = "cvrptw"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+    [[night_owned_objectives_v3.native.records]]
+    backend = "icn_fused"
+    cpu_stacks = 0
+    family = "cvrptw"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+    [[night_owned_objectives_v3.native.records]]
+    backend = "direct"
+    cpu_stacks = 0
+    family = "top"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+    [[night_owned_objectives_v3.native.records]]
+    backend = "icn_fused"
+    cpu_stacks = 0
+    family = "top"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+    [[night_owned_objectives_v3.native.records]]
+    backend = "direct"
+    cpu_stacks = 0
+    family = "tsp"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+    [[night_owned_objectives_v3.native.records]]
+    backend = "icn_fused"
+    cpu_stacks = 0
+    family = "tsp"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+    [[night_owned_objectives_v3.native.records]]
+    backend = "direct"
+    cpu_stacks = 0
+    family = "qap"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+    [[night_owned_objectives_v3.native.records]]
+    backend = "icn_fused"
+    cpu_stacks = 0
+    family = "qap"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+    [[night_owned_objectives_v3.native.records]]
+    backend = "direct"
+    cpu_stacks = 0
+    family = "mssc"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+    [[night_owned_objectives_v3.native.records]]
+    backend = "icn_fused"
+    cpu_stacks = 0
+    family = "mssc"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+    [[night_owned_objectives_v3.native.records]]
+    backend = "direct"
+    cpu_stacks = 0
+    family = "car_sequencing"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+    [[night_owned_objectives_v3.native.records]]
+    backend = "icn_fused"
+    cpu_stacks = 0
+    family = "car_sequencing"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+    [[night_owned_objectives_v3.native.records]]
+    backend = "direct"
+    cpu_stacks = 0
+    family = "maintenance"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+    [[night_owned_objectives_v3.native.records]]
+    backend = "icn_fused"
+    cpu_stacks = 0
+    family = "maintenance"
+    original_oracle = "passed"
+
+        [night_owned_objectives_v3.native.records.allocation_profile]
+        bytes_measurement_evaluations = 1
+        count_measurement_evaluations = 1
+        message = "Allocation stacks were captured."
+        profile_evaluations = 1
+        retained_allocations = 1
+        retained_sampled_bytes = 16
+        sample_rate = 1.0
+        sampled_allocations = 1
+        schema_version = "perfchecker-allocation-profile/1"
+        source_allocations = 1
+        status = "complete"
+        total_allocations = 0
+        total_bytes = 0
+        total_measurement_evaluations = 2
+        total_semantics = "bytes and allocation count from two separate operation evaluations; not inferred from samples"
+        weight_semantics = "raw sampled bytes and events across all profile evaluations"
+
+    [night_owned_objectives_v3.simd]
+    kernel = "independent risk additions"
+    llvm_operation = "fadd <4 x double>"
+    precision = "Per-element addition only; original intervention order and reductions retained"
+
+    [night_owned_objectives_v3.tests]
+    complete_hexaly_suite = 17192
+    new_objective_checks = 3297
+    status = "passed"
+
 [night_owned_repair_defaults]
 after_source_sha256 = "8570845e07ebf5ef5f99c819f79806b11abab90ee80f97c969f8a9612f2dc511"
 attribution_boundary_assertions = 5
