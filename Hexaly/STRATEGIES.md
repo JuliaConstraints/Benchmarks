@@ -431,3 +431,17 @@ not remove initial Julia/HiGHS compilation or per-repair model construction.
 The [qualification evidence](../perf/qualification.toml) records measured
 allocation changes and the limits of the small diagnostic. No full-machine
 scaling or solver superiority is established by it.
+
+The overnight routing qualification exercised all four implemented collectors
+(`benchmark`, `chairmark`, `profile`, `profile_alloc`) and eight applicable
+analyzers (`jet`, `alloccheck`, `snoopcompile`, `latency`, `gc`, `memory`, `heap`,
+`locks`) on insertion, repair, adaptive MetaStrategist and the HiGHS IPX route
+pool. All 48 tool/scenario executions completed with the original-model oracle
+passing. Findings remain: static allocation reports include possible branches,
+and dynamic dispatch boundaries limit inference coverage. A completed diagnostic
+is not a clean performance verdict. Aqua is qualified on the actual packages in
+their dedicated environments; this routing application is not an importable
+package. Compact observations, source/environment hashes and scope limitations
+are recorded in [routing qualification](../perf/routing-qualification.toml).
+Whole-worker redacted heap snapshots were verified and removed after preserving
+their sizes and hashes; native HiGHS memory is outside those snapshots.

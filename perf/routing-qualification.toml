@@ -3596,6 +3596,1746 @@ short_cpu_limit = "All 16 cooperative fixtures captured CPU stacks; only 5/36 sh
         completed_resets = 0
         steps = 40
 
+[night_backend_coverage]
+aqua_scope = "Package Aqua qualification is run in dedicated package chats; this routing application is not an importable package and has no package-quality Aqua verdict."
+date_utc = "2026-10-08T19:55:53.169"
+environment_manifest_sha256 = "5589ac21c0098bec970e80c8124613e71cded73ad124770ca9f74f7cb811f895"
+environment_project_sha256 = "e4af461a8140b79dda7bba7264f049a555780e522148848ec81d9631e3a87af0"
+limitations = ["Source-load latency includes already cached package imports; first-case latency includes lifecycle setup and first execution, and is not steady-state time.", "JET and AllocCheck inspect the declared operation specialization. Dynamic invokelatest boundaries limit internal coverage and zero findings do not prove type stability.", "Short CPU profile cases can yield no sampled stacks. Sampled allocation sites are not exact totals.", "Heap snapshots cover the whole GC-managed worker after verification, exclude native HiGHS memory, and are deleted after recording their hashes and sizes.", "The insertion-options workload constructs temporary route/cache wrapper arrays; its totals include those fixture allocations.", "Warm-up in diagnostic tools can leave compilation in the first repeated sample; retain compile-time counters rather than classify every sample as steady state."]
+publication_utc = "2026-10-08T20:18:32.226"
+raw_checkpoint_sha256 = "a90b103a375dbf5eb6a89f72cd9267cd0c2a75a364fc899a9c6d66b80966c9b9"
+record_count = 48
+resource_scope = "CPUs 8,10; Julia=2,GC=1,BLAS=1,native HiGHS=1"
+schema = "routing-night-backend-coverage/1"
+timing_scope = "Operational fixed-work measurements with concurrent chats on disjoint cores; no controlled speedup/scaling conclusions"
+
+    [night_backend_coverage.inputs]
+    "LiLim/config/routing-panel.toml" = "526e5283ce541dcf4b04424024fd6826418f2d63096f9614dfa10f188d00f2d1"
+    "LiLim/config/strategy-panel.toml" = "8013c72de3d43511be4e8fd396f57269e8760784ad51dfcda8e11e0e4e3ad0c6"
+    "LiLim/config/strategy-variants.toml" = "de0dc2240535704ff35c94f598386717c72572aedebbbb59265fc1898ebad7a7"
+    "LiLim/resources/icn-pdptw-witnesses.toml" = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    "LiLim/src/Hybrid.jl" = "2a3b112634718977d237690b690a8e392125e304fba4adcf28cf91b63b411961"
+    "LiLim/src/ICNScoring.jl" = "99eea5cd63eccfb0576a8a8c213a654011dc6bd89559074968f33084918c30cc"
+    "LiLim/src/MetaRepair.jl" = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    "LiLim/src/Pilot.jl" = "5a08683820a39270c168b4436c6a8aa5e1b759b9e949074c776218e2212bd9da"
+    "LiLim/src/PlatformResources.jl" = "4937175e5c71001debc4f7a9d0a5b332639bf5755309092754c73228ceb169b1"
+    "LiLim/src/QUBOGuidance.jl" = "60e9e585bfebb6b9d048fc9d742c471193c4813452fd2ad31193b3475e860c07"
+    "LiLim/src/ROFragments.jl" = "20723afe6e56c67b8b530d3bef04608767418cfd42758a632445943b75a8e209"
+    "LiLim/src/ResourceExperiment.jl" = "71421c7cedb05ee7300951fec5de7b6d33577aeb8b8a7bac4e33f43835248770"
+    "LiLim/src/RoutingPanel.jl" = "d5407cc4bd255e04edc6a8d69fd0f157ad110d5eb6daab8f26afc5b31e6eee3b"
+    "LiLim/src/SearchPolicies.jl" = "7d52a377c8eb430824bc464ff302ade6bed62de10cd37602829b1d6524498fa9"
+    "LiLim/src/StrategyPanel.jl" = "fb69d593a1cf1edc9bd4b3ab6a7acdca9ebf9b2639c2801578a99143e20cd92f"
+    "LiLim/src/StructuredRouting.jl" = "aa9bd1ff6de09cc8f45a454e456d214b5a7a9290f60aa1828eee61a780d4ba2b"
+    "SolverSmoke/src/Profiles.jl" = "3e2216ef1f05a030c6630f14d826544d3e92986b49090551f22b47dbf8d7eb65"
+    "perf/routing_scenarios.jl" = "cb310cd109539d0f1043267d642614c37aae9143e70870cefe4f6865a0263da8"
+
+    [[night_backend_coverage.records]]
+    allocation_site_count = 0
+    cpu_stack_count = 0
+    scenario = "routing_insertion_options"
+    tool = "benchmark"
+    worker_elapsed_seconds = 24.112092971801758
+
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 18928
+        measurement_definition = "julia.alloc.bytes/shared-benchmark/df30dfb5940b7c725effc7264ddd44f4bf0650502254c59386b1383f2b518076"
+        median = 18928.0
+        metric = "julia.alloc.bytes"
+        minimum = 18928
+        sample_count = 5
+        unit = "By"
+        values = [18928, 18928, 18928, 18928, 18928]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 620
+        measurement_definition = "julia.alloc.count/shared-benchmark/df30dfb5940b7c725effc7264ddd44f4bf0650502254c59386b1383f2b518076"
+        median = 620.0
+        metric = "julia.alloc.count"
+        minimum = 620
+        sample_count = 5
+        unit = "1"
+        values = [620, 620, 620, 620, 620]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 0.000105319
+        measurement_definition = "julia.wall.time/shared-benchmark/df30dfb5940b7c725effc7264ddd44f4bf0650502254c59386b1383f2b518076"
+        median = 9.4853e-5
+        metric = "julia.wall.time"
+        minimum = 9.4365e-5
+        sample_count = 5
+        unit = "s"
+        values = [0.000104969, 0.000105319, 9.4853e-5, 9.4365e-5, 9.4769e-5]
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    allocation_site_count = 0
+    cpu_stack_count = 0
+    scenario = "routing_insertion_options"
+    tool = "chairmark"
+    worker_elapsed_seconds = 13.517602920532227
+
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 18928.0
+        measurement_definition = "julia.alloc.bytes/shared-chairmark/ea54d3147b9fb015c110335e39c1a3d16db85a0b4222f094d0d81c8c946af79e"
+        median = 18928.0
+        metric = "julia.alloc.bytes"
+        minimum = 18928.0
+        sample_count = 5
+        unit = "By"
+        values = [18928.0, 18928.0, 18928.0, 18928.0, 18928.0]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 620.0
+        measurement_definition = "julia.alloc.count/shared-chairmark/ea54d3147b9fb015c110335e39c1a3d16db85a0b4222f094d0d81c8c946af79e"
+        median = 620.0
+        metric = "julia.alloc.count"
+        minimum = 620.0
+        sample_count = 5
+        unit = "1"
+        values = [620.0, 620.0, 620.0, 620.0, 620.0]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 9.3985e-5
+        measurement_definition = "julia.wall.time/shared-chairmark/ea54d3147b9fb015c110335e39c1a3d16db85a0b4222f094d0d81c8c946af79e"
+        median = 9.3577e-5
+        metric = "julia.wall.time"
+        minimum = 9.3362e-5
+        sample_count = 5
+        unit = "s"
+        values = [9.3985e-5, 9.394500000000001e-5, 9.3577e-5, 9.3362e-5, 9.348e-5]
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    allocation_site_count = 0
+    cpu_stack_count = 0
+    metrics = []
+    scenario = "routing_insertion_options"
+    tool = "profile"
+    worker_elapsed_seconds = 13.5764639377594
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    allocation_site_count = 3100
+    cpu_stack_count = 0
+    scenario = "routing_insertion_options"
+    tool = "profile_alloc"
+    worker_elapsed_seconds = 14.391844987869263
+
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "independent_operation_total"
+        maximum = 18928
+        measurement_definition = "julia.alloc.bytes/shared-profile-independent-totals/8d44ed8c01048b55bf9092cd0a0ba6f11361dc48184d093a22db9c77ad0a5a52"
+        median = 18928.0
+        metric = "julia.alloc.bytes"
+        minimum = 18928
+        sample_count = 1
+        unit = "By"
+        values = [18928]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "independent_operation_total"
+        maximum = 620
+        measurement_definition = "julia.alloc.count/shared-profile-independent-totals/8d44ed8c01048b55bf9092cd0a0ba6f11361dc48184d093a22db9c77ad0a5a52"
+        median = 620.0
+        metric = "julia.alloc.count"
+        minimum = 620
+        sample_count = 1
+        unit = "1"
+        values = [620]
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    finding_count = 1
+    findings_truncated = false
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_insertion_options"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+    tool_version = "0.12.3"
+    worker_elapsed_seconds = 14.338059902191162
+
+        [[night_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: (%1::Any Main.var\"##SharedCase#142\".ResourceExperiment.StructuredRouting.:+ amount::Int64)::Any)"
+        severity = "warning"
+    [[night_backend_coverage.records]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    finding_count = 190
+    findings_truncated = true
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_insertion_options"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+    tool_version = "0.2.6"
+    worker_elapsed_seconds = 28.423747777938843
+
+        [[night_backend_coverage.records.findings]]
+        message = """Allocation of Matrix{Main.var\"##SharedCase#142\".ResourceExperiment.StructuredRouting.Segment} in ./boot.jl:652\n  | return $(Expr(:new, :self, :(new_as_memoryref(fieldtype(self, :ref), checked_dims(m, n))), :((m, n))))\n\nStacktrace:\n [1] Array\n   @ ./boot.jl:652 [inlined]\n [2] #range_cache#4\n   @ ~/Gits/Benchmarks-meta-ro-qubo/LiLim/src/StructuredRouting.jl:61 [inlined]\n [3] range_cache\n   @ ~/Gits/Benchmarks-meta-ro-qubo/LiLim/src/StructuredRouting.jl:60 [inlined]\n [4] (::Main.var\"##SharedCase#142\".var\"#routing_kernel_case##2#routing_kernel_case##3\"{Int64, String})(s::@NamedTuple{p::ConstraintM"""
+        severity = "warning"
+        [[night_backend_coverage.records.findings]]
+        message = """Allocation of Main.var\"##SharedCase#142\".ResourceExperiment.StructuredRouting.RangeCache in /home/azzaare/Gits/Benchmarks-meta-ro-qubo/LiLim/src/StructuredRouting.jl:56\n  | route::Vector{Int}\n\nStacktrace:\n [1] RangeCache\n   @ ~/Gits/Benchmarks-meta-ro-qubo/LiLim/src/StructuredRouting.jl:56 [inlined]\n [2] #range_cache#4\n   @ ~/Gits/Benchmarks-meta-ro-qubo/LiLim/src/StructuredRouting.jl:61 [inlined]\n [3] range_cache\n   @ ~/Gits/Benchmarks-meta-ro-qubo/LiLim/src/StructuredRouting.jl:60 [inlined]\n [4] (::Main.var\"##SharedCase#142\".var\"#routing_kernel_case##2#routing_kernel_case##3\"{Int64, String})"""
+        severity = "warning"
+        [[night_backend_coverage.records.findings]]
+        message = """Allocation of Random.Xoshiro in /cache/build/builder-amdci4-8/julialang/julia-ci/usr/share/julia/stdlib/v1.13/Random/src/Xoshiro.jl:61\n  | Xoshiro(seed=nothing) = seed!(new(), seed)\n\nStacktrace:\n [1] Xoshiro\n   @ ~/.julia/juliaup/julia-1.13.1+0.x64.linux.gnu/share/julia/stdlib/v1.13/Random/src/Xoshiro.jl:61 [inlined]\n [2] (::Main.var\"##SharedCase#142\".var\"#routing_kernel_case##2#routing_kernel_case##3\"{Int64, String})(s::@NamedTuple{p::ConstraintModels.Benchmarks.BenchmarkInstance{ConstraintModels.Benchmarks.PickupDeliveryProblem}, D::Matrix{Float64}, routes::Vector{Vector{Int64}}, pool::Main."""
+        severity = "warning"
+    [[night_backend_coverage.records]]
+    analysis_scope = "first complete scenario lifecycle in diagnostic process"
+    correctness = "passed"
+    finding_count = 1
+    findings_truncated = false
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_insertion_options"
+    status = "complete"
+    summary = ""
+    tool = "snoopcompile"
+    tool_version = "3.2.9"
+    worker_elapsed_seconds = 12.026740074157715
+
+        [[night_backend_coverage.records.findings]]
+        message = "InferenceTimingNode: 0.000014/0.180297 on Base.Compiler.Timings.ROOT() with 3 direct children"
+        severity = "warning"
+
+        [night_backend_coverage.records.measurements]
+        inference_seconds = 0.18029683828353882
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    measurement_scope = "fresh process; source loading; full lifecycle including preparation and verification"
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_insertion_options"
+    status = "complete"
+    summary = ""
+    tool = "latency"
+    worker_elapsed_seconds = 12.15875506401062
+
+        [night_backend_coverage.records.measurements]
+        first_case_seconds = 4.727968864
+        load_seconds = 6.598442037
+        warm_case_seconds = 0.000154866
+    [[night_backend_coverage.records]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_insertion_options"
+    status = "complete"
+    summary = "3 operations: 0.0 ms in GC, 56784 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+    worker_elapsed_seconds = 12.632367849349976
+
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 18928
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 0.00011043
+        pause = 0
+        poolalloc = 620
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 18928
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 9.7969e-5
+        pause = 0
+        poolalloc = 620
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 18928
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 9.6939e-5
+        pause = 0
+        poolalloc = 620
+        realloc = 0
+        recompile_time = 0.0
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_insertion_options"
+    status = "complete"
+    summary = "3 operations: reachable state changed by 120 to 120 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+    worker_elapsed_seconds = 13.326151132583618
+
+        [[night_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 4968
+        state_and_result_bytes = 4976
+        state_before_bytes = 4848
+
+            [night_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3f3a5000
+            pid = 125992
+            private_bytes = 0x2e946000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3e867000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0e9586a45517
+
+            [night_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3f3a5000
+            pid = 125992
+            private_bytes = 0x2e945000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3e802000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0e9583ce5203
+        [[night_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 4968
+        state_and_result_bytes = 4976
+        state_before_bytes = 4848
+
+            [night_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3f3a5000
+            pid = 125992
+            private_bytes = 0x2e947000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3e868000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0e9588f93a14
+
+            [night_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3f3a5000
+            pid = 125992
+            private_bytes = 0x2e947000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3e868000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0e95888e871c
+        [[night_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 4968
+        state_and_result_bytes = 4976
+        state_before_bytes = 4848
+
+            [night_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3f3a5000
+            pid = 125992
+            private_bytes = 0x2e947000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3e868000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0e9589d20883
+
+            [night_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3f3a5000
+            pid = 125992
+            private_bytes = 0x2e947000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3e868000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0e958968684b
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Snapshot covers the entire diagnostic process, not just the scenario.", "Only GC-managed memory is represented; native and device memory are excluded.", "Snapshot capture is intrusive and its duration is not baseline performance evidence."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_insertion_options"
+    status = "complete"
+    summary = "Redacted heap snapshot captured after verification. Covers GC-managed objects in the whole worker; native and device memory are excluded."
+    tool = "heap"
+    worker_elapsed_seconds = 32.21233797073364
+
+        [[night_backend_coverage.records.artifacts]]
+        bytes = 655500095
+        kind = "heap_snapshot"
+        redacted = true
+        sha256 = "90e955e7a626e82033b67251cb14670b80cb688204788be4f42b5445f0bb9f7e"
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Counts do not measure blocked duration or prove a scalability bottleneck.", "Only runtime-reported lock conflicts are covered; native locks and device barriers are not."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_insertion_options"
+    status = "complete"
+    summary = "3 operations: 0 observed lock conflicts. Counts do not measure waiting duration."
+    tool = "locks"
+    worker_elapsed_seconds = 12.787564992904663
+
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 18928
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 0.000105522
+        pause = 0
+        poolalloc = 620
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 18928
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 9.3421e-5
+        pause = 0
+        poolalloc = 620
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 18928
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 0
+        operation_seconds = 9.2902e-5
+        pause = 0
+        poolalloc = 620
+        realloc = 0
+        recompile_time = 0.0
+    [[night_backend_coverage.records]]
+    allocation_site_count = 0
+    cpu_stack_count = 0
+    scenario = "routing_repair"
+    tool = "benchmark"
+    worker_elapsed_seconds = 14.279640913009644
+
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 35680
+        measurement_definition = "julia.alloc.bytes/shared-benchmark/8b1e34346a1e81519079352182fc5a780800ae5ad2525b88f75a254f012d3010"
+        median = 35680.0
+        metric = "julia.alloc.bytes"
+        minimum = 35680
+        sample_count = 5
+        unit = "By"
+        values = [35680, 35680, 35680, 35680, 35680]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 680
+        measurement_definition = "julia.alloc.count/shared-benchmark/8b1e34346a1e81519079352182fc5a780800ae5ad2525b88f75a254f012d3010"
+        median = 680.0
+        metric = "julia.alloc.count"
+        minimum = 680
+        sample_count = 5
+        unit = "1"
+        values = [680, 680, 680, 680, 680]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 3.6506e-5
+        measurement_definition = "julia.wall.time/shared-benchmark/8b1e34346a1e81519079352182fc5a780800ae5ad2525b88f75a254f012d3010"
+        median = 1.8446e-5
+        metric = "julia.wall.time"
+        minimum = 1.8145e-5
+        sample_count = 5
+        unit = "s"
+        values = [3.6506e-5, 3.2269e-5, 1.8145e-5, 1.8261e-5, 1.8446e-5]
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    allocation_site_count = 0
+    cpu_stack_count = 0
+    scenario = "routing_repair"
+    tool = "chairmark"
+    worker_elapsed_seconds = 13.493370056152344
+
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 35680.0
+        measurement_definition = "julia.alloc.bytes/shared-chairmark/656581c19cbc94224e21a0f993e6ce32744d0333e4d30408114d8257edd1f256"
+        median = 35680.0
+        metric = "julia.alloc.bytes"
+        minimum = 35680.0
+        sample_count = 5
+        unit = "By"
+        values = [35680.0, 35680.0, 35680.0, 35680.0, 35680.0]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 680.0
+        measurement_definition = "julia.alloc.count/shared-chairmark/656581c19cbc94224e21a0f993e6ce32744d0333e4d30408114d8257edd1f256"
+        median = 680.0
+        metric = "julia.alloc.count"
+        minimum = 680.0
+        sample_count = 5
+        unit = "1"
+        values = [680.0, 680.0, 680.0, 680.0, 680.0]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 2.0952000000000002e-5
+        measurement_definition = "julia.wall.time/shared-chairmark/656581c19cbc94224e21a0f993e6ce32744d0333e4d30408114d8257edd1f256"
+        median = 1.9068e-5
+        metric = "julia.wall.time"
+        minimum = 1.8791e-5
+        sample_count = 5
+        unit = "s"
+        values = [2.0952000000000002e-5, 2.0405000000000002e-5, 1.8791e-5, 1.9068e-5, 1.9061000000000003e-5]
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    allocation_site_count = 0
+    cpu_stack_count = 0
+    metrics = []
+    scenario = "routing_repair"
+    tool = "profile"
+    worker_elapsed_seconds = 13.757930040359497
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    allocation_site_count = 3080
+    cpu_stack_count = 0
+    scenario = "routing_repair"
+    tool = "profile_alloc"
+    worker_elapsed_seconds = 14.012936115264893
+
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "independent_operation_total"
+        maximum = 35680
+        measurement_definition = "julia.alloc.bytes/shared-profile-independent-totals/9a29cbb348a29c9b5c8c287bf041395bb557851cec26bab38c7682d3b4890f3c"
+        median = 35680.0
+        metric = "julia.alloc.bytes"
+        minimum = 35680
+        sample_count = 1
+        unit = "By"
+        values = [35680]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "independent_operation_total"
+        maximum = 680
+        measurement_definition = "julia.alloc.count/shared-profile-independent-totals/9a29cbb348a29c9b5c8c287bf041395bb557851cec26bab38c7682d3b4890f3c"
+        median = 680.0
+        metric = "julia.alloc.count"
+        minimum = 680
+        sample_count = 1
+        unit = "1"
+        values = [680]
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    finding_count = 1
+    findings_truncated = false
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_repair"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+    tool_version = "0.12.3"
+    worker_elapsed_seconds = 13.8366379737854
+
+        [[night_backend_coverage.records.findings]]
+        message = "RuntimeDispatchReport(runtime dispatch detected: (%1::Any Main.var\"##SharedCase#142\".ResourceExperiment.StructuredRouting.:+ amount::Int64)::Any)"
+        severity = "warning"
+    [[night_backend_coverage.records]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    finding_count = 190
+    findings_truncated = true
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_repair"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+    tool_version = "0.2.6"
+    worker_elapsed_seconds = 27.149610996246338
+
+        [[night_backend_coverage.records.findings]]
+        message = """Allocation of Matrix{Main.var\"##SharedCase#142\".ResourceExperiment.StructuredRouting.Segment} in ./boot.jl:652\n  | return $(Expr(:new, :self, :(new_as_memoryref(fieldtype(self, :ref), checked_dims(m, n))), :((m, n))))\n\nStacktrace:\n [1] Array\n   @ ./boot.jl:652 [inlined]\n [2] #range_cache#4\n   @ ~/Gits/Benchmarks-meta-ro-qubo/LiLim/src/StructuredRouting.jl:61 [inlined]\n [3] range_cache\n   @ ~/Gits/Benchmarks-meta-ro-qubo/LiLim/src/StructuredRouting.jl:60 [inlined]\n [4] (::Main.var\"##SharedCase#142\".var\"#routing_kernel_case##2#routing_kernel_case##3\"{Int64, String})(s::@NamedTuple{p::ConstraintM"""
+        severity = "warning"
+        [[night_backend_coverage.records.findings]]
+        message = """Allocation of Main.var\"##SharedCase#142\".ResourceExperiment.StructuredRouting.RangeCache in /home/azzaare/Gits/Benchmarks-meta-ro-qubo/LiLim/src/StructuredRouting.jl:56\n  | route::Vector{Int}\n\nStacktrace:\n [1] RangeCache\n   @ ~/Gits/Benchmarks-meta-ro-qubo/LiLim/src/StructuredRouting.jl:56 [inlined]\n [2] #range_cache#4\n   @ ~/Gits/Benchmarks-meta-ro-qubo/LiLim/src/StructuredRouting.jl:61 [inlined]\n [3] range_cache\n   @ ~/Gits/Benchmarks-meta-ro-qubo/LiLim/src/StructuredRouting.jl:60 [inlined]\n [4] (::Main.var\"##SharedCase#142\".var\"#routing_kernel_case##2#routing_kernel_case##3\"{Int64, String})"""
+        severity = "warning"
+        [[night_backend_coverage.records.findings]]
+        message = """Allocation of Random.Xoshiro in /cache/build/builder-amdci4-8/julialang/julia-ci/usr/share/julia/stdlib/v1.13/Random/src/Xoshiro.jl:61\n  | Xoshiro(seed=nothing) = seed!(new(), seed)\n\nStacktrace:\n [1] Xoshiro\n   @ ~/.julia/juliaup/julia-1.13.1+0.x64.linux.gnu/share/julia/stdlib/v1.13/Random/src/Xoshiro.jl:61 [inlined]\n [2] (::Main.var\"##SharedCase#142\".var\"#routing_kernel_case##2#routing_kernel_case##3\"{Int64, String})(s::@NamedTuple{p::ConstraintModels.Benchmarks.BenchmarkInstance{ConstraintModels.Benchmarks.PickupDeliveryProblem}, D::Matrix{Float64}, routes::Vector{Vector{Int64}}, pool::Main."""
+        severity = "warning"
+    [[night_backend_coverage.records]]
+    analysis_scope = "first complete scenario lifecycle in diagnostic process"
+    correctness = "passed"
+    finding_count = 1
+    findings_truncated = false
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_repair"
+    status = "complete"
+    summary = ""
+    tool = "snoopcompile"
+    tool_version = "3.2.9"
+    worker_elapsed_seconds = 12.054632902145386
+
+        [[night_backend_coverage.records.findings]]
+        message = "InferenceTimingNode: 0.000014/0.175426 on Base.Compiler.Timings.ROOT() with 3 direct children"
+        severity = "warning"
+
+        [night_backend_coverage.records.measurements]
+        inference_seconds = 0.17542552947998047
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    measurement_scope = "fresh process; source loading; full lifecycle including preparation and verification"
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_repair"
+    status = "complete"
+    summary = ""
+    tool = "latency"
+    worker_elapsed_seconds = 11.999138832092285
+
+        [night_backend_coverage.records.measurements]
+        first_case_seconds = 4.695117258
+        load_seconds = 6.489128315
+        warm_case_seconds = 7.844e-5
+    [[night_backend_coverage.records]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_repair"
+    status = "complete"
+    summary = "3 operations: 0.0 ms in GC, 107040 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+    worker_elapsed_seconds = 12.157665967941284
+
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 35680
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 64
+        operation_seconds = 3.5212e-5
+        pause = 0
+        poolalloc = 616
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 35680
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 64
+        operation_seconds = 2.0173e-5
+        pause = 0
+        poolalloc = 616
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 35680
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 64
+        operation_seconds = 1.8242e-5
+        pause = 0
+        poolalloc = 616
+        realloc = 0
+        recompile_time = 0.0
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_repair"
+    status = "complete"
+    summary = "3 operations: reachable state changed by 2992 to 2992 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+    worker_elapsed_seconds = 12.552611827850342
+
+        [[night_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 7840
+        state_and_result_bytes = 7848
+        state_before_bytes = 4848
+
+            [night_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3b655000
+            pid = 127179
+            private_bytes = 0x2f10b000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a8f4000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0ec2632d8036
+
+            [night_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3b655000
+            pid = 127179
+            private_bytes = 0x2f10a000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a88f000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0ec2605bc511
+        [[night_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 7840
+        state_and_result_bytes = 7848
+        state_before_bytes = 4848
+
+            [night_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3b655000
+            pid = 127179
+            private_bytes = 0x2f10c000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a8f5000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0ec265f2162f
+
+            [night_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3b655000
+            pid = 127179
+            private_bytes = 0x2f10c000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a8f5000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0ec2657fa76f
+        [[night_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 7840
+        state_and_result_bytes = 7848
+        state_before_bytes = 4848
+
+            [night_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x3b655000
+            pid = 127179
+            private_bytes = 0x2f10c000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a8f5000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0ec266d69056
+
+            [night_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x3b655000
+            pid = 127179
+            private_bytes = 0x2f10c000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x3a8f5000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0ec266666a8f
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Snapshot covers the entire diagnostic process, not just the scenario.", "Only GC-managed memory is represented; native and device memory are excluded.", "Snapshot capture is intrusive and its duration is not baseline performance evidence."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_repair"
+    status = "complete"
+    summary = "Redacted heap snapshot captured after verification. Covers GC-managed objects in the whole worker; native and device memory are excluded."
+    tool = "heap"
+    worker_elapsed_seconds = 29.81898283958435
+
+        [[night_backend_coverage.records.artifacts]]
+        bytes = 655508280
+        kind = "heap_snapshot"
+        redacted = true
+        sha256 = "6c1f302defcb29023e4bf695b9fd073ca550f9692d78a0304b9fcf310ab02558"
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Counts do not measure blocked duration or prove a scalability bottleneck.", "Only runtime-reported lock conflicts are covered; native locks and device barriers are not."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "routing_repair"
+    status = "complete"
+    summary = "3 operations: 0 observed lock conflicts. Counts do not measure waiting duration."
+    tool = "locks"
+    worker_elapsed_seconds = 12.263272047042847
+
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 35680
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 64
+        operation_seconds = 3.5147e-5
+        pause = 0
+        poolalloc = 616
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 35680
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 64
+        operation_seconds = 1.9266e-5
+        pause = 0
+        poolalloc = 616
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 35680
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 64
+        operation_seconds = 1.7222e-5
+        pause = 0
+        poolalloc = 616
+        realloc = 0
+        recompile_time = 0.0
+    [[night_backend_coverage.records]]
+    allocation_site_count = 0
+    cpu_stack_count = 0
+    scenario = "rp_meta_adaptive_late_w2"
+    tool = "benchmark"
+    worker_elapsed_seconds = 23.320960998535156
+
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 603912
+        measurement_definition = "julia.alloc.bytes/shared-benchmark/856ca3efabc97b9d11931bad0553e25820287a5dfed5422381fa2625b604e92e"
+        median = 603912.0
+        metric = "julia.alloc.bytes"
+        minimum = 603912
+        sample_count = 5
+        unit = "By"
+        values = [603912, 603912, 603912, 603912, 603912]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 8862
+        measurement_definition = "julia.alloc.count/shared-benchmark/856ca3efabc97b9d11931bad0553e25820287a5dfed5422381fa2625b604e92e"
+        median = 8862.0
+        metric = "julia.alloc.count"
+        minimum = 8862
+        sample_count = 5
+        unit = "1"
+        values = [8862, 8862, 8862, 8862, 8862]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 0.001789491
+        measurement_definition = "julia.wall.time/shared-benchmark/856ca3efabc97b9d11931bad0553e25820287a5dfed5422381fa2625b604e92e"
+        median = 0.001113467
+        metric = "julia.wall.time"
+        minimum = 0.000904106
+        sample_count = 5
+        unit = "s"
+        values = [0.001789491, 0.001346226, 0.001113467, 0.001017168, 0.000904106]
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    allocation_site_count = 0
+    cpu_stack_count = 0
+    scenario = "rp_meta_adaptive_late_w2"
+    tool = "chairmark"
+    worker_elapsed_seconds = 22.780270099639893
+
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 617912.0
+        measurement_definition = "julia.alloc.bytes/shared-chairmark/20d05398cfc5adffe78c98f972e7b6f1befa166f5ac8d89382482e4c20bbe7f1"
+        median = 607016.0
+        metric = "julia.alloc.bytes"
+        minimum = 606424.0
+        sample_count = 5
+        unit = "By"
+        values = [617912.0, 607016.0, 606424.0, 606680.0, 616608.0]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 8957.0
+        measurement_definition = "julia.alloc.count/shared-chairmark/20d05398cfc5adffe78c98f972e7b6f1befa166f5ac8d89382482e4c20bbe7f1"
+        median = 8862.0
+        metric = "julia.alloc.count"
+        minimum = 8862.0
+        sample_count = 5
+        unit = "1"
+        values = [8888.0, 8862.0, 8862.0, 8862.0, 8957.0]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 0.0017129110000000001
+        measurement_definition = "julia.wall.time/shared-chairmark/20d05398cfc5adffe78c98f972e7b6f1befa166f5ac8d89382482e4c20bbe7f1"
+        median = 0.001116852
+        metric = "julia.wall.time"
+        minimum = 0.0010725930000000002
+        sample_count = 5
+        unit = "s"
+        values = [0.0017129110000000001, 0.0012689930000000002, 0.001116852, 0.0010725930000000002, 0.001107639]
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    allocation_site_count = 0
+    cpu_stack_count = 5
+    metrics = []
+    scenario = "rp_meta_adaptive_late_w2"
+    tool = "profile"
+    worker_elapsed_seconds = 23.432414054870605
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    allocation_site_count = 38970
+    cpu_stack_count = 0
+    scenario = "rp_meta_adaptive_late_w2"
+    tool = "profile_alloc"
+    worker_elapsed_seconds = 31.97974181175232
+
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "independent_operation_total"
+        maximum = 618936
+        measurement_definition = "julia.alloc.bytes/shared-profile-independent-totals/d96f24b114903ee1b4ef54f13079a1e0b84ee037ea14ba8faac79ca34a5d7252"
+        median = 618936.0
+        metric = "julia.alloc.bytes"
+        minimum = 618936
+        sample_count = 1
+        unit = "By"
+        values = [618936]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "independent_operation_total"
+        maximum = 8862
+        measurement_definition = "julia.alloc.count/shared-profile-independent-totals/d96f24b114903ee1b4ef54f13079a1e0b84ee037ea14ba8faac79ca34a5d7252"
+        median = 8862.0
+        metric = "julia.alloc.count"
+        minimum = 8862
+        sample_count = 1
+        unit = "1"
+        values = [8862]
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_adaptive_late_w2"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+    tool_version = "0.12.3"
+    worker_elapsed_seconds = 21.908791065216064
+    [[night_backend_coverage.records]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    finding_count = 9
+    findings_truncated = false
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_adaptive_late_w2"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+    tool_version = "0.2.6"
+    worker_elapsed_seconds = 33.25959587097168
+
+        [[night_backend_coverage.records.findings]]
+        message = """Allocation of Memory{Int64} in ./boot.jl:588\n  | (self::Type{GenericMemory{kind,T,addrspace}})(::UndefInitializer, m::Int) where {T,addrspace,kind} = memorynew(self, m)\n\nStacktrace:\n [1] GenericMemory\n   @ ./boot.jl:588 [inlined]\n [2] Array\n   @ ./boot.jl:648 [inlined]\n [3] vect\n   @ ./array.jl:161 [inlined]\n [4] (::Main.var\"##SharedCase#142\".var\"#routing_meta_case##6#routing_meta_case##7\"{@NamedTuple{clone_backend::typeof(Main.var\"##SharedCase#142\".ICNScoring.clone_backend), metadata::typeof(Main.var\"##SharedCase#142\".ICNScoring.metadata), run::Main.var\"##SharedCase#142\".var\"#routing_meta_cas"""
+        severity = "warning"
+        [[night_backend_coverage.records.findings]]
+        message = """Allocation of Vector{Int64} in ./boot.jl:649\n  | return $(Expr(:new, :self, :(memoryref(mem)), :((m,))))\n\nStacktrace:\n [1] Array\n   @ ./boot.jl:649 [inlined]\n [2] vect\n   @ ./array.jl:161 [inlined]\n [3] (::Main.var\"##SharedCase#142\".var\"#routing_meta_case##6#routing_meta_case##7\"{@NamedTuple{clone_backend::typeof(Main.var\"##SharedCase#142\".ICNScoring.clone_backend), metadata::typeof(Main.var\"##SharedCase#142\".ICNScoring.metadata), run::Main.var\"##SharedCase#142\".var\"#routing_meta_case##4#routing_meta_case##5\"}, Float64, Int64, Int64, String})(s::@NamedTuple{p::ConstraintModels.Benchmarks.Bench"""
+        severity = "warning"
+        [[night_backend_coverage.records.findings]]
+        message = """Allocation of Memory{Vector{Int64}} in ./boot.jl:588\n  | (self::Type{GenericMemory{kind,T,addrspace}})(::UndefInitializer, m::Int) where {T,addrspace,kind} = memorynew(self, m)\n\nStacktrace:\n [1] GenericMemory\n   @ ./boot.jl:588 [inlined]\n [2] Array\n   @ ./boot.jl:648 [inlined]\n [3] vect\n   @ ./array.jl:161 [inlined]\n [4] (::Main.var\"##SharedCase#142\".var\"#routing_meta_case##6#routing_meta_case##7\"{@NamedTuple{clone_backend::typeof(Main.var\"##SharedCase#142\".ICNScoring.clone_backend), metadata::typeof(Main.var\"##SharedCase#142\".ICNScoring.metadata), run::Main.var\"##SharedCase#142\".var\"#routing_"""
+        severity = "warning"
+    [[night_backend_coverage.records]]
+    analysis_scope = "first complete scenario lifecycle in diagnostic process"
+    correctness = "passed"
+    finding_count = 1
+    findings_truncated = false
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_adaptive_late_w2"
+    status = "complete"
+    summary = ""
+    tool = "snoopcompile"
+    tool_version = "3.2.9"
+    worker_elapsed_seconds = 21.071192979812622
+
+        [[night_backend_coverage.records.findings]]
+        message = "InferenceTimingNode: 0.000014/35.489583 on Base.Compiler.Timings.ROOT() with 422 direct children"
+        severity = "warning"
+
+        [night_backend_coverage.records.measurements]
+        inference_seconds = 35.48958337306976
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    measurement_scope = "fresh process; source loading; full lifecycle including preparation and verification"
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_adaptive_late_w2"
+    status = "complete"
+    summary = ""
+    tool = "latency"
+    worker_elapsed_seconds = 21.37746500968933
+
+        [night_backend_coverage.records.measurements]
+        first_case_seconds = 14.301129081
+        load_seconds = 6.204609496
+        warm_case_seconds = 0.002077664
+    [[night_backend_coverage.records]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_adaptive_late_w2"
+    status = "complete"
+    summary = "3 operations: 0.0 ms in GC, 1835096 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+    worker_elapsed_seconds = 21.656595945358276
+
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 619128
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 1113
+        operation_seconds = 0.001795835
+        pause = 0
+        poolalloc = 7775
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 608392
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 1113
+        operation_seconds = 0.001266121
+        pause = 0
+        poolalloc = 7749
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 607576
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 1113
+        operation_seconds = 0.001094675
+        pause = 0
+        poolalloc = 7749
+        realloc = 0
+        recompile_time = 0.0
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_adaptive_late_w2"
+    status = "complete"
+    summary = "3 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+    worker_elapsed_seconds = 22.573119163513184
+
+        [[night_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 3330
+        state_and_result_bytes = 116485
+        state_before_bytes = 3330
+
+            [night_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x44ca2000
+            pid = 128484
+            private_bytes = 0x34ade000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x446b2000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0f04f351ca04
+
+            [night_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x44ca2000
+            pid = 128484
+            private_bytes = 0x34add000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x4464d000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0f04f0626661
+        [[night_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 3330
+        state_and_result_bytes = 116485
+        state_before_bytes = 3330
+
+            [night_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x44ca2000
+            pid = 128484
+            private_bytes = 0x35036000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x44c1a000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0f0506035b42
+
+            [night_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x44ca2000
+            pid = 128484
+            private_bytes = 0x35027000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x44c0b000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0f05056a6501
+        [[night_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 3330
+        state_and_result_bytes = 116485
+        state_before_bytes = 3330
+
+            [night_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x44ca2000
+            pid = 128484
+            private_bytes = 0x3505f000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x44c42000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0f0507273808
+
+            [night_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x44ca2000
+            pid = 128484
+            private_bytes = 0x35046000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x44c29000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0f0506983c19
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Snapshot covers the entire diagnostic process, not just the scenario.", "Only GC-managed memory is represented; native and device memory are excluded.", "Snapshot capture is intrusive and its duration is not baseline performance evidence."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_adaptive_late_w2"
+    status = "complete"
+    summary = "Redacted heap snapshot captured after verification. Covers GC-managed objects in the whole worker; native and device memory are excluded."
+    tool = "heap"
+    worker_elapsed_seconds = 44.53262710571289
+
+        [[night_backend_coverage.records.artifacts]]
+        bytes = 674011824
+        kind = "heap_snapshot"
+        redacted = true
+        sha256 = "1e77fb7c3ff56fbfe7a5ba0ec195182f4d931d1f3067950e98c1b289f8d4704e"
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Counts do not measure blocked duration or prove a scalability bottleneck.", "Only runtime-reported lock conflicts are covered; native locks and device barriers are not."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_adaptive_late_w2"
+    status = "complete"
+    summary = "3 operations: 0 observed lock conflicts. Counts do not measure waiting duration."
+    tool = "locks"
+    worker_elapsed_seconds = 21.94533896446228
+
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 618232
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 1113
+        operation_seconds = 0.001821189
+        pause = 0
+        poolalloc = 7775
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 607256
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 1113
+        operation_seconds = 0.001487294
+        pause = 0
+        poolalloc = 7749
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 606696
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 1113
+        operation_seconds = 0.000997119
+        pause = 0
+        poolalloc = 7749
+        realloc = 0
+        recompile_time = 0.0
+    [[night_backend_coverage.records]]
+    allocation_site_count = 0
+    cpu_stack_count = 0
+    scenario = "rp_meta_pool_ipx_late_w2"
+    tool = "benchmark"
+    worker_elapsed_seconds = 27.235284090042114
+
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 676912
+        measurement_definition = "julia.alloc.bytes/shared-benchmark/692c954a6935a6c4a751ff93425eb624b065ae2ca43912830fadc5b28d67a3f5"
+        median = 676912.0
+        metric = "julia.alloc.bytes"
+        minimum = 676912
+        sample_count = 5
+        unit = "By"
+        values = [676912, 676912, 676912, 676912, 676912]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 11879
+        measurement_definition = "julia.alloc.count/shared-benchmark/692c954a6935a6c4a751ff93425eb624b065ae2ca43912830fadc5b28d67a3f5"
+        median = 11879.0
+        metric = "julia.alloc.count"
+        minimum = 11879
+        sample_count = 5
+        unit = "1"
+        values = [11879, 11879, 11879, 11879, 11879]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 0.030271732
+        measurement_definition = "julia.wall.time/shared-benchmark/692c954a6935a6c4a751ff93425eb624b065ae2ca43912830fadc5b28d67a3f5"
+        median = 0.002545161
+        metric = "julia.wall.time"
+        minimum = 0.001898409
+        sample_count = 5
+        unit = "s"
+        values = [0.030271732, 0.002958205, 0.002545161, 0.001898409, 0.002155531]
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    allocation_site_count = 0
+    cpu_stack_count = 0
+    scenario = "rp_meta_pool_ipx_late_w2"
+    tool = "chairmark"
+    worker_elapsed_seconds = 26.315829038619995
+
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 2.454016e6
+        measurement_definition = "julia.alloc.bytes/shared-chairmark/84ef5be14af6d273dceb1c1258605311dd18c0f37d0746cc3b13703e372f19c1"
+        median = 688568.0
+        metric = "julia.alloc.bytes"
+        minimum = 681392.0
+        sample_count = 5
+        unit = "By"
+        values = [2.454016e6, 688608.0, 687632.0, 681392.0, 688568.0]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 43528.0
+        measurement_definition = "julia.alloc.count/shared-chairmark/84ef5be14af6d273dceb1c1258605311dd18c0f37d0746cc3b13703e372f19c1"
+        median = 11880.0
+        metric = "julia.alloc.count"
+        minimum = 11879.0
+        sample_count = 5
+        unit = "1"
+        values = [43528.0, 11880.0, 11879.0, 11880.0, 11975.0]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "sample"
+        maximum = 0.032053356000000005
+        measurement_definition = "julia.wall.time/shared-chairmark/84ef5be14af6d273dceb1c1258605311dd18c0f37d0746cc3b13703e372f19c1"
+        median = 0.002946765
+        metric = "julia.wall.time"
+        minimum = 0.00229138
+        sample_count = 5
+        unit = "s"
+        values = [0.032053356000000005, 0.0038078530000000004, 0.002946765, 0.0023863020000000003, 0.00229138]
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    allocation_site_count = 0
+    cpu_stack_count = 20
+    metrics = []
+    scenario = "rp_meta_pool_ipx_late_w2"
+    tool = "profile"
+    worker_elapsed_seconds = 29.078817129135132
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    allocation_site_count = 54233
+    cpu_stack_count = 0
+    scenario = "rp_meta_pool_ipx_late_w2"
+    tool = "profile_alloc"
+    worker_elapsed_seconds = 41.81934714317322
+
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "independent_operation_total"
+        maximum = 2453424
+        measurement_definition = "julia.alloc.bytes/shared-profile-independent-totals/1d804a1ab045922a6d5ea9b81f0fe41308199df5586663ab1c153dc9fb8a8db9"
+        median = 2.453424e6
+        metric = "julia.alloc.bytes"
+        minimum = 2453424
+        sample_count = 1
+        unit = "By"
+        values = [2453424]
+        [[night_backend_coverage.records.metrics]]
+        aggregation = "independent_operation_total"
+        maximum = 11879
+        measurement_definition = "julia.alloc.count/shared-profile-independent-totals/1d804a1ab045922a6d5ea9b81f0fe41308199df5586663ab1c153dc9fb8a8db9"
+        median = 11879.0
+        metric = "julia.alloc.count"
+        minimum = 11879
+        sample_count = 1
+        unit = "1"
+        values = [11879]
+
+        [night_backend_coverage.records.qualification]
+        availability = "complete"
+        correctness = "passed"
+        performance = "not_compared"
+        quality = "not_checked"
+    [[night_backend_coverage.records]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_pool_ipx_late_w2"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+    tool_version = "0.12.3"
+    worker_elapsed_seconds = 26.83934187889099
+    [[night_backend_coverage.records]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    finding_count = 9
+    findings_truncated = false
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_pool_ipx_late_w2"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+    tool_version = "0.2.6"
+    worker_elapsed_seconds = 38.31557512283325
+
+        [[night_backend_coverage.records.findings]]
+        message = """Allocation of Memory{Int64} in ./boot.jl:588\n  | (self::Type{GenericMemory{kind,T,addrspace}})(::UndefInitializer, m::Int) where {T,addrspace,kind} = memorynew(self, m)\n\nStacktrace:\n [1] GenericMemory\n   @ ./boot.jl:588 [inlined]\n [2] Array\n   @ ./boot.jl:648 [inlined]\n [3] vect\n   @ ./array.jl:161 [inlined]\n [4] (::Main.var\"##SharedCase#142\".var\"#routing_meta_case##6#routing_meta_case##7\"{@NamedTuple{clone_backend::typeof(Main.var\"##SharedCase#142\".ICNScoring.clone_backend), metadata::typeof(Main.var\"##SharedCase#142\".ICNScoring.metadata), run::Main.var\"##SharedCase#142\".var\"#routing_meta_cas"""
+        severity = "warning"
+        [[night_backend_coverage.records.findings]]
+        message = """Allocation of Vector{Int64} in ./boot.jl:649\n  | return $(Expr(:new, :self, :(memoryref(mem)), :((m,))))\n\nStacktrace:\n [1] Array\n   @ ./boot.jl:649 [inlined]\n [2] vect\n   @ ./array.jl:161 [inlined]\n [3] (::Main.var\"##SharedCase#142\".var\"#routing_meta_case##6#routing_meta_case##7\"{@NamedTuple{clone_backend::typeof(Main.var\"##SharedCase#142\".ICNScoring.clone_backend), metadata::typeof(Main.var\"##SharedCase#142\".ICNScoring.metadata), run::Main.var\"##SharedCase#142\".var\"#routing_meta_case##4#routing_meta_case##5\"}, Float64, Int64, Int64, String})(s::@NamedTuple{p::ConstraintModels.Benchmarks.Bench"""
+        severity = "warning"
+        [[night_backend_coverage.records.findings]]
+        message = """Allocation of Memory{Vector{Int64}} in ./boot.jl:588\n  | (self::Type{GenericMemory{kind,T,addrspace}})(::UndefInitializer, m::Int) where {T,addrspace,kind} = memorynew(self, m)\n\nStacktrace:\n [1] GenericMemory\n   @ ./boot.jl:588 [inlined]\n [2] Array\n   @ ./boot.jl:648 [inlined]\n [3] vect\n   @ ./array.jl:161 [inlined]\n [4] (::Main.var\"##SharedCase#142\".var\"#routing_meta_case##6#routing_meta_case##7\"{@NamedTuple{clone_backend::typeof(Main.var\"##SharedCase#142\".ICNScoring.clone_backend), metadata::typeof(Main.var\"##SharedCase#142\".ICNScoring.metadata), run::Main.var\"##SharedCase#142\".var\"#routing_"""
+        severity = "warning"
+    [[night_backend_coverage.records]]
+    analysis_scope = "first complete scenario lifecycle in diagnostic process"
+    correctness = "passed"
+    finding_count = 1
+    findings_truncated = false
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_pool_ipx_late_w2"
+    status = "complete"
+    summary = ""
+    tool = "snoopcompile"
+    tool_version = "3.2.9"
+    worker_elapsed_seconds = 25.8456928730011
+
+        [[night_backend_coverage.records.findings]]
+        message = "InferenceTimingNode: 0.000014/53.222931 on Base.Compiler.Timings.ROOT() with 517 direct children"
+        severity = "warning"
+
+        [night_backend_coverage.records.measurements]
+        inference_seconds = 53.222931027412415
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    measurement_scope = "fresh process; source loading; full lifecycle including preparation and verification"
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_pool_ipx_late_w2"
+    status = "complete"
+    summary = ""
+    tool = "latency"
+    worker_elapsed_seconds = 26.450968027114868
+
+        [night_backend_coverage.records.measurements]
+        first_case_seconds = 18.798798049
+        load_seconds = 6.706204987
+        warm_case_seconds = 0.035288131
+    [[night_backend_coverage.records]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_pool_ipx_late_w2"
+    status = "complete"
+    summary = "3 operations: 0.0 ms in GC, 3833856 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+    worker_elapsed_seconds = 27.77628803253174
+
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 2456496
+        bigalloc = 0
+        compile_time = 0.028669583
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 1088
+        operation_seconds = 0.032134186
+        pause = 0
+        poolalloc = 42444
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 688816
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 1078
+        operation_seconds = 0.002972634
+        pause = 0
+        poolalloc = 10802
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 688544
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 1078
+        operation_seconds = 0.002451008
+        pause = 0
+        poolalloc = 10802
+        realloc = 0
+        recompile_time = 0.0
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_pool_ipx_late_w2"
+    status = "complete"
+    summary = "3 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+    worker_elapsed_seconds = 28.696964979171753
+
+        [[night_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 3330
+        state_and_result_bytes = 117717
+        state_before_bytes = 3330
+
+            [night_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x49146000
+            pid = 130157
+            private_bytes = 0x37457000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x48f9e000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0f5a2309c5ef
+
+            [night_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x49146000
+            pid = 130157
+            private_bytes = 0x3704e000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x48b24000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0f5a1d5fffdf
+        [[night_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 3330
+        state_and_result_bytes = 117717
+        state_before_bytes = 3330
+
+            [night_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x49758000
+            pid = 130157
+            private_bytes = 0x3695f000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x4855d000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0f5a3beaa0dc
+
+            [night_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x49758000
+            pid = 130157
+            private_bytes = 0x3695f000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x4855d000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0f5a3b22c484
+        [[night_backend_coverage.records.measurements.samples]]
+        state_after_bytes = 3330
+        state_and_result_bytes = 117717
+        state_before_bytes = 3330
+
+            [night_backend_coverage.records.measurements.samples.process_after]
+            message = ""
+            peak_rss_bytes = 0x49758000
+            pid = 130157
+            private_bytes = 0x3695f000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x4855d000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0f5a3d579a01
+
+            [night_backend_coverage.records.measurements.samples.process_before]
+            message = ""
+            peak_rss_bytes = 0x49758000
+            pid = 130157
+            private_bytes = 0x3695f000
+            provider = "linux-proc-status+smaps-rollup"
+            rss_bytes = 0x4855d000
+            schema_version = "perfchecker-process-memory/1"
+            status = "observed"
+            timestamp_ns = 0x0f5a3c9b3135
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Snapshot covers the entire diagnostic process, not just the scenario.", "Only GC-managed memory is represented; native and device memory are excluded.", "Snapshot capture is intrusive and its duration is not baseline performance evidence."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_pool_ipx_late_w2"
+    status = "complete"
+    summary = "Redacted heap snapshot captured after verification. Covers GC-managed objects in the whole worker; native and device memory are excluded."
+    tool = "heap"
+    worker_elapsed_seconds = 49.96682596206665
+
+        [[night_backend_coverage.records.artifacts]]
+        bytes = 681975477
+        kind = "heap_snapshot"
+        redacted = true
+        sha256 = "5b3b93905b71d255ef0ba9adcedcac2ef3e29ae07484835696dbf35afa12c848"
+    [[night_backend_coverage.records]]
+    correctness = "passed"
+    finding_count = 0
+    findings = []
+    findings_truncated = false
+    limitations = ["Counts do not measure blocked duration or prove a scalability bottleneck.", "Only runtime-reported lock conflicts are covered; native locks and device barriers are not."]
+    performance = "not_compared"
+    quality = "not_checked"
+    scenario = "rp_meta_pool_ipx_late_w2"
+    status = "complete"
+    summary = "3 operations: 0 observed lock conflicts. Counts do not measure waiting duration."
+    tool = "locks"
+    worker_elapsed_seconds = 28.54941201210022
+
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 2454080
+        bigalloc = 0
+        compile_time = 0.029917069
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 1088
+        operation_seconds = 0.033451193
+        pause = 0
+        poolalloc = 42439
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 688608
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 1078
+        operation_seconds = 0.003514488
+        pause = 0
+        poolalloc = 10802
+        realloc = 0
+        recompile_time = 0.0
+        [[night_backend_coverage.records.measurements.samples]]
+        allocated_bytes = 688480
+        bigalloc = 0
+        compile_time = 0.0
+        full_sweep = 0
+        gc_seconds = 0.0
+        lock_conflicts = 0
+        malloc = 1078
+        operation_seconds = 0.003102185
+        pause = 0
+        poolalloc = 10802
+        realloc = 0
+        recompile_time = 0.0
+
 [night_exchange_prefilter]
 before_source_sha256 = "0309ae2d48013c6326bededcb891a6214dc231ab718b8ce4feb59d448bf44a7c"
 factory_sha256 = "cb310cd109539d0f1043267d642614c37aae9143e70870cefe4f6865a0263da8"
