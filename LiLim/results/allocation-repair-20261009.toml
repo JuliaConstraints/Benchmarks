@@ -1,0 +1,140 @@
+input_policy = "Same six official sampled inputs; insertion seed 41, five starts; trial seed 41, four workers, full 60-second budget."
+perfchecker_commit = "1cc09a98db569b382f91dc10f6a569c1c728b6aa"
+previous_runtime_commit = "e399b1c0870a074bded1959456d38e3688d38a13"
+profile_caveat = "Sampled stacks describe attribution within collected package sources. Whole-operation counters and direct insertion measurements establish cumulative allocation reduction; profiles are not comparative solver-quality trials."
+qualification_assertions = 69345
+qualified_runtime_commit = "b909d8b88401c01269f76fa3cc35cdf547e47f55"
+recorded_utc = "2026-10-09T10:05:20.710"
+schema = "li-lim-allocation-repair/1"
+scope = "Shared initialization correction affects every configuration; historical measurements are preserved and require replay in the corrected cohort."
+
+[families]
+cbls = 220
+cbls_highs = 72
+cbls_qubo = 24
+meta_cbls_ro = 180
+meta_routing = 16
+routing = 36
+
+[[full_60s_checks]]
+budget_seconds = 60.0
+initial_allocated_bytes = 282728
+instance = "lr208"
+mean_active_cpus = 3.978499996072775
+method = "xp_cbls_naive_reset_p0p01_f0p05_best"
+original_validation = true
+post_initial_allocated_bytes = 4868830928
+search_allocated_bytes = 4869113656
+search_gc_fraction = 0.0056256849681417705
+search_gc_seconds = 0.337541829
+seed = 41
+threads_requested = 4
+[[full_60s_checks]]
+budget_seconds = 60.0
+initial_allocated_bytes = 6680096
+instance = "lr2_8_6"
+mean_active_cpus = 3.912342805845875
+method = "xp_meta_rins_light_exploit_equal"
+original_validation = true
+post_initial_allocated_bytes = 2508470592
+search_allocated_bytes = 2515150688
+search_gc_fraction = 0.0032734689375957145
+search_gc_seconds = 0.196475007
+seed = 41
+threads_requested = 4
+
+[[initialization_results]]
+after_bytes = 138024
+after_gc_seconds = 0.0
+after_seconds = 0.017163794
+before_bytes = 282513032
+before_gc_seconds = 0.008716747
+before_seconds = 0.044602289
+exact_routes_equal = true
+input_sha256 = "8f754ffc7a43b8e0944a955cecb2782f2677b9b2ca974bc4492948b33e0f93b4"
+instance = "lr208"
+[[initialization_results]]
+after_bytes = 443720
+after_gc_seconds = 0.0
+after_seconds = 0.099666733
+before_bytes = 1894061128
+before_gc_seconds = 0.061350242
+before_seconds = 0.281014964
+exact_routes_equal = true
+input_sha256 = "906282749c2e7828280e116bf5245d6bf228c513a658317a2553467aa86e8774"
+instance = "lrc2_2_4"
+[[initialization_results]]
+after_bytes = 1699728
+after_gc_seconds = 0.0
+after_seconds = 0.026959954
+before_bytes = 469831376
+before_gc_seconds = 0.019622007
+before_seconds = 0.121874755
+exact_routes_equal = true
+input_sha256 = "15d86fed3b674fd3bf25dd44cef53a184304ce5df099bc8adfdc1ea083651137"
+instance = "lc1_4_2"
+[[initialization_results]]
+after_bytes = 3221720
+after_gc_seconds = 0.0
+after_seconds = 0.663501458
+before_bytes = 14070593384
+before_gc_seconds = 0.416887569
+before_seconds = 1.698264295
+exact_routes_equal = true
+input_sha256 = "175c97bee00380860d3b5360b07fce6bbf1ffa4ab6638faa9135eed6df110b7d"
+instance = "lr2_6_9"
+[[initialization_results]]
+after_bytes = 5587552
+after_gc_seconds = 0.0
+after_seconds = 1.499133971
+before_bytes = 32631209096
+before_gc_seconds = 1.052250445
+before_seconds = 4.05348416
+exact_routes_equal = true
+input_sha256 = "878212590c3acab4723b48af4c45790be2ebe60d6b5c3b5498ec92cc762612d1"
+instance = "lr2_8_6"
+[[initialization_results]]
+after_bytes = 8796080
+after_gc_seconds = 0.0
+after_seconds = 0.744723199
+before_bytes = 12923475968
+before_gc_seconds = 0.46634682
+before_seconds = 1.97873088
+exact_routes_equal = true
+input_sha256 = "f5951a6d186e89e42c55afc6d6426e074ea1c9552d09469cd55ee95668e9036e"
+instance = "lc2_10_3"
+
+[[perfchecker_collectors]]
+backend = "profile_alloc"
+stack_rows = 10
+verdict = "executed"
+[[perfchecker_collectors]]
+backend = "profile"
+stack_rows = 566
+verdict = "executed"
+[[perfchecker_collectors]]
+backend = "wall_profile"
+stack_rows = 301
+verdict = "executed"
+
+[qualified_source_sha256]
+"LiLim/scripts/colleague.jl" = "254b1f94b491d227b31c719ad8df4d27368f4d678ddc991f2a9e9002eae87a8c"
+"LiLim/scripts/full_corpus_campaign.jl" = "77bcc2fd9e256837baf5600d3a92a5b6de76a53c7ef004550b4770fce1877b6b"
+"LiLim/src/CampaignCatalog.jl" = "3b9d2def10a9e8ded5ecf15bf0e177450cee8ad8bf5ebe5bfef30b6a6e1bf074"
+"LiLim/src/Pilot.jl" = "2b6af5152ccb81722e04815d0ed5d3c82b93bdb58f4b244886f449a1b765e95e"
+"LiLim/src/ResourceExperiment.jl" = "2525f81d9baac66a371ba22fee8eb02b8964b5c4ff7666046baf49300c6f3a26"
+
+[test_assertions]
+campaign_catalog = 66
+hybrid = 1693
+icn_resources = 30490
+insertion_workspace = 37029
+screening_control = 43
+six_original_inputs = 24
+
+[unreproduced_anomaly]
+instance = "lr208"
+method = "xp_cbls_naive_reset_p0p01_f0p05_best"
+original_allocated_bytes = 275062930600
+original_gc_fraction = 0.3085373069419496
+root_cause = "not confirmed; isolated exact 60-second replay and a diverse warmup prefix did not reproduce the original anomaly; durable stop evidence retained"
