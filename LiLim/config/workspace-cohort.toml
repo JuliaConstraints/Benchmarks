@@ -4,22 +4,22 @@ previous_qualified_public_branch = "bench/lilim-etendu-20261007"
 public_branch = "perf/routing-sparse-guide-20261008"
 public_status = "published"
 schema = "li-lim-workspace-cohort/1"
-scope = "Published package-specific overnight performance branches at exact immutable commits; original-model and combined-environment qualification required before comparative trials"
+scope = "Final immutable public overnight performance cohort; original-model, complete application, fixed-work and portable preflight qualification before comparative trials"
 source_branch = "perf/routing-sparse-guide-20261008"
 
 [cohort]
-CBLS = "0c3618f2c32115a95e839b5c2b88e0bce1abeaf1"
-CompositionalNetworks = "46192ea8ecde5ad8029c61f05c737984f370c52d"
-ConstraintCommons = "1707636e0145e00c6b3098f25e3e41c61de38136"
-ConstraintDomains = "19b4b9082ac3588e417d0c711f961dd5008e8653"
-ConstraintModels = "5edc50310d6ef6c1606a6df8635d85f7b1d76454"
-ConstraintProgrammingExtensions = "7ab51085b7e17db00c21c496a8f70d47a3422c11"
-Constraints = "ba5d8afcebde2515870ecc35a2592ecc002db86d"
-LocalSearchSolvers = "35671c8daba2a293dd431dfe80f59da73bc7596d"
-MetaStrategist = "022c052497d6caf21d71f19b3167dd8c11eca24a"
-PatternFolds = "440a087e85350e23e8efb6b6dbe449ed891549ef"
-QUBOConstraints = "51cc3c0032b148a4c2c2a56a021dd5a970b7789a"
-XCSP3Bridges = "1020bd171857054fd5907b16f687dd925c6cf65a"
+CBLS = "8d5e87717cdd5ad92d7617c724e55c07a481960f"
+CompositionalNetworks = "537b7a3ea26c67e83ddb0e66782e6a0a209b24c8"
+ConstraintCommons = "98cb9470250aa55ed19e35b78c133a98b56b5bdb"
+ConstraintDomains = "508f4560880cf2c445008816571aecc1f6f3951b"
+ConstraintModels = "b7d7aaa6d00591e171a4d75c13ce9079f43beeaa"
+ConstraintProgrammingExtensions = "9e6faf40ca3eb8c3399a50f68332708058150feb"
+Constraints = "476cf1751ad3d2ea2360522826bd8a778902116b"
+LocalSearchSolvers = "94fd347d5366d45cc345ad2ec723347c116e50ad"
+MetaStrategist = "6c65073fe3f55aac6b4cde2f31112d97262a542d"
+PatternFolds = "ebff5af17c648432650202d2f55945448ffe5ee8"
+QUBOConstraints = "a1708217214c1e6e19d071480eb884fd186a7b6e"
+XCSP3Bridges = "48efa2091ab163b4a957de5c1d4deaa875c5ed41"
 
 [cohort_branches]
 CBLS = "perf/owned-workspaces-20261008"
@@ -53,6 +53,24 @@ PatternFolds = "a665ff20a2a72ff929f91b50106b05acac1e1662"
 QUBOConstraints = "f893f83cd7518ca3aedf0ad5d2679b2c13829446"
 XCSP3Bridges = "fe5bceaddc5081fedd200571b480e44ca9de1947"
 
+[first_overnight_qualified_cohort]
+CBLS = "0c3618f2c32115a95e839b5c2b88e0bce1abeaf1"
+CompositionalNetworks = "46192ea8ecde5ad8029c61f05c737984f370c52d"
+ConstraintCommons = "1707636e0145e00c6b3098f25e3e41c61de38136"
+ConstraintDomains = "19b4b9082ac3588e417d0c711f961dd5008e8653"
+ConstraintModels = "5edc50310d6ef6c1606a6df8635d85f7b1d76454"
+ConstraintProgrammingExtensions = "7ab51085b7e17db00c21c496a8f70d47a3422c11"
+Constraints = "ba5d8afcebde2515870ecc35a2592ecc002db86d"
+LocalSearchSolvers = "35671c8daba2a293dd431dfe80f59da73bc7596d"
+MetaStrategist = "022c052497d6caf21d71f19b3167dd8c11eca24a"
+PatternFolds = "440a087e85350e23e8efb6b6dbe449ed891549ef"
+QUBOConstraints = "51cc3c0032b148a4c2c2a56a021dd5a970b7789a"
+XCSP3Bridges = "1020bd171857054fd5907b16f687dd925c6cf65a"
+
+[first_overnight_qualified_environment]
+manifest_sha256 = "2419a72b3d32007e3ebc2288819111fd9d6f56c09d7d1d788c181c7b80c10ab8"
+project_sha256 = "2a48b5e578f38033a568c0d03697d31b86b1bed65b39086515c6648276cf457b"
+
 [historical_public_cohort]
 CBLS = "1469501a5350fff7233295c2caa505938ad1a128"
 CompositionalNetworks = "c60278dab1f01381805ee141c7b67612b4d00ff1"
@@ -69,7 +87,7 @@ XCSP3Bridges = "c0fafa8c07746660bdd5c0dfe7829e0028caa644"
 
 [optional_cohort.GHOST]
 branch = "perf/owned-callbacks-20261008"
-commit = "3b9e3e26e218f1e29e0a6fa7cc9cd52a1c969fef"
+commit = "e94b411346761f4547858324fbc54f78ce4bf1ad"
 url = "https://github.com/JuliaConstraints/GHOST.jl.git"
 
 [optional_cohort.GHOST_jll]
