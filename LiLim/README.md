@@ -43,6 +43,13 @@ after repetition; the current profiles and runtime are preserved. The QUBO
 variant uses the explicitly unlearned structural proxy, so these observations
 do not assess learned value-pair matrices.
 
+Plot preparation now gives all 103/105 available profiles distinct color/marker
+pairs, preserving every historical reference style across widths. The dashboard
+uses the same line patterns as the static figures and draws reference marks above
+coincident curves. Sixteen focused assertions, checks of the three actual method
+manifests, and 44 dashboard logic checks with a DOM stub pass without rendering;
+figure generation and visual verification wait for the current searches to finish.
+
 Li-Lim is the first qualification target for the new Etendu-aligned cohort.
 The [Hexaly coverage catalog](config/hexaly-benchmark-catalog.toml) records all
 20 benchmark pages, with their exact source URLs. Other families still need

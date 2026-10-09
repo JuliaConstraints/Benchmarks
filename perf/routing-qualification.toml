@@ -179,6 +179,47 @@ source_finding = "guidance_ids rebuilds a full request ranking. Critical ranks d
     "LiLim/src/RoutingPanel.jl" = "d5407cc4bd255e04edc6a8d69fd0f157ad110d5eb6daab8f26afc5b31e6eee3b"
     "LiLim/src/StructuredRouting.jl" = "b1497be366770195a8e551b72f5382f4abffe00a7f119abf621fc0b1a33abd7d"
 
+[night_lilim_plot_styles]
+assertions = 16
+before_application_commit = "df3e6d5e18cca3839fab6db7c1549b1b69ade123"
+dashboard_logic_assertions = 44
+dashboard_logic_scope = "Actual embedded dashboard JavaScript with a DOM stub: seven metrics retain references above coincident curves, solver selections work, and thirteen marker shapes are distinct and finite. No browser or image rendering."
+dashboard_line_patterns = ["", "9 3", "2 3", "7 3 2 3"]
+full_catalog_profiles = 601
+full_catalog_style_triples_distinct = true
+historical_qualification_unchanged = true
+recorded_utc = "2026-10-09T06:34:32.829"
+reference_overlay_verified = true
+render_status = "pending_after_current_solves_and_their_scheduled_reports; existing figures not regenerated or visually requalified by these metadata tests"
+runtime_unchanged = true
+schema = "li-lim-panel-style-qualification/1"
+scope = "Pure style/catalog tests and actual three frozen campaign method manifests on reserved controller CPU14. No solver, installation, Makie import or figure rendering."
+test_command = "julia --startup-file=no --threads=1 --gcthreads=1 LiLim/test/plot_styles.jl"
+
+    [[night_lilim_plot_styles.current_manifests]]
+    historical_styles_unchanged = 51
+    profiles = 103
+    repeated_color_marker_pairs_after = 0
+    repeated_color_marker_pairs_before = 11
+    width = 1
+    [[night_lilim_plot_styles.current_manifests]]
+    historical_styles_unchanged = 51
+    profiles = 103
+    repeated_color_marker_pairs_after = 0
+    repeated_color_marker_pairs_before = 11
+    width = 2
+    [[night_lilim_plot_styles.current_manifests]]
+    historical_styles_unchanged = 53
+    profiles = 105
+    repeated_color_marker_pairs_after = 0
+    repeated_color_marker_pairs_before = 11
+    width = 4
+
+    [night_lilim_plot_styles.source_sha256]
+    "LiLim/scripts/full_corpus_plots.jl" = "b16e4b7fe6699e194406e07149e8f6d027e60fc39f30b7f12015c953fdd4164d"
+    "LiLim/src/PanelPlotStyles.jl" = "01698d71cdb44e05f5a310eced31d61b908f301647113c4744a5745f8490d706"
+    "LiLim/test/plot_styles.jl" = "249770778d7cf2dd245f155590cc313f95087a82835d1ae9cf681a9ffc284715"
+
 [before_initial_fixed_work]
 bytes = 74568944
 fixture = "Same three-request fixture; 2 workers, 8 episodes x 8 steps; one observation before decoder/network and pool fixes"

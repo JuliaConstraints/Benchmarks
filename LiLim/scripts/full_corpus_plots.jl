@@ -32,13 +32,8 @@ const HTML_COLORS = ["#0072B2", "#D55E00", "#009E73", "#7B61A8", "#CC3311", "#55
     "#00A6D6", "#CC79A7", "#A65E2E", "#31708E", "#6B4C9A", "#8A9A00", "#0081A7"]
 const MARKERS = [:circle, :rect, :utriangle, :diamond, :dtriangle, :cross,
     :star5, :hexagon, :pentagon, :xcross, :octagon, :star4, :star8]
-const STYLE_ORDER = vcat(["cbls_naive","cbls_icn","cbls_icn_fused_scalar","cbls_icn_fused_all",
-    "cbls_direct","hybrid_specialized_icn","hybrid_bridged_icn","highs_native",
-    "highs_portfolio","cbls_mix_strategy","mixed_balanced","mixed_ls_heavy","ortools_native"],
-    [v["method"] for v in STRATEGY_CONFIG["variants"][1:21]],
-    ["cbls_strategy_diverse","mixed_strategy_diverse"],
-    [v["method"] for v in STRATEGY_CONFIG["variants"][22:end]],
-    sort!(setdiff(collect(keys(STRATEGY_CONFIG["portfolios"])),["cbls_strategy_diverse","mixed_strategy_diverse"])),["ghost_icn"],StrategyPanel.methods(),RoutingPanel.methods())
+const STYLE_ORDER = PanelPlotStyles.profile_order(STRATEGY_CONFIG,
+    RoutingPanel.methods(),StrategyPanel.methods())
 const PROFILE_STYLES = let
     profiles = filter(!=("hexaly_native"), METHODS)
     all(m->m in STYLE_ORDER,profiles) || error("unknown solver plot style")
@@ -103,7 +98,7 @@ function write_dashboard()
             "id"=>method, "label"=>label(method), "family"=>solver_family(method),
             "color"=>style.html_color,
             "marker"=>string(style.marker),
-            "dash"=>(solver_family(method) == "Hybrid" ? "9 3" : solver_family(method) == "HiGHS" ? "2 3" : solver_family(method) == "MetaStrategist" ? "7 3 2 3" : solver_family(method) == "OR-Tools" ? "3 2 1 2" : ""),
+            "dash"=>PanelPlotStyles.html_dash(line_style(method)),
             "hitRate"=>methodrow["bks_hit_rate"], "bestFleetGap"=>methodrow["mean_best_fleet_gap"],
             "meanFleetGap"=>methodrow["mean_run_fleet_gap"], "medianFleetGap"=>methodrow["mean_median_run_fleet_gap"],
             "distanceGap"=>methodrow["median_distance_gap_at_bks_fleet_percent"],
@@ -194,11 +189,12 @@ function draw(){
  const ylabel=att||key==='success'?'Runs (%)':key==='cpu'?'Mean active CPUs':key==='distance'?'Distance gap (%)':'Vehicle gap';
  let svg=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="white"/><text x="${L}" y="23" font-size="19" font-weight="650">${title}</text>`;
  for(let n=0;n<=5;n++){let y=ymin+(ymax-ymin)*n/5,py=sy(y);svg+=`<line x1="${L}" y1="${py}" x2="${W-R}" y2="${py}" stroke="#dce3e9"/><text x="${L-10}" y="${py+4}" text-anchor="end" font-size="12" fill="#465562">${y.toFixed(1)}</text>`}
- const refy=sy(ref);svg+=`<line x1="${L}" y1="${refy}" x2="${W-R}" y2="${refy}" stroke="#1b2730" stroke-width="2" stroke-dasharray="5 5"/>`;
+ const refy=sy(ref);
  if(att){for(let t=0;t<=5;t++){let x=DATA.budget*t/5,px=sx(x);svg+=`<line x1="${px}" y1="${T}" x2="${px}" y2="${H-B}" stroke="#eef1f4"/><text x="${px}" y="${H-B+22}" text-anchor="middle" font-size="12" fill="#465562">${x.toFixed(0)} s</text>`}}
  else labels.forEach((x,i)=>{let px=sx(x);svg+=`<line x1="${px}" y1="${T}" x2="${px}" y2="${H-B}" stroke="#eef1f4"/><text x="${px}" y="${H-B+22}" text-anchor="middle" font-size="12" fill="#465562">${esc(x)}</text>`});
  svg+=`<text x="18" y="${T+ph/2}" transform="rotate(-90 18 ${T+ph/2})" text-anchor="middle" font-size="13" fill="#263541">${ylabel}</text>`;
  for(const p of chosen){let ds=metricData(p,key),valid=ds.filter(d=>Number.isFinite(d[1]));if(!valid.length)continue;let xy=valid.map(d=>[sx(d[0]),sy(d[1])]);let dash=p.dash?` stroke-dasharray="${p.dash}"`:'';svg+=`<path d="${xy.map((q,i)=>(i?'L':'M')+q[0]+' '+q[1]).join(' ')}" fill="none" stroke="${p.color}" stroke-width="2.7"${dash}/><g fill="${p.color}">`;for(let i=0;i<valid.length;i++){let [x,y]=xy[i],d=valid[i],desc=att?`${d[0].toFixed(1)} sec: ${d[1].toFixed(1)}% of planned trials reached both SINTEF targets`:cpu?`${p.label}: ${d[1]?.toFixed(2)??'unavailable'} active CPUs`: `${d[0]}: ${d[1]?.toFixed(3)??'no feasible result'}`;svg+=`<g>${shape(p,x,y)}<title>${esc(p.label+' · '+desc)}</title></g>`}svg+='</g>'}
+ svg+=`<line x1="${L}" y1="${refy}" x2="${W-R}" y2="${refy}" stroke="#1b2730" stroke-width="2" stroke-dasharray="5 5"/>`;
  svg+=`<line x1="${L}" y1="${T}" x2="${L}" y2="${H-B}" stroke="#263541"/><line x1="${L}" y1="${H-B}" x2="${W-R}" y2="${H-B}" stroke="#263541"/><text x="${L+pw/2}" y="${H-20}" text-anchor="middle" font-size="13" fill="#263541">${att?'Elapsed wall time (seconds)':cpu?'Solver profile':'Official instance'}</text>`;
  document.getElementById('chart').innerHTML=svg;
  document.getElementById('reference').textContent=att?'100% = all planned trials attained both SINTEF targets':key==='success'?'100% = every planned run attained both SINTEF targets':key==='cpu'?`Allocated worker reference: ${DATA.threads} CPUs`:(key==='distance'?'0% = SINTEF distance target at the BKS fleet':'0 vehicles = SINTEF fleet reference');
