@@ -64791,6 +64791,204 @@ scope = "Combined overnight StructuredRouting changes only: unmodified historica
             trace_work_sha256 = "3c300c11750dfced811adbd5d73e088c3a0c1bffbf6997002b9829c355941b00"
             unchanged_proposals = 3792
 
+[night_completed_separate_reporting_repair]
+aqua = "passed"
+branch = "fix/moi-objective-value-20261009"
+collectors_before_after_completed = 80
+commit = "a4ddd14891332bb1027e8fe57e7054b427063cc4"
+final_cohort_unchanged = true
+included_in_lilim_search = false
+package = "CBLS"
+qualification = "Already-engaged reporting correctness work completed and retained separately. Conversion adds measured allocation/dispatch costs and can round large integers; it is not a Li-Lim search optimization."
+qualified_dependency_entries = 148
+qualified_runtime_commit = "5129774cede7b855445d10f7cc300eada72a5e6f"
+receipt = "CBLS.jl/perf/objective_value_qualification.md"
+standard_assertions = 103116
+targeted_assertions_included = 280
+
+[night_constraintmodels_final_standard_entrypoint]
+allow_reresolve = false
+blas_native_threads = 1
+combined_output_bytes = 11747
+combined_output_sha256 = "bec621b0aedf392611a49566d9bc885e9ddbd4767bb50cb716ebc346309810b6"
+controlled_sources_unchanged = true
+cpu_affinity = [12, 14]
+dependency_policy = "Pkg validates exact parent graph in disposable sandbox; no fallback dependency update; unused root nodes may be pruned"
+elapsed_seconds = 63.01903796195984
+environment = "/tmp/hdr-routing-final-env-20261009"
+error_context = []
+exit_code = 0
+finished_utc = "2026-10-09T05:55:05.467"
+frozen_environment_unchanged = true
+gc_mark_threads = 1
+gc_sweep_threads = 0
+julia_interactive_threads = 0
+julia_threads = 1
+logger_destination_only_override = true
+logger_exception_count = 0
+offline = true
+original_test_bodies_preserved = true
+output_tail = """│ │ └ objective_bound    : -Inf\n│ ├ Solution (result = 1)\n│ │ ├ primal_status        : FEASIBLE_POINT\n│ │ ├ dual_status          : NO_SOLUTION\n│ │ └ objective_value      : 3.00000e+00\n│ └ Work counters\n└   └ solve_time (sec)   : 6.80443e-01\n┌ Info: JuMP: min-1-cut\n│   value.(links) =\n│    6-element Vector{Float64}:\n│     0.0\n│     3.0\n│     5.0\n│     2.0\n│     4.0\n└     1.0\nTest Summary:       | Pass  Total   Time\nConstraintModels.jl | 8040   8040  37.3s\nTest Summary:    | Pass  Total   Time\nConstraintModels | 2563   2563  13.2s\n"""
+passed = true
+passed_assertions = 10603
+pruned_root_dependency_count = 51
+receipt_sha256 = "c1d42d65fbbfa6194e34d139d05cab37e503231f3f6808218032d4ab33a32f7e"
+retained_dependency_count = 142
+retained_dependency_identity_verified = true
+runtime_path = "/home/azzaare/.julia/juliaup/julia-1.13.1+0.x64.linux.gnu/bin/julia"
+runtime_version = "1.13.1"
+schema = "constraintmodels-final-standard-entrypoint-v1"
+seeds_and_search_caps_unchanged = true
+standard_entrypoint = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/ConstraintModels/test/runtests.jl"
+started_utc = "2026-10-09T05:54:02.453"
+temporary_environment_removed = true
+test_summaries = ["ConstraintModels.jl | 8040 passed / 8040 total | 37.3s", "ConstraintModels | 2563 passed / 2563 total | 13.2s"]
+total_assertions = 10603
+
+    [night_constraintmodels_final_standard_entrypoint.assertion_counts.ConstraintModels]
+    passed = 2563
+    total = 2563
+
+    [night_constraintmodels_final_standard_entrypoint.assertion_counts."ConstraintModels.jl"]
+    passed = 8040
+    total = 8040
+
+    [night_constraintmodels_final_standard_entrypoint.controlled_sources_before.CBLS]
+    head = "8d5e87717cdd5ad92d7617c724e55c07a481960f"
+    path = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/CBLS"
+    status_porcelain = ""
+    tracked_file_count = 50
+    tracked_project_src_test_perf_sha256 = "75d335a901209b087e1eff138f35635146090293d54b93c3db3358bdab259779"
+
+    [night_constraintmodels_final_standard_entrypoint.controlled_sources_before.CompositionalNetworks]
+    head = "537b7a3ea26c67e83ddb0e66782e6a0a209b24c8"
+    path = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/CompositionalNetworks"
+    status_porcelain = ""
+    tracked_file_count = 62
+    tracked_project_src_test_perf_sha256 = "a7cf0f8ad816ee8b10a76a549e4760a134955614d1a782d4e047ff10ef934f25"
+
+    [night_constraintmodels_final_standard_entrypoint.controlled_sources_before.ConstraintCommons]
+    head = "98cb9470250aa55ed19e35b78c133a98b56b5bdb"
+    path = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/ConstraintCommons"
+    status_porcelain = ""
+    tracked_file_count = 29
+    tracked_project_src_test_perf_sha256 = "5ec2265ea6f707536083849626441b96678dac7d15fefa751413c76a1a843efe"
+
+    [night_constraintmodels_final_standard_entrypoint.controlled_sources_before.ConstraintDomains]
+    head = "508f4560880cf2c445008816571aecc1f6f3951b"
+    path = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/ConstraintDomains"
+    status_porcelain = ""
+    tracked_file_count = 17
+    tracked_project_src_test_perf_sha256 = "87235ee8deced9045baf1c0b06071f4d0e67a0489d287223e588cfaaf7a6f1f2"
+
+    [night_constraintmodels_final_standard_entrypoint.controlled_sources_before.ConstraintModels]
+    head = "b7d7aaa6d00591e171a4d75c13ce9079f43beeaa"
+    path = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/ConstraintModels"
+    status_porcelain = ""
+    tracked_file_count = 31
+    tracked_project_src_test_perf_sha256 = "47389e7fa364b4897f239a12594c1e770434d4f188e127b300111c27c2dc04b9"
+
+    [night_constraintmodels_final_standard_entrypoint.controlled_sources_before.ConstraintProgrammingExtensions]
+    head = "9e6faf40ca3eb8c3399a50f68332708058150feb"
+    path = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/ConstraintProgrammingExtensions"
+    status_porcelain = ""
+    tracked_file_count = 206
+    tracked_project_src_test_perf_sha256 = "b489e6a2c51e1ec64b0744114d13879eed31935ebbe9182b375bc64fab6bec88"
+
+    [night_constraintmodels_final_standard_entrypoint.controlled_sources_before.Constraints]
+    head = "476cf1751ad3d2ea2360522826bd8a778902116b"
+    path = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/Constraints"
+    status_porcelain = ""
+    tracked_file_count = 44
+    tracked_project_src_test_perf_sha256 = "b0eb4c0dc7839b478f0b996a9c0974c124e706963003b454c22a3b24cd45e2d4"
+
+    [night_constraintmodels_final_standard_entrypoint.controlled_sources_before.GHOST]
+    head = "e94b411346761f4547858324fbc54f78ce4bf1ad"
+    path = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/GHOST"
+    status_porcelain = ""
+    tracked_file_count = 18
+    tracked_project_src_test_perf_sha256 = "25780a6988bb571fe96d0490df96af6aecc9d31e9b1d0ac3d4bb9fa09876b79b"
+
+    [night_constraintmodels_final_standard_entrypoint.controlled_sources_before.GHOST_jll]
+    head = "d32e43e0afda0da43d2779e209a0b011624e0f43"
+    path = "/home/azzaare/.julia/dev/JuliaConstraintsHandoff/GHOST_jll"
+    status_porcelain = ""
+    tracked_file_count = 2
+    tracked_project_src_test_perf_sha256 = "99f76db1336fdf4f88f1c7fe8affce2edd754275576d812e6e99a7524313d09a"
+
+    [night_constraintmodels_final_standard_entrypoint.controlled_sources_before.LocalSearchSolvers]
+    head = "94fd347d5366d45cc345ad2ec723347c116e50ad"
+    path = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/LocalSearchSolvers"
+    status_porcelain = ""
+    tracked_file_count = 75
+    tracked_project_src_test_perf_sha256 = "b161dfd697ae976da26cce089f81571722a8e9072f2b0737e9f366ac2ce17eba"
+
+    [night_constraintmodels_final_standard_entrypoint.controlled_sources_before.MetaStrategist]
+    head = "6c65073fe3f55aac6b4cde2f31112d97262a542d"
+    path = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/MetaStrategist"
+    status_porcelain = ""
+    tracked_file_count = 35
+    tracked_project_src_test_perf_sha256 = "defebb53208b439ded51957e152ff1a8202d01ee648636dc8fac34b41374a1cd"
+
+    [night_constraintmodels_final_standard_entrypoint.controlled_sources_before.PatternFolds]
+    head = "ebff5af17c648432650202d2f55945448ffe5ee8"
+    path = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/PatternFolds"
+    status_porcelain = ""
+    tracked_file_count = 19
+    tracked_project_src_test_perf_sha256 = "e6d9f015de15ab5d94a54a381c6507bfa21264e43a5dd61d95dc5cb2b5b4e821"
+
+    [night_constraintmodels_final_standard_entrypoint.controlled_sources_before.QUBOConstraints]
+    head = "a1708217214c1e6e19d071480eb884fd186a7b6e"
+    path = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/QUBOConstraints"
+    status_porcelain = ""
+    tracked_file_count = 59
+    tracked_project_src_test_perf_sha256 = "794112c2e1eedd11a0dde4e604498f5a8e7246383e694c588b2ef640ef8ef1f5"
+
+    [night_constraintmodels_final_standard_entrypoint.controlled_sources_before.XCSP3Bridges]
+    head = "48efa2091ab163b4a957de5c1d4deaa875c5ed41"
+    path = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/XCSP3Bridges"
+    status_porcelain = ""
+    tracked_file_count = 10
+    tracked_project_src_test_perf_sha256 = "5d8e4117483ab10d739c0334d534339601a50f880e35b605fdf80267ac76f08f"
+
+    [night_constraintmodels_final_standard_entrypoint.frozen_environment_sha256_after]
+    "Manifest.toml" = "0687d398aac4dddd352f3d94211792d14981f8089ff04dd525d962eb056d72bf"
+    "Project.toml" = "a7324d86d3042455c7928e89c2548be34837a437b0ff0e32bad15c510263c12e"
+
+    [night_constraintmodels_final_standard_entrypoint.frozen_environment_sha256_before]
+    "Manifest.toml" = "0687d398aac4dddd352f3d94211792d14981f8089ff04dd525d962eb056d72bf"
+    "Project.toml" = "a7324d86d3042455c7928e89c2548be34837a437b0ff0e32bad15c510263c12e"
+
+    [night_constraintmodels_final_standard_entrypoint.retained_controlled_paths]
+    CBLS = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/CBLS"
+    CompositionalNetworks = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/CompositionalNetworks"
+    ConstraintCommons = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/ConstraintCommons"
+    ConstraintDomains = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/ConstraintDomains"
+    ConstraintModels = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/ConstraintModels"
+    ConstraintProgrammingExtensions = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/ConstraintProgrammingExtensions"
+    Constraints = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/Constraints"
+    LocalSearchSolvers = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/LocalSearchSolvers"
+    PatternFolds = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/PatternFolds"
+
+    [night_constraintmodels_final_standard_entrypoint.test_environment_sha256]
+    "Manifest.toml" = "2febb0eae16f6838c449c93012f16dd2fbe128769448ce657b9cd25f4bb00e03"
+    "Project.toml" = "b6990694b215a49efce4047f799c84c2d6ea2cceedcbf31ef2a313f9015ef6b1"
+
+    [night_constraintmodels_final_standard_entrypoint.test_extras.Test]
+    git_tree_sha1 = "nothing"
+    version = "1.11.0"
+
+    [night_constraintmodels_final_standard_entrypoint.test_extras.TestItemRunner]
+    git_tree_sha1 = "9edf3b25f95dd92da044289a5c13cbdcfa142a77"
+    version = "1.3.2"
+
+    [night_constraintmodels_final_standard_entrypoint.test_source_sha256]
+    "Project.toml" = "6a2558e9da429ad182a8683e23b8ab8bd8da5daab1d87372c773ee198928047a"
+    "src/benchmarks/Benchmarks.jl" = "2cdd991e2d60a7d65d150258f22daa628608a63f83e48f19a3dd8d2c7c3625e0"
+    "src/sudoku.jl" = "7192281c90f8a759a9cf6b0e9098bc4d603852d4809d70493a06388e94d8da26"
+    "test/JuMP.jl" = "7c80ee9057cbbe9c820484d273f58fca13301a29d3e622224ac35fc57fb3a856"
+    "test/runtests.jl" = "c90a828a33b18eb18795b3e6bc1c0b6bba789ad4d1f895d5a65f21809c3f7e7e"
+
 [night_exchange_prefilter]
 before_source_sha256 = "0309ae2d48013c6326bededcb891a6214dc231ab718b8ce4feb59d448bf44a7c"
 factory_sha256 = "cb310cd109539d0f1043267d642614c37aae9143e70870cefe4f6865a0263da8"
