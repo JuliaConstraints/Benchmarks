@@ -17,6 +17,69 @@ const D=Pilot.distances(DATA)
 const BANKS=Dict(k=>ICNScoring.load_backend(k) for k in (:naive,:direct,:icn))
 LSvalues(lane)=collect(Hybrid.LS.get_values(lane.parent.solver))
 
+struct ObservedEmptyProblem{P}
+    instance::P
+    observations::Vector{Symbol}
+end
+function Base.getproperty(p::ObservedEmptyProblem,name::Symbol)
+    name===:data || return getfield(p,name)
+    push!(getfield(p,:observations),name)
+    getfield(p,:instance).data
+end
+struct ObservedEmptyDistances <: AbstractMatrix{Float64}
+    storage::Matrix{Float64}
+    observations::Vector{Tuple{Int,Int}}
+end
+Base.size(d::ObservedEmptyDistances)=size(d.storage)
+Base.getindex(d::ObservedEmptyDistances,i::Int,j::Int)=(push!(d.observations,(i,j));d.storage[i,j])
+
+@testset "Empty native insertion preserves original ordered arithmetic and generic effects" begin
+    original(p,D,request)=R.insertion_summary(R.range_cache(p.data,D,Int[]),p.data,D,p.data.pairs[request],0,0)
+    bits(s)=ntuple(i->let v=getfield(s,i);v isa Float64 ? reinterpret(UInt64,v) : v;end,fieldcount(R.Segment))
+    for requests in (1,2,8,32),seed in (41,42,43)
+        n=2requests+1;rng=Xoshiro(seed)
+        data=PickupDeliveryProblem(requests,2,100rand(rng,n,2),
+            vcat(0,repeat([1,-1],requests)),zeros(n),fill(1e9,n),zeros(n),[(2i,2i+1) for i in 1:requests])
+        p=BenchmarkInstance("empty-summary-$requests",data);D=Pilot.distances(data)
+        @test validate_solution(p,[[2i,2i+1] for i in 1:requests]).valid
+        for request in 1:requests
+            a=original(p,D,request);b=R.empty_insertion_summary(p,D,request)
+            @test bits(a)==bits(b)
+            @test R.sequence_feasible(data,D,b)==Pilot.feasible_route(collect(data.pairs[request]),data,D)
+            @test R.distance(b,D)==Pilot.route_distance(collect(data.pairs[request]),D)
+        end
+        for value in (0.0,-0.0,nextfloat(0.0),-nextfloat(0.0),floatmax(Float64),-floatmax(Float64),
+                Inf,-Inf,NaN,reinterpret(Float64,0x7ff8000000000041))
+            for field in (:earliest,:latest,:service)
+                v=getproperty(data,field);previous=v[2];v[2]=value
+                @test bits(original(p,D,1))==bits(R.empty_insertion_summary(p,D,1))
+                v[2]=previous
+            end
+            previous=D[2,3];D[2,3]=value
+            @test bits(original(p,D,1))==bits(R.empty_insertion_summary(p,D,1))
+            D[2,3]=previous
+        end
+        for request in (0,requests+1)
+            @test_throws BoundsError original(p,D,request)
+            @test_throws BoundsError R.empty_insertion_summary(p,D,request)
+        end
+    end
+    for custom_problem in (false,true),custom_distances in (false,true),request in (0,1,length(P.data.pairs)+1)
+        a=ObservedEmptyProblem(P,Symbol[]);b=ObservedEmptyProblem(P,Symbol[])
+        da=ObservedEmptyDistances(D,Tuple{Int,Int}[]);db=ObservedEmptyDistances(D,Tuple{Int,Int}[])
+        pa=custom_problem ? a : P;pb=custom_problem ? b : P
+        xa=custom_distances ? da : D;xb=custom_distances ? db : D
+        outcome(f,p,D,request)=try;(:returned,bits(f(p,D,request)));catch err;(:thrown,typeof(err));end
+        @test outcome(original,pa,xa,request)==outcome(R.empty_insertion_summary,pb,xb,request)
+        @test a.observations==b.observations && da.observations==db.observations
+    end
+    function prepared_empty_summary_bytes(p,D)
+        R.empty_insertion_summary(p,D,1)
+        @allocated for _ in 1:1000;R.empty_insertion_summary(p,D,1);end
+    end
+    @test prepared_empty_summary_bytes(P,D)==0
+end
+
 struct PoolAppendingDistances <: AbstractMatrix{Float64}
     storage::Matrix{Float64}
     routes::Vector{Vector{Int}}

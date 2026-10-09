@@ -68,6 +68,10 @@ function build_catalog(;scope=:kernels,methods=String[],families=Symbol[],backen
                     fixtures,collectors,repeatable=true))
             end
             for requests in (8,32,128)
+                push!(scenarios,ScenarioSpec("routing_empty_insertion_n$requests";source,
+                    factory="routing_empty_insertion_case",implementation="native-empty-sequence-identity-v1",
+                    parameters=Dict("requests"=>requests,"seed"=>41,"repetitions"=>128),
+                    fixtures,collectors,repeatable=true))
                 push!(scenarios,ScenarioSpec("routing_owned_pool_columns_n$requests";source,
                     factory="routing_pool_columns_case",implementation="ordered-native-pool-columns-v1",
                     parameters=Dict("requests"=>requests,"seed"=>41,"repetitions"=>128),

@@ -265,6 +265,15 @@ function destroy!(routes,p,D,rng,mode,count;string_requests=4,trace=Dict{String,
     selected
 end
 
+"The empty native sequence contributes identity segments, without a temporary cache."
+@inline function empty_insertion_summary(p::BenchmarkInstance{PickupDeliveryProblem},D::Matrix{Float64},request::Int)
+    pair=p.data.pairs[request]
+    concatenate(Segment(p.data,pair[1]),Segment(p.data,pair[2]),D)
+end
+function empty_insertion_summary(p,D,request)
+    c=range_cache(p.data,D,Int[])
+    insertion_summary(c,p.data,D,p.data.pairs[request],0,0)
+end
 "Best insertion in each route is a distinct regret alternative; all cuts preserve precedence."
 function insertion_options(p,D,routes,request,caches,deadline,rng,trace;
         blinks=0.,max_candidates=LIMITS.insertion_candidates,pheromone=nothing,options=InsertionOption[])
@@ -316,8 +325,7 @@ function repair!(routes,bank,p,D,rng,deadline;regret=2,blinks=0.,max_routes=leng
         for request in bank
             opts=insertion_options(p,D,routes,request,caches,deadline,rng,trace;blinks,pheromone,options=workspace.options)
             if isempty(opts) && length(routes)<max_routes
-                c=range_cache(p.data,D,Int[])
-                s=insertion_summary(c,p.data,D,p.data.pairs[request],0,0)
+                s=empty_insertion_summary(p,D,request)
                 sequence_feasible(p.data,D,s) && push!(opts,(route=length(routes)+1,a=0,b=0,delta=distance(s,D),rank=distance(s,D)))
             end
             isempty(opts) && continue
