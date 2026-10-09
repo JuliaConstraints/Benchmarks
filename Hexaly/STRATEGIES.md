@@ -839,3 +839,29 @@ original LR101 paths (VND, route ALNS, ACO and random ALNS). Every full
 trace/routes/RNG fingerprint matches. Both sides share the rest of the current
 application and the same frozen dependencies; this is not an entire old/new
 package-cohort comparison. Concurrent timings establish no controlled speedup.
+
+### Reproducible complete-cohort timing
+
+`perf/routing_cohort_timing.jl` compares independently frozen package/application
+cohorts with identical original LR101 work. Pure search measures 1,024 steps per
+prepared private lane. Four complementary MetaStrategist paths measure eight
+complete cooperative episodes, including lane construction, pooled columns and
+the single-threaded HiGHS master. Validation and complete lane/RNG fingerprints
+follow every measurement. All samples, GC and compilation counters are retained.
+Each seed/configuration batch receives three exact warm-ups and one collection;
+no collection is forced between its steady measured operations.
+
+On Linux, provide an explicit reserved physical CPU mask and matching Julia
+worker count. Run the two cohorts sequentially with the same mask and settings:
+
+```bash
+taskset -c 0,2 env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 julia --startup-file=no --threads=2 --gcthreads=1 --project=/path/to/frozen/environment perf/routing_cohort_timing.jl --application=/path/to/qualified/Benchmarks --instance=/path/to/original/lr101.txt --cpus=0,2 --seeds=41,42,43 --samples=5 --output=/path/to/new/evidence.toml --timing-scope=reserved_physical_cores
+```
+
+The script pins each worker and the coordinator, rejects dirty measured sources
+and existing evidence, and verifies the actual GC thread count. Widths 1/2/4/8
+change total work and portfolio roles; this protocol measures fixed work within
+each width and does not establish strong scaling or heuristic solution ranking.
+The baseline is the first published overnight performance cohort, which already
+contains optimizations; it is not the earlier main branch. Hardware, background
+workloads and complete per-seed ranges belong with any reported speed claim.
