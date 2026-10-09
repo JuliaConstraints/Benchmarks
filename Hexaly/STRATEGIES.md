@@ -25,14 +25,68 @@ speedup. The full ranges, GC-bearing samples and fixed reference marks remain
 in the [English exact/XKCD figures](../perf/figures/owned-workspaces-20261008/).
 The reproducible reducer is [routing_cohort_report.jl](../perf/routing_cohort_report.jl).
 
-The immediate next work is **solution-quality evaluation on the original SINTEF
-Li-Lim instances**, at 60 seconds with two repetitions and widths 1/2/4. Existing
-package qualifications and other benchmark preparation are retained for later;
-no further unrelated qualification expansion is scheduled. Existing final
-checks finish before comparative trials start. The 354-instance inventory,
+**Solution-quality evaluation on the original SINTEF Li-Lim instances is now
+running**, starting with LR101 at 60 seconds with two repetitions and widths
+1/2/4; see [the current cohort](../LiLim/README.md#current-preparation-9-october-2026).
+The previously engaged package checks have finished, and their evidence and
+other benchmark preparation are retained. No further unrelated qualification
+expansion is scheduled. The 354-instance inventory,
 original double-precision fleet-first objective, independent solution/trajectory
 validation and published BKS references define the evaluation. Bounded cohorts
 will be published as they finish; incomplete cohorts are not full-corpus results.
+
+## Completed performance qualification
+
+The reserved-core comparison retains 30 observations per source, configuration
+and width: three seeds, five samples and two process rounds with reversed source
+order. The table shows the range across widths 1/2/4/8 of the median per-seed
+cost ratios. **100% means the same cost as the first overnight cohort**, which
+already contains optimizations. These are equivalent-work costs, not heuristic
+quality or strong-scaling results.
+
+| Configuration | Allocated bytes remaining | Elapsed time remaining |
+|---|---:|---:|
+| VND greedy | 32.4–33.0% | 92.8–100.5% |
+| Route ALNS, regret 2 | 28.2–28.6% | 95.2–99.9% |
+| Arc-guided ACO, regret 2 | 17.6–18.2% | 98.0–101.4% |
+| Random ALNS, regret 2 | 23.9–24.3% | 98.6–102.0% |
+| Adaptive MetaStrategist, late acceptance | 52.4–55.9% | 95.0–97.2% |
+| Diversity MetaStrategist, tabu | 50.2–52.4% | 93.2–98.3% |
+| Route-pool MetaStrategist, IPX | 57.2–63.4% | 95.1–99.0% |
+| Route-pool MetaStrategist, MIP | 62.3–69.0% | 95.8–99.4% |
+
+All 1,920 observations retain complete original routes, substantive coordination
+and next-RNG equivalence. Every warm compile/recompile counter is zero. Allocated
+object ratios range from 12.6% to 45.3%. GC occurs in some samples and no sample is
+removed: the largest final-cohort GC share is 4.46% in these finite workloads.
+Separately, the preserved 52-configuration, two-worker, 30-second LR101 diagnosis
+on the preceding V8 cohort records median search GC of 0% and maximum 0.0848%.
+Those time-capped observations execute different amounts of work and cannot
+establish a speedup; their CPU use has median 1.985 active CPUs out of two.
+
+The routing inventory exercised four PerfChecker collectors and all eight
+applicable application analyzers, including JET, AllocCheck and SnoopCompile;
+the [tool coverage](#perfchecker-and-simd) records the exact names and limitations.
+Aqua runs in package environments, not on this non-package application. Static
+findings and dynamic-call coverage limits remain visible. Hardware-counter
+backends are outside the frozen PerfChecker 1.0 API and are not claimed tested.
+Warm measurements exclude preparation and first compilation. A separate actual
+cold-bank diagnosis on historical V3 found 672 MB of cumulative Julia allocation
+and 2.64 seconds of lifecycle work, largely compilation; it is not a final-cohort
+cold-start comparison or peak-memory result. No cold-start speedup is established.
+
+Reusable private lane, ICN, guidance, membership and route buffers reduce the
+measured costs while retained incumbents, diagnostics and pool snapshots remain
+independently owned. Full original admission checks, retained snapshots, route
+pool management and HiGHS model construction still allocate. The measured scope
+does not justify a HiGHS.jl/JuMP fork or a whole-solver zero-allocation claim.
+The final ConstraintModels standard entry point passes 10,603 assertions. The
+already-engaged CBLS ObjectiveValue repair also finished, with 103,116 assertions
+and 80 collector cases, but remains on its separate branch: its conversion adds
+measured costs and is not included in the running Li-Lim cohort. Package-specific
+test-extra, optional training-dependency and original-example limitations remain
+in [the complete evidence](../perf/routing-qualification.toml); application tests
+do not turn an unsuccessful package test into a pass.
 
 ## Additive Li-Lim route strategies
 
@@ -91,8 +145,9 @@ thread migration is claimed.
 ## Prepared 1/2/4 colleague matrix
 
 The current requested comparison is **60 seconds, widths 1/2/4, two seeds per
-width**: six trials per configuration and original instance. Implementation
-qualification has not launched that comparison. The future explicit command is:
+width**: six trials per configuration and original instance. The local LR101
+cohort is running after qualification; the following is an example of a smaller
+explicit selection for the colleague's host:
 
 ```sh
 julia --startup-file=no scripts/colleague.jl lilim-matrix --instances=lc101,lr101,lrc101 --methods=cbls_icn,rp_ges2_late,rp_alns_adaptive_regret3,rp_sisr_b15_regret3,rp_vnd_tabu,rp_meta_pool_ipx_late,ortools_native,hexaly_native --budget=60 --widths=1,2,4 --seeds=41,42 --cpu-slots=4 --output=LiLim/results/route-matrix-60s
@@ -177,7 +232,8 @@ julia --startup-file=no --project=LiLim/plotting perf/plots.jl perf/routing-qual
 The integrated dependency pins are distinct from the historical Handoff cohort;
 its saved environment is preserved. Concurrent chats used disjoint CPU masks,
 so operational timings are retained as observations and are not advertised as
-controlled speedups. The 60-second colleague matrix remains unlaunched.
+controlled speedups. At this historical checkpoint the 60-second matrix had not
+been launched; its current status is recorded at the top of this document.
 
 `build_catalog(scope=:routing_kernels)` provides insertion, insertion enumeration,
 fresh/reused cache, repair, ejection, repeated pool/duplicate admission,
