@@ -251,6 +251,51 @@ end
     @test blinked["summary_evaluations"]==blinked["blinked_insertions"]==15
 end
 
+@testset "Owned range-cache capacity and original ordered segment arithmetic" begin
+    lengths=(0,1,2,8,4,16,32,64,100,128,256,128,64,32,16,8,4,2,1,0)
+    for cap in (0,1,3,4,63,64,65,8192,64.0,UInt(64))
+        cache=R.RangeCache(Int[],Matrix{R.Segment}(undef,0,0))
+        for n in lengths
+            route=[mod1(i,4)+1 for i in 1:n]
+            previous=cache.cells;old_capacity=size(previous,1)
+            @test R.range_cache!(cache,DATA,D,route;max_cells=cap)===cache
+            @test cache.route===route
+            if n*n>cap
+                @test isempty(cache.cells)
+                isempty(previous) && @test cache.cells===previous
+            else
+                @test size(cache.cells,1)>=n
+                old_capacity>=n && @test cache.cells===previous
+                if cap isa Int && old_capacity<n
+                    @test length(cache.cells)<=cap
+                end
+            end
+            for a in 1:n,b in a:n
+                @test R.segment(cache,DATA,D,a,b)==R.summarize(DATA,D,route,a,b)
+            end
+        end
+    end
+    left=R.range_cache(DATA,D,[2,3,4,5]);right=R.range_cache(DATA,D,[2,3,4,5])
+    @test left.cells!==right.cells
+    retained=copy(left.cells)
+    R.range_cache!(right,DATA,D,[5,4,3,2])
+    # Compare the assigned upper triangle only; lower cells are intentionally undefined.
+    @test all(left.cells[a,b]==retained[a,b] for a in 1:4 for b in a:4)
+    for n in (1,3,8,17,31)
+        initial=R.range_cache(DATA,D,[mod1(i,4)+1 for i in 1:n])
+        @test size(initial.cells)==(n,n)
+    end
+    growing=R.range_cache(DATA,D,[mod1(i,4)+1 for i in 1:16])
+    R.range_cache!(growing,DATA,D,[mod1(i,4)+1 for i in 1:18])
+    @test size(growing.cells)==(20,20)
+    retained_capacity=growing.cells
+    R.range_cache!(growing,DATA,D,[mod1(i,4)+1 for i in 1:19])
+    @test growing.cells===retained_capacity
+    bounded=R.range_cache(DATA,D,[mod1(i,4)+1 for i in 1:16];max_cells=324)
+    R.range_cache!(bounded,DATA,D,[mod1(i,4)+1 for i in 1:18];max_cells=324)
+    @test size(bounded.cells)==(18,18)
+end
+
 @testset "Owned route, request and successor workspaces" begin
     scratch=R.RouteBuffer();copied=R.copy_routes!(scratch,INITIAL)
     @test copied==INITIAL && copied!==INITIAL && all(copied[i]!==INITIAL[i] for i in eachindex(INITIAL))

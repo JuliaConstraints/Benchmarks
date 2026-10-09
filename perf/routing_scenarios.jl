@@ -41,6 +41,44 @@ function routing_snapshot_case(parameters)
     (;prepare,operation,verify)
 end
 
+"Cache growth, bounded fallback and reuse; independent ordered scans are the oracle."
+function routing_range_cache_case(parameters)
+    mode=parameters["mode"];repetitions=parameters["repetitions"]
+    repetitions>0 || throw(ArgumentError("positive cache workload required"))
+    lengths=mode=="growth" ? collect(2:2:80) : mode=="fallback" ? [128,256,128] :
+        mode=="reuse" ? [2,4,8,16,32,64,32,16,8,4] : throw(ArgumentError("unknown cache workload"))
+    prepare=()->begin
+        p=routing_fixture();D=Pilot.distances(p.data)
+        routes=[[mod1(i,4)+1 for i in 1:n] for n in lengths]
+        expected=0.
+        for _ in 1:repetitions,route in routes
+            summary=StructuredRouting.summarize(p.data,D,route)
+            expected+=summary.shift+summary.travel
+        end
+        (;p,D,routes,expected,latest=Ref(StructuredRouting.RangeCache(Int[],Matrix{StructuredRouting.Segment}(undef,0,0))))
+    end
+    operation=s->begin
+        checksum=0.
+        for _ in 1:repetitions
+            cache=StructuredRouting.RangeCache(Int[],Matrix{StructuredRouting.Segment}(undef,0,0))
+            for route in s.routes
+                StructuredRouting.range_cache!(cache,s.p.data,s.D,route;max_cells=8192)
+                summary=StructuredRouting.segment(cache,s.p.data,s.D,1,length(route))
+                checksum+=summary.shift+summary.travel
+            end
+            s.latest[]=cache
+        end
+        checksum
+    end
+    verify=(s,checksum)->begin
+        cache=s.latest[];route=last(s.routes)
+        isequal(checksum,s.expected) && cache.route===route &&
+        all(StructuredRouting.segment(cache,s.p.data,s.D,a,b)==StructuredRouting.summarize(s.p.data,s.D,route,a,b)
+            for a in eachindex(route) for b in a:length(route))
+    end
+    (;prepare,operation,verify)
+end
+
 "Owned pair reinsertion, qualified by exhaustive original-model insertion checks."
 function pair_relocation_case(parameters)
     requests=parameters["requests"];seed=parameters["seed"];repetitions=parameters["repetitions"]
