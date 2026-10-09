@@ -214,6 +214,13 @@ function qualify()
                 @test record["search_allocation_count"] >= 0
                 @test record["search_gc_pauses"] >= 0
                 @test record["search_gc_full_sweeps"] >= 0
+                observation=ResourceExperiment.warmup_observation(record,2)
+                @test observation["worker_steps"]==[get(w["trace"],"steps",-1) for w in record["workers"]]
+                @test observation["allocated_bytes"]==record["search_allocated_bytes"]
+                @test observation["search_exercised"]==all(!iszero,observation["worker_steps"])
+                empty_lane=deepcopy(record)
+                first(empty_lane["workers"])["trace"]["steps"]=0
+                @test !ResourceExperiment.warmup_observation(empty_lane,1)["search_exercised"]
                 @test all(e["seconds"] <= 0.5 for e in record["trajectory"])
                 if method in panel_methods
                     panel = record["strategy_panel"]

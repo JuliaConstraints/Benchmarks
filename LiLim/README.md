@@ -2,6 +2,12 @@
 
 ## Six-size preliminary screening
 
+Each profile receives two fresh warmup invocations before its first measured
+case; a third is permitted if compilation left a search lane idle. Warmup
+records retain lane steps, initialization, allocations and GC separately.
+A profile with an idle lane after warmup cannot enter measured trials.
+Runtime-generated ICN decoders enter through one latest-world call per trial.
+
 `colleague.jl lilim-screening --output=NEW_DIRECTORY` evaluates the 548 existing
 `extended-panel,routing-panel` configurations on one reproducibly sampled
 official instance per size (100/200/400/600/800/1000). Each configuration runs

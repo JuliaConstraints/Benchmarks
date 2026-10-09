@@ -502,10 +502,21 @@ function warmup(methods, row, policy, banks, plans, seconds, output, hexaly_exec
     for method in methods
         method in ResourceExperiment.METHODS || continue
         started = time_ns()
-        record = ResourceExperiment.run_case(row.path, method, seconds, first(THREAD_CONFIG["seeds"]),
-            policy, banks; threads=Threads.nthreads(), id=row.id, portfolio=get(plans, method, nothing))
+        # The first bounded invocation may spend its entire budget compiling
+        # model construction. A second fresh invocation exercises the warmed
+        # search, retaining both diagnostics outside the measured campaign.
+        attempts = Any[]
+        for pass in 1:3
+            record = Base.invokelatest(ResourceExperiment.run_case,row.path,method,seconds,
+                first(THREAD_CONFIG["seeds"]),policy,banks;threads=Threads.nthreads(),
+                id=row.id,portfolio=get(plans,method,nothing))
+            push!(attempts,ResourceExperiment.warmup_observation(record,pass))
+            pass>=2 && attempts[end]["search_exercised"] && break
+        end
+        attempts[end]["search_exercised"] || error("Warmup did not exercise every search lane for $method; no measured trial was launched")
         push!(results, Dict("instance"=>row.id,"method"=>method,"seconds"=>(time_ns()-started)/1e9,
-            "valid"=>record["original_validation"],"budget_seconds"=>seconds))
+            "valid"=>all(a->a["valid"],attempts),"budget_seconds"=>seconds,
+            "attempts"=>attempts))
     end
     if "ortools_native" in methods
         ortools_identity === nothing && error("OR-Tools warmup has no resolved Python environment")
@@ -666,7 +677,7 @@ function campaign_main()
         else
             native_log = method == "highs_native" ? joinpath(output, "logs", row.id * "__" * method * "__seed-" * string(seed) * ".log") : nothing
             native_log === nothing || mkpath(dirname(native_log))
-            ResourceExperiment.run_case(row.path, method, opts.budget, seed,
+            Base.invokelatest(ResourceExperiment.run_case,row.path, method, opts.budget, seed,
                 THREAD_CONFIG["policy"], banks; threads=opts.threads, id=row.id,
                 logpath=native_log, portfolio=get(plans, method, nothing))
         end

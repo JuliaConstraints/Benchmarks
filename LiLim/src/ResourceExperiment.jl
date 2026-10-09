@@ -255,6 +255,18 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
             "typed episode barriers; validated solution/route pools; rotating or reward-adaptive roles; periodic bounded HiGHS master where configured")
 end
 
+"Keep compilation/warm-search evidence separate from sealed measured trials."
+function warmup_observation(record,pass)
+    steps=[get(w["trace"],"steps",-1) for w in record["workers"]]
+    Dict{String,Any}("pass"=>pass,"valid"=>record["original_validation"],
+        "wall_seconds"=>record["wall_seconds"],
+        "gc_fraction"=>record["search_gc_fraction"],
+        "allocated_bytes"=>record["search_allocated_bytes"],
+        "allocation_count"=>record["search_allocation_count"],
+        "worker_steps"=>steps,"search_exercised"=>all(!iszero,steps),
+        "worker_initialization_seconds"=>[get(w["trace"],"initialization_seconds",-1.0) for w in record["workers"]])
+end
+
 function warmup(path,policy,banks;threads=Threads.nthreads())
     # Warm each concrete backend, serial HiGHS and the exact parallel wrapper.
     for method in ("cbls_naive","cbls_icn","cbls_icn_fused_scalar","cbls_icn_fused_all",
