@@ -208,6 +208,12 @@ function qualify()
                 @test record["original_validation"]
                 @test record["vehicles"] <= 3
                 @test record["process_cpu_seconds"] >= 0
+                @test record["search_gc_seconds"] >= 0
+                @test record["search_gc_fraction"] == record["search_gc_seconds"]/record["wall_seconds"]
+                @test record["search_allocated_bytes"] >= 0
+                @test record["search_allocation_count"] >= 0
+                @test record["search_gc_pauses"] >= 0
+                @test record["search_gc_full_sweeps"] >= 0
                 @test all(e["seconds"] <= 0.5 for e in record["trajectory"])
                 if method in panel_methods
                     panel = record["strategy_panel"]

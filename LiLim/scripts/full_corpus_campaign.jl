@@ -10,6 +10,7 @@ end
 include(joinpath(ROOT, "LiLim", "competitors", "Adapters.jl"))
 include(joinpath(ROOT, "LiLim", "src", "NativeSolvers.jl"))
 include(joinpath(ROOT, "LiLim", "src", "CampaignCatalog.jl"))
+include(joinpath(ROOT, "LiLim", "src", "ScreeningControl.jl"))
 using .CampaignCatalog: select_methods, available_methods
 const PlatformResources=ResourceExperiment.PlatformResources
 
@@ -41,7 +42,8 @@ function cli(args)
         end
         startswith(arg, "--") && occursin('=', arg) || error("options must use --name=value")
         name, value = split(arg[3:end], '='; limit=2)
-        name in ("budget", "output", "threads", "instances", "methods", "seeds", "hexaly", "ortools", "missing-solvers") || error("unknown option --$name")
+        name in ("budget", "output", "threads", "instances", "methods", "seeds", "hexaly", "ortools", "missing-solvers",
+            "order","control-dir","worker-slot","gc-threshold") || error("unknown option --$name")
         haskey(values, name) && error("duplicate option --$name")
         values[name] = value
     end
@@ -55,7 +57,10 @@ function cli(args)
        hexaly=get(values, "hexaly", get(ENV, "HEXALY_EXECUTABLE", "hexaly")),
        ortools=get(values, "ortools", get(ENV, "ORTOOLS_PYTHON", default_ortools)),
        missing_solvers=get(values, "missing-solvers", "skip"),
-       seeds=parse.(Int, split(get(values, "seeds", join(THREAD_CONFIG["seeds"], ",")), ',')), resume)
+       seeds=parse.(Int, split(get(values, "seeds", join(THREAD_CONFIG["seeds"], ",")), ',')),
+       order=get(values,"order","instance"),control_dir=get(values,"control-dir",""),
+       worker_slot=parse(Int,get(values,"worker-slot","0")),
+       gc_threshold=parse(Float64,get(values,"gc-threshold","0.10")),resume)
 end
 
 function archive_path(size)
@@ -234,6 +239,9 @@ function campaign_identity(opts, instances, methods, hexaly_executable, ortools_
         "seeds" => opts.seeds,
         "budget_seconds" => opts.budget,
         "threads" => opts.threads,
+        "trial_order" => opts.order,
+        "control_directory" => opts.control_dir,"worker_slot"=>opts.worker_slot,
+        "gc_alert_fraction"=>opts.gc_threshold,
         "bks_distance_digits" => CAMPAIGN_CONFIG["bks_distance_digits"],
         "gc_threads" => Threads.ngcthreads(),
         "affinity" => Sys.islinux() ? allowed_cpus() : Int[],
@@ -265,11 +273,19 @@ function verify_trial(path, row, method, seed, budget, threads, problem, fingerp
         (row.id, method, seed, budget, threads) || error("trial identity changed: $path")
     record["run_fingerprint"] == fingerprint || error("trial fingerprint differs from the campaign manifest")
     record["original_validation"] || error("trial lacks original-problem validation: $path")
+    record["source_sha256"] == row.source_sha256 || error("trial input hash differs from the official instance")
     checked_objective(problem, record["routes"], record["vehicles"], record["distance"])
+    previous_time=-Inf;previous_quality=(typemax(Int),Inf)
+    isempty(record["trajectory"]) && error("trial lacks initial trajectory evidence")
     for event in record["trajectory"]
         0 <= event["seconds"] <= budget || error("stored trajectory exceeds budget")
+        event["seconds"] >= previous_time || error("trajectory time decreases")
+        quality=(event["vehicles"],event["distance"])
+        quality <= previous_quality || error("trajectory objective worsens")
         checked_objective(problem, event["routes"], event["vehicles"], event["distance"])
+        previous_time=event["seconds"];previous_quality=quality
     end
+    previous_quality == (record["vehicles"],record["distance"]) || error("final objective differs from the last trajectory point")
     record
 end
 
@@ -524,6 +540,9 @@ end
 function campaign_main()
     opts = cli(ARGS)
     opts.threads > 0 || error("thread count must be positive")
+    opts.order in ("instance","method") || error("order must be instance or method")
+    0 < opts.gc_threshold <= 1 || error("GC threshold must be in (0,1]")
+    isempty(opts.control_dir) || opts.worker_slot in (1,2) || error("screening worker slot must be 1 or 2")
     check_environment(opts.threads)
     all_rows = corpus()
     instances = select_instances(all_rows, opts.instances)
@@ -546,7 +565,8 @@ function campaign_main()
         isfile(manifest_path) || error("no campaign manifest at $manifest_path")
         manifest = TOML.parsefile(manifest_path)
         manifest["run_fingerprint"] == fingerprint || error("resume inputs differ from the frozen campaign")
-        get(manifest, "complete", false) && error("campaign is already complete")
+        # An explicit matching resume verifies all seals, including complete
+        # slots. It never searches again for an already validated trial.
     else
         ispath(output) && error("campaign output already exists; pass --resume only for an interrupted matching campaign")
         mkpath(output)
@@ -575,18 +595,34 @@ function campaign_main()
     plans = Dict(method=>ResourceExperiment.prepare_portfolio(ResourceExperiment.allocation(method, opts.threads))
         for method in methods if method != "highs_native" && method in ResourceExperiment.METHODS)
     warmup_row = only(filter(row->row.id=="lc101", all_rows))
-    warmed = Base.invokelatest(warmup,methods, warmup_row, THREAD_CONFIG["policy"], banks, plans,
-        CAMPAIGN_CONFIG["warmup_seconds"], output, hexaly_executable, ortools_identity)
-    manifest = TOML.parsefile(manifest_path)
-    segments = get!(manifest, "warmup_segments", Any[])
-    push!(segments, Dict("started_utc"=>string(now(UTC)), "threads"=>opts.threads, "runs"=>warmed))
-    atomic(manifest_path, io->TOML.print(io, manifest; sorted=true))
+    function checkpoint(complete, completed)
+        manifest=TOML.parsefile(manifest_path)
+        manifest["completed_trials"]=completed;manifest["complete"]=complete
+        atomic(manifest_path,io->TOML.print(io,manifest;sorted=true))
+    end
+    function prepare_methods(selected)
+        ScreeningControl.await_permission(opts.control_dir,opts.worker_slot)===nothing && return false
+        warmed=Base.invokelatest(warmup,selected,warmup_row,THREAD_CONFIG["policy"],banks,plans,
+            CAMPAIGN_CONFIG["warmup_seconds"],output,hexaly_executable,ortools_identity)
+        manifest=TOML.parsefile(manifest_path);segments=get!(manifest,"warmup_segments",Any[])
+        push!(segments,Dict("started_utc"=>string(now(UTC)),"threads"=>opts.threads,"runs"=>warmed))
+        atomic(manifest_path,io->TOML.print(io,manifest;sorted=true))
+        true
+    end
+    if opts.order=="instance" && !prepare_methods(methods)
+        checkpoint(false,0);return
+    end
 
     problems = Dict{String,Any}()
     total = length(instances) * length(methods) * length(opts.seeds)
     completed = 0
-    for (instance_index, row) in enumerate(instances), (repeat_index, seed) in enumerate(opts.seeds),
-        method in circshift(methods, repeat_index + instance_index - 2)
+    schedule=opts.order=="method" ?
+        [(row,seed,method) for method in methods for row in instances for seed in opts.seeds] :
+        [(row,seed,method) for (instance_index,row) in enumerate(instances)
+            for (repeat_index,seed) in enumerate(opts.seeds)
+            for method in circshift(methods,repeat_index+instance_index-2)]
+    prepared_methods=Set{String}()
+    for (row,seed,method) in schedule
         Hybrid.QUBOGuidance.input_manifest([r.id for r in instances])==identity["qubo_guides"] ||
             error("QUBO guide inputs changed; preserve sealed trials and use a new cohort")
         path = trial_path(output, row.id, method, seed)
@@ -605,6 +641,14 @@ function campaign_main()
             atomic(manifest_path,io->TOML.print(io,manifest;sorted=true))
             println("Stopped between trials; preserve seals and resume the same campaign after removing STOP_AFTER_TRIAL.")
             return
+        end
+        admission=ScreeningControl.await_permission(opts.control_dir,opts.worker_slot)
+        if admission===nothing;checkpoint(false,completed);return;end
+        if opts.order=="method" && !(method in prepared_methods)
+            if !prepare_methods([method]);checkpoint(false,completed);return;end
+            push!(prepared_methods,method)
+            admission=ScreeningControl.await_permission(opts.control_dir,opts.worker_slot)
+            if admission===nothing;checkpoint(false,completed);return;end
         end
         isfile(path * ".sha256") && error("orphan trial checksum: $path")
         started = time_ns()
@@ -635,10 +679,13 @@ function campaign_main()
         record["outer_elapsed_seconds"] = (time_ns()-started)/1e9
         record["official_archive_sha256"] = BKS["archive_sha256"][basename(archive_path(string(row.size)))]
         record["run_fingerprint"] = fingerprint
+        isempty(admission) || (record["resource_admission"]=admission)
         atomic(path, io->TOML.print(io, record; sorted=true))
         atomic(path * ".sha256", io->print(io, digest(path)))
         verify_trial(path, row, method, seed, opts.budget, opts.threads, problem, fingerprint)
         completed += 1
+        isempty(opts.control_dir) || ScreeningControl.flag_gc(opts.control_dir,opts.worker_slot,path,record,opts.gc_threshold)
+        checkpoint(false,completed)
         println("[", completed, "/", total, "] ", row.id, " ", method, " seed ", seed,
             " -> ", record["vehicles"], " / ", round(record["distance"];digits=3),
             "; BKS ", record["bks_reached"], "; CPU ", round(record["mean_active_cpus"];digits=2))

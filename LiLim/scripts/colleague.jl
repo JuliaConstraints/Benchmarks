@@ -3,6 +3,7 @@ using TOML, SHA, Downloads, Pkg
 include(joinpath(@__DIR__,"..","src","NativeSolvers.jl"))
 include(joinpath(@__DIR__,"..","src","PlatformResources.jl"))
 include(joinpath(@__DIR__,"..","src","HexalyPreflight.jl"))
+include(joinpath(@__DIR__,"..","src","ScreeningControl.jl"))
 const ROOT = normpath(joinpath(@__DIR__, "..", ".."))
 const CONFIG = TOML.parsefile(joinpath(ROOT,"LiLim/config/workspace-cohort.toml"))
 const DEV = abspath(get(ENV,"JULIACONSTRAINTS_COHORT_ROOT",joinpath(homedir(),".julia/dev/JuliaConstraintsBench")))
@@ -47,7 +48,8 @@ function options(args)
     for arg in args
         startswith(arg,"--") && occursin('=',arg) || error("use --name=value")
         key,value = split(arg[3:end],'=';limit=2)
-        key in ("threads","cpus","budget","methods","instances","seeds","hexaly","output","resume","ortools","missing-solvers","prepare","qualify","gurobi","cplex","cpoptimizer","java","widths","cpu-slots") || error("unknown option: $key")
+        key in ("threads","cpus","budget","methods","instances","seeds","hexaly","output","resume","ortools","missing-solvers","prepare","qualify","gurobi","cplex","cpoptimizer","java","widths","cpu-slots",
+            "selection-seed","gc-threshold","resource-interval","order","control-dir","worker-slot") || error("unknown option: $key")
         haskey(result,key) && error("duplicate option: $key")
         result[key] = value
     end
@@ -470,6 +472,9 @@ function campaign_arguments(opts)
         "--seeds="*get(opts,"seeds","41,42,43"),"--ortools="*get(opts,"ortools",PYTHON),"--missing-solvers="*get(opts,"missing-solvers","skip")]
     haskey(opts,"hexaly") && push!(args,"--hexaly="*opts["hexaly"])
     get(opts,"resume","false")=="true" && push!(args,"--resume")
+    for key in ("order","control-dir","worker-slot","gc-threshold")
+        haskey(opts,key) && push!(args,"--$key="*opts[key])
+    end
     args
 end
 function campaign(opts)
@@ -531,6 +536,69 @@ function campaign_matrix(opts)
     for child in children;report(child);end
 end
 
+"Six-size, configuration-first screening, with two persistent four-core workers."
+function screening(opts)
+    Sys.islinux() || error("Adaptive resource admission requires Linux")
+    isempty(strip(read(`git -C $ROOT status --porcelain --untracked-files=no`,String))) ||
+        error("Commit screening sources before launch; existing changes are preserved")
+    haskey(opts,"output") || error("screening requires --output=NEW_DIRECTORY")
+    output=abspath(opts["output"]);resume=get(opts,"resume","false")=="true"
+    ispath(output) && !resume && error("Existing screening preserved; use an explicit matching resume")
+    for marker in ("STOP_AFTER_TRIAL","PROCESS_FAILURE.toml")
+        isfile(joinpath(output,marker)) && error("Resolve the existing stop explicitly before resuming: $marker")
+    end
+    if isdir(output)
+        isempty(ScreeningControl.halt_reason(output)) || error("GC review is unresolved; preserve this cohort and qualify a correction")
+    end
+    interval=parse(Float64,get(opts,"resource-interval","30"))
+    1<=interval<=30 || error("Resource checks must recur at least every 30 seconds")
+    cpus=haskey(opts,"cpus") ? parse.(Int,split(opts["cpus"],',')) : topology()[1:8]
+    length(cpus)==8 && allunique(cpus) || error("Screening requires eight distinct allocated CPU IDs")
+    # Refuse P-core sibling overlap even when logical IDs differ.
+    core_keys=[(read("/sys/devices/system/cpu/cpu$c/topology/physical_package_id",String),
+        read("/sys/devices/system/cpu/cpu$c/topology/core_id",String)) for c in cpus]
+    allunique(core_keys) || error("Two screening lanes cannot share a physical core")
+    catalog=Module(:ScreeningCatalog)
+    Base.include(catalog,joinpath(ROOT,"LiLim/src/CampaignCatalog.jl"))
+    methods=Base.invokelatest(catalog.CampaignCatalog.select_methods,4,"extended-panel,routing-panel")
+    length(methods)==548 || error("Screening must contain exactly the authorized 548 existing configurations")
+    selection_seed=parse(Int,get(opts,"selection-seed","20261009"))
+    selected=ScreeningControl.sample_instances(TOML.parsefile(joinpath(ROOT,"LiLim/config/sintef-pdptw-bks-20261004.toml")),selection_seed)
+    methods=ScreeningControl.Random.shuffle(ScreeningControl.Random.Xoshiro(selection_seed+1),methods)
+    budget=parse(Float64,get(opts,"budget","60"));budget==60 || error("Screening trial duration is exactly 60 seconds")
+    seeds=parse.(Int,split(get(opts,"seeds","41"),','));length(seeds)==1 || error("Preliminary screening uses one repetition")
+    threshold=parse(Float64,get(opts,"gc-threshold","0.10"));0<threshold<=1 || error("Invalid GC threshold")
+    plan=Dict{String,Any}("schema"=>"li-lim-six-size-screening/1", "selection_seed"=>selection_seed,
+        "instances"=>selected,"methods"=>methods,"threads"=>4,"maximum_concurrent_configurations"=>2,
+        "budget_seconds"=>budget,"seeds"=>seeds,"gc_alert_fraction"=>threshold,
+        "resource_interval_seconds"=>interval,"cpu_masks"=>[cpus[1:4],cpus[5:8]],
+        "benchmarks_commit"=>strip(read(`git -C $ROOT rev-parse HEAD`,String)),
+        "cohort"=>CONFIG["cohort"],"total_trials"=>548*6,
+        "early_bks_stop"=>false,"report_policy"=>"Each configuration after its six validated trials; per-instance values, one repetition.",
+        "resource_policy"=>"Two/one/zero configurations; recheck within 30 seconds. Human stops and GC reviews require explicit resolution.")
+    path=joinpath(output,"screening-plan.toml")
+    if resume
+        isfile(path) || error("Cannot resume without the frozen screening plan")
+        TOML.parsefile(path)==plan || error("Screening source/selection/protocol changed; preserve existing evidence")
+    else
+        mkpath(output);ScreeningControl.atomic(path,plan)
+    end
+    jobs=[(;slot,cpus=cpus[(4slot-3):4slot],methods=methods[slot:2:end],output=joinpath(output,"slot-$slot")) for slot in 1:2]
+    function child_command(job)
+        child=copy(opts)
+        child["threads"]="4";child["cpus"]=join(job.cpus,',');child["output"]=job.output
+        child["methods"]=join(job.methods,',');child["instances"]=join(getindex.(selected,"id"),',')
+        child["budget"]="60";child["seeds"]=join(seeds,',');child["order"]="method"
+        child["control-dir"]=output;child["worker-slot"]=string(job.slot)
+        child["gc-threshold"]=string(threshold);child["missing-solvers"]="error"
+        child["resume"]=isfile(joinpath(job.output,"manifest.toml")) ? "true" : "false"
+        launcher(child,joinpath(ROOT,"LiLim/scripts/full_corpus_campaign.jl"),campaign_arguments(child))
+    end
+    println("Screening: 548 configurations × six instances × one four-core run; full 60-second budget.")
+    println("Instances: ",join([string(r["size"])*":"*r["id"] for r in selected],", "));flush(stdout)
+    ScreeningControl.controller(output,jobs,child_command;interval)
+end
+
 function export_results(opts)
     haskey(opts,"output") || error("export requires --output=CAMPAIGN_DIR")
     directory = abspath(opts["output"])
@@ -545,13 +613,14 @@ function export_results(opts)
 end
 
 function main(args=ARGS)
-    isempty(args) && error("usage: colleague.jl preflight|check|setup|qualify|run|report|export [--name=value]")
+    isempty(args) && error("usage: colleague.jl preflight|check|setup|qualify|run|lilim-screening|report|export [--name=value]")
     command=first(args); opts=options(args[2:end])
     if command=="preflight"; exit(preflight(opts))
     elseif command=="check"; check(opts)
     elseif command=="setup"; setup(opts)
     elseif command=="qualify"; qualify(opts)
     elseif command=="run"; campaign(opts)
+    elseif command=="lilim-screening"; screening(opts)
     elseif command=="report"; report(opts)
     elseif command=="export"; export_results(opts)
     else; error("unknown command: "*command)

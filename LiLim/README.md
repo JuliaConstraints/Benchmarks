@@ -1,5 +1,33 @@
 # Small Li–Lim pilot
 
+## Six-size preliminary screening
+
+`colleague.jl lilim-screening --output=NEW_DIRECTORY` evaluates the 548 existing
+`extended-panel,routing-panel` configurations on one reproducibly sampled
+official instance per size (100/200/400/600/800/1000). Each configuration runs
+once on each selected instance for a full 60 seconds with four workers. BKS
+attainment is recorded and never ends search early. Two persistent processes
+use disjoint four-core masks, with at most eight physical cores in total.
+Set `--cpus=CPU0,...,CPU7` explicitly when reserving cores for other workloads.
+
+The frozen `screening-plan.toml` records the instance selection, order, seeds,
+source version and CPU masks. The controller rechecks external CPU use and
+available memory every 30 seconds, admitting two, one or zero configurations.
+Resource waits recover automatically. `STOP_AFTER_TRIAL` in the screening root
+finishes current trials and stops subsequent work; remove it only after an
+explicit human resume, then use the identical command with `--resume=true`.
+Results are sealed and independently validated before they count as complete.
+
+Each trial records process GC seconds/fraction, allocated bytes and allocation
+counts during the measured interval, excluding forced precollection and final
+audit. GC at or above 10%, or allocation at or above 1 GiB/s, stops admission
+with a durable `GC_ALERT_*.toml`. This requires PerfChecker diagnosis and a
+qualified correction, followed by a fresh source-identified cohort replaying
+all six instances of each affected configuration. Historical evidence remains
+available. Child failures retain their logs and also stop admission. Completion
+is reported per configuration after its six trials, with per-instance quality;
+one repetition is preliminary evidence, not a stochastic stability estimate.
+
 ## Current preparation (9 October 2026)
 
 Li-Lim is the first qualification target for the new Etendu-aligned cohort.

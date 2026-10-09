@@ -152,7 +152,7 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
     # All HiGHS instances in one mixed trial use the same cap of one thread.
     Pilot.HiGHS.Highs_resetGlobalScheduler(1)
     GC.gc()
-    search_gc_origin = Base.gc_num().total_time
+    search_gc_origin = Base.gc_num()
     origin = time_ns();process_cpu = cpu_seconds()
     elapsed() = (time_ns()-origin)/1e9
     p = read_benchmark(path,:li_lim;id)
@@ -208,7 +208,8 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
         MS.execute!(strategy.prepared.kernel,context)
     end
     measured_wall = elapsed(); consumed_cpu = cpu_seconds()-process_cpu
-    search_gc_seconds = (Base.gc_num().total_time-search_gc_origin)/1e9
+    search_gc_diff = Base.GC_Diff(Base.gc_num(),search_gc_origin)
+    search_gc_seconds = search_gc_diff.total_time/1e9
     # Each worker only admits fully validated, in-budget snapshots. Audit and
     # merge outside the hot timer; do not invent an earlier receipt time.
     trajectory = Any[Dict("seconds"=>initial_seconds,"vehicles"=>checked.objective.vehicles,
@@ -235,6 +236,10 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
         "wall_seconds"=>measured_wall,"audit_merge_seconds"=>elapsed()-measured_wall,
         "process_cpu_seconds"=>consumed_cpu,"mean_active_cpus"=>consumed_cpu/measured_wall,
         "search_gc_seconds"=>search_gc_seconds,
+        "search_gc_fraction"=>search_gc_seconds/measured_wall,
+        "search_allocated_bytes"=>search_gc_diff.allocd,
+        "search_allocation_count"=>Base.gc_alloc_count(search_gc_diff),
+        "search_gc_pauses"=>search_gc_diff.pause,"search_gc_full_sweeps"=>search_gc_diff.full_sweep,
         "gc_scope"=>"process-global collector time inside the shared search interval; forced precollection and final audit excluded",
         "initial_seconds"=>initial_seconds,"initial_vehicles"=>checked.objective.vehicles,
         "initial_distance"=>checked.objective.distance,"vehicles"=>quality.vehicles,"distance"=>quality.distance,
