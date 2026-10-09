@@ -62,6 +62,10 @@ function build_catalog(;scope=:kernels,methods=String[],families=Symbol[],backen
         push!(fixtures,RoutingPanel.CONFIG_PATH)
         if scope==:routing_kernels
             for requests in (8,32,128)
+                push!(scenarios,ScenarioSpec("routing_owned_snapshot_n$requests";source,
+                    factory="routing_snapshot_case",implementation="owned-primitive-snapshots-v1",
+                    parameters=Dict("requests"=>requests,"seed"=>41,"repetitions"=>128),
+                    fixtures,collectors,repeatable=true))
                 push!(scenarios,ScenarioSpec("routing_pair_relocation_n$requests";source,
                     factory="pair_relocation_case",implementation="owned-surviving-incumbent-v2",
                     parameters=Dict("requests"=>requests,"seed"=>41,"repetitions"=>128),

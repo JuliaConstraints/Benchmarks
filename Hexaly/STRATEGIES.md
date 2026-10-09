@@ -690,3 +690,24 @@ objects by 27.2–56.4%. Earlier partial-warmup observations, including an incre
 remain recorded separately. Concurrent timings establish no controlled speedup
 or solution-quality improvement. English exact and XKCD figures show every
 paired observation with a fixed previous-source reference.
+
+Independent primitive route snapshots preserve the original shared-row fallback,
+undefined-row fallback and generic copying semantics. The alias guard is bounded
+to 128 routes; larger layouts retain the original copy. Cross-field pool copying
+also retains its original behavior. VND passes its two request IDs explicitly,
+removing dynamic argument expansion without changing request selection.
+
+Nine original-valid fixtures with 8/32/128 requests and three seeds reduce warm
+snapshot bytes by 69–77% and objects by 61–63%. All 42,226 trace, routing and
+ICN/resource assertions pass, including 176 additional snapshot ownership checks.
+All 52 complete profile traces/routes/RNG match, with no observed allocation
+increase. The actual snapshot workloads pass all 36 collector/analyzer executions;
+JET reports zero findings, AllocCheck retains 23 potential findings, and all three
+redacted heaps were verified and removed.
+
+Nine paired original LR101 paths cover VND, route-regret ALNS and ACO with three
+seeds, 4,096 steps per lane and two private lanes. Complete original-model work
+and solution checks pass, with zero observed compile/recompile totals. Bytes fall
+by 15–42%. Independent snapshots and preparation still allocate; concurrent
+timings establish no controlled speedup or quality gain. Exact and XKCD figures
+retain every paired observation and the fixed previous-source reference.

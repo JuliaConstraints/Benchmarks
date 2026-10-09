@@ -94,6 +94,17 @@ struct RouteBuffer
     routes::Vector{Vector{Int}}
 end
 RouteBuffer()=RouteBuffer(Vector{Int}[],Vector{Int}[])
+"Independent primitive-route snapshots; repeated row identities retain deepcopy semantics."
+function owned_route_snapshot(routes::Vector{Vector{Int}})
+    # Keep large/custom layouts on the original linear memoized path. The bounded
+    # native path avoids creating that memo when every row is independently owned.
+    length(routes)<=128 && all(i->isassigned(routes,i),eachindex(routes)) || return deepcopy(routes)
+    for i in eachindex(routes),j in firstindex(routes):i-1
+        routes[i]===routes[j] && return deepcopy(routes)
+    end
+    map(copy,routes)
+end
+owned_route_snapshot(routes)=deepcopy(routes)
 function copy_routes!(w::RouteBuffer,source)
     source===w.routes && return w.routes
     while length(w.buffers)<length(source);push!(w.buffers,Int[]);end
@@ -382,7 +393,7 @@ function exchange(p,routes,D,first_id,second_id;workspace=nothing,original_dista
     a,b=p.data.pairs[first_id];c,d=p.data.pairs[second_id]
     ra=findfirst(r->a in r,routes);rb=findfirst(r->c in r,routes)
     (ra===nothing || rb===nothing || ra==rb) && return nothing
-    trial=workspace===nothing ? deepcopy(routes) : copy_routes!(workspace,routes)
+    trial=workspace===nothing ? owned_route_snapshot(routes) : copy_routes!(workspace,routes)
     for i in eachindex(trial[ra]);v=trial[ra][i];trial[ra][i]=v==a ? c : v==b ? d : v;end
     for i in eachindex(trial[rb]);v=trial[rb][i];trial[rb][i]=v==c ? a : v==d ? b : v;end
     # Only the owned controller opts in: its D is the original Euclidean matrix.
@@ -441,11 +452,11 @@ function collect!(pool,p,D,routes;validation_workspace=nothing)
     original_check(p,routes,validation_workspace).valid || throw(ArgumentError("only original-feasible solutions may enter the pool"))
     # Already owned, validated snapshots need no duplicate copy or column rebuild.
     routes in pool.solutions && all(r->r in pool.routes,routes) && return pool
-    candidate=deepcopy(routes)
+    candidate=owned_route_snapshot(routes)
     candidate in pool.solutions || push!(pool.solutions,candidate)
     sort!(pool.solutions;by=r->quality(p,r;validation_workspace));resize!(pool.solutions,min(length(pool.solutions),pool.max_solutions))
     protected=first(pool.solutions)
-    columns=deepcopy(protected)
+    columns=owned_route_snapshot(protected)
     for route in vcat(routes,pool.routes)
         route_valid(p,D,route) || throw(ArgumentError("invalid pool route"))
         length(columns)>=max(pool.max_routes,length(protected)) && break
@@ -576,7 +587,7 @@ function Lane(p,initial;seed=41,scorer=nothing,origin=time_ns(),deadline=typemax
         trace["clique_scope"]=c.scope
     end
     pool=RoutePool();collect!(pool,p,D,initial;validation_workspace)
-    Lane(parent,g,workspace,Xoshiro(seed),deepcopy(initial),deepcopy(initial),q,q,
+    Lane(parent,g,workspace,Xoshiro(seed),owned_route_snapshot(initial),owned_route_snapshot(initial),q,q,
         ones(Int,length(p.data.pairs)),ones(5),ones(size(D)),fill(parent.fleet_weight*q[1]+q[2],LIMITS.late_history),
         Dict{Tuple{Int,Int},Int}(),Set{Tuple{Int,Int}}(),Set{Tuple{Int,Int}}(),graph,
         RepairWorkspace(),RouteBuffer(),RouteBuffer(),ones(Int,n-1),Int[],BitVector(),BitVector(),Int[],
@@ -637,7 +648,7 @@ function admit!(lane,p,candidate,settings;source="structured",force=false)
     iszero(LS._candidate_cost(solver,move)) || error("structured MetaMove rejected by actual error backend")
     time_ns()>=lane.deadline && return false
     LS._commit!(solver,move);LS._compute!(solver);Hybrid.SearchPolicies.synchronize!(solver)
-    lane.current=deepcopy(candidate);lane.q=q;counter!(lane.trace,"accepted_meta_moves")
+    lane.current=owned_route_snapshot(candidate);lane.q=q;counter!(lane.trace,"accepted_meta_moves")
     if tabu_active
         for a in oldarcs
             a in newarcs || (lane.tabu[a]=lane.steps+LIMITS.tabu_tenure)
@@ -647,10 +658,10 @@ function admit!(lane,p,candidate,settings;source="structured",force=false)
     lane.trace["max_tabu_entries"]=max(get(lane.trace,"max_tabu_entries",0),length(lane.tabu))
     collect!(lane.pool,p,lane.parent.distances,candidate;validation_workspace=lane.validation_workspace)
     if q<lane.best_q && time_ns()<lane.deadline
-        lane.best=deepcopy(candidate);lane.best_q=q
+        lane.best=owned_route_snapshot(candidate);lane.best_q=q
         t=(time_ns()-lane.origin)/1e9
         time_ns()<lane.deadline && push!(lane.trace["trajectory"],Dict("seconds"=>t,"vehicles"=>q[1],
-            "distance"=>q[2],"routes"=>deepcopy(candidate),"source"=>source))
+            "distance"=>q[2],"routes"=>owned_route_snapshot(candidate),"source"=>source))
     end
     true
 end
@@ -754,7 +765,7 @@ function step!(lane,p,settings,deadline)
             trial=candidate.routes;counter!(lane.trace,"relocation_evaluations",candidate.examined)
         elseif which==2
             ids=random_requests!(lane.repair_workspace,length(pairs),lane.rng)
-            trial=length(ids)==2 ? exchange(p,trial,D,ids...;workspace=lane.exchange_workspace,original_distance_prefilter=true,
+            trial=length(ids)==2 ? exchange(p,trial,D,ids[1],ids[2];workspace=lane.exchange_workspace,original_distance_prefilter=true,
                 validation_workspace=lane.validation_workspace) : nothing;counter!(lane.trace,"exchange_calls")
         else
             ids=random_requests!(lane.repair_workspace,length(pairs),lane.rng);remove_requests!(trial,p,ids;workspace=lane.repair_workspace)
@@ -862,7 +873,7 @@ function run_portfolio(p,initial,id,seconds,seed,banks,strategy,execute;
             start=time_ns();allow=min(LIMITS.master_seconds,LIMITS.master_fraction*seconds-master_seconds)
             stop=min(deadline,start+UInt64(round(Int,allow*1e9)))
             mode=first(roles).master_lp
-            snapshot=(;instance=p,pool=deepcopy(pool),routes=deepcopy(lanes[1].current),distances=D,
+            snapshot=(;instance=p,pool=deepcopy(pool),routes=owned_route_snapshot(lanes[1].current),distances=D,
                 values=MetaRepair.successors(p,lanes[1].current))
             remaining=max(0.,Float64(Int128(stop)-Int128(time_ns()))/1e9)
             request=LS.MetaVariableRequest(LS.MetaVariable(:route_pool,eachindex(snapshot.values)),snapshot,remaining,lanes[1].rng)

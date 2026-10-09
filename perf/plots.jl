@@ -150,7 +150,9 @@ for (key,basename,description,xminimum,caption) in (
         ("night_surviving_relocation","routing-surviving-relocation","copy only surviving primitive routes",90,
          "Full trace, routes and next RNG values match; fresh LP/MIP lifecycle variation is retained."),
         ("night_owned_trace","routing-owned-trace","private numeric trace storage",90,
-         "Full trace, routes and next RNG values match; short complete MetaStrategist lifecycles can allocate more."))
+         "Full trace, routes and next RNG values match; short complete MetaStrategist lifecycles can allocate more."),
+        ("night_owned_snapshots","routing-owned-snapshots","independent primitive route snapshots",70,
+         "Full trace, routes and next RNG values match; all observed profile allocations are unchanged or lower."))
     haskey(proof,key) || continue
     rows=proof[key]["records"]
     all(r->r["correctness"]=="passed" && r["observable_work_matches"],rows) ||
@@ -171,6 +173,37 @@ for (key,basename,description,xminimum,caption) in (
         Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
         Label(figure[3,1],"52 historical profiles; same frozen package cohort; 2 workers. $caption\nAll original-model oracles passed. Allocation evidence; no speed or quality claim.",fontsize=13)
         export_figure(figure,basename*"-"*category)
+    end
+end
+
+if haskey(proof,"night_owned_snapshots")
+    let
+    stage=proof["night_owned_snapshots"]
+    for (key,name,title,xminimum) in (
+            ("native_snapshots","routing-owned-snapshots-kernels","Actual route snapshots: independently owned retained outputs",0),
+            ("fixed_original_lr101","routing-owned-snapshots-fixed-lr101","Original LR101: primitive snapshots at identical search work",40))
+        rows=stage[key]["records"]
+        all(r->r["original_oracle"]=="passed",rows) || error("Unqualified route snapshot figure")
+        native=key=="native_snapshots"
+        native || all(r->r["full_trace_routes_rng_match"],rows) || error("Original LR101 work differs")
+        rows=sort(rows;by=r->native ? (string(r["requests"]),r["seed"]) : (r["method"],r["seed"]))
+        labels=[native ? "$(r["requests"]) requests / seed $(r["seed"])" :
+            "$(replace(r["method"],"rp_"=>"","_"=>" ")) / seed $(r["seed"])" for r in rows]
+        bytes=[native ? 100r["after_bytes"]/r["before_bytes"] : 100r["after"]["bytes"]/r["before"]["bytes"] for r in rows]
+        objects=[native ? 100r["after_objects"]/r["before_objects"] : 100r["after"]["objects"]/r["before"]["objects"] for r in rows]
+        n=length(rows);figure=Figure(size=(1650,780))
+        axis=Axis(figure[1,1];title,xlabel="Remaining allocation (% of previous source)",
+            ylabel=native ? "Original PDPTW fixture" : "Configuration / seed",yticks=(1:n,labels))
+        vlines!(axis,[100];color=:black,linestyle=:dash,linewidth=2,label="Fixed previous-source reference")
+        scatter!(axis,bytes,(1:n).-.12;color=:dodgerblue3,marker=:circle,markersize=12,label="Allocated Julia bytes")
+        scatter!(axis,objects,(1:n).+.12;color=:purple3,marker=:utriangle,markersize=12,label="Allocated Julia objects")
+        xlims!(axis,xminimum,105);ylims!(axis,.4,n+.6)
+        Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
+        caption=native ? "Nine original-valid fixtures; five batches of 1,000 warmed snapshots. Independent output rows and original input remain intact." :
+            "Nine paired original LR101 paths; 4,096 steps per lane, 2 private lanes. Complete trace/routes/next RNG match; exact paths fully warmed."
+        Label(figure[3,1],caption*"\nNo observed compilation/recompilation. Preparation and final validation excluded; no controlled speed or quality claim.",fontsize=13)
+        export_figure(figure,name)
+    end
     end
 end
 
