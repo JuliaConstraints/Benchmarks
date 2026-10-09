@@ -53,6 +53,12 @@ function build_catalog(;scope=:kernels,methods=String[],families=Symbol[],backen
             ("StructuredRouting.jl","RoutingPanel.jl","Pilot.jl","MetaRepair.jl","Hybrid.jl","ICNScoring.jl","ResourceExperiment.jl","PlatformResources.jl")])
         push!(fixtures,RoutingPanel.CONFIG_PATH)
         if scope==:routing_kernels
+            for requests in (8,32,128)
+                push!(scenarios,ScenarioSpec("routing_pair_relocation_n$requests";source,
+                    factory="pair_relocation_case",implementation="owned-deferred-incumbent-v1",
+                    parameters=Dict("requests"=>requests,"seed"=>41,"repetitions"=>128),
+                    fixtures,collectors,repeatable=true))
+            end
             for operation in ("insertion","insertion_options","cache","cache_reuse","repair","ejection","pool_reuse","duplicate_admission","arc_reuse","route_copy","successor_fill","request_selection","exchange_rejection","original_validation")
                 push!(scenarios,ScenarioSpec("routing_"*operation;source,factory="routing_kernel_case",
                     implementation=operation=="insertion_options" ? "paired-insertion-prepared-views-v2" :

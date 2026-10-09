@@ -77,11 +77,31 @@ function route_groups!(workspace::RouteGroupWorkspace, routes, max_visits)
 end
 route_groups(routes,max_visits) = route_groups!(RouteGroupWorkspace(),routes,max_visits)
 
-struct PairRelocationWorkspace
+struct PairRelocationStorage
+    buffers::Vector{Vector{Int}}
+    best_candidate::Vector{Int}
+end
+mutable struct PairRelocationWorkspace
     base::Vector{Vector{Int}}
     candidate::Vector{Int}
+    storage::Union{Nothing,PairRelocationStorage}
 end
+PairRelocationWorkspace(base,candidate) = PairRelocationWorkspace(base,candidate,nothing)
 PairRelocationWorkspace() = PairRelocationWorkspace(Vector{Int}[],Int[])
+
+function pair_storage!(workspace)
+    workspace.storage===nothing && (workspace.storage=PairRelocationStorage(copy(workspace.base),Int[]))
+    workspace.storage::PairRelocationStorage
+end
+
+"Materialize one independent incumbent after all better insertions have been compared."
+function relocation_incumbent(base,target,candidate)
+    target==0 && return nothing
+    result=deepcopy(base)
+    result[target]=copy(candidate)
+    filter!(!isempty,result)
+    result
+end
 
 "Best feasible reinsertion of one complete request; current routes remain owned by the caller."
 function pair_relocation(p, routes, distances, pair; deadline_ns=typemax(UInt64),
@@ -93,17 +113,20 @@ function pair_relocation(p, routes, distances, pair; deadline_ns=typemax(UInt64)
     delivery in routes[source] || throw(ArgumentError("split request"))
     original_cost = sum(route -> Pilot.route_distance(route, distances), routes)
     base = workspace.base
-    while length(base)<length(routes)
-        push!(base,Int[])
+    storage = pair_storage!(workspace)
+    while length(storage.buffers)<length(routes)
+        push!(storage.buffers,Int[])
     end
     resize!(base,length(routes))
     for i in eachindex(routes)
+        base[i]=storage.buffers[i]
         resize!(base[i],length(routes[i])); copyto!(base[i],routes[i])
     end
     filter!(node -> node != pickup && node != delivery, base[source])
     source_cost = isempty(base[source]) ? 0. : Pilot.route_distance(base[source], distances)
     removed_cost = Pilot.route_distance(routes[source], distances)-source_cost
-    best = nothing
+    best_target = 0
+    best_candidate = storage.best_candidate
     best_key = (length(routes), original_cost-1e-8)
     examined = 0
     fleet = length(base)-count(isempty,base)
@@ -113,7 +136,7 @@ function pair_relocation(p, routes, distances, pair; deadline_ns=typemax(UInt64)
         old_cost = isempty(route) ? 0. : Pilot.route_distance(route, distances)
         resize!(candidate,length(route)+2)
         for a in 1:length(route)+1, b in a+1:length(route)+2
-            time_ns() < deadline_ns || return (; routes=best, examined)
+            time_ns() < deadline_ns || return (; routes=relocation_incumbent(base,best_target,best_candidate), examined)
             offset = 0
             for j in eachindex(candidate)
                 if j==a
@@ -130,12 +153,13 @@ function pair_relocation(p, routes, distances, pair; deadline_ns=typemax(UInt64)
             distance = original_cost-removed_cost-old_cost+Pilot.route_distance(candidate,distances)
             key = (vehicles,distance)
             key < best_key || continue
-            best = deepcopy(base); best[target] = copy(candidate); filter!(!isempty,best)
+            resize!(best_candidate,length(candidate));copyto!(best_candidate,candidate)
+            best_target = target
             best_key = key
-            selection===:first && return (;routes=best,examined)
+            selection===:first && return (;routes=relocation_incumbent(base,best_target,best_candidate),examined)
         end
     end
-    (; routes=best, examined)
+    (; routes=relocation_incumbent(base,best_target,best_candidate), examined)
 end
 
 function prepare_parent(p, initial; seed=41, scorer=nothing, plateau_rejection=10,

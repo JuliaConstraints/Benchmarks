@@ -12,6 +12,74 @@ function routing_fixture()
         [0,1,-1,1,-1,1,-1],zeros(7),fill(40.,7),zeros(7),[(2,3),(4,5),(6,7)])
     BenchmarkInstance("route-profile-functional",d)
 end
+
+"Owned pair reinsertion, qualified by exhaustive original-model insertion checks."
+function pair_relocation_case(parameters)
+    requests=parameters["requests"];seed=parameters["seed"];repetitions=parameters["repetitions"]
+    requests>1 && repetitions>0 || throw(ArgumentError("positive relocation workload required"))
+    prepare=()->begin
+        rng=Xoshiro(seed);nodes=2requests+1
+        d=PickupDeliveryProblem(requests,2,100rand(rng,nodes,2),
+            vcat(0,repeat([1,-1],requests)),zeros(nodes),fill(1e9,nodes),zeros(nodes),
+            [(2i,2i+1) for i in 1:requests])
+        p=BenchmarkInstance("pair-relocation-$requests-$seed",d)
+        distances=Pilot.distances(d);routes=[[2i,2i+1] for i in 1:requests]
+        pair=first(d.pairs);workspace=Hybrid.PairRelocationWorkspace()
+        validate_solution(p,routes).valid || error("invalid original relocation fixture")
+        # This oracle constructs candidates independently and asks the original
+        # problem validator, without using the optimized route scorer.
+        remainder=deepcopy(routes);filter!(node->!(node in pair),first(remainder))
+        original=validate_solution(p,routes).objective
+        optimum=(original.vehicles,original.distance);examined=0
+        for target in eachindex(remainder)
+            for a in 1:length(remainder[target])+1,b in a+1:length(remainder[target])+2
+                candidate=deepcopy(remainder)
+                insert!(candidate[target],a,pair[1]);insert!(candidate[target],b,pair[2])
+                filter!(!isempty,candidate);examined+=1
+                validation=validate_solution(p,candidate)
+                validation.valid || continue
+                optimum=min(optimum,(validation.objective.vehicles,validation.objective.distance))
+            end
+        end
+        warmed=Hybrid.pair_relocation(p,routes,distances,pair;workspace)
+        warmed.examined==examined || error("relocation enumeration differs from original oracle")
+        warmed.routes===nothing && error("fixture needs an accepted relocation")
+        per_call=examined+length(warmed.routes)+
+            sum(route->Pilot.route_distance(route,distances),warmed.routes)
+        expected=0.
+        for _ in 1:repetitions;expected+=per_call;end
+        outputs=Vector{Vector{Vector{Int}}}(undef,repetitions)
+        examined_outputs=Vector{Int}(undef,repetitions)
+        (;p,distances,routes,pair,workspace,outputs,examined_outputs,optimum,examined,expected,
+            original_routes=deepcopy(routes),retained_routes=warmed.routes,retained_copy=deepcopy(warmed.routes))
+    end
+    operation=s->begin
+        checksum=0.
+        for i in 1:repetitions
+            result=Hybrid.pair_relocation(s.p,s.routes,s.distances,s.pair;workspace=s.workspace)
+            result.routes===nothing && error("missing relocation incumbent")
+            s.outputs[i]=result.routes
+            s.examined_outputs[i]=result.examined
+            checksum+=result.examined+length(result.routes)+
+                sum(route->Pilot.route_distance(route,s.distances),result.routes)
+        end
+        checksum
+    end
+    verify=(s,checksum)->begin
+        isequal(checksum,s.expected) && all(==(s.examined),s.examined_outputs) && s.routes==s.original_routes &&
+            s.retained_routes==s.retained_copy || return false
+        for i in eachindex(s.outputs)
+            output=s.outputs[i];validation=validate_solution(s.p,output)
+            validation.valid && validation.objective.vehicles==s.optimum[1] &&
+                isapprox(validation.objective.distance,s.optimum[2];atol=1e-8,rtol=1e-13) || return false
+            any(route->any(buffer->route===buffer,s.workspace.storage.buffers),output) && return false
+            i==1 || all(a!==b for (a,b) in zip(output,s.outputs[i-1])) || return false
+        end
+        true
+    end
+    (;prepare,operation,verify)
+end
+
 function routing_kernel_case(parameters)
     operation=parameters["operation"];repetitions=parameters["repetitions"]
     prepare=()->begin

@@ -607,3 +607,28 @@ validation can still allocate. The MSSC dense matrix cache retains at most
 eight shapes. This qualification establishes allocation reductions on the
 reported workloads; concurrent observations do not establish a controlled
 speedup or improved solution quality.
+
+Pair relocation now retains its best insertion in lane-owned scratch and creates
+one independent incumbent after selection. Active route buffers survive changes
+in fleet size. Twelve generated original-PDPTW fixtures, with 8, 32, 64 and 128
+requests and three seeds, reduce warm allocated bytes by 67–91%. Historical
+routes, examined candidates and complete checksums match exactly, and every
+incumbent passes the original validator. Independent returned snapshots still
+allocate. The 1,511 hybrid assertions include buffer reuse, fleet-size changes,
+retained results and the previous two-argument workspace constructor.
+
+All 52 fixed-work routing profiles also preserve complete trace hashes, routes
+and next RNG values. Five VND search profiles allocate less; the other search
+profiles are unchanged. Small complete MetaStrategist workloads include both
+reductions and slight lifecycle increases, which remain visible in the figures.
+Fresh LP/MIP lifecycle observations can vary. English exact and XKCD figures
+retain previous-source reference marks; the reported observations establish
+allocation changes, without a controlled timing or search-quality conclusion.
+
+The actual relocation call also completes 36 fresh-worker executions: three
+fixture sizes through all four collectors and eight analyzers. Every full
+original-model, enumeration and ownership oracle passes. JET reports zero
+findings; AllocCheck retains 39 potential allocation findings per specialization.
+One GC and one memory diagnostic flag remain recorded. Three redacted heap
+captures were verified and removed. These results retain the independent
+returned snapshots and do not imply a zero-allocation whole solver.
