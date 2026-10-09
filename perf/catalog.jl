@@ -61,6 +61,12 @@ function build_catalog(;scope=:kernels,methods=String[],families=Symbol[],backen
             ("StructuredRouting.jl","TraceCounters.jl","RoutingPanel.jl","Pilot.jl","MetaRepair.jl","Hybrid.jl","ICNScoring.jl","ResourceExperiment.jl","PlatformResources.jl")])
         push!(fixtures,RoutingPanel.CONFIG_PATH)
         if scope==:routing_kernels
+            for width in (2,8,16)
+                push!(scenarios,ScenarioSpec("routing_best_quality_w$width";source,
+                    factory="routing_best_quality_case",implementation="owned-coordinator-quality-v1",
+                    parameters=Dict("width"=>width,"seed"=>41,"repetitions"=>128),
+                    fixtures,collectors,repeatable=true))
+            end
             for mode in ("growth","fallback","reuse")
                 push!(scenarios,ScenarioSpec("routing_range_cache_"*mode;source,
                     factory="routing_range_cache_case",implementation="bounded-owned-range-capacity-v1",

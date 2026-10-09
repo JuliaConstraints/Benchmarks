@@ -801,3 +801,31 @@ AllocCheck report zero findings for this primitive; three redacted heaps were
 verified and removed. English exact and XKCD figures retain every observation
 and the previous-source reference. These concurrent allocation qualifications
 establish no controlled speedup or solution-quality ranking.
+
+The coordinator reuses private storage for complete lane-best quality snapshots.
+Concrete scalar copying preserves floating bits and avoids tuple boxing; the
+first boxed accessor was rejected after 40 allocation checks failed. The final
+implementation passes all 713,065 application assertions, including 320 new
+quality, exceptional-value, ownership and zero-allocation checks. All 52 profile
+fingerprints match the same frozen cohort.
+
+Fifteen prepared-lane pairs at widths 1/2/4/8/16 retain the original qualities,
+ordered checksum, lane state and solutions. Their measurement and consumption
+scaffold remains at 448 bytes and nine objects; the refresh itself allocates zero
+bytes. These widths describe prepared lane states, with two running threads.
+All 48 actual cooperative paths preserve substantive work and zero compilation.
+Two byte increases and two object increases remain in the full seed-range plots.
+All 36 collector/analyzer executions pass original-model oracles; JET retains
+one potential finding and AllocCheck two per case. Three redacted heaps were
+verified and removed. Concurrent timings establish no controlled speedup.
+
+The seventh immutable published package cohort passes those 713,065 application
+assertions and all 52 complete work/RNG profiles. Integration remains provisional
+until package-specific repairs and the portable environment are qualified.
+The subsequent generic QUBO conversion audit found a semantic regression in
+that provisional cohort; its constructor optimization is not qualified for
+final promotion until the narrower built-in conversion guard passes.
+Full standard tests on the sixth cohort passed for eight packages and failed for five:
+three missing test extras, one incompatible optional QUBO test dependency graph,
+and one unguarded Sudoku result display. These failures and subsequent repairs
+are recorded separately; successful application tests do not erase them.

@@ -113,6 +113,36 @@ function routing_membership_case(parameters)
     (;prepare,operation,verify)
 end
 
+"Actual prepared lane qualities; original full solutions and untouched lane states are the oracle."
+function routing_best_quality_case(parameters)
+    width=parameters["width"];repetitions=parameters["repetitions"]
+    width>0 && repetitions>0 || throw(ArgumentError("positive quality workload required"))
+    prepare=()->begin
+        p=routing_fixture();initial=[[2,3],[4,5],[6,7]]
+        scorer=ICNScoring.load_backend(:naive)
+        lanes=Any[StructuredRouting.Lane(p,initial;seed=parameters["seed"]+i,scorer) for i in 1:width]
+        expected=[lane.best_q for lane in lanes]
+        checksum=0.0
+        for _ in 1:repetitions,i in 1:width;checksum+=expected[i][2];end
+        (;p,lanes,expected,checksum,qualities=Vector{Tuple{Int,Float64}}(undef,width),
+            original=[deepcopy(lane.current) for lane in lanes])
+    end
+    operation=s->begin
+        checksum=0.0
+        for _ in 1:repetitions
+            StructuredRouting.refresh_best_qualities!(s.qualities,s.lanes)
+            for i in 1:width;checksum+=s.qualities[i][2];end
+        end
+        checksum
+    end
+    verify=(s,checksum)->begin
+        isequal(checksum,s.checksum) && isequal(s.qualities,s.expected) &&
+        all(isequal(lane.best_q,s.expected[i]) && lane.current==s.original[i] &&
+            validate_solution(s.p,lane.current).valid for (i,lane) in enumerate(s.lanes))
+    end
+    (;prepare,operation,verify)
+end
+
 "Actual native empty-sequence insertion, checked against original summaries and route scans."
 function routing_empty_insertion_case(parameters)
     requests=parameters["requests"];repetitions=parameters["repetitions"]
