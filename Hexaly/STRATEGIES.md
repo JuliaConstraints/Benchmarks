@@ -829,3 +829,13 @@ Full standard tests on the sixth cohort passed for eight packages and failed for
 three missing test extras, one incompatible optional QUBO test dependency graph,
 and one unguarded Sudoku result display. These failures and subsequent repairs
 are recorded separately; successful application tests do not erase them.
+
+Twelve additional original LR101 cooperative pairs preserve complete substantive
+work and zero compilation. All use fewer objects; four small byte increases
+remain recorded. The coordinator buffer has a modest effect on these larger
+complete lifecycles. Separately, comparing all overnight `StructuredRouting`
+changes with its initial source reduces bytes by about 70–86% across twelve
+original LR101 paths (VND, route ALNS, ACO and random ALNS). Every full
+trace/routes/RNG fingerprint matches. Both sides share the rest of the current
+application and the same frozen dependencies; this is not an entire old/new
+package-cohort comparison. Concurrent timings establish no controlled speedup.
