@@ -103,6 +103,24 @@ function relocation_incumbent(base,target,candidate)
     result
 end
 
+"Copy only surviving primitive routes; retain an independent result for every call."
+function relocation_incumbent(base::Vector{Vector{Int}},target::Int,candidate::Vector{Int})
+    target==0 && return nothing
+    checkbounds(base,target)
+    count=0
+    for i in eachindex(base)
+        (i==target || !isempty(base[i])) && (count+=1)
+    end
+    result=Vector{Vector{Int}}(undef,count)
+    next=1
+    for i in eachindex(base)
+        route=i==target ? candidate : base[i]
+        isempty(route) && continue
+        result[next]=copy(route);next+=1
+    end
+    result
+end
+
 "Best feasible reinsertion of one complete request; current routes remain owned by the caller."
 function pair_relocation(p, routes, distances, pair; deadline_ns=typemax(UInt64),
         workspace=PairRelocationWorkspace(), selection=:best)
