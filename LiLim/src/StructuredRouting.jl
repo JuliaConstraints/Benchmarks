@@ -76,9 +76,14 @@ end
 function range_cache!(c,d,D,route;max_cells=LIMITS.summary_cells)
     n=length(route);c.route=route
     if n*n>max_cells
-        c.cells=Matrix{Segment}(undef,0,0)
+        isempty(c.cells) || (c.cells=Matrix{Segment}(undef,0,0))
     elseif size(c.cells,1)<n
-        c.cells=Matrix{Segment}(undef,n,n)
+        # Initial and small routes retain exact capacity. Four-row growth blocks
+        # amortize longer routes within the configured cell budget; segment
+        # arithmetic remains in its original order.
+        capacity=max_cells isa Int && size(c.cells,1)>=16 && n>16 ?
+            max(n,min(4cld(n,4),isqrt(max_cells))) : n
+        c.cells=Matrix{Segment}(undef,capacity,capacity)
     end
     if n*n<=max_cells
         for i in 1:n

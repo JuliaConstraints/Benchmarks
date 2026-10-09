@@ -152,7 +152,9 @@ for (key,basename,description,xminimum,caption) in (
         ("night_owned_trace","routing-owned-trace","private numeric trace storage",90,
          "Full trace, routes and next RNG values match; short complete MetaStrategist lifecycles can allocate more."),
         ("night_owned_snapshots","routing-owned-snapshots","independent primitive route snapshots",70,
-         "Full trace, routes and next RNG values match; all observed profile allocations are unchanged or lower."))
+         "Full trace, routes and next RNG values match; all observed profile allocations are unchanged or lower."),
+        ("night_owned_range_cache","routing-owned-range-cache","bounded private cache capacity",98,
+         "Full trace/routes/RNG match; all small-profile variations remain shown. Original LR101 allocations are unchanged."))
     haskey(proof,key) || continue
     rows=proof[key]["records"]
     all(r->r["correctness"]=="passed" && r["observable_work_matches"],rows) ||
@@ -173,6 +175,28 @@ for (key,basename,description,xminimum,caption) in (
         Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
         Label(figure[3,1],"52 historical profiles; same frozen package cohort; 2 workers. $caption\nAll original-model oracles passed. Allocation evidence; no speed or quality claim.",fontsize=13)
         export_figure(figure,basename*"-"*category)
+    end
+end
+
+if haskey(proof,"night_owned_range_cache")
+    let
+    rows=proof["night_owned_range_cache"]["native_cache_sequences"]["records"]
+    all(r->r["oracle"]=="passed",rows) || error("Unqualified range cache figure")
+    labels=[r["case"]=="native_growth" ? "Growth from 2 to 80 nodes / 40 updates" :
+        r["case"]=="fallback_reuse" ? "Long-route scan fallback / 3,000 updates" :
+        "Growth then stable reuse / 1,000 updates" for r in rows]
+    n=length(rows);figure=Figure(size=(1600,650))
+    axis=Axis(figure[1,1],title="Actual range-cache sequences: bounded private storage",
+        xlabel="Remaining allocation (% of previous source)",ylabel="Ordered segment workload",yticks=(1:n,labels))
+    bytes=[100r["after"]["bytes"]/r["before"]["bytes"] for r in rows]
+    objects=[100r["after"]["objects"]/r["before"]["objects"] for r in rows]
+    vlines!(axis,[100];color=:black,linestyle=:dash,linewidth=2,label="Fixed previous-source reference")
+    scatter!(axis,bytes,(1:n).-.12;color=:dodgerblue3,marker=:circle,markersize=13,label="Allocated Julia bytes")
+    scatter!(axis,objects,(1:n).+.12;color=:purple3,marker=:utriangle,markersize=13,label="Allocated Julia objects")
+    xlims!(axis,-2,106);ylims!(axis,.5,n+.5)
+    Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
+    Label(figure[3,1],"180,138 exact original segment comparisons; cache creation and growing private storage included. Stable reuse is unchanged.\nNo original LR101 cache allocation gain: all nine full paired paths preserve bytes/objects exactly. No controlled speed or quality claim.",fontsize=13)
+    export_figure(figure,"routing-owned-range-cache-sequences")
     end
 end
 

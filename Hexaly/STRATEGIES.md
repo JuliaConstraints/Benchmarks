@@ -711,3 +711,22 @@ and solution checks pass, with zero observed compile/recompile totals. Bytes fal
 by 15–42%. Independent snapshots and preparation still allocate; concurrent
 timings establish no controlled speedup or quality gain. Exact and XKCD figures
 retain every paired observation and the fixed previous-source reference.
+
+Range caches keep exact capacity for initial and small routes, then grow in
+four-row blocks above 16 retained rows within the configured cell budget. Empty
+scan-fallback storage is reused. The growing 2–80-node diagnostic falls from
+7,090,640 to 3,703,184 allocated bytes; repeated scan fallback falls from 144,544
+to 544 bytes. Stable reuse is unchanged. Every original segment matches across
+180,138 independent comparisons, and all 612,103 routing assertions pass.
+
+All 36 collector/analyzer executions pass, with zero JET findings, six potential
+AllocCheck findings per specialization, and two retained GC flags. All three
+redacted heaps were verified and removed. All 52 full work/route/RNG observations
+match; three small complete MetaStrategist byte increases remain visible.
+The nine full original LR101 paths retain exactly the previous byte/object totals.
+An earlier geometric policy increased 47 small profiles and all nine LR101 paths;
+it was rejected, with its complete evidence retained. This cache improvement
+applies to the reported longer-growth/fallback workloads, without a measured
+LR101 allocation gain or controlled timing claim.
+
+The fifth frozen overnight cohort loads all 13 published package commits offline, preserves every unrelated dependency, passes 645,240 application assertions and reproduces the complete worker observations of all 52 bounded routing profiles. Its exact package commits and environment hashes are recorded in `night_cohort_integration_v5`. This intermediate qualification does not change the portable colleague cohort or establish controlled timing improvements.
