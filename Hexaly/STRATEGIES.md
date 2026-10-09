@@ -1,5 +1,20 @@
 # Experimental strategy panel
 
+The final overnight cohort is pinned in `LiLim/config/workspace-cohort.toml`.
+Its combined application passes 713,065 assertions and all 52 complete fixed-work
+checks. The actual colleague preflight passes all available core/native
+functional gates, including original Li-Lim OR-Tools GLS, a two-process Routing
+portfolio, two-worker CP-SAT and the native GHOST wrapper. The classical panel
+also passes its original-format/validator and owned-workspace checks. This is
+functional qualification; the 18 other discrete published corpora/references
+remain pending, Hexaly has no usable local licence, and Timefold's current Java
+adapter was initially absent from this checkout. Its pre-existing compiled cache
+subsequently matched every source, SDK and class hash and was reused; the actual
+unchanged native test passed all six Julia assertions, 480 exhaustive route
+partitions and four FULL_ASSERT searches. No installation or compilation was
+repeated. The original preflight skip and this supplemental qualification remain
+separate evidence. Corpus and licence gaps remain explicit.
+
 ## Additive Li-Lim route strategies
 
 The structured route panel adds **52 configurations (36 search profiles and 16
@@ -849,7 +864,12 @@ complete cooperative episodes, including lane construction, pooled columns and
 the single-threaded HiGHS master. Validation and complete lane/RNG fingerprints
 follow every measurement. All samples, GC and compilation counters are retained.
 Each seed/configuration batch receives three exact warm-ups and one collection;
-no collection is forced between its steady measured operations.
+no collection is forced between its steady measured operations. Independent
+results remain owned and live until the whole batch is validated; checks,
+serialization and console output cannot perturb GC between its timed samples.
+Fresh-process setup and each exact warm-up batch are recorded separately from
+steady samples; existing precompile caches are used and interpreter startup
+before the script is excluded from the setup observation.
 
 On Linux, provide an explicit reserved physical CPU mask and matching Julia
 worker count. Run the two cohorts sequentially with the same mask and settings:

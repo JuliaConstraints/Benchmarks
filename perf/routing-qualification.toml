@@ -21182,13 +21182,19 @@ timing_qualification = "Not a controlled cross-version speed comparison: other c
 
 [night_cohort_final]
 all_52_complete_worker_work_matches = true
+all_eight_original_two_worker_cohort_work_matches = true
 application_assertions = 713065
+configuration_sha256 = "eb32f50776a809b467387a56bbb565dfbd07ff2aa4f7274ec8102931a89b0d82"
+default_portable_cohort_promoted = true
 generic_qubo_test_limit = "Full original 27573 tests and all five learning examples qualified in the separate compatible test-extra graph; optional Flux/Zygote training tests do not resolve in the frozen portable PDPTW dependency graph."
+portable_status = "all_core_and_available_native_functional_checks_passed_published_corpus_and_missing_solver_gaps_retained"
 recorded_utc = "2026-10-09T05:01:43.464"
 scope = "Thirteen clean public immutable package commits with final narrow primitive snapshot, generic QUBO conversion, unrestricted Aqua and original example result guards. Frozen portable Project/Manifest bytes unchanged. All original application checks and complete 52-path semantic/RNG observations pass. Actual colleague preflight is the next gate."
 standard_example_limits = "Original unseeded bounded Sudoku can produce zero results; display guards preserve limits. Original magic_square(3) model has incompatible AllEqual values and original chemical_equilibrium objective is invalid; native positive-result qualification is not claimed for these original examples."
-status = "qualified_application_pending_portable_preflight"
+status = "qualified_portable_application_pending_reserved_timing"
+timefold_scope = "Initial actual preflight skipped an adapter absent from this checkout. Its source/SDK/class-identical pre-existing compiled runtime was then verified and reused; the unchanged actual native qualification passed. The original preflight is retained without rewriting its historical skip."
 timing_cli_development_failure = "First CLI checkpoint attempted to serialize a tuple of package metadata, rejected before a complete result file; metadata storage was corrected to a vector and all eight original paths then passed. Failed partial output is excluded from results."
+timing_protocol_scope = "Measured fixed-seed batches contain no validation/serialization/printing between timed samples. Every independently owned result is validated afterward before evidence is saved. Fresh-process existing-cache setup and three exact warm-ups are recorded separately."
 
     [night_cohort_final.application_tests]
     cpu_affinity = [8, 10]
@@ -21235,6 +21241,19 @@ timing_cli_development_failure = "First CLI checkpoint attempted to serialize a 
         started_utc = "2026-10-09T04:59:50.598"
         status = "passed"
         test_output = """Test Summary:                                           | Pass  Total  Time\nClassical strategy lanes, guide proposals and ownership |   42     42  9.7s\nTest Summary:                                        | Pass  Total  Time\nSemantic integer repairs preserve original decisions |   27     27  6.0s\n"""
+
+    [night_cohort_final.existing_timefold_native_qualification]
+    build_sha256 = "8b9101c58107a60d9630b69c4cbfa82073fd1b367194b3089ef756896a53e546"
+    cpu_affinity = [8]
+    installation = "Existing original source-matching compiled adapter and SDK reused; no reinstallation or compilation"
+    recorded_utc = "2026-10-09T05:15:11.212"
+    schema = "existing-timefold-final-cohort-functional-qualification/1"
+    scope = "480 exhaustive route partitions, four native FULL_ASSERT searches and original exported-solution/trajectory checks; no comparative Timefold performance campaign."
+    source_sha256 = "ac6c0ad44b45319878ddd03bd6fa79ea149f4137ab32ba59710dfef9f71d361b"
+    status = "passed"
+    test_output = """Test Summary:                                                    | Pass  Total   Time\nActual Timefold incremental scorer and original PDPTW validation |    6      6  13.4s\n"""
+    version = "2.6.0"
+    workers = 1
 
     [night_cohort_final.fixed_work]
     Hybrid_sha256 = "08dc5644ac9fb06d1df410a679a56b7c766fc8092266e93606ea074c7d13b5ba"
@@ -24190,6 +24209,1475 @@ timing_cli_development_failure = "First CLI checkpoint attempted to serialize a 
         QUBOConstraints = "0.2.2"
         XCSP3Bridges = "0.1.0"
 
+    [night_cohort_final.portable_preflight]
+    active_entry_count = 19
+    catalogue_sha256 = "aa6cc3cde98dc06a9a7a63f5c3c8385ed81b1fb36d7030ffa0c62e9695b82f8e"
+    checked_at_utc = "2026-10-09T05:07:48.329"
+    continuous_deferred = ["irp"]
+    entry_count = 20
+    published_reproduction_status = "incomplete_published_reproduction"
+    schema = "solver-benchmark-preflight/1"
+    source = "https://www.hexaly.com/benchmarks"
+    status = "incomplete_solver_coverage"
+
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "CVRP"
+        id = "cvrp"
+        issues = ["model_not_qualified:ortools", "original_corpus_and_references_unqualified"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-capacitated-vehicle-routing-problem-cvrp"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.functional_inputs]]
+            entry = "cvrp"
+            id = "cvrp_A_n32_k5"
+            scope = "functional_smoke"
+            status = "verified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "gurobi"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "available"
+            qualification = "not_run"
+            reason = "installation_probe_passed"
+            solver = "ortools"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "CVRPTW"
+        id = "cvrptw"
+        issues = ["model_not_qualified:ortools", "original_corpus_and_references_unqualified"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-gurobi-or-tools-capacitated-vehicle-routing-problem-with-time-windows-cvrptw"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.functional_inputs]]
+            entry = "cvrptw"
+            id = "cvrptw_R101_25"
+            scope = "functional_smoke"
+            status = "verified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "gurobi"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "available"
+            qualification = "not_run"
+            reason = "installation_probe_passed"
+            solver = "ortools"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "RCPSP"
+        id = "rcpsp"
+        issues = ["original_corpus_and_references_unqualified", "published_instance_qualification_pending:ortools"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-or-tools-on-the-resource-constrained-project-scheduling-problem-rcpsp"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.functional_inputs]]
+            entry = "rcpsp"
+            id = "rcpsp_Pat1"
+            scope = "functional_smoke"
+            status = "verified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "gurobi"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "available"
+            qualification = "functional_passed"
+            qualification_scope = "small_exact_integer_original_validator_qualification_not_performance"
+            reason = "installation_probe_passed"
+            solver = "ortools"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "FJSP"
+        id = "fjsp"
+        issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-flexible-job-shop-scheduling-problem-fjsp"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.functional_inputs]]
+            entry = "fjsp"
+            id = "fjsp_Mk01"
+            scope = "functional_smoke"
+            status = "verified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "gurobi"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "SALBP"
+        id = "salbp"
+        issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-vs-cpo-simple-assembly-line-balancing-problem-salbp"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.functional_inputs]]
+            entry = "salbp"
+            id = "salbp_n20_52"
+            scope = "functional_smoke"
+            status = "verified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "gurobi"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "cpoptimizer"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "Aircraft landing"
+        id = "aircraft_landing"
+        issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-on-the-aircraft-landing-problem"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.functional_inputs]]
+            entry = "aircraft_landing"
+            id = "aircraft_airland1"
+            scope = "functional_smoke"
+            status = "verified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        equivalence = "Local fleet-first comparison; common insertion start; not identical to the published Hexaly/OR-Tools models"
+        family = "PDPTW / Li-Lim"
+        id = "pdptw"
+        issues = []
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-google-or-tools-pickup-and-delivery-problem-with-time-windows-pdptw"
+        status = "ready_available_solvers"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/scripts/full_corpus_campaign.jl"
+            sha256 = "43ef95fe9925742c7744c09c4e4cc7ee7c7624477e881f79d0eb099ea5b0e264"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/config/sintef-pdptw-bks-20261004.toml"
+            sha256 = "ddd983d04065732a2bd680c2f1967922b29fdbe620c8ddaa6a214b0e7f77a7b9"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/native/hexaly/pdptw.hxm"
+            sha256 = "25c295288105abb4da1d65f7db930e29bd818c37630b1ef342405168584d83f4"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightFinal20261009/ConstraintModels/src/benchmarks/Benchmarks.jl"
+            sha256 = "2cdd991e2d60a7d65d150258f22daa628608a63f83e48f19a3dd8d2c7c3625e0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = []
+            manifest_sha256 = "ddd983d04065732a2bd680c2f1967922b29fdbe620c8ddaa6a214b0e7f77a7b9"
+            status = "verified"
+            verified_archives = 6
+            verified_instances = 354
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "available"
+            qualification = "passed"
+            reason = "installation_probe_passed"
+            solver = "ortools"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "TSP"
+        functional_inputs = []
+        id = "tsp"
+        issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-traveling-salesman-problem-tsp"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "gurobi"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "Team orienteering"
+        id = "top"
+        issues = ["model_not_qualified:ortools", "original_corpus_and_references_unqualified"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-gurobi-or-tools-team-orienteering-problem-top"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.functional_inputs]]
+            entry = "top"
+            id = "top_p4_2_a"
+            scope = "functional_smoke"
+            status = "verified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "gurobi"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "available"
+            qualification = "not_run"
+            reason = "installation_probe_passed"
+            solver = "ortools"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "Large CVRP"
+        functional_inputs = []
+        id = "large_cvrp"
+        issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/large-scale-instances-capacitated-vehicle-routing-problem-cvrp"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "Large JSSP"
+        id = "large_jssp"
+        issues = ["original_corpus_and_references_unqualified", "published_instance_qualification_pending:ortools"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-cp-optimizer-vs-or-tools-on-the-job-shop-scheduling-problem-jssp"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.functional_inputs]]
+            entry = "large_jssp"
+            id = "jssp_ft06"
+            scope = "functional_smoke"
+            status = "verified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "cpoptimizer"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "available"
+            qualification = "functional_passed"
+            qualification_scope = "small_exact_integer_original_validator_qualification_not_performance"
+            reason = "installation_probe_passed"
+            solver = "ortools"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "gurobi"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "cplex"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "Vector bin packing"
+        id = "vbp"
+        issues = ["original_corpus_and_references_unqualified", "published_instance_qualification_pending:ortools"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-gurobi-or-tools-on-the-vector-bin-packing-problem-vbp"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.functional_inputs]]
+            entry = "vbp"
+            id = "vbp_a1_1"
+            scope = "functional_smoke"
+            status = "verified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "gurobi"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "available"
+            qualification = "functional_passed"
+            qualification_scope = "small_exact_integer_original_validator_qualification_not_performance"
+            reason = "installation_probe_passed"
+            solver = "ortools"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "Bin packing with conflicts"
+        id = "bppc"
+        issues = ["original_corpus_and_references_unqualified", "published_instance_qualification_pending:ortools"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-gurobi-or-tools-bin-packing-problem-with-conflicts-bppc"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.functional_inputs]]
+            entry = "bppc"
+            id = "bppc_5_0_1"
+            scope = "functional_smoke"
+            status = "verified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "gurobi"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "available"
+            qualification = "functional_passed"
+            qualification_scope = "small_exact_integer_original_validator_qualification_not_performance"
+            reason = "installation_probe_passed"
+            solver = "ortools"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        equivalence = "Unestablished; do not run or claim reproduction before model, data and objective qualification"
+        family = "Inventory routing"
+        id = "irp"
+        issues = []
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-establishes-new-records-for-the-inventory-routing-problem-irp"
+        solvers = []
+        status = "deferred_continuous"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets]
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            status = "deferred"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "Bin packing"
+        id = "bpp"
+        issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-bin-packing-problem"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.functional_inputs]]
+            entry = "bpp"
+            id = "bpp_t60_00"
+            scope = "functional_smoke"
+            status = "verified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "gurobi"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "Minimum sum-of-squares clustering"
+        id = "mssc"
+        issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-k-means-clustering-mssc"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.functional_inputs]]
+            entry = "mssc"
+            id = "mssc_ruspini_k2"
+            scope = "functional_smoke"
+            status = "verified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "gurobi"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "RCPSP records"
+        functional_inputs = []
+        id = "rcpsp_records"
+        issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-breaks-records-for-the-resource-constrained-project-scheduling-problem-rcpsp"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "Quadratic assignment"
+        id = "qap"
+        issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-quadratic-assignment-problem"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.functional_inputs]]
+            entry = "qap"
+            id = "qap_esc32c"
+            scope = "functional_smoke"
+            status = "verified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "gurobi"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "Car sequencing with paint-shop batching"
+        id = "car_sequencing"
+        issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-on-the-car-sequencing-problem-with-paint-shop-batching-constraints"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.functional_inputs]]
+            entry = "car_sequencing"
+            id = "carseq_035"
+            scope = "functional_smoke"
+            status = "verified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "gurobi"
+        [[night_cohort_final.portable_preflight.benchmarks]]
+        discrete_model_qualification = "passed"
+        equivalence = "Original reader and independent validator; full published selections/references and native model qualification remain mandatory"
+        family = "Maintenance scheduling"
+        id = "maintenance"
+        issues = ["no_published_solver_available", "original_corpus_and_references_unqualified"]
+        published_benchmark_url = "https://www.hexaly.com/benchmarks/hexaly-vs-gurobi-maintenance-scheduling-problem"
+        published_corpus_qualification = "not_complete"
+        status = "prepared_models_published_corpus_pending"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.adapter]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/scripts/run.jl"
+            sha256 = "e174fb9e697ca45bc4136fa2ab1915da2d2c363c322be64741a716433aa838c7"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.data_manifest]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/config/instances.toml"
+            sha256 = "3e95f473316017062dee0c00f523d23a52a8e559b4d889f9c858e76faa2283a1"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.hexaly_model]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Hexaly.jl"
+            sha256 = "81105ceb7b1dc2955978c1ca9c6227f8f73e88dc71cae18181ce3ca2b63773c0"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.assets.validator]
+            path = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Problems.jl"
+            sha256 = "2fb3b54df78b53f6d5302563c231328b39fc37546aa4ebb91f545118dbbd3819"
+            status = "present"
+
+            [night_cohort_final.portable_preflight.benchmarks.data]
+            issues = ["original_corpus_and_references_unqualified"]
+            status = "unqualified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.functional_inputs]]
+            entry = "maintenance"
+            id = "maintenance_example1"
+            scope = "functional_smoke"
+            status = "verified"
+
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "skipped"
+            qualification = "not_run"
+            reason = "license_unavailable"
+            solver = "hexaly"
+            [[night_cohort_final.portable_preflight.benchmarks.solvers]]
+            installation = "not_detected"
+            qualification = "not_run"
+            reason = "CLI_not_found_API_installation_not_ruled_out"
+            solver = "gurobi"
+
+        [night_cohort_final.portable_preflight.checks.ICN_bank]
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."environment:Manifest.toml"]
+        expected_sha256 = "2419a72b3d32007e3ebc2288819111fd9d6f56c09d7d1d788c181c7b80c10ab8"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."environment:Project.toml"]
+        expected_sha256 = "2a48b5e578f38033a568c0d03697d31b86b1bed65b39086515c6648276cf457b"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks.host]
+        reason = "prerequisites_present"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks.setup]
+        reason = "prepare_false"
+        status = "not_run"
+
+        [night_cohort_final.portable_preflight.checks."source:CBLS"]
+        expected_commit = "8d5e87717cdd5ad92d7617c724e55c07a481960f"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."source:CompositionalNetworks"]
+        expected_commit = "537b7a3ea26c67e83ddb0e66782e6a0a209b24c8"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."source:ConstraintCommons"]
+        expected_commit = "98cb9470250aa55ed19e35b78c133a98b56b5bdb"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."source:ConstraintDomains"]
+        expected_commit = "508f4560880cf2c445008816571aecc1f6f3951b"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."source:ConstraintModels"]
+        expected_commit = "b7d7aaa6d00591e171a4d75c13ce9079f43beeaa"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."source:ConstraintProgrammingExtensions"]
+        expected_commit = "9e6faf40ca3eb8c3399a50f68332708058150feb"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."source:Constraints"]
+        expected_commit = "476cf1751ad3d2ea2360522826bd8a778902116b"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."source:LocalSearchSolvers"]
+        expected_commit = "94fd347d5366d45cc345ad2ec723347c116e50ad"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."source:MetaStrategist"]
+        expected_commit = "6c65073fe3f55aac6b4cde2f31112d97262a542d"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."source:PatternFolds"]
+        expected_commit = "ebff5af17c648432650202d2f55945448ffe5ee8"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."source:QUBOConstraints"]
+        expected_commit = "a1708217214c1e6e19d071480eb884fd186a7b6e"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."source:XCSP3Bridges"]
+        expected_commit = "48efa2091ab163b4a957de5c1d4deaa875c5ed41"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."test:campaign_catalog.jl"]
+        reason = "exit_code_0"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."test:cohort_checkout.jl"]
+        reason = "exit_code_0"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."test:competitors.jl"]
+        reason = "exit_code_0"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."test:ghost_frontend.jl"]
+        reason = "exit_code_0"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."test:ghost_native.jl"]
+        reason = "exit_code_0"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."test:hexaly_preflight.jl"]
+        reason = "exit_code_0"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."test:hybrid.jl"]
+        reason = "exit_code_0"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."test:icn_resources.jl"]
+        reason = "exit_code_0"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."test:native_solvers.jl"]
+        reason = "exit_code_0"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."test:ortools_native.jl"]
+        reason = "exit_code_0"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."test:ortools_parallel.jl"]
+        reason = "exit_code_0"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."test:ro_fragments.jl"]
+        reason = "exit_code_0"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."test:search_policies.jl"]
+        reason = "exit_code_0"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."test:strategy_panel.jl"]
+        reason = "exit_code_0"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.checks."test:structured_routing.jl"]
+        reason = "exit_code_0"
+        status = "passed"
+
+        [night_cohort_final.portable_preflight.classical_qualification]
+        checked_at_utc = "2026-10-09T05:09:12.761"
+        schema = "discrete-original-qualification/1"
+        status = "passed"
+
+            [night_cohort_final.portable_preflight.classical_qualification.checks.core]
+            families = ["tsp", "cvrp", "cvrptw", "top", "qap", "bpp", "bppc", "vbp", "mssc", "rcpsp", "jssp", "fjsp", "salbp", "aircraft_landing", "car_sequencing", "maintenance"]
+            policies = ["assignment", "compatibility", "exhaustion_always_full", "exhaustion_full", "exhaustion_partial", "greedy_guided", "late_400", "late_64", "late_full_reset", "reset_best_full", "reset_best_large", "reset_best_small", "reset_current", "reset_current_full", "tabu_accepted", "tabu_keen", "tabu_long", "tabu_random_full", "tabu_random_partial", "tabu_reset", "tabu_reset_full", "tabu_short", "tabu_weak", "universal_best", "universal_best_full", "universal_current", "universal_current_full"]
+            status = "passed"
+
+            [night_cohort_final.portable_preflight.classical_qualification.checks.ghost]
+            qualified_families = ["bpp"]
+            scope = "Julia_wrapper_BPP_direct_and_ICN_callbacks_only"
+            status = "passed"
+            threads = 1
+
+            [night_cohort_final.portable_preflight.classical_qualification.checks.hexaly]
+            reason = "license_unavailable"
+            status = "skipped"
+
+            [night_cohort_final.portable_preflight.classical_qualification.checks.original_samples]
+            instances = ["cvrp_A_n32_k5", "cvrptw_R101_25", "fjsp_Mk01", "jssp_ft06", "bpp_t60_00", "qap_esc32c", "aircraft_airland1", "mssc_ruspini_k2", "rcpsp_Pat1", "salbp_n20_52", "carseq_035", "bppc_5_0_1", "vbp_a1_1", "top_p4_2_a", "maintenance_example1"]
+            scope = "format_and_error_zero_set_not_complete_published_corpus"
+            status = "passed"
+
+            [night_cohort_final.portable_preflight.classical_qualification.checks.ortools]
+            qualified_families = ["bpp", "bppc", "vbp", "salbp", "rcpsp", "jssp", "fjsp", "aircraft_landing"]
+            scope = "small_exact_integer_original_validator_qualification_not_performance"
+            status = "passed"
+            version = "9.14.6206"
+
+            [night_cohort_final.portable_preflight.classical_qualification.checks.strategy_panel]
+            configurations = 496
+            functional_workers = 2
+            meta_recipes = 180
+            scope = "small_original_validator_and_owned_buffer_qualification_not_performance"
+            status = "passed"
+
+        [night_cohort_final.portable_preflight.host]
+        architecture = "x86_64"
+        cpus = [8, 10]
+        julia = "1.13.1"
+        os = "Linux"
+        ram_gib = 31.1
+
+        [[night_cohort_final.portable_preflight.selected_original_inputs]]
+        entry = "cvrp"
+        id = "cvrp_A_n32_k5"
+        scope = "functional_smoke"
+        status = "verified"
+        [[night_cohort_final.portable_preflight.selected_original_inputs]]
+        entry = "cvrptw"
+        id = "cvrptw_R101_25"
+        scope = "functional_smoke"
+        status = "verified"
+        [[night_cohort_final.portable_preflight.selected_original_inputs]]
+        entry = "fjsp"
+        id = "fjsp_Mk01"
+        scope = "functional_smoke"
+        status = "verified"
+        [[night_cohort_final.portable_preflight.selected_original_inputs]]
+        entry = "large_jssp"
+        id = "jssp_ft06"
+        scope = "functional_smoke"
+        status = "verified"
+        [[night_cohort_final.portable_preflight.selected_original_inputs]]
+        entry = "bpp"
+        id = "bpp_t60_00"
+        scope = "functional_smoke"
+        status = "verified"
+        [[night_cohort_final.portable_preflight.selected_original_inputs]]
+        entry = "qap"
+        id = "qap_esc32c"
+        scope = "functional_smoke"
+        status = "verified"
+        [[night_cohort_final.portable_preflight.selected_original_inputs]]
+        entry = "aircraft_landing"
+        id = "aircraft_airland1"
+        scope = "functional_smoke"
+        status = "verified"
+        [[night_cohort_final.portable_preflight.selected_original_inputs]]
+        entry = "mssc"
+        id = "mssc_ruspini_k2"
+        scope = "functional_smoke"
+        status = "verified"
+        [[night_cohort_final.portable_preflight.selected_original_inputs]]
+        entry = "rcpsp"
+        id = "rcpsp_Pat1"
+        scope = "functional_smoke"
+        status = "verified"
+        [[night_cohort_final.portable_preflight.selected_original_inputs]]
+        entry = "salbp"
+        id = "salbp_n20_52"
+        scope = "functional_smoke"
+        status = "verified"
+        [[night_cohort_final.portable_preflight.selected_original_inputs]]
+        entry = "car_sequencing"
+        id = "carseq_035"
+        scope = "functional_smoke"
+        status = "verified"
+        [[night_cohort_final.portable_preflight.selected_original_inputs]]
+        entry = "bppc"
+        id = "bppc_5_0_1"
+        scope = "functional_smoke"
+        status = "verified"
+        [[night_cohort_final.portable_preflight.selected_original_inputs]]
+        entry = "vbp"
+        id = "vbp_a1_1"
+        scope = "functional_smoke"
+        status = "verified"
+        [[night_cohort_final.portable_preflight.selected_original_inputs]]
+        entry = "top"
+        id = "top_p4_2_a"
+        scope = "functional_smoke"
+        status = "verified"
+        [[night_cohort_final.portable_preflight.selected_original_inputs]]
+        entry = "maintenance"
+        id = "maintenance_example1"
+        scope = "functional_smoke"
+        status = "verified"
+
+        [night_cohort_final.portable_preflight.solvers.cbls]
+        qualification = "passed"
+        reason = "PDPTW_functional_suite_passed"
+        status = "available"
+
+        [night_cohort_final.portable_preflight.solvers.cplex]
+        reason = "CLI_not_found_API_installation_not_ruled_out"
+        status = "not_detected"
+
+        [night_cohort_final.portable_preflight.solvers.cpoptimizer]
+        reason = "CLI_not_found_API_installation_not_ruled_out"
+        status = "not_detected"
+
+        [night_cohort_final.portable_preflight.solvers.ghost]
+        qualification = "passed"
+        qualification_scope = "original_PDPTW_functional_tests"
+        qualified_families = ["bpp", "pdptw"]
+        reason = "installation_probe_passed"
+        status = "available"
+
+        [night_cohort_final.portable_preflight.solvers.gurobi]
+        reason = "CLI_not_found_API_installation_not_ruled_out"
+        status = "not_detected"
+
+        [night_cohort_final.portable_preflight.solvers.hexaly]
+        reason = "license_unavailable"
+        status = "skipped"
+
+        [night_cohort_final.portable_preflight.solvers.highs]
+        qualification = "passed"
+        reason = "PDPTW_functional_suite_passed"
+        status = "available"
+
+        [night_cohort_final.portable_preflight.solvers.icn]
+        qualification = "passed"
+        reason = "PDPTW_functional_suite_passed"
+        status = "available"
+
+        [night_cohort_final.portable_preflight.solvers.juls]
+        reason = "historical_adapter_not_in_frozen_public_cohort"
+        status = "detected_unqualified"
+
+        [night_cohort_final.portable_preflight.solvers.local_search]
+        qualification = "passed"
+        reason = "PDPTW_functional_suite_passed"
+        status = "available"
+
+        [night_cohort_final.portable_preflight.solvers.metastrategist]
+        qualification = "passed"
+        reason = "PDPTW_functional_suite_passed"
+        status = "available"
+
+        [night_cohort_final.portable_preflight.solvers.ortools]
+        qualification = "passed"
+        qualification_scope = "original_PDPTW_functional_tests"
+        qualified_families = ["aircraft_landing", "bpp", "bppc", "fjsp", "jssp", "pdptw", "rcpsp", "salbp", "vbp"]
+        reason = "installation_probe_passed"
+        status = "available"
+        version = "9.14.6206"
+
+            [night_cohort_final.portable_preflight.solvers.ortools.profiles.cpsat]
+            adapter_sha256 = "53131afba66ba7549f2b62ab0c62f35148838133d80f5b983bb06f1a7a5c68bb"
+            affinity_enforced = true
+            cpus = [8, 10]
+            multicore_status = "passed"
+            native_runner_sha256 = "a528b5120d2c3dd170ccdc36dcb52d2416619b8ca2a4dd669e984d945c0c9982"
+            objective = "conservative integer model; original distances audited"
+            ortools_version = "9.14.6206"
+            qualification_sha256 = "492066e2b3cfc42e9836dc493832772dd5e79194992eddb05e85f60bedd96186"
+            scope = "four_small_original_PDPTW_models"
+            status = "passed"
+            workers = 2
+
+                [[night_cohort_final.portable_preflight.solvers.ortools.profiles.cpsat.cases]]
+                case = "integer distances"
+                distance = 8.0
+                native_threads_sampled = 1
+                native_worker_log_verified = true
+                original_validation = true
+                vehicles = 1
+                [[night_cohort_final.portable_preflight.solvers.ortools.profiles.cpsat.cases]]
+                case = "tight windows require separate vehicles"
+                distance = 8.0
+                native_threads_sampled = 1
+                native_worker_log_verified = true
+                original_validation = true
+                vehicles = 2
+                [[night_cohort_final.portable_preflight.solvers.ortools.profiles.cpsat.cases]]
+                case = "zero travel still requires pickup precedence"
+                distance = 0.0
+                native_threads_sampled = 1
+                native_worker_log_verified = true
+                original_validation = true
+                vehicles = 1
+                [[night_cohort_final.portable_preflight.solvers.ortools.profiles.cpsat.cases]]
+                case = "waiting and fractional depot service"
+                distance = 8.0
+                native_threads_sampled = 1
+                native_worker_log_verified = true
+                original_validation = true
+                vehicles = 1
+
+            [night_cohort_final.portable_preflight.solvers.ortools.profiles.routing_gls]
+            processes = 1
+            scope = "small_original_PDPTW_models"
+            status = "passed"
+            workers = 1
+
+            [night_cohort_final.portable_preflight.solvers.ortools.profiles.routing_portfolio]
+            adapter_sha256 = "53131afba66ba7549f2b62ab0c62f35148838133d80f5b983bb06f1a7a5c68bb"
+            affinity_enforced = true
+            cpus = [8, 10]
+            gls_coefficients = [0.1, 0.2]
+            native_runner_sha256 = "a528b5120d2c3dd170ccdc36dcb52d2416619b8ca2a4dd669e984d945c0c9982"
+            native_threads_sampled = [1, 1]
+            ortools_version = "9.14.6206"
+            overlapping_searches_verified = true
+            processes = 2
+            qualification_sha256 = "492066e2b3cfc42e9836dc493832772dd5e79194992eddb05e85f60bedd96186"
+            scope = "small_original_PDPTW_model"
+            status = "passed"
+
+        [night_cohort_final.portable_preflight.solvers.timefold]
+        reason = "adapter_not_prepared"
+        status = "skipped"
+
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "cvrp"
+        scope = "vendor_template_and_examples_not_complete_published_corpus"
+        status = "verified"
+        url = "https://www.hexaly.com/examples/cvrp.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "cvrptw"
+        scope = "vendor_template_and_examples_not_complete_published_corpus"
+        status = "verified"
+        url = "https://www.hexaly.com/examples/cvrptw.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "pdptw"
+        scope = "vendor_template_and_examples_not_complete_published_corpus"
+        status = "verified"
+        url = "https://www.hexaly.com/examples/pdptw.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "tsp"
+        scope = "vendor_template_and_examples_not_complete_published_corpus"
+        status = "verified"
+        url = "https://www.hexaly.com/examples/tsp.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "flexiblejobshop"
+        scope = "vendor_template_and_examples_not_complete_published_corpus"
+        status = "verified"
+        url = "https://www.hexaly.com/examples/flexiblejobshop.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "jobshop"
+        scope = "vendor_template_and_examples_not_complete_published_corpus"
+        status = "verified"
+        url = "https://www.hexaly.com/examples/jobshop.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "bin_packing"
+        scope = "vendor_template_and_examples_not_complete_published_corpus"
+        status = "verified"
+        url = "https://www.hexaly.com/examples/bin_packing.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "qap"
+        scope = "vendor_template_and_examples_not_complete_published_corpus"
+        status = "verified"
+        url = "https://www.hexaly.com/examples/qap.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "aircraft_landing"
+        scope = "vendor_template_and_examples_not_complete_published_corpus"
+        status = "verified"
+        url = "https://www.hexaly.com/examples/aircraft_landing.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "kmeans"
+        scope = "vendor_template_and_examples_not_complete_published_corpus"
+        status = "verified"
+        url = "https://www.hexaly.com/examples/kmeans.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "rcpsp"
+        scope = "vendor_template_and_examples_not_complete_published_corpus"
+        status = "verified"
+        url = "https://www.hexaly.com/examples/rcpsp.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "assembly_line_balancing"
+        scope = "vendor_template_and_examples_not_complete_published_corpus"
+        status = "verified"
+        url = "https://www.hexaly.com/examples/assembly_line_balancing.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "car_sequencing_color"
+        scope = "vendor_template_and_examples_not_complete_published_corpus"
+        status = "verified"
+        url = "https://www.hexaly.com/examples/car_sequencing_color.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "vbp"
+        scope = "published_original_data_bundle_selection_and_references_still_required"
+        status = "verified"
+        url = "https://www.hexaly.com/wp-content/uploads/2025/04/VBP_modified_instances.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "bppc"
+        scope = "published_original_data_bundle_selection_and_references_still_required"
+        status = "verified"
+        url = "https://site.unibo.it/operations-research/en/research/library-of-codes-and-instances-1/bppc.zip/@@download/file/BPPC.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "fjsp_corpus"
+        scope = "published_original_data_bundle_selection_and_references_still_required"
+        status = "verified"
+        url = "https://www.hexaly.com/wp-content/uploads/2022/10/fjssp-instances.zip"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "top_chao4"
+        scope = "original_functional_qualification_subset_not_published_selection"
+        status = "verified"
+        url = "https://www.mech.kuleuven.be/en/mim/op/instances/ChaoTOP4"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "maintenance_example"
+        scope = "original_functional_qualification_subset_not_published_selection"
+        status = "verified"
+        url = "https://raw.githubusercontent.com/rte-france/challenge-roadef-2020/052def4d47271f913f89a68169083059732360f3/example1.json"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "maintenance_solution"
+        scope = "original_functional_qualification_subset_not_published_selection"
+        status = "verified"
+        url = "https://raw.githubusercontent.com/rte-france/challenge-roadef-2020/052def4d47271f913f89a68169083059732360f3/output1.txt"
+        [[night_cohort_final.portable_preflight.sources]]
+        id = "maintenance_checker"
+        scope = "original_functional_qualification_subset_not_published_selection"
+        status = "verified"
+        url = "https://raw.githubusercontent.com/rte-france/challenge-roadef-2020/052def4d47271f913f89a68169083059732360f3/RTE_ChallengeROADEF2020_checker.py"
+
     [night_cohort_final.timing_cli_qualification]
     all_warm_compilation_zero = true
     application_commit = "2cb82a0de309170f17058ffdd48efff2d992e370"
@@ -24565,6 +26053,1450 @@ timing_cli_development_failure = "First CLI checkpoint attempted to serialize a 
         cpu = 0
         lane = 1
         thread = 1
+
+    [night_cohort_final.timing_cli_qualification_v2]
+    all_warm_compilation_zero = true
+    application_commit = "874f6e7f13ccbfe3a89b94e36edf9f5d38753c0f"
+    application_root = "/home/azzaare/Gits/Benchmarks-night-sparse-guide"
+    blas_threads = 1
+    comparison_limit = "Baseline and candidate must use the same CPU mask, source-qualified instance, seed and sample count. Per-worker work is fixed, so widths change total work and portfolio roles; this is not a strong-scaling or search-quality campaign."
+    complete = true
+    completed_utc = "2026-10-09T05:08:01.242"
+    coordinator_cpu = 0
+    cpu_affinity = [0, 2]
+    gc_threads = 1
+    heap_phase = "All timed states prepared before one collection per fixed seed/configuration batch; no explicit collection between measured steady operations."
+    initial_setup_scope = "Fresh process with existing precompile caches: Julia/package/source loading, physical thread pinning, original instance import/insertion and backend banks. Excludes interpreter startup before this file and measured search."
+    initial_setup_wall_seconds = 12.761381575
+    instance_name = "lr101.txt"
+    instance_sha256 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    manifest_sha256 = "0687d398aac4dddd352f3d94211792d14981f8089ff04dd525d962eb056d72bf"
+    measured_application_sources_clean = true
+    project_sha256 = "a7324d86d3042455c7928e89c2548be34837a437b0ff0e32bad15c510263c12e"
+    protocol = "fixed-work Linux pipeline timing/2"
+    protocol_sha256 = "9f2bead1f6016b8b69c881adad021f1348e8e551ff69ba307bdf0b98cbeeedd4"
+    recorded_utc = "2026-10-09T05:07:30.981"
+    schema = "whole-application-cohort-controlled-fixed-work/1"
+    scope = "Entire early published performance cohort/application versus final qualified cohort/application, separate processes and exact original LR101 work. Pure search starts with prepared private lane workspaces; MetaStrategist measurements cover the full bounded cooperative lifecycle, including lane construction, shared pool and native HiGHS master. Native HiGHS is single-threaded. Every timed attempt is retained. Original-model checks and semantic/RNG hashes follow measurement."
+    source_sha256 = "b1497be366770195a8e551b72f5382f4abffe00a7f119abf621fc0b1a33abd7d"
+    timing_scope = "protocol_qualification_shared_machine"
+    workers = 2
+
+        [[night_cohort_final.timing_cli_qualification_v2.package_sources]]
+        commit = "8d5e87717cdd5ad92d7617c724e55c07a481960f"
+        package = "CBLS"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v2.package_sources]]
+        commit = "94fd347d5366d45cc345ad2ec723347c116e50ad"
+        package = "LocalSearchSolvers"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v2.package_sources]]
+        commit = "6c65073fe3f55aac6b4cde2f31112d97262a542d"
+        package = "MetaStrategist"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v2.package_sources]]
+        commit = "b7d7aaa6d00591e171a4d75c13ce9079f43beeaa"
+        package = "ConstraintModels"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v2.package_sources]]
+        commit = "537b7a3ea26c67e83ddb0e66782e6a0a209b24c8"
+        package = "CompositionalNetworks"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v2.package_sources]]
+        commit = "476cf1751ad3d2ea2360522826bd8a778902116b"
+        package = "Constraints"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v2.package_sources]]
+        commit = "98cb9470250aa55ed19e35b78c133a98b56b5bdb"
+        package = "ConstraintCommons"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v2.package_sources]]
+        commit = "508f4560880cf2c445008816571aecc1f6f3951b"
+        package = "ConstraintDomains"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v2.package_sources]]
+        commit = "ebff5af17c648432650202d2f55945448ffe5ee8"
+        package = "PatternFolds"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v2.package_sources]]
+        commit = "a1708217214c1e6e19d071480eb884fd186a7b6e"
+        package = "QUBOConstraints"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v2.package_sources]]
+        commit = "9e6faf40ca3eb8c3399a50f68332708058150feb"
+        package = "ConstraintProgrammingExtensions"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v2.package_sources]]
+        commit = "48efa2091ab163b4a957de5c1d4deaa875c5ed41"
+        package = "XCSP3Bridges"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v2.package_sources]]
+        commit = "e94b411346761f4547858324fbc54f78ce4bf1ad"
+        package = "GHOST"
+        source_clean = true
+
+        [[night_cohort_final.timing_cli_qualification_v2.records]]
+        bytes = 1168032
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.9978443487368722
+        method = "rp_vnd_greedy"
+        objects = 15325
+        original_oracle = "passed"
+        process_cpu_seconds = 0.06665594099999694
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 0.033363931
+        seed = 41
+        thread_cpu_seconds = [0.030060126999999826, 0.028991820000000113]
+        work_sha256 = "e5603a7f960823f8eb3546d424b64484a222d2d235758e01ad8bd7445cb8aa79"
+
+            [night_cohort_final.timing_cli_qualification_v2.records.coordinator]
+
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 19
+            best_routes_sha256 = "151dd2a89f8a995be98e8c37a6df4da9574b3f1c5633b17cbfa7e7484add42ae"
+            completed_resets = 0
+            current_routes_sha256 = "151dd2a89f8a995be98e8c37a6df4da9574b3f1c5633b17cbfa7e7484add42ae"
+            ejection_attempts = 0
+            next_rng_uint64 = "8563440004410064863"
+            steps = 1024
+            summary_evaluations = 465420
+            tabu_hits = 0
+            trace_work_sha256 = "3a071e56fd2c339dcb9aadc411e6f977c614246b66b1315a35816c9487d24785"
+            unchanged_proposals = 325
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 10
+            best_routes_sha256 = "9d26904a2203739b338c8e27ed2cb6a32c6f3fbae66265f60f614a24872388df"
+            completed_resets = 0
+            current_routes_sha256 = "9d26904a2203739b338c8e27ed2cb6a32c6f3fbae66265f60f614a24872388df"
+            ejection_attempts = 0
+            next_rng_uint64 = "2282617671177823840"
+            steps = 1024
+            summary_evaluations = 453112
+            tabu_hits = 0
+            trace_work_sha256 = "bd2ec2a24420c3f72d34c77d2b9fbe30f69986049acc07f988f33d758281f89b"
+            unchanged_proposals = 335
+        [[night_cohort_final.timing_cli_qualification_v2.records]]
+        bytes = 3661544
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.9627023173069724
+        method = "rp_alns_route_regret2"
+        objects = 54641
+        original_oracle = "passed"
+        process_cpu_seconds = 0.25932544700000193
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 0.132126734
+        seed = 41
+        thread_cpu_seconds = [0.12676338000000031, 0.12851450699999978]
+        work_sha256 = "9b0bb211429903cf6f8462f23d05beaf40844ff0303c57017b912182127393ac"
+
+            [night_cohort_final.timing_cli_qualification_v2.records.coordinator]
+
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 71
+            best_routes_sha256 = "b89c9847c73b32be1c912889c67fab2588686dad2ecb0b906f3934e4b000aba1"
+            completed_resets = 0
+            current_routes_sha256 = "b89c9847c73b32be1c912889c67fab2588686dad2ecb0b906f3934e4b000aba1"
+            ejection_attempts = 0
+            next_rng_uint64 = "10280996193249647030"
+            steps = 1024
+            summary_evaluations = 2479913
+            tabu_hits = 0
+            trace_work_sha256 = "ef55227a182757321c513534c224c28bc77acac98f3046bffc21f1ccdcda5f6c"
+            unchanged_proposals = 861
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 71
+            best_routes_sha256 = "805e6091a07bb193f7cbc891de1f54eaefbf0d39f648b1ce2753e67c1b28c152"
+            completed_resets = 0
+            current_routes_sha256 = "fff7af794c975c19fed4dfd2e952a208a3cc1f086647a7db6f9580a3108bc6b8"
+            ejection_attempts = 0
+            next_rng_uint64 = "8580699953917690050"
+            steps = 1024
+            summary_evaluations = 2516718
+            tabu_hits = 0
+            trace_work_sha256 = "d627c1ba7bd972ce4cf744302ea26bebcb9492b7ec962b561caf4685b6999bd8"
+            unchanged_proposals = 858
+        [[night_cohort_final.timing_cli_qualification_v2.records]]
+        bytes = 6157952
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.9890552190662127
+        method = "rp_aco_regret2"
+        objects = 74034
+        original_oracle = "passed"
+        process_cpu_seconds = 1.8032635779999993
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 0.90659302
+        seed = 41
+        thread_cpu_seconds = [0.9027127590000008, 0.8968056359999999]
+        work_sha256 = "f13eaf6b719a7f8c3223d2718fdcade2dffc1dca32d0d1b304007f694060ae71"
+
+            [night_cohort_final.timing_cli_qualification_v2.records.coordinator]
+
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 76
+            best_routes_sha256 = "96a5417474db9665fb1cdf1c9c29f63897d5611b662744d38c9f9702d66a9c28"
+            completed_resets = 0
+            current_routes_sha256 = "451d5b925a1e680cd96be8b3df11329de6e6cc2d56461b6aed5d1f277034d3b3"
+            ejection_attempts = 0
+            next_rng_uint64 = "11343736572149976814"
+            steps = 1024
+            summary_evaluations = 18503058
+            tabu_hits = 0
+            trace_work_sha256 = "a367f9b1ee95f159c17f6a82256ccf8769ef8eefb44ed934cefa953420443f4f"
+            unchanged_proposals = 749
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 61
+            best_routes_sha256 = "0196d2c0c9b7cc17649272bc8d1da4b2976fa6c5bf1a52467c70e1d27608fcc0"
+            completed_resets = 0
+            current_routes_sha256 = "5be6cdfbe1969bda507da3bb94680353a1fa7400225334028ca78e70652224a3"
+            ejection_attempts = 0
+            next_rng_uint64 = "2009006673502189482"
+            steps = 1024
+            summary_evaluations = 18382244
+            tabu_hits = 0
+            trace_work_sha256 = "463a57e7338c930993ff5912a5b094ea801849d2b1b252430b29a2e511def6f8"
+            unchanged_proposals = 773
+        [[night_cohort_final.timing_cli_qualification_v2.records]]
+        bytes = 4373304
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.9954232264535152
+        method = "rp_alns_random_regret2"
+        objects = 49238
+        original_oracle = "passed"
+        process_cpu_seconds = 2.5858053749999996
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 1.295868135
+        seed = 41
+        thread_cpu_seconds = [1.2891917680000002, 1.2923433870000007]
+        work_sha256 = "e7a0755496f178133de3bf404cfbb25c50851abfbe847cc8823e8b2c1f760fa7"
+
+            [night_cohort_final.timing_cli_qualification_v2.records.coordinator]
+
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 39
+            best_routes_sha256 = "ca49da1c3930cbb2be11301480a637df9bd7c8dd04216d8786cf06745a2e0670"
+            completed_resets = 0
+            current_routes_sha256 = "5f68504e8eccd94e8d5d78df16c2e3903c52d774dbc47f7c298b48109f8f46fd"
+            ejection_attempts = 0
+            next_rng_uint64 = "3182439682102349129"
+            steps = 1024
+            summary_evaluations = 26715137
+            tabu_hits = 0
+            trace_work_sha256 = "7c115eb7652dd8cbb4b752c4472cc5393100f9a88aac8fbfd6d1908f4fe9a10f"
+            unchanged_proposals = 930
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 30
+            best_routes_sha256 = "f1f37e6bf286cbf63de047377899d8a0021a192fffc8670d900501724849b1d7"
+            completed_resets = 0
+            current_routes_sha256 = "f1f37e6bf286cbf63de047377899d8a0021a192fffc8670d900501724849b1d7"
+            ejection_attempts = 0
+            next_rng_uint64 = "17336807281604928004"
+            steps = 1024
+            summary_evaluations = 26711695
+            tabu_hits = 0
+            trace_work_sha256 = "c5ede81c8b741043bf816c9b8c399dce7cc9eaad97193e3f97834ac42773bf34"
+            unchanged_proposals = 931
+        [[night_cohort_final.timing_cli_qualification_v2.records]]
+        bytes = 7928192
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.4744822958490698
+        method = "rp_meta_adaptive_late"
+        objects = 47960
+        original_oracle = "passed"
+        process_cpu_seconds = 0.26128587999999553
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 0.177205166
+        seed = 41
+        thread_cpu_seconds = [0.10402689899999196, 0.14070015200000263]
+        work_sha256 = "ba346ce870bc0e7b48e31acfe8807985c99ea50c9fabd6c464463c8e0908181c"
+
+            [night_cohort_final.timing_cli_qualification_v2.records.coordinator]
+            episodes = 8
+            fill_episode = false
+            master_seconds = 0.0
+            pool_routes = 53
+            role_episode_counts = [4, 4, 5, 3]
+            role_scores = [1.5103000000000004, 2.7073000000000005, 1.5103000000000004, 1.0]
+
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 31
+            best_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            completed_resets = 0
+            current_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            ejection_attempts = 1352
+            next_rng_uint64 = "9610824330423711878"
+            steps = 256
+            summary_evaluations = 2019967
+            tabu_hits = 0
+            trace_work_sha256 = "49a0c5b35583fdd8b4f41f6f7b0d43d52b97b743ba4848699ce63ca0bc1ebc9a"
+            unchanged_proposals = 150
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 32
+            best_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            completed_resets = 0
+            current_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            ejection_attempts = 2600
+            next_rng_uint64 = "16058812269891103579"
+            steps = 256
+            summary_evaluations = 2707944
+            tabu_hits = 0
+            trace_work_sha256 = "76483c80b5e91c8651d3c0cb7446f18ee0f396e5e75f84cd823ad8a86fc67d91"
+            unchanged_proposals = 106
+        [[night_cohort_final.timing_cli_qualification_v2.records]]
+        bytes = 8042168
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.2360939127774149
+        method = "rp_meta_diversity_tabu"
+        objects = 45966
+        original_oracle = "passed"
+        process_cpu_seconds = 0.31321206399999824
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 0.253388566
+        seed = 41
+        thread_cpu_seconds = [0.1488400830000014, 0.15295381600000368]
+        work_sha256 = "ca6f014adbbe0f65867cf8165347303d765a2abfd650f5e6265aa6fbec59b611"
+
+            [night_cohort_final.timing_cli_qualification_v2.records.coordinator]
+            episodes = 8
+            fill_episode = false
+            master_seconds = 0.0
+            pool_routes = 58
+            role_episode_counts = [5, 6, 5]
+            role_scores = [2.5365700000000007, 1.0, 2.0773]
+
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 32
+            best_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            completed_resets = 0
+            current_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            ejection_attempts = 0
+            next_rng_uint64 = "6625624443976539555"
+            steps = 256
+            summary_evaluations = 3043441
+            tabu_hits = 37
+            trace_work_sha256 = "9506bd719095984fab408ae9af64e506e78ad7549235f141357917eb27ade2a0"
+            unchanged_proposals = 185
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 30
+            best_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            completed_resets = 0
+            current_routes_sha256 = "fc7feb9fe293d2e9c53dff85ceb993e5fa3a4226624bb797e6a982ef248b5efd"
+            ejection_attempts = 0
+            next_rng_uint64 = "7781444961077319576"
+            steps = 256
+            summary_evaluations = 3153446
+            tabu_hits = 26
+            trace_work_sha256 = "4a68a33b46e568eac693060d0d696b5fc9a6f007b09bdde798b06508a5f8a844"
+            unchanged_proposals = 187
+        [[night_cohort_final.timing_cli_qualification_v2.records]]
+        bytes = 8126872
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.2385548680295393
+        method = "rp_meta_pool_ipx_late"
+        objects = 52842
+        original_oracle = "passed"
+        process_cpu_seconds = 0.34597938699999986
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 0.279341187
+        seed = 41
+        thread_cpu_seconds = [0.1631762990000052, 0.1399807839999987]
+        work_sha256 = "39c8ba34d6c533b31e944b6c7fae806074b6c0f948f6c110c4d2a6a585cdaddf"
+
+            [night_cohort_final.timing_cli_qualification_v2.records.coordinator]
+            budget_seconds = 0.249848341
+            episodes = 8
+            fill_episode = false
+            fragment = "validated route pool"
+            master_bound_scope = "restricted_route_pool_not_global_original_bound"
+            master_build_seconds = 0.001996957
+            master_last_dual_prices = [-19551.527771140845, 19544.90295687135, 19601.73981420707, 19572.883669085757, 19564.82370829743, 35.68183713955659, 2.1883437631804554, 8.561846181492001, 19532.427115042636, 19572.721432161467, 19564.574588526128, -0.0, 19524.88688126742, 19547.60158428064, 13.431194373199105, 19550.819591267893, -0.0, 30.77531865759738, -0.0, -0.0, -0.0, 19520.340820727506, -0.0, 5.293168188385607, 19531.337979160224, -0.0, 19551.70543582651, 19504.89683912221, -0.0, 19593.698452095086, -0.0, 9.77044905141156, 19520.993398597042, 0.2643052014609566, 19590.24361540933, -13.64801880971936, 19571.21826955497, -0.0, 16.44859015674956, -0.0, -0.0, 19563.039641993593, -0.0, -33.19043994367166, -0.0, 17.32653689066865, -19522.14210419639, -13.143709261526965, -0.0, -0.0, 19519.652469535475, 22.61251337509748, 19504.86705709139]
+            master_last_restricted_lp_objective = 371578.0773797477
+            master_last_status = "no_improvement"
+            master_lp_calls = 2
+            master_lp_solver = "ipx"
+            master_mip_calls = 2
+            master_native_threads = 1
+            master_resolver_calls = 2
+            master_seconds = 0.014144883
+            pool_routes = 46
+            representation = "customer-successor/1"
+            role_episode_counts = [5, 6, 5]
+            role_scores = [1.4592700000000005, 1.8726130000000003, 1.0]
+            threads = 1
+
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 15
+            best_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            completed_resets = 0
+            current_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            ejection_attempts = 2308
+            next_rng_uint64 = "3125804732008942883"
+            steps = 256
+            summary_evaluations = 3259681
+            tabu_hits = 0
+            trace_work_sha256 = "172849ff9aaae1d1907e158ecb2f2692c1ff8ee2bee33afb0da8393bb36c7d04"
+            unchanged_proposals = 147
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 23
+            best_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            completed_resets = 0
+            current_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            ejection_attempts = 1470
+            next_rng_uint64 = "13068265439961758414"
+            steps = 256
+            summary_evaluations = 2758025
+            tabu_hits = 0
+            trace_work_sha256 = "1bf5567eda99b1ea0f5ca0044754fbb34afa803de69b182b96390c61f8bde9b8"
+            unchanged_proposals = 169
+        [[night_cohort_final.timing_cli_qualification_v2.records]]
+        bytes = 7690944
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.1633344005820168
+        method = "rp_meta_pool_mip_tabu"
+        objects = 47413
+        original_oracle = "passed"
+        process_cpu_seconds = 0.27561440000000204
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 0.236917605
+        seed = 41
+        thread_cpu_seconds = [0.15224149300000178, 0.09859126199999935]
+        work_sha256 = "464fa4e058e01675830bb8ef55c424ee9ac922934fd66fb3cd6dc3c28d111e30"
+
+            [night_cohort_final.timing_cli_qualification_v2.records.coordinator]
+            budget_seconds = 0.249836979
+            episodes = 8
+            fill_episode = false
+            fragment = "validated route pool"
+            master_bound_scope = "restricted_route_pool_not_global_original_bound"
+            master_build_seconds = 0.001771758
+            master_last_dual_prices = [9767.257692459063, 19527.194041724142, 19601.73981420707, 19572.883669085757, 19564.82370829743, 19556.022657867063, 2.1883437631804554, 19513.458685303704, 9775.600625338391, 19567.686169466655, 19564.574588526128, -0.0, 19517.18748739849, 19547.60158428064, 13.431194373199105, 19550.819591267893, -0.0, 30.77531865759738, -0.0, -0.0, -0.0, -0.0, -0.0, 5.293168188385607, 19548.600939291937, -0.0, 19551.70543582651, -0.0, 7.699393868930201, 19560.508012151415, 5.035262694811536, -0.0, 12.584624057348265, 0.2643052014609566, 19590.24361540933, -13.64801880971936, 19571.21826955497, -0.0, 16.44859015674956, -0.0, -0.0, 9766.602931188665, -0.0, -0.0, -0.0, 44.805901089286635, -0.0, -13.143709261526965, -0.0, -0.0, 19542.264982910572, -0.0, 19504.86705709139]
+            master_last_restricted_lp_objective = 381374.59593262686
+            master_last_status = "improved"
+            master_lp_calls = 2
+            master_lp_solver = "simplex"
+            master_mip_calls = 2
+            master_native_threads = 1
+            master_resolver_calls = 2
+            master_seconds = 0.01433086
+            pool_routes = 43
+            representation = "customer-successor/1"
+            role_episode_counts = [5, 6, 5]
+            role_scores = [1.4592700000000005, 1.8726130000000003, 2.1592700000000002]
+            threads = 1
+
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 10
+            best_routes_sha256 = "b28644df45441abd67f747b0a8b70d5f2dc4f4926888b553a903383de23e6866"
+            completed_resets = 0
+            current_routes_sha256 = "b28644df45441abd67f747b0a8b70d5f2dc4f4926888b553a903383de23e6866"
+            ejection_attempts = 2828
+            next_rng_uint64 = "12520164260210724800"
+            steps = 256
+            summary_evaluations = 3066933
+            tabu_hits = 1
+            trace_work_sha256 = "0f1bcce28b14b34d697e52d60a20e34de66db12a69c66bb7ea28946a8b940d4c"
+            unchanged_proposals = 111
+            [[night_cohort_final.timing_cli_qualification_v2.records.worker_work]]
+            accepted_meta_moves = 12
+            best_routes_sha256 = "1194c93a0b3e144ba379829c39c82074f7b7a1a7810e453d9d4621d48c6c8365"
+            completed_resets = 0
+            current_routes_sha256 = "1194c93a0b3e144ba379829c39c82074f7b7a1a7810e453d9d4621d48c6c8365"
+            ejection_attempts = 2021
+            next_rng_uint64 = "3837466586144571004"
+            steps = 256
+            summary_evaluations = 1918140
+            tabu_hits = 2
+            trace_work_sha256 = "12083768dac00e7fd50143f3bd99e006a4cab4fc9658ee069a48069e5879086d"
+            unchanged_proposals = 117
+
+        [[night_cohort_final.timing_cli_qualification_v2.thread_pins]]
+        cpu = 0
+        lane = 1
+        thread = 2
+        [[night_cohort_final.timing_cli_qualification_v2.thread_pins]]
+        cpu = 2
+        lane = 2
+        thread = 3
+
+        [[night_cohort_final.timing_cli_qualification_v2.warmups]]
+        method = "rp_vnd_greedy"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 8.227691524
+        seed = 41
+        [[night_cohort_final.timing_cli_qualification_v2.warmups]]
+        method = "rp_alns_route_regret2"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 0.405895067
+        seed = 41
+        [[night_cohort_final.timing_cli_qualification_v2.warmups]]
+        method = "rp_aco_regret2"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 2.699555422
+        seed = 41
+        [[night_cohort_final.timing_cli_qualification_v2.warmups]]
+        method = "rp_alns_random_regret2"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 3.815026075
+        seed = 41
+        [[night_cohort_final.timing_cli_qualification_v2.warmups]]
+        method = "rp_meta_adaptive_late"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 2.468415097
+        seed = 41
+        [[night_cohort_final.timing_cli_qualification_v2.warmups]]
+        method = "rp_meta_diversity_tabu"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 0.931717974
+        seed = 41
+        [[night_cohort_final.timing_cli_qualification_v2.warmups]]
+        method = "rp_meta_pool_ipx_late"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 4.850247885
+        seed = 41
+        [[night_cohort_final.timing_cli_qualification_v2.warmups]]
+        method = "rp_meta_pool_mip_tabu"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 0.768994787
+        seed = 41
+
+    [night_cohort_final.timing_cli_qualification_v3]
+    all_warm_compilation_zero = true
+    application_commit = "874f6e7f13ccbfe3a89b94e36edf9f5d38753c0f"
+    application_root = "/home/azzaare/Gits/Benchmarks-night-sparse-guide"
+    blas_threads = 1
+    comparison_limit = "Baseline and candidate must use the same CPU mask, source-qualified instance, seed and sample count. Per-worker work is fixed, so widths change total work and portfolio roles; this is not a strong-scaling or search-quality campaign."
+    complete = true
+    completed_utc = "2026-10-09T05:18:09.822"
+    coordinator_cpu = 0
+    cpu_affinity = [0, 2]
+    gc_threads = 1
+    heap_phase = "All timed states prepared before one collection per fixed seed/configuration batch; no explicit collection between measured steady operations."
+    initial_setup_scope = "Fresh process with existing precompile caches: Julia/package/source loading, physical thread pinning, original instance import/insertion and backend banks. Excludes interpreter startup before this file and measured search."
+    initial_setup_wall_seconds = 10.868985682
+    instance_name = "lr101.txt"
+    instance_sha256 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    manifest_sha256 = "0687d398aac4dddd352f3d94211792d14981f8089ff04dd525d962eb056d72bf"
+    measured_application_sources_clean = true
+    project_sha256 = "a7324d86d3042455c7928e89c2548be34837a437b0ff0e32bad15c510263c12e"
+    protocol = "fixed-work Linux pipeline timing/3"
+    protocol_sha256 = "99e4df7c8aeeeb15d1db0e25be7129a5d3a6011e54ae2812c6f23918574a6101"
+    recorded_utc = "2026-10-09T05:17:37.089"
+    schema = "whole-application-cohort-controlled-fixed-work/1"
+    scope = "Entire early published performance cohort/application versus final qualified cohort/application, separate processes and exact original LR101 work. Pure search starts with prepared private lane workspaces; MetaStrategist measurements cover the full bounded cooperative lifecycle, including lane construction, shared pool and native HiGHS master. Native HiGHS is single-threaded. Every timed attempt is retained. Original-model checks and semantic/RNG hashes follow measurement."
+    source_sha256 = "b1497be366770195a8e551b72f5382f4abffe00a7f119abf621fc0b1a33abd7d"
+    timing_scope = "protocol_qualification_shared_machine"
+    workers = 2
+
+        [[night_cohort_final.timing_cli_qualification_v3.package_sources]]
+        commit = "8d5e87717cdd5ad92d7617c724e55c07a481960f"
+        package = "CBLS"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v3.package_sources]]
+        commit = "94fd347d5366d45cc345ad2ec723347c116e50ad"
+        package = "LocalSearchSolvers"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v3.package_sources]]
+        commit = "6c65073fe3f55aac6b4cde2f31112d97262a542d"
+        package = "MetaStrategist"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v3.package_sources]]
+        commit = "b7d7aaa6d00591e171a4d75c13ce9079f43beeaa"
+        package = "ConstraintModels"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v3.package_sources]]
+        commit = "537b7a3ea26c67e83ddb0e66782e6a0a209b24c8"
+        package = "CompositionalNetworks"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v3.package_sources]]
+        commit = "476cf1751ad3d2ea2360522826bd8a778902116b"
+        package = "Constraints"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v3.package_sources]]
+        commit = "98cb9470250aa55ed19e35b78c133a98b56b5bdb"
+        package = "ConstraintCommons"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v3.package_sources]]
+        commit = "508f4560880cf2c445008816571aecc1f6f3951b"
+        package = "ConstraintDomains"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v3.package_sources]]
+        commit = "ebff5af17c648432650202d2f55945448ffe5ee8"
+        package = "PatternFolds"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v3.package_sources]]
+        commit = "a1708217214c1e6e19d071480eb884fd186a7b6e"
+        package = "QUBOConstraints"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v3.package_sources]]
+        commit = "9e6faf40ca3eb8c3399a50f68332708058150feb"
+        package = "ConstraintProgrammingExtensions"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v3.package_sources]]
+        commit = "48efa2091ab163b4a957de5c1d4deaa875c5ed41"
+        package = "XCSP3Bridges"
+        source_clean = true
+        [[night_cohort_final.timing_cli_qualification_v3.package_sources]]
+        commit = "e94b411346761f4547858324fbc54f78ce4bf1ad"
+        package = "GHOST"
+        source_clean = true
+
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 1168032
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.9971348552174188
+        method = "rp_vnd_greedy"
+        objects = 15325
+        original_oracle = "passed"
+        process_cpu_seconds = 0.0673756730000008
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 0.033736166
+        seed = 41
+        thread_cpu_seconds = [0.02998076400000005, 0.02893283800000024]
+        work_sha256 = "e5603a7f960823f8eb3546d424b64484a222d2d235758e01ad8bd7445cb8aa79"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 19
+            best_routes_sha256 = "151dd2a89f8a995be98e8c37a6df4da9574b3f1c5633b17cbfa7e7484add42ae"
+            completed_resets = 0
+            current_routes_sha256 = "151dd2a89f8a995be98e8c37a6df4da9574b3f1c5633b17cbfa7e7484add42ae"
+            ejection_attempts = 0
+            next_rng_uint64 = "8563440004410064863"
+            steps = 1024
+            summary_evaluations = 465420
+            tabu_hits = 0
+            trace_work_sha256 = "3a071e56fd2c339dcb9aadc411e6f977c614246b66b1315a35816c9487d24785"
+            unchanged_proposals = 325
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 10
+            best_routes_sha256 = "9d26904a2203739b338c8e27ed2cb6a32c6f3fbae66265f60f614a24872388df"
+            completed_resets = 0
+            current_routes_sha256 = "9d26904a2203739b338c8e27ed2cb6a32c6f3fbae66265f60f614a24872388df"
+            ejection_attempts = 0
+            next_rng_uint64 = "2282617671177823840"
+            steps = 1024
+            summary_evaluations = 453112
+            tabu_hits = 0
+            trace_work_sha256 = "bd2ec2a24420c3f72d34c77d2b9fbe30f69986049acc07f988f33d758281f89b"
+            unchanged_proposals = 335
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 1166960
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.8670022535089892
+        method = "rp_vnd_greedy"
+        objects = 15302
+        original_oracle = "passed"
+        process_cpu_seconds = 0.06218206899999856
+        recompile_seconds = 0.0
+        sample = 2
+        seconds = 0.033305835
+        seed = 41
+        thread_cpu_seconds = [0.029767464999999937, 0.028741468000000214]
+        work_sha256 = "e5603a7f960823f8eb3546d424b64484a222d2d235758e01ad8bd7445cb8aa79"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 19
+            best_routes_sha256 = "151dd2a89f8a995be98e8c37a6df4da9574b3f1c5633b17cbfa7e7484add42ae"
+            completed_resets = 0
+            current_routes_sha256 = "151dd2a89f8a995be98e8c37a6df4da9574b3f1c5633b17cbfa7e7484add42ae"
+            ejection_attempts = 0
+            next_rng_uint64 = "8563440004410064863"
+            steps = 1024
+            summary_evaluations = 465420
+            tabu_hits = 0
+            trace_work_sha256 = "3a071e56fd2c339dcb9aadc411e6f977c614246b66b1315a35816c9487d24785"
+            unchanged_proposals = 325
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 10
+            best_routes_sha256 = "9d26904a2203739b338c8e27ed2cb6a32c6f3fbae66265f60f614a24872388df"
+            completed_resets = 0
+            current_routes_sha256 = "9d26904a2203739b338c8e27ed2cb6a32c6f3fbae66265f60f614a24872388df"
+            ejection_attempts = 0
+            next_rng_uint64 = "2282617671177823840"
+            steps = 1024
+            summary_evaluations = 453112
+            tabu_hits = 0
+            trace_work_sha256 = "bd2ec2a24420c3f72d34c77d2b9fbe30f69986049acc07f988f33d758281f89b"
+            unchanged_proposals = 335
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 3661544
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.9542885837233006
+        method = "rp_alns_route_regret2"
+        objects = 54641
+        original_oracle = "passed"
+        process_cpu_seconds = 0.2624455569999995
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 0.13429212
+        seed = 41
+        thread_cpu_seconds = [0.1283582459999999, 0.13046594899999997]
+        work_sha256 = "9b0bb211429903cf6f8462f23d05beaf40844ff0303c57017b912182127393ac"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 71
+            best_routes_sha256 = "b89c9847c73b32be1c912889c67fab2588686dad2ecb0b906f3934e4b000aba1"
+            completed_resets = 0
+            current_routes_sha256 = "b89c9847c73b32be1c912889c67fab2588686dad2ecb0b906f3934e4b000aba1"
+            ejection_attempts = 0
+            next_rng_uint64 = "10280996193249647030"
+            steps = 1024
+            summary_evaluations = 2479913
+            tabu_hits = 0
+            trace_work_sha256 = "ef55227a182757321c513534c224c28bc77acac98f3046bffc21f1ccdcda5f6c"
+            unchanged_proposals = 861
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 71
+            best_routes_sha256 = "805e6091a07bb193f7cbc891de1f54eaefbf0d39f648b1ce2753e67c1b28c152"
+            completed_resets = 0
+            current_routes_sha256 = "fff7af794c975c19fed4dfd2e952a208a3cc1f086647a7db6f9580a3108bc6b8"
+            ejection_attempts = 0
+            next_rng_uint64 = "8580699953917690050"
+            steps = 1024
+            summary_evaluations = 2516718
+            tabu_hits = 0
+            trace_work_sha256 = "d627c1ba7bd972ce4cf744302ea26bebcb9492b7ec962b561caf4685b6999bd8"
+            unchanged_proposals = 858
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 3661544
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.9645729595890769
+        method = "rp_alns_route_regret2"
+        objects = 54641
+        original_oracle = "passed"
+        process_cpu_seconds = 0.2587758369999982
+        recompile_seconds = 0.0
+        sample = 2
+        seconds = 0.131721164
+        seed = 41
+        thread_cpu_seconds = [0.12639383799999981, 0.12831078500000004]
+        work_sha256 = "9b0bb211429903cf6f8462f23d05beaf40844ff0303c57017b912182127393ac"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 71
+            best_routes_sha256 = "b89c9847c73b32be1c912889c67fab2588686dad2ecb0b906f3934e4b000aba1"
+            completed_resets = 0
+            current_routes_sha256 = "b89c9847c73b32be1c912889c67fab2588686dad2ecb0b906f3934e4b000aba1"
+            ejection_attempts = 0
+            next_rng_uint64 = "10280996193249647030"
+            steps = 1024
+            summary_evaluations = 2479913
+            tabu_hits = 0
+            trace_work_sha256 = "ef55227a182757321c513534c224c28bc77acac98f3046bffc21f1ccdcda5f6c"
+            unchanged_proposals = 861
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 71
+            best_routes_sha256 = "805e6091a07bb193f7cbc891de1f54eaefbf0d39f648b1ce2753e67c1b28c152"
+            completed_resets = 0
+            current_routes_sha256 = "fff7af794c975c19fed4dfd2e952a208a3cc1f086647a7db6f9580a3108bc6b8"
+            ejection_attempts = 0
+            next_rng_uint64 = "8580699953917690050"
+            steps = 1024
+            summary_evaluations = 2516718
+            tabu_hits = 0
+            trace_work_sha256 = "d627c1ba7bd972ce4cf744302ea26bebcb9492b7ec962b561caf4685b6999bd8"
+            unchanged_proposals = 858
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 6157952
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.9890331928772442
+        method = "rp_aco_regret2"
+        objects = 74034
+        original_oracle = "passed"
+        process_cpu_seconds = 1.7529936950000007
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 0.881329533
+        seed = 41
+        thread_cpu_seconds = [0.8778576739999995, 0.871643572]
+        work_sha256 = "f13eaf6b719a7f8c3223d2718fdcade2dffc1dca32d0d1b304007f694060ae71"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 76
+            best_routes_sha256 = "96a5417474db9665fb1cdf1c9c29f63897d5611b662744d38c9f9702d66a9c28"
+            completed_resets = 0
+            current_routes_sha256 = "451d5b925a1e680cd96be8b3df11329de6e6cc2d56461b6aed5d1f277034d3b3"
+            ejection_attempts = 0
+            next_rng_uint64 = "11343736572149976814"
+            steps = 1024
+            summary_evaluations = 18503058
+            tabu_hits = 0
+            trace_work_sha256 = "a367f9b1ee95f159c17f6a82256ccf8769ef8eefb44ed934cefa953420443f4f"
+            unchanged_proposals = 749
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 61
+            best_routes_sha256 = "0196d2c0c9b7cc17649272bc8d1da4b2976fa6c5bf1a52467c70e1d27608fcc0"
+            completed_resets = 0
+            current_routes_sha256 = "5be6cdfbe1969bda507da3bb94680353a1fa7400225334028ca78e70652224a3"
+            ejection_attempts = 0
+            next_rng_uint64 = "2009006673502189482"
+            steps = 1024
+            summary_evaluations = 18382244
+            tabu_hits = 0
+            trace_work_sha256 = "463a57e7338c930993ff5912a5b094ea801849d2b1b252430b29a2e511def6f8"
+            unchanged_proposals = 773
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 6157952
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.9886191400876352
+        method = "rp_aco_regret2"
+        objects = 74034
+        original_oracle = "passed"
+        process_cpu_seconds = 1.7538493010000025
+        recompile_seconds = 0.0
+        sample = 2
+        seconds = 0.881943287
+        seed = 41
+        thread_cpu_seconds = [0.8779939529999998, 0.8720281889999999]
+        work_sha256 = "f13eaf6b719a7f8c3223d2718fdcade2dffc1dca32d0d1b304007f694060ae71"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 76
+            best_routes_sha256 = "96a5417474db9665fb1cdf1c9c29f63897d5611b662744d38c9f9702d66a9c28"
+            completed_resets = 0
+            current_routes_sha256 = "451d5b925a1e680cd96be8b3df11329de6e6cc2d56461b6aed5d1f277034d3b3"
+            ejection_attempts = 0
+            next_rng_uint64 = "11343736572149976814"
+            steps = 1024
+            summary_evaluations = 18503058
+            tabu_hits = 0
+            trace_work_sha256 = "a367f9b1ee95f159c17f6a82256ccf8769ef8eefb44ed934cefa953420443f4f"
+            unchanged_proposals = 749
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 61
+            best_routes_sha256 = "0196d2c0c9b7cc17649272bc8d1da4b2976fa6c5bf1a52467c70e1d27608fcc0"
+            completed_resets = 0
+            current_routes_sha256 = "5be6cdfbe1969bda507da3bb94680353a1fa7400225334028ca78e70652224a3"
+            ejection_attempts = 0
+            next_rng_uint64 = "2009006673502189482"
+            steps = 1024
+            summary_evaluations = 18382244
+            tabu_hits = 0
+            trace_work_sha256 = "463a57e7338c930993ff5912a5b094ea801849d2b1b252430b29a2e511def6f8"
+            unchanged_proposals = 773
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 4373304
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.995283359254071
+        method = "rp_alns_random_regret2"
+        objects = 49238
+        original_oracle = "passed"
+        process_cpu_seconds = 2.5235425040000052
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 1.264753947
+        seed = 41
+        thread_cpu_seconds = [1.2594324570000008, 1.2607202090000005]
+        work_sha256 = "e7a0755496f178133de3bf404cfbb25c50851abfbe847cc8823e8b2c1f760fa7"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 39
+            best_routes_sha256 = "ca49da1c3930cbb2be11301480a637df9bd7c8dd04216d8786cf06745a2e0670"
+            completed_resets = 0
+            current_routes_sha256 = "5f68504e8eccd94e8d5d78df16c2e3903c52d774dbc47f7c298b48109f8f46fd"
+            ejection_attempts = 0
+            next_rng_uint64 = "3182439682102349129"
+            steps = 1024
+            summary_evaluations = 26715137
+            tabu_hits = 0
+            trace_work_sha256 = "7c115eb7652dd8cbb4b752c4472cc5393100f9a88aac8fbfd6d1908f4fe9a10f"
+            unchanged_proposals = 930
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 30
+            best_routes_sha256 = "f1f37e6bf286cbf63de047377899d8a0021a192fffc8670d900501724849b1d7"
+            completed_resets = 0
+            current_routes_sha256 = "f1f37e6bf286cbf63de047377899d8a0021a192fffc8670d900501724849b1d7"
+            ejection_attempts = 0
+            next_rng_uint64 = "17336807281604928004"
+            steps = 1024
+            summary_evaluations = 26711695
+            tabu_hits = 0
+            trace_work_sha256 = "c5ede81c8b741043bf816c9b8c399dce7cc9eaad97193e3f97834ac42773bf34"
+            unchanged_proposals = 931
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 4373304
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.9906713057943184
+        method = "rp_alns_random_regret2"
+        objects = 49238
+        original_oracle = "passed"
+        process_cpu_seconds = 2.500102219999995
+        recompile_seconds = 0.0
+        sample = 2
+        seconds = 1.255909106
+        seed = 41
+        thread_cpu_seconds = [1.2438279459999997, 1.2558011889999996]
+        work_sha256 = "e7a0755496f178133de3bf404cfbb25c50851abfbe847cc8823e8b2c1f760fa7"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 39
+            best_routes_sha256 = "ca49da1c3930cbb2be11301480a637df9bd7c8dd04216d8786cf06745a2e0670"
+            completed_resets = 0
+            current_routes_sha256 = "5f68504e8eccd94e8d5d78df16c2e3903c52d774dbc47f7c298b48109f8f46fd"
+            ejection_attempts = 0
+            next_rng_uint64 = "3182439682102349129"
+            steps = 1024
+            summary_evaluations = 26715137
+            tabu_hits = 0
+            trace_work_sha256 = "7c115eb7652dd8cbb4b752c4472cc5393100f9a88aac8fbfd6d1908f4fe9a10f"
+            unchanged_proposals = 930
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 30
+            best_routes_sha256 = "f1f37e6bf286cbf63de047377899d8a0021a192fffc8670d900501724849b1d7"
+            completed_resets = 0
+            current_routes_sha256 = "f1f37e6bf286cbf63de047377899d8a0021a192fffc8670d900501724849b1d7"
+            ejection_attempts = 0
+            next_rng_uint64 = "17336807281604928004"
+            steps = 1024
+            summary_evaluations = 26711695
+            tabu_hits = 0
+            trace_work_sha256 = "c5ede81c8b741043bf816c9b8c399dce7cc9eaad97193e3f97834ac42773bf34"
+            unchanged_proposals = 931
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 7928192
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.465357442985719
+        method = "rp_meta_adaptive_late"
+        objects = 47960
+        original_oracle = "passed"
+        process_cpu_seconds = 0.25579411700000065
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 0.174560902
+        seed = 41
+        thread_cpu_seconds = [0.10226275700000187, 0.1377028489999983]
+        work_sha256 = "ba346ce870bc0e7b48e31acfe8807985c99ea50c9fabd6c464463c8e0908181c"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+            episodes = 8
+            fill_episode = false
+            master_seconds = 0.0
+            pool_routes = 53
+            role_episode_counts = [4, 4, 5, 3]
+            role_scores = [1.5103000000000004, 2.7073000000000005, 1.5103000000000004, 1.0]
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 31
+            best_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            completed_resets = 0
+            current_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            ejection_attempts = 1352
+            next_rng_uint64 = "9610824330423711878"
+            steps = 256
+            summary_evaluations = 2019967
+            tabu_hits = 0
+            trace_work_sha256 = "49a0c5b35583fdd8b4f41f6f7b0d43d52b97b743ba4848699ce63ca0bc1ebc9a"
+            unchanged_proposals = 150
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 32
+            best_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            completed_resets = 0
+            current_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            ejection_attempts = 2600
+            next_rng_uint64 = "16058812269891103579"
+            steps = 256
+            summary_evaluations = 2707944
+            tabu_hits = 0
+            trace_work_sha256 = "76483c80b5e91c8651d3c0cb7446f18ee0f396e5e75f84cd823ad8a86fc67d91"
+            unchanged_proposals = 106
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 7933648
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.4291788800530476
+        method = "rp_meta_adaptive_late"
+        objects = 47960
+        original_oracle = "passed"
+        process_cpu_seconds = 0.2555670049999961
+        recompile_seconds = 0.0
+        sample = 2
+        seconds = 0.178820866
+        seed = 41
+        thread_cpu_seconds = [0.10243869500000002, 0.1371503719999989]
+        work_sha256 = "ba346ce870bc0e7b48e31acfe8807985c99ea50c9fabd6c464463c8e0908181c"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+            episodes = 8
+            fill_episode = false
+            master_seconds = 0.0
+            pool_routes = 53
+            role_episode_counts = [4, 4, 5, 3]
+            role_scores = [1.5103000000000004, 2.7073000000000005, 1.5103000000000004, 1.0]
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 31
+            best_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            completed_resets = 0
+            current_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            ejection_attempts = 1352
+            next_rng_uint64 = "9610824330423711878"
+            steps = 256
+            summary_evaluations = 2019967
+            tabu_hits = 0
+            trace_work_sha256 = "49a0c5b35583fdd8b4f41f6f7b0d43d52b97b743ba4848699ce63ca0bc1ebc9a"
+            unchanged_proposals = 150
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 32
+            best_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            completed_resets = 0
+            current_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            ejection_attempts = 2600
+            next_rng_uint64 = "16058812269891103579"
+            steps = 256
+            summary_evaluations = 2707944
+            tabu_hits = 0
+            trace_work_sha256 = "76483c80b5e91c8651d3c0cb7446f18ee0f396e5e75f84cd823ad8a86fc67d91"
+            unchanged_proposals = 106
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 8042168
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.240441232865192
+        method = "rp_meta_diversity_tabu"
+        objects = 45966
+        original_oracle = "passed"
+        process_cpu_seconds = 0.3240490620000003
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 0.261236932
+        seed = 41
+        thread_cpu_seconds = [0.1595775219999993, 0.1521360689999991]
+        work_sha256 = "ca6f014adbbe0f65867cf8165347303d765a2abfd650f5e6265aa6fbec59b611"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+            episodes = 8
+            fill_episode = false
+            master_seconds = 0.0
+            pool_routes = 58
+            role_episode_counts = [5, 6, 5]
+            role_scores = [2.5365700000000007, 1.0, 2.0773]
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 32
+            best_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            completed_resets = 0
+            current_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            ejection_attempts = 0
+            next_rng_uint64 = "6625624443976539555"
+            steps = 256
+            summary_evaluations = 3043441
+            tabu_hits = 37
+            trace_work_sha256 = "9506bd719095984fab408ae9af64e506e78ad7549235f141357917eb27ade2a0"
+            unchanged_proposals = 185
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 30
+            best_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            completed_resets = 0
+            current_routes_sha256 = "fc7feb9fe293d2e9c53dff85ceb993e5fa3a4226624bb797e6a982ef248b5efd"
+            ejection_attempts = 0
+            next_rng_uint64 = "7781444961077319576"
+            steps = 256
+            summary_evaluations = 3153446
+            tabu_hits = 26
+            trace_work_sha256 = "4a68a33b46e568eac693060d0d696b5fc9a6f007b09bdde798b06508a5f8a844"
+            unchanged_proposals = 187
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 8047272
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.2348575081728201
+        method = "rp_meta_diversity_tabu"
+        objects = 45966
+        original_oracle = "passed"
+        process_cpu_seconds = 0.3073669030000019
+        recompile_seconds = 0.0
+        sample = 2
+        seconds = 0.248908802
+        seed = 41
+        thread_cpu_seconds = [0.14558736900000113, 0.15039411899999955]
+        work_sha256 = "ca6f014adbbe0f65867cf8165347303d765a2abfd650f5e6265aa6fbec59b611"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+            episodes = 8
+            fill_episode = false
+            master_seconds = 0.0
+            pool_routes = 58
+            role_episode_counts = [5, 6, 5]
+            role_scores = [2.5365700000000007, 1.0, 2.0773]
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 32
+            best_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            completed_resets = 0
+            current_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            ejection_attempts = 0
+            next_rng_uint64 = "6625624443976539555"
+            steps = 256
+            summary_evaluations = 3043441
+            tabu_hits = 37
+            trace_work_sha256 = "9506bd719095984fab408ae9af64e506e78ad7549235f141357917eb27ade2a0"
+            unchanged_proposals = 185
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 30
+            best_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            completed_resets = 0
+            current_routes_sha256 = "fc7feb9fe293d2e9c53dff85ceb993e5fa3a4226624bb797e6a982ef248b5efd"
+            ejection_attempts = 0
+            next_rng_uint64 = "7781444961077319576"
+            steps = 256
+            summary_evaluations = 3153446
+            tabu_hits = 26
+            trace_work_sha256 = "4a68a33b46e568eac693060d0d696b5fc9a6f007b09bdde798b06508a5f8a844"
+            unchanged_proposals = 187
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 8126872
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.232829906403019
+        method = "rp_meta_pool_ipx_late"
+        objects = 52842
+        original_oracle = "passed"
+        process_cpu_seconds = 0.3303958419999944
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 0.267997913
+        seed = 41
+        thread_cpu_seconds = [0.15802250900000026, 0.1344708019999974]
+        work_sha256 = "39c8ba34d6c533b31e944b6c7fae806074b6c0f948f6c110c4d2a6a585cdaddf"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+            budget_seconds = 0.249865918
+            episodes = 8
+            fill_episode = false
+            fragment = "validated route pool"
+            master_bound_scope = "restricted_route_pool_not_global_original_bound"
+            master_build_seconds = 0.00176265
+            master_last_dual_prices = [-19551.527771140845, 19544.90295687135, 19601.73981420707, 19572.883669085757, 19564.82370829743, 35.68183713955659, 2.1883437631804554, 8.561846181492001, 19532.427115042636, 19572.721432161467, 19564.574588526128, -0.0, 19524.88688126742, 19547.60158428064, 13.431194373199105, 19550.819591267893, -0.0, 30.77531865759738, -0.0, -0.0, -0.0, 19520.340820727506, -0.0, 5.293168188385607, 19531.337979160224, -0.0, 19551.70543582651, 19504.89683912221, -0.0, 19593.698452095086, -0.0, 9.77044905141156, 19520.993398597042, 0.2643052014609566, 19590.24361540933, -13.64801880971936, 19571.21826955497, -0.0, 16.44859015674956, -0.0, -0.0, 19563.039641993593, -0.0, -33.19043994367166, -0.0, 17.32653689066865, -19522.14210419639, -13.143709261526965, -0.0, -0.0, 19519.652469535475, 22.61251337509748, 19504.86705709139]
+            master_last_restricted_lp_objective = 371578.0773797477
+            master_last_status = "no_improvement"
+            master_lp_calls = 2
+            master_lp_solver = "ipx"
+            master_mip_calls = 2
+            master_native_threads = 1
+            master_resolver_calls = 2
+            master_seconds = 0.013419707
+            pool_routes = 46
+            representation = "customer-successor/1"
+            role_episode_counts = [5, 6, 5]
+            role_scores = [1.4592700000000005, 1.8726130000000003, 1.0]
+            threads = 1
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 15
+            best_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            completed_resets = 0
+            current_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            ejection_attempts = 2308
+            next_rng_uint64 = "3125804732008942883"
+            steps = 256
+            summary_evaluations = 3259681
+            tabu_hits = 0
+            trace_work_sha256 = "172849ff9aaae1d1907e158ecb2f2692c1ff8ee2bee33afb0da8393bb36c7d04"
+            unchanged_proposals = 147
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 23
+            best_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            completed_resets = 0
+            current_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            ejection_attempts = 1470
+            next_rng_uint64 = "13068265439961758414"
+            steps = 256
+            summary_evaluations = 2758025
+            tabu_hits = 0
+            trace_work_sha256 = "1bf5567eda99b1ea0f5ca0044754fbb34afa803de69b182b96390c61f8bde9b8"
+            unchanged_proposals = 169
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 8127720
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.2471481262697153
+        method = "rp_meta_pool_ipx_late"
+        objects = 52842
+        original_oracle = "passed"
+        process_cpu_seconds = 0.3145917380000043
+        recompile_seconds = 0.0
+        sample = 2
+        seconds = 0.252248896
+        seed = 41
+        thread_cpu_seconds = [0.1591297640000029, 0.1351073799999991]
+        work_sha256 = "39c8ba34d6c533b31e944b6c7fae806074b6c0f948f6c110c4d2a6a585cdaddf"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+            budget_seconds = 0.249866333
+            episodes = 8
+            fill_episode = false
+            fragment = "validated route pool"
+            master_bound_scope = "restricted_route_pool_not_global_original_bound"
+            master_build_seconds = 0.001691847
+            master_last_dual_prices = [-19551.527771140845, 19544.90295687135, 19601.73981420707, 19572.883669085757, 19564.82370829743, 35.68183713955659, 2.1883437631804554, 8.561846181492001, 19532.427115042636, 19572.721432161467, 19564.574588526128, -0.0, 19524.88688126742, 19547.60158428064, 13.431194373199105, 19550.819591267893, -0.0, 30.77531865759738, -0.0, -0.0, -0.0, 19520.340820727506, -0.0, 5.293168188385607, 19531.337979160224, -0.0, 19551.70543582651, 19504.89683912221, -0.0, 19593.698452095086, -0.0, 9.77044905141156, 19520.993398597042, 0.2643052014609566, 19590.24361540933, -13.64801880971936, 19571.21826955497, -0.0, 16.44859015674956, -0.0, -0.0, 19563.039641993593, -0.0, -33.19043994367166, -0.0, 17.32653689066865, -19522.14210419639, -13.143709261526965, -0.0, -0.0, 19519.652469535475, 22.61251337509748, 19504.86705709139]
+            master_last_restricted_lp_objective = 371578.0773797477
+            master_last_status = "no_improvement"
+            master_lp_calls = 2
+            master_lp_solver = "ipx"
+            master_mip_calls = 2
+            master_native_threads = 1
+            master_resolver_calls = 2
+            master_seconds = 0.013161124
+            pool_routes = 46
+            representation = "customer-successor/1"
+            role_episode_counts = [5, 6, 5]
+            role_scores = [1.4592700000000005, 1.8726130000000003, 1.0]
+            threads = 1
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 15
+            best_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            completed_resets = 0
+            current_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            ejection_attempts = 2308
+            next_rng_uint64 = "3125804732008942883"
+            steps = 256
+            summary_evaluations = 3259681
+            tabu_hits = 0
+            trace_work_sha256 = "172849ff9aaae1d1907e158ecb2f2692c1ff8ee2bee33afb0da8393bb36c7d04"
+            unchanged_proposals = 147
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 23
+            best_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            completed_resets = 0
+            current_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            ejection_attempts = 1470
+            next_rng_uint64 = "13068265439961758414"
+            steps = 256
+            summary_evaluations = 2758025
+            tabu_hits = 0
+            trace_work_sha256 = "1bf5567eda99b1ea0f5ca0044754fbb34afa803de69b182b96390c61f8bde9b8"
+            unchanged_proposals = 169
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 7690944
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.157367266507275
+        method = "rp_meta_pool_mip_tabu"
+        objects = 47413
+        original_oracle = "passed"
+        process_cpu_seconds = 0.2758726310000057
+        recompile_seconds = 0.0
+        sample = 1
+        seconds = 0.23836222
+        seed = 41
+        thread_cpu_seconds = [0.15160567500000077, 0.09759155099999894]
+        work_sha256 = "464fa4e058e01675830bb8ef55c424ee9ac922934fd66fb3cd6dc3c28d111e30"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+            budget_seconds = 0.249857588
+            episodes = 8
+            fill_episode = false
+            fragment = "validated route pool"
+            master_bound_scope = "restricted_route_pool_not_global_original_bound"
+            master_build_seconds = 0.0015117379999999999
+            master_last_dual_prices = [9767.257692459063, 19527.194041724142, 19601.73981420707, 19572.883669085757, 19564.82370829743, 19556.022657867063, 2.1883437631804554, 19513.458685303704, 9775.600625338391, 19567.686169466655, 19564.574588526128, -0.0, 19517.18748739849, 19547.60158428064, 13.431194373199105, 19550.819591267893, -0.0, 30.77531865759738, -0.0, -0.0, -0.0, -0.0, -0.0, 5.293168188385607, 19548.600939291937, -0.0, 19551.70543582651, -0.0, 7.699393868930201, 19560.508012151415, 5.035262694811536, -0.0, 12.584624057348265, 0.2643052014609566, 19590.24361540933, -13.64801880971936, 19571.21826955497, -0.0, 16.44859015674956, -0.0, -0.0, 9766.602931188665, -0.0, -0.0, -0.0, 44.805901089286635, -0.0, -13.143709261526965, -0.0, -0.0, 19542.264982910572, -0.0, 19504.86705709139]
+            master_last_restricted_lp_objective = 381374.59593262686
+            master_last_status = "improved"
+            master_lp_calls = 2
+            master_lp_solver = "simplex"
+            master_mip_calls = 2
+            master_native_threads = 1
+            master_resolver_calls = 2
+            master_seconds = 0.013632716999999999
+            pool_routes = 43
+            representation = "customer-successor/1"
+            role_episode_counts = [5, 6, 5]
+            role_scores = [1.4592700000000005, 1.8726130000000003, 2.1592700000000002]
+            threads = 1
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 10
+            best_routes_sha256 = "b28644df45441abd67f747b0a8b70d5f2dc4f4926888b553a903383de23e6866"
+            completed_resets = 0
+            current_routes_sha256 = "b28644df45441abd67f747b0a8b70d5f2dc4f4926888b553a903383de23e6866"
+            ejection_attempts = 2828
+            next_rng_uint64 = "12520164260210724800"
+            steps = 256
+            summary_evaluations = 3066933
+            tabu_hits = 1
+            trace_work_sha256 = "0f1bcce28b14b34d697e52d60a20e34de66db12a69c66bb7ea28946a8b940d4c"
+            unchanged_proposals = 111
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 12
+            best_routes_sha256 = "1194c93a0b3e144ba379829c39c82074f7b7a1a7810e453d9d4621d48c6c8365"
+            completed_resets = 0
+            current_routes_sha256 = "1194c93a0b3e144ba379829c39c82074f7b7a1a7810e453d9d4621d48c6c8365"
+            ejection_attempts = 2021
+            next_rng_uint64 = "3837466586144571004"
+            steps = 256
+            summary_evaluations = 1918140
+            tabu_hits = 2
+            trace_work_sha256 = "12083768dac00e7fd50143f3bd99e006a4cab4fc9658ee069a48069e5879086d"
+            unchanged_proposals = 117
+        [[night_cohort_final.timing_cli_qualification_v3.records]]
+        bytes = 7691712
+        compile_seconds = 0.0
+        gc_seconds = 0.0
+        mean_active_cpus = 1.157121878485818
+        method = "rp_meta_pool_mip_tabu"
+        objects = 47413
+        original_oracle = "passed"
+        process_cpu_seconds = 0.28498333900000006
+        recompile_seconds = 0.0
+        sample = 2
+        seconds = 0.246286363
+        seed = 41
+        thread_cpu_seconds = [0.15406159300000155, 0.09990259200000118]
+        work_sha256 = "464fa4e058e01675830bb8ef55c424ee9ac922934fd66fb3cd6dc3c28d111e30"
+
+            [night_cohort_final.timing_cli_qualification_v3.records.coordinator]
+            budget_seconds = 0.249861913
+            episodes = 8
+            fill_episode = false
+            fragment = "validated route pool"
+            master_bound_scope = "restricted_route_pool_not_global_original_bound"
+            master_build_seconds = 0.0015649169999999999
+            master_last_dual_prices = [9767.257692459063, 19527.194041724142, 19601.73981420707, 19572.883669085757, 19564.82370829743, 19556.022657867063, 2.1883437631804554, 19513.458685303704, 9775.600625338391, 19567.686169466655, 19564.574588526128, -0.0, 19517.18748739849, 19547.60158428064, 13.431194373199105, 19550.819591267893, -0.0, 30.77531865759738, -0.0, -0.0, -0.0, -0.0, -0.0, 5.293168188385607, 19548.600939291937, -0.0, 19551.70543582651, -0.0, 7.699393868930201, 19560.508012151415, 5.035262694811536, -0.0, 12.584624057348265, 0.2643052014609566, 19590.24361540933, -13.64801880971936, 19571.21826955497, -0.0, 16.44859015674956, -0.0, -0.0, 9766.602931188665, -0.0, -0.0, -0.0, 44.805901089286635, -0.0, -13.143709261526965, -0.0, -0.0, 19542.264982910572, -0.0, 19504.86705709139]
+            master_last_restricted_lp_objective = 381374.59593262686
+            master_last_status = "improved"
+            master_lp_calls = 2
+            master_lp_solver = "simplex"
+            master_mip_calls = 2
+            master_native_threads = 1
+            master_resolver_calls = 2
+            master_seconds = 0.013665466
+            pool_routes = 43
+            representation = "customer-successor/1"
+            role_episode_counts = [5, 6, 5]
+            role_scores = [1.4592700000000005, 1.8726130000000003, 2.1592700000000002]
+            threads = 1
+
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 10
+            best_routes_sha256 = "b28644df45441abd67f747b0a8b70d5f2dc4f4926888b553a903383de23e6866"
+            completed_resets = 0
+            current_routes_sha256 = "b28644df45441abd67f747b0a8b70d5f2dc4f4926888b553a903383de23e6866"
+            ejection_attempts = 2828
+            next_rng_uint64 = "12520164260210724800"
+            steps = 256
+            summary_evaluations = 3066933
+            tabu_hits = 1
+            trace_work_sha256 = "0f1bcce28b14b34d697e52d60a20e34de66db12a69c66bb7ea28946a8b940d4c"
+            unchanged_proposals = 111
+            [[night_cohort_final.timing_cli_qualification_v3.records.worker_work]]
+            accepted_meta_moves = 12
+            best_routes_sha256 = "1194c93a0b3e144ba379829c39c82074f7b7a1a7810e453d9d4621d48c6c8365"
+            completed_resets = 0
+            current_routes_sha256 = "1194c93a0b3e144ba379829c39c82074f7b7a1a7810e453d9d4621d48c6c8365"
+            ejection_attempts = 2021
+            next_rng_uint64 = "3837466586144571004"
+            steps = 256
+            summary_evaluations = 1918140
+            tabu_hits = 2
+            trace_work_sha256 = "12083768dac00e7fd50143f3bd99e006a4cab4fc9658ee069a48069e5879086d"
+            unchanged_proposals = 117
+
+        [[night_cohort_final.timing_cli_qualification_v3.thread_pins]]
+        cpu = 0
+        lane = 1
+        thread = 2
+        [[night_cohort_final.timing_cli_qualification_v3.thread_pins]]
+        cpu = 2
+        lane = 2
+        thread = 3
+
+        [[night_cohort_final.timing_cli_qualification_v3.warmups]]
+        method = "rp_vnd_greedy"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 8.156942676
+        seed = 41
+        [[night_cohort_final.timing_cli_qualification_v3.warmups]]
+        method = "rp_alns_route_regret2"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 0.409767245
+        seed = 41
+        [[night_cohort_final.timing_cli_qualification_v3.warmups]]
+        method = "rp_aco_regret2"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 2.665513206
+        seed = 41
+        [[night_cohort_final.timing_cli_qualification_v3.warmups]]
+        method = "rp_alns_random_regret2"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 3.776171487
+        seed = 41
+        [[night_cohort_final.timing_cli_qualification_v3.warmups]]
+        method = "rp_meta_adaptive_late"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 2.272115126
+        seed = 41
+        [[night_cohort_final.timing_cli_qualification_v3.warmups]]
+        method = "rp_meta_diversity_tabu"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 0.906024607
+        seed = 41
+        [[night_cohort_final.timing_cli_qualification_v3.warmups]]
+        method = "rp_meta_pool_ipx_late"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 4.57239712
+        seed = 41
+        [[night_cohort_final.timing_cli_qualification_v3.warmups]]
+        method = "rp_meta_pool_mip_tabu"
+        repetitions = 3
+        scope = "Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."
+        seconds = 0.737814638
+        seed = 41
 
 [night_cohort_integration_v3]
 allocation_comparison_limit = "The new package/numerical guide cohort may change heuristic work inside fixed episode/step caps. Byte differences are observations, not matched-path solver speedups; regressions are retained."

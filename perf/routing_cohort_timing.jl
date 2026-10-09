@@ -1,6 +1,7 @@
 # Fixed original Li-Lim work across independently frozen package/application cohorts.
 # Run one cohort process at a time on the same reserved physical CPU mask.
 # Original validation and complete lane/RNG observations follow every timed operation.
+const TIMING_SCRIPT_START_NS = time_ns()
 using TOML,SHA,Dates,Random,Statistics,LinearAlgebra
 include(joinpath(@__DIR__, "routing_perfcheck.jl"))
 using ConstraintModels
@@ -62,6 +63,7 @@ const initial=Pilot.insertion(p;starts=1,seed=41)
 const banks=Dict(k=>ICNScoring.load_backend(k) for k in (:naive,:direct,:icn))
 const executor=(;clone_backend=ICNScoring.clone_backend,metadata=ICNScoring.metadata,
  run=(plan,call,rows)->ResourceExperiment.MS.execute!(plan.prepared.kernel,ResourceExperiment.ExecutionContext(call,rows)))
+const TIMING_SETUP_SECONDS = (time_ns()-TIMING_SCRIPT_START_NS)/1e9
 function prepare(id,seed)
  if startswith(id,"rp_meta")
   plan=ResourceExperiment.prepare_portfolio(ResourceExperiment.allocation(id,width))
@@ -114,11 +116,13 @@ d=Dict("schema"=>"whole-application-cohort-controlled-fixed-work/1",
  "cpu_affinity"=>cpus,"thread_pins"=>thread_pins,"coordinator_cpu"=>first(cpus),"workers"=>width,"gc_threads"=>1,
  "blas_threads"=>BLAS.get_num_threads(),"recorded_utc"=>string(now(UTC)),
  "instance_sha256"=>bytes2hex(sha256(read(instance))),"records"=>rows,
+ "instance_name"=>basename(instance),"initial_setup_wall_seconds"=>TIMING_SETUP_SECONDS,
+ "initial_setup_scope"=>"Fresh process with existing precompile caches: Julia/package/source loading, physical thread pinning, original instance import/insertion and backend banks. Excludes interpreter startup before this file and measured search.",
  "scope"=>"Entire early published performance cohort/application versus final qualified cohort/application, separate processes and exact original LR101 work. Pure search starts with prepared private lane workspaces; MetaStrategist measurements cover the full bounded cooperative lifecycle, including lane construction, shared pool and native HiGHS master. Native HiGHS is single-threaded. Every timed attempt is retained. Original-model checks and semantic/RNG hashes follow measurement.",
  "timing_scope"=>get(TIMING_OPTIONS, "timing-scope", "protocol_qualification_shared_machine"),
  "heap_phase"=>"All timed states prepared before one collection per fixed seed/configuration batch; no explicit collection between measured steady operations.")
 d["protocol_sha256"] = bytes2hex(sha256(read(@__FILE__)))
-d["protocol"] = "fixed-work Linux pipeline timing/1"
+d["protocol"] = "fixed-work Linux pipeline timing/3"
 d["comparison_limit"] = "Baseline and candidate must use the same CPU mask, source-qualified instance, seed and sample count. Per-worker work is fixed, so widths change total work and portfolio roles; this is not a strong-scaling or search-quality campaign."
 d["package_sources"] = map(collect(filter(name -> Base.find_package(name)!==nothing, OWNED_PACKAGES))) do name
     source = dirname(dirname(Base.find_package(name)))
@@ -126,18 +130,30 @@ d["package_sources"] = map(collect(filter(name -> Base.find_package(name)!==noth
     clean || throw(ArgumentError("Measured package sources must be clean: $name"))
     Dict("package"=>name, "commit"=>strip(read(Cmd(["git", "-C", source, "rev-parse", "HEAD"]), String)), "source_clean"=>true)
 end
+d["warmups"] = Dict{String,Any}[]
 for id in ["rp_vnd_greedy","rp_alns_route_regret2","rp_aco_regret2","rp_alns_random_regret2",
  "rp_meta_adaptive_late","rp_meta_diversity_tabu","rp_meta_pool_ipx_late","rp_meta_pool_mip_tabu"],
  seed in TIMING_SEEDS
+ warmup_start_ns=time_ns()
  for _ in 1:3
   state=prepare(id,seed);verify(operation(state))
  end
+ push!(d["warmups"],Dict("method"=>id,"seed"=>seed,"repetitions"=>3,
+   "seconds"=>(time_ns()-warmup_start_ns)/1e9,
+   "scope"=>"Three complete exact work warm-ups, including preparation, first-call specialization, native initialization and original validation; separate from steady samples."))
  states=[prepare(id,seed) for _ in 1:TIMING_SAMPLES]
+ measurements=Vector{Any}(undef,TIMING_SAMPLES)
  GC.gc()
  for (sample,state) in enumerate(states)
   process_cpu=ResourceExperiment.cpu_seconds(2)
   timed=@timed operation(state)
   consumed=ResourceExperiment.cpu_seconds(2)-process_cpu
+  measurements[sample]=(;timed,consumed)
+ end
+ # Owned results remain alive; validation and serialization cannot perturb the
+ # GC state between measured operations in this fixed seed/configuration batch.
+ for (sample,observation) in enumerate(measurements)
+  timed=observation.timed;consumed=observation.consumed
   checked=verify(timed.value)
   push!(rows,Dict("method"=>id,"seed"=>seed,"sample"=>sample,
    "seconds"=>timed.time,"bytes"=>timed.bytes,"objects"=>Base.gc_alloc_count(timed.gcstats),
