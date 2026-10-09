@@ -436,12 +436,21 @@ function clique_bound(g)
     (;bound=isempty(g) ? 0 : max(1,length(clique)),requests=clique,scope="certified_greedy_clique_not_maximum_clique")
 end
 
+"Private epoch/position storage; every native route is checked afresh."
+mutable struct RouteMembershipWorkspace
+    stamps::Vector{UInt}
+    positions::Vector{Int}
+    epoch::UInt
+end
+RouteMembershipWorkspace()=RouteMembershipWorkspace(UInt[],Int[],0)
 mutable struct RoutePool
     routes::Vector{Vector{Int}}
     solutions::Vector{Vector{Vector{Int}}}
     max_routes::Int
     max_solutions::Int
+    membership::RouteMembershipWorkspace
 end
+RoutePool(routes,solutions,max_routes,max_solutions)=RoutePool(routes,solutions,max_routes,max_solutions,RouteMembershipWorkspace())
 RoutePool(;max_routes=LIMITS.pool_routes,max_solutions=LIMITS.pool_solutions)=RoutePool(Vector{Int}[],Vector{Vector{Int}}[],max_routes,max_solutions)
 function route_valid(p,D,route)
     allunique(route) && all(v->2<=v<=length(p.data.demand),route) || return false
@@ -452,6 +461,33 @@ function route_valid(p,D,route)
     end
     !isempty(route) && Pilot.feasible_route(route,p.data,D)
 end
+function route_valid(p::BenchmarkInstance{PickupDeliveryProblem},D,route::Vector{Int},w::RouteMembershipWorkspace)
+    isempty(route) && return false
+    n=length(p.data.demand);previous=length(w.stamps)
+    if previous!=n
+        resize!(w.stamps,n)
+        n>previous && fill!(@view(w.stamps[previous+1:n]),0)
+    end
+    length(w.positions)==n || resize!(w.positions,n)
+    w.epoch+=UInt(1)
+    if w.epoch==0;fill!(w.stamps,0);w.epoch=1;end
+    stamp=w.epoch
+    for (i,v) in enumerate(route)
+        2<=v<=n || return false
+        w.stamps[v]==stamp && return false
+        w.stamps[v]=stamp;w.positions[v]=i
+    end
+    for (a,b) in p.data.pairs
+        have_a=1<=a<=n && w.stamps[a]==stamp
+        have_b=1<=b<=n && w.stamps[b]==stamp
+        have_a==have_b || return false
+        have_a && w.positions[a]>=w.positions[b] && return false
+    end
+    Pilot.feasible_route(route,p.data,D)
+end
+route_valid(p,D,route,::RouteMembershipWorkspace)=route_valid(p,D,route)
+pool_route_valid(pool::RoutePool,p,D,route)=route_valid(p,D,route,pool.membership)
+pool_route_valid(pool,p,D,route)=route_valid(p,D,route)
 "Keep incumbent cover protected even when the route pool cap is smaller than its fleet."
 function collect!(pool,p,D,routes;validation_workspace=nothing)
     original_check(p,routes,validation_workspace).valid || throw(ArgumentError("only original-feasible solutions may enter the pool"))
@@ -463,7 +499,7 @@ function collect!(pool,p,D,routes;validation_workspace=nothing)
     protected=first(pool.solutions)
     columns=owned_route_snapshot(protected)
     for route in vcat(routes,pool.routes)
-        route_valid(p,D,route) || throw(ArgumentError("invalid pool route"))
+        pool_route_valid(pool,p,D,route) || throw(ArgumentError("invalid pool route"))
         length(columns)>=max(pool.max_routes,length(protected)) && break
         route in columns || push!(columns,copy(route))
     end
@@ -477,7 +513,7 @@ function recombine(pool,p,D,deadline;lp_solver="simplex",trace=Dict{String,Any}(
     lp_solver in ("simplex","ipx","hipo") || throw(ArgumentError("unknown master LP solver"))
     time_ns()>=deadline && return nothing
     started=time_ns();columns=pool.routes;n=length(columns);cover=[request_ids(p,r) for r in columns]
-    all(r->route_valid(p,D,r),columns) || throw(ArgumentError("invalid column"))
+    all(r->pool_route_valid(pool,p,D,r),columns) || throw(ArgumentError("invalid column"))
     m=Model(Pilot.HiGHS.Optimizer);set_silent(m)
     set_optimizer_attribute(m,"threads",1);set_optimizer_attribute(m,"parallel","off")
     @variable(m,0<=x[1:n]<=1)

@@ -730,3 +730,32 @@ applies to the reported longer-growth/fallback workloads, without a measured
 LR101 allocation gain or controlled timing claim.
 
 The fifth frozen overnight cohort loads all 13 published package commits offline, preserves every unrelated dependency, passes 645,240 application assertions and reproduces the complete worker observations of all 52 bounded routing profiles. Its exact package commits and environment hashes are recorded in `night_cohort_integration_v5`. This intermediate qualification does not change the portable colleague cohort or establish controlled timing improvements.
+
+Each native route pool now owns reusable node positions and epoch stamps. Every
+route is checked afresh for duplicates, bounds, complete requests and precedence;
+the original route feasibility scan and full solution admission/export validators
+remain authoritative. Generic/wider route containers retain the original path.
+Pool snapshots and worker lanes own independent membership buffers. All 711,765
+application assertions pass, including 66,525 new domain, ownership, epoch-wrap
+and original-route checks. A prepared loop of 1,000 native route checks allocates
+zero Julia bytes; workspace creation, exports and the complete solver still
+allocate.
+
+All 52 complete routing observations match: 49 full lifecycles allocate fewer
+bytes, two are unchanged and one initial HIPO lifecycle allocates more. That
+variation is retained in the overview. Separately, 48 exact-warmed MetaStrategist
+pairs (16 configurations, three seeds, eight episodes and two workers) all reduce
+bytes and objects, including actual simplex/IPX/HIPO masters. Full lane
+trace/routes/RNG and substantive coordination match, with zero measured
+compilation/recompilation. Every warm attempt is retained; allocation magnitude
+does not select a sample. Elapsed master/build/remaining-budget telemetry is
+excluded from work equality, after a retained diagnostic exposed the latter.
+
+Nine original LR101 pairs reduce bytes by 15–29% and objects by 10–26%, with the
+same full work and original solutions. All 36 collector/analyzer checks pass on
+actual prepared membership cases. JET reports zero findings; AllocCheck retains
+two potential findings per specialization; GC, memory and lock diagnostics report
+no flags. Three redacted heaps were verified and removed. Exact and XKCD figures
+show all observations with fixed references, plus the full seed range for warmed
+cooperative paths. These are allocation qualifications under concurrent work,
+without a controlled timing or solution-quality claim.

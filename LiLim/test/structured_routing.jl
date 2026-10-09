@@ -17,6 +17,68 @@ const D=Pilot.distances(DATA)
 const BANKS=Dict(k=>ICNScoring.load_backend(k) for k in (:naive,:direct,:icn))
 LSvalues(lane)=collect(Hybrid.LS.get_values(lane.parent.solver))
 
+@testset "Private pool membership preserves original routes, epochs and ownership" begin
+    workspace=R.RouteMembershipWorkspace()
+    for n in 0:5,index in 0:9^n-1
+        route=[mod(div(index,9^(i-1)),9) for i in 1:n]
+        @test R.route_valid(P,D,route,workspace)==R.route_valid(P,D,route)
+    end
+    for route in (Int[],[2,3],[3,2],[2,3,4,5],[2,3,2,3],[2,4],collect(2:7),[1,2,3],[2,8])
+        retained=copy(route)
+        @test R.route_valid(P,D,route,workspace)==R.route_valid(P,D,route)
+        @test route==retained
+        for generic in (Int32.(route),big.(route),view(route,:))
+            @test R.route_valid(P,D,generic,workspace)==R.route_valid(P,D,generic)
+        end
+    end
+    workspace.epoch=typemax(UInt)
+    fill!(workspace.stamps,typemax(UInt))
+    @test R.route_valid(P,D,[2,3],workspace)
+    @test workspace.epoch==1
+    @test !R.route_valid(P,D,[2],workspace)
+    @test R.route_valid(P,D,[4,5],workspace)
+    for nodes in (3,17,5,19,7)
+        data=PickupDeliveryProblem(nodes,2,zeros(nodes,2),vcat(0,repeat([1,-1],(nodes-1)÷2)),
+            zeros(nodes),fill(40.,nodes),zeros(nodes),[(2i,2i+1) for i in 1:(nodes-1)÷2])
+        problem=BenchmarkInstance("membership-resized-$nodes",data);distances=Pilot.distances(data)
+        route=collect(2:nodes)
+        @test R.route_valid(problem,distances,route,workspace)==R.route_valid(problem,distances,route)
+        @test length(workspace.stamps)==length(workspace.positions)==nodes
+    end
+    resize!(workspace.positions,0)
+    @test R.route_valid(P,D,[2,3],workspace)
+    @test length(workspace.positions)==length(DATA.demand)
+    # Pair indices outside the node domain retain the original absent/present rule.
+    for pairs in ([(0,8)],[(2,8)],[(0,3)],[(2,2)],[(3,2)],[(2,3)])
+        data=PickupDeliveryProblem(DATA.vehicles,DATA.capacity,DATA.coordinates,DATA.demand,
+            DATA.earliest,DATA.latest,DATA.service,DATA.pairs)
+        empty!(data.pairs);append!(data.pairs,pairs)
+        problem=BenchmarkInstance("membership-pair-boundaries",data)
+        for route in (Int[],[2,3],[4,5],collect(2:7))
+            @test R.route_valid(problem,D,route,workspace)==R.route_valid(problem,D,route)
+        end
+    end
+    first_pool=R.RoutePool();second_pool=R.RoutePool();snapshot=deepcopy(first_pool)
+    @test first_pool.membership!==second_pool.membership && snapshot.membership!==first_pool.membership
+    @test snapshot.membership.stamps!==first_pool.membership.stamps
+    @test snapshot.membership.positions!==first_pool.membership.positions
+    R.collect!(first_pool,P,D,INITIAL)
+    retained=deepcopy(first_pool.solutions);snapshot=deepcopy(first_pool)
+    @test first_pool.membership.stamps!==snapshot.membership.stamps
+    @test first_pool.membership.positions!==snapshot.membership.positions
+    @test all(R.pool_route_valid(first_pool,P,D,route) for route in first_pool.routes)
+    @test first_pool.solutions==retained && snapshot.solutions==retained
+    legacy=R.RoutePool(Vector{Int}[],Vector{Vector{Int}}[],8,4)
+    @test legacy.max_routes==8 && legacy.max_solutions==4 && isempty(legacy.membership.stamps)
+    generic_pool=(;routes=copy(first_pool.routes))
+    @test R.pool_route_valid(generic_pool,P,D,[2,3])==R.route_valid(P,D,[2,3])
+    function membership_bytes(workspace,p,D,route)
+        R.route_valid(p,D,route,workspace)
+        @allocated for _ in 1:1000;R.route_valid(p,D,route,workspace);end
+    end
+    @test membership_bytes(workspace,P,D,collect(2:7))==0
+end
+
 @testset "Independent primitive snapshots preserve aliases and retained observations" begin
     for n in (0,1,2,8,32,64,128,129,256),visits in (0,2,16)
         original=[collect(1:visits) for _ in 1:n]
