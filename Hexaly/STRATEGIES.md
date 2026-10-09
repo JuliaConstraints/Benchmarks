@@ -15,6 +15,25 @@ partitions and four FULL_ASSERT searches. No installation or compilation was
 repeated. The original preflight skip and this supplemental qualification remain
 separate evidence. Corpus and licence gaps remain explicit.
 
+The final reserved-core timing check is complete: all **1,920 observations**
+pass the original LR101 validator and complete route/trace/RNG equivalence;
+none contains warm compilation. Across the eight configurations and widths
+1/2/4/8, median per-seed allocation reductions range from **31.0% to 82.4%**
+against the first overnight cohort, which was already optimized. Elapsed-time
+changes are smaller and mixed; allocation reduction is not an equivalent
+speedup. The full ranges, GC-bearing samples and fixed reference marks remain
+in the [English exact/XKCD figures](../perf/figures/owned-workspaces-20261008/).
+The reproducible reducer is [routing_cohort_report.jl](../perf/routing_cohort_report.jl).
+
+The immediate next work is **solution-quality evaluation on the original SINTEF
+Li-Lim instances**, at 60 seconds with two repetitions and widths 1/2/4. Existing
+package qualifications and other benchmark preparation are retained for later;
+no further unrelated qualification expansion is scheduled. Existing final
+checks finish before comparative trials start. The 354-instance inventory,
+original double-precision fleet-first objective, independent solution/trajectory
+validation and published BKS references define the evaluation. Bounded cohorts
+will be published as they finish; incomplete cohorts are not full-corpus results.
+
 ## Additive Li-Lim route strategies
 
 The structured route panel adds **52 configurations (36 search profiles and 16
