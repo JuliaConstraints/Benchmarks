@@ -640,3 +640,25 @@ findings per specialization, including possible fallback branches; a completed
 execution is not a clean static verdict. All eight redacted heap captures were
 verified and removed. This pass uses the same frozen dependency environment and
 prepared objective source as the recorded allocation comparison.
+
+A subsequent primitive-route materialization copies each surviving Int route
+once and omits empty rows. It retains the generic fallback for other types.
+The same twelve fixtures reduce warm bytes by a further 70–76%, with exact
+historical routes, examined candidates and original-validator checks. All
+1,693 hybrid assertions pass, including 182 additional ownership and snapshot
+checks. All 36 collector/analyzer executions pass their full original oracle;
+JET remains at zero findings and AllocCheck retains 25 potential findings.
+
+The 52 profiles preserve every complete trace hash, route hash and next RNG
+value. A large fresh HIPO lifecycle observation remains visible in the figure
+and raw compact evidence. Its qualified isolated repetition falls to 667,504
+bytes; the first isolated attempt exceeded the 8-second cold-warmup cap and
+failed the complete work oracle, so it is excluded. No controlled speedup or
+whole-solver zero-allocation claim follows from these observations.
+
+A new independent dependency freeze also passes all thirteen imports, an
+original HiGHS integer oracle, 59,677 application checks, and all 52 later
+fixed-work original-model oracles. Those 52 complete work/route/RNG observations
+match the preceding dependency freeze. Suite source hashes and later profile
+source hashes are retained separately. The public default portable cohort is
+unchanged while further improvements are qualified.

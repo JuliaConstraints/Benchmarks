@@ -146,7 +146,9 @@ for (key,basename,description,xminimum,caption) in (
         ("night_owned_guidance","routing-owned-guidance","owned guidance and specialized call boundaries",25,
          "Matching full trace work checksums, routes and next RNG values; native LP/MIP lifecycle totals can vary."),
         ("night_owned_relocation","routing-owned-relocation","deferred private pair relocation",95,
-         "Full trace, routes and next RNG values match; some small MetaStrategist lifecycle totals increase."))
+         "Full trace, routes and next RNG values match; some small MetaStrategist lifecycle totals increase."),
+        ("night_surviving_relocation","routing-surviving-relocation","copy only surviving primitive routes",90,
+         "Full trace, routes and next RNG values match; fresh LP/MIP lifecycle variation is retained."))
     haskey(proof,key) || continue
     rows=proof[key]["records"]
     all(r->r["correctness"]=="passed" && r["observable_work_matches"],rows) ||
@@ -163,25 +165,30 @@ for (key,basename,description,xminimum,caption) in (
         vlines!(axis,[100];color=:black,linestyle=:dash,linewidth=2,label="Fixed previous-source reference")
         scatter!(axis,bytes,(1:n).-.12;color=:dodgerblue3,marker=:circle,markersize=11,label="Allocated Julia bytes")
         scatter!(axis,objects,(1:n).+.12;color=:purple3,marker=:utriangle,markersize=11,label="Allocated Julia objects")
-        xlims!(axis,xminimum,103)
+        xlims!(axis,xminimum,max(103,maximum(vcat(bytes,objects))+5))
         Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
         Label(figure[3,1],"52 historical profiles; same frozen package cohort; 2 workers. $caption\nAll original-model oracles passed. Allocation evidence; no speed or quality claim.",fontsize=13)
         export_figure(figure,basename*"-"*category)
     end
 end
 
-if haskey(proof,"night_owned_relocation")
+for (key,basename,title,legend,byte_powers,object_powers) in (
+        ("night_owned_relocation","pair-relocation-owned-incumbent",
+         "Pair relocation: one independent incumbent after selection","Owned deferred incumbent",11:19,5:13),
+        ("night_surviving_relocation","pair-relocation-surviving-incumbent",
+         "Pair relocation: copy only independently owned surviving routes","Surviving route snapshot",9:16,4:10))
+    haskey(proof,key) || continue
     let
-    rows=proof["night_owned_relocation"]["larger_fixtures"]["records"]
+    rows=proof[key]["larger_fixtures"]["records"]
     all(r->r["original_oracle"]=="passed"&&r["retained_routes_and_examined_match"],rows) ||
         error("Relocation figure requires matching original-model work")
     rows=sort(rows;by=r->(r["requests"],r["seed"]))
     figure=Figure(size=(1650,850));colgap!(figure.layout,60)
     labels=["$(r["requests"]) requests / seed $(r["seed"])" for r in rows]
-    for (column,field,title,powers) in ((1,"bytes_per_call","Allocated Julia bytes",11:19),
-            (2,"objects_per_call","Allocated Julia objects",5:13))
+    for (column,field,axis_title,powers) in ((1,"bytes_per_call","Allocated Julia bytes",byte_powers),
+            (2,"objects_per_call","Allocated Julia objects",object_powers))
         prior=[r["before"][field] for r in rows];owned=[r["after"][field] for r in rows]
-        axis=Axis(figure[1,column],title=title,xlabel="Per warm pair relocation (log₂ scale)",
+        axis=Axis(figure[1,column],title=axis_title,xlabel="Per warm pair relocation (log₂ scale)",
             ylabel=column==1 ? "Original PDPTW fixture" : "",xscale=log2,
             yticks=(1:length(rows),labels),yticklabelsvisible=column==1,
             xticks=(2.0 .^ powers,string.(2 .^ powers)))
@@ -189,13 +196,13 @@ if haskey(proof,"night_owned_relocation")
             lines!(axis,[prior[i],owned[i]],[i,i];color=:gray65,linestyle=:dash,linewidth=1.5)
         end
         scatter!(axis,prior,1:length(rows);color=:gray35,marker=:rect,markersize=13,label="Previous source reference")
-        scatter!(axis,owned,1:length(rows);color=:dodgerblue3,marker=:circle,markersize=13,label="Owned deferred incumbent")
+        scatter!(axis,owned,1:length(rows);color=:dodgerblue3,marker=:circle,markersize=13,label=legend)
         xlims!(axis,2.0^first(powers),2.0^last(powers));ylims!(axis,.4,length(rows)+.6)
         column==1 && Legend(figure[2,1:2],axis;orientation=:horizontal,framevisible=false)
     end
     colgap!(figure.layout,70)
-    Label(figure[0,1:2],"Pair relocation: one independent incumbent after selection";fontsize=23)
+    Label(figure[0,1:2],title;fontsize=23)
     Label(figure[3,1:2],"Five batches of eight calls; exact historical routes, examined candidates and complete checksums match.\nAll original PDPTW validators pass. Warm workspace scope; concurrent timing is not a controlled speedup.",fontsize=13)
-    export_figure(figure,"pair-relocation-owned-incumbent")
+    export_figure(figure,basename)
     end
 end

@@ -55,7 +55,7 @@ function build_catalog(;scope=:kernels,methods=String[],families=Symbol[],backen
         if scope==:routing_kernels
             for requests in (8,32,128)
                 push!(scenarios,ScenarioSpec("routing_pair_relocation_n$requests";source,
-                    factory="pair_relocation_case",implementation="owned-deferred-incumbent-v1",
+                    factory="pair_relocation_case",implementation="owned-surviving-incumbent-v2",
                     parameters=Dict("requests"=>requests,"seed"=>41,"repetitions"=>128),
                     fixtures,collectors,repeatable=true))
             end

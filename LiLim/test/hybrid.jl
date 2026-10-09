@@ -10,6 +10,23 @@ include(joinpath(@__DIR__, "..", "src", "Hybrid.jl"))
         [0,1,-1,1,-1,1,-1], zeros(7), fill(100.,7), zeros(7), [(2,3),(4,5),(6,7)])
     p = BenchmarkInstance("hybrid-qualification", d)
     initial = [[2,3],[4,5],[6,7]]
+    @testset "Surviving primitive route snapshots remain fully independent" begin
+        for n in 1:8,target in 1:n
+            base=[iseven(i) ? Int[] : [2i,2i+1] for i in 1:n]
+            saved=deepcopy(base);candidate=[999,1000]
+            result=Hybrid.relocation_incumbent(base,target,candidate)
+            expected=[i==target ? [999,1000] : copy(base[i]) for i in 1:n if i==target || !isempty(base[i])]
+            @test result==expected
+            @test base==saved && candidate==[999,1000]
+            @test all(route!==candidate && all(route!==buffer for buffer in base) for route in result)
+            second=Hybrid.relocation_incumbent(base,target,candidate)
+            @test all(a!==b for (a,b) in zip(result,second))
+            first(result)[1]=-1
+            @test second==expected && base==saved && candidate==[999,1000]
+        end
+        @test Hybrid.relocation_incumbent(Vector{Int}[],0,Int[])===nothing
+        @test_throws BoundsError Hybrid.relocation_incumbent([[2,3]],2,[4,5])
+    end
     @testset "Relocation scratch survives fleet changes and retains independent incumbents" begin
         distances=Pilot.distances(d);workspace=Hybrid.PairRelocationWorkspace()
         other=Hybrid.PairRelocationWorkspace()
