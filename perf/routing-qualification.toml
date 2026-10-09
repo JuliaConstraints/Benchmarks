@@ -179,6 +179,112 @@ source_finding = "guidance_ids rebuilds a full request ranking. Critical ranks d
     "LiLim/src/RoutingPanel.jl" = "d5407cc4bd255e04edc6a8d69fd0f157ad110d5eb6daab8f26afc5b31e6eee3b"
     "LiLim/src/StructuredRouting.jl" = "b1497be366770195a8e551b72f5382f4abffe00a7f119abf621fc0b1a33abd7d"
 
+[night_lilim_inheritance_followup]
+schema = "li-lim-inheritance-stagnation-observation/1"
+independent_audit_recorded_utc = "2026-10-09T06:42:20.473"
+independently_validated_trials = 96
+independently_validated_trajectory_points = 1046
+bks_hits_in_snapshot = 51
+scope = "Preliminary LR101 seed-41 snapshot: 32 profiles at each of widths 1/2/4. The six inheritance trials below are a subset of these 96 trials; no repeated-seed, solver-ranking or full-corpus inference."
+validation = "All sampled sealed solutions and monotone in-budget trajectories, manifest fingerprints, source hashes, identities, BKS flags and time-to-target passed original validation."
+runtime_application_commit = "d057081651d854a475d3297ec7fb58dc80bbaa9f"
+runtime_unchanged = true
+source_sha256 = "b1497be366770195a8e551b72f5382f4abffe00a7f119abf621fc0b1a33abd7d"
+source_finding = "inherited iterates lane.best before its sampled parent and copies every non-overlapping route up to length(lane.best). A complete feasible best already covers all requests, so the sampled parent contributes no route and the missing bank is empty. Route ordering alone is not a decision under same_routes!."
+observed_failure = "Both pure inheritance profiles preserve the 21-vehicle 1900.407702699778 start at all three widths, with zero accepted MetaMoves and zero completed resets."
+meta_observation = "The six adaptive/diversity/fleet-distance MetaStrategist profiles, each with late/tabu acceptance, reach the LR101 19-vehicle 1650.80 target at all three widths (18/18 seed-41 trials)."
+next_qualification = "After this frozen cohort, add and qualify corrected partial inheritance and mutation with original validation, pool ownership checks, equivalent-work PerfChecker diagnostics and fresh quality comparisons. Preserve historical profiles and completed trials; permutation throughput is not useful search."
+
+    [[night_lilim_inheritance_followup.records]]
+    method = "rp_memetic_regret2"
+    width = 1
+    seed = 41
+    vehicles = 21
+    distance = 1900.407702699778
+    bks_reached = false
+    trajectory_points = 1
+    trial_sha256 = "2c04d65c9411c05f2a90eeb0e4b448e390d470b1450e875f8f95a870a3b3ada3"
+    steps = 4978535
+    route_inheritance_calls = 4978535
+    unchanged_proposals = 4978534
+    accepted_meta_moves = 0
+    completed_resets = 0
+
+    [[night_lilim_inheritance_followup.records]]
+    method = "rp_memetic_regret3"
+    width = 1
+    seed = 41
+    vehicles = 21
+    distance = 1900.407702699778
+    bks_reached = false
+    trajectory_points = 1
+    trial_sha256 = "db2b77311733f0f7ff69f863c70856ec910786ba2e0110b73f75417cb11ca092"
+    steps = 4975259
+    route_inheritance_calls = 4975259
+    unchanged_proposals = 4975258
+    accepted_meta_moves = 0
+    completed_resets = 0
+
+    [[night_lilim_inheritance_followup.records]]
+    method = "rp_memetic_regret2"
+    width = 2
+    seed = 41
+    vehicles = 21
+    distance = 1900.407702699778
+    bks_reached = false
+    trajectory_points = 1
+    trial_sha256 = "de0272026b7283bc6b892ed9cf6b2b013ccab6b49392be2e4c9c748ee4bc0b6c"
+    steps = 9798390
+    route_inheritance_calls = 9798390
+    unchanged_proposals = 9798388
+    accepted_meta_moves = 0
+    completed_resets = 0
+
+    [[night_lilim_inheritance_followup.records]]
+    method = "rp_memetic_regret3"
+    width = 2
+    seed = 41
+    vehicles = 21
+    distance = 1900.407702699778
+    bks_reached = false
+    trajectory_points = 1
+    trial_sha256 = "92c2aa4b560d3934d668114e1b61ece29a963562d433cbc39b26e6cdcae61070"
+    steps = 9550640
+    route_inheritance_calls = 9550640
+    unchanged_proposals = 9550638
+    accepted_meta_moves = 0
+    completed_resets = 0
+
+    [[night_lilim_inheritance_followup.records]]
+    method = "rp_memetic_regret2"
+    width = 4
+    seed = 41
+    vehicles = 21
+    distance = 1900.407702699778
+    bks_reached = false
+    trajectory_points = 1
+    trial_sha256 = "612cc7409ee5ebd7cd888581ae0b5bff71da9c048e41e853d6ab135178654db2"
+    steps = 19796664
+    route_inheritance_calls = 19796664
+    unchanged_proposals = 19796660
+    accepted_meta_moves = 0
+    completed_resets = 0
+
+    [[night_lilim_inheritance_followup.records]]
+    method = "rp_memetic_regret3"
+    width = 4
+    seed = 41
+    vehicles = 21
+    distance = 1900.407702699778
+    bks_reached = false
+    trajectory_points = 1
+    trial_sha256 = "564d4e69692782d9b096ef3be93d8afaeb31248a6cae46835647cc3b63d903bb"
+    steps = 19953584
+    route_inheritance_calls = 19953584
+    unchanged_proposals = 19953580
+    accepted_meta_moves = 0
+    completed_resets = 0
+
 [night_lilim_plot_styles]
 assertions = 16
 before_application_commit = "df3e6d5e18cca3839fab6db7c1549b1b69ade123"

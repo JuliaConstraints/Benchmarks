@@ -32,6 +32,18 @@ a solver ranking nor a result for the other original instances. The completed
 [performance qualification](../Hexaly/STRATEGIES.md#completed-performance-qualification)
 is reported separately from these solution-quality observations.
 
+The **06:42 UTC snapshot** extends this to **96 sealed trials and 1046 trajectory
+points**, all independently revalidated, with 51 BKS hits. The six adaptive,
+diversity and fleet/distance MetaStrategist profiles (late/tabu acceptance) reach
+the LR101 target at all three widths: 18/18 trials on seed 41. Repetition remains
+pending. Both pure inheritance profiles retain the initial solution at every
+width, with zero accepted MetaMoves. Source inspection finds that inheritance
+copies the entire best solution before considering the sampled parent, leaving
+no missing requests to repair; permuting whole routes cannot change the original
+variables. The [recorded traces and follow-up](../perf/routing-qualification.toml)
+require corrected partial inheritance/mutation qualification after this frozen
+cohort, while preserving its configurations and results.
+
 The [guided-profile trace audit](../perf/routing-qualification.toml) records
 more than 99% unchanged proposals and zero accepted moves for the critical and
 incompatibility variants at all three widths on seed 41. Source inspection finds
