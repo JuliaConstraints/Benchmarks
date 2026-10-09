@@ -10,6 +10,34 @@ include(joinpath(@__DIR__, "..", "src", "Hybrid.jl"))
         [0,1,-1,1,-1,1,-1], zeros(7), fill(100.,7), zeros(7), [(2,3),(4,5),(6,7)])
     p = BenchmarkInstance("hybrid-qualification", d)
     initial = [[2,3],[4,5],[6,7]]
+    @testset "Relocation scratch survives fleet changes and retains independent incumbents" begin
+        distances=Pilot.distances(d);workspace=Hybrid.PairRelocationWorkspace()
+        other=Hybrid.PairRelocationWorkspace()
+        @test workspace.storage===nothing && other.storage===nothing
+        result=Hybrid.pair_relocation(p,initial,distances,(2,3);workspace)
+        retained=deepcopy(result.routes)
+        buffers=copy(workspace.storage.buffers)
+        merged=[[2,3,4,5],[6,7]]
+        for routes in (merged,initial,[[2,3,4,5,6,7]],initial)
+            original=deepcopy(routes)
+            moved=Hybrid.pair_relocation(p,routes,distances,(2,3);workspace)
+            reference=Hybrid.pair_relocation(p,routes,distances,(2,3))
+            @test moved.routes==reference.routes && moved.examined==reference.examined
+            @test routes==original
+            @test result.routes==retained
+            @test all(workspace.storage.buffers[i]===buffers[i] for i in eachindex(buffers))
+            @test moved.routes===nothing || validate_solution(p,moved.routes).valid
+        end
+        Hybrid.pair_relocation(p,initial,distances,(2,3);workspace=other)
+        @test workspace.storage!==other.storage
+        @test workspace.storage.best_candidate!==other.storage.best_candidate
+        @test workspace.candidate!==workspace.storage.best_candidate
+        @test allunique(objectid(v) for v in workspace.storage.buffers)
+        @test all(workspace.storage.buffers[i]!==other.storage.buffers[i] for i in eachindex(buffers))
+        stopped=Hybrid.pair_relocation(p,initial,distances,(2,3);workspace,deadline_ns=UInt64(0))
+        @test stopped.routes===nothing && stopped.examined==0
+        @test result.routes==retained
+    end
     groups=Hybrid.RouteGroupWorkspace()
     @test Hybrid.route_groups!(groups,initial,4)==[[1,2],[1,3],[2,3]]
     @test Hybrid.route_groups!(groups,initial,2)==[[1],[2],[3]]

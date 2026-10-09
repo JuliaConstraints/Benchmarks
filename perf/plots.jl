@@ -144,7 +144,9 @@ for (key,basename,description,xminimum,caption) in (
         ("night_owned_repair_defaults","routing-private-defaults","private repair defaults and cached names",50,
          "Matching steps and observed search counters; private buffer initialization included."),
         ("night_owned_guidance","routing-owned-guidance","owned guidance and specialized call boundaries",25,
-         "Matching full trace work checksums, routes and next RNG values; native LP/MIP lifecycle totals can vary."))
+         "Matching full trace work checksums, routes and next RNG values; native LP/MIP lifecycle totals can vary."),
+        ("night_owned_relocation","routing-owned-relocation","deferred private pair relocation",95,
+         "Full trace, routes and next RNG values match; some small MetaStrategist lifecycle totals increase."))
     haskey(proof,key) || continue
     rows=proof[key]["records"]
     all(r->r["correctness"]=="passed" && r["observable_work_matches"],rows) ||
@@ -165,5 +167,35 @@ for (key,basename,description,xminimum,caption) in (
         Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
         Label(figure[3,1],"52 historical profiles; same frozen package cohort; 2 workers. $caption\nAll original-model oracles passed. Allocation evidence; no speed or quality claim.",fontsize=13)
         export_figure(figure,basename*"-"*category)
+    end
+end
+
+if haskey(proof,"night_owned_relocation")
+    let
+    rows=proof["night_owned_relocation"]["larger_fixtures"]["records"]
+    all(r->r["original_oracle"]=="passed"&&r["retained_routes_and_examined_match"],rows) ||
+        error("Relocation figure requires matching original-model work")
+    rows=sort(rows;by=r->(r["requests"],r["seed"]))
+    figure=Figure(size=(1650,850));colgap!(figure.layout,60)
+    labels=["$(r["requests"]) requests / seed $(r["seed"])" for r in rows]
+    for (column,field,title,powers) in ((1,"bytes_per_call","Allocated Julia bytes",11:19),
+            (2,"objects_per_call","Allocated Julia objects",5:13))
+        prior=[r["before"][field] for r in rows];owned=[r["after"][field] for r in rows]
+        axis=Axis(figure[1,column],title=title,xlabel="Per warm pair relocation (log₂ scale)",
+            ylabel=column==1 ? "Original PDPTW fixture" : "",xscale=log2,
+            yticks=(1:length(rows),labels),yticklabelsvisible=column==1,
+            xticks=(2.0 .^ powers,string.(2 .^ powers)))
+        for i in eachindex(rows)
+            lines!(axis,[prior[i],owned[i]],[i,i];color=:gray65,linestyle=:dash,linewidth=1.5)
+        end
+        scatter!(axis,prior,1:length(rows);color=:gray35,marker=:rect,markersize=13,label="Previous source reference")
+        scatter!(axis,owned,1:length(rows);color=:dodgerblue3,marker=:circle,markersize=13,label="Owned deferred incumbent")
+        xlims!(axis,2.0^first(powers),2.0^last(powers));ylims!(axis,.4,length(rows)+.6)
+        column==1 && Legend(figure[2,1:2],axis;orientation=:horizontal,framevisible=false)
+    end
+    colgap!(figure.layout,70)
+    Label(figure[0,1:2],"Pair relocation: one independent incumbent after selection";fontsize=23)
+    Label(figure[3,1:2],"Five batches of eight calls; exact historical routes, examined candidates and complete checksums match.\nAll original PDPTW validators pass. Warm workspace scope; concurrent timing is not a controlled speedup.",fontsize=13)
+    export_figure(figure,"pair-relocation-owned-incumbent")
     end
 end
