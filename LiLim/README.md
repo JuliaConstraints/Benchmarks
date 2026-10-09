@@ -19,11 +19,18 @@ publishing reports cannot change a resumable campaign's source identity.
 Completed trials retain checksums and original solution/trajectory validation.
 Earlier qualifications, figures, branches and trials remain preserved.
 
-The first sealed `rp_aco_regret2` trials (seed 41 at each width) reach the
-published LR101 target: **19 vehicles and 1650.80 distance**, from the common
-21-vehicle, 1900.4077 start. Original solutions and trajectories pass validation.
-These are three preliminary observations; the second repetition and the other
-profiles remain pending, so they do not establish a solver ranking.
+The **06:19 UTC snapshot on 9 October** contains the first ten profiles at each
+width, all with seed 41: **30 sealed trials and 357 trajectory points**, independently
+rechecked against the original problem. Twenty-one trials reach the published
+LR101 target, **19 vehicles and 1650.80 distance**, from the common 21-vehicle,
+1900.4077 start. `rp_alns_critical` and `rp_alns_incompatibility` retain that start
+at all three widths. `rp_alns_qubo` reaches 19 vehicles, with distance 1685.7165,
+1681.7955 and 1685.7165 at widths 1/2/4 respectively. Both successful and stagnant
+trials remain in the comparison. This snapshot has only one seed per cell; the
+second repetition and the remaining profiles are pending. It establishes neither
+a solver ranking nor a result for the other original instances. The completed
+[performance qualification](../Hexaly/STRATEGIES.md#completed-performance-qualification)
+is reported separately from these solution-quality observations.
 
 Li-Lim is the first qualification target for the new Etendu-aligned cohort.
 The [Hexaly coverage catalog](config/hexaly-benchmark-catalog.toml) records all
