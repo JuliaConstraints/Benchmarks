@@ -632,3 +632,11 @@ findings; AllocCheck retains 39 potential allocation findings per specialization
 One GC and one memory diagnostic flag remain recorded. Three redacted heap
 captures were verified and removed. These results retain the independent
 returned snapshots and do not imply a zero-allocation whole solver.
+
+The actual objective wrapper also completes 96 fresh-worker executions across
+eight families: all four collectors and eight analyzers, with complete original
+objective checksums. The general factory retains 678 JET and 570 AllocCheck
+findings per specialization, including possible fallback branches; a completed
+execution is not a clean static verdict. All eight redacted heap captures were
+verified and removed. This pass uses the same frozen dependency environment and
+prepared objective source as the recorded allocation comparison.
