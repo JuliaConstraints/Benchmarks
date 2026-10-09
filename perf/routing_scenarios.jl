@@ -113,6 +113,41 @@ function routing_membership_case(parameters)
     (;prepare,operation,verify)
 end
 
+"Actual native empty-sequence insertion, checked against original summaries and route scans."
+function routing_empty_insertion_case(parameters)
+    requests=parameters["requests"];repetitions=parameters["repetitions"]
+    prepare=()->begin
+        nodes=2requests+1;rng=Xoshiro(parameters["seed"])
+        data=PickupDeliveryProblem(requests,2,100rand(rng,nodes,2),
+            vcat(0,repeat([1,-1],requests)),zeros(nodes),fill(1e9,nodes),zeros(nodes),[(2i,2i+1) for i in 1:requests])
+        p=BenchmarkInstance("empty-insertion-$requests",data);D=Pilot.distances(data)
+        @assert validate_solution(p,[[2i,2i+1] for i in 1:requests]).valid
+        expected=[StructuredRouting.insertion_summary(StructuredRouting.range_cache(data,D,Int[]),data,D,pair,0,0) for pair in data.pairs]
+        checksum=0.0
+        for _ in 1:repetitions,i in 1:requests;checksum+=expected[i].travel;end
+        (;p,D,expected,checksum)
+    end
+    operation=s->begin
+        checksum=0.0
+        for _ in 1:repetitions,i in 1:requests
+            checksum+=StructuredRouting.empty_insertion_summary(s.p,s.D,i).travel
+        end
+        checksum
+    end
+    verify=(s,checksum)->begin
+        isequal(checksum,s.checksum) || return false
+        for i in 1:requests
+            summary=StructuredRouting.empty_insertion_summary(s.p,s.D,i)
+            isequal(summary,s.expected[i]) || return false
+            route=collect(s.p.data.pairs[i])
+            StructuredRouting.sequence_feasible(s.p.data,s.D,summary)==Pilot.feasible_route(route,s.p.data,s.D) || return false
+            StructuredRouting.distance(summary,s.D)==Pilot.route_distance(route,s.D) || return false
+        end
+        true
+    end
+    (;prepare,operation,verify)
+end
+
 "New original-feasible pool admissions; independently known incumbent cover and column order."
 function routing_pool_columns_case(parameters)
     requests=parameters["requests"];repetitions=parameters["repetitions"]

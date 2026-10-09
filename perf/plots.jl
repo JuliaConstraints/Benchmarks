@@ -158,7 +158,9 @@ for (key,basename,description,xminimum,caption) in (
         ("night_owned_membership","routing-owned-membership","private pool membership positions",65,
          "Full trace/routes/RNG match; initial HIPO lifecycle variation is retained. Exact-warmed paired paths are shown separately."),
         ("night_owned_pool_columns","routing-owned-pool-columns","borrow ordered native pool columns",98,
-         "Full trace/routes/RNG match; 50 profiles allocate fewer bytes and two are unchanged. Generic callback effects retain eager snapshots."))
+         "Full trace/routes/RNG match; 50 profiles allocate fewer bytes and two are unchanged. Generic callback effects retain eager snapshots."),
+        ("night_native_empty_insertion","routing-native-empty-insertion","ordered native empty-sequence insertion",55,
+         "Full trace/routes/RNG match; every initial lifecycle variation remains shown. Generic callback order and exceptional floating values retain the original cache path."))
     haskey(proof,key) || continue
     rows=proof[key]["records"]
     all(r->r["correctness"]=="passed" && r["observable_work_matches"],rows) ||
@@ -184,20 +186,22 @@ end
 
 for (stagekey,prefix,nativekey,description,native_minimum,fixed_minimum,meta_minimum) in (
         ("night_owned_membership","routing-owned-membership","native_membership_pairs","private pool membership",-2,68,94),
-        ("night_owned_pool_columns","routing-owned-pool-columns","native_pool_column_pairs","borrowed native pool columns",78,98.5,99))
+        ("night_owned_pool_columns","routing-owned-pool-columns","native_pool_column_pairs","borrowed native pool columns",78,98.5,99),
+        ("night_native_empty_insertion","routing-native-empty-insertion","native_empty_insertion_pairs","ordered native empty insertion",-2,35,94))
     haskey(proof,stagekey) || continue
     let
     stage=proof[stagekey]
     for (key,basename,title,caption) in (
             (nativekey,prefix*"-native","Actual prepared routing: $description",
              nativekey=="native_membership_pairs" ? "1,000 native route checks per row; independently valid full PDPTW inputs. A constant 432-byte/8-object measurement scaffold remains." :
+             nativekey=="native_empty_insertion_pairs" ? "One warmed batch of 1,000 calls per request; original two-node summaries and full PDPTW inputs. Constant 656-byte/11-object measurement scaffold retained; generic matrix-view controls unchanged." :
                 "100 nonduplicate complete admissions per row; independently prepared pools. Every ordered column, retained solution and membership workspace state matches."),
             ("fixed_original_lr101",prefix*"-fixed-lr101","Actual original LR101: $description",
              "4,096 steps per lane × 2 workers; three seeds per configuration. Every exact path is independently warmed; compilation/recompilation are zero."))
         local rows,labels,n,figure,axis,bytes,objects
         rows=stage[key]["records"]
         all(r->r["original_oracle"]=="passed",rows) || error("Unqualified membership pairs")
-        labels=key==nativekey ? ["$(r["requests"]) requests"*(haskey(r,"pool_cap") ? " / pool $(r["pool_cap"])" : "")*" / seed $(r["seed"])" for r in rows] :
+        labels=key==nativekey ? ["$(r["requests"]) requests"*(haskey(r,"pool_cap") ? " / pool $(r["pool_cap"])" : "")*(haskey(r,"kind") ? " / "*replace(r["kind"],"_"=>" ") : "")*" / seed $(r["seed"])" for r in rows] :
             [replace(r["method"],"rp_"=>"","_"=>" ")*" / seed $(r["seed"])" for r in rows]
         n=length(rows);figure=Figure(size=(1600,max(650,38n+180)))
         axis=Axis(figure[1,1],title=title,xlabel="Remaining allocation (% of same-cohort previous source)",

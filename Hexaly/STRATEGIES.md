@@ -775,3 +775,29 @@ All 36 collector/analyzer executions pass; JET reports zero findings, AllocCheck
 retains 35 potential/intentional findings per case, and three redacted heaps were
 verified and removed. Exact and XKCD figures retain the previous-source reference
 and every paired observation. Concurrent timings establish no controlled speedup.
+
+The sixth independently frozen public package cohort passes all 711,793 original application assertions and every full lane/work/RNG fingerprint across 52 routing configurations. Exact package commits, offline environment hashes, native HiGHS integer qualification and separately labelled sampled/totals observations are retained in `night_cohort_integration_v6`. This validates their combination; it does not promote the default portable cohort or establish controlled timing gains.
+
+Empty native insertions now compose the original ordered two-node summaries
+directly, avoiding a temporary empty range cache. Generic problem and matrix
+inputs retain the historical block, callback order and request-index errors.
+All 712,745 application assertions pass, including 952 new floating-bit,
+exceptional-value, callback-order and allocation checks. All 52 routing profiles
+retain identical complete lane trace, routes and next RNG observations.
+
+Twelve exact-warmed original LR101 pairs show further allocation reductions:
+VND saves 0.4–0.9% of bytes, route ALNS 25.8–28.6%, ACO 37.9–39.7%, and random
+ALNS 27.7–30.8%; ACO saves 60.0–62.4% of objects. Every pair completes the same
+4,096 steps per lane on two workers, with zero compilation/recompilation and the
+unchanged original validator. The helper itself allocates zero bytes; all nine
+prepared native pairs retain a constant measurement scaffold, while nine generic
+matrix-view controls remain unchanged.
+
+All 48 exact-warmed MetaStrategist pairs preserve complete lane and substantive
+coordination work. Affected repair paths generally allocate less; six small byte
+increases and one object increase remain recorded. Initial HIPO lifecycle
+variation also stays visible. All 36 collector/analyzer executions pass: JET and
+AllocCheck report zero findings for this primitive; three redacted heaps were
+verified and removed. English exact and XKCD figures retain every observation
+and the previous-source reference. These concurrent allocation qualifications
+establish no controlled speedup or solution-quality ranking.
