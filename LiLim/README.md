@@ -19,6 +19,12 @@ publishing reports cannot change a resumable campaign's source identity.
 Completed trials retain checksums and original solution/trajectory validation.
 Earlier qualifications, figures, branches and trials remain preserved.
 
+The first sealed `rp_aco_regret2` trials (seed 41 at each width) reach the
+published LR101 target: **19 vehicles and 1650.80 distance**, from the common
+21-vehicle, 1900.4077 start. Original solutions and trajectories pass validation.
+These are three preliminary observations; the second repetition and the other
+profiles remain pending, so they do not establish a solver ranking.
+
 Li-Lim is the first qualification target for the new Etendu-aligned cohort.
 The [Hexaly coverage catalog](config/hexaly-benchmark-catalog.toml) records all
 20 benchmark pages, with their exact source URLs. Other families still need
