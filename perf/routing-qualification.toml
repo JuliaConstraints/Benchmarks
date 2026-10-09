@@ -35,6 +35,150 @@ structured_routing_assertions = 4416
 timing_qualification = "Other chats may be active on disjoint cores; timings and active CPU values are operational evidence, not controlled scaling/quality comparisons"
 workers = 2
 
+[night_lilim_guidance_followup]
+budget_seconds = 60
+campaign = "sintef-final-panel-60s-lr101-124w-20261009"
+instance = "lr101"
+interpretation = "A static guided prefix is a plausible stagnation mechanism, not a causal performance proof. Consider additive stochastic-guidance variants only after repeated-seed confirmation and separate original-validator/PerfChecker qualification; historical profiles and current runtime remain unchanged."
+qubo_provenance = "These observations use the explicitly unlearned analytic structural proxy; they do not assess a learned constraint QUBO matrix."
+recorded_utc = "2026-10-09T06:25:43.939"
+runtime_application_commit = "d057081651d854a475d3297ec7fb58dc80bbaa9f"
+schema = "li-lim-guidance-stagnation-observation/1"
+scope = "Preliminary seed-41 observations at widths 1/2/4; nine of the independently original-revalidated first thirty trials. No repeated-seed or full-corpus inference."
+source_finding = "guidance_ids rebuilds a full request ranking. Critical ranks depend only on original time bounds/travel; incompatibility ranks depend only on the prepared graph. destroy! takes the full guided prefix before random fill and bypasses its adaptive destroy-mode branches."
+
+    [[night_lilim_guidance_followup.records]]
+    accepted_meta_moves = 0
+    completed_resets = 0
+    distance = 1900.407702699778
+    method = "rp_alns_critical"
+    original_validation = true
+    run_fingerprint = "52b30e340d055a57d356d5d51e69c1e83bd40b56ed974aba36792b19ba7b402c"
+    seed = 41
+    steps = 48848
+    trial = "workers-1/trials/lr101__rp_alns_critical__seed-41.toml"
+    trial_sha256 = "21591fcb3d0d1e06fa2c1f8fa0a3e5bd6681b18a20577337f827f045714f2355"
+    unchanged_proposals = 48608
+    vehicles = 21
+    width = 1
+    [[night_lilim_guidance_followup.records]]
+    accepted_meta_moves = 0
+    completed_resets = 0
+    distance = 1900.407702699778
+    method = "rp_alns_critical"
+    original_validation = true
+    run_fingerprint = "6fc3fa1cbfdae70099dff8e2795f0ea28bf787fe267f2444164bbee37e6913f9"
+    seed = 41
+    steps = 94384
+    trial = "workers-2/trials/lr101__rp_alns_critical__seed-41.toml"
+    trial_sha256 = "53d46d03e36a2334ef83e123c1f0d3c5180135404fa2ee1d15c93324a006660d"
+    unchanged_proposals = 93906
+    vehicles = 21
+    width = 2
+    [[night_lilim_guidance_followup.records]]
+    accepted_meta_moves = 0
+    completed_resets = 0
+    distance = 1900.407702699778
+    method = "rp_alns_critical"
+    original_validation = true
+    run_fingerprint = "b6294fb60dea50de2d45990a2c88bb7e6cb3f414cc4e25eb34ae9f6c21140ffa"
+    seed = 41
+    steps = 190212
+    trial = "workers-4/trials/lr101__rp_alns_critical__seed-41.toml"
+    trial_sha256 = "919627d576bab11260aa8d2c41f56ebba68737100ec83e50e3a4b674dad34186"
+    unchanged_proposals = 189252
+    vehicles = 21
+    width = 4
+    [[night_lilim_guidance_followup.records]]
+    accepted_meta_moves = 0
+    completed_resets = 0
+    distance = 1900.407702699778
+    method = "rp_alns_incompatibility"
+    original_validation = true
+    run_fingerprint = "52b30e340d055a57d356d5d51e69c1e83bd40b56ed974aba36792b19ba7b402c"
+    seed = 41
+    steps = 49750
+    trial = "workers-1/trials/lr101__rp_alns_incompatibility__seed-41.toml"
+    trial_sha256 = "b933d041d5873080ad04300946f0ba4347fedf46f69552a22f681067e1321fef"
+    unchanged_proposals = 49511
+    vehicles = 21
+    width = 1
+    [[night_lilim_guidance_followup.records]]
+    accepted_meta_moves = 0
+    completed_resets = 0
+    distance = 1900.407702699778
+    method = "rp_alns_incompatibility"
+    original_validation = true
+    run_fingerprint = "6fc3fa1cbfdae70099dff8e2795f0ea28bf787fe267f2444164bbee37e6913f9"
+    seed = 41
+    steps = 96981
+    trial = "workers-2/trials/lr101__rp_alns_incompatibility__seed-41.toml"
+    trial_sha256 = "e931244e25d29400afb9b7dc00a68ed56243d960fe1f114f482a65db34883e81"
+    unchanged_proposals = 96501
+    vehicles = 21
+    width = 2
+    [[night_lilim_guidance_followup.records]]
+    accepted_meta_moves = 0
+    completed_resets = 0
+    distance = 1900.407702699778
+    method = "rp_alns_incompatibility"
+    original_validation = true
+    run_fingerprint = "b6294fb60dea50de2d45990a2c88bb7e6cb3f414cc4e25eb34ae9f6c21140ffa"
+    seed = 41
+    steps = 193385
+    trial = "workers-4/trials/lr101__rp_alns_incompatibility__seed-41.toml"
+    trial_sha256 = "c401697535e3063f427039af069f9ac07d7bbd27c3b44f7d909dfb056a90b7e8"
+    unchanged_proposals = 192425
+    vehicles = 21
+    width = 4
+    [[night_lilim_guidance_followup.records]]
+    accepted_meta_moves = 13
+    completed_resets = 0
+    distance = 1685.7165275794866
+    method = "rp_alns_qubo"
+    original_validation = true
+    run_fingerprint = "52b30e340d055a57d356d5d51e69c1e83bd40b56ed974aba36792b19ba7b402c"
+    seed = 41
+    steps = 46806
+    trial = "workers-1/trials/lr101__rp_alns_qubo__seed-41.toml"
+    trial_sha256 = "7362e7682b0a54c77b6100f6ebf11e17288104bf0aeaa15ff050b5b1612ad2f2"
+    unchanged_proposals = 46377
+    vehicles = 19
+    width = 1
+    [[night_lilim_guidance_followup.records]]
+    accepted_meta_moves = 34
+    completed_resets = 0
+    distance = 1681.7955293594778
+    method = "rp_alns_qubo"
+    original_validation = true
+    run_fingerprint = "6fc3fa1cbfdae70099dff8e2795f0ea28bf787fe267f2444164bbee37e6913f9"
+    seed = 41
+    steps = 92087
+    trial = "workers-2/trials/lr101__rp_alns_qubo__seed-41.toml"
+    trial_sha256 = "4d74690d286239aab140a5cd88085628c4c052eb45b1806e409aee65c7d2dcfb"
+    unchanged_proposals = 91225
+    vehicles = 19
+    width = 2
+    [[night_lilim_guidance_followup.records]]
+    accepted_meta_moves = 63
+    completed_resets = 0
+    distance = 1685.7165275794866
+    method = "rp_alns_qubo"
+    original_validation = true
+    run_fingerprint = "b6294fb60dea50de2d45990a2c88bb7e6cb3f414cc4e25eb34ae9f6c21140ffa"
+    seed = 41
+    steps = 182244
+    trial = "workers-4/trials/lr101__rp_alns_qubo__seed-41.toml"
+    trial_sha256 = "9a1800465e2145d22eadabf429e26b25c87dc3017a7b3ec336274a6bb24e8deb"
+    unchanged_proposals = 180562
+    vehicles = 19
+    width = 4
+
+    [night_lilim_guidance_followup.source_sha256]
+    "LiLim/config/routing-panel.toml" = "526e5283ce541dcf4b04424024fd6826418f2d63096f9614dfa10f188d00f2d1"
+    "LiLim/src/RoutingPanel.jl" = "d5407cc4bd255e04edc6a8d69fd0f157ad110d5eb6daab8f26afc5b31e6eee3b"
+    "LiLim/src/StructuredRouting.jl" = "b1497be366770195a8e551b72f5382f4abffe00a7f119abf621fc0b1a33abd7d"
+
 [before_initial_fixed_work]
 bytes = 74568944
 fixture = "Same three-request fixture; 2 workers, 8 episodes x 8 steps; one observation before decoder/network and pool fixes"

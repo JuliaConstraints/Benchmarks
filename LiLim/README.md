@@ -32,6 +32,17 @@ a solver ranking nor a result for the other original instances. The completed
 [performance qualification](../Hexaly/STRATEGIES.md#completed-performance-qualification)
 is reported separately from these solution-quality observations.
 
+The [guided-profile trace audit](../perf/routing-qualification.toml) records
+more than 99% unchanged proposals and zero accepted moves for the critical and
+incompatibility variants at all three widths on seed 41. Source inspection finds
+a plausible cause: their static full ranking supplies the entire destruction
+prefix before random fill and overrides the requested adaptive destroy operator.
+For these guided paths, `destroy_*_calls` therefore counts the requested operator,
+not the actual selection rule. Randomized guidance is a follow-up to qualify
+after repetition; the current profiles and runtime are preserved. The QUBO
+variant uses the explicitly unlearned structural proxy, so these observations
+do not assess learned value-pair matrices.
+
 Li-Lim is the first qualification target for the new Etendu-aligned cohort.
 The [Hexaly coverage catalog](config/hexaly-benchmark-catalog.toml) records all
 20 benchmark pages, with their exact source URLs. Other families still need
