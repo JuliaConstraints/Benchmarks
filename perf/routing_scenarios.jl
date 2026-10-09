@@ -79,6 +79,40 @@ function routing_range_cache_case(parameters)
     (;prepare,operation,verify)
 end
 
+"Prepared pool membership; unchanged original route scans and full solutions are the oracle."
+function routing_membership_case(parameters)
+    requests=parameters["requests"];repetitions=parameters["repetitions"]
+    requests>0 && repetitions>0 || throw(ArgumentError("positive membership workload required"))
+    prepare=()->begin
+        nodes=2requests+1;rng=Xoshiro(parameters["seed"])
+        data=PickupDeliveryProblem(requests,2,100rand(rng,nodes,2),
+            vcat(0,repeat([1,-1],requests)),zeros(nodes),fill(1e9,nodes),zeros(nodes),
+            [(2i,2i+1) for i in 1:requests])
+        p=BenchmarkInstance("route-membership-$requests",data);D=Pilot.distances(data)
+        original=[collect(2:nodes)]
+        @assert validate_solution(p,original).valid
+        routes=[copy(first(original)),[2,3],[3,2],[2],[2,3,2,3],Int[],[1,2,3],[2,nodes+1]]
+        expected=[StructuredRouting.route_valid(p,D,route) for route in routes]
+        workspace=StructuredRouting.RouteMembershipWorkspace()
+        for route in routes;StructuredRouting.route_valid(p,D,route,workspace);end
+        (;p,D,original,routes,retained=deepcopy(routes),expected,workspace,observed=similar(expected))
+    end
+    operation=s->begin
+        checksum=0
+        for _ in 1:repetitions,i in eachindex(s.routes)
+            valid=StructuredRouting.route_valid(s.p,s.D,s.routes[i],s.workspace)
+            s.observed[i]=valid;checksum+=valid
+        end
+        checksum
+    end
+    verify=(s,checksum)->begin
+        checksum==repetitions*count(identity,s.expected) && s.observed==s.expected &&
+        s.routes==s.retained && validate_solution(s.p,s.original).valid &&
+        all(StructuredRouting.route_valid(s.p,s.D,s.routes[i])==s.observed[i] for i in eachindex(s.routes))
+    end
+    (;prepare,operation,verify)
+end
+
 "Owned pair reinsertion, qualified by exhaustive original-model insertion checks."
 function pair_relocation_case(parameters)
     requests=parameters["requests"];seed=parameters["seed"];repetitions=parameters["repetitions"]
