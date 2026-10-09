@@ -17,6 +17,36 @@ const D=Pilot.distances(DATA)
 const BANKS=Dict(k=>ICNScoring.load_backend(k) for k in (:naive,:direct,:icn))
 LSvalues(lane)=collect(Hybrid.LS.get_values(lane.parent.solver))
 
+@testset "Private lane counters preserve numeric observations and exported snapshots" begin
+    first_lane=R.Lane(P,INITIAL);second_lane=R.Lane(P,INITIAL)
+    @test first_lane.trace isa R.TraceCounters.Trace
+    @test first_lane.trace.integers!==second_lane.trace.integers
+    @test first_lane.trace.scalars!==second_lane.trace.scalars
+    @test first_lane.trace.values!==second_lane.trace.values
+    reference=R.TraceCounters.snapshot(first_lane.trace)
+    retained=copy(reference)
+    for (key,amount) in ("summary_evaluations"=>2000,"summary_evaluations"=>3,
+            "thread_cpu_seconds"=>0.1,"thread_cpu_seconds"=>0.2,
+            "custom_number"=>big(2),"custom_number"=>3)
+        reference[key]=get(reference,key,0)+amount
+        R.counter!(first_lane.trace,key,amount)
+        @test isequal(R.TraceCounters.snapshot(first_lane.trace),reference)
+        @test !haskey(second_lane.trace,key)
+    end
+    @test !haskey(retained,"summary_evaluations")
+    function warm_counters!(trace)
+        for _ in 1:100000;R.counter!(trace,"summary_evaluations",3);end
+        nothing
+    end
+    warm_counters!(first_lane.trace)
+    @test (@allocated warm_counters!(first_lane.trace))==0
+    @test first_lane.trace["summary_evaluations"]==602003
+    exported=R.TraceCounters.snapshot(first_lane.trace)
+    @test exported isa Dict{String,Any}
+    R.counter!(first_lane.trace,"summary_evaluations")
+    @test exported["summary_evaluations"]==602003
+end
+
 @testset "Guidance, compaction and pheromone buffers preserve historical work" begin
     rng=Xoshiro(81)
     for _ in 1:200
@@ -440,6 +470,8 @@ end
     @test sum(result.coordination["role_episode_counts"])==8width
     @test all(>(0),result.coordination["role_episode_counts"])
     @test all(w->validate_solution(P,w["routes"]).valid,result.workers)
+    @test all(w->w["trace"] isa Dict{String,Any},result.workers)
+    @test all(pair->first(pair)["trace"]!==last(pair).trace,zip(result.workers,result.lanes))
     @test all(l->validate_solution(P,l.current).valid,result.lanes)
     @test INITIAL==[[2,3],[4,5],[6,7]]
     @test result.coordination["fill_episode"]

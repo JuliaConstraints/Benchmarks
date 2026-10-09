@@ -5,6 +5,7 @@ import MathOptInterface as MOI
 import LocalSearchSolvers as LS
 using ..Benchmarks, ..Pilot, ..MetaRepair, ..Hybrid
 include("RoutingPanel.jl")
+include("TraceCounters.jl")
 const BOUNDS = RoutingPanel.CONFIG["bounds"]
 const LIMITS = (; (Symbol(k)=>v for (k,v) in BOUNDS)...)
 const TOL = 1e-8
@@ -170,6 +171,7 @@ end
 function counter!(trace,key,amount=1)
     trace[key]=get(trace,key,0)+amount
 end
+counter!(trace::TraceCounters.Trace,key,amount=1)=TraceCounters.counter!(trace,key,amount)
 "Stable in-place compaction, preserving the historical filter order."
 function remove_nodes!(route,removed)
     next=1
@@ -548,7 +550,7 @@ mutable struct Lane{P,G,W,V}
     unchanged_proposals::Int
     origin::UInt64
     deadline::UInt64
-    trace::Dict{String,Any}
+    trace::TraceCounters.Trace
 end
 function Lane(p,initial;seed=41,scorer=nothing,origin=time_ns(),deadline=typemax(UInt64),guidance=:none,instance_sha256=nothing)
     parent=Hybrid.prepare_parent(p,initial;seed,scorer)
@@ -558,10 +560,12 @@ function Lane(p,initial;seed=41,scorer=nothing,origin=time_ns(),deadline=typemax
     # Structural fallback is explicitly unlearned; externally configured learned matrices retain their provenance.
     workspace=Hybrid.QUBOGuidance.Workspace(g)
     validation_workspace=original_workspace()
-    q=quality(p,initial;validation_workspace);trace=Dict{String,Any}("trajectory"=>Any[],"controller"=>"structured original-route CBLS MetaMove controller/1",
+    q=quality(p,initial;validation_workspace);trace=TraceCounters.Trace(Dict{String,Any}("trajectory"=>Any[],"controller"=>"structured original-route CBLS MetaMove controller/1",
         "guidance_authority"=>"guidance_only","guide_provenance"=>g.provenance,
         "reset_counter_scope"=>"actual paired-request ruin/recreate resets",
-        "incremental_scope"=>"fixed-sequence feasibility summaries; full ICN score remains acceptance authority")
+        "incremental_scope"=>"fixed-sequence feasibility summaries; full ICN score remains acceptance authority"))
+    # Reserve ordinary search counters before the lane enters its hot loop.
+    sizehint!(trace.integers,32)
     for key in ("accepted_meta_moves","completed_resets","failed_resets","ejected_requests","tabu_hits","max_tabu_entries","infeasible_steps")
         trace[key]=0
     end
@@ -894,7 +898,7 @@ function run_portfolio(p,initial,id,seconds,seed,banks,strategy,execute;
     for i in 1:width
         l=lanes[i];l.trace["pool_routes"]=length(l.pool.routes)
         push!(workers,Dict{String,Any}("worker"=>i,"method"=>id,"seed"=>seed+10000(i-1),
-            "routes"=>l.best,"vehicles"=>l.best_q[1],"distance"=>l.best_q[2],"trace"=>l.trace,
+            "routes"=>l.best,"vehicles"=>l.best_q[1],"distance"=>l.best_q[2],"trace"=>TraceCounters.snapshot(l.trace),
             "thread_cpu_seconds"=>get(l.trace,"thread_cpu_seconds",0.),
             "error_backend"=>haskey(execute,:metadata) ? execute.metadata(backends[i]) : Dict{String,Any}()))
     end

@@ -205,6 +205,7 @@ function measure(opts,runtime,width,seconds,rate)
         "diagnostic_sha256"=>bytes2hex(sha256(read(@__FILE__))),
         "factory_sha256"=>bytes2hex(sha256(read(joinpath(@__DIR__,"routing_scenarios.jl")))),
         "source_sha256"=>bytes2hex(sha256(read(joinpath(@__DIR__,"../LiLim/src/StructuredRouting.jl")))),
+        "TraceCounters_sha256"=>bytes2hex(sha256(read(joinpath(@__DIR__,"../LiLim/src/TraceCounters.jl")))),
         "Hybrid_sha256"=>bytes2hex(sha256(read(joinpath(@__DIR__,"../LiLim/src/Hybrid.jl")))),
         "ICNScoring_sha256"=>bytes2hex(sha256(read(joinpath(@__DIR__,"../LiLim/src/ICNScoring.jl")))),
         "MetaRepair_sha256"=>bytes2hex(sha256(read(joinpath(@__DIR__,"../LiLim/src/MetaRepair.jl")))),
