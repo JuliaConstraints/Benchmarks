@@ -52403,6 +52403,3162 @@ test_assertions = 713065
     method = "rp_vnd_tabu"
     observable_work_matches = true
 
+[night_cohort_integration_v8]
+all_52_complete_worker_work_matches = true
+all_eight_original_work_matches = true
+baseline_is_first_public_performance_cohort = true
+default_portable_cohort_promoted = false
+generic_qubo_blocker_resolved_by = "a1708217214c1e6e19d071480eb884fd186a7b6e"
+recorded_utc = "2026-10-09T04:34:55.310"
+scope = "Thirteen immutable published corrected package commits, offline import/native integer solve, unchanged complete application assertions, all 52 fixed-work panel paths and eight complete original LR101 semantic/RNG paths. Generic QUBO constructor uses the corrected native-type guard; upcoming final LocalSearchSolvers snapshot and unrestricted Constraints Aqua repairs are separately staged before default portable promotion."
+status = "qualified_application_pending_final_package_bundle"
+timing_scope = "No controlled speed claim; disjoint package diagnostics still active."
+
+    [night_cohort_integration_v8.application_tests]
+    cpu_affinity = [8, 10]
+    gc_threads = 1
+    manifest_sha256 = "6f88fd6d007fcd0eb9aa4eed65fd6e34bdfad7dbbe03f095d184e85e85223621"
+    project_sha256 = "68cd52296878eb0006e5077da480351385ba2d21316a5f80e5b069980291de71"
+    schema = "owned-best-quality-v8-original-application-suite-qualification/1"
+    source_sha256 = "b1497be366770195a8e551b72f5382f4abffe00a7f119abf621fc0b1a33abd7d"
+    trace_sha256 = "8b88af8004cd14a7d37e76e4917e692893f12a2e12f144cda1b2da028c370f0a"
+    workers = 2
+
+        [[night_cohort_integration_v8.application_tests.records]]
+        completed_utc = "2026-10-09T04:20:55.677"
+        source = "LiLim/test/trace_counters.jl"
+        source_sha256 = "8e97e2774e2df869c2842b4e21ea61fec3ea6dcbf9987b55f0aee7f0c64fed03"
+        started_utc = "2026-10-09T04:20:54.009"
+        status = "passed"
+        test_output = """Test Summary:                                                    | Pass  Total  Time\nPrivate numeric trace preserves ordinary dictionary observations |   47     47  0.9s\nTest Summary:                                       | Pass  Total  Time\nMixed counter arithmetic and warmed integer updates | 1006   1006  0.1s\n"""
+        [[night_cohort_integration_v8.application_tests.records]]
+        completed_utc = "2026-10-09T04:21:39.326"
+        source = "LiLim/test/structured_routing.jl"
+        source_sha256 = "d1ecf6bd83a1c26505dcef1570e2d3b1110396a5b0fd460dfcc716345011d2be"
+        started_utc = "2026-10-09T04:20:55.822"
+        status = "passed"
+        test_output = """Test Summary:                                                            | Pass  Total  Time\nCoordinator quality workspace retains complete lane values and ownership |  320    320  6.3s\nTest Summary:                                                                    | Pass  Total  Time\nEmpty native insertion preserves original ordered arithmetic and generic effects |  952    952  0.9s\nTest Summary:                                                         | Pass  Total  Time\nNative pool columns retain ordering, aliases and custom eager effects |   28     28  0.6s\nTest Summary:                                                           |  Pass  Total  Time\nPrivate pool membership preserves original routes, epochs and ownership | 66525  66525  0.7s\nTest Summary:                                                              | Pass  Total  Time\nIndependent primitive snapshots preserve aliases and retained observations |  176    176  0.8s\nTest Summary:                                                              | Pass  Total  Time\nPrivate lane counters preserve numeric observations and exported snapshots |   21     21  0.2s\nTest Summary:                                                       | Pass  Total  Time\nGuidance, compaction and pheromone buffers preserve historical work |  818    818  1.4s\nTest Summary:                                                      | Pass  Total  Time\nUniform repair priorities preserve explicit fresh defaults and RNG | 2706   2706  0.5s\nTest Summary:                                         | Pass  Total  Time\nAdditive configurations and colleague resource matrix |  323    323  1.1s\nTest Summary:                                                     | Pass  Total  Time\nExact sequence monoid versus independent original time/load scans | 3612   3612  0.4s\nTest Summary:                                                      |   Pass   Total  Time\nOwned range-cache capacity and original ordered segment arithmetic | 601252  601252  1.8s\nTest Summary:                                 | Pass  Total  Time\nOwned route, request and successor workspaces |  206    206  0.8s\nTest Summary:                                                    | Pass  Total  Time\nOriginal validator workspace and RNG-identical request selection | 1747   1747  0.5s\nTest Summary:                                                 | Pass  Total  Time\nOriginal-distance exchange rejection preserves the full audit |  965    965  0.1s\nTest Summary:                                                       | Pass  Total  Time\nRequest closure, bounded repair, ejections, diversity and ICN truth |  216    216  3.1s\nTest Summary:                                                             | Pass  Total  Time\nCertified incompatibilities, protected pools and native LP/MIP algorithms |   32     32  3.6s\nTest Summary:                                                      | Pass  Total  Time\nReal typed MetaStrategist cooperative phases and owned CBLS states |   29     29  9.6s\n"""
+        [[night_cohort_integration_v8.application_tests.records]]
+        completed_utc = "2026-10-09T04:22:14.963"
+        source = "LiLim/test/icn_resources.jl"
+        source_sha256 = "23d8a1b4d25f00f97243ef29580b3acfdbf4b814ebec67fe60a5e712113ffca9"
+        started_utc = "2026-10-09T04:21:39.327"
+        status = "passed"
+        test_output = """Test Summary:                                             | Pass  Total  Time\nFused buffers retain capacity for fleet-violating layouts |   64     64  0.3s\nTest Summary:                               |  Pass  Total  Time\nRecovered ICN route zero sets and magnitude | 30112  30112  0.2s\nTest Summary:                                        | Pass  Total  Time\nPrivate scoring workspaces and allocation regression |   33     33  0.4s\nTest Summary:                                 | Pass  Total   Time\nResource accounting and executable portfolios |  113    113  29.1s\n"""
+        [[night_cohort_integration_v8.application_tests.records]]
+        completed_utc = "2026-10-09T04:22:25.145"
+        source = "LiLim/test/hybrid.jl"
+        source_sha256 = "b35c188035302603578d3cba04b3f773d8d136442018fa56bc4afed5b498b84f"
+        started_utc = "2026-10-09T04:22:14.964"
+        status = "passed"
+        test_output = """Test Summary:                 | Pass  Total  Time\nNative CBLS hybrid controller | 1693   1693  9.8s\n"""
+        [[night_cohort_integration_v8.application_tests.records]]
+        completed_utc = "2026-10-09T04:22:43.742"
+        source = "Hexaly/test/strategy_panel.jl"
+        source_sha256 = "4f1928247e471712b000f05897f7731196374329b3e00e77a7676d69aaaae1f9"
+        started_utc = "2026-10-09T04:22:25.146"
+        status = "passed"
+        test_output = """Test Summary:                                           | Pass  Total  Time\nClassical strategy lanes, guide proposals and ownership |   42     42  9.1s\nTest Summary:                                        | Pass  Total  Time\nSemantic integer repairs preserve original decisions |   27     27  5.8s\n"""
+
+    [night_cohort_integration_v8.fixed_work]
+    Hybrid_sha256 = "08dc5644ac9fb06d1df410a679a56b7c766fc8092266e93606ea074c7d13b5ba"
+    ICNScoring_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+    MetaRepair_sha256 = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    TraceCounters_sha256 = "8b88af8004cd14a7d37e76e4917e692893f12a2e12f144cda1b2da028c370f0a"
+    bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    collector = "PerfChecker SharedScenarioRuntime + direct @timed allocation/GC totals"
+    collector_scope = "Same-observation process byte/object/GC totals; no native allocation stacks"
+    config_sha256 = "526e5283ce541dcf4b04424024fd6826418f2d63096f9614dfa10f188d00f2d1"
+    date_utc = "2026-10-09T04:26:31.010"
+    diagnostic_sha256 = "ec7f51c7c508f3dc5e60c9986c6d949c26ec94d3fa380eba9fc157a1e3d18d7d"
+    factory_sha256 = "0f0824cea2802884666319b31883691e5a4fc470db0e99adf1ca2d484b424841"
+    fixture = "Three pickup-delivery requests; functional/allocation qualification, not search-quality evidence"
+    julia = "1.13.1"
+    operation_budget_cap_seconds = 30.0
+    oracle = "Original Li-Lim validator and actual configured error backend"
+    runtime_sha256 = "6f3e6aaa5dddb2be0b53361b7f354b608710224d51bb68d4dc3b541a2e8657eb"
+    sample_scope = "Top frames contain raw sampled bytes/events, not exact allocation percentages"
+    schema = "routing-sampled-perfcheck/1"
+    solver_manifest_sha256 = "6f88fd6d007fcd0eb9aa4eed65fd6e34bdfad7dbbe03f095d184e85e85223621"
+    solver_project_sha256 = "68cd52296878eb0006e5077da480351385ba2d21316a5f80e5b069980291de71"
+    source_sha256 = "b1497be366770195a8e551b72f5382f4abffe00a7f119abf621fc0b1a33abd7d"
+    timing_qualification = "No timing/scaling conclusions; other chats may be active"
+    workers = 2
+
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 74720
+        category = "search"
+        correctness = "passed"
+        method = "rp_aco_regret2"
+        objects = 964
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "16313308241146808020"
+            steps = 40
+            summary_evaluations = 777
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "dff2933af5ab6fedc1afa432c9e481712e2031afdc64e5cc918e544f8d624a57"
+            unchanged_proposals = 38
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "4913919668143570781"
+            steps = 40
+            summary_evaluations = 729
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "e5670caa2fcab75f744f744be020fbff66400ef8fd5e92eb59bbc9518398efe3"
+            unchanged_proposals = 38
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 74720
+        category = "search"
+        correctness = "passed"
+        method = "rp_aco_regret3"
+        objects = 964
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "16313308241146808020"
+            steps = 40
+            summary_evaluations = 777
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "dff2933af5ab6fedc1afa432c9e481712e2031afdc64e5cc918e544f8d624a57"
+            unchanged_proposals = 38
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "4913919668143570781"
+            steps = 40
+            summary_evaluations = 729
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "e5670caa2fcab75f744f744be020fbff66400ef8fd5e92eb59bbc9518398efe3"
+            unchanged_proposals = 38
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 84512
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_adaptive_regret2"
+        objects = 1205
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "6250898130959331507"
+            steps = 40
+            summary_evaluations = 801
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "705855895dfc1573f194bbd594659a5f388bf74f82ef2b9c905720d911a56810"
+            unchanged_proposals = 34
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "10825241788032769985"
+            steps = 40
+            summary_evaluations = 765
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "b687645e4ea28cb029b6f9b94167141f313710b8f31efac78be879b582fca674"
+            unchanged_proposals = 34
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 84512
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_adaptive_regret3"
+        objects = 1205
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "6250898130959331507"
+            steps = 40
+            summary_evaluations = 801
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "705855895dfc1573f194bbd594659a5f388bf74f82ef2b9c905720d911a56810"
+            unchanged_proposals = 34
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "10825241788032769985"
+            steps = 40
+            summary_evaluations = 765
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "b687645e4ea28cb029b6f9b94167141f313710b8f31efac78be879b582fca674"
+            unchanged_proposals = 34
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 42384
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_critical"
+        objects = 566
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 1
+            best_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+            completed_resets = 0
+            current_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+            ejection_attempts = 0
+            next_rng_uint64 = "8605097178634629814"
+            steps = 40
+            summary_evaluations = 480
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "5b1e7674a579d15e562c1c2f07335f8d94c1f2c1f028b57e4fc68b5730fa15d0"
+            unchanged_proposals = 39
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 1
+            best_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+            completed_resets = 0
+            current_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+            ejection_attempts = 0
+            next_rng_uint64 = "5273820420773140275"
+            steps = 40
+            summary_evaluations = 480
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "1b4cc4d59ea40e02d968a904c1fc647643d67204ee897f183a9c22819267b4a0"
+            unchanged_proposals = 39
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 84512
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_direct"
+        objects = 1205
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "6250898130959331507"
+            steps = 40
+            summary_evaluations = 801
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "705855895dfc1573f194bbd594659a5f388bf74f82ef2b9c905720d911a56810"
+            unchanged_proposals = 34
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "10825241788032769985"
+            steps = 40
+            summary_evaluations = 765
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "b687645e4ea28cb029b6f9b94167141f313710b8f31efac78be879b582fca674"
+            unchanged_proposals = 34
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 42384
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_incompatibility"
+        objects = 566
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 1
+            best_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+            completed_resets = 0
+            current_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+            ejection_attempts = 0
+            next_rng_uint64 = "8605097178634629814"
+            steps = 40
+            summary_evaluations = 480
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "0e1438eec600018fbd12dc79a7cbae99377b8de9b92140df1bcf71e5e2566cbb"
+            unchanged_proposals = 39
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 1
+            best_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+            completed_resets = 0
+            current_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+            ejection_attempts = 0
+            next_rng_uint64 = "5273820420773140275"
+            steps = 40
+            summary_evaluations = 480
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "b73f2104c0eaa36743151a36648f54db6ddae6a194e5ff132ba7e7def1afb49a"
+            unchanged_proposals = 39
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 84512
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_naive"
+        objects = 1205
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "6250898130959331507"
+            steps = 40
+            summary_evaluations = 801
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "705855895dfc1573f194bbd594659a5f388bf74f82ef2b9c905720d911a56810"
+            unchanged_proposals = 34
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "10825241788032769985"
+            steps = 40
+            summary_evaluations = 765
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "b687645e4ea28cb029b6f9b94167141f313710b8f31efac78be879b582fca674"
+            unchanged_proposals = 34
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 42480
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_qubo"
+        objects = 568
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 1
+            best_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+            completed_resets = 0
+            current_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+            ejection_attempts = 0
+            next_rng_uint64 = "9928438158672382405"
+            steps = 40
+            summary_evaluations = 480
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "00f53729e24fe1b1dd78a99a8810a2f859ed0ef7b898c900d518e105df977593"
+            unchanged_proposals = 39
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 1
+            best_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+            completed_resets = 0
+            current_routes_sha256 = "935df7fdca59de707097fcc7978d12bde17df643ff62eb23e3cffd7bf452676a"
+            ejection_attempts = 0
+            next_rng_uint64 = "1949332390351000335"
+            steps = 40
+            summary_evaluations = 480
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "cac8634ff8c27a44fc7790a45b9babeb6ac2b8412eb74fb757d61a7fee642311"
+            unchanged_proposals = 39
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 68016
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_random_regret2"
+        objects = 906
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 5
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "10953658465918405216"
+            steps = 40
+            summary_evaluations = 585
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "208b5157e9e7020d48c1b44b4375de4ec420c06e91b681dfbf913e7f899b659d"
+            unchanged_proposals = 35
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "1899229159569082199"
+            steps = 40
+            summary_evaluations = 597
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "07f49123a1008770528c25998fb2473a49aa422907f52b1bd47f6ef2c2cad805"
+            unchanged_proposals = 38
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 68016
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_random_regret3"
+        objects = 906
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 5
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "10953658465918405216"
+            steps = 40
+            summary_evaluations = 585
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "208b5157e9e7020d48c1b44b4375de4ec420c06e91b681dfbf913e7f899b659d"
+            unchanged_proposals = 35
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "1899229159569082199"
+            steps = 40
+            summary_evaluations = 597
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "07f49123a1008770528c25998fb2473a49aa422907f52b1bd47f6ef2c2cad805"
+            unchanged_proposals = 38
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 101216
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_route_regret2"
+        objects = 1432
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "17958725757938226942"
+            steps = 40
+            summary_evaluations = 1065
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "e1b0b0637c90bacbbceff6192fdb69470ba2fabe4c5346c976f095b7424d30d2"
+            unchanged_proposals = 38
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 3
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "14599825881988619341"
+            steps = 40
+            summary_evaluations = 1065
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "5bf8f5d69470a0b153d02867b023d9bbded2c6526fe9b9dbccd85d654f47b2fb"
+            unchanged_proposals = 37
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 101216
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_route_regret3"
+        objects = 1432
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "17958725757938226942"
+            steps = 40
+            summary_evaluations = 1065
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "e1b0b0637c90bacbbceff6192fdb69470ba2fabe4c5346c976f095b7424d30d2"
+            unchanged_proposals = 38
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 3
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "14599825881988619341"
+            steps = 40
+            summary_evaluations = 1065
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "5bf8f5d69470a0b153d02867b023d9bbded2c6526fe9b9dbccd85d654f47b2fb"
+            unchanged_proposals = 37
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 67264
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_shaw_regret2"
+        objects = 884
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 3
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "9725966287134974197"
+            steps = 40
+            summary_evaluations = 588
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "5f02bef3a567353069604bff75f45316a06bb115fa22b57f76b21f471a6a5008"
+            unchanged_proposals = 37
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 3
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "15646006503162411831"
+            steps = 40
+            summary_evaluations = 582
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "44d80f6667f7f9fc8b118e8d8086abbac15cb707b0e12232723836766432b4fb"
+            unchanged_proposals = 37
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 67264
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_shaw_regret3"
+        objects = 884
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 3
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "9725966287134974197"
+            steps = 40
+            summary_evaluations = 588
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "5f02bef3a567353069604bff75f45316a06bb115fa22b57f76b21f471a6a5008"
+            unchanged_proposals = 37
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 3
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "15646006503162411831"
+            steps = 40
+            summary_evaluations = 582
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "44d80f6667f7f9fc8b118e8d8086abbac15cb707b0e12232723836766432b4fb"
+            unchanged_proposals = 37
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 101936
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_sisr_regret2"
+        objects = 1758
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 24
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "10953658465918405216"
+            steps = 40
+            summary_evaluations = 921
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "e33a4d089b1563f5ddebb61cc60a5d2b3635c300dc7107befe513db68e065ca8"
+            unchanged_proposals = 16
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 19
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "1899229159569082199"
+            steps = 40
+            summary_evaluations = 885
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "f060d01495f337833612eba64c808edfbdeb5b493aa68aca4aeb1afe8a4b7d91"
+            unchanged_proposals = 21
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 101936
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_sisr_regret3"
+        objects = 1758
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 24
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "10953658465918405216"
+            steps = 40
+            summary_evaluations = 921
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "e33a4d089b1563f5ddebb61cc60a5d2b3635c300dc7107befe513db68e065ca8"
+            unchanged_proposals = 16
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 19
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "1899229159569082199"
+            steps = 40
+            summary_evaluations = 885
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "f060d01495f337833612eba64c808edfbdeb5b493aa68aca4aeb1afe8a4b7d91"
+            unchanged_proposals = 21
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 62944
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_worst_regret2"
+        objects = 778
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "9725966287134974197"
+            steps = 40
+            summary_evaluations = 597
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "90077557b0e82488aa3b6e5c9c087e8a13ac38c73c8a6075a2daa41249852a7a"
+            unchanged_proposals = 38
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "15646006503162411831"
+            steps = 40
+            summary_evaluations = 597
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "90077557b0e82488aa3b6e5c9c087e8a13ac38c73c8a6075a2daa41249852a7a"
+            unchanged_proposals = 38
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 62944
+        category = "search"
+        correctness = "passed"
+        method = "rp_alns_worst_regret3"
+        objects = 778
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "9725966287134974197"
+            steps = 40
+            summary_evaluations = 597
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "90077557b0e82488aa3b6e5c9c087e8a13ac38c73c8a6075a2daa41249852a7a"
+            unchanged_proposals = 38
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "15646006503162411831"
+            steps = 40
+            summary_evaluations = 597
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "90077557b0e82488aa3b6e5c9c087e8a13ac38c73c8a6075a2daa41249852a7a"
+            unchanged_proposals = 38
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 42352
+        category = "search"
+        correctness = "passed"
+        method = "rp_ges1_greedy"
+        objects = 540
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "8806607393865937907"
+            steps = 40
+            summary_evaluations = 27
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "697f7d27e128d54549c7756d0f00b7c71802b19fb17159274a19af069f71eaf5"
+            unchanged_proposals = 0
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "7060645976784721086"
+            steps = 40
+            summary_evaluations = 39
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "5185aa26e6e618b876490a4f1fbe1dfb5f22eba506020551dc2faca2fea0162d"
+            unchanged_proposals = 0
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 42352
+        category = "search"
+        correctness = "passed"
+        method = "rp_ges1_late"
+        objects = 540
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "8806607393865937907"
+            steps = 40
+            summary_evaluations = 27
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "697f7d27e128d54549c7756d0f00b7c71802b19fb17159274a19af069f71eaf5"
+            unchanged_proposals = 0
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "7060645976784721086"
+            steps = 40
+            summary_evaluations = 39
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "5185aa26e6e618b876490a4f1fbe1dfb5f22eba506020551dc2faca2fea0162d"
+            unchanged_proposals = 0
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 42352
+        category = "search"
+        correctness = "passed"
+        method = "rp_ges2_greedy"
+        objects = 540
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "8806607393865937907"
+            steps = 40
+            summary_evaluations = 27
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "697f7d27e128d54549c7756d0f00b7c71802b19fb17159274a19af069f71eaf5"
+            unchanged_proposals = 0
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "7060645976784721086"
+            steps = 40
+            summary_evaluations = 39
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "5185aa26e6e618b876490a4f1fbe1dfb5f22eba506020551dc2faca2fea0162d"
+            unchanged_proposals = 0
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 42352
+        category = "search"
+        correctness = "passed"
+        method = "rp_ges2_late"
+        objects = 540
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "8806607393865937907"
+            steps = 40
+            summary_evaluations = 27
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "697f7d27e128d54549c7756d0f00b7c71802b19fb17159274a19af069f71eaf5"
+            unchanged_proposals = 0
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "7060645976784721086"
+            steps = 40
+            summary_evaluations = 39
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "5185aa26e6e618b876490a4f1fbe1dfb5f22eba506020551dc2faca2fea0162d"
+            unchanged_proposals = 0
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 7728
+        category = "search"
+        correctness = "passed"
+        method = "rp_memetic_regret2"
+        objects = 116
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            best_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+            completed_resets = 0
+            current_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+            ejection_attempts = 0
+            next_rng_uint64 = "13989731486764984091"
+            steps = 40
+            summary_evaluations = 0
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "372a9303dae4bf46ad8ae377cff101cc11b9c9a78227ba02262e92bb114f6c17"
+            unchanged_proposals = 40
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            best_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+            completed_resets = 0
+            current_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+            ejection_attempts = 0
+            next_rng_uint64 = "15422517531228822840"
+            steps = 40
+            summary_evaluations = 0
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "372a9303dae4bf46ad8ae377cff101cc11b9c9a78227ba02262e92bb114f6c17"
+            unchanged_proposals = 40
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 7728
+        category = "search"
+        correctness = "passed"
+        method = "rp_memetic_regret3"
+        objects = 116
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            best_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+            completed_resets = 0
+            current_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+            ejection_attempts = 0
+            next_rng_uint64 = "13989731486764984091"
+            steps = 40
+            summary_evaluations = 0
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "372a9303dae4bf46ad8ae377cff101cc11b9c9a78227ba02262e92bb114f6c17"
+            unchanged_proposals = 40
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 0
+            best_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+            completed_resets = 0
+            current_routes_sha256 = "90aa1505048fb02644ff69949a5809fb6b2931b5c5aaf1eaddd211180e4c1fd1"
+            ejection_attempts = 0
+            next_rng_uint64 = "15422517531228822840"
+            steps = 40
+            summary_evaluations = 0
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "372a9303dae4bf46ad8ae377cff101cc11b9c9a78227ba02262e92bb114f6c17"
+            unchanged_proposals = 40
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 446160
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_adaptive_late"
+        objects = 4705
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [3, 6, 3, 4]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 17
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "2264336642638917112"
+            steps = 64
+            summary_evaluations = 915
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "68e9d3033f072fecc7eb376fccd7854016da9eb1414a0fe777eec160077610d3"
+            unchanged_proposals = 25
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 10
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "12894952201144458039"
+            steps = 64
+            summary_evaluations = 816
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "72e4beec23508341e9cc71cb69f1343f33e0bffc4b3e56c18d64b6360b0af63c"
+            unchanged_proposals = 32
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 438160
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_adaptive_tabu"
+        objects = 4478
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [3, 6, 3, 4]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 5
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "15136894406200254138"
+            steps = 64
+            summary_evaluations = 915
+            tabu_hits = 10
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "e7598f225862a2b7c0571490217f86523abe3d93e33bd347bc7b0db1539afb8d"
+            unchanged_proposals = 27
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 5
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "12894952201144458039"
+            steps = 64
+            summary_evaluations = 840
+            tabu_hits = 9
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "963a5f7a3863ac635569ec459335d27b7302ff2e24887e6dd57fd1451bfa3781"
+            unchanged_proposals = 28
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 411136
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_diversity_late"
+        objects = 3975
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [5, 6, 5]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "9396154482987463998"
+            steps = 64
+            summary_evaluations = 741
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "6c62a6f96e3e8a356833f518eda17da29477aefa36863646ab60c8a7f0d2df5b"
+            unchanged_proposals = 62
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 1
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "3356399088243082068"
+            steps = 64
+            summary_evaluations = 756
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "b09a5c87b737265bc91830ecd6d1501ff62e306a7ba6a0ef938429cc1829bc7a"
+            unchanged_proposals = 64
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 413056
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_diversity_tabu"
+        objects = 3996
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [5, 6, 5]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "9396154482987463998"
+            steps = 64
+            summary_evaluations = 741
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "fc5bde9d81176563384e47f12fa8544670a6ada25c1ab7d5e228777da92cf4a1"
+            unchanged_proposals = 62
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 1
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "3356399088243082068"
+            steps = 64
+            summary_evaluations = 756
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "a6f3e62a73535a38dde4ffb3af50a5649c5eb774a9977bee91cbfaf8a1891d52"
+            unchanged_proposals = 64
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 396976
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_fleet_distance_late"
+        objects = 4059
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [8, 8]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 5
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "14376643803329388301"
+            steps = 64
+            summary_evaluations = 309
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "74498ed94cef0f3eab8f661b1f833be097cb246dd2018c00f6a84dae34ad33cd"
+            unchanged_proposals = 7
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 7
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "6911059651351236327"
+            steps = 64
+            summary_evaluations = 270
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "61c044617a7f35477083f0ea5ba36723124fb203cac959f7405b03c573161b5c"
+            unchanged_proposals = 4
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 398352
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_fleet_distance_tabu"
+        objects = 4065
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [8, 8]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 5
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "14376643803329388301"
+            steps = 64
+            summary_evaluations = 309
+            tabu_hits = 1
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "2a9339401b156b611606c6481059405318c8030f8cd22a660fc9ad31be907652"
+            unchanged_proposals = 6
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 4
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "6911059651351236327"
+            steps = 64
+            summary_evaluations = 270
+            tabu_hits = 4
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "88b9e30f304eabde23c43c5be624079f64b5cf6d98071f2ac243f946cb3e7ebf"
+            unchanged_proposals = 3
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 424928
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_guided_late"
+        objects = 4249
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [4, 4, 4, 4]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "6288014017068173167"
+            steps = 64
+            summary_evaluations = 567
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "072e0fdafa4527cbf969473da8575df9d8a3e9cc841c5130d029c16797e566da"
+            unchanged_proposals = 32
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "16495597195043645790"
+            steps = 64
+            summary_evaluations = 618
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "3745d54bd8e32e46ec8e7a5161b25e16c94d028453bcce2d8a4f43b025b4de03"
+            unchanged_proposals = 32
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 425008
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_guided_tabu"
+        objects = 4222
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [4, 4, 4, 4]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 4
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "6288014017068173167"
+            steps = 64
+            summary_evaluations = 567
+            tabu_hits = 2
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "a5cbf8ed286ca94368c8765f6dd6b1e412f91232d9b1a87b161194d2a94442c8"
+            unchanged_proposals = 32
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 3
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "16495597195043645790"
+            steps = 64
+            summary_evaluations = 618
+            tabu_hits = 3
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "61a97816e47b89ae831cfa9876afe7a0f4cc33c44071748cb2c34f09fd6f70f7"
+            unchanged_proposals = 32
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 612576
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 2
+        method = "rp_meta_pool_hipo_late"
+        objects = 11157
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [5, 6, 5]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "7671478599947040548"
+            steps = 64
+            summary_evaluations = 582
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "8a41ee7b581bcbba7588d7c4e3788688352fdc675d3514092c0a0d2e81e4b7a8"
+            unchanged_proposals = 25
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 7
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "11733117085417232765"
+            steps = 64
+            summary_evaluations = 582
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "4d9a6e7deb614d495742ca5e36c2eeda3c0f75277ab57bcb7445dfbf2334c4ba"
+            unchanged_proposals = 25
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 611056
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 2
+        method = "rp_meta_pool_hipo_tabu"
+        objects = 11088
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [5, 6, 5]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 4
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "7671478599947040548"
+            steps = 64
+            summary_evaluations = 582
+            tabu_hits = 1
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "68e212f0bcf7f41e9931cfd91ae52691ba8d8a6afed791d42989da2c82c5bad6"
+            unchanged_proposals = 26
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 4
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "9185972908161239232"
+            steps = 64
+            summary_evaluations = 594
+            tabu_hits = 4
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "ddb0cbd01af7d29f8cd0c6ffbb0f024b42172aa229741a398bd2cd7e998d2511"
+            unchanged_proposals = 24
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 603920
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 2
+        method = "rp_meta_pool_ipx_late"
+        objects = 10970
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [5, 6, 5]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "18084893028637670272"
+            steps = 64
+            summary_evaluations = 447
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "f31805bcf72974e8bbff6b77913c3a3a365c1df06baed34073f64fbd8a001c3c"
+            unchanged_proposals = 36
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 3
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "13002191079153253623"
+            steps = 64
+            summary_evaluations = 354
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "35c4e733ec8fef794387ff4c735e0bcc5ca71fddef3f3e04b64441d18086cb46"
+            unchanged_proposals = 45
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 604160
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 2
+        method = "rp_meta_pool_ipx_tabu"
+        objects = 10953
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [5, 6, 5]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 4
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "18084893028637670272"
+            steps = 64
+            summary_evaluations = 447
+            tabu_hits = 9
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "9f70f2ebf083c9f66b950754be7c016ece1fdf56e747faf9b2d1a16854cb5625"
+            unchanged_proposals = 29
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "7889925693697042000"
+            steps = 64
+            summary_evaluations = 366
+            tabu_hits = 1
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "efcca28360090e3492005914766ab3f663e2ebe17df2d1403bf05d851ef18a3d"
+            unchanged_proposals = 45
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 618384
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 2
+        method = "rp_meta_pool_mip_late"
+        objects = 11325
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [5, 6, 5]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 8
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "2959032764201698904"
+            steps = 64
+            summary_evaluations = 582
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "5505f8b39d6dc1712e6c5cb0be4c783cbf4f6f410c5f9c4d9dd6f98e73edf7b1"
+            unchanged_proposals = 23
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 16
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "12752360015855889595"
+            steps = 64
+            summary_evaluations = 693
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "642f75f10190d8c0680ec433edb39dce27dadf8b2366d04e7b2203a905703551"
+            unchanged_proposals = 16
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 848432
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 2
+        method = "rp_meta_pool_mip_tabu"
+        objects = 15870
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [5, 6, 5]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 4
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "2959032764201698904"
+            steps = 64
+            summary_evaluations = 582
+            tabu_hits = 2
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "dcbf0e44c4f78d594bcd97eee08708a106be95ff666ecc533b8c3c5dccc6b137"
+            unchanged_proposals = 25
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "12752360015855889595"
+            steps = 64
+            summary_evaluations = 693
+            tabu_hits = 9
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "8db8458678e1d5709c9963ea3c048529b8dd9776618e98a712fe538bab686715"
+            unchanged_proposals = 17
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 444784
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_ruin_repair_late"
+        objects = 4774
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [5, 6, 5]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 14
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "12769413376510429537"
+            steps = 64
+            summary_evaluations = 969
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "457c45b43d5df9f1fe6d2ecb8bcd05070ece07c5a16677dc216d879378b0a2c9"
+            unchanged_proposals = 34
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 19
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "13002191079153253623"
+            steps = 64
+            summary_evaluations = 861
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "0b2eeb173e9b604c4fa86297333e6530d1fa8e71211a552bed9a4b0f17e25b50"
+            unchanged_proposals = 21
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Lane construction plus eight real typed cooperative episodes; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 434112
+        category = "meta"
+        correctness = "passed"
+        episodes = 8
+        master_resolver_calls = 0
+        method = "rp_meta_ruin_repair_tabu"
+        objects = 4482
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        role_episode_counts = [5, 6, 5]
+        sample_rate = 0.0
+        sampled_events = 0
+        steps_per_worker = [64, 64]
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 5
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "12769413376510429537"
+            steps = 64
+            summary_evaluations = 969
+            tabu_hits = 12
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "b9015a9c2b22c31c11f26a09dcb33fd6136db4762a8f0f6b70d963e51cbee0b5"
+            unchanged_proposals = 31
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 5
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "13002191079153253623"
+            steps = 64
+            summary_evaluations = 861
+            tabu_hits = 12
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "7d727960e2a5d943703215e63ef69bea5f8e4280a7cf291ceafd69d80dd7d53c"
+            unchanged_proposals = 23
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 102688
+        category = "search"
+        correctness = "passed"
+        method = "rp_sisr_b0_regret2"
+        objects = 1746
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 21
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "5310682492468389255"
+            steps = 40
+            summary_evaluations = 885
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "16a99a9d0146f19c2c8b73c49a634ec9396cb96dd1cdfad4c12909be377d1d80"
+            unchanged_proposals = 19
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 21
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "4913919668143570781"
+            steps = 40
+            summary_evaluations = 885
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "795ac6b9b13583ae9c7a4c76d84ffd52cf14d0c1b69af9f7e19a867715b8caf8"
+            unchanged_proposals = 19
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 102688
+        category = "search"
+        correctness = "passed"
+        method = "rp_sisr_b0_regret3"
+        objects = 1746
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 21
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "5310682492468389255"
+            steps = 40
+            summary_evaluations = 885
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "16a99a9d0146f19c2c8b73c49a634ec9396cb96dd1cdfad4c12909be377d1d80"
+            unchanged_proposals = 19
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 21
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "4913919668143570781"
+            steps = 40
+            summary_evaluations = 885
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "795ac6b9b13583ae9c7a4c76d84ffd52cf14d0c1b69af9f7e19a867715b8caf8"
+            unchanged_proposals = 19
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 120352
+        category = "search"
+        correctness = "passed"
+        method = "rp_sisr_b15_regret2"
+        objects = 2171
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 28
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "16059291658873580215"
+            steps = 40
+            summary_evaluations = 861
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "7560ff9b3265476c000847123c59e0e82d32f0eff74a06871b43cc6091819e4c"
+            unchanged_proposals = 12
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 23
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "2584229808594754815"
+            steps = 40
+            summary_evaluations = 897
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "26f6ee7dd228a94a6fcb277ad33d85f384c7694ab773c241e90d6efe868591d1"
+            unchanged_proposals = 17
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 120352
+        category = "search"
+        correctness = "passed"
+        method = "rp_sisr_b15_regret3"
+        objects = 2171
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 28
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "16059291658873580215"
+            steps = 40
+            summary_evaluations = 861
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "7560ff9b3265476c000847123c59e0e82d32f0eff74a06871b43cc6091819e4c"
+            unchanged_proposals = 12
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 23
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "2584229808594754815"
+            steps = 40
+            summary_evaluations = 897
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "26f6ee7dd228a94a6fcb277ad33d85f384c7694ab773c241e90d6efe868591d1"
+            unchanged_proposals = 17
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 139488
+        category = "search"
+        correctness = "passed"
+        method = "rp_sisr_b30_regret2"
+        objects = 2578
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 26
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "16059291658873580215"
+            steps = 40
+            summary_evaluations = 861
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "2a1032dc1c8985dcb837935c6dfe42570f4c303734e631498f1474e4a1a1b3df"
+            unchanged_proposals = 14
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 28
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "2584229808594754815"
+            steps = 40
+            summary_evaluations = 897
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "034c64cb0be5633022ca2e9cabe62aa108cba9e0263d333f5557373387cb300f"
+            unchanged_proposals = 12
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 139488
+        category = "search"
+        correctness = "passed"
+        method = "rp_sisr_b30_regret3"
+        objects = 2578
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 26
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "16059291658873580215"
+            steps = 40
+            summary_evaluations = 861
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "2a1032dc1c8985dcb837935c6dfe42570f4c303734e631498f1474e4a1a1b3df"
+            unchanged_proposals = 14
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 28
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "2584229808594754815"
+            steps = 40
+            summary_evaluations = 897
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "034c64cb0be5633022ca2e9cabe62aa108cba9e0263d333f5557373387cb300f"
+            unchanged_proposals = 12
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 49824
+        category = "search"
+        correctness = "passed"
+        method = "rp_vnd_greedy"
+        objects = 749
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "6519017998402919525"
+            steps = 40
+            summary_evaluations = 351
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "fb7e4720374c84be7ab913e43749cbf94ba89d95d15ccec0b9b634100018c050"
+            unchanged_proposals = 7
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 2
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "735569066567100057"
+            steps = 40
+            summary_evaluations = 351
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "10771ef794f95b90d5921d0bede5f203f9d4e876393e5089b9a0b5c749515ff3"
+            unchanged_proposals = 5
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 64640
+        category = "search"
+        correctness = "passed"
+        method = "rp_vnd_late"
+        objects = 1122
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 10
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "6519017998402919525"
+            steps = 40
+            summary_evaluations = 351
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "2e5eafe8630a595238559bd7d3a53c2b2f217e2c2ccc05704d21074535247cf8"
+            unchanged_proposals = 5
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 7
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "735569066567100057"
+            steps = 40
+            summary_evaluations = 351
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "4b0e49128db3616d554a49e6890ae47589c5f82cd2f6b60c253a6ddde98b1e92"
+            unchanged_proposals = 8
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 64416
+        category = "search"
+        correctness = "passed"
+        method = "rp_vnd_reset_full"
+        objects = 1104
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 9
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 1
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "1218757769393632307"
+            steps = 40
+            summary_evaluations = 351
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "94bea16e4d5d4c69ff8914dd372f518a229e59512358cee767950d6640664147"
+            unchanged_proposals = 6
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 1
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "10142840947950075341"
+            steps = 40
+            summary_evaluations = 351
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "1816b9624ae17682771c1230b9dd63f85256055d26735b8a28997f90ce0f2952"
+            unchanged_proposals = 9
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 63424
+        category = "search"
+        correctness = "passed"
+        method = "rp_vnd_reset_partial"
+        objects = 1088
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 9
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 1
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "1218757769393632307"
+            steps = 40
+            summary_evaluations = 339
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "e21d9e9975996ffc283ce2c3c021a5fe23881f962b4854d57a62ae79fe226147"
+            unchanged_proposals = 6
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 6
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 1
+            current_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            ejection_attempts = 0
+            next_rng_uint64 = "10142840947950075341"
+            steps = 40
+            summary_evaluations = 339
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "fe57f6845b2785813a394552bad3748bea4d7170c9996851c4abf2957f5a12ea"
+            unchanged_proposals = 9
+        [[night_cohort_integration_v8.fixed_work.strategies]]
+        allocation_frame_scope = "First sampled Julia frame in the application or the exact resolved controlled-package checkout; top 20 groups; native/unattributed frames are excluded; sampled weights are not total allocation percentages"
+        allocation_frames = []
+        allocation_scope = "Forty steps per prepared private lane; prepare/verify excluded"
+        allocation_source_file_scope = "Each event contributes once to every Julia source file in its stack; weights overlap across files and cannot be summed as total allocations"
+        allocation_source_files = []
+        bytes = 59776
+        category = "search"
+        correctness = "passed"
+        method = "rp_vnd_tabu"
+        objects = 977
+        observation_scope = "Bytes, objects and GC from one uninstrumented operation via @timed.gcstats; no stack sampling"
+        observed_gc_seconds = 0.0
+        retained_attribution_events = 0
+        sample_rate = 0.0
+        sampled_events = 0
+
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 5
+            best_routes_sha256 = "3a1cf389f366f90f398859836e7569bc5bda7fad58f559038e33395b37dbe9bb"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "6519017998402919525"
+            steps = 40
+            summary_evaluations = 351
+            tabu_hits = 5
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "1594c9a6342c083e4f84ac60c34d40d9b8a0635c8c1cfc5472f0f71f2c447b31"
+            unchanged_proposals = 5
+            [[night_cohort_integration_v8.fixed_work.strategies.worker_diagnostics]]
+            accepted_meta_moves = 4
+            best_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            completed_resets = 0
+            current_routes_sha256 = "f76f7037197c6e5ff24e042d98dfbfa9b9b197838039c597bad15350594ae247"
+            ejection_attempts = 0
+            next_rng_uint64 = "735569066567100057"
+            steps = 40
+            summary_evaluations = 351
+            tabu_hits = 5
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "a62bcdf6654db8e5637c904f9711990cfa5e1cc54480e49d226696dc6a97aef0"
+            unchanged_proposals = 6
+
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 74720
+    after_objects = 964
+    before_bytes = 74720
+    before_objects = 964
+    complete_worker_work_matches = true
+    method = "rp_aco_regret2"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 74720
+    after_objects = 964
+    before_bytes = 74720
+    before_objects = 964
+    complete_worker_work_matches = true
+    method = "rp_aco_regret3"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 84512
+    after_objects = 1205
+    before_bytes = 84512
+    before_objects = 1205
+    complete_worker_work_matches = true
+    method = "rp_alns_adaptive_regret2"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 84512
+    after_objects = 1205
+    before_bytes = 84512
+    before_objects = 1205
+    complete_worker_work_matches = true
+    method = "rp_alns_adaptive_regret3"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 42384
+    after_objects = 566
+    before_bytes = 42384
+    before_objects = 566
+    complete_worker_work_matches = true
+    method = "rp_alns_critical"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 84512
+    after_objects = 1205
+    before_bytes = 84512
+    before_objects = 1205
+    complete_worker_work_matches = true
+    method = "rp_alns_direct"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 42384
+    after_objects = 566
+    before_bytes = 42384
+    before_objects = 566
+    complete_worker_work_matches = true
+    method = "rp_alns_incompatibility"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 84512
+    after_objects = 1205
+    before_bytes = 84512
+    before_objects = 1205
+    complete_worker_work_matches = true
+    method = "rp_alns_naive"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 42480
+    after_objects = 568
+    before_bytes = 42480
+    before_objects = 568
+    complete_worker_work_matches = true
+    method = "rp_alns_qubo"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 68016
+    after_objects = 906
+    before_bytes = 68016
+    before_objects = 906
+    complete_worker_work_matches = true
+    method = "rp_alns_random_regret2"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 68016
+    after_objects = 906
+    before_bytes = 68016
+    before_objects = 906
+    complete_worker_work_matches = true
+    method = "rp_alns_random_regret3"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 101216
+    after_objects = 1432
+    before_bytes = 101216
+    before_objects = 1432
+    complete_worker_work_matches = true
+    method = "rp_alns_route_regret2"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 101216
+    after_objects = 1432
+    before_bytes = 101216
+    before_objects = 1432
+    complete_worker_work_matches = true
+    method = "rp_alns_route_regret3"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 67264
+    after_objects = 884
+    before_bytes = 67264
+    before_objects = 884
+    complete_worker_work_matches = true
+    method = "rp_alns_shaw_regret2"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 67264
+    after_objects = 884
+    before_bytes = 67264
+    before_objects = 884
+    complete_worker_work_matches = true
+    method = "rp_alns_shaw_regret3"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 101936
+    after_objects = 1758
+    before_bytes = 101936
+    before_objects = 1758
+    complete_worker_work_matches = true
+    method = "rp_alns_sisr_regret2"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 101936
+    after_objects = 1758
+    before_bytes = 101936
+    before_objects = 1758
+    complete_worker_work_matches = true
+    method = "rp_alns_sisr_regret3"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 62944
+    after_objects = 778
+    before_bytes = 62944
+    before_objects = 778
+    complete_worker_work_matches = true
+    method = "rp_alns_worst_regret2"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 62944
+    after_objects = 778
+    before_bytes = 62944
+    before_objects = 778
+    complete_worker_work_matches = true
+    method = "rp_alns_worst_regret3"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 42352
+    after_objects = 540
+    before_bytes = 42352
+    before_objects = 540
+    complete_worker_work_matches = true
+    method = "rp_ges1_greedy"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 42352
+    after_objects = 540
+    before_bytes = 42352
+    before_objects = 540
+    complete_worker_work_matches = true
+    method = "rp_ges1_late"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 42352
+    after_objects = 540
+    before_bytes = 42352
+    before_objects = 540
+    complete_worker_work_matches = true
+    method = "rp_ges2_greedy"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 42352
+    after_objects = 540
+    before_bytes = 42352
+    before_objects = 540
+    complete_worker_work_matches = true
+    method = "rp_ges2_late"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 7728
+    after_objects = 116
+    before_bytes = 7728
+    before_objects = 116
+    complete_worker_work_matches = true
+    method = "rp_memetic_regret2"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 7728
+    after_objects = 116
+    before_bytes = 7728
+    before_objects = 116
+    complete_worker_work_matches = true
+    method = "rp_memetic_regret3"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 446160
+    after_objects = 4705
+    before_bytes = 446160
+    before_objects = 4705
+    complete_worker_work_matches = true
+    method = "rp_meta_adaptive_late"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 438160
+    after_objects = 4478
+    before_bytes = 438160
+    before_objects = 4478
+    complete_worker_work_matches = true
+    method = "rp_meta_adaptive_tabu"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 411136
+    after_objects = 3975
+    before_bytes = 411136
+    before_objects = 3975
+    complete_worker_work_matches = true
+    method = "rp_meta_diversity_late"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 413056
+    after_objects = 3996
+    before_bytes = 413056
+    before_objects = 3996
+    complete_worker_work_matches = true
+    method = "rp_meta_diversity_tabu"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 396976
+    after_objects = 4059
+    before_bytes = 396976
+    before_objects = 4059
+    complete_worker_work_matches = true
+    method = "rp_meta_fleet_distance_late"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 398352
+    after_objects = 4065
+    before_bytes = 398352
+    before_objects = 4065
+    complete_worker_work_matches = true
+    method = "rp_meta_fleet_distance_tabu"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 424928
+    after_objects = 4249
+    before_bytes = 424928
+    before_objects = 4249
+    complete_worker_work_matches = true
+    method = "rp_meta_guided_late"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 425008
+    after_objects = 4222
+    before_bytes = 425008
+    before_objects = 4222
+    complete_worker_work_matches = true
+    method = "rp_meta_guided_tabu"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 612576
+    after_objects = 11157
+    before_bytes = 2382544
+    before_objects = 42734
+    complete_worker_work_matches = true
+    method = "rp_meta_pool_hipo_late"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 611056
+    after_objects = 11088
+    before_bytes = 611056
+    before_objects = 11088
+    complete_worker_work_matches = true
+    method = "rp_meta_pool_hipo_tabu"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 603920
+    after_objects = 10970
+    before_bytes = 603920
+    before_objects = 10970
+    complete_worker_work_matches = true
+    method = "rp_meta_pool_ipx_late"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 604160
+    after_objects = 10953
+    before_bytes = 604160
+    before_objects = 10953
+    complete_worker_work_matches = true
+    method = "rp_meta_pool_ipx_tabu"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 618384
+    after_objects = 11325
+    before_bytes = 618384
+    before_objects = 11325
+    complete_worker_work_matches = true
+    method = "rp_meta_pool_mip_late"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 848432
+    after_objects = 15870
+    before_bytes = 841808
+    before_objects = 15869
+    complete_worker_work_matches = true
+    method = "rp_meta_pool_mip_tabu"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 444784
+    after_objects = 4774
+    before_bytes = 445152
+    before_objects = 4774
+    complete_worker_work_matches = true
+    method = "rp_meta_ruin_repair_late"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 434112
+    after_objects = 4482
+    before_bytes = 434448
+    before_objects = 4482
+    complete_worker_work_matches = true
+    method = "rp_meta_ruin_repair_tabu"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 102688
+    after_objects = 1746
+    before_bytes = 102688
+    before_objects = 1746
+    complete_worker_work_matches = true
+    method = "rp_sisr_b0_regret2"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 102688
+    after_objects = 1746
+    before_bytes = 102688
+    before_objects = 1746
+    complete_worker_work_matches = true
+    method = "rp_sisr_b0_regret3"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 120352
+    after_objects = 2171
+    before_bytes = 120352
+    before_objects = 2171
+    complete_worker_work_matches = true
+    method = "rp_sisr_b15_regret2"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 120352
+    after_objects = 2171
+    before_bytes = 120352
+    before_objects = 2171
+    complete_worker_work_matches = true
+    method = "rp_sisr_b15_regret3"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 139488
+    after_objects = 2578
+    before_bytes = 139488
+    before_objects = 2578
+    complete_worker_work_matches = true
+    method = "rp_sisr_b30_regret2"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 139488
+    after_objects = 2578
+    before_bytes = 139488
+    before_objects = 2578
+    complete_worker_work_matches = true
+    method = "rp_sisr_b30_regret3"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 49824
+    after_objects = 749
+    before_bytes = 49824
+    before_objects = 749
+    complete_worker_work_matches = true
+    method = "rp_vnd_greedy"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 64640
+    after_objects = 1122
+    before_bytes = 64640
+    before_objects = 1122
+    complete_worker_work_matches = true
+    method = "rp_vnd_late"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 64416
+    after_objects = 1104
+    before_bytes = 64416
+    before_objects = 1104
+    complete_worker_work_matches = true
+    method = "rp_vnd_reset_full"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 63424
+    after_objects = 1088
+    before_bytes = 63424
+    before_objects = 1088
+    complete_worker_work_matches = true
+    method = "rp_vnd_reset_partial"
+    [[night_cohort_integration_v8.fixed_work_matches]]
+    after_bytes = 59776
+    after_objects = 977
+    before_bytes = 59776
+    before_objects = 977
+    complete_worker_work_matches = true
+    method = "rp_vnd_tabu"
+
+    [night_cohort_integration_v8.frozen_load]
+    all_unrelated_manifest_dependencies_unchanged = true
+    construction_scope = "Only published immutable package commits were included; uncommitted child work was excluded."
+    cpu_affinity = [8, 10]
+    julia = "1.13.1"
+    manifest_sha256 = "6f88fd6d007fcd0eb9aa4eed65fd6e34bdfad7dbbe03f095d184e85e85223621"
+    native_highs_integer_oracle = "passed"
+    project_sha256 = "68cd52296878eb0006e5077da480351385ba2d21316a5f80e5b069980291de71"
+    recorded_utc = "2026-10-09T04:19:03.547"
+    schema = "night-frozen-cohort-load/1"
+    scope = "Thirteen independently frozen published package commits; offline resolved environment import plus original tiny integer bound; default portable cohort unchanged"
+
+        [[night_cohort_integration_v8.frozen_load.packages]]
+        commit = "8d5e87717cdd5ad92d7617c724e55c07a481960f"
+        offline_import = "passed"
+        package = "CBLS"
+        project_sha256 = "2cd0274b862d1836cb0317b3bcfe50859e1395e2401151ba93608d071b96110b"
+        source_clean = true
+        [[night_cohort_integration_v8.frozen_load.packages]]
+        commit = "1603b05463b99fbaceb92174559733b7dbdbd0bb"
+        offline_import = "passed"
+        package = "LocalSearchSolvers"
+        project_sha256 = "b7ef871b1be30047b50053956924848097760ccd1d19da2bce5ff56f7c9cdf53"
+        source_clean = true
+        [[night_cohort_integration_v8.frozen_load.packages]]
+        commit = "6c65073fe3f55aac6b4cde2f31112d97262a542d"
+        offline_import = "passed"
+        package = "MetaStrategist"
+        project_sha256 = "3b19694db68539ff50ef92672d29d637f122a556d717961f6b74e567649eb008"
+        source_clean = true
+        [[night_cohort_integration_v8.frozen_load.packages]]
+        commit = "537b7a3ea26c67e83ddb0e66782e6a0a209b24c8"
+        offline_import = "passed"
+        package = "CompositionalNetworks"
+        project_sha256 = "eaef6566c15665dcdd850f8e3ae3cf2a2ddcb395f70fbd0a83d1175f0ad7af0e"
+        source_clean = true
+        [[night_cohort_integration_v8.frozen_load.packages]]
+        commit = "98cb9470250aa55ed19e35b78c133a98b56b5bdb"
+        offline_import = "passed"
+        package = "ConstraintCommons"
+        project_sha256 = "9a3579124583eea5f109f8d7265df1f45d4c87999f358b1ee4b402762673095a"
+        source_clean = true
+        [[night_cohort_integration_v8.frozen_load.packages]]
+        commit = "19b4b9082ac3588e417d0c711f961dd5008e8653"
+        offline_import = "passed"
+        package = "ConstraintDomains"
+        project_sha256 = "dfc78e96e84887e652ffc25485dc4672da0bb98d500b4e594b0bb0ba6104119c"
+        source_clean = true
+        [[night_cohort_integration_v8.frozen_load.packages]]
+        commit = "a9a83f550490b677348e8a1e9f17cc860d7d11d1"
+        offline_import = "passed"
+        package = "Constraints"
+        project_sha256 = "1b7ec62d2b0a22935c18c8c9bca6627dfbd01ab7d0f86358d7225cb1645e9353"
+        source_clean = true
+        [[night_cohort_integration_v8.frozen_load.packages]]
+        commit = "ebff5af17c648432650202d2f55945448ffe5ee8"
+        offline_import = "passed"
+        package = "PatternFolds"
+        project_sha256 = "8d86fa78c3c7e846e5dba5a36284e731b351ae6662f9fabbf3b112487bcf6e56"
+        source_clean = true
+        [[night_cohort_integration_v8.frozen_load.packages]]
+        commit = "96029bff8099e3e25d023ad17a78487526fc62c1"
+        offline_import = "passed"
+        package = "ConstraintModels"
+        project_sha256 = "6a2558e9da429ad182a8683e23b8ab8bd8da5daab1d87372c773ee198928047a"
+        source_clean = true
+        [[night_cohort_integration_v8.frozen_load.packages]]
+        commit = "a1708217214c1e6e19d071480eb884fd186a7b6e"
+        offline_import = "passed"
+        package = "QUBOConstraints"
+        project_sha256 = "2c2642e996f801573478472d1d5c3d558bc3b9e7d2db9dffa16c799602fa1dcb"
+        source_clean = true
+        [[night_cohort_integration_v8.frozen_load.packages]]
+        commit = "9e6faf40ca3eb8c3399a50f68332708058150feb"
+        offline_import = "passed"
+        package = "ConstraintProgrammingExtensions"
+        project_sha256 = "c334c1831963ff58058a751b4a8ea6fbe2556ab3124b53a140307fbf7c714875"
+        source_clean = true
+        [[night_cohort_integration_v8.frozen_load.packages]]
+        commit = "48efa2091ab163b4a957de5c1d4deaa875c5ed41"
+        offline_import = "passed"
+        package = "XCSP3Bridges"
+        project_sha256 = "d7c2fcfabc911df2684e6f82d79886ad761514bcd66ee47c010de040866cc277"
+        source_clean = true
+        [[night_cohort_integration_v8.frozen_load.packages]]
+        commit = "e94b411346761f4547858324fbc54f78ce4bf1ad"
+        offline_import = "passed"
+        package = "GHOST"
+        project_sha256 = "7d42390824486914146718d2f6f99a67040b506eaa3a68f212bb026e5182e799"
+        source_clean = true
+
+    [night_cohort_integration_v8.original_lr101]
+    application_clean = true
+    application_commit = "21d9d119f65ca0e8269cdd02712540435bcc80b4"
+    application_root = "/home/azzaare/Gits/Benchmarks-night-sparse-guide"
+    complete = true
+    completed_utc = "2026-10-09T04:23:28.844"
+    cpu_affinity = [12, 14]
+    instance_sha256 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    manifest_sha256 = "6f88fd6d007fcd0eb9aa4eed65fd6e34bdfad7dbbe03f095d184e85e85223621"
+    project_sha256 = "68cd52296878eb0006e5077da480351385ba2d21316a5f80e5b069980291de71"
+    recorded_utc = "2026-10-09T04:23:11.149"
+    schema = "whole-application-cohort-original-work-qualification/1"
+    scope = "First published frozen package performance cohort and its early entire application versus current immutable cohort/application; independent processes; eight complementary original LR101 paths at fixed work. Qualification is complete work/RNG equivalence, not concurrent speed."
+    source_sha256 = "b1497be366770195a8e551b72f5382f4abffe00a7f119abf621fc0b1a33abd7d"
+    workers = 2
+
+        [[night_cohort_integration_v8.original_lr101.records]]
+        method = "rp_vnd_greedy"
+        original_oracle = "passed"
+        seed = 41
+
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 19
+            best_routes_sha256 = "151dd2a89f8a995be98e8c37a6df4da9574b3f1c5633b17cbfa7e7484add42ae"
+            completed_resets = 0
+            current_routes_sha256 = "151dd2a89f8a995be98e8c37a6df4da9574b3f1c5633b17cbfa7e7484add42ae"
+            ejection_attempts = 0
+            next_rng_uint64 = "8563440004410064863"
+            steps = 1024
+            summary_evaluations = 465420
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "3a071e56fd2c339dcb9aadc411e6f977c614246b66b1315a35816c9487d24785"
+            unchanged_proposals = 325
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 10
+            best_routes_sha256 = "9d26904a2203739b338c8e27ed2cb6a32c6f3fbae66265f60f614a24872388df"
+            completed_resets = 0
+            current_routes_sha256 = "9d26904a2203739b338c8e27ed2cb6a32c6f3fbae66265f60f614a24872388df"
+            ejection_attempts = 0
+            next_rng_uint64 = "2282617671177823840"
+            steps = 1024
+            summary_evaluations = 453112
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "bd2ec2a24420c3f72d34c77d2b9fbe30f69986049acc07f988f33d758281f89b"
+            unchanged_proposals = 335
+        [[night_cohort_integration_v8.original_lr101.records]]
+        method = "rp_alns_route_regret2"
+        original_oracle = "passed"
+        seed = 41
+
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 71
+            best_routes_sha256 = "b89c9847c73b32be1c912889c67fab2588686dad2ecb0b906f3934e4b000aba1"
+            completed_resets = 0
+            current_routes_sha256 = "b89c9847c73b32be1c912889c67fab2588686dad2ecb0b906f3934e4b000aba1"
+            ejection_attempts = 0
+            next_rng_uint64 = "10280996193249647030"
+            steps = 1024
+            summary_evaluations = 2479913
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "ef55227a182757321c513534c224c28bc77acac98f3046bffc21f1ccdcda5f6c"
+            unchanged_proposals = 861
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 71
+            best_routes_sha256 = "805e6091a07bb193f7cbc891de1f54eaefbf0d39f648b1ce2753e67c1b28c152"
+            completed_resets = 0
+            current_routes_sha256 = "fff7af794c975c19fed4dfd2e952a208a3cc1f086647a7db6f9580a3108bc6b8"
+            ejection_attempts = 0
+            next_rng_uint64 = "8580699953917690050"
+            steps = 1024
+            summary_evaluations = 2516718
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "d627c1ba7bd972ce4cf744302ea26bebcb9492b7ec962b561caf4685b6999bd8"
+            unchanged_proposals = 858
+        [[night_cohort_integration_v8.original_lr101.records]]
+        method = "rp_aco_regret2"
+        original_oracle = "passed"
+        seed = 41
+
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 76
+            best_routes_sha256 = "96a5417474db9665fb1cdf1c9c29f63897d5611b662744d38c9f9702d66a9c28"
+            completed_resets = 0
+            current_routes_sha256 = "451d5b925a1e680cd96be8b3df11329de6e6cc2d56461b6aed5d1f277034d3b3"
+            ejection_attempts = 0
+            next_rng_uint64 = "11343736572149976814"
+            steps = 1024
+            summary_evaluations = 18503058
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "a367f9b1ee95f159c17f6a82256ccf8769ef8eefb44ed934cefa953420443f4f"
+            unchanged_proposals = 749
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 61
+            best_routes_sha256 = "0196d2c0c9b7cc17649272bc8d1da4b2976fa6c5bf1a52467c70e1d27608fcc0"
+            completed_resets = 0
+            current_routes_sha256 = "5be6cdfbe1969bda507da3bb94680353a1fa7400225334028ca78e70652224a3"
+            ejection_attempts = 0
+            next_rng_uint64 = "2009006673502189482"
+            steps = 1024
+            summary_evaluations = 18382244
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "463a57e7338c930993ff5912a5b094ea801849d2b1b252430b29a2e511def6f8"
+            unchanged_proposals = 773
+        [[night_cohort_integration_v8.original_lr101.records]]
+        method = "rp_alns_random_regret2"
+        original_oracle = "passed"
+        seed = 41
+
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 39
+            best_routes_sha256 = "ca49da1c3930cbb2be11301480a637df9bd7c8dd04216d8786cf06745a2e0670"
+            completed_resets = 0
+            current_routes_sha256 = "5f68504e8eccd94e8d5d78df16c2e3903c52d774dbc47f7c298b48109f8f46fd"
+            ejection_attempts = 0
+            next_rng_uint64 = "3182439682102349129"
+            steps = 1024
+            summary_evaluations = 26715137
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "7c115eb7652dd8cbb4b752c4472cc5393100f9a88aac8fbfd6d1908f4fe9a10f"
+            unchanged_proposals = 930
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 30
+            best_routes_sha256 = "f1f37e6bf286cbf63de047377899d8a0021a192fffc8670d900501724849b1d7"
+            completed_resets = 0
+            current_routes_sha256 = "f1f37e6bf286cbf63de047377899d8a0021a192fffc8670d900501724849b1d7"
+            ejection_attempts = 0
+            next_rng_uint64 = "17336807281604928004"
+            steps = 1024
+            summary_evaluations = 26711695
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "c5ede81c8b741043bf816c9b8c399dce7cc9eaad97193e3f97834ac42773bf34"
+            unchanged_proposals = 931
+        [[night_cohort_integration_v8.original_lr101.records]]
+        method = "rp_meta_adaptive_late"
+        original_oracle = "passed"
+        seed = 41
+
+            [night_cohort_integration_v8.original_lr101.records.work.coordination]
+            episodes = 8
+            fill_episode = false
+            pool_routes = 53
+            role_episode_counts = [4, 4, 5, 3]
+            role_scores = [1.5103000000000004, 2.7073000000000005, 1.5103000000000004, 1.0]
+
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 31
+            best_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            completed_resets = 0
+            current_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            ejection_attempts = 1352
+            next_rng_uint64 = "9610824330423711878"
+            steps = 256
+            summary_evaluations = 2019967
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "49a0c5b35583fdd8b4f41f6f7b0d43d52b97b743ba4848699ce63ca0bc1ebc9a"
+            unchanged_proposals = 150
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 32
+            best_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            completed_resets = 0
+            current_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            ejection_attempts = 2600
+            next_rng_uint64 = "16058812269891103579"
+            steps = 256
+            summary_evaluations = 2707944
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "76483c80b5e91c8651d3c0cb7446f18ee0f396e5e75f84cd823ad8a86fc67d91"
+            unchanged_proposals = 106
+        [[night_cohort_integration_v8.original_lr101.records]]
+        method = "rp_meta_diversity_tabu"
+        original_oracle = "passed"
+        seed = 41
+
+            [night_cohort_integration_v8.original_lr101.records.work.coordination]
+            episodes = 8
+            fill_episode = false
+            pool_routes = 58
+            role_episode_counts = [5, 6, 5]
+            role_scores = [2.5365700000000007, 1.0, 2.0773]
+
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 32
+            best_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            completed_resets = 0
+            current_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            ejection_attempts = 0
+            next_rng_uint64 = "6625624443976539555"
+            steps = 256
+            summary_evaluations = 3043441
+            tabu_hits = 37
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "9506bd719095984fab408ae9af64e506e78ad7549235f141357917eb27ade2a0"
+            unchanged_proposals = 185
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 30
+            best_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            completed_resets = 0
+            current_routes_sha256 = "fc7feb9fe293d2e9c53dff85ceb993e5fa3a4226624bb797e6a982ef248b5efd"
+            ejection_attempts = 0
+            next_rng_uint64 = "7781444961077319576"
+            steps = 256
+            summary_evaluations = 3153446
+            tabu_hits = 26
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "4a68a33b46e568eac693060d0d696b5fc9a6f007b09bdde798b06508a5f8a844"
+            unchanged_proposals = 187
+        [[night_cohort_integration_v8.original_lr101.records]]
+        method = "rp_meta_pool_ipx_late"
+        original_oracle = "passed"
+        seed = 41
+
+            [night_cohort_integration_v8.original_lr101.records.work.coordination]
+            episodes = 8
+            fill_episode = false
+            fragment = "validated route pool"
+            master_bound_scope = "restricted_route_pool_not_global_original_bound"
+            master_last_dual_prices = [-19551.527771140845, 19544.90295687135, 19601.73981420707, 19572.883669085757, 19564.82370829743, 35.68183713955659, 2.1883437631804554, 8.561846181492001, 19532.427115042636, 19572.721432161467, 19564.574588526128, -0.0, 19524.88688126742, 19547.60158428064, 13.431194373199105, 19550.819591267893, -0.0, 30.77531865759738, -0.0, -0.0, -0.0, 19520.340820727506, -0.0, 5.293168188385607, 19531.337979160224, -0.0, 19551.70543582651, 19504.89683912221, -0.0, 19593.698452095086, -0.0, 9.77044905141156, 19520.993398597042, 0.2643052014609566, 19590.24361540933, -13.64801880971936, 19571.21826955497, -0.0, 16.44859015674956, -0.0, -0.0, 19563.039641993593, -0.0, -33.19043994367166, -0.0, 17.32653689066865, -19522.14210419639, -13.143709261526965, -0.0, -0.0, 19519.652469535475, 22.61251337509748, 19504.86705709139]
+            master_last_restricted_lp_objective = 371578.0773797477
+            master_last_status = "no_improvement"
+            master_lp_calls = 2
+            master_lp_solver = "ipx"
+            master_mip_calls = 1
+            master_native_threads = 1
+            master_resolver_calls = 2
+            pool_routes = 46
+            representation = "customer-successor/1"
+            role_episode_counts = [5, 6, 5]
+            role_scores = [1.4592700000000005, 1.8726130000000003, 1.0]
+            threads = 1
+
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 15
+            best_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            completed_resets = 0
+            current_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            ejection_attempts = 2308
+            next_rng_uint64 = "3125804732008942883"
+            steps = 256
+            summary_evaluations = 3259681
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "172849ff9aaae1d1907e158ecb2f2692c1ff8ee2bee33afb0da8393bb36c7d04"
+            unchanged_proposals = 147
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 23
+            best_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            completed_resets = 0
+            current_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            ejection_attempts = 1470
+            next_rng_uint64 = "13068265439961758414"
+            steps = 256
+            summary_evaluations = 2758025
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "1bf5567eda99b1ea0f5ca0044754fbb34afa803de69b182b96390c61f8bde9b8"
+            unchanged_proposals = 169
+        [[night_cohort_integration_v8.original_lr101.records]]
+        method = "rp_meta_pool_mip_tabu"
+        original_oracle = "passed"
+        seed = 41
+
+            [night_cohort_integration_v8.original_lr101.records.work.coordination]
+            episodes = 8
+            fill_episode = false
+            fragment = "validated route pool"
+            master_bound_scope = "restricted_route_pool_not_global_original_bound"
+            master_last_dual_prices = [9767.257692459063, 19527.194041724142, 19601.73981420707, 19572.883669085757, 19564.82370829743, 19556.022657867063, 2.1883437631804554, 19513.458685303704, 9775.600625338391, 19567.686169466655, 19564.574588526128, -0.0, 19517.18748739849, 19547.60158428064, 13.431194373199105, 19550.819591267893, -0.0, 30.77531865759738, -0.0, -0.0, -0.0, -0.0, -0.0, 5.293168188385607, 19548.600939291937, -0.0, 19551.70543582651, -0.0, 7.699393868930201, 19560.508012151415, 5.035262694811536, -0.0, 12.584624057348265, 0.2643052014609566, 19590.24361540933, -13.64801880971936, 19571.21826955497, -0.0, 16.44859015674956, -0.0, -0.0, 9766.602931188665, -0.0, -0.0, -0.0, 44.805901089286635, -0.0, -13.143709261526965, -0.0, -0.0, 19542.264982910572, -0.0, 19504.86705709139]
+            master_last_restricted_lp_objective = 381374.59593262686
+            master_last_status = "improved"
+            master_lp_calls = 2
+            master_lp_solver = "simplex"
+            master_mip_calls = 2
+            master_native_threads = 1
+            master_resolver_calls = 2
+            pool_routes = 43
+            representation = "customer-successor/1"
+            role_episode_counts = [5, 6, 5]
+            role_scores = [1.4592700000000005, 1.8726130000000003, 2.1592700000000002]
+            threads = 1
+
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 10
+            best_routes_sha256 = "b28644df45441abd67f747b0a8b70d5f2dc4f4926888b553a903383de23e6866"
+            completed_resets = 0
+            current_routes_sha256 = "b28644df45441abd67f747b0a8b70d5f2dc4f4926888b553a903383de23e6866"
+            ejection_attempts = 2828
+            next_rng_uint64 = "12520164260210724800"
+            steps = 256
+            summary_evaluations = 3066933
+            tabu_hits = 1
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "0f1bcce28b14b34d697e52d60a20e34de66db12a69c66bb7ea28946a8b940d4c"
+            unchanged_proposals = 111
+            [[night_cohort_integration_v8.original_lr101.records.work.lanes]]
+            accepted_meta_moves = 12
+            best_routes_sha256 = "1194c93a0b3e144ba379829c39c82074f7b7a1a7810e453d9d4621d48c6c8365"
+            completed_resets = 0
+            current_routes_sha256 = "1194c93a0b3e144ba379829c39c82074f7b7a1a7810e453d9d4621d48c6c8365"
+            ejection_attempts = 2021
+            next_rng_uint64 = "3837466586144571004"
+            steps = 256
+            summary_evaluations = 1918140
+            tabu_hits = 2
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "12083768dac00e7fd50143f3bd99e006a4cab4fc9658ee069a48069e5879086d"
+            unchanged_proposals = 117
+
 [night_combined_routing_source_lr101]
 limitations = ["Twelve paired paths reduce allocated bytes and objects. This comparison does not include old-versus-new entire application or package cohorts.", "The frozen V7 generic QUBO offset semantic regression remains a promotion blocker; these independently validated PDPTW paths do not qualify that unrelated generic constructor.", "Concurrent time and GC are operational observations, not controlled speedup claims."]
 recorded_utc = "2026-10-09T03:46:58.498"
