@@ -1,4 +1,4 @@
-using TOML,CairoMakie,Random
+using TOML,CairoMakie,Random,Statistics
 
 length(ARGS) in (3,4) || error("Usage: plots.jl QUALIFICATION.toml OUTPUT_DIRECTORY exact|xkcd [FIGURE_NAMES]")
 proof=TOML.parsefile(abspath(ARGS[1]));out=abspath(ARGS[2]);style=ARGS[3]
@@ -18,6 +18,9 @@ function export_figure(figure,name)
     for extension in ("png","pdf");save(joinpath(out,name*suffix*"."*extension),figure);end
 end
 
+# Avoid constructing the historical figures when only the reserved-cohort
+# figures were explicitly selected; every historical export remains available.
+if requested===nothing || any(name->!startswith(name,"routing-cohort-reserved-"),requested)
 if haskey(proof,"night_owned_objectives_v3")
     let
     rows=proof["night_owned_objectives_v3"]["measurement"]["measurements"]
@@ -451,5 +454,99 @@ for (key,basename,title,legend,byte_powers,object_powers) in (
     Label(figure[0,1:2],title;fontsize=23)
     Label(figure[3,1:2],"Five batches of eight calls; exact historical routes, examined candidates and complete checksums match.\nAll original PDPTW validators pass. Warm workspace scope; concurrent timing is not a controlled speedup.",fontsize=13)
     export_figure(figure,basename)
+    end
+end
+
+end
+
+if haskey(proof,"night_reserved_cohort_timing")
+    let
+    stage=proof["night_reserved_cohort_timing"]
+    stage["complete"] && stage["non_controlled_dependency_graph_matches"] ||
+        error("Unqualified reserved timing cohort")
+    rows=stage["groups"]
+    all(r->r["original_work_matches"],rows) || error("Original work differs")
+    methods=["rp_vnd_greedy","rp_alns_route_regret2","rp_aco_regret2","rp_alns_random_regret2",
+        "rp_meta_adaptive_late","rp_meta_diversity_tabu","rp_meta_pool_ipx_late","rp_meta_pool_mip_tabu"]
+    labels=["VND / greedy","Route ALNS / regret-2","ACO / regret-2","Random ALNS / regret-2",
+        "Meta / adaptive / late","Meta / diversity / tabu","Meta / pooled IPX / late","Meta / pooled MIP / tabu"]
+    for (metric,title,basename) in (("seconds","Steady elapsed time","routing-cohort-reserved-time"),
+            ("bytes","Allocated Julia bytes","routing-cohort-reserved-bytes"),
+            ("objects","Allocated Julia objects","routing-cohort-reserved-objects"))
+        requested===nothing || basename in requested || continue
+        figure=Figure(size=(2050,980))
+        for (column,width) in enumerate((1,2,4,8))
+            axis=Axis(figure[1,column],title="$width "* (width==1 ? "worker" : "workers"),
+                xlabel="Remaining cost (% of early optimized cohort)",
+                ylabel=column==1 ? "Configuration" : "",yticks=(1:8,labels),
+                yticklabelsvisible=column==1,yreversed=true)
+            vlines!(axis,[100.];color=:black,linestyle=:dash,linewidth=2)
+            limits=[100.]
+            for (position,method) in enumerate(methods), (seed,marker,offset) in
+                    ((41,:circle,-.22),(42,:utriangle,0.),(43,:diamond,.22))
+                r=only(filter(r->r["workers"]==width && r["method"]==method && r["seed"]==seed,rows))
+                metric_stats=r["metrics"][metric]
+                ratio=metric_stats["median_remaining_percent"]
+                spread=metric_stats["paired_remaining_percent"]
+                lo,hi=spread["minimum"],spread["maximum"]
+                color=startswith(method,"rp_meta") ? :purple3 : :dodgerblue3
+                y=position+offset
+                lines!(axis,[lo,hi],[y,y];color,linewidth=2)
+                scatter!(axis,[ratio],[y];color,marker,markersize=15,strokecolor=:white,strokewidth=.8)
+                append!(limits,(lo,hi,ratio))
+            end
+            xlims!(axis,0,max(108.,maximum(limits)*1.07))
+            ylims!(axis,.4,8.6)
+        end
+        elements=Any[
+            MarkerElement(color=:black,marker=:circle,markersize=12),
+            MarkerElement(color=:black,marker=:utriangle,markersize=12),
+            MarkerElement(color=:black,marker=:diamond,markersize=12),
+            LineElement(color=:dodgerblue3,linewidth=3),
+            LineElement(color=:purple3,linewidth=3),
+            LineElement(color=:black,linestyle=:dash,linewidth=2)]
+        Legend(figure[2,1:4],elements,["Seed 41","Seed 42","Seed 43","Private search lanes","MetaStrategist lifecycle","Fixed reference: 100%"];
+            orientation=:horizontal,framevisible=false)
+        Label(figure[0,1:4],"Original LR101: complete qualified cohort — $title";fontsize=25)
+        Label(figure[3,1:4],"Markers: ratio of per-seed medians; bars: all 10 paired sample ratios (two order-reversed process rounds × five samples). Lower is better; no outliers removed.\nEach width has its own fixed original work and roles; 1,920 original-valid observations and complete trace/routes/RNG checks. Widths are not a strong-scaling or solution-quality comparison.\nEight reserved physical P cores at most; single BLAS/GC/native HiGHS thread. Independent E-core media work may share memory and power; desktop background remains. Reference marks and all ranges stay visible.";
+            fontsize=14)
+        export_figure(figure,basename)
+    end
+    if requested===nothing || "routing-cohort-reserved-cpu-gc" in requested
+        figure=Figure(size=(2050,1320))
+        for (column,width) in enumerate((1,2,4,8)), (row,key,title) in
+                ((1,"mean_active_cpus","Mean active CPU equivalents"),(2,"gc_percent","Measured GC share (%)"))
+            axis=Axis(figure[row,column],title="$width "* (width==1 ? "worker" : "workers")*": "*title,
+                xlabel=row==1 ? "Process CPU seconds / elapsed seconds" : "GC seconds / elapsed seconds × 100",
+                ylabel=column==1 ? "Configuration" : "",yticks=(1:8,labels),
+                yticklabelsvisible=column==1,yreversed=true)
+            limits=Float64[]
+            row==1 && vlines!(axis,[Float64(width)];color=:black,linestyle=:dash,linewidth=2)
+            for (position,method) in enumerate(methods), (side,color,marker,offset) in
+                    (("before",:gray40,:rect,-.13),("after",:dodgerblue3,:circle,.13))
+                selected=filter(r->r["workers"]==width && r["method"]==method,rows)
+                stats=[row==1 ? r["metrics"][key][side] : r["runtime"][side][key] for r in selected]
+                lo,hi=minimum(s["minimum"] for s in stats),maximum(s["maximum"] for s in stats)
+                middle=median([s["median"] for s in stats])
+                y=position+offset
+                lines!(axis,[lo,hi],[y,y];color,linewidth=2)
+                scatter!(axis,[middle],[y];color,marker,markersize=13)
+                append!(limits,(lo,hi))
+            end
+            upper=row==1 ? max(width*1.08,maximum(limits)*1.07) : max(.01,maximum(limits)*1.12)
+            xlims!(axis,-.025upper,upper) # Keep zero-GC markers fully visible.
+            ylims!(axis,.4,8.6)
+        end
+        Legend(figure[3,1:4],Any[
+            Any[MarkerElement(color=:gray40,marker=:rect,markersize=12),LineElement(color=:gray40,linewidth=2)],
+            Any[MarkerElement(color=:dodgerblue3,marker=:circle,markersize=12),LineElement(color=:dodgerblue3,linewidth=2)],
+            LineElement(color=:black,linestyle=:dash,linewidth=2)],
+            ["Early optimized cohort","Final qualified cohort","Allocated worker capacity (top row)"];
+            orientation=:horizontal,framevisible=false)
+        Label(figure[0,1:4],"Original LR101: CPU use and GC during identical bounded work";fontsize=25)
+        Label(figure[4,1:4],"Markers: median of the three seed medians; bars: complete observation range. All 30 attempts per side/configuration/width retained.\nPure lanes execute 1,024 steps; MetaStrategist executes eight finite episodes of 32 steps per lane with serial barriers, exchange and a single-threaded native master.\nFinite heterogeneous work can leave lanes waiting; this is not a sustained saturation test. GC shares cover measured operations only; the explicit pre-batch collection is excluded.\nReserved physical P cores; independent E-core media and desktop activity can still share hardware resources. CPU accounting includes runtime/GC/native work, not only useful search.";
+            fontsize=14)
+        export_figure(figure,"routing-cohort-reserved-cpu-gc")
+    end
     end
 end
