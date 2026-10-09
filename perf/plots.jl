@@ -160,7 +160,9 @@ for (key,basename,description,xminimum,caption) in (
         ("night_owned_pool_columns","routing-owned-pool-columns","borrow ordered native pool columns",98,
          "Full trace/routes/RNG match; 50 profiles allocate fewer bytes and two are unchanged. Generic callback effects retain eager snapshots."),
         ("night_native_empty_insertion","routing-native-empty-insertion","ordered native empty-sequence insertion",55,
-         "Full trace/routes/RNG match; every initial lifecycle variation remains shown. Generic callback order and exceptional floating values retain the original cache path."))
+         "Full trace/routes/RNG match; every initial lifecycle variation remains shown. Generic callback order and exceptional floating values retain the original cache path."),
+        ("night_owned_best_quality","routing-owned-best-quality","owned coordinator quality snapshots",98,
+         "Full trace/routes/RNG match; initial model lifecycle variations remain shown. Complete lane qualities retain their original floating bits."))
     haskey(proof,key) || continue
     rows=proof[key]["records"]
     all(r->r["correctness"]=="passed" && r["observable_work_matches"],rows) ||
@@ -181,6 +183,51 @@ for (key,basename,description,xminimum,caption) in (
         Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
         Label(figure[3,1],"52 historical profiles; same frozen package cohort; 2 workers. $caption\nAll original-model oracles passed. Allocation evidence; no speed or quality claim.",fontsize=13)
         export_figure(figure,basename*"-"*category)
+    end
+end
+
+if haskey(proof,"night_owned_best_quality")
+    let
+    stage=proof["night_owned_best_quality"]
+    rows=stage["native_best_quality_pairs"]["records"]
+    all(r->r["original_oracle"]=="passed" && r["checksum_matches"],rows) ||
+        error("Unqualified coordinator quality pairs")
+    n=length(rows);figure=Figure(size=(1600,820))
+    axis=Axis(figure[1,1],title="Actual prepared lanes: owned coordinator quality snapshots",
+        xlabel="Remaining allocation (% of same-cohort previous source)",ylabel="Prepared lane states / seed",
+        yticks=(1:n,["$(r["width"]) lane states / seed $(r["seed"])" for r in rows]))
+    bytes=[100r["after"]["bytes"]/r["before"]["bytes"] for r in rows]
+    objects=[100r["after"]["objects"]/r["before"]["objects"] for r in rows]
+    vlines!(axis,[100];color=:black,linestyle=:dash,linewidth=2,label="Fixed previous-source reference")
+    scatter!(axis,bytes,(1:n).-.12;color=:dodgerblue3,marker=:circle,markersize=12,label="Allocated Julia bytes")
+    scatter!(axis,objects,(1:n).+.12;color=:purple3,marker=:utriangle,markersize=12,label="Allocated Julia objects")
+    xlims!(axis,-2,103);ylims!(axis,.5,n+.5)
+    Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
+    Label(figure[3,1],"One warmed batch of 1,000 complete quality refreshes plus ordered consumption; constant 448-byte/9-object scaffold retained.\nPrepared widths 1/2/4/8/16 are lane states; only 2 threads run. Qualities, checksum, lane ownership and original PDPTW solutions match.\nThe isolated refresh allocates zero bytes. Concurrent timing; no controlled speed or solution-quality claim.",fontsize=13)
+    export_figure(figure,"routing-owned-best-quality-native")
+
+    rows=stage["exact_warm_meta"]["records"]
+    all(r->r["all_lane_and_coordination_work_matches"],rows) || error("Unqualified cooperative quality snapshots")
+    methods=sort!(unique(r["method"] for r in rows));n=length(methods)
+    figure=Figure(size=(1600,820))
+    axis=Axis(figure[1,1],title="Actual MetaStrategist cooperation: owned coordinator quality snapshots",
+        xlabel="Remaining allocation (% of same-cohort previous source)",ylabel="Configuration",
+        yticks=(1:n,[replace(id,"rp_"=>"","_"=>" ") for id in methods]))
+    vlines!(axis,[100];color=:black,linestyle=:dash,linewidth=2,label="Fixed previous-source reference")
+    maxima=Float64[]
+    for (metric,color,marker,offset,label) in (("bytes",:dodgerblue3,:circle,-.12,"Allocated Julia bytes"),
+            ("objects",:purple3,:utriangle,.12,"Allocated Julia objects"))
+        values=[[100r["after"][metric]/r["before"][metric] for r in rows if r["method"]==id] for id in methods]
+        append!(maxima,maximum.(values))
+        for (i,v) in enumerate(values)
+            lines!(axis,[minimum(v),maximum(v)],fill(i+offset,2);color,linewidth=2)
+        end
+        scatter!(axis,[sum(v)/length(v) for v in values],(1:n).+offset;color,marker,markersize=12,label)
+    end
+    xlims!(axis,98,max(101,maximum(maxima)+1));ylims!(axis,.5,n+.5)
+    Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
+    Label(figure[3,1],"48 paired paths: 16 configurations × 3 seeds; 8 actual cooperative episodes × 2 workers, including simplex/IPX/HIPO masters.\nMarkers: mean paired ratio; bars: full seed range. Two byte and two object increases are retained. Complete substantive work and zero compilation/recompilation.\nOriginal validator and all warm attempts retained. Concurrent timing; no controlled speed or solution-quality claim.",fontsize=13)
+    export_figure(figure,"routing-owned-best-quality-exact-warm-meta")
     end
 end
 

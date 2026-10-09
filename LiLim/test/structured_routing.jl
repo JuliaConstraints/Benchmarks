@@ -17,6 +17,36 @@ const D=Pilot.distances(DATA)
 const BANKS=Dict(k=>ICNScoring.load_backend(k) for k in (:naive,:direct,:icn))
 LSvalues(lane)=collect(Hybrid.LS.get_values(lane.parent.solver))
 
+@testset "Coordinator quality workspace retains complete lane values and ownership" begin
+    function prepared_quality_bytes(qualities,lanes)
+        R.refresh_best_qualities!(qualities,lanes)
+        @allocated for _ in 1:1000;R.refresh_best_qualities!(qualities,lanes);end
+    end
+    for width in (1,2,4,8,16)
+        lanes=Any[R.Lane(P,INITIAL;seed=41+i,scorer=BANKS[:naive]) for i in 1:width]
+        qualities=Vector{Tuple{Int,Float64}}(undef,width)
+        for value in (0.0,-0.0,nextfloat(0.0),floatmax(Float64),Inf,-Inf,
+                NaN,reinterpret(Float64,0x7ff8000000000041))
+            for (i,lane) in enumerate(lanes)
+                lane.best_q=(isodd(i) ? typemax(Int) : typemin(Int),value)
+            end
+            expected=[lane.best_q for lane in lanes]
+            current=[deepcopy(lane.current) for lane in lanes]
+            @test R.refresh_best_qualities!(qualities,lanes)===qualities
+            @test isequal(qualities,expected)
+            @test all(reinterpret(UInt64,qualities[i][2])==reinterpret(UInt64,expected[i][2]) for i in 1:width)
+            retained=copy(qualities)
+            lanes[1].best_q=(1,2.0)
+            @test isequal(qualities,retained)
+            R.refresh_best_qualities!(qualities,lanes)
+            @test qualities[1]==(1,2.0) && isequal(qualities[2:end],retained[2:end])
+            @test all(lane.current==current[i] && validate_solution(P,lane.current).valid for (i,lane) in enumerate(lanes))
+            @test isequal(retained,expected)
+            @test prepared_quality_bytes(qualities,lanes)==0
+        end
+    end
+end
+
 struct ObservedEmptyProblem{P}
     instance::P
     observations::Vector{Symbol}

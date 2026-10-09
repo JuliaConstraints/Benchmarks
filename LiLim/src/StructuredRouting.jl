@@ -866,6 +866,18 @@ function share!(lane,p,pool,settings)
     end
 end
 
+function copy_best_quality!(qualities::Vector{Tuple{Int,Float64}}, i::Int, lane::L) where {L<:Lane}
+    best = lane.best_q
+    qualities[i] = (getfield(best,1),getfield(best,2))
+    nothing
+end
+function refresh_best_qualities!(qualities::Vector{Tuple{Int,Float64}}, lanes)
+    for i in eachindex(lanes)
+        copy_best_quality!(qualities, i, lanes[i])
+    end
+    qualities
+end
+
 "Execute each cooperative episode through the prepared typed MetaStrategist kernel."
 function run_portfolio(p,initial,id,seconds,seed,banks,strategy,execute;
         origin=time_ns(),initial_seconds=0.,max_episodes=typemax(Int),cpu_clock=()->0.,instance_sha256=nothing,
@@ -887,6 +899,7 @@ function run_portfolio(p,initial,id,seconds,seed,banks,strategy,execute;
     pool=RoutePool();D=first(lanes).parent.distances;collect!(pool,p,D,initial;validation_workspace)
     records=Vector{Any}(undef,width);episodes=0;role_scores=ones(length(roles));role_counts=zeros(Int,length(roles))
     chosen=[mod1(i,length(roles)) for i in 1:width];master_seconds=0.;coord=Dict{String,Any}()
+    before=Vector{Tuple{Int,Float64}}(undef,width)
     while time_ns()<deadline && episodes<max_episodes
         episodes+=1
         # Mandatory round-robin exploration makes all roles observable at widths 1/2.
@@ -897,7 +910,7 @@ function run_portfolio(p,initial,id,seconds,seed,banks,strategy,execute;
             Base.invokelatest(share!,lanes[i],p,pool,roles[chosen[i]])
         end
         stop=min(deadline,time_ns()+UInt64(round(Int,episode_seconds*1e9)))
-        before=[l.best_q for l in lanes]
+        refresh_best_qualities!(before,lanes)
         invoke=(i,_)->begin
             settings=roles[chosen[i]];cpu=cpu_clock()
             lanes[i].trace["julia_thread_id"]=Threads.threadid()
