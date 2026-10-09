@@ -17,6 +17,45 @@ const D=Pilot.distances(DATA)
 const BANKS=Dict(k=>ICNScoring.load_backend(k) for k in (:naive,:direct,:icn))
 LSvalues(lane)=collect(Hybrid.LS.get_values(lane.parent.solver))
 
+@testset "Independent primitive snapshots preserve aliases and retained observations" begin
+    for n in (0,1,2,8,32,64,128,129,256),visits in (0,2,16)
+        original=[collect(1:visits) for _ in 1:n]
+        first=R.owned_route_snapshot(original);second=R.owned_route_snapshot(original)
+        @test first==deepcopy(original) && first isa Vector{Vector{Int}}
+        @test first!==original && second!==first
+        @test all(first[i]!==original[i] && first[i]!==second[i] for i in eachindex(original))
+        @test all((first[i]===first[j])==(original[i]===original[j]) for i in eachindex(original),j in eachindex(original))
+        saved=deepcopy(first)
+        isempty(original) || push!(original[1],500)
+        @test first==saved
+    end
+    for n in (2,8,128,129),empty_row in (false,true)
+        row=empty_row ? Int[] : [2,3]
+        original=[collect(4:5) for _ in 1:n];original[1]=row;original[end]=row
+        result=R.owned_route_snapshot(original)
+        @test result==deepcopy(original)
+        @test result[1]===result[end] && result[1]!==row
+        @test all((result[i]===result[j])==(original[i]===original[j]) for i in eachindex(original),j in eachindex(original))
+        push!(result[1],6)
+        @test result[end][end]==6 && !(6 in row)
+    end
+    nested=Any[Any[1,[2]],Any[3]];nested_copy=R.owned_route_snapshot(nested)
+    @test nested_copy==deepcopy(nested) && nested_copy[1][2]!==nested[1][2]
+    undefined=Vector{Vector{Int}}(undef,2);undefined[1]=[2,3]
+    undefined_copy=R.owned_route_snapshot(undefined)
+    @test isassigned(undefined_copy,1) && !isassigned(undefined_copy,2)
+    @test undefined_copy[1]==undefined[1] && undefined_copy[1]!==undefined[1]
+    lane=R.Lane(P,INITIAL);pool=lane.pool
+    @test lane.current!==lane.best && lane.current!==INITIAL
+    @test all(lane.current[i]!==lane.best[i] && lane.current[i]!==INITIAL[i] for i in eachindex(INITIAL))
+    @test pool.solutions[1]!==INITIAL && pool.routes!==pool.solutions[1]
+    @test all(pool.routes[i]!==pool.solutions[1][i] for i in eachindex(pool.routes))
+    retained=deepcopy(pool.solutions)
+    R.collect!(pool,P,D,[[2,3,4,5],[6,7]])
+    @test pool.solutions[1]==retained[1] || retained[1] in pool.solutions
+    @test lane.current==INITIAL && lane.best==INITIAL
+end
+
 @testset "Private lane counters preserve numeric observations and exported snapshots" begin
     first_lane=R.Lane(P,INITIAL);second_lane=R.Lane(P,INITIAL)
     @test first_lane.trace isa R.TraceCounters.Trace

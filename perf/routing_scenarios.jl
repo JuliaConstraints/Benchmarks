@@ -13,6 +13,34 @@ function routing_fixture()
     BenchmarkInstance("route-profile-functional",d)
 end
 
+"Retained caller-owned snapshots; complete original routes and row identities are the oracle."
+function routing_snapshot_case(parameters)
+    requests=parameters["requests"];repetitions=parameters["repetitions"]
+    requests>0 && repetitions>0 || throw(ArgumentError("positive snapshot workload required"))
+    prepare=()->begin
+        nodes=2requests+1;rng=Xoshiro(parameters["seed"])
+        data=PickupDeliveryProblem(requests,2,100rand(rng,nodes,2),
+            vcat(0,repeat([1,-1],requests)),zeros(nodes),fill(1e9,nodes),zeros(nodes),
+            [(2i,2i+1) for i in 1:requests])
+        p=BenchmarkInstance("route-snapshot-$requests",data)
+        routes=[[2i,2i+1] for i in 1:requests]
+        @assert validate_solution(p,routes).valid
+        (;p,routes,retained=deepcopy(routes),latest=Ref(Vector{Int}[]))
+    end
+    operation=s->begin
+        for _ in 1:repetitions;s.latest[]=StructuredRouting.owned_route_snapshot(s.routes);end
+        length(s.latest[])
+    end
+    verify=(s,result)->begin
+        latest=s.latest[]
+        latest==s.retained==s.routes && result==length(s.routes) && latest!==s.routes &&
+        all(latest[i]!==s.routes[i] for i in eachindex(s.routes)) &&
+        all((latest[i]===latest[j])==(s.routes[i]===s.routes[j]) for i in eachindex(s.routes),j in eachindex(s.routes)) &&
+        validate_solution(s.p,latest).valid && validate_solution(s.p,s.routes).valid
+    end
+    (;prepare,operation,verify)
+end
+
 "Owned pair reinsertion, qualified by exhaustive original-model insertion checks."
 function pair_relocation_case(parameters)
     requests=parameters["requests"];seed=parameters["seed"];repetitions=parameters["repetitions"]
