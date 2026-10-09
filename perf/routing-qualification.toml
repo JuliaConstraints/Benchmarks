@@ -186030,6 +186030,645 @@ test_assertions = 1693
     method = "rp_vnd_tabu"
     observable_work_matches = true
 
+[night_whole_application_original_work_v7]
+all_complete_original_work_matches = true
+scope = "Entire early application c21eb26 with first published frozen V3 package performance cohort versus current application/frozen V7 cohort in independent processes; eight complementary original-LR101 paths, seed41, two workers. Complete substantive lane/coordinator/RNG work matches. Final portable promotion remains blocked by unrelated generic QUBO offset semantics."
+timing_scope = "Functional fixed-work qualification only; no timing samples recorded."
+
+    [night_whole_application_original_work_v7.baseline]
+    application_clean = true
+    application_commit = "c21eb260fd5c9378766e875cc92dc1760fc0b5e3"
+    application_root = "/home/azzaare/Gits/Benchmarks-night-routing"
+    complete = true
+    completed_utc = "2026-10-09T03:53:35.264"
+    cpu_affinity = [8, 10]
+    instance_sha256 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    manifest_sha256 = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+    project_sha256 = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    recorded_utc = "2026-10-09T03:53:13.843"
+    schema = "whole-application-cohort-original-work-qualification/1"
+    scope = "First published frozen package performance cohort and its early entire application versus current immutable cohort/application; independent processes; eight complementary original LR101 paths at fixed work. Qualification is complete work/RNG equivalence, not concurrent speed."
+    source_sha256 = "2e4f914c9b06d8ec49bce5878b6249f8e1a1f4a2c02527b629b7ec1a9bd9b5f6"
+    workers = 2
+
+        [[night_whole_application_original_work_v7.baseline.records]]
+        method = "rp_vnd_greedy"
+        original_oracle = "passed"
+        seed = 41
+
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 19
+            best_routes_sha256 = "151dd2a89f8a995be98e8c37a6df4da9574b3f1c5633b17cbfa7e7484add42ae"
+            completed_resets = 0
+            current_routes_sha256 = "151dd2a89f8a995be98e8c37a6df4da9574b3f1c5633b17cbfa7e7484add42ae"
+            ejection_attempts = 0
+            next_rng_uint64 = "8563440004410064863"
+            steps = 1024
+            summary_evaluations = 465420
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "3a071e56fd2c339dcb9aadc411e6f977c614246b66b1315a35816c9487d24785"
+            unchanged_proposals = 325
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 10
+            best_routes_sha256 = "9d26904a2203739b338c8e27ed2cb6a32c6f3fbae66265f60f614a24872388df"
+            completed_resets = 0
+            current_routes_sha256 = "9d26904a2203739b338c8e27ed2cb6a32c6f3fbae66265f60f614a24872388df"
+            ejection_attempts = 0
+            next_rng_uint64 = "2282617671177823840"
+            steps = 1024
+            summary_evaluations = 453112
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "bd2ec2a24420c3f72d34c77d2b9fbe30f69986049acc07f988f33d758281f89b"
+            unchanged_proposals = 335
+        [[night_whole_application_original_work_v7.baseline.records]]
+        method = "rp_alns_route_regret2"
+        original_oracle = "passed"
+        seed = 41
+
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 71
+            best_routes_sha256 = "b89c9847c73b32be1c912889c67fab2588686dad2ecb0b906f3934e4b000aba1"
+            completed_resets = 0
+            current_routes_sha256 = "b89c9847c73b32be1c912889c67fab2588686dad2ecb0b906f3934e4b000aba1"
+            ejection_attempts = 0
+            next_rng_uint64 = "10280996193249647030"
+            steps = 1024
+            summary_evaluations = 2479913
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "ef55227a182757321c513534c224c28bc77acac98f3046bffc21f1ccdcda5f6c"
+            unchanged_proposals = 861
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 71
+            best_routes_sha256 = "805e6091a07bb193f7cbc891de1f54eaefbf0d39f648b1ce2753e67c1b28c152"
+            completed_resets = 0
+            current_routes_sha256 = "fff7af794c975c19fed4dfd2e952a208a3cc1f086647a7db6f9580a3108bc6b8"
+            ejection_attempts = 0
+            next_rng_uint64 = "8580699953917690050"
+            steps = 1024
+            summary_evaluations = 2516718
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "d627c1ba7bd972ce4cf744302ea26bebcb9492b7ec962b561caf4685b6999bd8"
+            unchanged_proposals = 858
+        [[night_whole_application_original_work_v7.baseline.records]]
+        method = "rp_aco_regret2"
+        original_oracle = "passed"
+        seed = 41
+
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 76
+            best_routes_sha256 = "96a5417474db9665fb1cdf1c9c29f63897d5611b662744d38c9f9702d66a9c28"
+            completed_resets = 0
+            current_routes_sha256 = "451d5b925a1e680cd96be8b3df11329de6e6cc2d56461b6aed5d1f277034d3b3"
+            ejection_attempts = 0
+            next_rng_uint64 = "11343736572149976814"
+            steps = 1024
+            summary_evaluations = 18503058
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "a367f9b1ee95f159c17f6a82256ccf8769ef8eefb44ed934cefa953420443f4f"
+            unchanged_proposals = 749
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 61
+            best_routes_sha256 = "0196d2c0c9b7cc17649272bc8d1da4b2976fa6c5bf1a52467c70e1d27608fcc0"
+            completed_resets = 0
+            current_routes_sha256 = "5be6cdfbe1969bda507da3bb94680353a1fa7400225334028ca78e70652224a3"
+            ejection_attempts = 0
+            next_rng_uint64 = "2009006673502189482"
+            steps = 1024
+            summary_evaluations = 18382244
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "463a57e7338c930993ff5912a5b094ea801849d2b1b252430b29a2e511def6f8"
+            unchanged_proposals = 773
+        [[night_whole_application_original_work_v7.baseline.records]]
+        method = "rp_alns_random_regret2"
+        original_oracle = "passed"
+        seed = 41
+
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 39
+            best_routes_sha256 = "ca49da1c3930cbb2be11301480a637df9bd7c8dd04216d8786cf06745a2e0670"
+            completed_resets = 0
+            current_routes_sha256 = "5f68504e8eccd94e8d5d78df16c2e3903c52d774dbc47f7c298b48109f8f46fd"
+            ejection_attempts = 0
+            next_rng_uint64 = "3182439682102349129"
+            steps = 1024
+            summary_evaluations = 26715137
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "7c115eb7652dd8cbb4b752c4472cc5393100f9a88aac8fbfd6d1908f4fe9a10f"
+            unchanged_proposals = 930
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 30
+            best_routes_sha256 = "f1f37e6bf286cbf63de047377899d8a0021a192fffc8670d900501724849b1d7"
+            completed_resets = 0
+            current_routes_sha256 = "f1f37e6bf286cbf63de047377899d8a0021a192fffc8670d900501724849b1d7"
+            ejection_attempts = 0
+            next_rng_uint64 = "17336807281604928004"
+            steps = 1024
+            summary_evaluations = 26711695
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "c5ede81c8b741043bf816c9b8c399dce7cc9eaad97193e3f97834ac42773bf34"
+            unchanged_proposals = 931
+        [[night_whole_application_original_work_v7.baseline.records]]
+        method = "rp_meta_adaptive_late"
+        original_oracle = "passed"
+        seed = 41
+
+            [night_whole_application_original_work_v7.baseline.records.work.coordination]
+            episodes = 8
+            fill_episode = false
+            pool_routes = 53
+            role_episode_counts = [4, 4, 5, 3]
+            role_scores = [1.5103000000000004, 2.7073000000000005, 1.5103000000000004, 1.0]
+
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 31
+            best_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            completed_resets = 0
+            current_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            ejection_attempts = 1352
+            next_rng_uint64 = "9610824330423711878"
+            steps = 256
+            summary_evaluations = 2019967
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "49a0c5b35583fdd8b4f41f6f7b0d43d52b97b743ba4848699ce63ca0bc1ebc9a"
+            unchanged_proposals = 150
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 32
+            best_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            completed_resets = 0
+            current_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            ejection_attempts = 2600
+            next_rng_uint64 = "16058812269891103579"
+            steps = 256
+            summary_evaluations = 2707944
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "76483c80b5e91c8651d3c0cb7446f18ee0f396e5e75f84cd823ad8a86fc67d91"
+            unchanged_proposals = 106
+        [[night_whole_application_original_work_v7.baseline.records]]
+        method = "rp_meta_diversity_tabu"
+        original_oracle = "passed"
+        seed = 41
+
+            [night_whole_application_original_work_v7.baseline.records.work.coordination]
+            episodes = 8
+            fill_episode = false
+            pool_routes = 58
+            role_episode_counts = [5, 6, 5]
+            role_scores = [2.5365700000000007, 1.0, 2.0773]
+
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 32
+            best_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            completed_resets = 0
+            current_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            ejection_attempts = 0
+            next_rng_uint64 = "6625624443976539555"
+            steps = 256
+            summary_evaluations = 3043441
+            tabu_hits = 37
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "9506bd719095984fab408ae9af64e506e78ad7549235f141357917eb27ade2a0"
+            unchanged_proposals = 185
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 30
+            best_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            completed_resets = 0
+            current_routes_sha256 = "fc7feb9fe293d2e9c53dff85ceb993e5fa3a4226624bb797e6a982ef248b5efd"
+            ejection_attempts = 0
+            next_rng_uint64 = "7781444961077319576"
+            steps = 256
+            summary_evaluations = 3153446
+            tabu_hits = 26
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "4a68a33b46e568eac693060d0d696b5fc9a6f007b09bdde798b06508a5f8a844"
+            unchanged_proposals = 187
+        [[night_whole_application_original_work_v7.baseline.records]]
+        method = "rp_meta_pool_ipx_late"
+        original_oracle = "passed"
+        seed = 41
+
+            [night_whole_application_original_work_v7.baseline.records.work.coordination]
+            episodes = 8
+            fill_episode = false
+            fragment = "validated route pool"
+            master_bound_scope = "restricted_route_pool_not_global_original_bound"
+            master_last_dual_prices = [-19551.527771140845, 19544.90295687135, 19601.73981420707, 19572.883669085757, 19564.82370829743, 35.68183713955659, 2.1883437631804554, 8.561846181492001, 19532.427115042636, 19572.721432161467, 19564.574588526128, -0.0, 19524.88688126742, 19547.60158428064, 13.431194373199105, 19550.819591267893, -0.0, 30.77531865759738, -0.0, -0.0, -0.0, 19520.340820727506, -0.0, 5.293168188385607, 19531.337979160224, -0.0, 19551.70543582651, 19504.89683912221, -0.0, 19593.698452095086, -0.0, 9.77044905141156, 19520.993398597042, 0.2643052014609566, 19590.24361540933, -13.64801880971936, 19571.21826955497, -0.0, 16.44859015674956, -0.0, -0.0, 19563.039641993593, -0.0, -33.19043994367166, -0.0, 17.32653689066865, -19522.14210419639, -13.143709261526965, -0.0, -0.0, 19519.652469535475, 22.61251337509748, 19504.86705709139]
+            master_last_restricted_lp_objective = 371578.0773797477
+            master_last_status = "no_improvement"
+            master_lp_calls = 2
+            master_lp_solver = "ipx"
+            master_mip_calls = 1
+            master_native_threads = 1
+            master_resolver_calls = 2
+            pool_routes = 46
+            representation = "customer-successor/1"
+            role_episode_counts = [5, 6, 5]
+            role_scores = [1.4592700000000005, 1.8726130000000003, 1.0]
+            threads = 1
+
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 15
+            best_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            completed_resets = 0
+            current_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            ejection_attempts = 2308
+            next_rng_uint64 = "3125804732008942883"
+            steps = 256
+            summary_evaluations = 3259681
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "172849ff9aaae1d1907e158ecb2f2692c1ff8ee2bee33afb0da8393bb36c7d04"
+            unchanged_proposals = 147
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 23
+            best_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            completed_resets = 0
+            current_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            ejection_attempts = 1470
+            next_rng_uint64 = "13068265439961758414"
+            steps = 256
+            summary_evaluations = 2758025
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "1bf5567eda99b1ea0f5ca0044754fbb34afa803de69b182b96390c61f8bde9b8"
+            unchanged_proposals = 169
+        [[night_whole_application_original_work_v7.baseline.records]]
+        method = "rp_meta_pool_mip_tabu"
+        original_oracle = "passed"
+        seed = 41
+
+            [night_whole_application_original_work_v7.baseline.records.work.coordination]
+            episodes = 8
+            fill_episode = false
+            fragment = "validated route pool"
+            master_bound_scope = "restricted_route_pool_not_global_original_bound"
+            master_last_dual_prices = [9767.257692459063, 19527.194041724142, 19601.73981420707, 19572.883669085757, 19564.82370829743, 19556.022657867063, 2.1883437631804554, 19513.458685303704, 9775.600625338391, 19567.686169466655, 19564.574588526128, -0.0, 19517.18748739849, 19547.60158428064, 13.431194373199105, 19550.819591267893, -0.0, 30.77531865759738, -0.0, -0.0, -0.0, -0.0, -0.0, 5.293168188385607, 19548.600939291937, -0.0, 19551.70543582651, -0.0, 7.699393868930201, 19560.508012151415, 5.035262694811536, -0.0, 12.584624057348265, 0.2643052014609566, 19590.24361540933, -13.64801880971936, 19571.21826955497, -0.0, 16.44859015674956, -0.0, -0.0, 9766.602931188665, -0.0, -0.0, -0.0, 44.805901089286635, -0.0, -13.143709261526965, -0.0, -0.0, 19542.264982910572, -0.0, 19504.86705709139]
+            master_last_restricted_lp_objective = 381374.59593262686
+            master_last_status = "improved"
+            master_lp_calls = 2
+            master_lp_solver = "simplex"
+            master_mip_calls = 2
+            master_native_threads = 1
+            master_resolver_calls = 2
+            pool_routes = 43
+            representation = "customer-successor/1"
+            role_episode_counts = [5, 6, 5]
+            role_scores = [1.4592700000000005, 1.8726130000000003, 2.1592700000000002]
+            threads = 1
+
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 10
+            best_routes_sha256 = "b28644df45441abd67f747b0a8b70d5f2dc4f4926888b553a903383de23e6866"
+            completed_resets = 0
+            current_routes_sha256 = "b28644df45441abd67f747b0a8b70d5f2dc4f4926888b553a903383de23e6866"
+            ejection_attempts = 2828
+            next_rng_uint64 = "12520164260210724800"
+            steps = 256
+            summary_evaluations = 3066933
+            tabu_hits = 1
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "0f1bcce28b14b34d697e52d60a20e34de66db12a69c66bb7ea28946a8b940d4c"
+            unchanged_proposals = 111
+            [[night_whole_application_original_work_v7.baseline.records.work.lanes]]
+            accepted_meta_moves = 12
+            best_routes_sha256 = "1194c93a0b3e144ba379829c39c82074f7b7a1a7810e453d9d4621d48c6c8365"
+            completed_resets = 0
+            current_routes_sha256 = "1194c93a0b3e144ba379829c39c82074f7b7a1a7810e453d9d4621d48c6c8365"
+            ejection_attempts = 2021
+            next_rng_uint64 = "3837466586144571004"
+            steps = 256
+            summary_evaluations = 1918140
+            tabu_hits = 2
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "12083768dac00e7fd50143f3bd99e006a4cab4fc9658ee069a48069e5879086d"
+            unchanged_proposals = 117
+
+    [night_whole_application_original_work_v7.current]
+    application_clean = true
+    application_commit = "53e26d2035c15aef1a37000186c48858c6497fe3"
+    application_root = "/home/azzaare/Gits/Benchmarks-night-sparse-guide"
+    complete = true
+    completed_utc = "2026-10-09T03:54:24.441"
+    cpu_affinity = [8, 10]
+    instance_sha256 = "2273f429e91d8a882a504fe818f4a35adaae1c1d33c406f4decc700f74f2828d"
+    manifest_sha256 = "fc37225b20f76ec93f47fa4a90fa15e0889db45a1fe59fda9446c14f4a533f06"
+    project_sha256 = "9523463e63a0ef4d5795e761b3bcb4b1466c6358ee9a88aff6c69af9bf74144d"
+    recorded_utc = "2026-10-09T03:54:04.050"
+    schema = "whole-application-cohort-original-work-qualification/1"
+    scope = "First published frozen package performance cohort and its early entire application versus current immutable cohort/application; independent processes; eight complementary original LR101 paths at fixed work. Qualification is complete work/RNG equivalence, not concurrent speed."
+    source_sha256 = "b1497be366770195a8e551b72f5382f4abffe00a7f119abf621fc0b1a33abd7d"
+    workers = 2
+
+        [[night_whole_application_original_work_v7.current.records]]
+        method = "rp_vnd_greedy"
+        original_oracle = "passed"
+        seed = 41
+
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 19
+            best_routes_sha256 = "151dd2a89f8a995be98e8c37a6df4da9574b3f1c5633b17cbfa7e7484add42ae"
+            completed_resets = 0
+            current_routes_sha256 = "151dd2a89f8a995be98e8c37a6df4da9574b3f1c5633b17cbfa7e7484add42ae"
+            ejection_attempts = 0
+            next_rng_uint64 = "8563440004410064863"
+            steps = 1024
+            summary_evaluations = 465420
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "3a071e56fd2c339dcb9aadc411e6f977c614246b66b1315a35816c9487d24785"
+            unchanged_proposals = 325
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 10
+            best_routes_sha256 = "9d26904a2203739b338c8e27ed2cb6a32c6f3fbae66265f60f614a24872388df"
+            completed_resets = 0
+            current_routes_sha256 = "9d26904a2203739b338c8e27ed2cb6a32c6f3fbae66265f60f614a24872388df"
+            ejection_attempts = 0
+            next_rng_uint64 = "2282617671177823840"
+            steps = 1024
+            summary_evaluations = 453112
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "bd2ec2a24420c3f72d34c77d2b9fbe30f69986049acc07f988f33d758281f89b"
+            unchanged_proposals = 335
+        [[night_whole_application_original_work_v7.current.records]]
+        method = "rp_alns_route_regret2"
+        original_oracle = "passed"
+        seed = 41
+
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 71
+            best_routes_sha256 = "b89c9847c73b32be1c912889c67fab2588686dad2ecb0b906f3934e4b000aba1"
+            completed_resets = 0
+            current_routes_sha256 = "b89c9847c73b32be1c912889c67fab2588686dad2ecb0b906f3934e4b000aba1"
+            ejection_attempts = 0
+            next_rng_uint64 = "10280996193249647030"
+            steps = 1024
+            summary_evaluations = 2479913
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "ef55227a182757321c513534c224c28bc77acac98f3046bffc21f1ccdcda5f6c"
+            unchanged_proposals = 861
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 71
+            best_routes_sha256 = "805e6091a07bb193f7cbc891de1f54eaefbf0d39f648b1ce2753e67c1b28c152"
+            completed_resets = 0
+            current_routes_sha256 = "fff7af794c975c19fed4dfd2e952a208a3cc1f086647a7db6f9580a3108bc6b8"
+            ejection_attempts = 0
+            next_rng_uint64 = "8580699953917690050"
+            steps = 1024
+            summary_evaluations = 2516718
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "d627c1ba7bd972ce4cf744302ea26bebcb9492b7ec962b561caf4685b6999bd8"
+            unchanged_proposals = 858
+        [[night_whole_application_original_work_v7.current.records]]
+        method = "rp_aco_regret2"
+        original_oracle = "passed"
+        seed = 41
+
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 76
+            best_routes_sha256 = "96a5417474db9665fb1cdf1c9c29f63897d5611b662744d38c9f9702d66a9c28"
+            completed_resets = 0
+            current_routes_sha256 = "451d5b925a1e680cd96be8b3df11329de6e6cc2d56461b6aed5d1f277034d3b3"
+            ejection_attempts = 0
+            next_rng_uint64 = "11343736572149976814"
+            steps = 1024
+            summary_evaluations = 18503058
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "a367f9b1ee95f159c17f6a82256ccf8769ef8eefb44ed934cefa953420443f4f"
+            unchanged_proposals = 749
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 61
+            best_routes_sha256 = "0196d2c0c9b7cc17649272bc8d1da4b2976fa6c5bf1a52467c70e1d27608fcc0"
+            completed_resets = 0
+            current_routes_sha256 = "5be6cdfbe1969bda507da3bb94680353a1fa7400225334028ca78e70652224a3"
+            ejection_attempts = 0
+            next_rng_uint64 = "2009006673502189482"
+            steps = 1024
+            summary_evaluations = 18382244
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "463a57e7338c930993ff5912a5b094ea801849d2b1b252430b29a2e511def6f8"
+            unchanged_proposals = 773
+        [[night_whole_application_original_work_v7.current.records]]
+        method = "rp_alns_random_regret2"
+        original_oracle = "passed"
+        seed = 41
+
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 39
+            best_routes_sha256 = "ca49da1c3930cbb2be11301480a637df9bd7c8dd04216d8786cf06745a2e0670"
+            completed_resets = 0
+            current_routes_sha256 = "5f68504e8eccd94e8d5d78df16c2e3903c52d774dbc47f7c298b48109f8f46fd"
+            ejection_attempts = 0
+            next_rng_uint64 = "3182439682102349129"
+            steps = 1024
+            summary_evaluations = 26715137
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "7c115eb7652dd8cbb4b752c4472cc5393100f9a88aac8fbfd6d1908f4fe9a10f"
+            unchanged_proposals = 930
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 30
+            best_routes_sha256 = "f1f37e6bf286cbf63de047377899d8a0021a192fffc8670d900501724849b1d7"
+            completed_resets = 0
+            current_routes_sha256 = "f1f37e6bf286cbf63de047377899d8a0021a192fffc8670d900501724849b1d7"
+            ejection_attempts = 0
+            next_rng_uint64 = "17336807281604928004"
+            steps = 1024
+            summary_evaluations = 26711695
+            tabu_hits = 0
+            thread_cpu_seconds = 0
+            trace_work_sha256 = "c5ede81c8b741043bf816c9b8c399dce7cc9eaad97193e3f97834ac42773bf34"
+            unchanged_proposals = 931
+        [[night_whole_application_original_work_v7.current.records]]
+        method = "rp_meta_adaptive_late"
+        original_oracle = "passed"
+        seed = 41
+
+            [night_whole_application_original_work_v7.current.records.work.coordination]
+            episodes = 8
+            fill_episode = false
+            pool_routes = 53
+            role_episode_counts = [4, 4, 5, 3]
+            role_scores = [1.5103000000000004, 2.7073000000000005, 1.5103000000000004, 1.0]
+
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 31
+            best_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            completed_resets = 0
+            current_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            ejection_attempts = 1352
+            next_rng_uint64 = "9610824330423711878"
+            steps = 256
+            summary_evaluations = 2019967
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "49a0c5b35583fdd8b4f41f6f7b0d43d52b97b743ba4848699ce63ca0bc1ebc9a"
+            unchanged_proposals = 150
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 32
+            best_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            completed_resets = 0
+            current_routes_sha256 = "8952372b34647cef141f8cb1305fd06d9a3824e796822420e9ced9881ee0d538"
+            ejection_attempts = 2600
+            next_rng_uint64 = "16058812269891103579"
+            steps = 256
+            summary_evaluations = 2707944
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "76483c80b5e91c8651d3c0cb7446f18ee0f396e5e75f84cd823ad8a86fc67d91"
+            unchanged_proposals = 106
+        [[night_whole_application_original_work_v7.current.records]]
+        method = "rp_meta_diversity_tabu"
+        original_oracle = "passed"
+        seed = 41
+
+            [night_whole_application_original_work_v7.current.records.work.coordination]
+            episodes = 8
+            fill_episode = false
+            pool_routes = 58
+            role_episode_counts = [5, 6, 5]
+            role_scores = [2.5365700000000007, 1.0, 2.0773]
+
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 32
+            best_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            completed_resets = 0
+            current_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            ejection_attempts = 0
+            next_rng_uint64 = "6625624443976539555"
+            steps = 256
+            summary_evaluations = 3043441
+            tabu_hits = 37
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "9506bd719095984fab408ae9af64e506e78ad7549235f141357917eb27ade2a0"
+            unchanged_proposals = 185
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 30
+            best_routes_sha256 = "c8733f542818e9fd65db196ecc8f1a5bd9044386c3143ccbc0e8ff62dead85cd"
+            completed_resets = 0
+            current_routes_sha256 = "fc7feb9fe293d2e9c53dff85ceb993e5fa3a4226624bb797e6a982ef248b5efd"
+            ejection_attempts = 0
+            next_rng_uint64 = "7781444961077319576"
+            steps = 256
+            summary_evaluations = 3153446
+            tabu_hits = 26
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "4a68a33b46e568eac693060d0d696b5fc9a6f007b09bdde798b06508a5f8a844"
+            unchanged_proposals = 187
+        [[night_whole_application_original_work_v7.current.records]]
+        method = "rp_meta_pool_ipx_late"
+        original_oracle = "passed"
+        seed = 41
+
+            [night_whole_application_original_work_v7.current.records.work.coordination]
+            episodes = 8
+            fill_episode = false
+            fragment = "validated route pool"
+            master_bound_scope = "restricted_route_pool_not_global_original_bound"
+            master_last_dual_prices = [-19551.527771140845, 19544.90295687135, 19601.73981420707, 19572.883669085757, 19564.82370829743, 35.68183713955659, 2.1883437631804554, 8.561846181492001, 19532.427115042636, 19572.721432161467, 19564.574588526128, -0.0, 19524.88688126742, 19547.60158428064, 13.431194373199105, 19550.819591267893, -0.0, 30.77531865759738, -0.0, -0.0, -0.0, 19520.340820727506, -0.0, 5.293168188385607, 19531.337979160224, -0.0, 19551.70543582651, 19504.89683912221, -0.0, 19593.698452095086, -0.0, 9.77044905141156, 19520.993398597042, 0.2643052014609566, 19590.24361540933, -13.64801880971936, 19571.21826955497, -0.0, 16.44859015674956, -0.0, -0.0, 19563.039641993593, -0.0, -33.19043994367166, -0.0, 17.32653689066865, -19522.14210419639, -13.143709261526965, -0.0, -0.0, 19519.652469535475, 22.61251337509748, 19504.86705709139]
+            master_last_restricted_lp_objective = 371578.0773797477
+            master_last_status = "no_improvement"
+            master_lp_calls = 2
+            master_lp_solver = "ipx"
+            master_mip_calls = 1
+            master_native_threads = 1
+            master_resolver_calls = 2
+            pool_routes = 46
+            representation = "customer-successor/1"
+            role_episode_counts = [5, 6, 5]
+            role_scores = [1.4592700000000005, 1.8726130000000003, 1.0]
+            threads = 1
+
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 15
+            best_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            completed_resets = 0
+            current_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            ejection_attempts = 2308
+            next_rng_uint64 = "3125804732008942883"
+            steps = 256
+            summary_evaluations = 3259681
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "172849ff9aaae1d1907e158ecb2f2692c1ff8ee2bee33afb0da8393bb36c7d04"
+            unchanged_proposals = 147
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 23
+            best_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            completed_resets = 0
+            current_routes_sha256 = "25f1b56b9667f6bb79930f46122800d9f94e8e3282f06bd21a27eed593bdfe6b"
+            ejection_attempts = 1470
+            next_rng_uint64 = "13068265439961758414"
+            steps = 256
+            summary_evaluations = 2758025
+            tabu_hits = 0
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "1bf5567eda99b1ea0f5ca0044754fbb34afa803de69b182b96390c61f8bde9b8"
+            unchanged_proposals = 169
+        [[night_whole_application_original_work_v7.current.records]]
+        method = "rp_meta_pool_mip_tabu"
+        original_oracle = "passed"
+        seed = 41
+
+            [night_whole_application_original_work_v7.current.records.work.coordination]
+            episodes = 8
+            fill_episode = false
+            fragment = "validated route pool"
+            master_bound_scope = "restricted_route_pool_not_global_original_bound"
+            master_last_dual_prices = [9767.257692459063, 19527.194041724142, 19601.73981420707, 19572.883669085757, 19564.82370829743, 19556.022657867063, 2.1883437631804554, 19513.458685303704, 9775.600625338391, 19567.686169466655, 19564.574588526128, -0.0, 19517.18748739849, 19547.60158428064, 13.431194373199105, 19550.819591267893, -0.0, 30.77531865759738, -0.0, -0.0, -0.0, -0.0, -0.0, 5.293168188385607, 19548.600939291937, -0.0, 19551.70543582651, -0.0, 7.699393868930201, 19560.508012151415, 5.035262694811536, -0.0, 12.584624057348265, 0.2643052014609566, 19590.24361540933, -13.64801880971936, 19571.21826955497, -0.0, 16.44859015674956, -0.0, -0.0, 9766.602931188665, -0.0, -0.0, -0.0, 44.805901089286635, -0.0, -13.143709261526965, -0.0, -0.0, 19542.264982910572, -0.0, 19504.86705709139]
+            master_last_restricted_lp_objective = 381374.59593262686
+            master_last_status = "improved"
+            master_lp_calls = 2
+            master_lp_solver = "simplex"
+            master_mip_calls = 2
+            master_native_threads = 1
+            master_resolver_calls = 2
+            pool_routes = 43
+            representation = "customer-successor/1"
+            role_episode_counts = [5, 6, 5]
+            role_scores = [1.4592700000000005, 1.8726130000000003, 2.1592700000000002]
+            threads = 1
+
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 10
+            best_routes_sha256 = "b28644df45441abd67f747b0a8b70d5f2dc4f4926888b553a903383de23e6866"
+            completed_resets = 0
+            current_routes_sha256 = "b28644df45441abd67f747b0a8b70d5f2dc4f4926888b553a903383de23e6866"
+            ejection_attempts = 2828
+            next_rng_uint64 = "12520164260210724800"
+            steps = 256
+            summary_evaluations = 3066933
+            tabu_hits = 1
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "0f1bcce28b14b34d697e52d60a20e34de66db12a69c66bb7ea28946a8b940d4c"
+            unchanged_proposals = 111
+            [[night_whole_application_original_work_v7.current.records.work.lanes]]
+            accepted_meta_moves = 12
+            best_routes_sha256 = "1194c93a0b3e144ba379829c39c82074f7b7a1a7810e453d9d4621d48c6c8365"
+            completed_resets = 0
+            current_routes_sha256 = "1194c93a0b3e144ba379829c39c82074f7b7a1a7810e453d9d4621d48c6c8365"
+            ejection_attempts = 2021
+            next_rng_uint64 = "3837466586144571004"
+            steps = 256
+            summary_evaluations = 1918140
+            tabu_hits = 2
+            thread_cpu_seconds = 0.0
+            trace_work_sha256 = "12083768dac00e7fd50143f3bd99e006a4cab4fc9658ee069a48069e5879086d"
+            unchanged_proposals = 117
+
 [original_instance]
 collector = "PerfChecker SharedScenarioRuntime + direct @timed allocation/GC totals"
 collector_scope = "Same-observation process byte/object/GC totals; no native allocation stacks"
