@@ -148,7 +148,9 @@ for (key,basename,description,xminimum,caption) in (
         ("night_owned_relocation","routing-owned-relocation","deferred private pair relocation",95,
          "Full trace, routes and next RNG values match; some small MetaStrategist lifecycle totals increase."),
         ("night_surviving_relocation","routing-surviving-relocation","copy only surviving primitive routes",90,
-         "Full trace, routes and next RNG values match; fresh LP/MIP lifecycle variation is retained."))
+         "Full trace, routes and next RNG values match; fresh LP/MIP lifecycle variation is retained."),
+        ("night_owned_trace","routing-owned-trace","private numeric trace storage",90,
+         "Full trace, routes and next RNG values match; short complete MetaStrategist lifecycles can allocate more."))
     haskey(proof,key) || continue
     rows=proof[key]["records"]
     all(r->r["correctness"]=="passed" && r["observable_work_matches"],rows) ||
@@ -169,6 +171,51 @@ for (key,basename,description,xminimum,caption) in (
         Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
         Label(figure[3,1],"52 historical profiles; same frozen package cohort; 2 workers. $caption\nAll original-model oracles passed. Allocation evidence; no speed or quality claim.",fontsize=13)
         export_figure(figure,basename*"-"*category)
+    end
+end
+
+if haskey(proof,"night_owned_trace")
+    let
+    stage=proof["night_owned_trace"]
+    rows=stage["native_update_kernels"]["records"]
+    all(r->r["oracle"]=="passed",rows) || error("Unqualified trace update figure")
+    figure=Figure(size=(1650,720))
+    labels=[replace(r["mode"],"_"=>" ") for r in rows]
+    for (column,key,title) in ((1,"bytes","Allocated Julia bytes"),(2,"objects","Allocated Julia objects"))
+        prior=[r["before"][key] for r in rows];owned=[r["after"][key] for r in rows]
+        axis=Axis(figure[1,column];title,xlabel="Per 100,000 warm operations",ylabel=column==1 ? "Actual bookkeeping workload" : "",
+            yticks=(1:length(rows),labels),yticklabelsvisible=column==1)
+        for i in eachindex(rows)
+            lines!(axis,[prior[i],owned[i]],[i,i];color=:gray65,linestyle=:dash,linewidth=1.5)
+        end
+        scatter!(axis,prior,(1:length(rows)).-.10;color=:gray35,marker=:rect,markersize=13,label="Ordinary dictionary reference")
+        scatter!(axis,owned,(1:length(rows)).+.10;color=:dodgerblue3,marker=:circle,markersize=13,label="Private numeric trace")
+        xlims!(axis,-.03maximum(vcat(prior,[1])),1.05maximum(vcat(prior,[1])))
+        ylims!(axis,.5,length(rows)+.5)
+        column==1 && Legend(figure[2,1:2],axis;orientation=:horizontal,framevisible=false)
+    end
+    Label(figure[0,1:2],"Actual counter updates: complete ordinary-dictionary arithmetic";fontsize=23)
+    Label(figure[3,1:2],"Independent native observations; every complete value matches, including ordered floating additions. Preparation and snapshots excluded.\nMarkers are offset to preserve coincident zero references. Wider/custom values retain the original path; this is not a whole-solver zero-allocation claim.",fontsize=13)
+    colgap!(figure.layout,70)
+    export_figure(figure,"routing-owned-trace-update-kernels")
+
+    rows=stage["fixed_original_lr101"]["records"]
+    all(r->r["original_oracle"]=="passed"&&r["full_trace_routes_rng_match"],rows) || error("Unqualified fixed LR101 figure")
+    rows=sort(rows;by=r->(r["method"],r["steps_per_lane"],r["seed"]))
+    n=length(rows);figure=Figure(size=(1650,max(780,28n+200)))
+    labels=["$(replace(r["method"],"rp_"=>"","_"=>" ")) / $(r["steps_per_lane"]) / seed $(r["seed"])" for r in rows]
+    axis=Axis(figure[1,1],title="Original LR101: numeric traces at identical search work",
+        xlabel="Remaining allocation (% of previous ordinary dictionary source)",ylabel="Configuration / steps per lane / seed",
+        yticks=(1:n,labels))
+    bytes=[100r["after"]["bytes"]/r["before"]["bytes"] for r in rows]
+    objects=[100r["after"]["objects"]/r["before"]["objects"] for r in rows]
+    vlines!(axis,[100];color=:black,linestyle=:dash,linewidth=2,label="Fixed previous-source reference")
+    scatter!(axis,bytes,(1:n).-.12;color=:dodgerblue3,marker=:circle,markersize=11,label="Allocated Julia bytes")
+    scatter!(axis,objects,(1:n).+.12;color=:purple3,marker=:utriangle,markersize=11,label="Allocated Julia objects")
+    xlims!(axis,0,max(105,maximum(vcat(bytes,objects))+5))
+    Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
+    Label(figure[3,1],"27 paired original-instance observations; 2 private lanes; identical starts, seeds and steps. Complete trace, route and next RNG values match.\nEach exact path is fully warmed; no observed compilation/recompilation. Preparation and final observations excluded; no controlled speed or quality claim.",fontsize=13)
+    export_figure(figure,"routing-owned-trace-fixed-lr101")
     end
 end
 

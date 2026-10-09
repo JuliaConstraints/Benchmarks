@@ -662,3 +662,31 @@ fixed-work original-model oracles. Those 52 complete work/route/RNG observations
 match the preceding dependency freeze. Suite source hashes and later profile
 source hashes are retained separately. The public default portable cohort is
 unchanged while further improvements are qualified.
+
+Private numeric trace storage removes per-update boxing while preserving ordinary
+dictionary values at export boundaries. In 100,000 warmed actual counter updates,
+integer bookkeeping falls from 1,600,000 bytes in 100,000 objects to zero; mixed
+integer/floating bookkeeping falls from 4,800,000 bytes in 300,000 objects to zero.
+Dynamic VND assignments remain at zero. Wider/custom arithmetic retains its
+original path, and retained exported observations are independent of subsequent
+numeric updates. Preparation and exported snapshots still allocate.
+
+All 42,050 trace, routing and ICN/resource assertions pass. Every one of the 52
+historical profiles preserves its complete original trace, routes and next RNG
+values. Tiny complete MetaStrategist lifecycles can allocate more because private
+storage and export copies have a setup cost; these increases remain visible.
+The counter workloads also pass 36 fresh-worker executions through all four
+collectors and eight analyzers. Their general factory retains three JET and
+23 AllocCheck findings per specialization, including possible fallback paths.
+Three redacted heaps were verified and removed.
+
+On original LR101, 27 paired observations cover VND, route-regret ALNS and ACO,
+three seeds, and 4,096/16,384/65,536 steps per lane with two private lanes. Every
+complete trace, route and next RNG value matches the previous source, and both
+current and best solutions pass the original validator. Each exact path is
+warmed on an independent full-length state before measurement; all final
+compilation/recompilation totals are zero. Allocated bytes fall by 6.0–26.1% and
+objects by 27.2–56.4%. Earlier partial-warmup observations, including an increase,
+remain recorded separately. Concurrent timings establish no controlled speedup
+or solution-quality improvement. English exact and XKCD figures show every
+paired observation with a fixed previous-source reference.

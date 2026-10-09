@@ -12,7 +12,15 @@ function build_catalog(;scope=:kernels,methods=String[],families=Symbol[],backen
     push!(fixtures,joinpath(@__DIR__,"../LiLim/resources/icn-pdptw-witnesses.toml"))
     push!(fixtures,joinpath(@__DIR__,"../SolverSmoke/src/Profiles.jl"))
     scenarios=ScenarioSpec[]
-    if scope==:kernels
+    if scope==:trace_counters
+        source=joinpath(@__DIR__,"trace_scenarios.jl")
+        fixtures=[joinpath(@__DIR__,"../LiLim/src/TraceCounters.jl")]
+        for mode in ("integer","mixed","dynamic_assignment")
+            push!(scenarios,ScenarioSpec("routing_trace_"*mode;source,factory="trace_counter_case",
+                implementation="owned-numeric-trace-v1",parameters=Dict("mode"=>mode,"repetitions"=>100000),
+                fixtures,collectors,repeatable=true))
+        end
+    elseif scope==:kernels
         for size in (32,128,256),operation in ("energy","delta","full_move","scope","proposal"),depth in
                 (operation in ("scope","proposal") ? (2,4,8) : (4,))
             push!(scenarios,ScenarioSpec("qubo_$(operation)_n$(size)_d$(depth)";source,factory="kernel_case",
@@ -50,7 +58,7 @@ function build_catalog(;scope=:kernels,methods=String[],families=Symbol[],backen
     elseif scope in (:routing_kernels,:routing_strategies)
         source=joinpath(@__DIR__,"routing_scenarios.jl")
         append!(fixtures,[joinpath(@__DIR__,"../LiLim/src",f) for f in
-            ("StructuredRouting.jl","RoutingPanel.jl","Pilot.jl","MetaRepair.jl","Hybrid.jl","ICNScoring.jl","ResourceExperiment.jl","PlatformResources.jl")])
+            ("StructuredRouting.jl","TraceCounters.jl","RoutingPanel.jl","Pilot.jl","MetaRepair.jl","Hybrid.jl","ICNScoring.jl","ResourceExperiment.jl","PlatformResources.jl")])
         push!(fixtures,RoutingPanel.CONFIG_PATH)
         if scope==:routing_kernels
             for requests in (8,32,128)
@@ -79,7 +87,7 @@ function build_catalog(;scope=:kernels,methods=String[],families=Symbol[],backen
             end
         end
     else
-        throw(ArgumentError("scope must be kernels, classical_scoring, classical_objectives, strategies, routing_kernels or routing_strategies"))
+        throw(ArgumentError("scope must be trace_counters, kernels, classical_scoring, classical_objectives, strategies, routing_kernels or routing_strategies"))
     end
     ScenarioCatalog(normpath(joinpath(@__DIR__,"..")),scenarios)
 end
