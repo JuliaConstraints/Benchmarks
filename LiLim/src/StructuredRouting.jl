@@ -488,6 +488,10 @@ end
 route_valid(p,D,route,::RouteMembershipWorkspace)=route_valid(p,D,route)
 pool_route_valid(pool::RoutePool,p,D,route)=route_valid(p,D,route,pool.membership)
 pool_route_valid(pool,p,D,route)=route_valid(p,D,route)
+"Borrow native column references in their original order; custom inputs retain eager copying."
+pool_column_candidates(pool::RoutePool,p::BenchmarkInstance{PickupDeliveryProblem},D::Matrix{Float64},routes::Vector{Vector{Int}})=
+    Iterators.flatten((routes,pool.routes))
+pool_column_candidates(pool,p,D,routes)=vcat(routes,pool.routes)
 "Keep incumbent cover protected even when the route pool cap is smaller than its fleet."
 function collect!(pool,p,D,routes;validation_workspace=nothing)
     original_check(p,routes,validation_workspace).valid || throw(ArgumentError("only original-feasible solutions may enter the pool"))
@@ -498,7 +502,7 @@ function collect!(pool,p,D,routes;validation_workspace=nothing)
     sort!(pool.solutions;by=r->quality(p,r;validation_workspace));resize!(pool.solutions,min(length(pool.solutions),pool.max_solutions))
     protected=first(pool.solutions)
     columns=owned_route_snapshot(protected)
-    for route in vcat(routes,pool.routes)
+    for route in pool_column_candidates(pool,p,D,routes)
         pool_route_valid(pool,p,D,route) || throw(ArgumentError("invalid pool route"))
         length(columns)>=max(pool.max_routes,length(protected)) && break
         route in columns || push!(columns,copy(route))

@@ -113,6 +113,47 @@ function routing_membership_case(parameters)
     (;prepare,operation,verify)
 end
 
+"New original-feasible pool admissions; independently known incumbent cover and column order."
+function routing_pool_columns_case(parameters)
+    requests=parameters["requests"];repetitions=parameters["repetitions"]
+    requests>1 && repetitions>0 || throw(ArgumentError("positive nonduplicate pool workload required"))
+    prepare=()->begin
+        nodes=2requests+1;rng=Xoshiro(parameters["seed"])
+        data=PickupDeliveryProblem(requests,2,100rand(rng,nodes,2),
+            vcat(0,repeat([1,-1],requests)),zeros(nodes),fill(1e9,nodes),zeros(nodes),
+            [(2i,2i+1) for i in 1:requests])
+        p=BenchmarkInstance("pool-columns-$requests",data);D=Pilot.distances(data)
+        initial=[[2i,2i+1] for i in 1:requests];candidate=[collect(2:nodes)]
+        @assert validate_solution(p,initial).valid && validate_solution(p,candidate).valid
+        workspace=StructuredRouting.original_workspace()
+        template=StructuredRouting.RoutePool(;max_routes=8,max_solutions=4)
+        StructuredRouting.collect!(template,p,D,initial;validation_workspace=workspace)
+        pools=[deepcopy(template) for _ in 1:repetitions]
+        expected_columns=vcat(deepcopy(candidate),deepcopy(initial[1:min(requests,7)]))
+        (;p,D,initial,candidate,pools,workspace,expected_columns,expected_solutions=deepcopy([candidate,initial]))
+    end
+    operation=s->begin
+        checksum=0
+        for pool in s.pools
+            StructuredRouting.collect!(pool,s.p,s.D,s.candidate;validation_workspace=s.workspace)
+            checksum+=length(pool.routes)+length(pool.solutions)
+        end
+        checksum
+    end
+    verify=(s,checksum)->begin
+        checksum==repetitions*(length(s.expected_columns)+2) &&
+        s.candidate==[collect(2:length(s.p.data.demand))] && validate_solution(s.p,s.initial).valid || return false
+        for pool in s.pools
+            pool.routes==s.expected_columns && pool.solutions==s.expected_solutions || return false
+            all(routes->validate_solution(s.p,routes).valid,pool.solutions) || return false
+            all(route->StructuredRouting.route_valid(s.p,s.D,route),pool.routes) || return false
+            all(route->all(route!==input for input in s.candidate),pool.routes) || return false
+        end
+        true
+    end
+    (;prepare,operation,verify)
+end
+
 "Owned pair reinsertion, qualified by exhaustive original-model insertion checks."
 function pair_relocation_case(parameters)
     requests=parameters["requests"];seed=parameters["seed"];repetitions=parameters["repetitions"]
