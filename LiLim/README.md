@@ -17,7 +17,29 @@ use disjoint four-core masks, with at most eight physical cores in total.
 Set `--cpus=CPU0,...,CPU7` explicitly when reserving cores for other workloads.
 
 The frozen `screening-plan.toml` records the instance selection, order, seeds,
-source version and CPU masks. The controller rechecks external CPU use and
+source version and CPU masks. The order interleaves six families, preferring
+previously unseen mechanisms within each family before nearby parameter variants.
+
+| Family | Configurations |
+| --- | ---: |
+| Homogeneous CBLS policies and error backends | 220 |
+| CBLS with HiGHS meta-variable repairs | 72 |
+| Heterogeneous MetaStrategist CBLS/RO portfolios | 180 |
+| QUBO-guided CBLS | 24 |
+| Route searches: VND, GES, ALNS, SISR, ACO, memetic | 36 |
+| Coordinated MetaStrategist routing portfolios | 16 |
+
+Interior-point, tabu, reset and QUBO tags overlap these disjoint families.
+Tags describe effective configured lanes; repair/solver diagnostics establish
+whether a technique actually executed. Reports compare each case with its frozen
+BKS and the best compatible result already observed at the same 60-second budget.
+
+After a shared correction, use a fresh output directory and
+`--retest-from=PREVIOUS_DIRECTORY` to preserve an explicit affected replay queue.
+Unseen configurations run first; `--priority-methods=METHOD,...` can bring known
+diagnostic cases forward. Never pool old-source trials into the corrected cohort.
+
+The controller rechecks external CPU use and
 available memory every 30 seconds, admitting two, one or zero configurations.
 Resource waits recover automatically. `STOP_AFTER_TRIAL` in the screening root
 finishes current trials and stops subsequent work; remove it only after an
@@ -26,7 +48,10 @@ Results are sealed and independently validated before they count as complete.
 
 Each trial records process GC seconds/fraction, allocated bytes and allocation
 counts during the measured interval, excluding forced precollection and final
-audit. GC at or above 10%, or allocation at or above 1 GiB/s, stops admission
+audit. Initialization bytes/count/GC are also recorded separately; total bytes
+are cumulative allocation traffic, not simultaneous live memory. Insertion
+probes reuse one buffer and commit only the selected insertion.
+GC at or above 10%, or allocation at or above 1 GiB/s, stops admission
 with a durable `GC_ALERT_*.toml`. This requires PerfChecker diagnosis and a
 qualified correction, followed by a fresh source-identified cohort replaying
 all six instances of each affected configuration. Historical evidence remains

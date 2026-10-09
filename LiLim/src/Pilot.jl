@@ -27,30 +27,35 @@ end
 """Small standalone reference, not a CBLS/LocalSearchSolvers implementation."""
 function insertion(p; starts=5, seed=1)
     d=p.data; D=distances(d); best=nothing; key=(typemax(Int), Inf)
+    candidate=Int[]
+    sizehint!(candidate,length(d.demand)+1)
     for attempt in 1:starts
         pairs=attempt==1 ? sort(d.pairs;by=pq->d.latest[pq[1]]) : shuffle(Xoshiro(seed+attempt-1), d.pairs)
         routes=Vector{Int}[]; failed=false
         for (pickup, delivery) in pairs
-            chosen=nothing; delta=Inf
+            chosen_route=0; chosen_pickup=0; chosen_delivery=0; delta=Inf
             for (r, route) in enumerate(routes)
                 oldcost=route_distance(route,D)
                 for a in 1:length(route)+1, b in a+1:length(route)+2
-                    candidate=copy(route); insert!(candidate,a,pickup); insert!(candidate,b,delivery)
+                    insertion_candidate!(candidate,route,a,b,pickup,delivery)
                     feasible_route(candidate,d,D) || continue
                     change=route_distance(candidate,D)-oldcost
                     if change<delta
-                        chosen=(r,candidate); delta=change
+                        chosen_route=r; chosen_pickup=a; chosen_delivery=b; delta=change
                     end
                 end
             end
-            if chosen===nothing
-                candidate=[pickup,delivery]
+            if iszero(chosen_route)
+                resize!(candidate,2);candidate[1]=pickup;candidate[2]=delivery
                 if length(routes)==d.vehicles || !feasible_route(candidate,d,D)
                     failed=true; break
                 end
-                push!(routes,candidate)
+                push!(routes,copy(candidate))
             else
-                routes[chosen[1]]=chosen[2]
+                # Commit once after probing all positions. Keep probe order and
+                # strict tie handling identical to the allocating reference.
+                insert!(routes[chosen_route],chosen_pickup,pickup)
+                insert!(routes[chosen_route],chosen_delivery,delivery)
             end
         end
         failed && continue
@@ -62,6 +67,18 @@ function insertion(p; starts=5, seed=1)
         end
     end
     return best
+end
+
+"Reuse one probe buffer; no route snapshot survives a rejected insertion."
+function insertion_candidate!(candidate,route,a,b,pickup,delivery)
+    n=length(route)
+    resize!(candidate,n+2)
+    copyto!(candidate,1,route,1,a-1)
+    candidate[a]=pickup
+    copyto!(candidate,a+1,route,a,b-a-1)
+    candidate[b]=delivery
+    copyto!(candidate,b+1,route,b-1,n-b+2)
+    candidate
 end
 
 """Vehicle-independent arcs with route labels anchored to each route's first customer.

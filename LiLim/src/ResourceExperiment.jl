@@ -160,6 +160,7 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
     initial === nothing && error("no valid common start")
     checked = validate_solution(p,initial); checked.valid || error("invalid common start")
     initial_seconds = elapsed()
+    initial_gc_diff = Base.GC_Diff(Base.gc_num(),search_gc_origin)
     initial_seconds < seconds || error("initialization exceeded budget")
     function invoke(i,worker)
         started = elapsed();tid = Threads.threadid();os_tid=PlatformResources.os_thread_id()
@@ -241,6 +242,10 @@ function run_case(path,method,seconds,seed,policy,banks;threads=Threads.nthreads
         "search_allocation_count"=>Base.gc_alloc_count(search_gc_diff),
         "search_gc_pauses"=>search_gc_diff.pause,"search_gc_full_sweeps"=>search_gc_diff.full_sweep,
         "gc_scope"=>"process-global collector time inside the shared search interval; forced precollection and final audit excluded",
+        "initial_allocated_bytes"=>initial_gc_diff.allocd,
+        "initial_allocation_count"=>Base.gc_alloc_count(initial_gc_diff),
+        "initial_gc_seconds"=>initial_gc_diff.total_time/1e9,
+        "post_initial_allocated_bytes"=>search_gc_diff.allocd-initial_gc_diff.allocd,
         "initial_seconds"=>initial_seconds,"initial_vehicles"=>checked.objective.vehicles,
         "initial_distance"=>checked.objective.distance,"vehicles"=>quality.vehicles,"distance"=>quality.distance,
         "routes"=>best,"trajectory"=>trajectory,"original_validation"=>validate_solution(p,best).valid,

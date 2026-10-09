@@ -24,3 +24,28 @@ include(joinpath(@__DIR__,"..","src","CampaignCatalog.jl"))
     @test allunique(getindex.(coverage["benchmarks"],"published_benchmark_url"))
     @test count(row->row["priority"]==1,coverage["benchmarks"])==1
 end
+
+@testset "Disjoint screening families and effective four-worker features" begin
+    methods=CampaignCatalog.select_methods(4,"extended-panel,routing-panel")
+    expected=Dict(:cbls=>220,:cbls_highs=>72,:meta_cbls_ro=>180,:cbls_qubo=>24,
+        :routing=>36,:meta_routing=>16)
+    @test length(methods)==sum(values(expected))==548
+    for (family,count) in expected
+        @test sum(m->CampaignCatalog.family(m)==family,methods)==count
+    end
+    @test count(m->:interior_point in CampaignCatalog.features(m,4),methods)==124
+    @test :interior_point in CampaignCatalog.features("xp_hybrid_tabu_short_light_rins_ipx",4)
+    @test !(:interior_point in CampaignCatalog.features("xp_hybrid_tabu_short_light_rins_simplex",4))
+    @test :tabu in CampaignCatalog.features("xp_cbls_icn_late_h32_t4",4)
+    @test :reset in CampaignCatalog.features("xp_cbls_naive_reset_p0p01_f0p05_best",4)
+    @test :qubo in CampaignCatalog.features("xp_qubo_absolute_d2_e16_x0p25",4)
+    order=CampaignCatalog.screening_order(methods,20261010)
+    @test order==CampaignCatalog.screening_order(reverse(methods),20261010)
+    @test Set(order)==Set(methods) && allunique(order)
+    @test Set(CampaignCatalog.family.(order[1:6]))==Set(keys(expected))
+    deferred=order[1:7]
+    replay=CampaignCatalog.screening_order(methods,20261010;deferred,priority=[first(deferred)])
+    @test first(deferred) in replay[1:6]
+    @test Set(replay[end-5:end])==Set(deferred[2:end])
+    @test_throws ArgumentError CampaignCatalog.screening_order(methods,1;priority=["absent"])
+end

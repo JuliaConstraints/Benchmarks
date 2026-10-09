@@ -684,6 +684,8 @@ function campaign_main()
         record["original_validation"] || error("trial rejected by original validator")
         record["bks_vehicles"] = row.bks_vehicles
         record["bks_distance"] = row.bks_distance
+        record["configuration_family"] = string(CampaignCatalog.family(method))
+        record["configured_features"] = string.(CampaignCatalog.features(method,opts.threads))
         record["bks_reached"] = bks_hit(record)
         target_time = time_to_bks(record)
         record["time_to_bks_seconds"] = target_time === nothing ? "not_reached" : target_time

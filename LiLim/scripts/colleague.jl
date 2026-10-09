@@ -50,7 +50,8 @@ function options(args)
         startswith(arg,"--") && occursin('=',arg) || error("use --name=value")
         key,value = split(arg[3:end],'=';limit=2)
         key in ("threads","cpus","budget","methods","instances","seeds","hexaly","output","resume","ortools","missing-solvers","prepare","qualify","gurobi","cplex","cpoptimizer","java","widths","cpu-slots",
-            "selection-seed","gc-threshold","resource-interval","order","control-dir","worker-slot") || error("unknown option: $key")
+            "selection-seed","gc-threshold","resource-interval","order","control-dir","worker-slot",
+            "retest-from","priority-methods") || error("unknown option: $key")
         haskey(result,key) && error("duplicate option: $key")
         result[key] = value
     end
@@ -563,7 +564,24 @@ function screening(opts)
     length(methods)==548 || error("Screening must contain exactly the authorized 548 existing configurations")
     selection_seed=parse(Int,get(opts,"selection-seed","20261009"))
     selected=ScreeningControl.sample_instances(TOML.parsefile(joinpath(ROOT,"LiLim/config/sintef-pdptw-bks-20261004.toml")),selection_seed)
-    methods=ScreeningControl.Random.shuffle(ScreeningControl.Random.Xoshiro(selection_seed+1),methods)
+    retest_methods=String[];retest_source=""
+    if haskey(opts,"retest-from")
+        previous=abspath(opts["retest-from"])
+        prior_plan=TOML.parsefile(joinpath(previous,"screening-plan.toml"))
+        prior_plan["instances"]==selected && prior_plan["threads"]==4 &&
+            prior_plan["budget_seconds"]==60 && prior_plan["seeds"]==[41] ||
+            error("Replay backlog must use the same six inputs, seed, width and budget")
+        retest_source=prior_plan["benchmarks_commit"]
+        for (directory,_,files) in walkdir(previous), name in files
+            endswith(name,".toml.sha256") || continue
+            trial=joinpath(directory,chop(name;tail=7))
+            strip(read(trial*".sha256",String))==digest(trial) || error("Corrupt prior trial: $trial")
+            push!(retest_methods,TOML.parsefile(trial)["method"])
+        end
+        sort!(unique!(retest_methods))
+    end
+    priority=filter(!isempty,split(get(opts,"priority-methods",""),','))
+    methods=CampaignCatalog.screening_order(methods,selection_seed+1;deferred=retest_methods,priority)
     budget=parse(Float64,get(opts,"budget","60"));budget==60 || error("Screening trial duration is exactly 60 seconds")
     seeds=parse.(Int,split(get(opts,"seeds","41"),','));length(seeds)==1 || error("Preliminary screening uses one repetition")
     threshold=parse(Float64,get(opts,"gc-threshold","0.10"));0<threshold<=1 || error("Invalid GC threshold")
@@ -573,6 +591,10 @@ function screening(opts)
         "resource_interval_seconds"=>interval,"cpu_masks"=>[cpus[1:4],cpus[5:8]],
         "benchmarks_commit"=>strip(read(`git -C $ROOT rev-parse HEAD`,String)),
         "cohort"=>CONFIG["cohort"],"total_trials"=>548*6,
+        "ordering"=>"family interleave and mechanism novelty; affected historical trials deferred except explicit diagnostic priorities",
+        "retest_source"=>retest_source,"retest_methods"=>retest_methods,
+        "retest_reason"=>isempty(retest_source) ? "none" : "shared component correction; prior results preserved and excluded from this source cohort",
+        "priority_methods"=>priority,
         "early_bks_stop"=>false,"report_policy"=>"Each configuration after its six validated trials; per-instance values, one repetition.",
         "resource_policy"=>"Two/one/zero configurations; recheck within 30 seconds. Human stops and GC reviews require explicit resolution.")
     path=joinpath(output,"screening-plan.toml")
