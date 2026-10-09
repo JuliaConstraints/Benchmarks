@@ -759,3 +759,19 @@ no flags. Three redacted heaps were verified and removed. Exact and XKCD figures
 show all observations with fixed references, plus the full seed range for warmed
 cooperative paths. These are allocation qualifications under concurrent work,
 without a controlled timing or solution-quality claim.
+
+Native pool admissions borrow the ordered incumbent and pool columns instead of
+allocating an outer concatenation. Generic/custom inputs preserve the eager
+snapshot and its callback effects; retained outputs still own their rows. All
+711,793 application assertions pass, including 28 new order, ownership and
+mutating-distance regressions. All 52 complete profile work fingerprints match:
+50 allocate fewer bytes and two are unchanged. In 36 prepared native admission
+pairs, bytes fall by 6.3–20.1% with identical full pools and original solutions.
+
+The nine original LR101 pairs show a further 0.4–1.2% byte reduction. All 48
+exact-warmed MetaStrategist pairs also reduce bytes and objects, with identical
+lane work, substantive coordination and zero measured compilation/recompilation.
+All 36 collector/analyzer executions pass; JET reports zero findings, AllocCheck
+retains 35 potential/intentional findings per case, and three redacted heaps were
+verified and removed. Exact and XKCD figures retain the previous-source reference
+and every paired observation. Concurrent timings establish no controlled speedup.

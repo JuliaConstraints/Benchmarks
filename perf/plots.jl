@@ -156,7 +156,9 @@ for (key,basename,description,xminimum,caption) in (
         ("night_owned_range_cache","routing-owned-range-cache","bounded private cache capacity",98,
          "Full trace/routes/RNG match; all small-profile variations remain shown. Original LR101 allocations are unchanged."),
         ("night_owned_membership","routing-owned-membership","private pool membership positions",65,
-         "Full trace/routes/RNG match; initial HIPO lifecycle variation is retained. Exact-warmed paired paths are shown separately."))
+         "Full trace/routes/RNG match; initial HIPO lifecycle variation is retained. Exact-warmed paired paths are shown separately."),
+        ("night_owned_pool_columns","routing-owned-pool-columns","borrow ordered native pool columns",98,
+         "Full trace/routes/RNG match; 50 profiles allocate fewer bytes and two are unchanged. Generic callback effects retain eager snapshots."))
     haskey(proof,key) || continue
     rows=proof[key]["records"]
     all(r->r["correctness"]=="passed" && r["observable_work_matches"],rows) ||
@@ -180,18 +182,22 @@ for (key,basename,description,xminimum,caption) in (
     end
 end
 
-if haskey(proof,"night_owned_membership")
+for (stagekey,prefix,nativekey,description,native_minimum,fixed_minimum,meta_minimum) in (
+        ("night_owned_membership","routing-owned-membership","native_membership_pairs","private pool membership",-2,68,94),
+        ("night_owned_pool_columns","routing-owned-pool-columns","native_pool_column_pairs","borrowed native pool columns",78,98.5,99))
+    haskey(proof,stagekey) || continue
     let
-    stage=proof["night_owned_membership"]
+    stage=proof[stagekey]
     for (key,basename,title,caption) in (
-            ("native_membership_pairs","routing-owned-membership-native","Actual prepared route membership",
-             "1,000 native route checks per row; independently valid full PDPTW inputs. A constant 432-byte/8-object measurement scaffold remains."),
-            ("fixed_original_lr101","routing-owned-membership-fixed-lr101","Actual original LR101: private pool membership",
+            (nativekey,prefix*"-native","Actual prepared routing: $description",
+             nativekey=="native_membership_pairs" ? "1,000 native route checks per row; independently valid full PDPTW inputs. A constant 432-byte/8-object measurement scaffold remains." :
+                "100 nonduplicate complete admissions per row; independently prepared pools. Every ordered column, retained solution and membership workspace state matches."),
+            ("fixed_original_lr101",prefix*"-fixed-lr101","Actual original LR101: $description",
              "4,096 steps per lane × 2 workers; three seeds per configuration. Every exact path is independently warmed; compilation/recompilation are zero."))
         local rows,labels,n,figure,axis,bytes,objects
         rows=stage[key]["records"]
         all(r->r["original_oracle"]=="passed",rows) || error("Unqualified membership pairs")
-        labels=key=="native_membership_pairs" ? ["$(r["requests"]) requests / seed $(r["seed"])" for r in rows] :
+        labels=key==nativekey ? ["$(r["requests"]) requests"*(haskey(r,"pool_cap") ? " / pool $(r["pool_cap"])" : "")*" / seed $(r["seed"])" for r in rows] :
             [replace(r["method"],"rp_"=>"","_"=>" ")*" / seed $(r["seed"])" for r in rows]
         n=length(rows);figure=Figure(size=(1600,max(650,38n+180)))
         axis=Axis(figure[1,1],title=title,xlabel="Remaining allocation (% of same-cohort previous source)",
@@ -201,7 +207,7 @@ if haskey(proof,"night_owned_membership")
         vlines!(axis,[100];color=:black,linestyle=:dash,linewidth=2,label="Fixed previous-source reference")
         scatter!(axis,bytes,(1:n).-.12;color=:dodgerblue3,marker=:circle,markersize=12,label="Allocated Julia bytes")
         scatter!(axis,objects,(1:n).+.12;color=:purple3,marker=:utriangle,markersize=12,label="Allocated Julia objects")
-        xlims!(axis,key=="native_membership_pairs" ? -2 : 68,103);ylims!(axis,.5,n+.5)
+        xlims!(axis,key==nativekey ? native_minimum : fixed_minimum,stagekey=="night_owned_pool_columns" ? 100.2 : 103);ylims!(axis,.5,n+.5)
         Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
         Label(figure[3,1],caption*"\nAll original oracles passed; complete LR101 trace/routes/RNG work matches. Concurrent timing; no controlled speed or quality claim.",fontsize=13)
         export_figure(figure,basename)
@@ -210,7 +216,7 @@ if haskey(proof,"night_owned_membership")
     all(r->r["all_lane_and_coordination_work_matches"],rows) || error("Unqualified exact-warm cooperation")
     methods=sort!(unique(r["method"] for r in rows));n=length(methods)
     figure=Figure(size=(1600,max(750,36n+200)))
-    axis=Axis(figure[1,1],title="Actual MetaStrategist cooperation: exact-warm pool membership",
+    axis=Axis(figure[1,1],title="Actual MetaStrategist cooperation: exact-warm $description",
         xlabel="Remaining allocation (% of same-cohort previous source)",ylabel="Configuration",
         yticks=(1:n,[replace(id,"rp_"=>"","_"=>" ") for id in methods]))
     vlines!(axis,[100];color=:black,linestyle=:dash,linewidth=2,label="Fixed previous-source reference")
@@ -223,10 +229,10 @@ if haskey(proof,"night_owned_membership")
         end
         scatter!(axis,means,(1:n).+offset;color,marker,markersize=12,label)
     end
-    xlims!(axis,94,101);ylims!(axis,.5,n+.5)
+    xlims!(axis,meta_minimum,stagekey=="night_owned_pool_columns" ? 100.1 : 101);ylims!(axis,.5,n+.5)
     Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
     Label(figure[3,1],"48 paired paths: 16 configurations × 3 seeds; 8 actual cooperative episodes × 2 workers, including simplex/IPX/HIPO masters.\nMarkers: mean paired ratio; bars: full seed range. Complete lane work and substantive coordination match; zero compilation/recompilation. All warm attempts retained.\nOriginal validator retained. Concurrent timing; no controlled speed or solution-quality claim.",fontsize=13)
-    export_figure(figure,"routing-owned-membership-exact-warm-meta")
+    export_figure(figure,prefix*"-exact-warm-meta")
     end
 end
 

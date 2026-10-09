@@ -17,6 +17,55 @@ const D=Pilot.distances(DATA)
 const BANKS=Dict(k=>ICNScoring.load_backend(k) for k in (:naive,:direct,:icn))
 LSvalues(lane)=collect(Hybrid.LS.get_values(lane.parent.solver))
 
+struct PoolAppendingDistances <: AbstractMatrix{Float64}
+    storage::Matrix{Float64}
+    routes::Vector{Vector{Int}}
+    fired::Base.RefValue{Bool}
+end
+Base.size(d::PoolAppendingDistances)=size(d.storage)
+function Base.getindex(d::PoolAppendingDistances,i::Int,j::Int)
+    if !d.fired[];push!(d.routes,[2]);d.fired[]=true;end
+    d.storage[i,j]
+end
+
+@testset "Native pool columns retain ordering, aliases and custom eager effects" begin
+    pool=R.RoutePool();R.collect!(pool,P,D,INITIAL)
+    for routes in (INITIAL,[[2,3,4,5],[6,7]],pool.routes,Vector{Int}[])
+        retained=deepcopy((routes,pool.routes))
+        expected=vcat(routes,pool.routes)
+        borrowed=R.pool_column_candidates(pool,P,D,routes)
+        actual=collect(borrowed)
+        @test actual==expected
+        @test all(a===b for (a,b) in zip(actual,expected))
+        @test (routes,pool.routes)==retained
+        generic=R.pool_column_candidates(pool,P,D,view(routes,:))
+        @test generic isa Vector && generic==expected
+        @test all(a===b for (a,b) in zip(generic,expected))
+    end
+    # A custom matrix may mutate caller storage while a route is being checked.
+    # Its original eager outer snapshot must exclude newly appended columns.
+    candidate=[collect(2:7)];fired=Ref(false)
+    custom=PoolAppendingDistances(D,candidate,fired)
+    eager=R.pool_column_candidates(pool,P,custom,candidate)
+    @test eager isa Vector && length(eager)==length(candidate)+length(pool.routes)
+    @test !fired[] && candidate==[collect(2:7)]
+    R.collect!(pool,P,custom,candidate)
+    @test fired[] && candidate==[collect(2:7),[2]]
+    @test all(routes->validate_solution(P,routes).valid,pool.solutions)
+    @test all(route->R.route_valid(P,D,route),pool.routes)
+    @test !([2] in pool.routes) && !([2] in first(pool.solutions))
+    retained=deepcopy(pool.solutions)
+    push!(first(candidate),2)
+    @test pool.solutions==retained
+    function column_iteration_bytes(pool,p,D,routes)
+        R.pool_column_candidates(pool,p,D,routes)
+        @allocated for _ in 1:1000
+            for route in R.pool_column_candidates(pool,p,D,routes);isempty(route);end
+        end
+    end
+    @test column_iteration_bytes(pool,P,D,INITIAL)==0
+end
+
 @testset "Private pool membership preserves original routes, epochs and ownership" begin
     workspace=R.RouteMembershipWorkspace()
     for n in 0:5,index in 0:9^n-1
