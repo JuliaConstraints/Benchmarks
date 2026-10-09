@@ -287,6 +287,40 @@ for (stagekey,prefix,nativekey,description,native_minimum,fixed_minimum,meta_min
     end
 end
 
+for (stagekey,recordkey,basename,title,caption,xminimum) in (
+        ("night_combined_routing_source_lr101","qualification","routing-combined-source-fixed-lr101",
+         "Original LR101: combined overnight routing-source changes",
+         "12 paired paths: 4 configurations × 3 seeds; 4,096 steps per lane × 2 workers. Historical routing source from the start of the night; all other current application and package sources shared.",0),
+        ("night_owned_best_quality","fixed_original_lr101_meta","routing-owned-best-quality-original-lr101-meta",
+         "Original LR101 cooperation: owned coordinator quality snapshots",
+         "12 paired paths: 4 configurations × 3 seeds; 8 actual cooperative episodes × 32 steps × 2 workers. Four small byte increases retained; all object counts decrease.",99.8))
+    haskey(proof,stagekey) && haskey(proof[stagekey],recordkey) || continue
+    let
+    rows=proof[stagekey][recordkey]["records"]
+    all(r->r["original_oracle"]=="passed" && all(r[side]["compilation_seconds"]==r[side]["recompilation_seconds"]==0 for side in ("before","after")),rows) ||
+        error("Unqualified original-instance allocation comparison")
+    methods=sort!(unique(r["method"] for r in rows));n=length(methods)
+    figure=Figure(size=(1700,650))
+    axis=Axis(figure[1,1];title,xlabel="Remaining allocation (% of same-cohort historical source)",ylabel="Configuration",
+        yticks=(1:n,[replace(id,"rp_"=>"","_"=>" ") for id in methods]))
+    vlines!(axis,[100];color=:black,linestyle=:dash,linewidth=2,label="Fixed historical-source reference")
+    limits=Float64[]
+    for (metric,color,marker,offset,label) in (("bytes",:dodgerblue3,:circle,-.12,"Allocated Julia bytes"),
+            ("objects",:purple3,:utriangle,.12,"Allocated Julia objects"))
+        values=[[100r["after"][metric]/r["before"][metric] for r in rows if r["method"]==id] for id in methods]
+        append!(limits,Iterators.flatten(values))
+        for (i,v) in enumerate(values)
+            lines!(axis,[minimum(v),maximum(v)],fill(i+offset,2);color,linewidth=2)
+        end
+        scatter!(axis,[sum(v)/length(v) for v in values],(1:n).+offset;color,marker,markersize=14,label)
+    end
+    xlims!(axis,min(xminimum,minimum(limits)-.02),max(xminimum==0 ? 103 : 100.1,maximum(limits)+.02));ylims!(axis,.5,n+.5)
+    Legend(figure[2,1],axis;orientation=:horizontal,framevisible=false)
+    Label(figure[3,1],caption*"\nMarkers: mean paired ratio; bars: full seed range. Complete substantive trace/routes/RNG work and original validators match; zero compilation/recompilation.\nFrozen V7 integration remains provisional for a separate generic QUBO constructor regression. Concurrent timing; no controlled speed or quality claim.",fontsize=13)
+    export_figure(figure,basename)
+    end
+end
+
 if haskey(proof,"night_owned_range_cache")
     let
     rows=proof["night_owned_range_cache"]["native_cache_sequences"]["records"]
